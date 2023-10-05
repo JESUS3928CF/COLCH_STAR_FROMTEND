@@ -1,13 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-/** stylo de el contenedor para la barra de navegaciòn  */
+
+/** estilo de el contenedor para la barra de navegación  */
 .sidebar {
     position: fixed;
     top: 0;
@@ -18,7 +13,7 @@
 }
 
 
-.sidebar .logo-detalle {
+.sidebar .logo_detalle {
     height: 40px;
     width: 100%;
     display: flex;
@@ -26,7 +21,7 @@
 }
 
 /* Detalles del logo */
-.sidebar .logo-detalle i {
+.sidebar .logo_detalle i {
     font-size: 30px;
     color: #fff;
     /* background-color: red; */
@@ -36,33 +31,32 @@
     line-height: 50px;
 }
 
-.sidebar .logo-detalle .nombre_logo {
+.sidebar .logo_detalle .nombre_logo {
     font-size: 22px;
     color: #fff;
     font-weight: 600;
 }
 
 /* links de modulo */
-.sidebar .nav-links {
+.sidebar .nav_links {
     background-color: #14131b;
     height: 100%;
     padding-top: 30px;
 }
 
 /* lines de modulos */
-.sidebar .nav-links li {
+.sidebar .nav_links li {
     position: relative;
     list-style: none;
     transition: all o.4s ease;
-    ;
 }
 
-.sidebar .nav-links li:hover {
+.sidebar .nav_links li:hover {
     background: #858181;
 }
 
 /* lines de modulos */
-.sidebar .nav-links li i {
+.sidebar .nav_links li i {
     height: 50px;
     min-width: 78px;
     text-align: center;
@@ -74,19 +68,19 @@
 }
 
 /* lines de modulos */
-.sidebar .nav-links li a {
+.sidebar .nav_links li a {
     /* display: flex; */
     align-items: center;
     text-decoration: none;
 }
 
-.sidebar .nav-links li a .link_name {
+.sidebar .nav_links li a .link_name {
     font-size: 18px;
     font-weight: 400;
     color: #fff;
 }
 
-.sederbar .nav-links li .iocn-link {
+.sederbar .nav_links li .iocn_link {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -94,7 +88,7 @@
 
 /** perfil css */
 
-.sidebar .perfil-detalles {
+.sidebar .perfil_detalles {
     /* position: relative; */
     /* margin-top: 34%; */
     position: fixed;
@@ -108,7 +102,7 @@
 }
 
 
-.sidebar .perfil-detalles img {
+.sidebar .perfil_detalles img {
     height: 52px;
     width: 52px;
     object-fit: cover;
@@ -119,8 +113,8 @@
     /* background-color: yellow; */
 }
 
-.nombre-rol,
-.nombre-usuario {
+.nombre_rol,
+.nombre_usuario {
     color: #fff;
     font-size: 16px;
     font-weight: 500;
@@ -128,13 +122,13 @@
     /* padding-left: 0%; */
 }
 
-.nombre-rol {
+.nombre_rol {
     font-size: 12px;
     /* background-color: red; */
     /* padding-left: 0%; */
 }
 
-.contenido-perfil {
+.contenido_perfil {
     display: flex;
     align-items: center;
     background-color: #1d1b31;
@@ -163,7 +157,7 @@
     margin: 0 7px;
 }
 
-.home-section .home-content .bx-menu´ {
+.home-section .home-content .bx-menu {
     margin: 0 15px;
 }
 
@@ -188,4 +182,12 @@
 
 ::-webkit-scrollbar{
     display: none;
+}
+
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

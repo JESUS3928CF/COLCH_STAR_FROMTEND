@@ -1,4 +1,5 @@
-import { Navbar } from "../components/Navbar";
+import { Navbar } from '../components/Navbar';
+
 
 export const Clientes = () => {
     const contentStyle = {
@@ -9,7 +10,7 @@ export const Clientes = () => {
         <div>
             <Navbar />
             <div style={contentStyle}>
-                <h1>Dashboard</h1>
+                <h1>Clientes</h1>
             </div>
         </div>
     );
