@@ -1,4 +1,10 @@
 import { Navbar } from '../components/Navbar';
+import logof from '../../public/imgNavbar/light_switch off.svg';
+import logon from '../../public/imgNavbar/light_switch on.svg';
+// import '../css-general/cssgeneral.css'
+// import '../css-general/tailwind.min.css'
+// import '../css-general/inicio_style.css'
+// import '../css-general/table.min.css'
 
 const Productos = () => {
     const contentStyle = {
@@ -12,7 +18,7 @@ const Productos = () => {
 
                 {/* titulo */}
 
-                <h1 className="titulo">Productos</h1>
+                <h1 class="titulo" >productos</h1>
 
                 {/* boton de agregar */}
 
@@ -192,7 +198,7 @@ const Productos = () => {
                                 <td>25000</td>
                                 <td><button type="button" className="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalles">Ver</button></td>
-                                <td><img className="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
+                                <td><img className="centrarIcono estado" src={logon} /></td>
                                 <td><button type="button" className="btn btn-info" data-bs-toggle="modal"
                                     data-bs-target="#modalEditar">Editar</button></td>
                             </tr>
@@ -203,7 +209,7 @@ const Productos = () => {
                                 <td>20000</td>
                                 <td><button type="button" className="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalles">Ver</button></td>
-                                <td><img className="centrarIcono estado" src="/imagenes/iconos/light_switch off.svg" /></td>
+                                <td><img className="centrarIcono estado" src={logof} /></td>
                                 <td><button type="button" className="btn btn-info" data-bs-target="#modalEditar">Editar</button></td>
                             </tr>
                             <tr>
@@ -213,7 +219,7 @@ const Productos = () => {
                                 <td>35000</td>
                                 <td><button type="button" className="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#modalDetalles">Ver</button></td>
-                                <td><img className="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
+                                <td><img className="centrarIcono estado" src={logon} /></td>
                                 <td><button type="button" className="btn btn-info" data-bs-toggle="modal"
                                     data-bs-target="#modalEditar">Editar</button></td>
 
