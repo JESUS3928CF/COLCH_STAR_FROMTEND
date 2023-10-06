@@ -11,7 +11,7 @@ export const Navbar = () => {
         <div className={`${styles.sidebar} ${styles.close}`}>
             <div className={`${styles.logo_detalle}`}>
                 <i>
-                    <img src={logo} alt='imagen del logo' width='39px'  style={{marginLeft:30,marginTop:9}}/>
+                    <img src={logo} alt='imagen del logo' width='39px'  style={{marginLeft:30,marginTop:11}}/>
                 </i>
                 <span className={`${styles.nombre_logo}`} style={{marginTop:9}}>Colch Star</span>
             </div>
