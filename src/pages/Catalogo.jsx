@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import '../css-general/cssgeneral.css'
+import '../css-general/tailwind.min.css'
 
 const Catalogo = () => {
     return (

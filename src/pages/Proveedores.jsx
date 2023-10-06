@@ -1,4 +1,8 @@
 import { Navbar } from '../components/Navbar';
+import '../css-general/cssgeneral.css'
+import '../css-general/tailwind.min.css'
+import '../css-general/inicio_style.css'
+
 
 const Proveedores = () => {
     const contentStyle = {
@@ -8,10 +12,22 @@ const Proveedores = () => {
     return (
         <div>
             <Navbar />
-            <div style={contentStyle}>
-                <h1>Dashboard</h1>
-            </div>
+            <div style={contentStyle} className='contenedor'></div>
+
+            {/* titulo */}
+
+            <h1 className="titulo">Proveedores</h1>
+
+
+
+
+
+
+
+
+
         </div>
+        
     );
 };
 
