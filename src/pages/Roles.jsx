@@ -1,10 +1,13 @@
 import { Navbar } from '../components/Navbar';
+import logof from '../../public/imgNavbar/light_switch off.svg';
+import logon from '../../public/imgNavbar/light_switch on.svg';
+import logadm from '../../public/imgNavbar/crossing_out.svg';
 
 const Roles = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-    
+
     return (
         <div>
             <Navbar />
@@ -12,22 +15,22 @@ const Roles = () => {
 
                 {/* titulo */}
 
-                <h1 className="titulo">Usuarios</h1>
+                <h1 className="titulo">Roles</h1>
 
                 {/* boton de agregar */}
 
                 <div className="container-fluid seccion2">
                     <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
-                        Usuario</button>
+                        Rol</button>
 
                         {/* modal agregar usuario */}
 
                     <div className="modal" id="myModal">
-                        <div className="modal-dialog modal-dialog-centered" style={{width:800, marginLeft:450}}>
-                            <div className="modal-content" style={{width: 800}} >
-                                <div className="modal-header modal-head-agregar" style={{width: 800}} >
-                                    <h5 className="modal-title" id="exampleModalLabel">
-                                        Agregar Usuario
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content">
+                                <div className="modal-header modal-head-agregar">
+                                    <h5 className="modal-title" id="exampleModalLabel" >
+                                        Agregar Rol
                                     </h5>
                                     <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -36,48 +39,60 @@ const Roles = () => {
                                     <div className="modal-body">
 
                                     {/* <!-- formulario para agregar un usuario --> */}
-                            <form action="" id="formularioagregarusuario">
+                            <form action="" id="formularioagregartol">
                                 <div class="mb-3" name="divNombre">
-                                    <label for="nombreGuardar" class="col-form-label">Nombre:</label>
+                                    <label for="nombreGuardar" class="col-form-label">Nombre del Rol:</label>
                                     <input type="text" class="form-control" id="nombreGuardarr" name="nombreGuardar"
-                                        placeholder="Ingresar nombre"/>
+                                        placeholder="Ingresar nombre del rol"/>
                                 </div>
-                                <div class="mb-3" name="divApellido">
-                                    <label for="apellidoGuardar" class="col-form-label">Apellido:</label>
-                                    <input type="text" class="form-control" id="apellidoGuardar" name="apellidoGuardar"
-                                        placeholder="Ingresar apellido"/>
-                                </div>
-                                <div class="mb-3" name="divTelefono">
-                                    <label for="telefonoGuardar" class="col-form-label">Teléfono:</label>
-                                    <input type="text" class="form-control" id="telefonoGuardar" name="telefonoGuardar" placeholder="Ingresar teléfono"/>
-                                </div>
-                                <div class="mb-3" name="divEmail">
-                                    <label for="emailGuardar" class="col-form-label">Email:</label>
-                                    <input type="email" class="form-control" id="emailGuardar" name="emailGuardar"
-                                        placeholder="Ingresar email"/>
+                                <div class="row">
+                                        <div class="col form-check form-check-inline">
+                                            <input class="form-check-input" name="check" type="checkbox" id="check" value="vista"/>
+                                            <label class="form-check-label" for="inlineCheckbox1">Vista</label>
+                                          </div>
+                                          <div class="col form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="checkDos" id="inlineCheckbox2" value="editar"/>
+                                            <label class="form-check-label" for="inlineCheckbox2">Editar</label>
+                                          </div>
+                                          <div class="col form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="checkTres" value="agregar"/>
+                                            <label class="form-check-label" for="inlineCheckbox3">Agregar</label>
+                                          </div>
+                                          <div class="col form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="checkCuatro" value="eliminar"/>
+                                            <label class="form-check-label" for="inlineCheckbox4">Eliminar</label>
+                                          </div>
+                                          <br/>
+                                  
+                                          <br/>
+                                    </div>
+                                    <label for="">Seleccionar permisos: </label>
+                                <br/>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="proveedoresAgregar" name="seleccion"/>
+                                    <label class="form-check-label" for="proveedoresAgregar">Proveedores</label>
                                 </div>
                                 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="seleccionDos" id="productosAgregar" checked/>
+                                    <label class="form-check-label" for="productosAgregar">Productos</label>
+                                </div>
                                 
-                                <div class="mb-3" name="divContraseña">
-                                    <label for="contraseñaGuardar" class="col-form-label" >Contraseña:</label>
-                                    <input type="password" class="form-control" id="contraseñaGuardar" name="contraseñaGuardar"
-                                        placeholder="Ingresar contraseña"/>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="seleccionTres" id="clientesAgregar" checked/>
+                                    <label class="form-check-label" for="clientesAgregar">Clientes</label>
                                 </div>
-                                <div class="mb-3" name="divConfirmarContraseña">
-                                    <label for="contraseñaconfirmarGuardar" class="col-form-label">Confirmar contraseña:</label>
-                                    <input type="password" class="form-control" id="contraseñaconfirmarGuardar" name="contraseñaconfirmarGuardar"
-                                        placeholder="Confirmar contraseña:"/>
+                                
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="comprasAgregar" name="seleccionCuatro" checked/>
+                                    <label class="form-check-label" for="comprasAgregar">Compras</label>
                                 </div>
-                                <div class="mb-3" name="divselectRol">
-                                    <label for="rolGuardar" class="col-form-label">Rol:</label>
-                                    <select class="form-control" name="selectRol">
-                                        <option value="">Seleccionar rol</option>
-                                        <option value="2">Empleado</option>
-                                        <option value="3">Vendedor</option>
-                                        <option value="4">Comprador</option>
-                                      </select>
+                                
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="seleccionCinco" id="ventasAgregar" checked/>
+                                    <label class="form-check-label" for="ventasAgregar">Ventas</label>
                                 </div>
-
+                                
                                 <div class="modal-footer">
                                     <button type="button" id="guardarCancelado" class="btn btn-danger"
                                         data-bs-dismiss="modal">Cancelar</button>
@@ -100,22 +115,20 @@ const Roles = () => {
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
-
                 </div>
 
                 {/* tabla  para listar el producto */}
 
                 <div className="tabla">
                     <table className="table caption-top ">
-                        <caption>Lista de Usuarios</caption>
+                        <caption>Lista de roles</caption>
                         <thead>
                             <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Rol</th>
+                            <th scope="col">Roles</th>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Permisos</th>
+                            <th scope="col">Permisos especificos</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Editar</th>
                             </tr>
@@ -123,34 +136,33 @@ const Roles = () => {
                         <tbody>
                             <tr>
                             <th scope="row">1</th>
-                                <td>Jesús</td>
-                                <td>Cochero</td>
-                                <td>3240918282</td>
-                                <td>jesus@gmail.com</td>
-                                <td>Abministrador</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch off.svg" /></td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar">Editar</button></td>
+                                <td>Administrador</td>
+                                <td>10/05/2023</td>
+                                <td>Usuarios Roles-Proveedores-Productos-Clientes-Compras-Ventas-Catalogo</td>
+                                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#modalPermisos">Ver</button></td>
+                                <td><img class="centrarIcono estado" src={logadm} /></td>
+                                <td><img width="35px" src={logadm} /></td>
                             </tr>
                             <tr>
                             <th scope="row">2</th>
-                                <td>Herlyn</td>
-                                <td>David</td>
-                                <td>3023201200</td>
-                                <td>herlindavid@gmail.com</td>
-                                <td>Vendedor</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar">Editar</button></td>
+                                    <td>Empleado</td>
+                                    <td>10/05/2023</td>
+                                    <td>Proveedores Productos-Clientes-Compras-Ventas-Catalogo</td>
+                                    <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#modalPermisos">Ver</button></td>
+                                     <td><img class="centrarIcono estado" src={logon} /></td>
+                                    <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditar">Editar</button></td>
                             </tr>
                             <tr>
                             <th scope="row">3</th>
-                                <td>Brian</td>
-                                <td>Pareja</td>
-                                <td>3220920192</td>
-                                <td>brian@gmail.com</td>
-                                <td>Empleado</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
+                                <td>Vendedor</td>
+                                <td>10/05/2023</td>
+                                <td>Ventas - Compras</td>
+                                <td><button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#modalPermisos">Ver</button></td>
+                                <td><img class="centrarIcono estado" src={logof} /></td>
                                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
 
@@ -160,64 +172,131 @@ const Roles = () => {
                 </div>
 
                 {/* <!-- modal de editar cliente --> */}
+                {/* <!--! modal de editar cliente --> */}
     <div class="modal" id="modalEditar">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header modal-head-editar">
-                    <h5 class="modal-title">Editar datos del usuario</h5>
+                    <h5 class="modal-title">Editar permisos del rol</h5>
                     <button type="button" id="xEditar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {/* <!-- formulario para editar los datos de la tabla Usuarios --> */}
-                    <form action="" id="formularioEditarUsuario">
+                
+                    {/* <!--! formulario para editar los datos de un rol --> */}
+                    <form action="" id="formularioeditarrol">
                         <div class="mb-3" name="divNombre">
-                            <label for="nombreEditar" class="col-form-label">Nombre:</label>
-                            <input type="text" class="form-control" id="nombreEditar" name="nombreEditar" placeholder="Ingresar nombre"/>
+                            <label for="nombreRolGuardarr" class="col-form-label">Nombre del rol:</label>
+                            <input type="text" class="form-control" id="nombreRolGuardarr" name="nombreGuardar"
+                                placeholder="Ingresar nombre del rol"/>
                         </div>
-                        <div class="mb-3" name="divApellido">
-                            <label for="apellidoEditar" class="col-form-label">Apellido:</label>
-                            <input type="text" class="form-control" id="apellidoEditar" name="apellidoEditar" placeholder="Ingresar apellido"/>
+                        <div class="container">
+                            <div class="row">
+                                <p class="text-center">Permisos específicos de proveedor</p>
+                            </div>
+                            <div class="row">
+                                <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="checkEditar" id="vista" value="vista"/>
+                                    <label class="form-check-label" for="inlineCheckbox1">Vista</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="checkEditarDos" id="editar" value="editar"/>
+                                    <label class="form-check-label" for="inlineCheckbox2">Editar</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="checkEditarTres" id="agregar" value="agregar"/>
+                                    <label class="form-check-label" for="inlineCheckbox3">Agregar</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="checkEditarCuatro" id="eliminar" value="eliminar"/>
+                                    <label class="form-check-label" for="inlineCheckbox4">Eliminar</label>
+                                  </div>
+                            </div>
+                            <br/>
+                        <label for="">Seleccionar permisos:</label>
+                        <br/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="seleccionEditar" id="proveedoresEditar"/>
+                            <label class="form-check-label" for="proveedoresAgregar">Proveedores</label>
                         </div>
-                        <div class="mb-3" name="divTelefono">
-                            <label for="telefonoEditar" class="col-form-label">Teléfono:</label>
-                            <input type="text" class="form-control" id="telefonoEditar" name="telefonoEditar"
-                                placeholder="Ingresar teléfono"/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="seleccionEditarDos" id="productosEditar" checked/>
+                            <label class="form-check-label" for="productosAgregar">Productos</label>
                         </div>
-                        <div class="mb-3" name="divEmail">
-                            <label for="emailEditar" class="col-form-label">Email:</label>
-                            <input type="email" class="form-control" id="emailEditar" name="emailEditar" placeholder="Ingresar email"/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="seleccionEditarTres" id="clientesEditar" checked/>
+                            <label class="form-check-label" for="clientesAgregar">Clientes</label>
                         </div>
-                        
-                        
-                        <div class="mb-3" name="divContraseña">
-                            <label for="contraseñaEditar" class="col-form-label">Contraseña:</label>
-                            <input type="password" class="form-control" id="contraseñaEditar" name="contraseñaEditar"
-                                placeholder="Ingresar contraseña"/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="seleccionEditarCuatro" id="comprasEditar" checked/>
+                            <label class="form-check-label" for="comprasAgregar">Compras</label>
                         </div>
-                        <div class="mb-3" name="divConfirmarContraseña">
-                            <label for="contraseñaconfirmarEditar" class="col-form-label">Confirmar contraseña:</label>
-                            <input type="password" class="form-control" id="contraseñaconfirmarEditar" name="contraseñaconfirmarEditar"
-                                placeholder="Confirmar contraseña:"/>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="ventasEditar" name="seleccionEditarCinco" checked/>
+                            <label class="form-check-label" for="ventasAgregar">Ventas</label>
                         </div>
-                         <label for="exampleDataList" class="form-label">Estado:</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">Habilitar</option>
-                            <option value="2">Inhabilitar</option>
-                        </select>
-                        <div class="mb-3" name="divselectRol">
-                            <label for="rolEditar" class="col-form-label">Rol:</label>
-                            <select class="form-control" name="selectRolEditar">
-                                <option value="">Seleccionar rol</option>
-                                <option value="2">Empleado</option>
-                                <option value="3">Vendedor</option>
-                                <option value="4">Comprador</option>
-                              </select>
+                        <div class="modal-footer">
+                            <button type="button" id="editarCancelado" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-success" value="Guardar"/>
                         </div>
+                        </div>
+                    </form> 
+                </div>
 
-                        <div className="modal-footer">
-                            <button type="button" id="editarCancelado" className="btn btn-danger"
-                                data-bs-dismiss="modal">Cancelar</button>
-                            <input type="submit" className="btn btn-success" value="Guardar" />
+            </div>
+        </div>
+    </div>
+    {/* <!--! modal para ver los permisos especificos --> */}
+    <div class="modal" id="modalPermisos">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header modal-head-info">
+                    <h5 class="modal-title">Permisos del rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    {/* <!--! formulario para los datos de un rol --> */}
+                    <div class="mb-3" name="divpermisoEspecificos">
+                        <label for="rolEditar" class="col-form-label"></label>
+                        <select class="form-control" name="permisosEspecificos">
+                            <option value="">Seleccione un modulo:</option>
+                            <option value="Proveedores">Proveedores</option>
+                            <option value="Productos">Productos</option>
+                            <option value="Clientes">Clientes</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Ventas">Ventas</option>
+                          </select>
+                    </div>
+
+
+                    <form action="">
+                        <div class="container">
+                            <div class="row">
+                                <p class="text-center">Permisos específicos de proveedor</p>
+                            </div>
+                            <div class="row">
+                                <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="vistaVer" value="vista"/>
+                                    <label class="form-check-label" for="inlineCheckbox1">Vista</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="editarVer" value="editar"/>
+                                    <label class="form-check-label" for="inlineCheckbox2">Editar</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="agregarVer" value="agregar"/>
+                                    <label class="form-check-label" for="inlineCheckbox3">Agregar</label>
+                                  </div>
+                                  <div class="col form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="eliminarVer" value="eliminar"/>
+                                    <label class="form-check-label" for="inlineCheckbox4">Eliminar</label>
+                                  </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" id="editarSalir" class="btn btn-info" data-bs-dismiss="modal">Salir</button>
                         </div>
                     </form>
                 </div>
@@ -231,4 +310,3 @@ const Roles = () => {
 };
 
 export default Roles;
-

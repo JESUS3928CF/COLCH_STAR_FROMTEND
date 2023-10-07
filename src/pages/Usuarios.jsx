@@ -1,4 +1,7 @@
 import { Navbar } from '../components/Navbar';
+import logof from '../../public/imgNavbar/light_switch off.svg';
+import logon from '../../public/imgNavbar/light_switch on.svg';
+import logadm from '../../public/imgNavbar/crossing_out.svg';
 
 const Usuarios = () => {
     const contentStyle = {
@@ -128,7 +131,7 @@ const Usuarios = () => {
                                 <td>3240918282</td>
                                 <td>jesus@gmail.com</td>
                                 <td>Abministrador</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch off.svg" /></td>
+                                <td><img class="centrarIcono estado" src={logadm} /></td>
                                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
                             </tr>
@@ -139,7 +142,7 @@ const Usuarios = () => {
                                 <td>3023201200</td>
                                 <td>herlindavid@gmail.com</td>
                                 <td>Vendedor</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
+                                <td><img class="centrarIcono estado" src={logon} /></td>
                                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
                             </tr>
@@ -150,7 +153,7 @@ const Usuarios = () => {
                                 <td>3220920192</td>
                                 <td>brian@gmail.com</td>
                                 <td>Empleado</td>
-                                <td><img class="centrarIcono estado" src="/imagenes/iconos/light_switch on.svg" /></td>
+                                <td><img class="centrarIcono estado" src={logof} /></td>
                                 <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
 
