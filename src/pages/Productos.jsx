@@ -1,10 +1,13 @@
 import { Navbar } from '../components/Navbar';
+import { Link } from 'react-router-dom';
 import logof from '../../public/imgNavbar/light_switch off.svg';
 import logon from '../../public/imgNavbar/light_switch on.svg';
-// import '../css-general/cssgeneral.css'
-// import '../css-general/tailwind.min.css'
-// import '../css-general/inicio_style.css'
-// import '../css-general/table.min.css'
+import '../css-general/cssgeneral.css'
+import '../css-general/tailwind.min.css'
+import '../css-general/inicio_style.css'
+import '../css-general/table.min.css'
+
+
 
 const Productos = () => {
     const contentStyle = {
@@ -15,15 +18,15 @@ const Productos = () => {
         <div>
             <Navbar />
             <div style={contentStyle} className='contenedor'>
-
+ 
                 {/* titulo */}
 
-                <h1 class="titulo" >productos</h1>
+                <h1 class="titulo" >Productos</h1>
 
                 {/* boton de agregar */}
 
                 <div className="container-fluid seccion2">
-                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginLeft:25}} >Agregar
                         producto</button>
 
                         {/* modal agregar producto */}
@@ -32,7 +35,7 @@ const Productos = () => {
                         <div className="modal-dialog modal-dialog-centered" style={{width:800, marginLeft:450}}>
                             <div className="modal-content" style={{width: 800}} >
                                 <div className="modal-header modal-head-agregar" style={{width: 800}} >
-                                    <h5 className="modal-title" id="exampleModalLabel">
+                                    <h5 className="modal-title" id="exampleModalLabel" >
                                         Agregar producto
                                     </h5>
                                     <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
@@ -168,7 +171,9 @@ const Productos = () => {
 
                         {/* Boton para mostrar la lista de  diseños */}
 
-                    <a href="./listaDiseños.html"><button type="button" className="btn btn-secondary">Lista de diseños</button></a>
+                       
+                    <Link to={'/diseno'}><button type="button" className="btn btn-secondary">Lista de diseños</button></Link>
+                    {/* <a href={Diseno}><button type="button" className="btn btn-secondary">Lista de diseños</button></a> */}
 
 
 
