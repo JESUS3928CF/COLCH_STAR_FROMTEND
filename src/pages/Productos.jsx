@@ -1,10 +1,12 @@
 import { Navbar } from '../components/Navbar';
+import { Link } from 'react-router-dom';
 import logof from '../../public/imgNavbar/light_switch off.svg';
 import logon from '../../public/imgNavbar/light_switch on.svg';
 import '../css-general/cssgeneral.css'
 import '../css-general/tailwind.min.css'
 import '../css-general/inicio_style.css'
 import '../css-general/table.min.css'
+
 
 
 const Productos = () => {
@@ -169,7 +171,9 @@ const Productos = () => {
 
                         {/* Boton para mostrar la lista de  diseños */}
 
-                    <a href="./listaDiseños.html"><button type="button" className="btn btn-secondary">Lista de diseños</button></a>
+                       
+                    <Link to={'/diseno'}><button type="button" className="btn btn-secondary">Lista de diseños</button></Link>
+                    {/* <a href={Diseno}><button type="button" className="btn btn-secondary">Lista de diseños</button></a> */}
 
 
 

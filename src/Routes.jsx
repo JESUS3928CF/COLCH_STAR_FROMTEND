@@ -9,6 +9,7 @@ import Compras from './pages/Compras';
 import Proveedores from './pages/Proveedores';
 import Ventas from './pages/Ventas';
 import Login from './pages/Login';
+import Diseno from './pages/Diseno';
 
 const MyRoutes = () => {
     return (
@@ -24,6 +25,8 @@ const MyRoutes = () => {
                 <Route path='/clientes' element={<Clientes />}></Route>
                 <Route path='/compras' element={<Compras />}></Route>
                 <Route path='/ventas' element={<Ventas />}></Route>
+                <Route path='/diseno' element={<Diseno />}></Route>
+                
             </Routes>
         </BrowserRouter>
     );
