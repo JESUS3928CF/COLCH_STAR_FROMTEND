@@ -23,7 +23,7 @@ const Proveedores = () => {
 
                 {/* boton agregar */}
 
-                <div className="container-fluid seccion2">
+                <div className="container-fluid seccion2" style={{marginLeft:-100 } }>
                     <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
                         proveedor</button>
 
@@ -82,12 +82,12 @@ const Proveedores = () => {
 
                     {/* boton de buscar */}
 
-                    {/* <form className="d-flex">
+                    <form className="d-flex" >
                         <input id="barra-buscar" className="form-control me-2" type="search" placeholder="" aria-label="Search" />
                         <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button>
 
                         <div id="resultados-container"></div>
-                    </form> */}
+                    </form>
 
 
                 </div>

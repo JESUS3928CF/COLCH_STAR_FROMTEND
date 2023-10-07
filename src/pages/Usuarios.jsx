@@ -19,7 +19,7 @@ const Usuarios = () => {
 
                 {/* boton de agregar */}
 
-                <div className="container-fluid seccion2">
+                <div className="container-fluid seccion2" style={{marginLeft:-110 } }>
                     <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
                         Usuario</button>
 

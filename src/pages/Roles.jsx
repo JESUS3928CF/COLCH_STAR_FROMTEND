@@ -19,7 +19,7 @@ const Roles = () => {
 
                 {/* boton de agregar */}
 
-                <div className="container-fluid seccion2">
+                <div className="container-fluid seccion2" style={{marginLeft:-120 } }>
                     <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
                         Rol</button>
 
