@@ -1,6 +1,7 @@
 import { Navbar } from '../components/Navbar';
 import logof from '../../public/imgNavbar/light_switch off.svg';
 import logon from '../../public/imgNavbar/light_switch on.svg';
+import styles from './proveedores.module.css';
 import '../css-general/cssgeneral.css'
 import '../css-general/tailwind.min.css'
 import '../css-general/inicio_style.css'
@@ -21,11 +22,16 @@ const Proveedores = () => {
 
                 <h1 className="titulo">Proveedores</h1>
 
+
+
                 {/* boton agregar */}
 
-                <div className="container-fluid seccion2">
-                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
-                        proveedor</button>
+                <div className="container-fluid seccion2" style={{ width: 0 }}>
+
+                    <div className={styles.ap}>
+                        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+                            proveedor</button>
+                    </div>
 
                     {/* modal agregar proveedor */}
 
@@ -81,13 +87,14 @@ const Proveedores = () => {
                     </div>
 
                     {/* boton de buscar */}
+                    <div className={styles.buscador}>
+                        <form className="d-flex" >
+                            <input id="barra-buscar" className="form-control me-2" type="search" placeholder="" aria-label="Search" />
+                            <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button>
 
-                    {/* <form className="d-flex">
-                        <input id="barra-buscar" className="form-control me-2" type="search" placeholder="" aria-label="Search" />
-                        <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button>
-
-                        <div id="resultados-container"></div>
-                    </form> */}
+                            <div id="resultados-container"></div>
+                        </form>
+                    </div>
 
 
                 </div>

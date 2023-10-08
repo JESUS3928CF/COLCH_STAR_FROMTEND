@@ -26,7 +26,7 @@ const Productos = () => {
                 {/* boton de agregar */}
 
                 <div className="container-fluid seccion2">
-                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginLeft:25}} >Agregar
+                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginLeft:20    }} >Agregar
                         producto</button>
 
                         {/* modal agregar producto */}
