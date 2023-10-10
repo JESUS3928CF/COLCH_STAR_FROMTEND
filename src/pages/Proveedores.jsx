@@ -1,4 +1,5 @@
 import { Navbar } from '../components/Navbar';
+import React, { useState } from 'react';
 import logof from '../../public/imgNavbar/light_switch off.svg';
 import logon from '../../public/imgNavbar/light_switch on.svg';
 import styles from './proveedores.module.css';
@@ -8,7 +9,28 @@ import '../css-general/inicio_style.css'
 import '../css-general/table.min.css'
 
 
+
 const Proveedores = () => {
+
+    const [nombre, setNombre] = useState('');
+    const [nombreError, setNombreError] = useState('');
+
+    // funcion que se ejecutara cuando le unda enviar al formulario
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let valid = true;
+      
+        // Validation for the 'nombre' field (required)
+        if (nombre.trim() === '') {
+          setNombreError('Nombre es requerido');
+          valid = false;
+        } else {
+          setNombreError('');
+        }
+    }
+      
+
+
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
@@ -47,11 +69,19 @@ const Proveedores = () => {
 
                                     {/* formulario para agregar proveedor */}
 
-                                    <form action="" id="formularioAgregarProveedor">
+                                    {/* El atributo onSubmit se coloca en un formulario de React para especificar la función que se ejecutará
+                                     cuando el usuario envíe el formulario */}
+                                    <form onSubmit={handleSubmit}  action="" id="formularioAgregarProveedor">
                                         <div className="mb-3" name="divNombre">
                                             <label for="nombreGuardar" className="col-form-label">Nombre:</label>
-                                            <input type="text" className="form-control" name="nombreGuardar"
-                                                placeholder="Ingresar nombre" required />
+                                            <input type="text" 
+                                            className="form-control"
+                                             name="nombreGuardar"
+                                                placeholder="Ingresar nombre" 
+                                                value={nombre}
+                                                onChange={(e) => setNombre(e.target.value)}
+                                                 />
+                                                  <p className="error" style={{color:'red'}}>{nombreError}</p>
                                         </div>
                                         <div className="mb-3" name="divTelefono">
                                             <label for="telefonoGuardar" className="col-form-label">Teléfono:</label>
@@ -61,7 +91,7 @@ const Proveedores = () => {
                                         <div className="mb-3" name="divDireccion">
                                             <label for="direccionGuardar" className="col-form-label">Dirección:</label>
                                             <input type="text" className="form-control" id="direccionGuardar"
-                                                name="direccionGuardar" placeholder="Ingresar dirección" required />
+                                                name="direccionGuardar" placeholder="Ingresar dirección"  />
                                         </div>
                                         <div className="mb-3" name="divCedula">
                                             <label for="cedulaGuardar" className="col-form-label">Cedula:</label>
@@ -106,7 +136,7 @@ const Proveedores = () => {
                         <caption>Lista de proveedores</caption>
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">ID</th> 
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Telefono</th>
                                 <th scope="col">Direccion</th>
