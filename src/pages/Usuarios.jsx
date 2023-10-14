@@ -3,8 +3,34 @@ import logof from '../imgNavbar/light_switch off.svg';
 import logon from '../imgNavbar/light_switch on.svg';
 import logadm from '../imgNavbar/crossing_out.svg';
 import styles from './Usuarios.module.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Usuarios = () => {
+    const [usuarios, setUsuarios] = useState([]);
+
+    useEffect(() => {
+      // Realiza una solicitud al backend para obtener la lista de usuarios
+      axios.get('http://localhost:3000/api/usuarios')
+        .then(response => {
+          // Actualiza el estado con la lista de usuarios
+          setUsuarios(response.data);
+        })
+        .catch(error => {
+          console.error('Error al obtener la lista de usuarios:', error);
+        });
+    }, []);
+    const handleEstadoChange = (idUsuario, nuevoEstado) => {
+        // Realiza una solicitud al backend para cambiar el estado del usuario
+        axios.put(`http://localhost:3000/api/usuarios/${idUsuario}`, { estado: nuevoEstado })
+            .then(response => {
+                // Actualiza el estado con la lista de usuarios después de cambiar el estado
+                setUsuarios(response.data);
+            })
+            .catch(error => {
+                console.error('Error al cambiar el estado del usuario:', error);
+            });
+    };
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
@@ -128,40 +154,25 @@ const Usuarios = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Jesús</td>
-                                <td>Cochero</td>
-                                <td>3240918282</td>
-                                <td>jesus@gmail.com</td>
-                                <td>Abministrador</td>
-                                <td><img class="centrarIcono estado" src={logadm} /></td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditar">Editar</button></td>
+                            {usuarios.map(usuario => (
+                            <tr key={usuario.id}>
+                                <td>{usuario.id_usuario}</td>
+                                <td>{usuario.nombre}</td>
+                                <td>{usuario.apellido}</td>
+                                <td>{usuario.telefono}</td>
+                                <td>{usuario.email}</td>
+                                <td>{usuario.fk_rol}</td>
+                                <td>
+                                <img className="centrarIcono estado" src={usuario.estado === true ? logon : logof} />
+                                </td>
+                                <td>
+                                <button type="button" className="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalEditar"
+                                >
+                                    Editar
+                                </button>
+                                </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Herlyn</td>
-                                <td>David</td>
-                                <td>3023201200</td>
-                                <td>herlindavid@gmail.com</td>
-                                <td>Vendedor</td>
-                                <td><img class="centrarIcono estado" src={logon} /></td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditar">Editar</button></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Brian</td>
-                                <td>Pareja</td>
-                                <td>3220920192</td>
-                                <td>brian@gmail.com</td>
-                                <td>Empleado</td>
-                                <td><img class="centrarIcono estado" src={logof} /></td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditar">Editar</button></td>
-
-                            </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
