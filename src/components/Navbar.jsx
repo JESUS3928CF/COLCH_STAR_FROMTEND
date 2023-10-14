@@ -1,6 +1,6 @@
 import styles from './Navbar.module.css';
-import logo from '../../public/imgNavbar/LogoPNG.png';
-import profileImg from '../../public/imgNavbar/1153861.png';
+import logo from '../imgNavbar/LogoPNG.png';
+import profileImg from '../imgNavbar/1153861.png';
 import { Link } from 'react-router-dom';
 
 

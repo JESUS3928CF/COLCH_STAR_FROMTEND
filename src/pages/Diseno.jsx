@@ -1,8 +1,8 @@
 import { Navbar } from '../components/Navbar';
 import { Link } from 'react-router-dom';
-import disenoo from '../../public/1153861.png';
-import logof from '../../public/imgNavbar/light_switch off.svg';
-import logon from '../../public/imgNavbar/light_switch on.svg';
+import disenoo from '../imgNavbar/1153861.png';
+import logof from '../imgNavbar/light_switch off.svg';
+import logon from '../imgNavbar/light_switch on.svg';
 import '../css-general/cssgeneral.css'
 import '../css-general/tailwind.min.css'
 import '../css-general/inicio_style.css'

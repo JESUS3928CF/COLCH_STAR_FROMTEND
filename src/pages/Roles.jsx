@@ -1,7 +1,7 @@
 import { Navbar } from '../components/Navbar';
-import logof from '../../public/imgNavbar/light_switch off.svg';
-import logon from '../../public/imgNavbar/light_switch on.svg';
-import logadm from '../../public/imgNavbar/crossing_out.svg';
+import logof from '../imgNavbar/light_switch off.svg';
+import logon from '../imgNavbar/light_switch on.svg';
+import logadm from '../imgNavbar/crossing_out.svg';
 import styles from './Roles.module.css';
 
 const Roles = () => {
