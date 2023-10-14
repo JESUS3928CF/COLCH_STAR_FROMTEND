@@ -20,17 +20,6 @@ const Usuarios = () => {
           console.error('Error al obtener la lista de usuarios:', error);
         });
     }, []);
-    const handleEstadoChange = (idUsuario, nuevoEstado) => {
-        // Realiza una solicitud al backend para cambiar el estado del usuario
-        axios.put(`http://localhost:3000/api/usuarios/${idUsuario}`, { estado: nuevoEstado })
-            .then(response => {
-                // Actualiza el estado con la lista de usuarios después de cambiar el estado
-                setUsuarios(response.data);
-            })
-            .catch(error => {
-                console.error('Error al cambiar el estado del usuario:', error);
-            });
-    };
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
