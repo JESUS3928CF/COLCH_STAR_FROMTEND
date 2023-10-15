@@ -12,7 +12,7 @@ import '../css-general/table.min.css'
 const Productos = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
-    };
+    }; 
 
     return (
         <div>
