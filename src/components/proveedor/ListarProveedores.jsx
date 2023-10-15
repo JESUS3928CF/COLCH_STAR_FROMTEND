@@ -85,7 +85,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.cedula}</td>
                                     <td>{proveedor.nit}</td>
-                                    <td><img className="centrarIcono estado" src={proveedor.estado === true ? logon : logof} /></td>
+                                    <td><img className="centrarIcono estado" src={proveedor.estado === true ? logon : logof } /></td>
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
                                 </tr>
