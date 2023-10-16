@@ -1,12 +1,12 @@
 import React from 'react'
-import ListarProveedores from '../proveedor/ListarProveedores';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import { useState } from 'react';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import ListarProveedores from './ListarProveedores';
 
 
 
@@ -25,13 +25,19 @@ const AgregarProveedor = () => {
     const handleChange = (e) => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    const handleClick = async e => {
 
+    const handleClick = async e => {
 
         e.preventDefault()
         try {
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
-            navigate("/")
+             navigate()
+             ListarProveedores()
+            const modal = document.getElementById("myModal");
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+
+        
         } catch (err) {
             console.log(err)
 
@@ -55,8 +61,7 @@ const AgregarProveedor = () => {
     //     }
     // }
 
-
-
+  
     return (
         <div>
 
@@ -136,6 +141,7 @@ const AgregarProveedor = () => {
 
 
         </div>
+        
 
     )
 }
