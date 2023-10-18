@@ -71,8 +71,7 @@ const ListarProveedores = () => {
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Telefono</th>
                                 <th scope="col">Direccion</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col">Nit</th>
+                                <th scope="col">Identificacion</th>
                                 <th scope="col">Inhabilitar</th>
                                 <th scope="col">Editar</th>
                             </tr>
@@ -85,8 +84,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
-                                    <td>{proveedor.cedula}</td>
-                                    <td>{proveedor.nit}</td>
+                                    <td>{proveedor.identificacion}</td>
                                     <td><img className="centrarIcono estado" src={proveedor.estado === true ? logon : logof} />
                                     </td>
                                     <td><button type="button" className="btn btn-info" data-bs-toggle="modal"

@@ -17,8 +17,7 @@ const AgregarProveedor = () => {
         nombre: "",
         telefono: "",
         direccion: "",
-        cedula: "",
-        nit: "",
+        identificacion: "",
     });
     const navigate = useNavigate()
 
@@ -94,7 +93,6 @@ const AgregarProveedor = () => {
                                         // onChange={(e) => setNombre(e.target.value)}
                                         onChange={handleChange}
 
-
                                     />
                                     {/* <p className="error" style={{ color: 'red' }}>{nombreError}</p> */}
                                 </div>
@@ -111,20 +109,12 @@ const AgregarProveedor = () => {
                                         name="direccion" placeholder="Ingresar dirección"
                                     />
                                 </div>
-                                <div className="mb-3" name="divCedula">
-                                    <label for="cedulaGuardar" className="col-form-label">Cedula:</label>
-                                    <input type="text" className="form-control" id="cedulaGuardar" onChange={handleChange} name="cedula"
-                                        placeholder="Ingresar cedula"
+                                <div className="mb-3" name="divIdentificacion">
+                                    <label for="identificacionGuardar" className="col-form-label">Identificacion:</label>
+                                    <input type="text" className="form-control" id="identificacionGuardar" onChange={handleChange} name="identificacion"
+                                        placeholder="Ingresar su identificacion"
                                     />
                                 </div>
-                                <div className="mb-3" name="divNit">
-                                    <label for="nitGuardar" className="col-form-label">Contacto:</label>
-                                    <input type="text" className="form-control" id="nitGuardar" onChange={handleChange} name="nit"
-                                        placeholder="Ingresar Nit"
-                                    />
-                                </div>
-
-
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-danger" data-bs-dismiss="modal"
                                         id="guardarCancelado">Cancelar</button>

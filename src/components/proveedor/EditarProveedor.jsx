@@ -42,16 +42,10 @@ const EditarProveedor = () => {
                                     />
                                 </div>
 
-                                <div class="mb-3" name="divCedula">
-                                    <label for="cedulaEditar" class="col-form-label">Cedula:</label>
-                                    <input type="text" class="form-control" id="cedulaEditar" name="cedulaEditar"
-                                        placeholder="Ingresar cedula"
-                                    />
-                                </div>
-                                <div class="mb-3" name="divNit">
-                                    <label for="nitEditar" class="col-form-label">NIT:</label>
-                                    <input type="text" class="form-control" id="nitEditar" name="nitEditar"
-                                        placeholder="Ingresar Nit"
+                                <div class="mb-3" name="divIdentificacion">
+                                    <label for="identificacionEditar" class="col-form-label">Identificacion:</label>
+                                    <input type="text" class="form-control" id="identificacionEditar" name="identificacionEditar"
+                                        placeholder="Ingresar su identificacion"
                                     />
                                 </div>
 
