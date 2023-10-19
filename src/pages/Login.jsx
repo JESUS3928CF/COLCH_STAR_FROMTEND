@@ -1,9 +1,30 @@
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // import styles from "./Login.module.css"; // Import the CSS module
 
-
-
 const Login = () => {
+
+    const [body, setBody] = useState({ email: '', contrasena: '' });
+
+    const inputChange = ({ target }) => {
+      const { name, value } = target;
+      setBody({
+        ...body,
+        [name]: value,
+      });
+    }
+  
+    const onSubmit = () => {
+      axios.post('http://localhost:3000/api/usuarios/login', body)
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch(({ response }) => {
+          console.log(response.data);
+        });
+    }
+
   return (
     <div className="container">
         <div className="login-section">
@@ -11,41 +32,40 @@ const Login = () => {
               <form action="" id="login">
                     <h2>¡Bienvenido!</h2>
                     <br/>
-                    <div class="input-box">
-                        <span class="icon"><i class='bx bxs-envelope'></i></span>
-                        <input type="email" id="emailUsuario"/>
+                    <div className="input-box">
+                        <span className="icon"><i className='bx bxs-envelope'></i></span>
+                        <input type="email" id="emailUsuario" value={body.email} onChange={inputChange} name="email"/>
                         <label >Email</label>
                     </div>
-                    <div class="input-box">
-                        <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                        <input type="password" id="contrasenaUsuario"/>
+                    <div className="input-box">
+                        <span className="icon"><i className='bx bxs-lock-alt' ></i></span>
+                        <input type="password" id="contrasenaUsuario" value={body.password} onChange={inputChange} name="contrasena"/>
                         <label>Contraseña</label>
                     </div>
-                    <div class="button_group" id="login_button">
-                        {/* <button class="btn"  id="submitIngresar">Iniciar sesión</button> */}
-                        <Link to={"/dashboard"} className="btn" id="submitIngresar">
+                    <div className="button_group" id="login_button">
+                        <Link to={"/dashboard"} className="btn" id="submitIngresar" onClick={onSubmit}>
                           Iniciar sesión
                         </Link>
                       </div>
-                    <div class="create-account">
-                        <p>Olvido su contraseña? <a href="#" class="register-link">Click aquí</a></p>
+                    <div className="create-account">
+                        <p>Olvido su contraseña? <a href="#" className="register-link">Click aquí</a></p>
                     </div>
                 </form>
           </div>
-          <div class="form-box register">
+          <div className="form-box register">
                 <form action="">
 
                     <h2>Recuperar contraseña</h2>
                     <p>Ingrese su correo electrónico de recuperación</p>
                     <br/>
-                    <div class="input-box">
-                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                    <div className="input-box">
+                        <span className="icon"><i className='bx bxs-envelope'></i></span>
                         <input type="email"  id="Recuperer"/>
                         <label >Email</label>
                     </div>
-                    <button class="btn" id="RecupererSumit">Enviar</button>
-                    <div class="create-account">
-                        <p><a href="#" class="login-link">Inicio</a></p>
+                    <button className="btn" id="RecupererSumit">Enviar</button>
+                    <div className="create-account">
+                        <p><a href="#" className="login-link">Inicio</a></p>
                     </div>
                 </form>
             </div>
@@ -118,3 +138,6 @@ export default Login
 // };
 
 // export default Login;
+
+
+// /* <button className="btn"  id="submitIngresar" onClick={onSubmit}>Iniciar sesión</button> *
