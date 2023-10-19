@@ -43,7 +43,7 @@ const ListarProveedores = () => {
                 <div className="container-fluid seccion2" style={{ width: 0 }}>
 
                     <div className={styles.ap}>
-                        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+                        <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
                             proveedor</button>
                     </div>
 

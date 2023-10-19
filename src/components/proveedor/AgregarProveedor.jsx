@@ -7,7 +7,7 @@ import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 import styles from '../../pages/proveedores.module.css';
-import ListarProveedores from './ListarProveedores';
+
 
 
 
@@ -38,7 +38,8 @@ const AgregarProveedor = () => {
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
 
-            ListarProveedores()
+            location.reload();
+
         } catch (err) {
             console.log(err)
 
@@ -71,7 +72,7 @@ const AgregarProveedor = () => {
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
                     <div className="modal-content">
-                        <div className="modal-header modal-head-agregar">
+                        <div className="agregar agr">
                             <h5 className="modal-title" id="exampleModalLabel">Agregar proveedor</h5>
                             <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
@@ -103,7 +104,7 @@ const AgregarProveedor = () => {
                                 </div>
 
                                 <div className="mb-3" name="divNombre">
-                                    <label for="nombreGuardar" className="col-form-label">Nombre:</label>
+                                    <label for="nombreGuardar" className="col-form-label">Nombre:*</label>
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
@@ -116,7 +117,7 @@ const AgregarProveedor = () => {
                                     {/* <p className="error" style={{ color: 'red' }}>{nombreError}</p> */}
                                 </div>
                                 <div className="mb-3" name="divTelefono">
-                                    <label for="telefonoGuardar" className="col-form-label">Teléfono:</label>
+                                    <label for="telefonoGuardar" className="col-form-label">Teléfono:*</label>
                                     <input type="text"
                                         className="form-control"
                                         onChange={handleChange}
@@ -125,7 +126,7 @@ const AgregarProveedor = () => {
                                     />
                                 </div>
                                 <div className="mb-3" name="divDireccion">
-                                    <label for="direccionGuardar" className="col-form-label">Dirección:</label>
+                                    <label for="direccionGuardar" className="col-form-label">Dirección:*</label>
                                     <input type="text"
                                         className="form-control"
                                         id="direccionGuardar"
@@ -134,7 +135,7 @@ const AgregarProveedor = () => {
                                     />
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-danger" data-bs-dismiss="modal"
+                                    <button type="button" className="btn-c" data-bs-dismiss="modal"
                                         id="guardarCancelado">Cancelar</button>
                                     <input onClick={handleClick} type="submit" className="btn btn-success" value="Guardar" />
                                 </div>

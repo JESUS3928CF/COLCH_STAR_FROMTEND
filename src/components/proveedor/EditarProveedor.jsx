@@ -58,7 +58,7 @@ const EditarProveedor = () => {
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" id="editarCancelado" class="btn btn-danger"
+                                    <button type="button" id="editarCancelado" class="btn-c"
                                         data-bs-dismiss="modal">Cancelar</button>
                                     <input type="submit" id="GuardarEditarProveedor" class="btn btn-success" value="Guardar" />
                                 </div>
