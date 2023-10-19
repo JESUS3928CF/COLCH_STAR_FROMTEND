@@ -11,8 +11,8 @@ const Proveedores = () => {
     return (
         <div>
             <Navbar />
-           <ListarProveedores/>
-           <AgregarProveedor/>
+           <ListarProveedores />
+           <AgregarProveedor  />
            <EditarProveedor/>
            
 

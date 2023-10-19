@@ -11,7 +11,9 @@ import '../../css-general/table.min.css'
 
 
 
+
 const ListarProveedores = () => {
+
 
     // conexion para taer todo los atos de la base de datos
     const [proveedor, setProveedor] = useState([]);
@@ -25,6 +27,7 @@ const ListarProveedores = () => {
                 console.error('Error al obtener la lista de proveedores', error);
             })
     }, []);
+
 
 
     const contentStyle = {
@@ -51,8 +54,8 @@ const ListarProveedores = () => {
                     {/* boton de buscar */}
                     <div className={styles.buscador}>
                         <form className="d-flex" >
-                            <input id="barra-buscar" className="form-control me-2" type="search" placeholder="" aria-label="Search" />
-                            <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button>
+                            <input id="barra-buscar" className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
+                            {/* <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button> */}
 
                             <div id="resultados-container"></div>
                         </form>
@@ -64,14 +67,14 @@ const ListarProveedores = () => {
 
                 <div className="tabla">
                     <table className="table caption-top ">
-                        <caption>Lista de proveedores</caption>
+                        {/* <caption>Lista de proveedores</caption> */}
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Direccion</th>
-                                <th scope="col">Identificacion</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Identificación</th>
                                 <th scope="col">Inhabilitar</th>
                                 <th scope="col">Editar</th>
                             </tr>
@@ -84,10 +87,10 @@ const ListarProveedores = () => {
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
-                                    <td>{proveedor.identificacion}</td>
+                                    <td>{proveedor.identificador}</td>
                                     <td><img className="centrarIcono estado" src={proveedor.estado === true ? logon : logof} />
                                     </td>
-                                    <td><button type="button" className="btn btn-info" data-bs-toggle="modal"
+                                    <td><button type="button" className="btn-n" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
                                 </tr>
                             ))}

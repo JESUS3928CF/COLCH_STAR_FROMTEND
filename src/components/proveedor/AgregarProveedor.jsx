@@ -6,6 +6,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import styles from '../../pages/proveedores.module.css';
 import ListarProveedores from './ListarProveedores';
 
 
@@ -13,12 +14,14 @@ import ListarProveedores from './ListarProveedores';
 const AgregarProveedor = () => {
 
 
+
     const [proveedor, setProveedor] = useState({
         nombre: "",
         telefono: "",
         direccion: "",
-        identificacion: "",
+        identificador: "",
     });
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -30,13 +33,12 @@ const AgregarProveedor = () => {
         e.preventDefault()
         try {
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
-             navigate()
-             ListarProveedores()
+            navigate()
             const modal = document.getElementById("myModal");
-        const modalInstance = bootstrap.Modal.getInstance(modal);
-        modalInstance.hide();
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
 
-        
+            ListarProveedores()
         } catch (err) {
             console.log(err)
 
@@ -60,10 +62,9 @@ const AgregarProveedor = () => {
     //     }
     // }
 
-  
+
     return (
         <div>
-
 
             {/* modal agregar proveedor */}
 
@@ -83,12 +84,30 @@ const AgregarProveedor = () => {
                      cuando el usuario envíe el formulario */}
                             {/* onSubmit={handleSubmit} */}
                             <form action="" id="formularioAgregarProveedor">
+
+                                <div className="mb-3" name="divIdentificacion">
+                                    <label for="identificacionGuardar" className="col-form-label">Identificación:</label>
+                                    <br />
+                                    <div className={styles.identi}>
+                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
+                                            <option value="cedula">CC</option>
+                                            <option value="nit">NIT</option>
+                                        </select>
+                                        <input type="text" className="form-control "
+                                            id={styles.identificacionGuardar}
+                                            onChange={handleChange}
+                                            name="identificador"
+                                            placeholder=". . ."
+                                        />
+                                    </div>
+                                </div>
+
                                 <div className="mb-3" name="divNombre">
                                     <label for="nombreGuardar" className="col-form-label">Nombre:</label>
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
-                                        placeholder="Ingresar nombre"
+                                        placeholder=". . ."
                                         // value={nombre}
                                         // onChange={(e) => setNombre(e.target.value)}
                                         onChange={handleChange}
@@ -98,21 +117,20 @@ const AgregarProveedor = () => {
                                 </div>
                                 <div className="mb-3" name="divTelefono">
                                     <label for="telefonoGuardar" className="col-form-label">Teléfono:</label>
-                                    <input type="text" className="form-control" onChange={handleChange} name="telefono"
-                                        placeholder="Ingresar teléfono"
+                                    <input type="text"
+                                        className="form-control"
+                                        onChange={handleChange}
+                                        name="telefono"
+                                        placeholder=". . ."
                                     />
                                 </div>
                                 <div className="mb-3" name="divDireccion">
                                     <label for="direccionGuardar" className="col-form-label">Dirección:</label>
-                                    <input type="text" className="form-control" id="direccionGuardar"
+                                    <input type="text"
+                                        className="form-control"
+                                        id="direccionGuardar"
                                         onChange={handleChange}
-                                        name="direccion" placeholder="Ingresar dirección"
-                                    />
-                                </div>
-                                <div className="mb-3" name="divIdentificacion">
-                                    <label for="identificacionGuardar" className="col-form-label">Identificacion:</label>
-                                    <input type="text" className="form-control" id="identificacionGuardar" onChange={handleChange} name="identificacion"
-                                        placeholder="Ingresar su identificacion"
+                                        name="direccion" placeholder=". . ."
                                     />
                                 </div>
                                 <div className="modal-footer">
@@ -131,7 +149,7 @@ const AgregarProveedor = () => {
 
 
         </div>
-        
+
 
     )
 }
