@@ -9,11 +9,7 @@ import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 
-
-
-
 const ListarProveedores = () => {
-
 
     // conexion para taer todo los atos de la base de datos
     const [proveedor, setProveedor] = useState([]);
