@@ -137,6 +137,8 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 }
+
+/* boton de editar proveedores efecto al pararse sobre el */
 .btn-n:hover {
     color: #fff;
     background-color: #0f0e11;
@@ -148,7 +150,7 @@
   /* boton de agregar proveedo */
   .btn-a{
 
-    background: #28a745;
+    background: #47684e;
     color: white ;
     display: inline-block;
     font-weight: 400;
@@ -164,13 +166,14 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 }
+
 .btn-a:hover {
     color: #fff;
-    background-color: #24983f;
-    border-color: #24983f;
+    background-color: #3e5743;
+    border-color: #3e5743;
   }
 
-
+/* color de la barra del titulo del modal de agregar */
   .agregar{
     display: flex;
     align-items: flex-start;
@@ -180,6 +183,7 @@
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
   }
+
 
 /* formulario agregar */
 .agr{
@@ -229,6 +233,9 @@
   .edi .btn-close {
     color: #fff; /* Color del botón de cerrar */
   }
+  
+
+
   
 /* boton de cancelar */
   .btn-c{
