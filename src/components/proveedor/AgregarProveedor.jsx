@@ -16,6 +16,8 @@ const AgregarProveedor = () => {
 
 
     const [proveedor, setProveedor] = useState({
+        //estas propiedades vacio y luego setproveedor los llenara a la hora de agregar un proveedor
+
         nombre: "",
         telefono: "",
         direccion: "",
@@ -24,6 +26,11 @@ const AgregarProveedor = () => {
 
     const navigate = useNavigate()
 
+    //metodo para realizar el cambio por medio de setproveedor que lo manda a proveedor
+    // uando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
+    // [e.target.name] se utiliza como una clave dinámica para actualizar una propiedad del objeto con el nombre que coincide con e.target.name, 
+    // que generalmente se refiere al atributo name del elemento del formulario. e.target.value se usa para establecer el nuevo valor de esa propiedad.
+    
     const handleChange = (e) => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }

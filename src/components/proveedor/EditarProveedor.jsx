@@ -7,6 +7,8 @@ import styles from '../../pages/proveedores.module.css';
 
 const EditarProveedor = () => {
 
+    
+
 
 
     return (

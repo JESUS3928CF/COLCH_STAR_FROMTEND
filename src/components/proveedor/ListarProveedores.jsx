@@ -11,12 +11,15 @@ import '../../css-general/table.min.css'
 
 const ListarProveedores = () => {
 
-    // conexion para taer todo los atos de la base de datos
+
+    // conexion para taer todo los datos de la base de datos
     const [proveedor, setProveedor] = useState([]);
 
+    // solicitud  a la url
     useEffect(() => {
         axios.get('http://localhost:3000/api/proveedores')
             .then(response => {
+                // traeos los datos y se los mnadamos a proveedor, es decir set proveedor actualiza el estad de proveedor
                 setProveedor(response.data);
             })
             .catch(error => {
@@ -77,6 +80,7 @@ const ListarProveedores = () => {
                         </thead>
                         <tbody>
 
+                            {/* con los datos traidos por set proveedor se hace un mapeo */}
                             {proveedor.map(proveedor => (
                                 <tr key={proveedor.id}>
                                     <td>{proveedor.id_proveedor}</td>
