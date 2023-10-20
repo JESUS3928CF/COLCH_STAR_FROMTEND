@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
@@ -10,9 +9,7 @@ import styles from '../../pages/proveedores.module.css';
 
 
 
-
 const AgregarProveedor = () => {
-
 
 
     const [proveedor, setProveedor] = useState({
@@ -24,8 +21,6 @@ const AgregarProveedor = () => {
         identificador: "",
     });
 
-    const navigate = useNavigate()
-
     //metodo para realizar el cambio por medio de setproveedor que lo manda a proveedor
     // uando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
     // [e.target.name] se utiliza como una clave dinámica para actualizar una propiedad del objeto con el nombre que coincide con e.target.name, 
@@ -34,13 +29,26 @@ const AgregarProveedor = () => {
     const handleChange = (e) => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
+    //estado para el error que debe mostrar
+    const [nombreError, setNombreError] = useState("");
 
     const handleClick = async e => {
 
         e.preventDefault()
+
+        //validacion de nombre sea obligatorio
+        if (proveedor.nombre.trim() === "") {
+            setNombreError("El Nombre es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+        } else {
+            setNombreError(""); // Limpiar el mensaje de error si el campo es válido
+        }
+
+
         try {
+            // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
-            navigate()
+
             const modal = document.getElementById("myModal");
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
@@ -53,22 +61,6 @@ const AgregarProveedor = () => {
         }
     }
 
-    // const [nombre, setNombre] = useState('');
-    // const [nombreError, setNombreError] = useState('');
-
-    // // funcion que se ejecutara cuando le unda enviar al formulario
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     let valid = true;
-
-    //     // Validation for the 'nombre' field (required)
-    //     if (nombre.trim() === '') {
-    //         setNombreError('Nombre es requerido');
-    //         valid = false;
-    //     } else {
-    //         setNombreError('');
-    //     }
-    // }
 
 
     return (
@@ -115,13 +107,13 @@ const AgregarProveedor = () => {
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
-                                        placeholder=". . ."
-                                        // value={nombre}
-                                        // onChange={(e) => setNombre(e.target.value)}
+                                        placeholder=". . ." 
                                         onChange={handleChange}
 
                                     />
-                                    {/* <p className="error" style={{ color: 'red' }}>{nombreError}</p> */}
+                                    <p className="text-red-500">{nombreError}</p>
+                                    
+                
                                 </div>
                                 <div className="mb-3" name="divTelefono">
                                     <label for="telefonoGuardar" className="col-form-label">Teléfono:*</label>
