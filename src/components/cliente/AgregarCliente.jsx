@@ -46,7 +46,7 @@ const AgregarCliente = () => {
         <div class="modal" id="myModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header modal-head-agregar">
+                        <div class="agregar agr">
                             <h5 class="modal-title" id="exampleModalLabel">Agregar cliente</h5>
                             <button type="button" id="xAgregar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -81,7 +81,7 @@ const AgregarCliente = () => {
                                             </div>
                                         
                                             <div class="modal-footer">
-                                                <button type="button" id="guardarCancelado" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="button" id="guardarCancelado" class="btn-c" data-bs-dismiss="modal">Cancelar</button>
                                                 <input onClick={handleClick} type="submit" class="btn btn-success"  value="Guardar"/>
                                             </div>
                                         </form>
