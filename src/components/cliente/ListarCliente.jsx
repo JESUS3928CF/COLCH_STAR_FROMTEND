@@ -62,6 +62,7 @@ const ListarCliente = () => {
                                     <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
+                                    <th scope="col">Cedula</th>
                                     <th scope="col">Teléfono</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Dirección</th>
@@ -76,6 +77,7 @@ const ListarCliente = () => {
                                         <td>{cliente.id_cliente}</td>
                                         <td>{cliente.nombre}</td>
                                         <td>{cliente.apellido}</td>
+                                        <td>{cliente.cedula}</td>
                                         <td>{cliente.telefono}</td>
                                         <td>{cliente.email}</td>
                                         <td>{cliente.direccion}</td>
