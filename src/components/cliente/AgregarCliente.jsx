@@ -6,6 +6,7 @@ import '../../css-general/table.min.css'
 
 
 const AgregarCliente = () => {
+    //hola
   return (
     <div>
         <div class="modal" id="myModal">
