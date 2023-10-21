@@ -9,7 +9,38 @@ import '../../css-general/table.min.css'
 
 
 const AgregarCliente = () => {
-    //hola
+    const [cliente, setCliente] = useState({
+        nombre: "",
+        apellido: "",
+        cedula: "",
+        telefono: "",
+        email : "",
+        direccion: "",
+    });
+
+    const navigate = useNavigate()
+
+    const handleChange = (e) => {
+        setCliente(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleClick = async e => {
+
+        e.preventDefault()
+        try {
+            await axios.post("http://localhost:3000/api/clientes", cliente)
+            navigate()
+            const modal = document.getElementById("myModal");
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+
+            location.reload();
+
+        } catch (err) {
+            console.log(err)
+
+        }
+    }
   return (
     <div>
         <div class="modal" id="myModal">
