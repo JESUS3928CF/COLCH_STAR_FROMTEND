@@ -29,8 +29,8 @@ const AgregarProveedor = () => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    
-        //PARA LAS VALIDACIONES
+
+    //PARA LAS VALIDACIONES
     //set le pasa el mensaje de validacion a Error
     const [nombreError, setNombreError] = useState("");
     const [telefonoError, setTelefonoError] = useState("");
@@ -41,7 +41,31 @@ const AgregarProveedor = () => {
     const handleClick = async e => {
 
         e.preventDefault()
-        
+
+        // validacion de nombre sea obligatorio
+        if (proveedor.nombre.trim() === "") {
+            setNombreError("El Nombre es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+
+        } else {
+            setNombreError("");
+        }
+        // validacion de telefono sea obligatorio   
+        if (proveedor.telefono.trim() === "") {
+            setTelefonoError("El Telefono es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+        } else {
+            setTelefonoError("")
+        }
+        // validacion de direccion sea obligatorio
+        if (proveedor.direccion.trim() === "") {
+            setDireccionError("La Direecion es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+        } else {
+            setDireccionError("")// Limpiar el mensaje de error si el campo es válido
+        }
+
+
         try {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
@@ -58,24 +82,7 @@ const AgregarProveedor = () => {
         }
 
 
-        // validacion de nombre sea obligatorio
-        if (proveedor.nombre.trim() === "") {
-            setNombreError("El Nombre es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
 
-        }else if (proveedor.telefono.trim() === "") {
-            setTelefonoError("El Telefono es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-
-        }else if (proveedor.direccion.trim() === "") {
-            setDireccionError("La Direecion es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-
-        } else {
-            setNombreError(""); 
-            setTelefonoError("")
-            setDireccionError("")// Limpiar el mensaje de error si el campo es válido
-        }
     }
 
 
@@ -98,7 +105,7 @@ const AgregarProveedor = () => {
 
 
                             {/* formulario para agregar proveedor */}
-  
+
                             <form action="" id="formularioAgregarProveedor">
 
                                 <div className="mb-3" name="divIdentificacion">
@@ -114,7 +121,7 @@ const AgregarProveedor = () => {
                                             onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
-                                            
+
                                         />
                                     </div>
                                 </div>
@@ -124,14 +131,15 @@ const AgregarProveedor = () => {
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
-                                        placeholder=". . ." 
+                                        placeholder=". . ."
                                         onChange={handleChange}
-                                        
+
 
                                     />
-                                    <p className="text-red-500">{nombreError}</p>
-                                    
-                
+                                    {/* en esta etiqueta va salir el error de validacion  */}
+                                    <p className="text-red-500" style={{fontSize:14}}>{nombreError}</p>
+
+
                                 </div>
                                 <div className="mb-3" name="divTelefono">
                                     <label for="telefonoGuardar" className="col-form-label">Teléfono:*</label>
@@ -141,7 +149,8 @@ const AgregarProveedor = () => {
                                         name="telefono"
                                         placeholder=". . ."
                                     />
-                                    <p className="text-red-500">{telefonoError}</p>
+                                    {/* en esta etiqueta va salir el error de validacion  */}
+                                    <p className="text-red-500" style={{fontSize:14}}>{telefonoError}</p>
 
                                 </div>
 
@@ -153,7 +162,8 @@ const AgregarProveedor = () => {
                                         onChange={handleChange}
                                         name="direccion" placeholder=". . ."
                                     />
-                                    <p className="text-red-500">{direccionError}</p>
+                                    {/* en esta etiqueta va salir el error de validacion  */}
+                                    <p className="text-red-500" style={{fontSize:14}}>{direccionError}</p> 
 
                                 </div>
                                 <div className="modal-footer">
