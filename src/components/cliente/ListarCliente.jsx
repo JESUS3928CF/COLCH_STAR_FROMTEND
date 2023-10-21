@@ -10,7 +10,7 @@ import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 
 const ListarCliente = () => {
-
+// hola
     const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
