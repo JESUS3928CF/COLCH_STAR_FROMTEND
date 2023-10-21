@@ -8,43 +8,40 @@ import '../../css-general/table.min.css'
 import styles from '../../pages/proveedores.module.css';
 
 
-
+//COMPONENTE
 const AgregarProveedor = () => {
 
 
     const [proveedor, setProveedor] = useState({
-        //estas propiedades vacio y luego setproveedor los llenara a la hora de agregar un proveedor
-
+        //estas propiedades  estan vacias  y luego setproveedor los llenara a la hora de agregar un proveedor
         nombre: "",
         telefono: "",
         direccion: "",
         identificador: "",
     });
 
+
     //metodo para realizar el cambio por medio de setproveedor que lo manda a proveedor
     // uando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
-    // [e.target.name] se utiliza como una clave dinámica para actualizar una propiedad del objeto con el nombre que coincide con e.target.name, 
-    // que generalmente se refiere al atributo name del elemento del formulario. e.target.value se usa para establecer el nuevo valor de esa propiedad.
-    
+    // [e.target.name] se utiliza  para actualizar una propiedad del objeto con el  atributo name del elemento del formulario.
+    //  e.target.value se usa para establecer el nuevo valor de esa propiedad.    
     const handleChange = (e) => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    //estado para el error que debe mostrar
+
+    
+        //PARA LAS VALIDACIONES
+    //set le pasa el mensaje de validacion a Error
     const [nombreError, setNombreError] = useState("");
+    const [telefonoError, setTelefonoError] = useState("");
+    const [direccionError, setDireccionError] = useState("");
+
+
 
     const handleClick = async e => {
 
         e.preventDefault()
-
-        //validacion de nombre sea obligatorio
-        if (proveedor.nombre.trim() === "") {
-            setNombreError("El Nombre es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setNombreError(""); // Limpiar el mensaje de error si el campo es válido
-        }
-
-
+        
         try {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
@@ -53,11 +50,31 @@ const AgregarProveedor = () => {
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
 
-            location.reload();
+            Window.location.reload();
 
         } catch (err) {
             console.log(err)
 
+        }
+
+
+        // validacion de nombre sea obligatorio
+        if (proveedor.nombre.trim() === "") {
+            setNombreError("El Nombre es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+
+        }else if (proveedor.telefono.trim() === "") {
+            setTelefonoError("El Telefono es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+
+        }else if (proveedor.direccion.trim() === "") {
+            setDireccionError("La Direecion es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+
+        } else {
+            setNombreError(""); 
+            setTelefonoError("")
+            setDireccionError("")// Limpiar el mensaje de error si el campo es válido
         }
     }
 
@@ -78,11 +95,10 @@ const AgregarProveedor = () => {
                         </div>
                         <div className="modal-body">
 
-                            {/* formulario para agregar proveedor */}
 
-                            {/* El atributo onSubmit se coloca en un formulario de React para especificar la función que se ejecutará
-                     cuando el usuario envíe el formulario */}
-                            {/* onSubmit={handleSubmit} */}
+
+                            {/* formulario para agregar proveedor */}
+  
                             <form action="" id="formularioAgregarProveedor">
 
                                 <div className="mb-3" name="divIdentificacion">
@@ -98,6 +114,7 @@ const AgregarProveedor = () => {
                                             onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
+                                            
                                         />
                                     </div>
                                 </div>
@@ -109,6 +126,7 @@ const AgregarProveedor = () => {
                                         name="nombre"
                                         placeholder=". . ." 
                                         onChange={handleChange}
+                                        
 
                                     />
                                     <p className="text-red-500">{nombreError}</p>
@@ -123,7 +141,10 @@ const AgregarProveedor = () => {
                                         name="telefono"
                                         placeholder=". . ."
                                     />
+                                    <p className="text-red-500">{telefonoError}</p>
+
                                 </div>
+
                                 <div className="mb-3" name="divDireccion">
                                     <label for="direccionGuardar" className="col-form-label">Dirección:*</label>
                                     <input type="text"
@@ -132,6 +153,8 @@ const AgregarProveedor = () => {
                                         onChange={handleChange}
                                         name="direccion" placeholder=". . ."
                                     />
+                                    <p className="text-red-500">{direccionError}</p>
+
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn-c" data-bs-dismiss="modal"
@@ -144,12 +167,7 @@ const AgregarProveedor = () => {
                 </div>
             </div>
 
-
-
-
-
         </div>
-
 
     )
 }
