@@ -27,6 +27,7 @@ const AgregarProveedor = () => {
     //  e.target.value se usa para establecer el nuevo valor de esa propiedad.    
     const handleChange = (e) => {
         setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
     }
 
 
@@ -69,12 +70,12 @@ const AgregarProveedor = () => {
         try {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
-
+            //luego de darle guardar se cierre el modal
             const modal = document.getElementById("myModal");
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
-
-            Window.location.reload();
+            //cuando se cierra el modal se refreca la agina
+            location.reload();
 
         } catch (err) {
             console.log(err)
