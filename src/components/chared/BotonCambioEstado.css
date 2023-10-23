@@ -7,13 +7,13 @@
     -webkit-box-pack: center;
     justify-content: center;
     margin: auto;
-    height: 53px; 
+    height: 50px; 
 }
 
 .switch-button .switch-outer {
     height: 73%;
     background: #252532;
-    width: 80px;
+    width: 85px;
     border-radius: 165px;
     -webkit-box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
     box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
@@ -56,7 +56,7 @@
 }
 
 .switch-button .switch-outer input[type="checkbox"]:checked+.button .button-toggle {
-    left: 58%;
+    left: 65%;
 }
 
 .switch-button .switch-outer input[type="checkbox"]:checked+.button .button-indicator {
@@ -85,7 +85,7 @@
     border: 3px solid #ef565f;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    right: 10px;
+    right: 2px;
     position: relative;
 }
 
@@ -101,7 +101,7 @@
     100% {
         opacity: 1;
         border: 3px solid #60d480;
-        left: -68%;
+        left: -62%;
     }
 }
 
@@ -117,6 +117,6 @@
     100% {
         opacity: 1;
         border: 3px solid #60d480;
-        left: -68%;
+        left: -62%;
     }
 }
