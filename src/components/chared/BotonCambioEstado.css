@@ -7,13 +7,13 @@
     -webkit-box-pack: center;
     justify-content: center;
     margin: auto;
-    height: 50px; 
+    height: 45px; 
 }
 
 .switch-button .switch-outer {
     height: 73%;
     background: #252532;
-    width: 85px;
+    width: 80px;
     border-radius: 165px;
     -webkit-box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
     box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
@@ -35,8 +35,8 @@
 
 /** Circulo del centro */
 .switch-button .switch-outer .button-toggle {
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
     background: -webkit-gradient(linear,
             left top,
             left bottom,
@@ -56,7 +56,7 @@
 }
 
 .switch-button .switch-outer input[type="checkbox"]:checked+.button .button-toggle {
-    left: 65%;
+    left: 69%;
 }
 
 .switch-button .switch-outer input[type="checkbox"]:checked+.button .button-indicator {
@@ -76,8 +76,8 @@
 }
 
 .switch-button .switch-outer .button-indicator {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -117,6 +117,6 @@
     100% {
         opacity: 1;
         border: 3px solid #60d480;
-        left: -62%;
+        left: -69%;
     }
 }

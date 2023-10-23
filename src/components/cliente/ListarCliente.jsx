@@ -8,6 +8,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import BotonCambioEstado from '../chared/BotonCambioEstado';
 
 const ListarCliente = () => {
 // hola
@@ -23,7 +24,7 @@ const ListarCliente = () => {
             .catch(error => {
                 console.error('Error al obtener la lista de clientes:', error);
             });
-    }, []);
+    }, [clientes]);
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
@@ -82,7 +83,7 @@ const ListarCliente = () => {
                                         <td>{cliente.email}</td>
                                         <td>{cliente.direccion}</td>
                                         <td>
-                                            <img className="centrarIcono estado" src={cliente.estado === true ? logon : logof} />
+                                            <BotonCambioEstado/>
                                         </td>
                                         <td>
                                             <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
