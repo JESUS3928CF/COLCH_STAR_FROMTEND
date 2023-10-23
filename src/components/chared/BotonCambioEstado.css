@@ -7,13 +7,13 @@
     -webkit-box-pack: center;
     justify-content: center;
     margin: auto;
-    height: 55px; 
+    height: 53px; 
 }
 
 .switch-button .switch-outer {
     height: 73%;
     background: #252532;
-    width: 90px;
+    width: 80px;
     border-radius: 165px;
     -webkit-box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
     box-shadow: inset 0px 5px 10px 0px #16151c, 0px 3px 6px -2px #403f4e;
@@ -35,8 +35,8 @@
 
 /** Circulo del centro */
 .switch-button .switch-outer .button-toggle {
-    height: 26px;
-    width: 26px;
+    height: 24px;
+    width: 24px;
     background: -webkit-gradient(linear,
             left top,
             left bottom,
