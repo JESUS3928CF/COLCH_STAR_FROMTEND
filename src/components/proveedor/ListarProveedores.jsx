@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import logof from '../../imgNavbar/light_switch off.svg';
@@ -8,11 +7,12 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import BotonCambioEstado from '../chared/BotonCambioEstado';
 
 const ListarProveedores = () => {
 
 
-    // conexion para taer todo los datos de la base de datos
+    // conexión para traer todos los datos de la base de datos
     const [proveedor, setProveedor] = useState([]);
 
     // solicitud  a la url
@@ -25,7 +25,7 @@ const ListarProveedores = () => {
             .catch(error => {
                 console.error('Error al obtener la lista de proveedores', error);
             })
-    }, []);
+    }, [proveedor]);
 
 
 
@@ -41,7 +41,7 @@ const ListarProveedores = () => {
 
                 <h1 className="titulo">Proveedores</h1>
 
-                {/* boton agregar */}
+                {/* botón agregar */}
 
                 <div className="container-fluid seccion2" style={{ width: 0 }}>
 
@@ -50,7 +50,7 @@ const ListarProveedores = () => {
                             proveedor</button>
                     </div>
 
-                    {/* boton de buscar */}
+                    {/* botón de buscar */}
                     <div className={styles.buscador}>
                         <form className="d-flex" >
                             <input id="barra-buscar" className="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
@@ -88,7 +88,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
-                                    <td><img className="centrarIcono estado" src={proveedor.estado === true ? logon : logof} />
+                                    <td> <BotonCambioEstado/>
                                     </td>
                                     <td><button type="button" className="btn-n" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>

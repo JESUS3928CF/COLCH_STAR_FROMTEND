@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from 'axios'
 import { useState } from 'react';
 import '../../css-general/cssgeneral.css'
@@ -21,8 +20,8 @@ const AgregarProveedor = () => {
     });
 
 
-    //metodo para realizar el cambio por medio de setproveedor que lo manda a proveedor
-    // uando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
+    //método para realizar el cambio por medio de setproveedor que lo manda a proveedor
+    // usando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
     // [e.target.name] se utiliza  para actualizar una propiedad del objeto con el  atributo name del elemento del formulario.
     //  e.target.value se usa para establecer el nuevo valor de esa propiedad.    
     const handleChange = (e) => {
@@ -32,7 +31,7 @@ const AgregarProveedor = () => {
 
 
     //PARA LAS VALIDACIONES
-    //set le pasa el mensaje de validacion a Error
+    //set le pasa el mensaje de validación a Error
     const [nombreError, setNombreError] = useState("");
     const [telefonoError, setTelefonoError] = useState("");
     const [direccionError, setDireccionError] = useState("");
@@ -43,7 +42,7 @@ const AgregarProveedor = () => {
 
         e.preventDefault()
 
-        // validacion de nombre sea obligatorio
+        // validación de nombre sea obligatorio
         if (proveedor.nombre.trim() === "") {
             setNombreError("El Nombre es obligatorio");
             return; // No se envía la solicitud si el campo está vacío
@@ -51,9 +50,9 @@ const AgregarProveedor = () => {
         } else {
             setNombreError("");
         }
-        // validacion de telefono sea obligatorio   
+        // validación de teléfono sea obligatorio   
         if (proveedor.telefono.trim() === "") {
-            setTelefonoError("El Telefono es obligatorio");
+            setTelefonoError("El Teléfono es obligatorio");
             return; // No se envía la solicitud si el campo está vacío
         } else {
             setTelefonoError("")
@@ -74,9 +73,6 @@ const AgregarProveedor = () => {
             const modal = document.getElementById("myModal");
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide();
-            //cuando se cierra el modal se refreca la agina
-            location.reload();
-
         } catch (err) {
             console.log(err)
 
@@ -110,7 +106,7 @@ const AgregarProveedor = () => {
                             <form action="" id="formularioAgregarProveedor">
 
                                 <div className="mb-3" name="divIdentificacion">
-                                    <label for="identificacionGuardar" className="col-form-label">Identificación:</label>
+                                    <label htmlFor="identificacionGuardar" className="col-form-label">Identificación:</label>
                                     <br />
                                     <div className={styles.identi}>
                                         <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
@@ -128,7 +124,7 @@ const AgregarProveedor = () => {
                                 </div>
 
                                 <div className="mb-3" name="divNombre">
-                                    <label for="nombreGuardar" className="col-form-label">Nombre:*</label>
+                                    <label htmlFor="nombreGuardar" className="col-form-label">Nombre:*</label>
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
@@ -143,7 +139,7 @@ const AgregarProveedor = () => {
 
                                 </div>
                                 <div className="mb-3" name="divTelefono">
-                                    <label for="telefonoGuardar" className="col-form-label">Teléfono:*</label>
+                                    <label htmlFor="telefonoGuardar" className="col-form-label">Teléfono:*</label>
                                     <input type="text"
                                         className="form-control"
                                         onChange={handleChange}
@@ -156,14 +152,14 @@ const AgregarProveedor = () => {
                                 </div>
 
                                 <div className="mb-3" name="divDireccion">
-                                    <label for="direccionGuardar" className="col-form-label">Dirección:*</label>
+                                    <label htmlFor="direccionGuardar" className="col-form-label">Dirección:*</label>
                                     <input type="text"
                                         className="form-control"
                                         id="direccionGuardar"
                                         onChange={handleChange}
                                         name="direccion" placeholder=". . ."
                                     />
-                                    {/* en esta etiqueta va salir el error de validacion  */}
+                                    {/* en esta etiqueta va salir el error de validación  */}
                                     <p className="text-red-500" style={{fontSize:14}}>{direccionError}</p> 
 
                                 </div>

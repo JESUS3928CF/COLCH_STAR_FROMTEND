@@ -14,8 +14,6 @@ const Proveedores = () => {
            <ListarProveedores />
            <AgregarProveedor  />
            <EditarProveedor/>
-           
-
         </div>
 
     );
