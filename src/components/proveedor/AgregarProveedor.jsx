@@ -31,7 +31,7 @@ const AgregarProveedor = () => {
 
 
     //PARA LAS VALIDACIONES
-    //set le pasa el mensaje de validación a Error
+    //set le pasa el mensaje de validación a Error 
     const [nombreError, setNombreError] = useState("");
     const [telefonoError, setTelefonoError] = useState("");
     const [direccionError, setDireccionError] = useState("");
@@ -75,20 +75,15 @@ const AgregarProveedor = () => {
             modalInstance.hide();
         } catch (err) {
             console.log(err)
-
         }
 
-
-
     }
-
 
 
     return (
         <div>
 
             {/* modal agregar proveedor */}
-
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
                     <div className="modal-content">
@@ -102,7 +97,6 @@ const AgregarProveedor = () => {
 
 
                             {/* formulario para agregar proveedor */}
-
                             <form action="" id="formularioAgregarProveedor">
 
                                 <div className="mb-3" name="divIdentificacion">
@@ -118,7 +112,6 @@ const AgregarProveedor = () => {
                                             onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
-
                                         />
                                     </div>
                                 </div>
@@ -130,14 +123,12 @@ const AgregarProveedor = () => {
                                         name="nombre"
                                         placeholder=". . ."
                                         onChange={handleChange}
-
-
                                     />
                                     {/* en esta etiqueta va salir el error de validacion  */}
-                                    <p className="text-red-500" style={{fontSize:14}}>{nombreError}</p>
-
+                                    <p className="text-red-500" style={{ fontSize: 14 }}>{nombreError}</p>
 
                                 </div>
+
                                 <div className="mb-3" name="divTelefono">
                                     <label htmlFor="telefonoGuardar" className="col-form-label">Teléfono:*</label>
                                     <input type="text"
@@ -147,7 +138,7 @@ const AgregarProveedor = () => {
                                         placeholder=". . ."
                                     />
                                     {/* en esta etiqueta va salir el error de validacion  */}
-                                    <p className="text-red-500" style={{fontSize:14}}>{telefonoError}</p>
+                                    <p className="text-red-500" style={{ fontSize: 14 }}>{telefonoError}</p>
 
                                 </div>
 
@@ -160,9 +151,10 @@ const AgregarProveedor = () => {
                                         name="direccion" placeholder=". . ."
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
-                                    <p className="text-red-500" style={{fontSize:14}}>{direccionError}</p> 
+                                    <p className="text-red-500" style={{ fontSize: 14 }}>{direccionError}</p>
 
                                 </div>
+
                                 <div className="modal-footer">
                                     <button type="button" className="btn-c" data-bs-dismiss="modal"
                                         id="guardarCancelado">Cancelar</button>
