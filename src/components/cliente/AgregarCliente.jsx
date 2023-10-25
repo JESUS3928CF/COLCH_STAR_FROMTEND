@@ -38,51 +38,64 @@ const AgregarCliente = () => {
 
         e.preventDefault()
 
-         // Validación de nombre para que contenga al menos una letra y espacios en blanco
-        const nameRegex = /[A-Za-z]+/;
+         // Validación de nombre para que contenga al menos una letra 
+         const nameRegex = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
 
-        if (!cliente.nombre.match(nameRegex)) {
-            setNombreError("El Nombre debe contener solo letras");
-            return;
-        } else {
-            setNombreError("");
-        }
+         if (!cliente.nombre) {
+           setNombreError("El Nombre es obligatorio");
+         } else if (!nameRegex.test(cliente.nombre)) {
+           setNombreError("El Nombre debe contener solo letras");
+         } else {
+           setNombreError("");
+         }
+         
+
 
         // Validación del apellido para que solo contenga letras
-        if (!cliente.apellido.match(nameRegex)) {
-            setApellidoError("El Apellido debe contener solo letras");
-            return;
+        if (!cliente.apellido) {
+        setApellidoError("El Apellido es obligatorio");
+        } else if (!nameRegex.test(cliente.apellido)) {
+        setApellidoError("El Apellido debe contener solo letras");
+        } else {
+        setApellidoError("");
         }
+
 
         // Validación de cédula para que sea un número y tenga una longitud entre 7 y 11 caracteres
         const cedulaRegex = /^\d+$/;
 
-        if (!cliente.cedula.match(cedulaRegex) || cliente.cedula.length < 7 || cliente.cedula.length > 11) {
-            setCedulaError("La Cédula debe contener solo números y tener entre 7 y 11 caracteres");
-            return;
+        if (!cliente.cedula) {
+        setCedulaError("La Cédula es obligatoria");
+        } else if (!cliente.cedula.match(cedulaRegex) || cliente.cedula.length < 7 || cliente.cedula.length > 11) {
+        setCedulaError("La Cédula debe contener solo números y tener entre 7 y 11 digitos");
         } else {
-            setCedulaError("");
+        setCedulaError("");
         }
+
 
         // Validación de teléfono para que contenga solo números y esté entre 7 y 11 dígitos
         const telefonoRegex = /^\d+$/;
 
-        if (!cliente.telefono.match(telefonoRegex) || cliente.telefono.length < 7 || cliente.telefono.length > 11) {
-            setTelefonoError("El Teléfono debe contener solo números y tener entre 7 y 11 dígitos");
-            return;
+        if (!cliente.telefono) {
+          setTelefonoError("El Teléfono es obligatorio");
+        } else if (!cliente.telefono.match(telefonoRegex) || cliente.telefono.length < 7 || cliente.telefono.length > 11) {
+          setTelefonoError("El Teléfono debe contener solo números y tener entre 7 y 11 dígitos");
         } else {
-            setTelefonoError("");
+          setTelefonoError("");
         }
+        
 
          // Validación del formato del correo electrónico
          const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-         if (!cliente.email.match(emailRegex)) {
-             setEmailError("El Email no tiene un formato válido");
-             return;
-         } else {
-             setEmailError("");
-         }
+        if (!cliente.email) {
+        setEmailError("El Email es obligatorio");
+        } else if (!cliente.email.match(emailRegex)) {
+        setEmailError("El Email no tiene un formato válido");
+        } else {
+        setEmailError("");
+        }
+
 
          // Validación de dirección para que no esté vacía y tenga un mínimo de 5 caracteres
         if (cliente.direccion.trim() === "" || cliente.direccion.length < 5) {
