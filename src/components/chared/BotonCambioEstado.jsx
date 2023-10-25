@@ -16,7 +16,7 @@ const BotonCambioEstado = ({id}) => {
 };
 
 //* Definimos los propTypes de este componente
-BotonCambioEstado.PropTypes = {
+BotonCambioEstado.propTypes = {
     id: PropTypes.number.isRequired,
 }
 
