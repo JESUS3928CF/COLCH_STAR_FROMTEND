@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import logof from '../../imgNavbar/light_switch off.svg';
-import logon from '../../imgNavbar/light_switch on.svg';
 import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
@@ -9,17 +7,17 @@ import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 
+
 const ListarProveedores = () => {
 
-
-    // conexión para traer todos los datos de la base de datos
+    // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
     const [proveedor, setProveedor] = useState([]);
 
     // solicitud  a la url
     useEffect(() => {
         axios.get('http://localhost:3000/api/proveedores')
             .then(response => {
-                // traeos los datos y se los mnadamos a proveedor, es decir set proveedor actualiza el estad de proveedor
+                // traeos los datos y se los mnadamos a proveedor, es decir set proveedor actualiza el estado de proveedor
                 setProveedor(response.data);
             })
             .catch(error => {
@@ -33,16 +31,16 @@ const ListarProveedores = () => {
         marginLeft: '260px', // Ancho del Navbar
     };
 
+
     return (
         <div>
             <div style={contentStyle} className='contenedor'>
 
                 {/* titulo */}
-
                 <h1 className="titulo">Proveedores</h1>
 
-                {/* botón agregar */}
 
+                {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }}>
 
                     <div className={styles.ap}>
@@ -59,13 +57,12 @@ const ListarProveedores = () => {
                             <div id="resultados-container"></div>
                         </form>
                     </div>
-
                 </div>
 
                 {/* tabla  para listar el proveedor */}
-
                 <div className="tabla">
                     <table className="table caption-top ">
+
                         {/* <caption>Lista de proveedores</caption> */}
                         <thead>
                             <tr>
@@ -88,7 +85,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
-                                    <td> <BotonCambioEstado/>
+                                    <td> <BotonCambioEstado />
                                     </td>
                                     <td><button type="button" className="btn-n" data-bs-toggle="modal"
                                         data-bs-target="#modalEditar">Editar</button></td>
@@ -97,7 +94,6 @@ const ListarProveedores = () => {
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
 
