@@ -43,33 +43,43 @@ const AgregarCliente = () => {
 
          if (!cliente.nombre) {
            setNombreError("El Nombre es obligatorio");
-         } else if (!nameRegex.test(cliente.nombre)) {
-           setNombreError("El Nombre debe contener solo letras");
          } else {
-           setNombreError("");
-         }
+           // Utiliza trim() para eliminar espacios en blanco al principio y al final del nombre.
+           const nombreSinEspacios = cliente.nombre.trim();
          
+           if (!nameRegex.test(nombreSinEspacios)) {
+             setNombreError("El Nombre debe contener solo letras");
+           } else {
+             setNombreError("");
+           }
+         }         
 
 
         // Validación del apellido para que solo contenga letras
         if (!cliente.apellido) {
-        setApellidoError("El Apellido es obligatorio");
-        } else if (!nameRegex.test(cliente.apellido)) {
-        setApellidoError("El Apellido debe contener solo letras");
-        } else {
-        setApellidoError("");
-        }
+            setApellidoError("El Apellido es obligatorio");
+          } else {
+            const apellidoSinEspacios = cliente.apellido.trim();
+            if (!nameRegex.test(apellidoSinEspacios)) {
+              setApellidoError("El Apellido debe contener solo letras");
+            } else {
+              setApellidoError("");
+            }
+          }
 
-
+          
         // Validación de cédula para que sea un número y tenga una longitud entre 7 y 11 caracteres
         const cedulaRegex = /^\d+$/;
 
         if (!cliente.cedula) {
         setCedulaError("La Cédula es obligatoria");
-        } else if (!cliente.cedula.match(cedulaRegex) || cliente.cedula.length < 7 || cliente.cedula.length > 11) {
-        setCedulaError("La Cédula debe contener solo números y tener entre 7 y 11 digitos");
         } else {
-        setCedulaError("");
+        const cedulaSinEspacios = cliente.cedula.trim();
+        if (!cedulaSinEspacios.match(cedulaRegex) || cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
+            setCedulaError("La Cédula debe contener solo números y tener entre 7 y 11 dígitos");
+        } else {
+            setCedulaError("");
+        }
         }
 
 
@@ -77,29 +87,37 @@ const AgregarCliente = () => {
         const telefonoRegex = /^\d+$/;
 
         if (!cliente.telefono) {
-          setTelefonoError("El Teléfono es obligatorio");
-        } else if (!cliente.telefono.match(telefonoRegex) || cliente.telefono.length < 7 || cliente.telefono.length > 11) {
-          setTelefonoError("El Teléfono debe contener solo números y tener entre 7 y 11 dígitos");
+        setTelefonoError("El Teléfono es obligatorio");
         } else {
-          setTelefonoError("");
+        const telefonoSinEspacios = cliente.telefono.trim();
+        if (!telefonoSinEspacios.match(telefonoRegex) || telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+            setTelefonoError("El Teléfono debe contener solo números y tener entre 7 y 11 dígitos");
+        } else {
+            setTelefonoError("");
         }
+        }
+
         
 
          // Validación del formato del correo electrónico
          const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-        if (!cliente.email) {
-        setEmailError("El Email es obligatorio");
-        } else if (!cliente.email.match(emailRegex)) {
-        setEmailError("El Email no tiene un formato válido");
-        } else {
-        setEmailError("");
-        }
+         if (!cliente.email) {
+           setEmailError("El Email es obligatorio");
+         } else {
+           const emailSinEspacios = cliente.email.trim();
+           if (!emailSinEspacios.match(emailRegex)) {
+             setEmailError("El Email no tiene un formato válido");
+           } else {
+             setEmailError("");
+           }
+         }
+         
 
 
          // Validación de dirección para que no esté vacía y tenga un mínimo de 5 caracteres
         if (cliente.direccion.trim() === "" || cliente.direccion.length < 5) {
-            setDireccionError("La Dirección es obligatoria y debe tener al menos 5 caracteres");
+            setDireccionError("La Dirección es obligatoria");
             return;
         } else {
             setDireccionError("");
