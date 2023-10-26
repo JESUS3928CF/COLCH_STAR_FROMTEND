@@ -1,7 +1,8 @@
-import diseno from '../../imgNavbar/1153861.png';
+import PropTypes from 'prop-types';
+
 import HeaderModals from '../chared/HeaderModals';
 
-export const DetalleDiseno = () => {
+export const DetalleDiseno = ( {detalleDiseno} ) => {
     return (
         <div className='modal' id='modalDetalles'>
             <div className='modal-dialog modal-dialog-centered'>
@@ -10,11 +11,14 @@ export const DetalleDiseno = () => {
                     <div className='formulario'>
                         <div className='modal-body'>
                             <div className='container'>
-                                <div className='col'> 
+                                <div className='col'>
                                     <div className='row'>
                                         <div>
                                             <img
-                                                src={diseno}
+                                                src={`${
+                                                    import.meta.env
+                                                        .VITE_BACKEND_URL
+                                                }/${detalleDiseno.imagen}`}
                                                 width='400px'
                                                 height='250px'
                                                 alt=''
@@ -29,4 +33,8 @@ export const DetalleDiseno = () => {
             </div>
         </div>
     );
+};
+
+DetalleDiseno.propTypes = {
+    detalleDiseno: PropTypes.object.isRequired,
 };

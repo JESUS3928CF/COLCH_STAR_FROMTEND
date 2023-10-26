@@ -1,8 +1,10 @@
-import CancelarModal from "../chared/CancelarModal";
-import GuardarModal from "../chared/GuardarModal";
-import HeaderModals from "../chared/HeaderModals";
+import PropTypes from 'prop-types';
 
-const EditarDiseno = () => {
+import CancelarModal from '../chared/CancelarModal';
+import GuardarModal from '../chared/GuardarModal';
+import HeaderModals from '../chared/HeaderModals';
+
+const EditarDiseno = ({detalleDiseno}) => {
     return (
         <div className='modal' id='modalDiseño'>
             <div className='modal-dialog modal-dialog-centered'>
@@ -19,6 +21,7 @@ const EditarDiseno = () => {
                                     Nombre:
                                 </label>
                                 <input
+                                    value={detalleDiseno.nombre}
                                     type='text'
                                     className='form-control'
                                     placeholder='. . .'
@@ -46,8 +49,8 @@ const EditarDiseno = () => {
                                     className='form-control'
                                     name='selectRol'
                                 >
-                                    <option value='true'>Si</option>
-                                    <option value='false'>No</option>
+                                    <option value='true' selected={detalleDiseno.publicado === true}>Si</option>
+                                    <option value='false' selected={detalleDiseno.publicado === false}>No</option>
                                 </select>
                             </div>
 
@@ -64,6 +67,10 @@ const EditarDiseno = () => {
             </div>
         </div>
     );
+};
+
+EditarDiseno.propTypes = {
+    detalleDiseno: PropTypes.object.isRequired,
 };
 
 export default EditarDiseno;

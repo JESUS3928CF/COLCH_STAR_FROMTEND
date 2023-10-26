@@ -10,8 +10,6 @@ import PrecioDiseno from '../components/diseños/PrecioDiseno';
 
 
 import ListarDisenos from '../components/diseños/ListarDisenos';
-import EditarDiseno from '../components/diseños/EditarDiseno';
-import { DetalleDiseno } from '../components/diseños/DetalleDiseno';
 
 export const Diseno = () => {
     const contentStyle = {
@@ -55,11 +53,9 @@ export const Diseno = () => {
                 {/* Tabla para listar diseños */}
                 <ListarDisenos />
 
-                {/* <!-- modal para editar diseño --> */}
-                <EditarDiseno />
+                
 
-                {/* <!-- ver detalle de productos --> */}
-                <DetalleDiseno />
+                
             </div>
         </div>
     );

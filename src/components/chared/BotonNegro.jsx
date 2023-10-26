@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta }) => {
+const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta, onClick }) => {
     if (quieresAbrirRuta) {
         return (
             <button
@@ -20,6 +20,7 @@ const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta }) => {
             data-bs-toggle='modal'
             data-bs-target={modalToOpen}
             style={{ backgroundColor: '#252432' }}
+            onClick={onClick}
         >
             {text}
         </button>
@@ -31,7 +32,8 @@ const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta }) => {
 BotonNegro.propTypes = {
     text: PropTypes.string.isRequired,
     quieresAbrirRuta: PropTypes.bool,
-    modalToOpen: PropTypes.string
+    modalToOpen: PropTypes.string,
+    onClick: PropTypes.func,
 };
 
 export default BotonNegro;
