@@ -50,12 +50,9 @@ export const Diseno = () => {
                 <div className='seccion4'>
                     <Buscador />
                 </div>
+
                 {/* Tabla para listar diseños */}
                 <ListarDisenos />
-
-                
-
-                
             </div>
         </div>
     );
