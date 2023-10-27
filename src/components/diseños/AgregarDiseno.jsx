@@ -5,79 +5,64 @@ import HeaderModals from '../chared/HeaderModals';
 import clienteAxios from '../../config/axios';
 import AlertaError from '../chared/AlertaError';
 
-
+//* Importa las funciones de validación
+import {
+    validarImagen,
+    validarCampoStringVacio,
+    validarSeleccion,
+} from '../../Validations/validations.js';
 
 const AgregarDiseno = () => {
-
     //Estados del diseño a agregar
     const [diseno, setDiseno] = useState({
         nombre: '',
         publicado: null,
     });
 
-
+    /// Leer los datos del formulario
     const leerInformacionDiseno = (e) => {
-        console.log(e.target.value)
+        console.log(e.target.value);
         setDiseno({
             /// Obtiene una copia del state y agrega el nuevo diseño
             ...diseno,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     // Estado para el archivo
     const [archivo, setArchivo] = useState('');
-    
+
+    /// Coloca la imagen en el state
     const leerArchivo = (e) => {
         console.log(e.target.files);
         setArchivo(e.target.files[0]);
-    }
-
+    };
 
     // Estados de error
     const [nombreError, setNombreError] = useState('');
     const [publicadoError, setPublicadoError] = useState(null);
     const [archivoError, setArchivoError] = useState('');
 
-    /// Leer los datos del formulario
-    
-
-    /// Coloca la imagen en el state
- 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        /// validaciones del diseño a enviar
-        // validación de nombre sea obligatorio
-        if (diseno.nombre.trim() === '') {
-            setNombreError('El Nombre es obligatorio');
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setNombreError('');
-        }
+        //* Validaciones del diseño a enviar
+        setNombreError(validarCampoStringVacio(diseno.nombre, 'nombre'));
+        setArchivoError(validarImagen(archivo));
+        setPublicadoError(
+            validarSeleccion(
+                diseno.publicado,
+                'Seleccione el estado de publicación'
+            )
+        );
 
-        // validación de la imagen
-        if (archivo === '') {
-            setArchivoError('La imagen es obligatoria');
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            // Valida que la imagen sea de tipo png o jpg
-            const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-            if (!allowedImageTypes.includes(archivo.type)) {
-                setArchivoError('La imagen debe ser de tipo PNG o JPG');
-                return;
-            } else {
-                setArchivoError('');
+        //* Verificar si hay errores con un retraso para que cargen los estados de error
+
+        setTimeout(() => {
+            if (nombreError || archivoError || publicadoError) {
+                alert('Errores');
             }
-        }
-
-        // validación de publicación que sea obligatorio
-        if (diseno.publicado === null) {
-            setPublicadoError('Seleccione el estado de publicación');
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setPublicadoError('');
-        }
+        }, 500);
 
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
@@ -101,8 +86,6 @@ const AgregarDiseno = () => {
             //todo: Lanzar alerta de error
         }
     };
-
-
 
     return (
         <div className='modal' id='myModalAgregarDiseno'>
