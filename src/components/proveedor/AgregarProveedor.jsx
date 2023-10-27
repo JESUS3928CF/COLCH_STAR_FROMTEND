@@ -38,12 +38,22 @@ const AgregarProveedor = () => {
     const [nombreError, setNombreError] = useState("");
     const [telefonoError, setTelefonoError] = useState("");
     const [direccionError, setDireccionError] = useState("");
+    const [identificadorError, setIdentificadorError] = useState("");
 
 
 
     const handleClick = async e => {
 
         e.preventDefault()
+
+
+        // validación de identificacion sea obligatorio
+        if (proveedor.identificador.trim() === "") {
+            setIdentificadorError("La Identificacion es obligatorio");
+            return; // No se envía la solicitud si el campo está vacío
+        } else {
+            setIdentificadorError("")// Limpiar el mensaje de error si el campo es válido
+        }
 
         // validación de nombre sea obligatorio
         if (proveedor.nombre.trim() === "") {
@@ -73,11 +83,11 @@ const AgregarProveedor = () => {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
             //luego de mandarlo ce cierra el modal
-            
+
             // const modal = document.getElementById("myModal");
             // const modalInstance = bootstrap.Modal.getInstance(modal);
             // modalInstance.hide();
-            
+
             location.reload();
         } catch (err) {
             console.log(err)
@@ -123,6 +133,7 @@ const AgregarProveedor = () => {
                                             name="identificador"
                                             placeholder=". . ."
                                         />
+                                        <AlertaError message={identificadorError} />
 
                                     </div>
                                 </div>
@@ -140,7 +151,7 @@ const AgregarProveedor = () => {
                                         placeholder=". . ."
                                         onChange={handleChange}
                                     />
-                                    {/* en esta etiqueta va salir el error de validacion  */}
+                                  
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     <AlertaError message={nombreError} />
 

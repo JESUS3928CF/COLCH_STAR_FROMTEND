@@ -32,22 +32,20 @@ const ListarProveedores = () => {
             })
     }, []);
 
-
-
+    
     const [editarProveedor, setEditarProveedor] = useState("");
 
     //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
     const handleEditClick = (proveedor) => {
-        setEditarProveedor(proveedor);
-
+            setEditarProveedor(proveedor);
 
     };
+
 
 
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-
 
 
 
@@ -90,7 +88,6 @@ const ListarProveedores = () => {
                 <div className="tabla">
                     <table className="table caption-top ">
 
-                        {/* <caption>Lista de proveedores</caption> */}
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
