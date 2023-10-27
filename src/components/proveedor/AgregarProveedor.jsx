@@ -4,7 +4,10 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import CancelarModal from '../chared/CancelarModal';
+import GuardarModal from '../chared/GuardarModal';
 import styles from '../../pages/proveedores.module.css';
+import AlertaError from '../chared/AlertaError';
 
 
 //COMPONENTE
@@ -69,13 +72,17 @@ const AgregarProveedor = () => {
         try {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
             await axios.post("http://localhost:3000/api/proveedores", proveedor)
-            //luego de darle guardar se cierre el modal
-            const modal = document.getElementById("myModal");
-            const modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
+            //luego de mandarlo ce cierra el modal
+            
+            // const modal = document.getElementById("myModal");
+            // const modalInstance = bootstrap.Modal.getInstance(modal);
+            // modalInstance.hide();
+            
+            location.reload();
         } catch (err) {
             console.log(err)
         }
+
 
     }
 
@@ -95,29 +102,38 @@ const AgregarProveedor = () => {
                         <div className="modal-body">
 
 
-
                             {/* formulario para agregar proveedor */}
                             <form action="" id="formularioAgregarProveedor">
 
                                 <div className="mb-3" name="divIdentificacion">
-                                    <label htmlFor="identificacionGuardar" className="col-form-label">Identificación:</label>
+
+                                    <label htmlFor="identificacionGuardar"
+                                        className="col-form-label">Identificación:</label>
                                     <br />
                                     <div className={styles.identi}>
+
                                         <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
                                             <option value="cedula">CC</option>
                                             <option value="nit">NIT</option>
                                         </select>
+
                                         <input type="text" className="form-control "
                                             id={styles.identificacionGuardar}
                                             onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
                                         />
+
                                     </div>
                                 </div>
 
                                 <div className="mb-3" name="divNombre">
-                                    <label htmlFor="nombreGuardar" className="col-form-label">Nombre:*</label>
+
+                                    <label htmlFor="nombre"
+                                        className="col-form-label">
+                                        Nombre:*
+                                    </label>
+
                                     <input type="text"
                                         className="form-control"
                                         name="nombre"
@@ -125,25 +141,36 @@ const AgregarProveedor = () => {
                                         onChange={handleChange}
                                     />
                                     {/* en esta etiqueta va salir el error de validacion  */}
-                                    <p className="text-red-500" style={{ fontSize: 14 }}>{nombreError}</p>
+                                    {/* en esta etiqueta va salir el error de validación  */}
+                                    <AlertaError message={nombreError} />
 
                                 </div>
 
                                 <div className="mb-3" name="divTelefono">
-                                    <label htmlFor="telefonoGuardar" className="col-form-label">Teléfono:*</label>
+                                    <label htmlFor="telefono"
+                                        className="col-form-label" >
+                                        Teléfono:*
+                                    </label>
+
                                     <input type="text"
                                         className="form-control"
                                         onChange={handleChange}
                                         name="telefono"
                                         placeholder=". . ."
                                     />
-                                    {/* en esta etiqueta va salir el error de validacion  */}
-                                    <p className="text-red-500" style={{ fontSize: 14 }}>{telefonoError}</p>
+
+                                    {/* en esta etiqueta va salir el error de validación  */}
+                                    <AlertaError message={telefonoError} />
 
                                 </div>
 
                                 <div className="mb-3" name="divDireccion">
-                                    <label htmlFor="direccionGuardar" className="col-form-label">Dirección:*</label>
+
+                                    <label htmlFor="direccionGuardar"
+                                        className="col-form-label">
+                                        Dirección:*
+                                    </label>
+
                                     <input type="text"
                                         className="form-control"
                                         id="direccionGuardar"
@@ -151,23 +178,30 @@ const AgregarProveedor = () => {
                                         name="direccion" placeholder=". . ."
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
-                                    <p className="text-red-500" style={{ fontSize: 14 }}>{direccionError}</p>
+                                    <AlertaError message={direccionError} />
 
                                 </div>
 
                                 <div className="modal-footer">
-                                    <button type="button" className="btn-c" data-bs-dismiss="modal"
-                                        id="guardarCancelado">Cancelar</button>
-                                    <input onClick={handleClick} type="submit" className="btn btn-success" value="Guardar" />
+
+                                    {/* Botón para cancelar*/}
+
+                                    {/* <button type="button" className="btn-c" data-bs-dismiss="modal"
+                                        id="guardarCancelado">Cancelar</button> */}
+                                    <CancelarModal />
+
+                                    {/* Botón para guardar*/}
+
+                                    {/* <input onClick={handleClick} type="submit" className="btn btn-success" value="Guardar" /> */}
+                                    <GuardarModal onClick={handleClick} />
                                 </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     )
 }
 

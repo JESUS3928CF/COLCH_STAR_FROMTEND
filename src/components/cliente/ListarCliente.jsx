@@ -9,6 +9,7 @@ import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 import BotonCambioEstado from '../chared/BotonCambioEstado';
+import Buscador from '../chared/Buscador'
 
 const ListarCliente = () => {
 // hola
@@ -47,10 +48,7 @@ const ListarCliente = () => {
 
                     {/* Boton para Buscar/filtrar */}
                     <div className={styles.buscador}>
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" />
-                            <div id="resultados-container"></div>
-                        </form>
+                        <Buscador/>
                     </div>
                 </div>
 
@@ -83,7 +81,7 @@ const ListarCliente = () => {
                                         <td>{cliente.email}</td>
                                         <td>{cliente.direccion}</td>
                                         <td>
-                                            <BotonCambioEstado/>
+                                            <BotonCambioEstado isChecked={cliente.estado} />
                                         </td>
                                         <td>
                                             <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"

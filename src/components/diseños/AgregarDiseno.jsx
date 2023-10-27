@@ -15,15 +15,7 @@ const AgregarDiseno = () => {
         publicado: null,
     });
 
-    // Estado para el archivo
-    const [archivo, setArchivo] = useState('');
 
-    // Estados de error
-    const [nombreError, setNombreError] = useState('');
-    const [publicadoError, setPublicadoError] = useState(null);
-    const [archivoError, setArchivoError] = useState('');
-
-    /// Leer los datos del formulario
     const leerInformacionDiseno = (e) => {
         console.log(e.target.value)
         setDiseno({
@@ -33,12 +25,25 @@ const AgregarDiseno = () => {
         });
     };
 
-    /// Coloca la imagen en el state
+    // Estado para el archivo
+    const [archivo, setArchivo] = useState('');
+    
     const leerArchivo = (e) => {
         console.log(e.target.files);
         setArchivo(e.target.files[0]);
     }
 
+
+    // Estados de error
+    const [nombreError, setNombreError] = useState('');
+    const [publicadoError, setPublicadoError] = useState(null);
+    const [archivoError, setArchivoError] = useState('');
+
+    /// Leer los datos del formulario
+    
+
+    /// Coloca la imagen en el state
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
 

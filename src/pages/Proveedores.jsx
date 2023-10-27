@@ -1,6 +1,6 @@
 import { Navbar } from '../components/Navbar';
 import AgregarProveedor from '../components/proveedor/AgregarProveedor';
-import EditarProveedor from '../components/proveedor/EditarProveedor';
+// import EditarProveedor from '../components/proveedor/EditarProveedor';
 import ListarProveedores from '../components/proveedor/ListarProveedores';
 
 
@@ -13,7 +13,7 @@ const Proveedores = () => {
             <Navbar />
            <ListarProveedores />
            <AgregarProveedor  />
-           <EditarProveedor/>
+           {/* <EditarProveedor /> */}
         </div>
 
     );
