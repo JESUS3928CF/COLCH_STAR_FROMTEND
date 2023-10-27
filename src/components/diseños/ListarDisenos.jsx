@@ -28,49 +28,49 @@ const ListarDisenos = () => {
     }, []);
 
     /// Cambiar Estado del diseño
-    const cambiarEstado = ({estado, id_diseno}, registro, ruta) => {
+    // const cambiarEstado = (estado, registro, ruta) => {
 
-        Swal.fire({
-            title: `¿Deseas ${
-                estado ? 'inhabilitar' : 'habilitar'
-            } este ${registro}?`,
-            // text: "Este ",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: `Si, ${estado ? 'inhabilítalo' : 'habilítalo'}`,
-            cancelButtonText: 'Cancelar',
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    // Realiza la petición PATCH
-                    const response = await clienteAxios.patch(ruta, { estado });
+    //     Swal.fire({
+    //         title: `¿Deseas ${
+    //             estado ? 'inhabilitar' : 'habilitar'
+    //         } este ${registro}?`,
+    //         // text: "Este ",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: `Si, ${estado ? 'inhabilítalo' : 'habilítalo'}`,
+    //         cancelButtonText: 'Cancelar',
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             try {
+    //                 // Realiza la petición PATCH
+    //                 const response = await clienteAxios.patch(ruta, { estado });
 
-                    if (response.status === 200) {
-                        Swal.fire(
-                            `${estado ? 'inhabilitado' : 'habilitado'}`,
-                            'Cambio de estado exitoso',
-                            'success'
-                        );
-                    } else {
-                        Swal.fire(
-                            'Error',
-                            'Hubo un problema al cambiar el estado',
-                            'error'
-                        );
-                    }
-                } catch (error) {
-                    console.error('Error al realizar la petición:', error);
-                    Swal.fire(
-                        'Error',
-                        'Hubo un problema al cambiar el estado',
-                        'error'
-                    );
-                }
-            }
-        });
-    };
+    //                 if (response.status === 200) {
+    //                     Swal.fire(
+    //                         `${estado ? 'inhabilitado' : 'habilitado'}`,
+    //                         'Cambio de estado exitoso',
+    //                         'success'
+    //                     );
+    //                 } else {
+    //                     Swal.fire(
+    //                         'Error',
+    //                         'Hubo un problema al cambiar el estado',
+    //                         'error'
+    //                     );
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error al realizar la petición:', error);
+    //                 Swal.fire(
+    //                     'Error',
+    //                     'Hubo un problema al cambiar el estado',
+    //                     'error'
+    //                 );
+    //             }
+    //         }
+    //     });
+    // };
 
     return (
         <>
@@ -102,14 +102,16 @@ const ListarDisenos = () => {
                                 <td>
                                     <BotonCambioEstado
                                         isChecked={diseno.publicado}
+                                        nombreRegistro={'diseño en el catalogo'}
+                                        ruta={`/disenos/estado/${diseno.id_diseno}`}
                                     />
                                 </td>
                                 <td>
+                                {/* Este ejemplo esta correcto el de publicado no por que aun me falta en endpoint en el back*/}
                                     <BotonCambioEstado
                                         isChecked={diseno.estado}
-                                        cambiarEstado={() =>
-                                            cambiarEstado(diseno, "diseño", `/disenos/estado/${diseno.id_diseno}`)
-                                        }
+                                        nombreRegistro={'diseño'}
+                                        ruta={`/disenos/estado/${diseno.id_diseno}`}
                                     />
                                 </td>
                                 <td>
