@@ -29,10 +29,6 @@ const ListarProveedores = () => {
 
 
 
-    const contentStyle = {
-        marginLeft: '260px', // Ancho del Navbar
-    };
-
     const [editarProveedor, setEditarProveedor] = useState("");
 
     //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
@@ -40,6 +36,11 @@ const ListarProveedores = () => {
         setEditarProveedor(proveedor);
 
 
+    };
+
+
+    const contentStyle = {
+        marginLeft: '260px', // Ancho del Navbar
     };
 
 

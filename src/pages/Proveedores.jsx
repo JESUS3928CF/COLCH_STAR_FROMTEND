@@ -6,14 +6,16 @@ import ListarProveedores from '../components/proveedor/ListarProveedores';
 
 const Proveedores = () => {
 
-    
+
 
     return (
         <div>
+
             <Navbar />
-           <ListarProveedores />
-           <AgregarProveedor  />
-           {/* <EditarProveedor /> */}
+            <ListarProveedores />
+            <AgregarProveedor />
+            {/* <EditarProveedor /> */}
+
         </div>
 
     );
