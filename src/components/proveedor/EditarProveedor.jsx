@@ -5,54 +5,45 @@ import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 import styles from '../../pages/proveedores.module.css';
 import { useState, useEffect } from 'react';
+import axios from 'axios'
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 
-// { handleEditClick, editingProveedor }
 const EditarProveedor = ({ editarProveedor }) => {
-
     const [nombre, setNombre] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
+    const [id_proveedor, setIdProveedor] = useState(null);
 
-    //toma  el nombre telefono y direccion de editarproveedor que es traido del listar y por medio de setNombre lo mandamos a nombre
-    //igual con los demas
     useEffect(() => {
         if (editarProveedor) {
             setNombre(editarProveedor.nombre);
             setTelefono(editarProveedor.telefono);
             setDireccion(editarProveedor.direccion);
+            setIdProveedor(editarProveedor.id_proveedor);
         }
     }, [editarProveedor]);
 
-    
-
-    
-
     const handleFormClick = (e) => {
         e.preventDefault();
-        console.log(nombre )
 
-        // Aquí debes realizar una solicitud HTTP para enviar los datos editados al servidor.
-        // Utiliza axios u otra librería para hacer la solicitud PUT o POST según corresponda.
-        // Después de la actualización, puedes cerrar el modal de edición.
-
-        axios.patch(`http://localhost:3000/api/proveedores/${id_proveedor}`, {
-            nombre,
-            telefono,
-            direccion
-        })
-        .then(response => {
-            // Manejar la respuesta, por ejemplo, cerrar el modal
-            console.log('Proveedor actualizado:', response.data);
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error al actualizar el proveedor', error);
-        });
-
+        if (id_proveedor) {
+            axios.patch(`http://localhost:3000/api/proveedores/${id_proveedor}`, {
+                nombre,
+                telefono,
+                direccion
+            })
+            .then(response => {
+                console.log('Proveedor actualizado:', response.data);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error al actualizar el proveedor', error);
+            });
+        } else {
+            console.error('No se pudo obtener el ID del proveedor');
+        }
     };
-
 
 
     return (

@@ -6,6 +6,10 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import CancelarModal from '../chared/CancelarModal';
+import GuardarModal from '../chared/GuardarModal';
+import AlertaError from '../chared/AlertaError';
+
 
 
 const AgregarCliente = () => {
@@ -154,49 +158,67 @@ const AgregarCliente = () => {
                                             <div class="mb-3" name="divNombre">
                                                 <label for="nombreGuardar" class="col-form-label">Nombre:*</label>
                                                 <input type="text" class="form-control" name="nombre" placeholder=". . ." onChange={handleChange}/>
+                                                
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                                <AlertaError message={nombreError} />
+
                                             </div>
                                                 
-                                            {/* en esta etiqueta va salir el error de validacion  */}
-                                            <p className="text-red-500" style={{fontSize:14}}>{nombreError}</p>
 
                                             <div class="mb-3" name="divApellido">
                                                 <label for="apellidoGuardar" class="col-form-label">Apellido:*</label>
                                                 <input type="text" class="form-control" name="apellido" placeholder=". . ." onChange={handleChange}/>
+
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                              <AlertaError message={apellidoError}/>
+                                              
                                             </div>
-                                              {/* en esta etiqueta va salir el error de validacion  */}
-                                              <p className="text-red-500" style={{fontSize:14}}>{apellidoError}</p>
+
                                             
                                             <div class="mb-3" name="divCedula">
                                                 <label for="cedulaGuardar" class="col-form-label">Cedula:*</label>
                                                 <input type="text" class="form-control" name="cedula" placeholder=". . ." onChange={handleChange}/>
+
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                              <AlertaError message={cedulaError}/>
+
                                             </div>
-                                              {/* en esta etiqueta va salir el error de validacion  */}
-                                              <p className="text-red-500" style={{fontSize:14}}>{cedulaError}</p>
+
                                             
                                             <div class="mb-3" name="divTelefono">
                                                 <label for="telefonoGuardar" class="col-form-label">Teléfono:*</label>
                                                 <input type="text" class="form-control" name="telefono" placeholder=". . ." onChange={handleChange}/>
+
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                              <AlertaError message={telefonoError}/>
+
                                             </div>
-                                              {/* en esta etiqueta va salir el error de validacion  */}
-                                              <p className="text-red-500" style={{fontSize:14}}>{telefonoError}</p>
+                                          
                                             
                                             <div class="mb-3" name="divEmail">
                                                 <label for="emailGuardar" class="col-form-label">Email:*</label>
                                                 <input type="email" class="form-control" name="email" placeholder=". . ." onChange={handleChange}/>
+
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                              <AlertaError message={emailError}/>
+
                                             </div>
-                                              {/* en esta etiqueta va salir el error de validacion  */}
-                                              <p className="text-red-500" style={{fontSize:14}}>{emailError}</p>
+
                                            
                                             <div class="mb-3" name="divDireccion">
                                                 <label for="direccionGuardar" class="col-form-label">Dirección:*</label>
                                                 <input type="text" class="form-control" name="direccion" placeholder=". . ." onChange={handleChange}/>
+
+                                                {/* en esta etiqueta va salir el error de validacion  */}
+                                              <AlertaError message={direccionError}/>
+
+
                                             </div>
-                                              {/* en esta etiqueta va salir el error de validacion  */}
-                                              <p className="text-red-500" style={{fontSize:14}}>{direccionError}</p>
+
                                         
                                             <div class="modal-footer">
-                                                <button type="button" id="guardarCancelado" class="btn-c" data-bs-dismiss="modal">Cancelar</button>
-                                                <input onClick={handleClick} type="submit" class="btn btn-success"  value="Guardar"/>
+                                                <CancelarModal />
+                                                <GuardarModal onClick={handleClick} />
                                             </div>
                                         </form>
                                     </div>
