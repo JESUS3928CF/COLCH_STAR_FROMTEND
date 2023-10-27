@@ -6,7 +6,7 @@ import '../../css-general/table.min.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios'
 import CancelarModal from '../chared/CancelarModal';
-// import GuardarModal from '../chared/GuardarModal';
+import GuardarModal from '../chared/GuardarModal';
 
 
 const EditarCliente = ({editarCliente}) => {
@@ -122,7 +122,7 @@ const EditarCliente = ({editarCliente}) => {
                                     <div class="modal-footer">
                                     <CancelarModal />
 
-                                    <input type="submit" id="GuardarEditarCliente" class="btn btn-success" value="Guardar" /> 
+                                    <GuardarModal onClick={handleFormClick}   />
 
 
                                     </div>
