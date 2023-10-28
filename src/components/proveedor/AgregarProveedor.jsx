@@ -8,46 +8,55 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import styles from '../../pages/proveedores.module.css';
 import AlertaError from '../chared/AlertaError';
+import Swal from 'sweetalert2';
 
 
 //COMPONENTE
 const AgregarProveedor = () => {
 
     const {
-        register,
+        register, 
         handleSubmit,
         formState: { errors },
-        reset,
+        reset, //resetea el formulario
     } = useForm();
 
-
-
-
+    //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
 
         try {
-            // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
-            await axios.post("http://localhost:3000/api/proveedores", data)
+            // la ruta por donde voya mandar el objeto o el registro nuevo data
+            const res = await axios.post("http://localhost:3000/api/proveedores", data)
             //luego de mandarlo ce cierra el modal
 
-            reset()
-            // const modal = document.getElementById("myModal");
-            // const modalInstance = bootstrap.Modal.getInstance(modal);
-            // modalInstance.hide();
+            reset() //luego de ser agregado y mandado resetea el formulario
 
-            location.reload();
+            // Lanzar alerta del producto agregado
+            Swal.fire({
+                title: 'Proveedor agregado',
+                text: res.data.message,
+                icon: 'success',
+            }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+                location.reload(); //  recarga la pagina
+            });
+
         } catch (err) {
             console.log(err)
-        }
 
+            Swal.fire({
+                title: 'Error',
+                text: "Hubo un error",
+                icon: 'Vuelva a intentarlo',
+            }).then( //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+                location.reload() //  recarga la pagina
+            );
+        }
 
     }
 
-
     return (
         <div>
-
             {/* modal agregar proveedor */}
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
@@ -66,8 +75,11 @@ const AgregarProveedor = () => {
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:</label>
+                                        className="col-form-label">Identificación:
+                                    </label>
+
                                     <br />
+
                                     <div className={styles.identi}>
 
                                         <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
@@ -80,11 +92,11 @@ const AgregarProveedor = () => {
                                             name="identificador"
                                             placeholder=". . ."
                                             {...register('identificador', {
-                                                required: 'La identificacion es obligatorio',
+                                                required: 'La Identificación es obligatorio',
                                             })}
                                         />
                                         {errors.identificador && (
-                                            <AlertaError message={errors.identificador.message} />
+                                            <AlertaError message={errors.identificador.message} /> //muestra el mensaje de validacion
                                         )}
 
                                     </div>
@@ -102,16 +114,17 @@ const AgregarProveedor = () => {
                                         name="nombre"
                                         placeholder=". . ."
                                         {...register('nombre', {
-                                            required: 'El nombre es obligatorio',
+                                            required: 'El Nombre es obligatorio',
                                         })}
                                     />
                                     {errors.nombre && (
-                                        <AlertaError message={errors.nombre.message} />
+                                        <AlertaError message={errors.nombre.message} /> //muestra el mensaje de validacion
                                     )}
 
                                 </div>
 
                                 <div className="mb-3" name="divTelefono">
+
                                     <label htmlFor="telefono"
                                         className="col-form-label" >
                                         Teléfono:*
@@ -122,11 +135,11 @@ const AgregarProveedor = () => {
                                         name="telefono"
                                         placeholder=". . ."
                                         {...register('telefono', {
-                                            required: 'El telefono es obligatorio',
+                                            required: 'El Teléfono es obligatorio',
                                         })}
                                     />
                                     {errors.telefono && (
-                                        <AlertaError message={errors.telefono.message} />
+                                        <AlertaError message={errors.telefono.message} /> //muestra el mensaje de validacion
                                     )}
 
                                 </div>
@@ -144,20 +157,18 @@ const AgregarProveedor = () => {
                                         name="direccion"
                                         placeholder=". . ."
                                         {...register('direccion', {
-                                            required: 'El telefono es obligatorio',
+                                            required: 'La Dirección es obligatorio',
                                         })}
                                     />
                                     {errors.direccion && (
-                                        <AlertaError message={errors.direccion.message} />
+                                        <AlertaError message={errors.direccion.message} /> //muestra el mensaje de validacion
                                     )}
-
 
                                 </div>
 
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-
                                     <CancelarModal />
 
                                     {/* Botón para guardar*/}
