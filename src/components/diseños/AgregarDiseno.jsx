@@ -1,74 +1,33 @@
-import { useState } from 'react';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
 import clienteAxios from '../../config/axios';
 import AlertaError from '../chared/AlertaError';
 
+import { useForm } from 'react-hook-form';
+
+import Swal from 'sweetalert2';
+
 //* Importa las funciones de validación
-import {
-    validarImagen,
-    validarCampoStringVacio,
-    validarSeleccion,
-} from '../../Validations/validations.js';
+import { validarImagen } from '../../Validations/validations.js';
 
 const AgregarDiseno = () => {
-    //Estados del diseño a agregar
-    const [diseno, setDiseno] = useState({
-        nombre: '',
-        publicado: null,
-    });
+    /// Funciones del paquete react-hook-form necesarias para las validaciones
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
-    /// Leer los datos del formulario
-    const leerInformacionDiseno = (e) => {
-        console.log(e.target.value);
-        setDiseno({
-            /// Obtiene una copia del state y agrega el nuevo diseño
-            ...diseno,
-            [e.target.name]: e.target.value,
-        });
-    };
 
-    // Estado para el archivo
-    const [archivo, setArchivo] = useState('');
-
-    /// Coloca la imagen en el state
-    const leerArchivo = (e) => {
-        console.log(e.target.files);
-        setArchivo(e.target.files[0]);
-    };
-
-    // Estados de error
-    const [nombreError, setNombreError] = useState('');
-    const [publicadoError, setPublicadoError] = useState(null);
-    const [archivoError, setArchivoError] = useState('');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        //* Validaciones del diseño a enviar
-        setNombreError(validarCampoStringVacio(diseno.nombre, 'nombre'));
-        setArchivoError(validarImagen(archivo));
-        setPublicadoError(
-            validarSeleccion(
-                diseno.publicado,
-                'Seleccione el estado de publicación'
-            )
-        );
-
-        //* Verificar si hay errores con un retraso para que cargen los estados de error
-
-        setTimeout(() => {
-            if (nombreError || archivoError || publicadoError) {
-                alert('Errores');
-            }
-        }, 500);
+    const guardarDiseno = handleSubmit( async (data) => {
+        console.log(data);
 
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
-        formData.append('nombre', diseno.nombre);
-        formData.append('publicado', diseno.publicado);
-        formData.append('imagen', archivo);
+        formData.append('nombre', data.nombre);
+        formData.append('publicado', data.publicado);
+        formData.append('imagen', data.imagen[0]);
 
         /// Almacenar el diseño en la DB
         try {
@@ -78,14 +37,29 @@ const AgregarDiseno = () => {
                 },
             });
 
-            //todo: Lanzar alerta del producto agregado
+            console.log(res)
 
-            location.reload();
+            // Lanzar alerta del producto agregado
+            Swal.fire({
+                title: 'Diseño agregado',
+                text: res.data.message,
+                icon: 'success',
+            }).then(() => {
+                location.reload();
+            });
+
         } catch (error) {
             console.log(error);
-            //todo: Lanzar alerta de error
+            // Lanzar alerta de error
+            Swal.fire({
+                title: 'Error',
+                text: "Hubo un error",
+                icon: 'Vuelva a intentarlo',
+            }).then(
+                location.reload()
+            );
         }
-    };
+    });
 
     return (
         <div className='modal' id='myModalAgregarDiseno'>
@@ -96,7 +70,7 @@ const AgregarDiseno = () => {
 
                     <div className='modal-body'>
                         {/* formulario para agregar un Diseño */}
-                        <form action='' id='formularioAgregarDiseño'>
+                        <form onSubmit={guardarDiseno}>
                             <div className='mb-3'>
                                 <label
                                     htmlFor='nombre'
@@ -109,10 +83,19 @@ const AgregarDiseno = () => {
                                     type='text'
                                     className='form-control'
                                     placeholder='. . .'
-                                    onChange={leerInformacionDiseno}
+                                    {...register('nombre', {
+                                        required: {
+                                            value: true,
+                                            message: 'El nombre es obligatorio',
+                                        },
+                                    })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
-                                <AlertaError message={nombreError} />
+                                {errors.nombre && (
+                                    <AlertaError
+                                        message={errors.nombre.message}
+                                    />
+                                )}
                             </div>
                             <div className='mb-3'>
                                 <label htmlFor='imagen' className='form-label'>
@@ -122,10 +105,22 @@ const AgregarDiseno = () => {
                                     className='form-control'
                                     name='imagen'
                                     type='file'
-                                    onChange={leerArchivo}
+                                    {...register('imagen', {
+                                        required: {
+                                            value: true,
+                                            message: 'La imagen es obligatoria',
+                                        },
+                                        validate: (value) => {
+                                            return validarImagen(value[0]);
+                                        }
+                                    })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
-                                <AlertaError message={archivoError} />
+                                {errors.imagen && (
+                                    <AlertaError
+                                        message={errors.imagen.message}
+                                    />
+                                )}
                             </div>
 
                             <div className='mb-3'>
@@ -138,7 +133,13 @@ const AgregarDiseno = () => {
                                 <select
                                     className='form-control'
                                     name='publicado'
-                                    onChange={leerInformacionDiseno}
+                                    {...register('publicado', {
+                                        required: {
+                                            value: true,
+                                            message:
+                                                'El estado de publicación es obligatorio',
+                                        }
+                                    })}
                                 >
                                     <option value='' disabled selected>
                                         Selecciona una opción
@@ -147,7 +148,11 @@ const AgregarDiseno = () => {
                                     <option value='false'>No</option>
                                 </select>
                                 {/* en esta etiqueta va salir el error de validación  */}
-                                <AlertaError message={publicadoError} />
+                                {errors.publicado && (
+                                    <AlertaError
+                                        message={errors.publicado.message}
+                                    />
+                                )}
                             </div>
 
                             <div className='modal-footer'>
@@ -155,7 +160,7 @@ const AgregarDiseno = () => {
                                 <CancelarModal />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal onClick={handleSubmit} />
+                                <GuardarModal />
                             </div>
                         </form>
                     </div>

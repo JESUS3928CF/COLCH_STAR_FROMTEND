@@ -28,6 +28,27 @@ const AgregarCliente = () => {
       const modal = document.getElementById('myModal');
       const modalInstance = bootstrap.Modal.getInstance(modal);
       modalInstance.hide();
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset, 
+  } = useForm();
+
+
+  const onSubmit = async (data) => {
+    try {
+      // Send the form data to your API
+      await axios.post('http://localhost:3000/api/clientes', data);
+
+      // Reset the form after a successful submission
+      reset();
+
+      // Close the modal (Assuming you are using Bootstrap modal)
+      const modal = document.getElementById('myModal');
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
 
       // Reload the page if necessary
       window.location.reload();
