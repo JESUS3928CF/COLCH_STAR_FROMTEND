@@ -15,9 +15,9 @@ import Swal from 'sweetalert2';
 const AgregarProveedor = () => {
 
     const {
-        register, 
-        handleSubmit,
-        formState: { errors },
+        register, //regitra o identifica cada elemento o cada input
+        handleSubmit, //para manejar el envio del formulario
+        formState: { errors }, //ver errores que tiene el formulario
         reset, //resetea el formulario
     } = useForm();
 
@@ -113,7 +113,8 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="nombre"
                                         placeholder=". . ."
-                                        {...register('nombre', {
+                                        //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
+                                        {...register('nombre', { 
                                             required: 'El Nombre es obligatorio',
                                         })}
                                     />
