@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { useState } from 'react';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import styles from '../../pages/proveedores.module.css';
@@ -13,77 +13,25 @@ import AlertaError from '../chared/AlertaError';
 //COMPONENTE
 const AgregarProveedor = () => {
 
-
-    const [proveedor, setProveedor] = useState({
-        //estas propiedades  estan vacias  y luego setproveedor los llenara a la hora de agregar un proveedor
-        nombre: "",
-        telefono: "",
-        direccion: "",
-        identificador: "",
-    });
-
-
-    //método para realizar el cambio por medio de setproveedor que lo manda a proveedor
-    // usando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
-    // [e.target.name] se utiliza  para actualizar una propiedad del objeto con el  atributo name del elemento del formulario.
-    //  e.target.value se usa para establecer el nuevo valor de esa propiedad.    
-    const handleChange = (e) => {
-        setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
-    }
-
-
-    //PARA LAS VALIDACIONES
-    //set le pasa el mensaje de validación a Error 
-    const [nombreError, setNombreError] = useState("");
-    const [telefonoError, setTelefonoError] = useState("");
-    const [direccionError, setDireccionError] = useState("");
-    const [identificadorError, setIdentificadorError] = useState("");
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm();
 
 
 
-    const handleClick = async e => {
 
-        e.preventDefault()
-
-
-        // validación de identificacion sea obligatorio
-        if (proveedor.identificador.trim() === "") {
-            setIdentificadorError("La Identificacion es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setIdentificadorError("")// Limpiar el mensaje de error si el campo es válido
-        }
-
-        // validación de nombre sea obligatorio
-        if (proveedor.nombre.trim() === "") {
-            setNombreError("El Nombre es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-
-        } else {
-            setNombreError("");
-        }
-        // validación de teléfono sea obligatorio   
-        if (proveedor.telefono.trim() === "") {
-            setTelefonoError("El Teléfono es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setTelefonoError("")
-        }
-        // validacion de direccion sea obligatorio
-        if (proveedor.direccion.trim() === "") {
-            setDireccionError("La Direecion es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setDireccionError("")// Limpiar el mensaje de error si el campo es válido
-        }
+    const onSubmit = async (data) => {
 
 
         try {
             // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
-            await axios.post("http://localhost:3000/api/proveedores", proveedor)
+            await axios.post("http://localhost:3000/api/proveedores", data)
             //luego de mandarlo ce cierra el modal
 
+            reset()
             // const modal = document.getElementById("myModal");
             // const modalInstance = bootstrap.Modal.getInstance(modal);
             // modalInstance.hide();
@@ -113,7 +61,7 @@ const AgregarProveedor = () => {
 
 
                             {/* formulario para agregar proveedor */}
-                            <form action="" id="formularioAgregarProveedor">
+                            <form action="" id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
 
                                 <div className="mb-3" name="divIdentificacion">
 
@@ -129,11 +77,15 @@ const AgregarProveedor = () => {
 
                                         <input type="text" className="form-control "
                                             id={styles.identificacionGuardar}
-                                            onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
+                                            {...register('identificador', {
+                                                required: 'La identificacion es obligatorio',
+                                            })}
                                         />
-                                        <AlertaError message={identificadorError} />
+                                        {errors.identificador && (
+                                            <AlertaError message={errors.identificador.message} />
+                                        )}
 
                                     </div>
                                 </div>
@@ -149,11 +101,13 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="nombre"
                                         placeholder=". . ."
-                                        onChange={handleChange}
+                                        {...register('nombre', {
+                                            required: 'El nombre es obligatorio',
+                                        })}
                                     />
-                                  
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={nombreError} />
+                                    {errors.nombre && (
+                                        <AlertaError message={errors.nombre.message} />
+                                    )}
 
                                 </div>
 
@@ -165,13 +119,15 @@ const AgregarProveedor = () => {
 
                                     <input type="text"
                                         className="form-control"
-                                        onChange={handleChange}
                                         name="telefono"
                                         placeholder=". . ."
+                                        {...register('telefono', {
+                                            required: 'El telefono es obligatorio',
+                                        })}
                                     />
-
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={telefonoError} />
+                                    {errors.telefono && (
+                                        <AlertaError message={errors.telefono.message} />
+                                    )}
 
                                 </div>
 
@@ -185,11 +141,16 @@ const AgregarProveedor = () => {
                                     <input type="text"
                                         className="form-control"
                                         id="direccionGuardar"
-                                        onChange={handleChange}
-                                        name="direccion" placeholder=". . ."
+                                        name="direccion"
+                                        placeholder=". . ."
+                                        {...register('direccion', {
+                                            required: 'El telefono es obligatorio',
+                                        })}
                                     />
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={direccionError} />
+                                    {errors.direccion && (
+                                        <AlertaError message={errors.direccion.message} />
+                                    )}
+
 
                                 </div>
 
@@ -197,14 +158,10 @@ const AgregarProveedor = () => {
 
                                     {/* Botón para cancelar*/}
 
-                                    {/* <button type="button" className="btn-c" data-bs-dismiss="modal"
-                                        id="guardarCancelado">Cancelar</button> */}
                                     <CancelarModal />
 
                                     {/* Botón para guardar*/}
-
-                                    {/* <input onClick={handleClick} type="submit" className="btn btn-success" value="Guardar" /> */}
-                                    <GuardarModal onClick={handleClick} />
+                                    <GuardarModal />
                                 </div>
 
                             </form>

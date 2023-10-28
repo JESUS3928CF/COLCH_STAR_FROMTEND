@@ -9,7 +9,7 @@ const AgregarCliente = () => {
   
   const {
     register,
-    handleSubmit,
+  handleSubmit,
     formState: { errors },
     reset, 
   } = useForm();
