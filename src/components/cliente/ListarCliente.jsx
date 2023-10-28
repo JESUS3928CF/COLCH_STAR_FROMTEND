@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import logof from '../../imgNavbar/light_switch off.svg';
-import logon from '../../imgNavbar/light_switch on.svg';
 import styles from '../../pages/Clientes.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
