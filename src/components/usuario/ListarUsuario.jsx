@@ -7,56 +7,43 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '../../pages/Clientes.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
-import EditarCliente from './EditarCliente';
 
-//Componente
-const ListarCliente = () => {
+const ListarUsuario = () => {
 
     //Estado de la barra de busqueda
     const [Buscar, setBuscar] = useState("");
 
-    // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
-    const [clientes, setClientes] = useState([]);
 
-    // Solicitud a la url
+    const [usuarios, setUsuarios] = useState([]);
+
     useEffect(() => {
-        // Realiza una solicitud al backend para obtener la lista de usuarios
-        axios.get('http://localhost:3000/api/clientes')
-            .then(response => {
-                // Actualiza el estado con la lista de usuarios
-                setClientes(response.data);
-            })
-            .catch(error => {
-                console.error('Error al obtener la lista de clientes:', error);
-            });
+      // Realiza una solicitud al backend para obtener la lista de usuarios
+      axios.get('http://localhost:3000/api/usuarios')
+        .then(response => {
+          // Actualiza el estado con la lista de usuarios
+          setUsuarios(response.data);
+        })
+        .catch(error => {
+          console.error('Error al obtener la lista de usuarios:', error);
+        });
     }, []);
-
-    //Esatdo para editar
-    const [editarCliente, setEditarCliente] = useState("");
-
-    //Al hacer click  en editar trae el cliente y lo guarda en setCliente
-    const handleEditClick = (cliente) => {
-        setEditarCliente(cliente);
-    };
-
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-    
+
     return (
         <div>
             <div style={contentStyle} className='contenedor'>
 
-                <h1 className="titulo">Clientes</h1>
+                <h1 className="titulo">Usuarios</h1>
 
                 {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }} >
 
                     <div className={styles.ap}>
-                        <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar Cliente</button>
+                        <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar Usuario</button>
                     </div>
 
-                    {/* Boton para Buscar/filtrar */}
                     <div className={styles.buscador}>
                         <form className='d-flex'>
                             <input
@@ -72,7 +59,7 @@ const ListarCliente = () => {
                     </div>
                 </div>
 
-                {/* tabla  para listar clientes */}
+                {/* tabla  para listar usuarios */}
                     <div className="tabla">
                         <table className="table caption-top ">
                             <thead>
@@ -80,19 +67,17 @@ const ListarCliente = () => {
                                     <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
-                                    <th scope="col">Cedula</th>
                                     <th scope="col">Teléfono</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Dirección</th>
-                                    <th scope="col">Inhabilitar</th>
+                                    <th scope="col">Rol</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Editar</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-
-                            {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
-                            {clientes.filter((campo => {
+                              {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
+                              {usuarios.filter((campo => {
                                 //aca dice que el termino de buesqueda es lo que se le ingrece al input es decir a Buscar
                                 const terminoBusqueda = Buscar.toLowerCase();
                                 return (
@@ -100,36 +85,35 @@ const ListarCliente = () => {
                                     // que se le ingresa al input
                                     campo.nombre.toLowerCase().includes(terminoBusqueda) ||
                                     campo.apellido.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.cedula.toLowerCase().includes(terminoBusqueda) ||
                                     campo.telefono.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.email.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.direccion.toLowerCase().includes(terminoBusqueda)
+                                    campo.email.toLowerCase().includes(terminoBusqueda)
                                 );
                                 {/* con los datos traidos por set cliente se hace un mapeo */ }
-                            })).map(cliente => (
-                                    <tr key={cliente.id}>
-                                        <td>{cliente.id_cliente}</td>
-                                        <td>{cliente.nombre}</td>
-                                        <td>{cliente.apellido}</td>
-                                        <td>{cliente.cedula}</td>
-                                        <td>{cliente.telefono}</td>
-                                        <td>{cliente.email}</td>
-                                        <td>{cliente.direccion}</td>
-                                        <td>
+                            })).map(usuario => (
+                                <tr key={usuario.id}>
+                                <td>{usuario.id_usuario}</td>
+                                <td>{usuario.nombre}</td>
+                                <td>{usuario.apellido}</td>
+                                <td>{usuario.telefono}</td>
+                                <td>{usuario.email}</td>
+                                <td>{usuario.fk_rol}</td>
+                                <td>
                                             <BotonCambioEstado 
-                                            isChecked={cliente.estado}
-                                            nombreRegistro={'cliente'}
-                                            ruta={`/clientes/estado/${cliente.id_cliente}`} />
+                                            isChecked={usuario.estado}
+                                            nombreRegistro={'usuario'}
+                                            ruta={`/usuarios/estado/${usuario.id_usuario}`} />
                                         </td>
-                                        <td>
-                                            <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                                 onClick={() => handleEditClick(cliente)} >Editar</button></td>
-                                    </tr>
-                                ))}
+                                <td>
+                                <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
+                                >
+                                    Editar
+                                </button>
+                                </td>
+                            </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
-                <EditarCliente editarCliente={editarCliente} />
 
                 </div>
 
@@ -142,4 +126,4 @@ const ListarCliente = () => {
     )
 }
 
-export default ListarCliente
+export default ListarUsuario
