@@ -88,8 +88,8 @@ export const ListarPrendas = ()=>{
                                     <td>{Prendas.tipo_de_tela}</td>
                                     <td>{Prendas.imagen}</td>
                                     <td>{Prendas.genero}</td>
-                                    <td><BotonCambioEstado/></td>
-                                    <td><BotonCambioEstado/></td>
+                                    <td><BotonCambioEstado isChecked={Prendas.publicado}/></td>
+                                    <td><BotonCambioEstado  isChecked={Prendas.estado} /></td>
 
 
 
