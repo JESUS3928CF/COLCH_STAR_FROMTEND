@@ -125,7 +125,10 @@ const ListarCliente = () => {
                                         <td>{cliente.email}</td>
                                         <td>{cliente.direccion}</td>
                                         <td>
-                                            <BotonCambioEstado isChecked={cliente.estado} />
+                                            <BotonCambioEstado 
+                                            isChecked={cliente.estado}
+                                            nombreRegistro={cliente}
+                                            ruta={`/clientes/estado/${cliente.id_cliente}`} />
                                         </td>
                                         <td>
                                             <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
