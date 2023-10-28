@@ -1,24 +1,22 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import styles from '../../pages/proveedores.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
-// import Buscador from '../chared/Buscador'
 import EditarProveedor from './EditarProveedor';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
+//componente
 const ListarProveedores = () => {
 
     //estado de la baara buscador
     const [Buscar, setBuscar] = useState("");
 
-
     // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
     const [proveedores, setProveedor] = useState([]);
-
 
     // solicitud  a la url
     useEffect(() => {
@@ -32,7 +30,7 @@ const ListarProveedores = () => {
             })
     }, []);
 
-    
+    //esatdo para edit
     const [editarProveedor, setEditarProveedor] = useState("");
 
     //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
@@ -46,8 +44,6 @@ const ListarProveedores = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-
-
 
     return (
         <div>
@@ -115,13 +111,15 @@ const ListarProveedores = () => {
                                 );
                                 {/* con los datos traidos por set proveedor se hace un mapeo */ }
                             })).map(proveedor => (
-                                <tr key={proveedor.id}>
+                                <tr key={proveedor.id_proveedor}>
                                     <td>{proveedor.id_proveedor}</td>
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
-                                    <td> <BotonCambioEstado isChecked={proveedor.estado} />
+                                    <td> <BotonCambioEstado  isChecked={proveedor.estado}
+                                        nombreRegistro={'proveedor'}
+                                        ruta={`/proveedores/estado/${proveedor.id_proveedor}`} />
                                     </td>
                                     <td><button type="button" className="btn-n"
                                         data-bs-toggle="modal"

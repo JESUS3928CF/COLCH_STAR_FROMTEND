@@ -192,122 +192,27 @@ import AlertaError from '../chared/AlertaError';
 
 
 const AgregarCliente = () => {
-    const [cliente, setCliente] = useState({
-        nombre: "",
-        apellido: "",
-        cedula: "",
-        telefono: "",
-        email : "",
-        direccion: "",
-    });
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset, 
+  } = useForm();
 
-    const navigate = useNavigate()
 
-    const handleChange = (e) => {
-        setCliente(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    }
+  const onSubmit = async (data) => {
+    try {
+      // Send the form data to your API
+      await axios.post('http://localhost:3000/api/clientes', data);
 
-        //PARA LAS VALIDACIONES
-    //set le pasa el mensaje de validacion a Error
-    const [nombreError, setNombreError] = useState("");
-    const [apellidoError, setApellidoError] = useState("");
-    const [cedulaError, setCedulaError] = useState("");
-    const [telefonoError, setTelefonoError] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [direccionError, setDireccionError] = useState("");
+      // Reset the form after a successful submission
+      reset();
 
-    const handleClick = async e => {
-
-        e.preventDefault()
-
-         // Validación de nombre para que contenga al menos una letra 
-         const nameRegex = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
-
-         if (!cliente.nombre) {
-           setNombreError("El Nombre es obligatorio");
-         } else {
-           // Utiliza trim() para eliminar espacios en blanco al principio y al final del nombre.
-           const nombreSinEspacios = cliente.nombre.trim();
-         
-           if (!nameRegex.test(nombreSinEspacios)) {
-             setNombreError("El Nombre debe contener solo letras");
-           } else {
-             setNombreError("");
-           }
-         }         
-
-        // Validación del apellido para que solo contenga letras
-        if (!cliente.apellido) {
-            setApellidoError("El Apellido es obligatorio");
-          } else {
-            const apellidoSinEspacios = cliente.apellido.trim();
-            if (!nameRegex.test(apellidoSinEspacios)) {
-              setApellidoError("El Apellido debe contener solo letras");
-            } else {
-              setApellidoError("");
-            }
-          }
-
-          
-        // Validación de cédula para que sea un número y tenga una longitud entre 7 y 11 caracteres
-        const cedulaRegex = /^\d+$/;
-
-        if (!cliente.cedula) {
-        setCedulaError("La Cédula es obligatoria");
-        } else {
-        const cedulaSinEspacios = cliente.cedula.trim();
-        if (!cedulaSinEspacios.match(cedulaRegex) || cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
-            setCedulaError("La Cédula debe contener solo números y tener entre 7 y 11 dígitos");
-        } else {
-            setCedulaError("");
-        }
-        }
-
-        // Validación de teléfono para que contenga solo números y esté entre 7 y 11 dígitos
-        const telefonoRegex = /^\d+$/;
-
-        if (!cliente.telefono) {
-        setTelefonoError("El Teléfono es obligatorio");
-        } else {
-        const telefonoSinEspacios = cliente.telefono.trim();
-        if (!telefonoSinEspacios.match(telefonoRegex) || telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
-            setTelefonoError("El Teléfono debe contener solo números y tener entre 7 y 11 dígitos");
-        } else {
-            setTelefonoError("");
-        }
-        }
-
-        
-
-         // Validación del formato del correo electrónico
-         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-         if (!cliente.email) {
-           setEmailError("El Email es obligatorio");
-         } else {
-           const emailSinEspacios = cliente.email.trim();
-           if (!emailSinEspacios.match(emailRegex)) {
-             setEmailError("El Email no tiene un formato válido");
-           } else {
-             setEmailError("");
-           }
-         }
-         
-
-         // Validación de dirección para que no esté vacía y tenga un mínimo de 5 caracteres
-        if (cliente.direccion.trim() === "" || cliente.direccion.length < 5) {
-            setDireccionError("La Dirección es obligatoria");
-            return;
-        } else {
-            setDireccionError("");
-        }
-
-        try {
-            await axios.post("http://localhost:3000/api/clientes", cliente)
-            navigate()
-            const modal = document.getElementById("myModal");
-            const modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
+      // Close the modal (Assuming you are using Bootstrap modal)
+      const modal = document.getElementById('myModal');
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
 
             Window.location.reload();
 
