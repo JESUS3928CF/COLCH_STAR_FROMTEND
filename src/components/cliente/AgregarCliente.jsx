@@ -1,42 +1,60 @@
+import '../../css-general/cssgeneral.css'
+import '../../css-general/tailwind.min.css'
+import '../../css-general/inicio_style.css'
+import '../../css-general/table.min.css'
 import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
+import Swal from 'sweetalert2';
 
 
+//Componente
 const AgregarCliente = () => {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset, 
+    register,  //Regitra o identifica cada elemento o cada input
+    handleSubmit,   //Para manejar el envio del formulario
+    formState: { errors },  //Ver errores que tiene el formulario
+    reset, //Resetea el formulario
   } = useForm();
 
-
+  //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
+
     try {
-      // Send the form data to your API
-      await axios.post('http://localhost:3000/api/clientes', data);
+      // la ruta por donde voya mandar el objeto o el registro nuevo data
+      const res = await axios.post('http://localhost:3000/api/clientes', data);
+      //Luego de mandarlo se cierra el modal
 
-      // Reset the form after a successful submission
-      reset();
+      reset();   //Luego de ser agregado y mandado resetea el formulario
 
-      // Close the modal (Assuming you are using Bootstrap modal)
-      const modal = document.getElementById('myModal');
-      const modalInstance = bootstrap.Modal.getInstance(modal);
-      modalInstance.hide();
+      // Lanzar alerta del producto agregado
+      Swal.fire({
+        title: 'Cliente agregado',
+        text: res.data.message,
+        icon: 'success',
+    }).then(() => {  //El then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+        location.reload(); //  recarga la pagina
+    });
 
-      // Reload the page if necessary
-      window.location.reload();
     } catch (err) {
-      console.log(err);
+          console.log(err)
+          Swal.fire({
+            title: 'Error',
+            text: "Hubo un error",
+            icon: 'Vuelva a intentarlo',
+        }).then( //el then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+            location.reload() //  recarga la pagina
+        );
     }
   };
 
   return (
     <div>
+            {/* modal agregar proveedor */}
+
       <div className="modal" id="myModal">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -64,6 +82,7 @@ const AgregarCliente = () => {
                       type="text"
                       className="form-control"
                       placeholder=". . ."
+                       //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
                       {...register('nombre', {
                         required: 'El nombre es obligatorio',
                       })}

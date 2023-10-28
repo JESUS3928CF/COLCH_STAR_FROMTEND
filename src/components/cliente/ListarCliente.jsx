@@ -1,24 +1,24 @@
-import React from 'react'
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import styles from '../../pages/Clientes.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import React from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import styles from '../../pages/Clientes.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
-import Buscador from '../chared/Buscador'
 import EditarCliente from './EditarCliente';
 
-
+//Componente
 const ListarCliente = () => {
 
-    //estado de la baara buscador
+    //Estado de la barra de busqueda
     const [Buscar, setBuscar] = useState("");
 
-
+    // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
     const [clientes, setClientes] = useState([]);
 
+    // Solicitud a la url
     useEffect(() => {
         // Realiza una solicitud al backend para obtener la lista de usuarios
         axios.get('http://localhost:3000/api/clientes')
@@ -31,14 +31,12 @@ const ListarCliente = () => {
             });
     }, []);
 
-
+    //Esatdo para editar
     const [editarCliente, setEditarCliente] = useState("");
 
-    //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
+    //Al hacer click  en editar trae el cliente y lo guarda en setCliente
     const handleEditClick = (cliente) => {
         setEditarCliente(cliente);
-
-
     };
 
     const contentStyle = {
@@ -51,15 +49,12 @@ const ListarCliente = () => {
 
                 <h1 className="titulo">Clientes</h1>
 
-
+                {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }} >
 
                     <div className={styles.ap}>
                         <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar Cliente</button>
                     </div>
-
-                    {/* modal agregar usuario */}
-
 
                     {/* Boton para Buscar/filtrar */}
                     <div className={styles.buscador}>
@@ -72,16 +67,12 @@ const ListarCliente = () => {
                                 aria-label='Search'
                                 onChange={(e) => setBuscar(e.target.value)}
                             />
-                            {/* <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button> */}
-
-
                         </form>
 
                     </div>
                 </div>
 
-
-
+                {/* tabla  para listar clientes */}
                     <div class="tabla">
                         <table class="table caption-top ">
                             <thead>
@@ -100,13 +91,13 @@ const ListarCliente = () => {
                             </thead>
                             <tbody>
 
-                                    {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
+                            {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
                             {clientes.filter((campo => {
-                                //aca dice que el termino de buesqueda es lo que se le increce al input es decir Buscar
+                                //aca dice que el termino de buesqueda es lo que se le ingrece al input es decir a Buscar
                                 const terminoBusqueda = Buscar.toLowerCase();
                                 return (
                                     // aca se le dice a nombre que si encuntra lo que tiene terminoBusqueda que es 
-                                    // que se le incresa al input
+                                    // que se le ingresa al input
                                     campo.nombre.toLowerCase().includes(terminoBusqueda) ||
                                     campo.apellido.toLowerCase().includes(terminoBusqueda) ||
                                     campo.cedula.toLowerCase().includes(terminoBusqueda) ||
@@ -114,7 +105,7 @@ const ListarCliente = () => {
                                     campo.email.toLowerCase().includes(terminoBusqueda) ||
                                     campo.direccion.toLowerCase().includes(terminoBusqueda)
                                 );
-                                {/* con los datos traidos por set proveedor se hace un mapeo */ }
+                                {/* con los datos traidos por set cliente se hace un mapeo */ }
                             })).map(cliente => (
                                     <tr key={cliente.id}>
                                         <td>{cliente.id_cliente}</td>
@@ -127,7 +118,7 @@ const ListarCliente = () => {
                                         <td>
                                             <BotonCambioEstado 
                                             isChecked={cliente.estado}
-                                            nombreRegistro={cliente}
+                                            nombreRegistro={'cliente'}
                                             ruta={`/clientes/estado/${cliente.id_cliente}`} />
                                         </td>
                                         <td>
