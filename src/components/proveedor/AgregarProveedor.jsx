@@ -93,19 +93,20 @@ const AgregarProveedor = () => {
                                             placeholder=". . ."
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                             //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
-                                            {...register('identificador', {  
+                                            {...register('identificador', {
                                                 required: {          // Es una propiedad que indica que el campo es obligatorio. 
                                                     value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
                                                     message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                                 },
+                                                pattern: {
+                                                    value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blanco 
+                                                    message: "No puede contener Letras ni  espacios en blanco"
+                                                },
                                                 validate: (value) => {
                                                     return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
                                                 },
-                                                pattern: {
-                                                    value:  /^[0-9]+$/,   //expreción regular para prohibir letras y caracteres 
-                                                    message: "No puede contener Letras ni caracteres especiales"
-                                                  }
-                                                
+
+
                                             })}
                                         />
                                         {errors.identificador && (
@@ -137,9 +138,9 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z]+(\s[A-Za-z]+)*$/,  //expreción regular para prohibir letras y caracteres 
+                                                value: /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
                                                 message: "No puede contener números ni caracteres especiales"
-                                            }              
+                                            }
                                         })}
                                     />
                                     {errors.nombre && (
@@ -159,19 +160,19 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="telefono"
                                         placeholder=". . ."
-                                        {...register('telefono', {  
-                                            required: {          
-                                                value: true, 
+                                        {...register('telefono', {
+                                            required: {
+                                                value: true,
                                                 message: 'El teléfono es obligatorio',
                                             },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value:  /^[0-9]+$/,   
-                                                message: "No puede contener Letras ni caracteres especiales"
-                                              }
-                                            
+                                                value: /^\d+$/,
+                                                message: "No puede contener Letras ni espacios en blanco"
+                                            }
+
                                         })}
                                     />
                                     {errors.telefono && (
