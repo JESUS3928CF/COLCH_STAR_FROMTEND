@@ -75,7 +75,7 @@ const AgregarProveedor = () => {
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:
+                                        className="col-form-label">Identificación:*
                                     </label>
 
                                     <br />
