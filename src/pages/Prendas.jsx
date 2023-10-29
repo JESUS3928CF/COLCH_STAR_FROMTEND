@@ -1,4 +1,7 @@
 import { Navbar } from "../components/Navbar";
+
+import AgregarPrendas from "../components/prendas/AgregarPrendas"
+
 import {ListarPrendas} from "../components/prendas/ListarPrendas"
 
 
@@ -8,6 +11,7 @@ const Prendas =()=>{
         <>
         <Navbar/>
         <ListarPrendas/>
+        <AgregarPrendas/>
         </>
     )
 }
