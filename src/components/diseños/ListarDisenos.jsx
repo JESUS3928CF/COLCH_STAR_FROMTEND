@@ -5,6 +5,7 @@ import clienteAxios from '../../config/axios';
 import { DetalleDiseno } from './DetalleDiseno';
 import EditarDiseno from './EditarDiseno';
 import Buscador from '../chared/Buscador';
+import Paginador from '../chared/Paginador';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
@@ -27,12 +28,13 @@ const ListarDisenos = () => {
         const consultarDisenos = async () => {
             const respuesta = await clienteAxios.get('/disenos');
             setDisenos(respuesta.data);
-            setDisenosFiltrar(respuesta.data);
+            setDisenosFiltrar(respuesta.data.slice(0, 10)); // Inicializa con los primeros 10 diseños
         };
 
         /// Hacer la petición a la api
         consultarDisenos();
     }, []);
+
 
     return (
         <>
@@ -96,6 +98,15 @@ const ListarDisenos = () => {
                     </tbody>
                 </table>
             </div>
+
+            <div className='seccion4'>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Paginador
+                    setDatosFiltrar={setDisenosFiltrar}
+                    datos={disenos}
+                />
+            </div>
+
             {/* <!-- ver detalle de productos --> */}
             <DetalleDiseno detalleDiseno={detalleDiseno} />
 
