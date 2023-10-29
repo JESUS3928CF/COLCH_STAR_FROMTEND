@@ -23,8 +23,6 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
             });
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
-        } else {
-            setDatosFiltrar(datos); // Mostrar todos los datos en el estado de filtrado
         }
     };
 
