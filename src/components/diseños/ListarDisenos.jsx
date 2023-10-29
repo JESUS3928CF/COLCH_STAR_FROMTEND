@@ -4,11 +4,17 @@ import BotonNegro from '../chared/BotonNegro';
 import clienteAxios from '../../config/axios';
 import { DetalleDiseno } from './DetalleDiseno';
 import EditarDiseno from './EditarDiseno';
-import Swal from 'sweetalert2';
+import Buscador from '../chared/Buscador';
 
 const ListarDisenos = () => {
+    // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
     const [disenos, setDisenos] = useState([]);
+
+    // Este estado es para poder determinar que diseños concuerdan con la búsqueda y poder eliminar los que no
+    const [disenosFiltrar, setDisenosFiltrar] = useState([]);
+
     const [detalleDiseno, setDetalleDiseno] = useState({});
+
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
     const informacionModal = (diseno) => {
@@ -21,59 +27,23 @@ const ListarDisenos = () => {
         const consultarDisenos = async () => {
             const respuesta = await clienteAxios.get('/disenos');
             setDisenos(respuesta.data);
+            setDisenosFiltrar(respuesta.data);
         };
 
         /// Hacer la petición a la api
         consultarDisenos();
     }, []);
 
-    /// Cambiar Estado del diseño
-    // const cambiarEstado = (estado, registro, ruta) => {
-
-    //     Swal.fire({
-    //         title: `¿Deseas ${
-    //             estado ? 'inhabilitar' : 'habilitar'
-    //         } este ${registro}?`,
-    //         // text: "Este ",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: `Si, ${estado ? 'inhabilítalo' : 'habilítalo'}`,
-    //         cancelButtonText: 'Cancelar',
-    //     }).then(async (result) => {
-    //         if (result.isConfirmed) {
-    //             try {
-    //                 // Realiza la petición PATCH
-    //                 const response = await clienteAxios.patch(ruta, { estado });
-
-    //                 if (response.status === 200) {
-    //                     Swal.fire(
-    //                         `${estado ? 'inhabilitado' : 'habilitado'}`,
-    //                         'Cambio de estado exitoso',
-    //                         'success'
-    //                     );
-    //                 } else {
-    //                     Swal.fire(
-    //                         'Error',
-    //                         'Hubo un problema al cambiar el estado',
-    //                         'error'
-    //                     );
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error al realizar la petición:', error);
-    //                 Swal.fire(
-    //                     'Error',
-    //                     'Hubo un problema al cambiar el estado',
-    //                     'error'
-    //                 );
-    //             }
-    //         }
-    //     });
-    // };
-
     return (
         <>
+            <div className='seccion4'>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Buscador
+                    setDatosFiltrar={setDisenosFiltrar}
+                    datos={disenos}
+                    camposFiltrar={['nombre', 'publicacion']}
+                />
+            </div>
             <div className='tabla'>
                 <table className='table caption-top '>
                     <caption>Lista de diseños</caption>
@@ -88,7 +58,7 @@ const ListarDisenos = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {disenos.map((diseno) => (
+                        {disenosFiltrar.map((diseno) => (
                             <tr key={diseno.id_diseno}>
                                 <th scope='row'>{diseno.id_diseno}</th>
                                 <td>{diseno.nombre}</td>
@@ -107,7 +77,7 @@ const ListarDisenos = () => {
                                     />
                                 </td>
                                 <td>
-                                {/* Este ejemplo esta correcto el de publicado no por que aun me falta en endpoint en el back*/}
+                                    {/* Este ejemplo esta correcto el de publicado no por que aun me falta en endpoint en el back*/}
                                     <BotonCambioEstado
                                         isChecked={diseno.estado}
                                         nombreRegistro={'diseño'}

@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 //componente
 const ListarProveedores = () => {
 
-    //estado de la baara buscador
+    //estado de la para buscador
     const [Buscar, setBuscar] = useState("");
 
     // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
@@ -97,7 +97,7 @@ const ListarProveedores = () => {
                         </thead>
                         <tbody>
 
-                            {/* //filtra los datos que hay en proveedores, y hace la busqueda por cualquier campo */}
+                            {/* //filtra los datos que hay en proveedores, y hace la búsqueda por cualquier campo */}
                             {proveedores.filter((campo => {
                                 //aca dice que el termino de buesqueda es lo que se le increce al input es decir Buscar
                                 const terminoBusqueda = Buscar.toLowerCase();
@@ -109,7 +109,7 @@ const ListarProveedores = () => {
                                     campo.direccion.toLowerCase().includes(terminoBusqueda) ||
                                     campo.identificador.toLowerCase().includes(terminoBusqueda)
                                 );
-                                {/* con los datos traidos por set proveedor se hace un mapeo */ }
+                                /* con los datos traídos por set proveedor se hace un mapeo */ 
                             })).map(proveedor => (
                                 <tr key={proveedor.id_proveedor}>
                                     <td>{proveedor.id_proveedor}</td>
