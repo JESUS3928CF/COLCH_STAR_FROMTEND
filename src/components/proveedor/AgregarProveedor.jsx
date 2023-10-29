@@ -68,7 +68,6 @@ const AgregarProveedor = () => {
                         </div>
                         <div className="modal-body">
 
-
                             {/* formulario para agregar proveedor */}
                             <form action="" id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
 
@@ -91,6 +90,7 @@ const AgregarProveedor = () => {
                                             id={styles.identificacionGuardar}
                                             name="identificador"
                                             placeholder=". . ."
+                                            //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
                                             {...register('identificador', {
                                                 required: 'La Identificación es obligatorio',
                                             })}
@@ -114,7 +114,7 @@ const AgregarProveedor = () => {
                                         name="nombre"
                                         placeholder=". . ."
                                         //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
-                                        {...register('nombre', { 
+                                        {...register('nombre', {
                                             required: 'El Nombre es obligatorio',
                                         })}
                                     />

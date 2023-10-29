@@ -33,7 +33,7 @@ const ListarProveedores = () => {
     //esatdo para edit
     const [editarProveedor, setEditarProveedor] = useState("");
 
-    //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
+    //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
     const handleEditClick = (proveedor) => {
             setEditarProveedor(proveedor);
 
@@ -123,14 +123,16 @@ const ListarProveedores = () => {
                                     </td>
                                     <td><button type="button" className="btn-n"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar"
-                                        onClick={() => handleEditClick(proveedor)} >Editar</button></td>
+                                        data-bs-target="#modalEditar" 
+                                        //le manda a handleEditClick el proveedor a editar
+                                        onClick={() => handleEditClick(proveedor)} >Editar</button></td> 
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                </div>
-                <EditarProveedor editarProveedor={editarProveedor} />
+                </div>     
+                {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
+                <EditarProveedor editarProveedor={editarProveedor} /> 
             </div>
         </div>
 

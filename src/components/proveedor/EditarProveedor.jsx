@@ -22,7 +22,7 @@ const EditarProveedor = ({ editarProveedor }) => {
     //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
     useEffect(() => {
         if (editarProveedor) {
-            setIdProveedor(editarProveedor.identificador);
+            setIdentificador(editarProveedor.identificador);
             setNombre(editarProveedor.nombre);
             setTelefono(editarProveedor.telefono);
             setDireccion(editarProveedor.direccion);
@@ -139,9 +139,7 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                     {/* Botón para cancelar*/}
 
-                                    {/* <button type="button" id="editarCancelado" class="btn-c"data-bs-dismiss="modal" >Cancelar</button> */}
-
-                                    <CancelarModal />
+                                    <CancelarModal/>
 
                                     {/* Botón para guardar*/}
 
