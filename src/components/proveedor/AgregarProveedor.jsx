@@ -1,15 +1,15 @@
-import axios from 'axios'
+import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import { useForm } from 'react-hook-form';
+import axios from 'axios'
+import Swal from 'sweetalert2';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
-import styles from '../../pages/proveedores.module.css';
 import AlertaError from '../chared/AlertaError';
-import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations'
+import { useForm } from 'react-hook-form';
 
 
 //COMPONENTE

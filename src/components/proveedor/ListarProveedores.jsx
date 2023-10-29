@@ -30,7 +30,7 @@ const ListarProveedores = () => {
             })
     }, []);
 
-    //esatdo para edit
+    //estado para editar
     const [editarProveedor, setEditarProveedor] = useState("");
 
     //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
