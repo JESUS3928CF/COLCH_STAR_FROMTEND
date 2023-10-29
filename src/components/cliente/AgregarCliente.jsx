@@ -135,6 +135,7 @@ const AgregarCliente = () => {
                                                   message:'El apellido es obligatorio',
                                                 },
                                                 validate: (value) => {
+                                                    // valida espacios
                                                   return validarEspaciosVacios(value);
                                               },
                                               pattern:{
