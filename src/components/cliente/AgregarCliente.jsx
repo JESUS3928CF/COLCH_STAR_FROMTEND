@@ -23,9 +23,19 @@ const AgregarCliente = () => {
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
 
+    const {nombre,apellido,cedula,telefono,email,direccion} = data
+
+
     try {
       // la ruta por donde voya mandar el objeto o el registro nuevo data
-      const res = await axios.post('http://localhost:3000/api/clientes', data);
+      const res = await axios.post('http://localhost:3000/api/clientes', {
+        nombre: nombre.trim(),
+        apellido: apellido.trim(),
+        cedula: cedula.trim(),
+        telefono: telefono.trim(),
+        email: email.trim(),
+        direccion: direccion.trim()
+      });
       //Luego de mandarlo se cierra el modal
 
       reset();   //Luego de ser agregado y mandado resetea el formulario
@@ -96,7 +106,7 @@ const AgregarCliente = () => {
                                                   return validarEspaciosVacios(value);
                                               },
                                               pattern: {
-                                                value:  /^[A-Za-z]+(\s[A-Za-z]+)*$/,
+                                                value:  /^[A-Za-z\s]+$/,
                                                 message: "El nombre no puede contener números ni caracteres especiales"
                                               }
                                           })}
@@ -120,8 +130,18 @@ const AgregarCliente = () => {
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('apellido', {
-                                              required:
-                                                  'El apellido es obligatorio',
+                                              required:{
+                                                   value: true,
+                                                  message:'El apellido es obligatorio',
+                                                },
+                                                validate: (value) => {
+                                                    // valida espacios
+                                                  return validarEspaciosVacios(value);
+                                              },
+                                              pattern:{
+                                                value: /^[A-Za-z\s]+$/,
+                                                message: "El apellido no puede contener números ni caracteres especiales"
+                                              }
                                           })}
                                       />
                                       {errors.apellido && (
@@ -143,8 +163,21 @@ const AgregarCliente = () => {
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('cedula', {
-                                              required:
-                                                  'La cedula es obligatoria',
+                                              required:{
+                                                value: true,
+                                                message:'La cedula es obligatoria',
+                                              },
+                                            pattern:{
+                                              value: /^\d+$/,
+                                              message: 'No se permiten letras ni espacios en blanco',
+                                            },
+                                            validate: (value) => {
+                                              const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                              if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
+                                                return 'La cédula debe tener minimo 7 digitos y maximo 11';
+                                              }
+                                              return true;
+                                            },
                                           })}
                                       />
                                       {errors.cedula && (
@@ -166,9 +199,22 @@ const AgregarCliente = () => {
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('telefono', {
-                                              required:
-                                                  'El teléfono es obligatorio',
-                                          })}
+                                            required:{
+                                              value: true,
+                                              message:'El telefono es obligatorio',
+                                            },
+                                          pattern:{
+                                            value: /^\d+$/,
+                                            message: 'No se permiten letras ni espacios en blanco',
+                                          },
+                                          validate: (value) => {
+                                            const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                            if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                              return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                            }
+                                            return true;
+                                          },
+                                        })}
                                       />
                                       {errors.telefono && (
                                           <AlertaError
@@ -189,8 +235,17 @@ const AgregarCliente = () => {
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('email', {
-                                              required:
-                                                  'El email es obligatorio',
+                                              required:{
+                                                value: true,
+                                                message:'El email es obligatorio',
+                                              },
+                                              validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            },
+                                            pattern:{
+                                              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                              message: "El Email no tiene un formato válido"
+                                            }
                                           })}
                                       />
                                       {errors.email && (
@@ -212,8 +267,13 @@ const AgregarCliente = () => {
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('direccion', {
-                                              required:
-                                                  'La dirección es obligatoria',
+                                              required:{
+                                                  value: true,
+                                                  message: 'La dirección es obligatoria',
+                                                },
+                                                validate: (value) => {
+                                                  return validarEspaciosVacios(value);
+                                              }
                                           })}
                                       />
                                       {errors.direccion && (

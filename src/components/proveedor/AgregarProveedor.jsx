@@ -1,14 +1,15 @@
-import axios from 'axios'
+import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import { useForm } from 'react-hook-form';
+import axios from 'axios'
+import Swal from 'sweetalert2';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
-import styles from '../../pages/proveedores.module.css';
 import AlertaError from '../chared/AlertaError';
-import Swal from 'sweetalert2';
+import { validarEspaciosVacios } from '../../Validations/validations'
+import { useForm } from 'react-hook-form';
 
 
 //COMPONENTE
@@ -74,7 +75,7 @@ const AgregarProveedor = () => {
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:
+                                        className="col-form-label">Identificación:*
                                     </label>
 
                                     <br />
@@ -90,9 +91,22 @@ const AgregarProveedor = () => {
                                             id={styles.identificacionGuardar}
                                             name="identificador"
                                             placeholder=". . ."
-                                            //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
-                                            {...register('identificador', {
-                                                required: 'La Identificación es obligatorio',
+                                            //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
+                                            //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                            {...register('identificador', {  
+                                                required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                    value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                    message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                                },
+                                                pattern: {
+                                                    value:  /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                    message: "No puede contener Letras ni  espacios en blanco"
+                                                  },
+                                                validate: (value) => {
+                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
+                                                },
+                                                
+                                                
                                             })}
                                         />
                                         {errors.identificador && (
@@ -114,8 +128,19 @@ const AgregarProveedor = () => {
                                         name="nombre"
                                         placeholder=". . ."
                                         //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
+                                        //  Nombre Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                         {...register('nombre', {
-                                            required: 'El Nombre es obligatorio',
+                                            required: {     // Es una propiedad que indica que el campo es obligatorio.
+                                                value: true,  // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El Nombre es obligatorio',  // es un mensaje que se mostrará si la validación falla.
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            },
+                                            pattern: {
+                                                value:  /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                message: "No puede contener números ni caracteres especiales"
+                                            }              
                                         })}
                                     />
                                     {errors.nombre && (
@@ -135,8 +160,19 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="telefono"
                                         placeholder=". . ."
-                                        {...register('telefono', {
-                                            required: 'El Teléfono es obligatorio',
+                                        {...register('telefono', {  
+                                            required: {          
+                                                value: true, 
+                                                message: 'El teléfono es obligatorio',
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            },
+                                            pattern: {
+                                                value:  /^\d+$/,   
+                                                message: "No puede contener Letras ni espacios en blanco"
+                                              }
+                                            
                                         })}
                                     />
                                     {errors.telefono && (
