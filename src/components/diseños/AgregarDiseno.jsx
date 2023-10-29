@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
 //* Importa las funciones de validación
-import { validarImagen } from '../../Validations/validations.js';
+import { validarEspaciosVacios, validarImagen } from '../../Validations/validations.js';
 
 const AgregarDiseno = () => {
     /// Funciones del paquete react-hook-form necesarias para las validaciones
@@ -25,7 +25,7 @@ const AgregarDiseno = () => {
 
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
-        formData.append('nombre', data.nombre);
+        formData.append('nombre', data.nombre.trim());
         formData.append('publicado', data.publicado);
         formData.append('imagen', data.imagen[0]);
 
@@ -88,6 +88,9 @@ const AgregarDiseno = () => {
                                             value: true,
                                             message: 'El nombre es obligatorio',
                                         },
+                                        validate: (value) => {
+                                            return ( validarEspaciosVacios(value) );
+                                        }
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
