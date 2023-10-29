@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 /// Componentes integrados
 import BotonVerde from '../components/chared/BotonVerde';
-import Buscador from '../components/chared/Buscador';
 import BotonNegro from '../components/chared/BotonNegro';
 import AgregarDiseno from '../components/diseños/AgregarDiseno';
 import PrecioDiseno from '../components/diseños/PrecioDiseno';
@@ -45,10 +44,6 @@ export const Diseno = () => {
                         <BotonNegro text={'Atrás'} />
                     </Link>
                     {/* <a href="./productos.html"><button type="button" className="btn btn-secondary">Atrás</button></a> */}
-                </div>
-
-                <div className='seccion4'>
-                    <Buscador />
                 </div>
 
                 {/* Tabla para listar diseños */}

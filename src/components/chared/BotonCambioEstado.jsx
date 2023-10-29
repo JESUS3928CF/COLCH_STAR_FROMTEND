@@ -60,7 +60,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta }) => {
                     id={id}
                     type='checkbox'
                     checked={estado}
-                    onClick={() => cambiarEstado(estado, nombreRegistro, ruta)}
+                    onChange={() => cambiarEstado(estado, nombreRegistro, ruta)}
                 />
                 <div className='button'>
                     <span className='button-toggle'></span>

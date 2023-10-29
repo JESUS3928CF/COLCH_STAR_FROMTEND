@@ -1,105 +1,63 @@
-import axios from 'axios'
-import { useState } from 'react';
+import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import axios from 'axios'
+import Swal from 'sweetalert2';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
-import styles from '../../pages/proveedores.module.css';
 import AlertaError from '../chared/AlertaError';
+import { validarEspaciosVacios } from '../../Validations/validations'
+import { useForm } from 'react-hook-form';
 
 
 //COMPONENTE
 const AgregarProveedor = () => {
 
+    const {
+        register, //regitra o identifica cada elemento o cada input
+        handleSubmit, //para manejar el envio del formulario
+        formState: { errors }, //ver errores que tiene el formulario
+        reset, //resetea el formulario
+    } = useForm();
 
-    const [proveedor, setProveedor] = useState({
-        //estas propiedades  estan vacias  y luego setproveedor los llenara a la hora de agregar un proveedor
-        nombre: "",
-        telefono: "",
-        direccion: "",
-        identificador: "",
-    });
-
-
-    //método para realizar el cambio por medio de setproveedor que lo manda a proveedor
-    // usando se llama a esta función, se toma el estado anterior (prev) y se actualiza con un nuevo objeto.
-    // [e.target.name] se utiliza  para actualizar una propiedad del objeto con el  atributo name del elemento del formulario.
-    //  e.target.value se usa para establecer el nuevo valor de esa propiedad.    
-    const handleChange = (e) => {
-        setProveedor(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
-    }
-
-
-    //PARA LAS VALIDACIONES
-    //set le pasa el mensaje de validación a Error 
-    const [nombreError, setNombreError] = useState("");
-    const [telefonoError, setTelefonoError] = useState("");
-    const [direccionError, setDireccionError] = useState("");
-    const [identificadorError, setIdentificadorError] = useState("");
-
-
-
-    const handleClick = async e => {
-
-        e.preventDefault()
-
-
-        // validación de identificacion sea obligatorio
-        if (proveedor.identificador.trim() === "") {
-            setIdentificadorError("La Identificacion es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setIdentificadorError("")// Limpiar el mensaje de error si el campo es válido
-        }
-
-        // validación de nombre sea obligatorio
-        if (proveedor.nombre.trim() === "") {
-            setNombreError("El Nombre es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-
-        } else {
-            setNombreError("");
-        }
-        // validación de teléfono sea obligatorio   
-        if (proveedor.telefono.trim() === "") {
-            setTelefonoError("El Teléfono es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setTelefonoError("")
-        }
-        // validacion de direccion sea obligatorio
-        if (proveedor.direccion.trim() === "") {
-            setDireccionError("La Direecion es obligatorio");
-            return; // No se envía la solicitud si el campo está vacío
-        } else {
-            setDireccionError("")// Limpiar el mensaje de error si el campo es válido
-        }
+    //funcion que se ejecuta cuando alguien intenta enviar el formulario
+    const onSubmit = async (data) => {
 
 
         try {
-            // la ruta por donde voya mandar el objeto que tiene las propiedades es decir proveedor
-            await axios.post("http://localhost:3000/api/proveedores", proveedor)
+            // la ruta por donde voya mandar el objeto o el registro nuevo data
+            const res = await axios.post("http://localhost:3000/api/proveedores", data)
             //luego de mandarlo ce cierra el modal
 
-            // const modal = document.getElementById("myModal");
-            // const modalInstance = bootstrap.Modal.getInstance(modal);
-            // modalInstance.hide();
+            reset() //luego de ser agregado y mandado resetea el formulario
 
-            location.reload();
+            // Lanzar alerta del producto agregado
+            Swal.fire({
+                title: 'Proveedor agregado',
+                text: res.data.message,
+                icon: 'success',
+            }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+                location.reload(); //  recarga la pagina
+            });
+
         } catch (err) {
             console.log(err)
-        }
 
+            Swal.fire({
+                title: 'Error',
+                text: "Hubo un error",
+                icon: 'Vuelva a intentarlo',
+            }).then( //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+                location.reload() //  recarga la pagina
+            );
+        }
 
     }
 
-
     return (
         <div>
-
             {/* modal agregar proveedor */}
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
@@ -111,15 +69,17 @@ const AgregarProveedor = () => {
                         </div>
                         <div className="modal-body">
 
-
                             {/* formulario para agregar proveedor */}
-                            <form action="" id="formularioAgregarProveedor">
+                            <form action="" id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
 
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:</label>
+                                        className="col-form-label">Identificación:*
+                                    </label>
+
                                     <br />
+
                                     <div className={styles.identi}>
 
                                         <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
@@ -129,11 +89,29 @@ const AgregarProveedor = () => {
 
                                         <input type="text" className="form-control "
                                             id={styles.identificacionGuardar}
-                                            onChange={handleChange}
                                             name="identificador"
                                             placeholder=". . ."
+                                            //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
+                                            //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                            {...register('identificador', {  
+                                                required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                    value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                    message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                                },
+                                                pattern: {
+                                                    value:  /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                    message: "No puede contener Letras ni  espacios en blanco"
+                                                  },
+                                                validate: (value) => {
+                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
+                                                },
+                                                
+                                                
+                                            })}
                                         />
-                                        <AlertaError message={identificadorError} />
+                                        {errors.identificador && (
+                                            <AlertaError message={errors.identificador.message} /> //muestra el mensaje de validacion
+                                        )}
 
                                     </div>
                                 </div>
@@ -149,15 +127,30 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="nombre"
                                         placeholder=". . ."
-                                        onChange={handleChange}
+                                        //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
+                                        //  Nombre Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                        {...register('nombre', {
+                                            required: {     // Es una propiedad que indica que el campo es obligatorio.
+                                                value: true,  // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El Nombre es obligatorio',  // es un mensaje que se mostrará si la validación falla.
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            },
+                                            pattern: {
+                                                value:  /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                message: "No puede contener números ni caracteres especiales"
+                                            }              
+                                        })}
                                     />
-                                  
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={nombreError} />
+                                    {errors.nombre && (
+                                        <AlertaError message={errors.nombre.message} /> //muestra el mensaje de validacion
+                                    )}
 
                                 </div>
 
                                 <div className="mb-3" name="divTelefono">
+
                                     <label htmlFor="telefono"
                                         className="col-form-label" >
                                         Teléfono:*
@@ -165,13 +158,26 @@ const AgregarProveedor = () => {
 
                                     <input type="text"
                                         className="form-control"
-                                        onChange={handleChange}
                                         name="telefono"
                                         placeholder=". . ."
+                                        {...register('telefono', {  
+                                            required: {          
+                                                value: true, 
+                                                message: 'El teléfono es obligatorio',
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            },
+                                            pattern: {
+                                                value:  /^\d+$/,   
+                                                message: "No puede contener Letras ni espacios en blanco"
+                                              }
+                                            
+                                        })}
                                     />
-
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={telefonoError} />
+                                    {errors.telefono && (
+                                        <AlertaError message={errors.telefono.message} /> //muestra el mensaje de validacion
+                                    )}
 
                                 </div>
 
@@ -185,26 +191,25 @@ const AgregarProveedor = () => {
                                     <input type="text"
                                         className="form-control"
                                         id="direccionGuardar"
-                                        onChange={handleChange}
-                                        name="direccion" placeholder=". . ."
+                                        name="direccion"
+                                        placeholder=". . ."
+                                        {...register('direccion', {
+                                            required: 'La Dirección es obligatorio',
+                                        })}
                                     />
-                                    {/* en esta etiqueta va salir el error de validación  */}
-                                    <AlertaError message={direccionError} />
+                                    {errors.direccion && (
+                                        <AlertaError message={errors.direccion.message} /> //muestra el mensaje de validacion
+                                    )}
 
                                 </div>
 
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-
-                                    {/* <button type="button" className="btn-c" data-bs-dismiss="modal"
-                                        id="guardarCancelado">Cancelar</button> */}
                                     <CancelarModal />
 
                                     {/* Botón para guardar*/}
-
-                                    {/* <input onClick={handleClick} type="submit" className="btn btn-success" value="Guardar" /> */}
-                                    <GuardarModal onClick={handleClick} />
+                                    <GuardarModal />
                                 </div>
 
                             </form>

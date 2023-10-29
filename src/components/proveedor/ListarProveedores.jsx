@@ -1,24 +1,22 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import styles from '../../pages/proveedores.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
-// import Buscador from '../chared/Buscador'
 import EditarProveedor from './EditarProveedor';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
+//componente
 const ListarProveedores = () => {
 
-    //estado de la baara buscador
+    //estado de la para buscador
     const [Buscar, setBuscar] = useState("");
-
 
     // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
     const [proveedores, setProveedor] = useState([]);
-
 
     // solicitud  a la url
     useEffect(() => {
@@ -32,10 +30,10 @@ const ListarProveedores = () => {
             })
     }, []);
 
-    
+    //estado para editar
     const [editarProveedor, setEditarProveedor] = useState("");
 
-    //al hacer click  en editar trae el proveedor y lo guarda en setProveedor
+    //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
     const handleEditClick = (proveedor) => {
             setEditarProveedor(proveedor);
 
@@ -46,8 +44,6 @@ const ListarProveedores = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-
-
 
     return (
         <div>
@@ -101,7 +97,7 @@ const ListarProveedores = () => {
                         </thead>
                         <tbody>
 
-                            {/* //filtra los datos que hay en proveedores, y hace la busqueda por cualquier campo */}
+                            {/* //filtra los datos que hay en proveedores, y hace la búsqueda por cualquier campo */}
                             {proveedores.filter((campo => {
                                 //aca dice que el termino de buesqueda es lo que se le increce al input es decir Buscar
                                 const terminoBusqueda = Buscar.toLowerCase();
@@ -113,26 +109,30 @@ const ListarProveedores = () => {
                                     campo.direccion.toLowerCase().includes(terminoBusqueda) ||
                                     campo.identificador.toLowerCase().includes(terminoBusqueda)
                                 );
-                                {/* con los datos traidos por set proveedor se hace un mapeo */ }
+                                /* con los datos traídos por set proveedor se hace un mapeo */ 
                             })).map(proveedor => (
-                                <tr key={proveedor.id}>
+                                <tr key={proveedor.id_proveedor}>
                                     <td>{proveedor.id_proveedor}</td>
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
-                                    <td> <BotonCambioEstado isChecked={proveedor.estado} />
+                                    <td> <BotonCambioEstado  isChecked={proveedor.estado}
+                                        nombreRegistro={'proveedor'}
+                                        ruta={`/proveedores/estado/${proveedor.id_proveedor}`} />
                                     </td>
                                     <td><button type="button" className="btn-n"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar"
-                                        onClick={() => handleEditClick(proveedor)} >Editar</button></td>
+                                        data-bs-target="#modalEditar" 
+                                        //le manda a handleEditClick el proveedor a editar
+                                        onClick={() => handleEditClick(proveedor)} >Editar</button></td> 
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                </div>
-                <EditarProveedor editarProveedor={editarProveedor} />
+                </div>     
+                {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
+                <EditarProveedor editarProveedor={editarProveedor} /> 
             </div>
         </div>
 
