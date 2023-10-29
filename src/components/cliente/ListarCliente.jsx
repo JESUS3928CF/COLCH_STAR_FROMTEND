@@ -8,12 +8,15 @@ import { useEffect, useState } from 'react';
 import styles from '../../pages/Clientes.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarCliente from './EditarCliente';
+import Buscador from '../chared/Buscador';
+
 
 //Componente
 const ListarCliente = () => {
 
     //Estado de la barra de busqueda
-    const [Buscar, setBuscar] = useState("");
+    const [clientesFiltrar, setClientesFiltrar] = useState([]);
+
 
     // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
     const [clientes, setClientes] = useState([]);
@@ -58,18 +61,13 @@ const ListarCliente = () => {
 
                     {/* Boton para Buscar/filtrar */}
                     <div className={styles.buscador}>
-                        <form className='d-flex'>
-                            <input
-                                id='barra-buscar'
-                                className='form-control me-2'
-                                type='search'
-                                placeholder='Buscar...'
-                                aria-label='Search'
-                                onChange={(e) => setBuscar(e.target.value)}
-                            />
-                        </form>
-
-                    </div>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Buscador
+                    setDatosFiltrar={setClientesFiltrar}
+                    datos={clientes}
+                    camposFiltrar={['nombre', 'apellido', 'cedula', 'telefono', 'email', 'direccion']}
+                />
+            </div>
                 </div>
 
                 {/* tabla  para listar clientes */}
@@ -91,22 +89,7 @@ const ListarCliente = () => {
                             </thead>
                             <tbody>
 
-                            {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
-                            {clientes.filter((campo => {
-                                //aca dice que el termino de buesqueda es lo que se le ingrece al input es decir a Buscar
-                                const terminoBusqueda = Buscar.toLowerCase();
-                                return (
-                                    // aca se le dice a nombre que si encuntra lo que tiene terminoBusqueda que es 
-                                    // que se le ingresa al input
-                                    campo.nombre.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.apellido.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.cedula.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.telefono.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.email.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.direccion.toLowerCase().includes(terminoBusqueda)
-                                );
-                                {/* con los datos traidos por set cliente se hace un mapeo */ }
-                            })).map(cliente => (
+                           {clientesFiltrar.map((cliente) => (
                                     <tr key={cliente.id_cliente}>
                                         <td>{cliente.id_cliente}</td>
                                         <td>{cliente.nombre}</td>
@@ -121,9 +104,11 @@ const ListarCliente = () => {
                                             nombreRegistro={'cliente'}
                                             ruta={`/clientes/estado/${cliente.id_cliente}`} />
                                         </td>
-                                        <td>
-                                            <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                                 onClick={() => handleEditClick(cliente)} >Editar</button></td>
+                                        <td><button type="button" className="btn-n"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalEditar" 
+                                        //le manda a handleEditClick el proveedor a editar
+                                        onClick={() => handleEditClick(cliente)} >Editar</button></td> 
                                     </tr>
                                 ))}
                             </tbody>
