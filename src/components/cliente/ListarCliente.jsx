@@ -107,7 +107,7 @@ const ListarCliente = () => {
                                 );
                                 {/* con los datos traidos por set cliente se hace un mapeo */ }
                             })).map(cliente => (
-                                    <tr key={cliente.id}>
+                                    <tr key={cliente.id_cliente}>
                                         <td>{cliente.id_cliente}</td>
                                         <td>{cliente.nombre}</td>
                                         <td>{cliente.apellido}</td>
