@@ -23,13 +23,15 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
             });
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
+        } else {
+            setDatosFiltrar(datos.slice(0,10)); // Mostrar todos los datos en el estado de filtrado
         }
     };
 
     // Realizar la búsqueda automáticamente cuando cambia el valor del campo de entrada
     useEffect(() => {
         realizarBusqueda();
-    }, [busqueda, datos, camposFiltrar]);
+    }, [busqueda, datos]);
 
     return (
         <div>
