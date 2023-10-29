@@ -188,15 +188,17 @@ const EditarCliente = ({editarCliente}) => {
                                           value: true,
                                           message:'La cedula es obligatoria',
                                         },
-                                        minLength:{value:7, message:"La Cédula debe tener al menos 7 digitos sin espacios"},
-                                        maxLength:{value:10, message:"La Cédula debe tener maximo 11 digitos sin espacios"},
-                                        validate: (value) => {
-                                          return validarEspaciosVacios(value);
-                                      },
                                       pattern:{
                                         value: /^\d+$/,
-                                        message: "La Cédula debe contener solo números y tener entre 7 y 11 dígitos"
-                                      }
+                                        message: 'No se permiten letras ni espacios en blanco',
+                                      },
+                                      validate: (value) => {
+                                        const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                        if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
+                                          return 'La cédula debe tener minimo 7 digitos y maximo 11';
+                                        }
+                                        return true;
+                                      },
                                     })}
                                 />
                                 {errors.cedula && (
@@ -222,24 +224,26 @@ const EditarCliente = ({editarCliente}) => {
                                       {...register('telefono', {
                                         required:{
                                           value: true,
-                                          message:'El teléfono es obligatorio',
+                                          message:'El telefono es obligatorio',
                                         },
-                                        minLength:{value:7, message:"El telefono debe tener al menos 7 digitos"},
-                                        maxLength:{value:10, message:"El telefono debe tener maximo 11 digitos"},
-                                        validate: (value) => {
-                                          return validarEspaciosVacios(value);
-                                      },
                                       pattern:{
-                                        value: /^\d*\s*\d*$/,
-                                        message:"El Teléfono debe contener solo números y tener entre 7 y 11 dígitos"
-                                      }
+                                        value: /^\d+$/,
+                                        message: 'No se permiten letras ni espacios en blanco',
+                                      },
+                                      validate: (value) => {
+                                        const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                        if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                          return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                        }
+                                        return true;
+                                      },
                                     })}
-                                />
-                                {errors.telefono && (
-                                    <AlertaError
-                                        message={errors.telefono.message}
-                                    />
-                                )}
+                                  />
+                                  {errors.telefono && (
+                                      <AlertaError
+                                          message={errors.telefono.message}
+                                      />
+                                  )}
                               </div>
                               <div className='mb-3'>
                                   <label
