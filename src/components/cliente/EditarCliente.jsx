@@ -20,7 +20,6 @@ const EditarCliente = ({editarCliente}) => {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
         setValue, // Añade esta función para actualizar dinámicamente los valores
     } = useForm();
 
@@ -29,91 +28,32 @@ const EditarCliente = ({editarCliente}) => {
         if (editarCliente) {
             setValue('nombre', editarCliente.nombre);
             setValue('apellido', editarCliente.apellido);
-            // Añade las demás propiedades aquí
+            setValue('cedula', editarCliente.cedula);
+            setValue('telefono', editarCliente.telefono);
+            setValue('email', editarCliente.email);
+            setValue('direccion', editarCliente.direccion);
+
         }
     }, [editarCliente]);
-
-    //Estado para llenar los input con la informacion de proveedor a editar
-    // const [nombre, setNombre] = useState('');
-    // const [apellido, setApellido] = useState('');
-    // const [cedula, setCedula] = useState('');
-    // const [telefono, setTelefono] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [direccion, setDireccion] = useState('');
-    // const [id_cliente, setIdCliente] = useState(null);
-
-    
-    
-    //por medio de editarcliente se traen lo que hay en el listar, y por medio del estado setNombre,setTelefono etc,
-    //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
-    // useEffect(() => {
-    //     if (editarCliente) {
-    //         setNombre(editarCliente.nombre.trim());
-    //         setApellido(editarCliente.apellido);
-    //         setCedula(editarCliente.cedula);
-    //         setTelefono(editarCliente.telefono);
-    //         setEmail(editarCliente.email);
-    //         setDireccion(editarCliente.direccion);
-    //         setIdCliente(editarCliente.id_cliente);
-    //     }
-    // }, [editarCliente]);
-
-    //Función para al darle click al guardar se mande todo por la ruta de axios y realice el cambio
-    const handleFormClick = (e) => {
-        e.preventDefault();
-
-
-        // Ruta
-        if (id_cliente) {
-            axios.patch(`http://localhost:3000/api/clientes/${id_cliente}`, {
-                // Campos en los que realiza el cambio
-                nombre,
-                apellido,
-                cedula,
-                telefono,
-                email,
-                direccion
-            })
-            .then(response => {
-                console.log('Cliente actualizado:', response.data);
-                Swal.fire({
-                    title: 'Cliente actualizado',
-                    text: response.data.message,
-                    icon: 'success',
-                }).then(()=>{
-                    location.reload();
-                });
-            })
-            .catch(error => {
-                console.error('Error al actualizar el cliente', error);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Hubo un error al actualizar el cliente',
-                    icon: 'error',
-                });
-            });
-        } else {
-            console.error('No se pudo obtener el ID del cliente');
-        }
-    };
 
 
     /// Función para guardar el cliente en la DB
     const onSubmit = (data) => {
 
-        const {nombre} = data
+        const {nombre,apellido,cedula,telefono,email,direccion} = data
+
 
         // Ruta
         if (editarCliente.id_cliente) {
             axios
                 .patch(`http://localhost:3000/api/clientes/${editarCliente.id_cliente}`, {
                     // Campos en los que realiza el cambio
-                    nombre,
-                    // apellido,
-                    // cedula,
-                    // telefono,
-                    // email,
-                    // direccion,
+                    nombre: nombre.trim(),
+                    apellido: apellido.trim(),
+                    cedula: cedula.trim(),
+                    telefono: telefono.trim(),
+                    email: email.trim(),
+                    direccion: direccion.trim()
                 })
                 .then((response) => {
                     console.log('Cliente actualizado:', response.data);
@@ -185,7 +125,7 @@ const EditarCliente = ({editarCliente}) => {
                                               );
                                           },
                                           pattern: {
-                                              value: /^[A-Za-z]+(\s[A-Za-z]+)*$/,
+                                              value: /^[A-Za-z\s]+$/,
                                               message:
                                                   'El nombre no puede contener números ni caracteres especiales',
                                           },
@@ -210,7 +150,25 @@ const EditarCliente = ({editarCliente}) => {
                                       id='apellidoEditar'
                                       name='apellido'
                                       placeholder=''
+                                      {...register('apellido', {
+                                        required:{
+                                          value: true,
+                                          message:'El apellido es obligatorio',
+                                        },
+                                        validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                      pattern:{
+                                        value: /^[A-Za-z\s]+$/,
+                                        message: "El apellido no puede contener números ni caracteres especiales"
+                                      }
+                                    })}
                                   />
+                                   {errors.apellido && (
+                                          <AlertaError
+                                              message={errors.apellido.message}
+                                          />
+                                      )}
                               </div>
                               <div className='mb-3'>
                                   <label
@@ -225,7 +183,28 @@ const EditarCliente = ({editarCliente}) => {
                                       id='cedulaEditar'
                                       name='cedula'
                                       placeholder=''
-                                  />
+                                      {...register('cedula', {
+                                        required:{
+                                          value: true,
+                                          message:'La cedula es obligatoria',
+                                        },
+                                        minLength:{value:7, message:"La Cédula debe tener al menos 7 digitos sin espacios"},
+                                        maxLength:{value:10, message:"La Cédula debe tener maximo 11 digitos sin espacios"},
+                                        validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                      pattern:{
+                                        value: /^\d+$/,
+                                        message: "La Cédula debe contener solo números y tener entre 7 y 11 dígitos"
+                                      }
+                                    })}
+                                />
+                                {errors.cedula && (
+                                    <AlertaError
+                                        message={errors.cedula.message}
+                                    />
+                                )}
+
                               </div>
                               <div className='mb-3'>
                                   <label
@@ -240,7 +219,27 @@ const EditarCliente = ({editarCliente}) => {
                                       id='telefonoEditar'
                                       name='telefono'
                                       placeholder=''
-                                  />
+                                      {...register('telefono', {
+                                        required:{
+                                          value: true,
+                                          message:'El teléfono es obligatorio',
+                                        },
+                                        minLength:{value:7, message:"El telefono debe tener al menos 7 digitos"},
+                                        maxLength:{value:10, message:"El telefono debe tener maximo 11 digitos"},
+                                        validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                      pattern:{
+                                        value: /^\d*\s*\d*$/,
+                                        message:"El Teléfono debe contener solo números y tener entre 7 y 11 dígitos"
+                                      }
+                                    })}
+                                />
+                                {errors.telefono && (
+                                    <AlertaError
+                                        message={errors.telefono.message}
+                                    />
+                                )}
                               </div>
                               <div className='mb-3'>
                                   <label
@@ -255,7 +254,25 @@ const EditarCliente = ({editarCliente}) => {
                                       id='emailEditar'
                                       name='email'
                                       placeholder=''
-                                  />
+                                      {...register('email', {
+                                        required:{
+                                          value: true,
+                                          message:'El email es obligatorio',
+                                        },
+                                        validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                      pattern:{
+                                        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                        message: "El Email no tiene un formato válido"
+                                      }
+                                    })}
+                                />
+                                {errors.email && (
+                                    <AlertaError
+                                        message={errors.email.message}
+                                    />
+                                )}
                               </div>
                               <div className='mb-3'>
                                   <label
@@ -270,7 +287,22 @@ const EditarCliente = ({editarCliente}) => {
                                       id='direccionEditar'
                                       name='direccion'
                                       placeholder=''
+                                      {...register('direccion', {
+                                          required:{
+                                            value: true,
+                                            message: 'La dirección es obligatoria',
+                                          },
+                                          validate: (value) => {
+                                            return validarEspaciosVacios(value);
+                                        }
+                                      })}
                                   />
+                                  {errors.direccion && (
+                                      <AlertaError
+                                          message={errors.direccion.message}
+                                      />
+                                  )}
+                                  
                               </div>
 
                               <div className='modal-footer'>
