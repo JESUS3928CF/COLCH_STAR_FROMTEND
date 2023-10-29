@@ -103,7 +103,7 @@ const ListarDisenos = () => {
                                     <BotonCambioEstado
                                         isChecked={diseno.publicado}
                                         nombreRegistro={'diseño en el catalogo'}
-                                        ruta={`/disenos/estado/${diseno.id_diseno}`}
+                                        ruta={`/disenos/publicado/${diseno.id_diseno}`}
                                     />
                                 </td>
                                 <td>
