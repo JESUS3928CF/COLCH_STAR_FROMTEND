@@ -15,17 +15,21 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                     <div className='row'>
                                         <div>
                                             <div className='mb-3'>
-                                                <label htmlFor="Tela" className="col-form-label"> {detallesPrendas.tipo_de_tela} </label>
+                                            <h2 htmlFor="Tela" className="fs-4  text-nowrap bg-body-secondary border"  > Tipo de tela: {detallesPrendas.tipo_de_tela}</h2>
                                             </div>
 
                                             <div className='mb-3'>
-                                                <label htmlFor="Img" className="col-form-label"> {detallesPrendas.imagen} </label>
+                                                <label htmlFor="Genero" className="col-form-label"> Genero: {detallesPrendas.genero} </label>
                                             </div>
 
-                                            <div className='mb-3'>
-                                                <label htmlFor="Genero" className="col-form-label"> {detallesPrendas.genero} </label>
-
-
+                                            <div className='container ml-12'>
+                                                <img   src={`${
+                                                    import.meta.env
+                                                        .VITE_BACKEND_URL
+                                                }/${detallesPrendas.imagen}`}
+                                                width='250px'
+                                                height='200px'
+                                                alt=''/>
                                             </div>
 
 
