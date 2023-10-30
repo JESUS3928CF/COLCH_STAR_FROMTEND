@@ -9,6 +9,8 @@ import Buscador from '../chared/Buscador';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Paginador from '../chared/Paginador'
+import BotonNegro from '../chared/BotonNegro';
+import Swal from 'sweetalert2';
 
 
 //componente
@@ -37,6 +39,14 @@ const ListarProveedores = () => {
 
     //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
     const handleEditClick = (proveedor) => {
+
+        if (!proveedor.estado) {
+            return Swal.fire(
+                'Acción inválida!',
+                'Este Proveedor no se puede editar porque está inhabilitado',
+                'error'
+            );
+        }
         setEditarProveedor(proveedor);
 
     };
@@ -102,15 +112,24 @@ const ListarProveedores = () => {
                                     <td> <BotonCambioEstado
                                         isChecked={proveedor.estado}
                                         nombreRegistro={'proveedor'}
-                                        ruta={`/proveedores/estado/${proveedor.id_proveedor}`} />
+                                        ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
+                                    />
                                     </td>
                                     <td>
-                                        <button type="button" className="btn-n"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar"
-                                        //le manda a handleEditClick el proveedor a editar
-                                        onClick={() => handleEditClick(proveedor)} >Editar</button>
+                                        <BotonNegro
+                                            text='Editar'
+                                            modalToOpen={
+                                                proveedor.estado
+                                                    ? '#modalEditar'
+                                                    : ''
+                                            }
+                                            onClick={() =>
+                                                handleEditClick(proveedor)
+                                            }
+                                        />
+
                                     </td>
+
                                 </tr>
                             ))}
                         </tbody>
