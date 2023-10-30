@@ -31,7 +31,9 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta }) => {
                             `${estado ? 'inhabilitado' : 'habilitado'}`,
                             'Cambio de estado exitoso',
                             'success'
-                        );
+                        ).then(() => {
+                            location.reload();
+                        });
 
                         setEstado(!estado);
                     } else {
