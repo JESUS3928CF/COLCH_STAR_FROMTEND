@@ -6,6 +6,7 @@ import { DetalleDiseno } from './DetalleDiseno';
 import EditarDiseno from './EditarDiseno';
 import Buscador from '../chared/Buscador';
 import Paginador from '../chared/Paginador';
+import Swal from 'sweetalert2';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
@@ -16,9 +17,16 @@ const ListarDisenos = () => {
 
     const [detalleDiseno, setDetalleDiseno] = useState({});
 
-
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
     const informacionModal = (diseno) => {
+        /// Aca enviamos una alerta para cundo no se puede editar el modal
+        if (!diseno.estado) {
+            return Swal.fire(
+                'Acción inválida!',
+                'Este diseño no se puede editar porque está inhabilitado',
+                'error'
+            );
+        }
         setDetalleDiseno(diseno);
     };
 
@@ -34,7 +42,6 @@ const ListarDisenos = () => {
         /// Hacer la petición a la api
         consultarDisenos();
     }, []);
-
 
     return (
         <>
@@ -87,9 +94,10 @@ const ListarDisenos = () => {
                                     />
                                 </td>
                                 <td>
+                                {/* con el ternario determinamos si abrir o no el modal*/}
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={'#modalDiseño'}
+                                        modalToOpen={diseno.estado? '#modalDiseño' : ''}
                                         onClick={() => informacionModal(diseno)}
                                     />
                                 </td>

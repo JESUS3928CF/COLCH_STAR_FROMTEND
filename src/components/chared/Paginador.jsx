@@ -5,8 +5,6 @@ const Paginador = ({ setDatosFiltrar, datos }) => {
     const totalPaginas = Math.ceil(datos.length / registrosPorPagina);
     let paginaActual;
 
-    console.log(totalPaginas);
-
     /// Este es el Paginador
     function* crearPaginador(total) {
         for (let i = 1; i <= total; i++) {
@@ -41,8 +39,6 @@ const Paginador = ({ setDatosFiltrar, datos }) => {
                 </li>
             );
         }
-
-        console.log(paginaActual);
 
         return itemsPaginador;
     };
