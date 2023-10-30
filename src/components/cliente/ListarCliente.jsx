@@ -153,7 +153,7 @@ const ListarCliente = () => {
                                             }
                                         />
                                     </td>
-                                </tr>
+                                                                    </tr>
                             ))}
                         </tbody>
                     </table>
