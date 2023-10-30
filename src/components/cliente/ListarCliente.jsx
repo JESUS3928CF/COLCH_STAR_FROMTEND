@@ -9,6 +9,8 @@ import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarCliente from './EditarCliente';
 import Buscador from '../chared/Buscador';
 import Paginador from '../chared/Paginador'
+import BotonNegro from '../chared/BotonNegro';
+import Swal from 'sweetalert2';
 
 
 //Componente
@@ -41,6 +43,14 @@ const ListarCliente = () => {
 
     //Al hacer click  en editar trae el cliente y lo guarda en setCliente
     const handleEditClick = (cliente) => {
+
+        if (!cliente.estado) {
+            return Swal.fire(
+                'Acción inválida!',
+                'Este diseño no se puede editar porque está inhabilitado',
+                'error'
+            );
+        }
         setEditarCliente(cliente);
     };
 
@@ -130,6 +140,18 @@ const ListarCliente = () => {
                                         >
                                             Editar
                                         </button>
+
+                                        <BotonNegro
+                                            text='Editar'
+                                            modalToOpen={
+                                                cliente.estado
+                                                    ? '#modalEditar'
+                                                    : ''
+                                            }
+                                            onClick={() =>
+                                                handleEditClick(cliente)
+                                            }
+                                        />
                                     </td>
                                 </tr>
                             ))}
