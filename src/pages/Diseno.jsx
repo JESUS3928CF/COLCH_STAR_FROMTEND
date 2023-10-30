@@ -1,9 +1,9 @@
 import { Navbar } from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import BotonAtrasPrendas from '../components/prendas/BotonAtras';
 
 /// Componentes integrados
 import BotonVerde from '../components/chared/BotonVerde';
-import BotonNegro from '../components/chared/BotonNegro';
 import AgregarDiseno from '../components/diseños/AgregarDiseno';
 import PrecioDiseno from '../components/diseños/PrecioDiseno';
 
@@ -40,9 +40,7 @@ export const Diseno = () => {
                     <PrecioDiseno />
                     
                     {/* botón para mostrar la lista de productos    */}
-                    <Link to={'/productos'}>
-                        <BotonNegro text={'Atrás'} />
-                    </Link>
+                    <BotonAtrasPrendas/>
                     {/* <a href="./productos.html"><button type="button" className="btn btn-secondary">Atrás</button></a> */}
                 </div>
 

@@ -160,8 +160,8 @@ const Productos = () => {
 
                         {/* Boton para mostrar la lista de prendas */}
 
-                    <a href="./prendas.html"><button type="button" className="btn btn-secondary" id="ee">Lista de
-                        Prendas</button></a>
+                        <Link to={'/prendas'}><button type="button" className="btn btn-secondary">Lista de prendas</button></Link>
+
 
                         {/* Boton para mostrar la lista de  diseños */}
 
