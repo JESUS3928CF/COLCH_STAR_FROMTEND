@@ -131,7 +131,7 @@ const ListarCliente = () => {
                                             Editar
                                         </button>
                                     </td>
-                                </tr>
+                                                                    </tr>
                             ))}
                         </tbody>
                     </table>
