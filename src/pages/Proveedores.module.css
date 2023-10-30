@@ -8,9 +8,7 @@
 .ap{
     padding: 0;
     margin: 0;
-
-    margin-left: -650px;
-   
+     margin-left: -650px; 
 } 
 
 #identificacionGuardar{
@@ -24,4 +22,10 @@
     float: right;
     
 }
+
+.atras{
+
+    margin-left: 50px;
+  
+} 
 
