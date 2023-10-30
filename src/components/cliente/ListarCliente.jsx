@@ -47,7 +47,7 @@ const ListarCliente = () => {
         if (!cliente.estado) {
             return Swal.fire(
                 'Acción inválida!',
-                'Este diseño no se puede editar porque está inhabilitado',
+                'Este cliente no se puede editar porque está inhabilitado',
                 'error'
             );
         }
@@ -128,19 +128,6 @@ const ListarCliente = () => {
                                         />
                                     </td>
                                     <td>
-                                        <button
-                                            type='button'
-                                            className='btn-n'
-                                            data-bs-toggle='modal'
-                                            data-bs-target='#modalEditar'
-                                            //le manda a handleEditClick el proveedor a editar
-                                            onClick={() =>
-                                                handleEditClick(cliente)
-                                            }
-                                        >
-                                            Editar
-                                        </button>
-
                                         <BotonNegro
                                             text='Editar'
                                             modalToOpen={
