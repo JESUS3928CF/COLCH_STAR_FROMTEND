@@ -87,7 +87,6 @@ const Productos = () => {
                                     </div>
 
                                     <div className="modal-body ">
-                                        <form action="" id="Colores" name="Colores">
                                             <div className="form-label" >
                                                 <p className="detalleCompra">Agregar datos de los productos </p>
                                             </div>
@@ -141,13 +140,8 @@ const Productos = () => {
                                                     </div>
                                                     <br />
 
-
-
                                                 </div>
                                             </div>
-
-                                        </form>
-
 
                                     </div>
 

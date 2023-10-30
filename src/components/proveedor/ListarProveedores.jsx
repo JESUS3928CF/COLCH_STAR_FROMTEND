@@ -5,15 +5,17 @@ import '../../css-general/table.min.css'
 import styles from '../../pages/proveedores.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarProveedor from './EditarProveedor';
+import Buscador from '../chared/Buscador';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Paginador from '../chared/Paginador'
 
 
 //componente
 const ListarProveedores = () => {
 
-    //estado de la para buscador
-    const [Buscar, setBuscar] = useState("");
+    //estado de la barra buscador
+    const [ProveedoresFiltrar, setProveedoresFiltrar] = useState([]);
 
     // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
     const [proveedores, setProveedor] = useState([]);
@@ -35,7 +37,7 @@ const ListarProveedores = () => {
 
     //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
     const handleEditClick = (proveedor) => {
-            setEditarProveedor(proveedor);
+        setEditarProveedor(proveedor);
 
     };
 
@@ -63,19 +65,11 @@ const ListarProveedores = () => {
 
                     {/* botón de buscar */}
                     <div className={styles.buscador}>
-                        <form className='d-flex'>
-                            <input
-                                id='barra-buscar'
-                                className='form-control me-2'
-                                type='search'
-                                placeholder='Buscar...'
-                                aria-label='Search'
-                                onChange={(e) => setBuscar(e.target.value)}
-                            />
-                            {/* <button id="btn-buscar" className="btn btn-outline-success" type="submit">Buscar</button> */}
-
-
-                        </form>
+                        <Buscador
+                            setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
+                            datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
+                            camposFiltrar={['nombre', 'telefono', 'direccion', 'identificador']} //se le manda los campos por donde se puede filtrar
+                        />
 
                     </div>
                 </div>
@@ -97,42 +91,40 @@ const ListarProveedores = () => {
                         </thead>
                         <tbody>
 
-                            {/* //filtra los datos que hay en proveedores, y hace la búsqueda por cualquier campo */}
-                            {proveedores.filter((campo => {
-                                //aca dice que el termino de buesqueda es lo que se le increce al input es decir Buscar
-                                const terminoBusqueda = Buscar.toLowerCase();
-                                return (
-                                    // aca se le dice a nombre que si encuntra lo que tiene terminoBusqueda que es 
-                                    // que se le incresa al input
-                                    campo.nombre.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.telefono.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.direccion.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.identificador.toLowerCase().includes(terminoBusqueda)
-                                );
-                                /* con los datos traídos por set proveedor se hace un mapeo */ 
-                            })).map(proveedor => (
+                            {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
+                            {ProveedoresFiltrar.map((proveedor) => (
                                 <tr key={proveedor.id_proveedor}>
                                     <td>{proveedor.id_proveedor}</td>
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
-                                    <td> <BotonCambioEstado  isChecked={proveedor.estado}
+                                    <td> <BotonCambioEstado
+                                        isChecked={proveedor.estado}
                                         nombreRegistro={'proveedor'}
                                         ruta={`/proveedores/estado/${proveedor.id_proveedor}`} />
                                     </td>
-                                    <td><button type="button" className="btn-n"
+                                    <td>
+                                        <button type="button" className="btn-n"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#modalEditar" 
+                                        data-bs-target="#modalEditar"
                                         //le manda a handleEditClick el proveedor a editar
-                                        onClick={() => handleEditClick(proveedor)} >Editar</button></td> 
+                                        onClick={() => handleEditClick(proveedor)} >Editar</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                </div>     
+                </div>
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
-                <EditarProveedor editarProveedor={editarProveedor} /> 
+                <EditarProveedor editarProveedor={editarProveedor} />
+            </div>
+            <div className='seccion4'>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Paginador
+                    setDatosFiltrar={setProveedoresFiltrar}
+                    datos={proveedores}
+                />
             </div>
         </div>
 

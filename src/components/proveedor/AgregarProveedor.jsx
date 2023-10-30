@@ -25,10 +25,20 @@ const AgregarProveedor = () => {
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
+        const {nombre,apellido,cedula,telefono,email,direccion} = data
+
 
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
-            const res = await axios.post("http://localhost:3000/api/proveedores", data)
+            const res = await axios.post("http://localhost:3000/api/proveedores", {
+                 // Campos en los que realiza el cambio
+                 nombre: nombre.trim(),
+                 apellido: apellido.trim(),
+                 cedula: cedula.trim(),
+                 telefono: telefono.trim(),
+                 email: email.trim(),
+                 direccion: direccion.trim()
+            })
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
@@ -70,7 +80,7 @@ const AgregarProveedor = () => {
                         <div className="modal-body">
 
                             {/* formulario para agregar proveedor */}
-                            <form action="" id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
+                            <form  id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
 
                                 <div className="mb-3" name="divIdentificacion">
 
