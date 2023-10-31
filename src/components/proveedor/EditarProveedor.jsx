@@ -1,3 +1,10 @@
+// ------------------BRIAN PAREJA HERNANDEZ
+//-------------------26 de septiembre 2023
+//Nos permitira Editar un proveedor, luego de tener proveedores en la tabla listar se podra hacerle sus repectivas modificaciones
+// a dichos proveedores
+
+
+
 import React from 'react'
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'

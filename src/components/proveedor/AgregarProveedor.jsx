@@ -1,3 +1,8 @@
+// ------------------BRIAN PAREJA HERNANDEZ
+//-------------------26 de septiembre 2023
+//Nos permitira Agregar un proveedor, de ser necesario se podra agregar un proveedor mediante un formulario donde se pediran datos mas
+//mas relevantes de este proveedor y luego mostrarlo en la tabla listar  
+
 import styles from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
