@@ -25,10 +25,18 @@ const AgregarProveedor = () => {
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
+        const { identificador, nombre, telefono, direccion } = data
+
 
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
-            const res = await axios.post("http://localhost:3000/api/proveedores", data)
+            const res = await axios.post("http://localhost:3000/api/proveedores", {
+                // Campos en los que realiza el cambio
+                identificador: identificador.trim(),
+                nombre: nombre.trim(),
+                telefono: telefono.trim(),
+                direccion: direccion.trim()
+            })
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
@@ -70,7 +78,7 @@ const AgregarProveedor = () => {
                         <div className="modal-body">
 
                             {/* formulario para agregar proveedor */}
-                            <form action="" id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
+                            <form id="formularioAgregarProveedor" onSubmit={handleSubmit(onSubmit)}>
 
                                 <div className="mb-3" name="divIdentificacion">
 
@@ -87,26 +95,27 @@ const AgregarProveedor = () => {
                                             <option value="nit">NIT</option>
                                         </select>
 
+
                                         <input type="text" className="form-control "
                                             id={styles.identificacionGuardar}
                                             name="identificador"
                                             placeholder=". . ."
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                             //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
-                                            {...register('identificador', {  
+                                            {...register('identificador', {
                                                 required: {          // Es una propiedad que indica que el campo es obligatorio. 
                                                     value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
                                                     message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                                 },
                                                 pattern: {
-                                                    value:  /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                    value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
                                                     message: "No puede contener Letras ni  espacios en blanco"
-                                                  },
+                                                },
                                                 validate: (value) => {
                                                     return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
                                                 },
-                                                
-                                                
+
+
                                             })}
                                         />
                                         {errors.identificador && (
@@ -138,9 +147,9 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value:  /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                value: /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
                                                 message: "No puede contener números ni caracteres especiales"
-                                            }              
+                                            }
                                         })}
                                     />
                                     {errors.nombre && (
@@ -160,19 +169,19 @@ const AgregarProveedor = () => {
                                         className="form-control"
                                         name="telefono"
                                         placeholder=". . ."
-                                        {...register('telefono', {  
-                                            required: {          
-                                                value: true, 
+                                        {...register('telefono', {
+                                            required: {
+                                                value: true,
                                                 message: 'El teléfono es obligatorio',
                                             },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value:  /^\d+$/,   
+                                                value: /^\d+$/,
                                                 message: "No puede contener Letras ni espacios en blanco"
-                                              }
-                                            
+                                            }
+
                                         })}
                                     />
                                     {errors.telefono && (

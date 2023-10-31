@@ -18,7 +18,7 @@ const ListarDisenos = () => {
     const [detalleDiseno, setDetalleDiseno] = useState({});
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
-    const informacionModal = (diseno) => {
+    const informacionModalEditar = (diseno) => {
         /// Aca enviamos una alerta para cundo no se puede editar el modal
         if (!diseno.estado) {
             return Swal.fire(
@@ -27,6 +27,10 @@ const ListarDisenos = () => {
                 'error'
             );
         }
+        setDetalleDiseno(diseno);
+    };
+
+    const informacionModal = (diseno) => {
         setDetalleDiseno(diseno);
     };
 
@@ -98,7 +102,7 @@ const ListarDisenos = () => {
                                     <BotonNegro
                                         text='Editar'
                                         modalToOpen={diseno.estado? '#modalDiseño' : ''}
-                                        onClick={() => informacionModal(diseno)}
+                                        onClick={() => informacionModalEditar(diseno)}
                                     />
                                 </td>
                             </tr>

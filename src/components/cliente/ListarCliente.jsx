@@ -2,6 +2,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '../../pages/Clientes.module.css';
@@ -140,7 +141,7 @@ const ListarCliente = () => {
                                             }
                                         />
                                     </td>
-                                                                    </tr>
+                                </tr>
                             ))}
                         </tbody>
                     </table>

@@ -1,7 +1,7 @@
 import { Navbar } from '../components/Navbar';
 import AgregarUsuario from '../components/usuario/AgregarUsuario';
 import ListarUsuario from '../components/usuario/ListarUsuario';
-import EditarUsuario from '../components/usuario/EditarUsuario';
+// import EditarUsuario from '../components/usuario/EditarUsuario';
 
 
 const Usuarios = () => {
@@ -10,7 +10,7 @@ const Usuarios = () => {
             <Navbar />
             <ListarUsuario/>
             <AgregarUsuario/>
-            <EditarUsuario/>
+            {/* <EditarUsuario/> */}
         </div>
     );
 };
