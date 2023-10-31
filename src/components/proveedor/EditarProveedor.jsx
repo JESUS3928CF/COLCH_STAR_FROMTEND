@@ -17,12 +17,7 @@ import { validarEspaciosVacios } from '../../Validations/validations'
 //COMPONENTE
 const EditarProveedor = ({ editarProveedor }) => {
 
-    // //estado para llenar los input con la informacion de proveedor a editar
-    // const [identificador, setIdentificador] = useState('');
-    // const [nombre, setNombre] = useState('');
-    // const [telefono, setTelefono] = useState('');
-    // const [direccion, setDireccion] = useState('');
-    // const [id_proveedor, setIdProveedor] = useState(null);
+
 
 
     const {
