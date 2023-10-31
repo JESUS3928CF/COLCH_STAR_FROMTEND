@@ -6,7 +6,9 @@ button.swal2-confirm.swal2-styled{
     background-color: #151515 ;
 }
 
-
+.buttom.btn-close{
+    color: white;
+}
 
 .fondo {
     background-color: rgb(252, 246, 246)
