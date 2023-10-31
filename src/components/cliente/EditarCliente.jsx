@@ -2,6 +2,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import React from 'react'
 import axios from 'axios'
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
@@ -99,8 +100,9 @@ const EditarCliente = ({editarCliente}) => {
                       </div>
                       <div className='modal-body'>
                           {/* <!-- formulario para editar los datos de la tabla clientes --> */}
-                          <form action='' onSubmit={handleSubmit(onSubmit)}>
-                              <div className='mb-3' name='divNombre'>
+                          <form                  className="row g-3 needs-validation"
+action='' onSubmit={handleSubmit(onSubmit)}>
+                              <div className='col-md-6' name='divNombre'>
                                   <label
                                       htmlFor='nombreEditar'
                                       className='col-form-label'
@@ -137,7 +139,7 @@ const EditarCliente = ({editarCliente}) => {
                                       />
                                   )}
                               </div>
-                              <div className='mb-3' name='divApellido'>
+                              <div className='col-md-6' name='divApellido'>
                                   <label
                                       htmlFor='apellidoEditar'
                                       className='col-form-label'
@@ -170,7 +172,7 @@ const EditarCliente = ({editarCliente}) => {
                                           />
                                       )}
                               </div>
-                              <div className='mb-3'>
+                              <div className='col-md-6'>
                                   <label
                                       htmlFor='cedulaEditar'
                                       className='col-form-label'
@@ -208,7 +210,7 @@ const EditarCliente = ({editarCliente}) => {
                                 )}
 
                               </div>
-                              <div className='mb-3'>
+                              <div className='col-md-6'>
                                   <label
                                       htmlFor='telefonoEditar'
                                       className='col-form-label'

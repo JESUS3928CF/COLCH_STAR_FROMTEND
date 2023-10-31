@@ -5,10 +5,7 @@ import GuardarModal from "../chared/GuardarModal";
 import HeaderModals from "../chared/HeaderModals";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  validarEspaciosVacios,
-  validarImagen,
-} from "../../Validations/validations";
+import { validarEspaciosVacios,validarImagen} from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2";
@@ -24,13 +21,12 @@ const EditarPrendas = ({ detallesPrendas }) => {
   // Cuando recibe el detallesPrendas, actualiza los valores del formulario
   useEffect(() => {
     if (detallesPrendas) {
-
       setValue("nombre", detallesPrendas.nombre);
       setValue("cantidad", detallesPrendas.cantidad);
       setValue("precio", detallesPrendas.precio);
       setValue("tipo_de_tela", detallesPrendas.tipo_de_tela);
       setValue("genero", detallesPrendas.genero);
-      
+
       // Añade las demás propiedades aquí
     }
   }, [detallesPrendas]);
@@ -47,8 +43,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
     formData.append("genero", data.genero.trim());
     formData.append("imagen", data.imagen[0]);
     formData.append("publicado", data.publicado);
-
-;
 
     /// editar el diseño
     try {
@@ -90,9 +84,10 @@ const EditarPrendas = ({ detallesPrendas }) => {
           <HeaderModals title="Editar Prenda" />
           <div className="modal-body">
             {/* formulario para editar un Diseño */}
-            <form  className="row g-3 needs-validation"
+            <form
+              className="row g-3 needs-validation"
               action=""
-              id="formularioAgregarDiseño"
+              id=""
               onSubmit={editarPrendas}
             >
               <div className="col-md-6">
@@ -104,10 +99,10 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   type="text"
                   className="form-control"
                   placeholder=". . ."
-                  {...register("nombre", {
+                  {...register('nombre', {
                     required: {
                       value: true,
-                      message: "El nombre es obligatorio",
+                      message: 'El nombre es obligatorio',
                     },
                     validate: (value) => {
                       return validarEspaciosVacios(value);
@@ -121,94 +116,81 @@ const EditarPrendas = ({ detallesPrendas }) => {
               </div>
 
               <div className="col-md-6 ms-auto">
-                  <label htmlFor="cantidad" className="col-form-label">
-                    Cantidad:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="cantidad"
-                    placeholder="Cantidad"
-                    title="Ingresa la cantidad"
+                <label htmlFor="cantidad" className="col-form-label">
+                  Cantidad:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="cantidad"
+                  placeholder="Cantidad"
+                  title="Ingresa la cantidad"
+                  {...register('cantidad', {
+                    required: {
+                      value: true,
+                      message: 'La cantidad es obligatoria',
+                    },
+                    validate: (value) => {
+                      return validarEspaciosVacios(value);
+                    },
+                  })}
+                />
+                {errors.cantidad && (
+                  <AlertaError message={errors.cantidad.message} />
+                )}
+              </div>
 
-                    {...register('cantidad',{
-                      required: {
-                        value:true,
-                        message:'La cantidad es obligatoria'
-                      },
-                      validate:(value)=>{
-                        return validarEspaciosVacios(value)
-                      }
-                    })}
-                  />
-                  {errors.cantidad && (
-                                    <AlertaError
-                                        message={errors.cantidad.message}
-                                    />
-                                )}
-                </div>
+              <div className="col-md-6 mt-2" name="precio">
+                <label htmlFor="precio" className="col-form-label">
+                  Precio:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="precio"
+                  placeholder="Precio"
+                  title="Ingresa el precio"
+                  {...register('precio', {
+                    required: {
+                      value: true,
+                      message: 'El precio es obligatoria',
+                    },
+                    validate: (value) => {
+                      return validarEspaciosVacios(value);
+                    },
+                  })}
+                />
 
-                <div className="col-md-6 mt-2" name="precio">
-                  <label htmlFor="precio" className="col-form-label">
-                    Precio:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="precio"
-                    placeholder="Precio"
-                    title="Ingresa el precio"
+                {errors.precio && (
+                  <AlertaError message={errors.precio.message} />
+                )}
+              </div>
 
-                    {...register('precio',{
-                      required: {
-                        value:true,
-                        message:'El precio es obligatoria'
-                      },
-                      validate:(value)=>{
-                        return validarEspaciosVacios(value)
-                      }
-                    })}
-                  />
+              <div className="col-md-6 ms-6 mt-4" name="Tela">
+                <label htmlFor="tipo_de_tela" className="col-from-label">
+                  Tipo de tela:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="tipo_de_tela"
+                  placeholder="Tipo de tela "
+                  title="Ingresa el tipo de tela"
+                  {...register('tipo_de_tela', {
+                    required: {
+                      value: true,
+                      message: 'El tipo de tela  es obligatoria',
+                    },
+                    validate: (value) => {
+                      return validarEspaciosVacios(value);
+                    },
+                  })}
+                />
+                {errors.tipo_de_tela && (
+                  <AlertaError message={errors.tipo_de_tela.message} />
+                )}
+              </div>
 
-{errors.precio && (
-                                    <AlertaError
-                                        message={errors.precio.message}
-                                    />
-                                )}
-                </div>
-
-                <div className="col-md-6 ms-6 mt-4" name="Tela">
-                  <label htmlFor="tipo_de_tela" className="col-from-label">
-                    Tipo de tela:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="tipo_de_tela"
-                    placeholder="Tipo de tela "
-                    title="Ingresa el tipo de tela"
-
-                    {...register('tipo_de_tela',{
-                      required: {
-                        value:true,
-                        message:'El tipo de tela  es obligatoria'
-                      },
-                      validate:(value)=>{
-                        return validarEspaciosVacios(value)
-                      }
-                    })}
-
-
-
-                  />
-                  {errors.tipo_de_tela && (
-                                    <AlertaError
-                                        message={errors.tipo_de_tela.message}
-                                    />
-                                )}
-                </div>
-
-                
               <div className="col-md-6 ms-6">
                 <label htmlFor="imagen" className="form-label">
                   Subir imagen
@@ -217,7 +199,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   className="form-control"
                   name="imagen"
                   type="file"
-                  {...register("imagen", {
+                  {...register('imagen', {
                     validate: (value) => {
                       return validarImagen(value[0]);
                     },
@@ -231,38 +213,28 @@ const EditarPrendas = ({ detallesPrendas }) => {
 
               <div className="col-md-6 ms-6 mt-4">
                 <label htmlFor="genero" className="col-from-label">
-                    Genero:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="genero"
-                    placeholder="Genero "
-                    title="Ingresa el genero"
-
-                    {...register('genero',{
-                      required: {
-                        value:true,
-                        message:'El genero es obligatoria'
-                      },
-                      validate:(value)=>{
-                        return validarEspaciosVacios(value)
-                      }
-                    })}
-
-                  />
-                  {errors.genero && (
-                                    <AlertaError
-                                        message={errors.genero.message}
-                                    />
-                                )}
-
-                </div>
-
-
-
-
-
+                  Genero:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="genero"
+                  placeholder="Genero "
+                  title="Ingresa el genero"
+                  {...register('genero', {
+                    required: {
+                      value: true,
+                      message: "El genero es obligatoria",
+                    },
+                    validate: (value) => {
+                      return validarEspaciosVacios(value);
+                    },
+                  })}
+                />
+                {errors.genero && (
+                  <AlertaError message={errors.genero.message} />
+                )}
+              </div>
 
               <div className="mb-3">
                 <label htmlFor="rolGuardar" className="col-form-label">
