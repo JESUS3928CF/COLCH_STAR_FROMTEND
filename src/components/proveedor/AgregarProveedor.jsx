@@ -15,6 +15,7 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations'
 import { useForm } from 'react-hook-form';
+import HeaderModals from '../chared/HeaderModals';
 
 
 //COMPONENTE
@@ -45,6 +46,7 @@ const AgregarProveedor = () => {
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
+           
 
             // Lanzar alerta del producto agregado
             Swal.fire({
@@ -54,19 +56,34 @@ const AgregarProveedor = () => {
             }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
                 location.reload(); //  recarga la pagina
             });
+            
 
         } catch (err) {
             console.log(err)
 
-            Swal.fire({
-                title: 'Error',
-                text: "Hubo un error",
-                icon: 'Vuelva a intentarlo',
-            }).then( //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-                location.reload() //  recarga la pagina
-            );
-        }
+            if (err.response && err.response.status === 400) {
 
+                Swal.fire({
+                    title: 'Error',
+                    text: err.response.data.message,
+                    icon: 'error',
+
+                }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+                    location.reload(); //  recarga la pagina
+                });
+
+            } else {
+                // En caso de otros errores, muestra una alerta genérica de error
+                Swal.fire({
+                    title: 'Error',
+                    text: "Hubo un error",
+                    icon: 'error',
+
+                }).then(() => { 
+                    location.reload(); 
+                });
+            }          
+        }
     }
 
     return (
@@ -75,11 +92,8 @@ const AgregarProveedor = () => {
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
                     <div className="modal-content">
-                        <div className="agregar agr">
-                            <h5 className="modal-title" id="exampleModalLabel">Agregar proveedor</h5>
-                            <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
+                        <HeaderModals title={'Agregar Proveedor'} />
+                        
                         <div className="modal-body">
 
                             {/* formulario para agregar proveedor */}
