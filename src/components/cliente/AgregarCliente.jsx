@@ -66,7 +66,7 @@ const AgregarCliente = () => {
           {/* modal agregar proveedor */}
 
           <div className='modal' id='myModal'>
-              <div className='modal-dialog modal-dialog-centered'>
+              <div className='modal-dialog modal-dialog-centered '>
                   <div className='modal-content'>
                       <div className='agregar agr'>
                           <h5 className='modal-title' id='exampleModalLabel'>
@@ -82,75 +82,44 @@ const AgregarCliente = () => {
                       </div>
                       <div className='formulario'>
                           <div className='modal-body'>
-                              <form onSubmit={handleSubmit(onSubmit)}>
-                                  <div className='mb-3'>
+                              <form className='row g-3 needs-validation' onSubmit={handleSubmit(onSubmit)}>
+                              {/* <div className='col-md-6 '>
                                       <label
-                                          htmlFor='nombre'
+                                          htmlFor='cedula'
                                           className='col-form-label'
                                       >
-                                          Nombre:*
+                                          Tipo de documento:*
                                       </label>
                                       <input
-                                          name='nombre'
+                                          name='cedula'
                                           type='text'
                                           className='form-control'
                                           placeholder='. . .'
-                                          //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
-                                          {...register('nombre', {
-                                              required: {
-                                                  value: true,
-                                                  message:
-                                                      'El nombre es obligatorio',
-                                              },
-                                              validate: (value) => {
-                                                  return validarEspaciosVacios(value);
-                                              },
-                                              pattern: {
-                                                value:  /^[A-Za-z\s]+$/,
-                                                message: "El nombre no puede contener números ni caracteres especiales"
-                                              }
-                                          })}
-                                      />
-                                      {errors.nombre && (
-                                          <AlertaError
-                                              message={errors.nombre.message}
-                                          />
-                                      )}
-                                  </div>
-                                  <div className='mb-3'>
-                                      <label
-                                          htmlFor='apellido'
-                                          className='col-form-label'
-                                      >
-                                          Apellido:*
-                                      </label>
-                                      <input
-                                          name='apellido'
-                                          type='text'
-                                          className='form-control'
-                                          placeholder='. . .'
-                                          {...register('apellido', {
+                                          {...register('cedula', {
                                               required:{
-                                                   value: true,
-                                                  message:'El apellido es obligatorio',
-                                                },
-                                                validate: (value) => {
-                                                    // valida espacios
-                                                  return validarEspaciosVacios(value);
+                                                value: true,
+                                                message:'La cedula es obligatoria',
                                               },
-                                              pattern:{
-                                                value: /^[A-Za-z\s]+$/,
-                                                message: "El apellido no puede contener números ni caracteres especiales"
+                                            pattern:{
+                                              value: /^\d+$/,
+                                              message: 'No se permiten letras ni espacios en blanco',
+                                            },
+                                            validate: (value) => {
+                                              const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                              if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
+                                                return 'La cédula debe tener minimo 7 digitos y maximo 11';
                                               }
+                                              return true;
+                                            },
                                           })}
                                       />
-                                      {errors.apellido && (
+                                      {errors.cedula && (
                                           <AlertaError
-                                              message={errors.apellido.message}
+                                              message={errors.cedula.message}
                                           />
                                       )}
-                                  </div>
-                                  <div className='mb-3'>
+                                  </div> */}
+                              <div className='col-md-6'>
                                       <label
                                           htmlFor='cedula'
                                           className='col-form-label'
@@ -186,7 +155,75 @@ const AgregarCliente = () => {
                                           />
                                       )}
                                   </div>
-                                  <div className='mb-3'>
+                                  <div className='col-md-6'>
+                                      <label
+                                          htmlFor='nombre'
+                                          className='col-form-label'
+                                      >
+                                          Nombre:*
+                                      </label>
+                                      <input
+                                          name='nombre'
+                                          type='text'
+                                          className='form-control'
+                                          placeholder='. . .'
+                                          //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
+                                          {...register('nombre', {
+                                              required: {
+                                                  value: true,
+                                                  message:
+                                                      'El nombre es obligatorio',
+                                              },
+                                              validate: (value) => {
+                                                  return validarEspaciosVacios(value);
+                                              },
+                                              pattern: {
+                                                value:  /^[A-Za-z\s]+$/,
+                                                message: "El nombre no puede contener números ni caracteres especiales"
+                                              }
+                                          })}
+                                      />
+                                      {errors.nombre && (
+                                          <AlertaError
+                                              message={errors.nombre.message}
+                                          />
+                                      )}
+                                  </div>
+                                  <div className='col-md-6'>
+                                      <label
+                                          htmlFor='apellido'
+                                          className='col-form-label'
+                                      >
+                                          Apellido:*
+                                      </label>
+                                      <input
+                                          name='apellido'
+                                          type='text'
+                                          className='form-control'
+                                          placeholder='. . .'
+                                          {...register('apellido', {
+                                              required:{
+                                                   value: true,
+                                                  message:'El apellido es obligatorio',
+                                                },
+                                                validate: (value) => {
+                                                    // valida espacios
+                                                  return validarEspaciosVacios(value);
+                                              },
+                                              pattern:{
+                                                value: /^[A-Za-z\s]+$/,
+                                                message: "El apellido no puede contener números ni caracteres especiales"
+                                              }
+                                          })}
+                                      />
+                                      {errors.apellido && (
+                                          <AlertaError
+                                              message={errors.apellido.message}
+                                          />
+                                      )}
+                                  </div>
+                                  
+                                  <div className='col-md-6'>
                                       <label
                                           htmlFor='telefono'
                                           className='col-form-label'
@@ -222,7 +259,7 @@ const AgregarCliente = () => {
                                           />
                                       )}
                                   </div>
-                                  <div className='mb-3'>
+                                  <div className='col-md-6'>
                                       <label
                                           htmlFor='email'
                                           className='col-form-label'
@@ -254,7 +291,7 @@ const AgregarCliente = () => {
                                           />
                                       )}
                                   </div>
-                                  <div className='mb-3'>
+                                  <div className='col-md-6'>
                                       <label
                                           htmlFor='direccion'
                                           className='col-form-label'
