@@ -68,9 +68,7 @@ const AgregarProveedor = () => {
                     text: err.response.data.message,
                     icon: 'error',
 
-                }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-                    location.reload(); //  recarga la pagina
-                });
+                })
 
             } else {
                 // En caso de otros errores, muestra una alerta genérica de error
@@ -234,7 +232,7 @@ const AgregarProveedor = () => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal />
+                                    <CancelarModal   modalToCancel="myModal"/>
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />

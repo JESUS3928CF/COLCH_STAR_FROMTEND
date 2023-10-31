@@ -115,6 +115,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.direccion}</td>
                                     <td>{proveedor.identificador}</td>
                                     <td> <BotonCambioEstado
+                                        id={proveedor.id_proveedor}
                                         isChecked={proveedor.estado}
                                         nombreRegistro={'proveedor'}
                                         ruta={`/proveedores/estado/${proveedor.id_proveedor}`}

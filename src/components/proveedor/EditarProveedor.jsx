@@ -89,22 +89,22 @@ const EditarProveedor = ({ editarProveedor }) => {
     return (
         <div>
             {/* modal de editar proveedor */}
-            <div class="modal" id="modalEditar">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="editar edi">
-                            <h5 class="modal-title">Editar datos del proveedor</h5>
-                            <button type="button" id="xEditar" class="btn-close" data-bs-dismiss="modal"
+            <div className="modal" id="modalEditar">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="editar edi">
+                            <h5 className="modal-title">Editar datos del proveedor</h5>
+                            <button type="button" id="xEditar" className="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
 
                             {/* onSubmit={handleFormSubmit} */}
                             <form action="" id="formularioEditarProveedor" onSubmit={handleSubmit(onSubmit)} >
 
-                                <div class="mb-3" name="divIdentificacion">
-                                    <label for="identificacionEditar"
-                                        class="col-form-label">Identificacion:
+                                <div className="mb-3" name="divIdentificacion">
+                                    <label htmlFor="identificacionEditar"
+                                        className="col-form-label">Identificacion:
                                     </label>
                                     <br />
 
@@ -115,7 +115,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                             <option value="nit">NIT</option>
                                         </select>
 
-                                        <input type="text" class="form-control"
+                                        <input type="text" className="form-control"
                                             id={styles.identificacionEditar}
                                             name="identificador"
                                             placeholder="Ingresar su identificacion"
@@ -144,13 +144,13 @@ const EditarProveedor = ({ editarProveedor }) => {
                                     </div>
                                 </div>
 
-                                <div class="mb-3" name="divNombre">
+                                <div className="mb-3" name="divNombre">
 
-                                    <label for="nombreEditar"
-                                        class="col-form-label">Nombre:
+                                    <label htmlFor="nombreEditar"
+                                        className="col-form-label">Nombre:
                                     </label>
 
-                                    <input type="text" class="form-control" id="nombreEditar"
+                                    <input type="text" className="form-control" id="nombreEditar"
                                         name="nombre"
                                         placeholder="Ingresar nombre"
                                         //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
@@ -175,13 +175,13 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                 </div>
 
-                                <div class="mb-3" name="divTelefono">
+                                <div className="mb-3" name="divTelefono">
 
-                                    <label for="telefonoEditar"
-                                        class="col-form-label">Teléfono:
+                                    <label htmlFor="telefonoEditar"
+                                        className="col-form-label">Teléfono:
                                     </label>
 
-                                    <input type="text" class="form-control" id="telefonoEditar"
+                                    <input type="text" className="form-control" id="telefonoEditar"
                                         name="telefono"
                                         placeholder="Ingresar teléfono"
                                         {...register('telefono', {
@@ -205,13 +205,13 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                 </div>
 
-                                <div class="mb-3" name="divDireccion">
+                                <div className="mb-3" name="divDireccion">
 
-                                    <label for="direccionEditar"
-                                        class="col-form-label">Dirección:
+                                    <label htmlFor="direccionEditar"
+                                        className="col-form-label">Dirección:
                                     </label>
 
-                                    <input type="text" class="form-control" id="direccionEditar"
+                                    <input type="text" className="form-control" id="direccionEditar"
                                         name="direccion"
                                         placeholder="Ingresar dirección"
                                         {...register('direccion', {
@@ -224,10 +224,10 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                 </div>
 
-                                <div class="modal-footer">
+                                <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal />
+                                    <CancelarModal  modalToCancel="modalEditar" />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />
