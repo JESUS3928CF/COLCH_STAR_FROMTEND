@@ -10,6 +10,7 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
+import HeaderModals from '../chared/HeaderModals';
 
 
 //Componente
@@ -52,16 +53,25 @@ const AgregarCliente = () => {
 
     } catch (err) {
           console.log(err)
+          if (err.response && err.response.status === 400) {
           Swal.fire({
             title: 'Error',
+            text: err.response.data.message,
+            icon: 'error',
+        })
+    }else{
+        // En caso de otros errores, muestra una alerta genérica de error
+        Swal.fire({
+            title: 'Error',
             text: "Hubo un error",
-            icon: 'Vuelva a intentarlo',
-        }).then( //el then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-            location.reload() //  recarga la pagina
-        );
-    }
-  };
+            icon: 'error',
 
+        }).then(() => { 
+            location.reload(); 
+        });
+    }
+  }
+  }
   return (
       <div>
           {/* modal agregar proveedor */}
@@ -69,18 +79,7 @@ const AgregarCliente = () => {
           <div className='modal' id='myModal'>
               <div className='modal-dialog modal-dialog-centered '>
                   <div className='modal-content'>
-                      <div className='agregar agr'>
-                          <h5 className='modal-title' id='exampleModalLabel'>
-                              Agregar cliente
-                          </h5>
-                          <button
-                              type='button'
-                              id='xAgregar'
-                              className='btn-close'
-                              data-bs-dismiss='modal'
-                              aria-label='Close'
-                          ></button>
-                      </div>
+                  <HeaderModals title={'Agregar Proveedor'} />
                       <div className='formulario'>
                           <div className='modal-body'>
                             {/* <!-- formulario para agregar un usuario --> */}
