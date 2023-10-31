@@ -2,6 +2,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import React from 'react'
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
@@ -82,6 +83,7 @@ const AgregarCliente = () => {
                       </div>
                       <div className='formulario'>
                           <div className='modal-body'>
+                            {/* <!-- formulario para agregar un usuario --> */}
                               <form onSubmit={handleSubmit(onSubmit)}>
                                   <div className='mb-3'>
                                       <label
@@ -231,7 +233,7 @@ const AgregarCliente = () => {
                                       </label>
                                       <input
                                           name='email'
-                                          type='email'
+                                          type='text'
                                           className='form-control'
                                           placeholder='. . .'
                                           {...register('email', {

@@ -7,11 +7,17 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '../../pages/Clientes.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
+import EditarUsuario from './EditarUsuario';
+import Buscador from '../chared/Buscador';
+import Paginador from '../chared/Paginador'
+import BotonNegro from '../chared/BotonNegro';
+import Swal from 'sweetalert2';
+
 
 const ListarUsuario = () => {
 
     //Estado de la barra de busqueda
-    const [Buscar, setBuscar] = useState("");
+    const [usuariosFiltrar, setUsuariosFiltrar] = useState([]);
 
 
     const [usuarios, setUsuarios] = useState([]);
@@ -22,11 +28,30 @@ const ListarUsuario = () => {
         .then(response => {
           // Actualiza el estado con la lista de usuarios
           setUsuarios(response.data);
+
+          setUsuariosFiltrar(response.data.slice(0, 10));
         })
         .catch(error => {
           console.error('Error al obtener la lista de usuarios:', error);
         });
     }, []);
+
+        //Esatdo para editar
+        const [editarUsuario, setEditarUsuario] = useState("");
+
+        //Al hacer click  en editar trae el cliente y lo guarda en setCliente
+        const handleEditClick = (usuario) => {
+    
+            if (!usuario.estado) {
+                return Swal.fire(
+                    'Acción inválida!',
+                    'Este usuario no se puede editar porque está inhabilitado',
+                    'error'
+                );
+            }
+            setEditarUsuario(usuarios);
+        };
+
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
@@ -44,18 +69,20 @@ const ListarUsuario = () => {
                         <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar Usuario</button>
                     </div>
 
-                    <div className={styles.buscador}>
-                        <form className='d-flex'>
-                            <input
-                                id='barra-buscar'
-                                className='form-control me-2'
-                                type='search'
-                                placeholder='Buscar...'
-                                aria-label='Search'
-                                onChange={(e) => setBuscar(e.target.value)}
-                            />
-                        </form>
-
+                      {/* Boton para Buscar/filtrar */}
+                      <div className={styles.buscador}>
+                        {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                        <Buscador
+                            setDatosFiltrar={setUsuariosFiltrar}
+                            datos={usuarios}
+                            camposFiltrar={[
+                                'nombre',
+                                'apellido',
+                                'telefono',
+                                'email',
+                                'role'
+                            ]}
+                        />
                     </div>
                 </div>
 
@@ -76,21 +103,8 @@ const ListarUsuario = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                              {/* //filtra los datos que hay en clientes, y hace la busqueda por cualquier campo */}
-                              {usuarios.filter((campo => {
-                                //aca dice que el termino de buesqueda es lo que se le ingrece al input es decir a Buscar
-                                const terminoBusqueda = Buscar.toLowerCase();
-                                return (
-                                    // aca se le dice a nombre que si encuntra lo que tiene terminoBusqueda que es 
-                                    // que se le ingresa al input
-                                    campo.nombre.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.apellido.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.telefono.toLowerCase().includes(terminoBusqueda) ||
-                                    campo.email.toLowerCase().includes(terminoBusqueda)
-                                );
-                                {/* con los datos traidos por set cliente se hace un mapeo */ }
-                            })).map(usuario => (
-                                <tr key={usuario.id}>
+                            {usuariosFiltrar.map((usuario) => (
+                                <tr key={usuario.id_usuario}>
                                 <td>{usuario.id_usuario}</td>
                                 <td>{usuario.nombre}</td>
                                 <td>{usuario.apellido}</td>
@@ -98,28 +112,39 @@ const ListarUsuario = () => {
                                 <td>{usuario.email}</td>
                                 <td>{usuario.fk_rol}</td>
                                 <td>
-                                            <BotonCambioEstado 
-                                            isChecked={usuario.estado}
-                                            nombreRegistro={'usuario'}
-                                            ruta={`/usuarios/estado/${usuario.id_usuario}`} />
-                                        </td>
-                                <td>
-                                <button type="button" className="btn-n" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                >
-                                    Editar
-                                </button>
+                                    <BotonCambioEstado 
+                                    isChecked={usuario.estado}
+                                    nombreRegistro={'usuario'}
+                                    ruta={`/usuarios/estado/${usuario.id_usuario}`} />
                                 </td>
+                                <td>
+                                        <BotonNegro
+                                            text='Editar'
+                                            modalToOpen={
+                                                usuario.estado
+                                                    ? '#modalEditar'
+                                                    : ''
+                                            }
+                                            onClick={() =>
+                                                handleEditClick(usuario)
+                                            }
+                                        />
+                                    </td>
                             </tr>
                             ))}
                             </tbody>
                         </table>
                     </div>
-
+                <EditarUsuario editarUsuario={editarUsuario} />
                 </div>
 
-
-
-
+                <div className='seccion4'>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Paginador
+                    setDatosFiltrar={setUsuariosFiltrar}
+                    datos={usuarios}
+                />
+            </div>
 
             </div>
 
