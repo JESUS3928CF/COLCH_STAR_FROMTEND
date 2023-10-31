@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------26 de septiembre 2023
+// Nos permitira Listar uno o todos los clientes de la base de datos y que agreguemos por medio del agregar cliente,
+// existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -123,6 +127,7 @@ const ListarCliente = () => {
                                     <td>{cliente.direccion}</td>
                                     <td>
                                         <BotonCambioEstado
+                                            id={cliente.id_cliente}
                                             isChecked={cliente.estado}
                                             nombreRegistro={'cliente'}
                                             ruta={`/clientes/estado/${cliente.id_cliente}`}

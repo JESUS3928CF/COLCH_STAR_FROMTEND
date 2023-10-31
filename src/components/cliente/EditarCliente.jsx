@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------26 de septiembre 2023
+//Nos permitira Editar un cliente, luego de tener clientes en la tabla listar, se le podra hacer sus repectivas modificaciones
+// a dichos clientes
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'

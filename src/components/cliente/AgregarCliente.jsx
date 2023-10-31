@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------26 de septiembre 2023
+//Nos permitira Agregar un cliente, de ser necesario se podra agregar un cliente mediante un formulario donde se pediran datos
+//mas relevantes de este cliente y luego mostrarlo en la tabla listar  
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -322,7 +326,7 @@ const AgregarCliente = () => {
                                   </div>
 
                                   <div className='modal-footer'>
-                                      <CancelarModal />
+                                      <CancelarModal modalToCancel='myModal'/>
                                       <GuardarModal />
                                   </div>
                               </form>
