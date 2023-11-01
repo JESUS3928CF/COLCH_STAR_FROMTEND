@@ -116,7 +116,7 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                 <div className="mb-3" name="divIdentificacion">
                                     <label htmlFor="identificacionEditar"
-                                        className="col-form-label">Identificacion:
+                                        className="col-form-label">Identificacion: *
                                     </label>
                                     <br />
 
@@ -161,7 +161,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="mb-3" name="divNombre">
 
                                     <label htmlFor="nombreEditar"
-                                        className="col-form-label">Nombre:
+                                        className="col-form-label">Nombre: *
                                     </label>
 
                                     <input type="text" className="form-control" id="nombreEditar"
@@ -192,7 +192,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="mb-3" name="divTelefono">
 
                                     <label htmlFor="telefonoEditar"
-                                        className="col-form-label">Teléfono:
+                                        className="col-form-label">Teléfono: *
                                     </label>
 
                                     <input type="text" className="form-control" id="telefonoEditar"
@@ -222,7 +222,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="mb-3" name="divDireccion">
 
                                     <label htmlFor="direccionEditar"
-                                        className="col-form-label">Dirección:
+                                        className="col-form-label">Dirección: *
                                     </label>
 
                                     <input type="text" className="form-control" id="direccionEditar"

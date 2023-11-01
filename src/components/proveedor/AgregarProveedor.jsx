@@ -101,7 +101,7 @@ const AgregarProveedor = () => {
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:*
+                                        className="col-form-label">Identificación: *
                                     </label>
 
                                     <br />
@@ -156,7 +156,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="nombre"
                                         className="col-form-label">
-                                        Nombre:*
+                                        Nombre: *
                                     </label>
 
                                     <input type="text"
@@ -189,7 +189,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="telefono"
                                         className="col-form-label" >
-                                        Teléfono:*
+                                        Teléfono: *
                                     </label>
 
                                     <input type="text"
@@ -221,7 +221,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="direccionGuardar"
                                         className="col-form-label">
-                                        Dirección:*
+                                        Dirección: *
                                     </label>
 
                                     <input type="text"

@@ -67,7 +67,7 @@ const ListarProveedores = () => {
             <div style={contentStyle} className='contenedor'>
 
                 {/* titulo */}
-                <h1 className="titulo">Proveedores</h1>
+                <h1 className="titulo">Gestionar Proveedor</h1>
 
 
                 {/* botón agregar */}
