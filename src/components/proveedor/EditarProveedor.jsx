@@ -74,12 +74,22 @@ const EditarProveedor = ({ editarProveedor }) => {
                 })
                 .catch(error => {
                     console.error('Error al actualizar el proveedor', error);
-                    //alerta
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Hubo un error al actualizar el Proveedor',
-                        icon: 'error',
-                    });
+
+                    if (error.response && error.response.status === 400) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: error.response.data.message,
+                            icon: 'error',
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Hubo un error',
+                            icon: 'error',
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
                 });
         } else {
             console.error('No se pudo obtener el ID del proveedor');
