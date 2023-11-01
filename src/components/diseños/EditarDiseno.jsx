@@ -1,3 +1,8 @@
+// ------------------JESÚS ANTONIO COCHERO FLORIÁN
+//-------------------26 de septiembre 2023
+//Nos permitira Editar un diseño, luego de tener diseños en la tabla listar, se le podra hacer sus repectivas modificaciones
+// a dichos diseños
+
 import PropTypes from "prop-types";
 
 import CancelarModal from "../chared/CancelarModal";
