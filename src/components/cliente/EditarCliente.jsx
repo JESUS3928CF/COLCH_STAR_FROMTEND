@@ -70,18 +70,30 @@ const EditarCliente = ({editarCliente}) => {
                         location.reload();
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error('Error al actualizar el cliente', error);
+
+                    if (error.response && error.response.status === 400) {
+
                     Swal.fire({
                         title: 'Error',
-                        text: 'Hubo un error al actualizar el cliente',
+                        text: error.response.data.message,
                         icon: 'error',
                     });
-                });
+                }else{
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error',
+                        icon: 'error',
+                    }).then(() => {
+                        location.reload();
+                    });
+                }
+             });
         } else {
             console.error('No se pudo obtener el ID del cliente');
         }
-    }
+    };
 
 
   return (
