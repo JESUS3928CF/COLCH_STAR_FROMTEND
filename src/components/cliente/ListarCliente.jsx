@@ -121,7 +121,7 @@ const ListarCliente = () => {
                                     <td>{cliente.id_cliente}</td>
                                     <td>{cliente.nombre}</td>
                                     <td>{cliente.apellido}</td>
-                                    <td>{cliente.identificacion}</td>
+                                    <td>{cliente.tipoIdentificacion} {cliente.identificacion}</td>
                                     <td>{cliente.telefono}</td>
                                     <td>{cliente.email}</td>
                                     <td>{cliente.direccion}</td>

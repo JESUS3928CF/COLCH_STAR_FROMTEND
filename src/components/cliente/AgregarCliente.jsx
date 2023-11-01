@@ -36,7 +36,8 @@ const AgregarCliente = () => {
     try {
       // la ruta por donde voya mandar el objeto o el registro nuevo data
       const res = await axios.post('http://localhost:3000/api/clientes', {
-        identificacion: tipoIdentificacion + identificacion.trim(),
+        identificacion: identificacion.trim(),
+        tipoIdentificacion: tipoIdentificacion.trim(),
         nombre: nombre.trim(),
         apellido: apellido.trim(),
         telefono: telefono.trim(),
