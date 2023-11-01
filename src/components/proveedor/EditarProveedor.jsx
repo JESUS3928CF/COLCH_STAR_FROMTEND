@@ -174,7 +174,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/, //expreción regular para prohibir letras y caracteres 
                                                 message: "No puede contener números ni caracteres especiales"
                                             }
                                         })}

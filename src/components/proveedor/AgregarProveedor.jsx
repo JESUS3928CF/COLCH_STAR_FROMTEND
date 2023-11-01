@@ -164,7 +164,7 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                                 message: "No puede contener números ni caracteres especiales"
                                             }
                                         })}
