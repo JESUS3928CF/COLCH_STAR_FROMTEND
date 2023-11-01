@@ -116,9 +116,9 @@ const AgregarProveedor = () => {
                                             }
                                         })}>
                                             {/* <option value="">.</option> */}
-                                            <option value="C.C. ">CC</option>
-                                            <option value="NIT ">NIT</option>
-                                            <option value="C.E. ">CE </option>
+                                            <option value="C.C. ">C.C.</option>
+                                            <option value="NIT. ">NIT.</option>
+                                            <option value="C.E. ">C.E. </option>
 
                                         </select>
 

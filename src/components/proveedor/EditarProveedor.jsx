@@ -124,8 +124,9 @@ const EditarProveedor = ({ editarProveedor }) => {
 
 
                                         <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
-                                            <option value="C.C.">CC</option>
-                                            <option value="NIT">NIT</option>
+                                            <option value="C.C.">C.C.</option>
+                                            <option value="NIT">NIT.</option>
+                                            <option value="C.E. ">C.E. </option>
                                         </select>
 
                                         <input type="text" className="form-control"
