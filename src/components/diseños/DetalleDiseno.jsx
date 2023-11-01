@@ -1,3 +1,6 @@
+// ------------------JESÚS ANTONIO COCHERO FLORIÁN
+//-------------------26 de septiembre 2023
+//Nos permitira Mostrar la información de los diseños que no se muestra en la taba listar
 import PropTypes from 'prop-types';
 
 import HeaderModals from '../chared/HeaderModals';

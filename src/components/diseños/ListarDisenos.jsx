@@ -1,3 +1,7 @@
+// ------------------JESÚS ANTONIO COCHERO FLORIÁN
+//-------------------26 de septiembre 2023
+// Nos permitira Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
+// existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import { useEffect, useState } from 'react';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import BotonNegro from '../chared/BotonNegro';
@@ -85,8 +89,14 @@ const ListarDisenos = () => {
                                 <td>
                                     <BotonCambioEstado
                                         isChecked={diseno.publicado}
-                                        nombreRegistro={'diseño en el catalogo'}
+                                        nombreRegistro={'diseño'}
                                         ruta={`/disenos/publicado/${diseno.id_diseno}`}
+                                        cambiarPublicacion={
+                                            {
+                                                estado: diseno.estado,
+                                                paraPublicacion: true,
+                                            }
+                                        }
                                     />
                                 </td>
                                 <td>

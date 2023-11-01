@@ -2,6 +2,7 @@
 //-------------------26 de septiembre 2023
 //Nos permitira Editar un cliente, luego de tener clientes en la tabla listar, se le podra hacer sus repectivas modificaciones
 // a dichos clientes
+import styles from '../../pages/clientes.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -31,9 +32,10 @@ const EditarCliente = ({editarCliente}) => {
     // Cuando editarCliente cambia, actualiza los valores del formulario
     useEffect(() => {
         if (editarCliente) {
+            setValue('tipoIdentificacion', editarCliente.tipoIdentificacion);
+            setValue('identificacion', editarCliente.identificacion);
             setValue('nombre', editarCliente.nombre);
             setValue('apellido', editarCliente.apellido);
-            setValue('cedula', editarCliente.cedula);
             setValue('telefono', editarCliente.telefono);
             setValue('email', editarCliente.email);
             setValue('direccion', editarCliente.direccion);
@@ -45,17 +47,17 @@ const EditarCliente = ({editarCliente}) => {
     /// Función para guardar el cliente en la DB
     const onSubmit = (data) => {
 
-        const {nombre,apellido,cedula,telefono,email,direccion} = data
+        const {identificacion,tipoIdentificacion,nombre,apellido,telefono,email,direccion} = data
 
 
         // Ruta
         if (editarCliente.id_cliente) {
-            axios
-                .patch(`http://localhost:3000/api/clientes/${editarCliente.id_cliente}`, {
+            axios.patch(`http://localhost:3000/api/clientes/${editarCliente.id_cliente}`, {
                     // Campos en los que realiza el cambio
+                    tipoIdentificacion: tipoIdentificacion.trim(),
+                    identificacion: identificacion.trim(),
                     nombre: nombre.trim(),
                     apellido: apellido.trim(),
-                    cedula: cedula.trim(),
                     telefono: telefono.trim(),
                     email: email.trim(),
                     direccion: direccion.trim()
@@ -116,8 +118,51 @@ const EditarCliente = ({editarCliente}) => {
                       </div>
                       <div className='modal-body'>
                           {/* <!-- formulario para editar los datos de la tabla clientes --> */}
-                          <form                  className="row g-3 needs-validation"
-action='' onSubmit={handleSubmit(onSubmit)}>
+                          <form className="row g-3 needs-validation" action='' onSubmit={handleSubmit(onSubmit)}>
+
+                          <div className="mb-3" name="divIdentificacion">
+                                    <label htmlFor="identificacionEditar"
+                                        className="col-form-label">Identificación:
+                                    </label>
+                                    <br />
+
+                                    <div className={styles.identi}>
+
+
+                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
+                                            <option value="C.C.">C.C.</option>
+                                            <option value="C.E. ">C.E. </option>
+                                        </select>
+
+                                        <input type="text" className="form-control"
+                                            id={styles.identificacionEditar}
+                                            name="identificacion"
+                                            placeholder="Ingresar su identificacion"
+                                            //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
+                                            //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                            {...register('identificacion', {
+                                                required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                    value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                    message: 'La Identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                                },
+                                                pattern: {
+                                                    value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                    message: "No puede contener Letras ni  espacios en blanco"
+                                                },
+                                                validate: (value) => {
+                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
+                                                },
+
+
+                                            })}
+                                        />
+                                        {errors.identificacion && (
+                                            <AlertaError message={errors.identificacion.message} /> //muestra el mensaje de validacion
+                                        )}
+
+                                    </div>
+                                </div>
+
                               <div className='col-md-6' name='divNombre'>
                                   <label
                                       htmlFor='nombreEditar'
@@ -187,44 +232,6 @@ action='' onSubmit={handleSubmit(onSubmit)}>
                                               message={errors.apellido.message}
                                           />
                                       )}
-                              </div>
-                              <div className='col-md-6'>
-                                  <label
-                                      htmlFor='cedulaEditar'
-                                      className='col-form-label'
-                                  >
-                                      Cedula:*
-                                  </label>
-                                  <input
-                                      type='text'
-                                      className='form-control'
-                                      id='cedulaEditar'
-                                      name='cedula'
-                                      placeholder=''
-                                      {...register('cedula', {
-                                        required:{
-                                          value: true,
-                                          message:'La cedula es obligatoria',
-                                        },
-                                      pattern:{
-                                        value: /^\d+$/,
-                                        message: 'No se permiten letras ni espacios en blanco',
-                                      },
-                                      validate: (value) => {
-                                        const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                        if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
-                                          return 'La cédula debe tener minimo 7 digitos y maximo 11';
-                                        }
-                                        return true;
-                                      },
-                                    })}
-                                />
-                                {errors.cedula && (
-                                    <AlertaError
-                                        message={errors.cedula.message}
-                                    />
-                                )}
-
                               </div>
                               <div className='col-md-6'>
                                   <label
