@@ -114,7 +114,7 @@ const AgregarProveedor = () => {
                                                 message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                             }
                                         })}>
-                                            <option value=""></option>
+                                            {/* <option value="">...</option> */}
                                             <option value="C.C. ">CC</option>
                                             <option value="NIT ">NIT</option>
                                             <option value="C.E. ">CE </option>
