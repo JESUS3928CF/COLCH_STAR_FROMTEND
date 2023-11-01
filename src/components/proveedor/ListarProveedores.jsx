@@ -113,7 +113,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
-                                    <td>{proveedor.identificador}</td>
+                                    <td> {proveedor.tipoIdentificacion} { proveedor.identificador}</td>
                                     <td> <BotonCambioEstado
                                         id={proveedor.id_proveedor}
                                         isChecked={proveedor.estado}

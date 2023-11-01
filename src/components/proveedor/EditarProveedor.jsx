@@ -16,8 +16,8 @@ import Swal from 'sweetalert2';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError'
-import { useForm } from 'react-hook-form'
-import {  useEffect } from 'react';
+import { set, useForm } from 'react-hook-form'
+import { useEffect } from 'react';
 import { validarEspaciosVacios } from '../../Validations/validations'
 
 
@@ -38,9 +38,10 @@ const EditarProveedor = ({ editarProveedor }) => {
     //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
     useEffect(() => {
         if (editarProveedor) {
+            setValue('tipoIdentificacion', editarProveedor.tipoIdentificacion);
             setValue('identificador', editarProveedor.identificador);
             setValue('nombre', editarProveedor.nombre);
-            setValue( 'telefono', editarProveedor.telefono);
+            setValue('telefono', editarProveedor.telefono);
             setValue('direccion', editarProveedor.direccion);
         }
     }, [editarProveedor]);
@@ -49,13 +50,14 @@ const EditarProveedor = ({ editarProveedor }) => {
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = (data) => {
         //se guardan los datos  a cambiar al data
-        const { identificador, nombre, telefono, direccion } = data
+        const { tipoIdentificacion, identificador, nombre, telefono, direccion } = data
 
 
         if (editarProveedor.id_proveedor) {
             // ruta 
             axios.patch(`http://localhost:3000/api/proveedores/${editarProveedor.id_proveedor}`, {
                 // campos en los que realiza el cambio
+                tipoIdentificacion: tipoIdentificacion.trim(),
                 identificador: identificador.trim(),
                 nombre: nombre.trim(),
                 telefono: telefono.trim(),
@@ -120,9 +122,10 @@ const EditarProveedor = ({ editarProveedor }) => {
 
                                     <div className={styles.identi}>
 
-                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
-                                            <option value="cedula">CC</option>
-                                            <option value="nit">NIT</option>
+
+                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
+                                            <option value="C.C.">CC</option>
+                                            <option value="NIT">NIT</option>
                                         </select>
 
                                         <input type="text" className="form-control"
@@ -237,7 +240,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal  modalToCancel="modalEditar" />
+                                    <CancelarModal modalToCancel="modalEditar" />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />
