@@ -88,42 +88,7 @@ const AgregarCliente = () => {
                           <div className='modal-body'>
                             {/* <!-- formulario para agregar un usuario --> */}
                               <form className='row g-3 needs-validation' onSubmit={handleSubmit(onSubmit)}>
-                              {/* <div className='col-md-6 '>
-                                      <label
-                                          htmlFor='cedula'
-                                          className='col-form-label'
-                                      >
-                                          Tipo de documento:*
-                                      </label>
-                                      <input
-                                          name='cedula'
-                                          type='text'
-                                          className='form-control'
-                                          placeholder='. . .'
-                                          {...register('cedula', {
-                                              required:{
-                                                value: true,
-                                                message:'La cedula es obligatoria',
-                                              },
-                                            pattern:{
-                                              value: /^\d+$/,
-                                              message: 'No se permiten letras ni espacios en blanco',
-                                            },
-                                            validate: (value) => {
-                                              const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                              if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
-                                                return 'La cédula debe tener minimo 7 digitos y maximo 11';
-                                              }
-                                              return true;
-                                            },
-                                          })}
-                                      />
-                                      {errors.cedula && (
-                                          <AlertaError
-                                              message={errors.cedula.message}
-                                          />
-                                      )}
-                                  </div> */}
+                              
                               <div className='col-md-6'>
                                       <label
                                           htmlFor='cedula'

@@ -31,14 +31,14 @@ const AgregarProveedor = () => {
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { identificador, nombre, telefono, direccion } = data
+        const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
 
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
                 // Campos en los que realiza el cambio
-                identificador: identificador.trim(),
+                identificador:  tipoIdentificacion + identificador.trim(),
                 nombre: nombre.trim(),
                 telefono: telefono.trim(),
                 direccion: direccion.trim()
@@ -107,9 +107,18 @@ const AgregarProveedor = () => {
 
                                     <div className={styles.identi}>
 
-                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
-                                            <option value="cedula">CC</option>
-                                            <option value="nit">NIT</option>
+                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" 
+                                        {...register('tipoIdentificacion', {
+                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                            }
+                                        })}>
+                                            <option value=""></option>
+                                            <option value="C.C. ">CC</option>
+                                            <option value="NIT ">NIT</option>
+                                            <option value="C.E. ">CE </option>
+
                                         </select>
 
 
