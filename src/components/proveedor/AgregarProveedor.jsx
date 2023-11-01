@@ -33,7 +33,7 @@ const AgregarProveedor = () => {
 
         const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
-
+        
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
@@ -114,7 +114,7 @@ const AgregarProveedor = () => {
                                                 message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                             }
                                         })}>
-                                            {/* <option value="">...</option> */}
+                                            {/* <option value="">.</option> */}
                                             <option value="C.C. ">CC</option>
                                             <option value="NIT ">NIT</option>
                                             <option value="C.E. ">CE </option>
