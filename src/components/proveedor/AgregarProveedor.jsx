@@ -132,15 +132,18 @@ const AgregarProveedor = () => {
                                             {...register('identificador', {
                                                 required: {          // Es una propiedad que indica que el campo es obligatorio. 
                                                     value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                                    message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                                    message: 'La Identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                                 },
                                                 pattern: {
                                                     value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
                                                     message: "No puede contener Letras ni  espacios en blanco"
                                                 },
                                                 validate: (value) => {
-                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
-                                                },
+                                                    if (value.length < 6 || value.length > 11) {
+                                                      return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                    }
+                                                    return true; // La validación pasa si cumple ambas condiciones
+                                                  },
 
 
                                             })}
