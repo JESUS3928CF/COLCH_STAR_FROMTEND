@@ -43,8 +43,11 @@ const EditarProveedor = ({ editarProveedor }) => {
             setValue('nombre', editarProveedor.nombre);
             setValue('telefono', editarProveedor.telefono);
             setValue('direccion', editarProveedor.direccion);
+            console.log(tipoIdentificacion)
         }
     }, [editarProveedor]);
+    
+
 
 
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
@@ -123,10 +126,15 @@ const EditarProveedor = ({ editarProveedor }) => {
                                     <div className={styles.identi}>
 
 
-                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
+                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion', {
+                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                            }
+                                        })}>
                                             <option value="C.C.">C.C.</option>
-                                            <option value="NIT">NIT.</option>
-                                            <option value="C.E. ">C.E. </option>
+                                            <option value="NIT.">NIT.</option>
+                                            <option value="C.E.">C.E. </option>
                                         </select>
 
                                         <input type="text" className="form-control"
@@ -145,8 +153,11 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                     message: "No puede contener Letras ni  espacios en blanco"
                                                 },
                                                 validate: (value) => {
-                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
-                                                },
+                                                    if (value.length < 6 || value.length > 11) {
+                                                      return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                    }
+                                                    return true; // La validación pasa si cumple ambas condiciones
+                                                  },
 
 
                                             })}
@@ -161,7 +172,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="mb-3" name="divNombre">
 
                                     <label htmlFor="nombreEditar"
-                                        className="col-form-label">Nombre: *
+                                        className="col-form-label">Nombres: *
                                     </label>
 
                                     <input type="text" className="form-control" id="nombreEditar"
@@ -203,14 +214,17 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 value: true,
                                                 message: 'El teléfono es obligatorio',
                                             },
-                                            validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            },
                                             pattern: {
                                                 value: /^\d+$/,
                                                 message: "No puede contener Letras ni espacios en blanco"
-                                            }
-
+                                            },
+                                            validate: (value) => {
+                                                const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                                if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                                  return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                }
+                                                return true;
+                                              },
                                         })}
                                     />
                                     {errors.telefono && (
@@ -229,7 +243,12 @@ const EditarProveedor = ({ editarProveedor }) => {
                                         name="direccion"
                                         placeholder="Ingresar dirección"
                                         {...register('direccion', {
-                                            required: 'La Dirección es obligatorio',
+                                            required: {value: true,
+                                                message:'La Dirección es obligatoria',
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            }
                                         })}
                                     />
                                     {errors.direccion && (

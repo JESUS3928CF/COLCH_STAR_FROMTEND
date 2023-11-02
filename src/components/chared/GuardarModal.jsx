@@ -4,7 +4,7 @@ const GuardarModal = ({ onClick }) => {
     return (
         <input
             type='submit'
-            className='btn btn-success'
+            className='btn-AgregarP'
             value='Guardar'
             onClick={onClick}
         />
