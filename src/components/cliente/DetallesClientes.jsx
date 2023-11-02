@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import HeaderModals from '../chared/HeaderModals';
+import '../../css-general/cssgeneral.css'
 
 export const DetallesClientes = ({ detallesClientes }) => {
     return (
@@ -15,26 +16,26 @@ export const DetallesClientes = ({ detallesClientes }) => {
                                     <div className='row'>
                                         <div>
                                         <div className='mb-3'>
-                                            <label htmlFor="tipoIdentificacion" className="col-form-label"> Tipo de Identificación: {detallesClientes.tipoIdentificacion} </label>
+                                            <label htmlFor="tipoIdentificacion" className="r"> - Tipo de Identificación:  </label><label htmlFor="">  {detallesClientes.tipoIdentificacion}</label>
                                         </div>
                                         <div className='mb-3'>
-                                            <label htmlFor="identificacion" className="col-form-label"> Identificación: {detallesClientes.identificacion} </label>
+                                            <label htmlFor="identificacion" className="r">- Identificación: </label>   <label >  {detallesClientes.identificacion}</label>
                                         </div>
                                         <div className='mb-3'>
-                                            <label htmlFor="nombre" className="col-form-label"> Nombres: {detallesClientes.nombre} </label>
+                                            <label htmlFor="nombre" className="r"> - Nombres: </label> <label >  {detallesClientes.nombre}</label>
                                         </div>
                                         <div className='mb-3'>
-                                            <label htmlFor="apellido" className="col-form-label"> Apellidos: {detallesClientes.apellido} </label>
+                                            <label htmlFor="apellido" className="r"> - Apellidos: </label> <label > {detallesClientes.apellido}</label>
                                         </div>
                                         <div className='mb-3'>
-                                            <label htmlFor="telefono" className="col-form-label"> Teléfono: {detallesClientes.telefono} </label>
+                                            <label htmlFor="telefono" className="r">- Teléfono: </label> <label > {detallesClientes.telefono}</label>
                                         </div>
                                         <div className='mb-3'>
-                                            <label htmlFor="email" className="col-form-label"> Email: {detallesClientes.email} </label>
+                                            <label htmlFor="email" className="r">- Email: </label> <label > {detallesClientes.email} </label>
                                         </div>
 
                                         <div className='mb-3'>
-                                        <label htmlFor="direccion" className="col-form-label"  > Dirección: {detallesClientes.direccion}</label> 
+                                        <label htmlFor="direccion" className="r"  >- Dirección:</label>  <label > {detallesClientes.direccion} </label>
                                         </div>
                                         </div>
                                     </div>

@@ -43,8 +43,11 @@ const EditarProveedor = ({ editarProveedor }) => {
             setValue('nombre', editarProveedor.nombre);
             setValue('telefono', editarProveedor.telefono);
             setValue('direccion', editarProveedor.direccion);
+            console.log(tipoIdentificacion)
         }
     }, [editarProveedor]);
+    
+
 
 
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
@@ -123,10 +126,15 @@ const EditarProveedor = ({ editarProveedor }) => {
                                     <div className={styles.identi}>
 
 
-                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
+                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion', {
+                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                            }
+                                        })}>
                                             <option value="C.C.">C.C.</option>
                                             <option value="NIT">NIT.</option>
-                                            <option value="C.E. ">C.E. </option>
+                                            <option value="C.E.">C.E. </option>
                                         </select>
 
                                         <input type="text" className="form-control"

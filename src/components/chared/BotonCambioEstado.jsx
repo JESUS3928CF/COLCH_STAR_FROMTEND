@@ -19,8 +19,6 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     /// Aca definimos si le podemos cambiar el estado de publicación de un reguistro
     const validarElCambioDeEstado = new Promise((resolve, reject) => {
 
-        console.log(cambiarPublicacion)
-        console.log(cambiarPublicacion, isChecked)
         let sePuedecambiar = true;
 
         if(cambiarPublicacion.paraPublicacion && !cambiarPublicacion.estado) sePuedecambiar = false;
