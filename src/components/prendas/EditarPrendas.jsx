@@ -1,14 +1,17 @@
-import PropTypes from "prop-types";
-
-import CancelarModal from "../chared/CancelarModal";
-import GuardarModal from "../chared/GuardarModal";
-import HeaderModals from "../chared/HeaderModals";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { validarEspaciosVacios,validarImagen} from "../../Validations/validations";
-import AlertaError from "../chared/AlertaError";
+import { set, useForm } from "react-hook-form";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2";
+import HeaderModals from "../chared/HeaderModals";
+import {
+  validarEspaciosVacios,
+  validarImagen,
+} from "../../Validations/validations";
+import AlertaError from "../chared/AlertaError";
+import CancelarModal from "../chared/CancelarModal";
+import GuardarModal from "../chared/GuardarModal";
+import PropTypes from "prop-types";
+import axios from "axios";
 
 const EditarPrendas = ({ detallesPrendas }) => {
   const {
@@ -18,7 +21,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
     setValue,
   } = useForm();
 
-  // Cuando recibe el detallesPrendas, actualiza los valores del formulario
   useEffect(() => {
     if (detallesPrendas) {
       setValue("nombre", detallesPrendas.nombre);
@@ -26,258 +28,233 @@ const EditarPrendas = ({ detallesPrendas }) => {
       setValue("precio", detallesPrendas.precio);
       setValue("tipo_de_tela", detallesPrendas.tipo_de_tela);
       setValue("genero", detallesPrendas.genero);
+      setValue("publicado", detallesPrendas.publicado);
 
-      // Añade las demás propiedades aquí
     }
   }, [detallesPrendas]);
 
-  const editarPrendas = handleSubmit(async (data) => {
-    console.log(data);
+  
 
-    /// Crear un form-data por que así el back puede recibir imágenes
+  const editarPrenda = handleSubmit(async (data) => {
+
+    console.log(data)
     const formData = new FormData();
     formData.append("nombre", data.nombre.trim());
-    formData.append("cantidad", data.cantidad.trim());
+    formData.append("cantidad", data.cantidad);
     formData.append("precio", data.precio.trim());
     formData.append("tipo_de_tela", data.tipo_de_tela.trim());
     formData.append("genero", data.genero.trim());
-    formData.append("imagen", data.imagen[0]);
     formData.append("publicado", data.publicado);
+    formData.append("imagen", data.imagen[0]);
 
-    /// editar el diseño
     try {
       const res = await clienteAxios.put(
-        `/prendas/${detallesPrendas.id_prenda}`,
+        `http://localhost:3000/api/prendas/${detallesPrendas.id_prenda}`,
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      console.log(res);
-
-      // Lanzar alerta del producto agregado
       Swal.fire({
-        title: "Prenda actualizada",
+        title: "Prenda Actualizada",
         text: res.data.message,
         icon: "success",
       }).then(() => {
         location.reload();
       });
     } catch (error) {
-      console.log(error);
-      // Lanzar alerta de error
       Swal.fire({
         title: "Error",
-        text: "Hubo un error",
-        icon: "Vuelva a intentarlo",
-      }).then(location.reload());
+        text: "Error al actualizar",
+        icon: "error",
+      }).then(() => {
+        location.reload();
+      });
     }
   });
 
   return (
-    <div className="modal" id="modalEditarPrenda">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <HeaderModals title="Editar Prenda" />
-          <div className="modal-body">
-            {/* formulario para editar un Diseño */}
-            <form
-              className="row g-3 needs-validation"
-              action=""
-              id=""
-              onSubmit={editarPrendas}
-            >
-              <div className="col-md-6">
-                <label htmlFor="nombre" className="col-form-label">
-                  Nombre:
-                </label>
-                <input
-                  name="nombre"
-                  type="text"
-                  className="form-control"
-                  placeholder=". . ."
-                  {...register('nombre', {
-                    required: {
-                      value: true,
-                      message: 'El nombre es obligatorio',
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    },
-                  })}
-                />
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.nombre && (
-                  <AlertaError message={errors.nombre.message} />
-                )}
-              </div>
+    <>
+      <div className="modal" id="modalEditarPrenda">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <HeaderModals title="Editar prendas" />
+            <div className="modal-body">
+              <form
+                onSubmit={editarPrenda}
+                className="row g-3 needs-validation"
+              >
+                <div className="col-md-6">
+                  <label htmlFor="nombre" className="col-from-label">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    className="form-control"
+                    placeholder="Nombre"
+                    title="¿Deseas editar el nombre?"
+                    {...register("nombre", {
+                      required: {
+                        value: true,
+                        message: "El nombres es obligatorio",
+                      },
+                      validate: (value) => {
+                        return validarEspaciosVacios(value);
+                      },
+                    })}
+                  />
+                </div>
 
-              <div className="col-md-6 ms-auto">
-                <label htmlFor="cantidad" className="col-form-label">
-                  Cantidad:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="cantidad"
-                  placeholder="Cantidad"
-                  title="Ingresa la cantidad"
-                  {...register('cantidad', {
-                    required: {
-                      value: true,
-                      message: 'La cantidad es obligatoria',
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    },
-                  })}
-                />
-                {errors.cantidad && (
-                  <AlertaError message={errors.cantidad.message} />
-                )}
-              </div>
+                <div className="col-md-6">
+                  <label htmlFor="cantidad" className="col-from-label">
+                    Cantidad
+                  </label>
+                  <input
+                    type="text"
+                    id="cantidad"
+                    name="cantidad"
+                    className="form-control"
+                    placeholder="Cantidad"
+                    title="¿Deseas editar la cantidad?"
+                    {...register("cantidad", {
+                      required: {
+                        value: true,
+                        message: "La cantidad es obligatorio",
+                      },
+                      // validate: (value) => {
+                      //   return validarEspaciosVacios(value);
+                      // },
+                    })}
+                  />
+                </div>
 
-              <div className="col-md-6 mt-2" name="precio">
-                <label htmlFor="precio" className="col-form-label">
-                  Precio:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="precio"
-                  placeholder="Precio"
-                  title="Ingresa el precio"
-                  {...register('precio', {
-                    required: {
-                      value: true,
-                      message: 'El precio es obligatoria',
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    },
-                  })}
-                />
+                <div className="col-md-6">
+                  <label htmlFor="precio" className="col-from-label">
+                    Precio
+                  </label>
+                  <input
+                    type="text"
+                    id="precio"
+                    name="precio"
+                    className="form-control"
+                    placeholder="Precio"
+                    title="¿Deseas editar el precio?"
+                    {...register("precio", {
+                      required: {
+                        value: true,
+                        message: "El precio es obligatorio",
+                      },
+                      validate: (value) => {
+                        return validarEspaciosVacios(value);
+                      },
+                    })}
+                  />
+                </div>
 
-                {errors.precio && (
-                  <AlertaError message={errors.precio.message} />
-                )}
-              </div>
+                <div className="col-md-6">
+                  <label htmlFor="tipo_de_tela" className="col-from-label">
+                    Tipo de tela
+                  </label>
+                  <input
+                    type="text"
+                    id="tipo_de_tela"
+                    name="tipo_de_tela"
+                    className="form-control"
+                    placeholder="Tipo de tela"
+                    title="¿Deseas editar el tipo de tela?"
+                    {...register("tipo_de_tela", {
+                      required: {
+                        value: true,
+                        message: "El tipo de tela es obligatorio",
+                      },
+                      validate: (value) => {
+                        return validarEspaciosVacios(value);
+                      },
+                    })}
+                  />
+                </div>
 
-              <div className="col-md-6 ms-6 mt-4" name="Tela">
-                <label htmlFor="tipo_de_tela" className="col-from-label">
-                  Tipo de tela:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="tipo_de_tela"
-                  placeholder="Tipo de tela "
-                  title="Ingresa el tipo de tela"
-                  {...register('tipo_de_tela', {
-                    required: {
-                      value: true,
-                      message: 'El tipo de tela  es obligatoria',
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    },
-                  })}
-                />
-                {errors.tipo_de_tela && (
-                  <AlertaError message={errors.tipo_de_tela.message} />
-                )}
-              </div>
+                <div className="col-md-6">
+                  <label htmlFor="genero" className="col-from-label">
+                    Genero
+                  </label>
 
-              <div className="col-md-6 ms-6">
-                <label htmlFor="imagen" className="form-label">
-                  Subir imagen
-                </label>
-                <input
-                  className="form-control"
-                  name="imagen"
-                  type="file"
-                  {...register('imagen', {
-                    validate: (value) => {
-                      return validarImagen(value[0]);
-                    },
-                  })}
-                />
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.imagen && (
-                  <AlertaError message={errors.imagen.message} />
-                )}
-              </div>
+                  <select
+                    id="genero"
+                    name="genero"
+                    className="form-control"
+                    title="Seleccionar el genero"
+                    {...register("genero", {
+                      required: {
+                        value: true,
+                        message: "El genero es obligatoria",
+                      },
+                    })}
+                  >
+                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Hombre">Hombre</option>
+                  </select>
+                </div>
 
-              <div className="col-md-6 ms-6 mt-4">
-                <label htmlFor="genero" className="col-from-label">
-                  Genero:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="genero"
-                  placeholder="Genero "
-                  title="Ingresa el genero"
-                  {...register('genero', {
-                    required: {
-                      value: true,
-                      message: "El genero es obligatoria",
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    },
-                  })}
-                />
-                {errors.genero && (
-                  <AlertaError message={errors.genero.message} />
-                )}
-              </div>
+                <div className="col-md-6">
+                  <label htmlFor="publicado" className="col-from-label">
+                    ¿Deseas publicarlo?
+                  </label>
+                  <select
+                    id="publicado"
+                    name="publicado"
+                    className="form-control"
+                    title="Estado de la publicacion"
+                    {...register("publicado", {
+                      required: {
+                        value: true,
+                        message: "El estado de la publicacion es obligatoria",
+                      },
+                    })}
+                  >
+                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                  </select>
+                  {errors.publicado && (
+                    <AlertaError message={errors.publicado.message} />
+                  )}
+                </div>
 
-              <div className="mb-3">
-                <label htmlFor="rolGuardar" className="col-form-label">
-                  ¿Deseas publicarlo?
-                </label>
-                <select
-                  className="form-control"
-                  name="publicado"
-                  {...register("publicado", {
-                    required: {
-                      value: true,
-                      message: "El estado de publicación es obligatorio",
-                    },
-                  })}
-                >
-                  <option value="" disabled selected>
-                    Selecciona una opción
-                  </option>
-                  <option value="true">Si</option>
-                  <option value="false">No</option>
-                </select>
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.publicado && (
-                  <AlertaError message={errors.publicado.message} />
-                )}
-              </div>
+                <div className="mb-3">
+                  <label htmlFor="imagen" className="col-from-label">
+                    Subir imagen
+                  </label>
+                  <input
+                    type="file"
+                    id="imagen"
+                    name="imagen"
+                    className="form-control"
+                    title="Inserte un archivo PNG "
+                    {...register("imagen", {
+                      validate: (value) => {
+                        return validarImagen(value[0]);
+                      },
+                    })}
+                  />
+                </div>
 
-              <div className="modal-footer">
-                {/* Botón para cancelar*/}
-                <CancelarModal />
-
-                {/* Botón para guardar*/}
-                <GuardarModal />
-              </div>
-            </form>
+                <div className="modal-footer">
+                  <CancelarModal />
+                  <GuardarModal />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-EditarPrendas.propTypes = {
+EditarPrendas.prototype = {
   detallesPrendas: PropTypes.object.isRequired,
 };
 

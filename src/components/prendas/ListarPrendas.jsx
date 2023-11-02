@@ -1,4 +1,3 @@
-import BotonAtrasPrendas from "./BotonAtras";
 import { useEffect, useState } from "react";
 import styles from "../../pages/proveedores.module.css";
 import "../../css-general/cssgeneral.css";
@@ -22,30 +21,22 @@ export const ListarPrendas = () => {
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
 
   const informacionModal = (Prendas) => {
-
-    if(!Prendas.estado){
-      return Swal.fire(
-        'Accion invalida!',
-        '',
-        'error'
-      )
-
+    if (!Prendas.estado) {
+      return Swal.fire("Accion invalida!", "", "error");
     }
     setDetallesPrendas(Prendas);
   };
 
   //  //Solicitud de la url
   useEffect(() => {
-
-    const consultarPrendas=async()=>{
-      const respuesta= await clienteAxios.get('/prendas')
+    const consultarPrendas = async () => {
+      const respuesta = await clienteAxios.get("/prendas");
       setPrendas(respuesta.data);
-      setprendasFiltrar(respuesta.data)
+      setprendasFiltrar(respuesta.data);
     };
 
     consultarPrendas();
-    
-  },[]);
+  }, []);
 
   const contentStyle = {
     marginLeft: "260px",
@@ -54,15 +45,27 @@ export const ListarPrendas = () => {
   return (
     <>
       <div>
+
+
         <div style={contentStyle} className="contenedor">
           {/* {titulo} */}
+        
           <h1 className="titulo"> Prendas</h1>
+
+          
 
           {/* {boton de agregar */}
           <div className="container-fluid seccion3" style={{ width: 0 }}>
-            <div className={styles.atras}>
-              <BotonAtrasPrendas />
-            </div>
+               {/* boton de buscar */}
+
+          <div className="seccion3">
+            <Buscador
+              setDatosFiltrar={setprendasFiltrar}
+              datos={Prendas}
+              camposFiltrar={["nombre", "cantidad"]}
+            />
+          </div>
+           
             <div className={styles.ap}>
               <button
                 type="button"
@@ -75,15 +78,7 @@ export const ListarPrendas = () => {
             </div>
           </div>
 
-          {/* boton de buscar */}
-
-          <div className="seccion3">
-            <Buscador
-              setDatosFiltrar={setprendasFiltrar}
-              datos={Prendas}
-              camposFiltrar={['nombre', 'cantidad']}
-            />
-          </div>
+       
 
           {/* tabla de prendas */}
 
@@ -107,53 +102,55 @@ export const ListarPrendas = () => {
 
                 {prendasFiltrar.map((Prendas) => (
                   <tr key={Prendas.id}>
+                    
                     <td>{Prendas.id_prenda}</td>
                     <td>{Prendas.nombre}</td>
                     <td>{Prendas.cantidad}</td>
                     <td>{Prendas.precio}</td>
-                   
+
                     <td>
-                      <BotonCambioEstado isChecked={Prendas.publicado} ruta={`/prendas/publicado/${Prendas.id_prenda}`} />
+                      <BotonCambioEstado
+                        isChecked={Prendas.publicado}
+                        ruta={`/prendas/publicado/${Prendas.id_prenda}`}
+                      />
                     </td>
                     <td>
-                      <BotonCambioEstado isChecked={Prendas.estado} ruta={`/prendas/estado/${Prendas.id_prenda}`} />
+                      <BotonCambioEstado
+                        isChecked={Prendas.estado}
+                        nombreRegistro={'Prenda en el catalogo '}
+                        ruta={`/prendas/estado/${Prendas.id_prenda}`}
+                      />
                     </td>
 
-                     <td>
+                    <td>
                       <BotonNegro
                         text="Ver"
-                        modalToOpen={Prendas.estado? "#modalDetallePrendas": ''}
-                        onClick={() => informacionModal(Prendas)}
+                        modalToOpen=
+                          "#modalDetallePrendas"
+                        
+                        onClick={() => setDetallesPrendas(Prendas)}
                       />
                     </td>
                     <td>
                       <BotonNegro
                         text="Editar"
-                        modalToOpen={Prendas.estado? "#modalEditarPrenda" : ''}
+                        modalToOpen={Prendas.estado ? "#modalEditarPrenda" : ""}
                         onClick={() => informacionModal(Prendas)}
                       />
                     </td>
-
-                    
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-        <div className='seccion4'>
-                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                <Paginador
-                    setDatosFiltrar={setprendasFiltrar}
-                    datos={Prendas}
-                />
-            </div>
+        <div className="seccion4">
+          {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+          <Paginador setDatosFiltrar={setprendasFiltrar} datos={Prendas} />
+        </div>
       </div>
       <DetallesPrendas detallesPrendas={detallesPrendas} />
       <EditarPrendas detallesPrendas={detallesPrendas} />
-
-
-      
     </>
   );
 };

@@ -193,66 +193,34 @@ const AgregarPrendas = () => {
                                 )}
                 </div>
 
-                <div className="col-md-6 ms-6 mt-4" name="Archivo">
-                  <label htmlFor="Archivo" className="col-from-label">
-                    Imagen de la prenda:
+             
+
+
+
+                <div className="col-md-6">
+                  <label htmlFor="genero" className="col-from-label">
+                    Genero
                   </label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    name="imagen"
-                    placeholder="PNG o JPG"
-                    title="Ingrese la imagen de la prenda"
 
-                    {...register('imagen',{
-                      required: {
-                        value:true,
-                        message:'La Imagen es obligatoria'
-                      },
-                      validate:(value)=>{
-                        return validarImagen(value[0])
-                      }
-                    })}
-                  />
-
-                   {errors.imagen && (
-                    <AlertaError message={errors.imagen.message}/>
-                   )}
-                </div>
-
-
-
-                <div className="col-md-6 ms-6 mt-4">
-                <label htmlFor="genero" className="col-from-label">
-                    Genero:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
+                  <select
+                    id="genero"
                     name="genero"
-                    placeholder="Genero "
-                    title="Ingresa el genero"
-
-                    {...register('genero',{
+                    className="form-control"
+                    title="Seleccionar el genero"
+                    {...register("genero", {
                       required: {
-                        value:true,
-                        message:'El genero es obligatoria'
+                        value: true,
+                        message: "El genero es obligatoria",
                       },
-                      validate:(value)=>{
-                        return validarEspaciosVacios(value)
-                      }
                     })}
-
-                  />
-                  {errors.genero && (
-                                    <AlertaError
-                                        message={errors.genero.message}
-                                    />
-                                )}
-
+                  >
+                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Hombre">Hombre</option>
+                  </select>
                 </div>
 
-                <div className="mb-3" name="Publicado">
+                <div className="col-md-6" name="Publicado">
                   <label htmlFor="Publicar" className="col-form-control">
                     ¿Deseas publicarlo?
                   </label>
@@ -284,6 +252,33 @@ const AgregarPrendas = () => {
                     <option value="true">Si</option>
                     <option value="false">No</option>
                   </select>
+                </div>
+
+                <div className="mb-3" name="Archivo">
+                  <label htmlFor="Archivo" className="col-from-label">
+                    Imagen de la prenda:
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="imagen"
+                    placeholder="PNG o JPG"
+                    title="Ingrese la imagen de la prenda"
+
+                    {...register('imagen',{
+                      required: {
+                        value:true,
+                        message:'La Imagen es obligatoria'
+                      },
+                      validate:(value)=>{
+                        return validarImagen(value[0])
+                      }
+                    })}
+                  />
+
+                   {errors.imagen && (
+                    <AlertaError message={errors.imagen.message}/>
+                   )}
                 </div>
 
                

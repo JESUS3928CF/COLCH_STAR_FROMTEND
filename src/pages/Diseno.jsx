@@ -1,6 +1,5 @@
 import { Navbar } from '../components/Navbar';
 import { Link } from 'react-router-dom';
-import BotonAtrasPrendas from '../components/prendas/BotonAtras';
 
 /// Componentes integrados
 import BotonVerde from '../components/chared/BotonVerde';
@@ -40,7 +39,6 @@ export const Diseno = () => {
                     <PrecioDiseno />
                     
                     {/* botón para mostrar la lista de productos    */}
-                    <BotonAtrasPrendas/>
                     {/* <a href="./productos.html"><button type="button" className="btn btn-secondary">Atrás</button></a> */}
                 </div>
 
