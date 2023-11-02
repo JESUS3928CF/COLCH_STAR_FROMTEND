@@ -172,7 +172,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="mb-3" name="divNombre">
 
                                     <label htmlFor="nombreEditar"
-                                        className="col-form-label">Nombre: *
+                                        className="col-form-label">Nombres: *
                                     </label>
 
                                     <input type="text" className="form-control" id="nombreEditar"
@@ -214,14 +214,17 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 value: true,
                                                 message: 'El teléfono es obligatorio',
                                             },
-                                            validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            },
                                             pattern: {
                                                 value: /^\d+$/,
                                                 message: "No puede contener Letras ni espacios en blanco"
-                                            }
-
+                                            },
+                                            validate: (value) => {
+                                                const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                                if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                                  return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                }
+                                                return true;
+                                              },
                                         })}
                                     />
                                     {errors.telefono && (
@@ -240,7 +243,12 @@ const EditarProveedor = ({ editarProveedor }) => {
                                         name="direccion"
                                         placeholder="Ingresar dirección"
                                         {...register('direccion', {
-                                            required: 'La Dirección es obligatorio',
+                                            required: {value: true,
+                                                message:'La Dirección es obligatoria',
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            }
                                         })}
                                     />
                                     {errors.direccion && (

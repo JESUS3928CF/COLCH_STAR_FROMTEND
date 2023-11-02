@@ -159,7 +159,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="nombre"
                                         className="col-form-label">
-                                        Nombre: *
+                                        Nombres: *
                                     </label>
 
                                     <input type="text"
@@ -204,13 +204,17 @@ const AgregarProveedor = () => {
                                                 value: true,
                                                 message: 'El teléfono es obligatorio',
                                             },
-                                            validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            },
                                             pattern: {
                                                 value: /^\d+$/,
                                                 message: "No puede contener Letras ni espacios en blanco"
-                                            }
+                                            },
+                                            validate: (value) => {
+                                                const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                                if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                                  return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                }
+                                                return true;
+                                              },
 
                                         })}
                                     />
@@ -233,7 +237,12 @@ const AgregarProveedor = () => {
                                         name="direccion"
                                         placeholder=". . ."
                                         {...register('direccion', {
-                                            required: 'La Dirección es obligatorio',
+                                            required: {value: true,
+                                                message:'La Dirección es obligatoria',
+                                            },
+                                            validate: (value) => {
+                                                return validarEspaciosVacios(value);
+                                            }
                                         })}
                                     />
                                     {errors.direccion && (
