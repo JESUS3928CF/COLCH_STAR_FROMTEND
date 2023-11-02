@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form'
 import { validarEspaciosVacios } from '../../Validations/validations'
 import { useEffect } from 'react'
 import AlertaError from '../chared/AlertaError'
+import clienteAxios from '../../config/axios';
 
 
 //Componente
@@ -52,7 +53,7 @@ const EditarCliente = ({editarCliente}) => {
 
         // Ruta
         if (editarCliente.id_cliente) {
-            axios.patch(`http://localhost:3000/api/clientes/${editarCliente.id_cliente}`, {
+            axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/clientes/${editarCliente.id_cliente}`, {
                     // Campos en los que realiza el cambio
                     tipoIdentificacion: tipoIdentificacion.trim(),
                     identificacion: identificacion.trim(),

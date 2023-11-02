@@ -116,10 +116,11 @@ const ListarCliente = () => {
                         <thead>
                             <tr>
                                 <th scope='col'>ID</th>
-                                <th scope='col'>Nombre</th>
                                 <th scope='col'>Identificación</th>
+                                <th scope='col'>Nombres</th>
+                                <th scope='col'>Apellidos</th>
                                 <th scope='col'>Teléfono</th>
-                                <th scope='col' className='text-center'>Email</th>
+                                {/* <th scope='col' className='text-center'>Email</th> */}
                                 <th scope='col'>Estado</th>
                                 <th scope='col'>Detalles</th>
                                 <th scope='col'>Editar</th>
@@ -129,10 +130,10 @@ const ListarCliente = () => {
                             {clientesFiltrar.map((cliente) => (
                                 <tr key={cliente.id_cliente}>
                                     <td>{cliente.id_cliente}</td>
-                                    <td>{cliente.nombre}</td>
                                     <td>{cliente.tipoIdentificacion} {cliente.identificacion}</td>
+                                    <td>{cliente.nombre}</td>
+                                    <td>{cliente.apellido}</td>
                                     <td>{cliente.telefono}</td>
-                                    <td>{cliente.email}</td>
                                     <td>
                                         <BotonCambioEstado
                                             id={cliente.id_cliente}
