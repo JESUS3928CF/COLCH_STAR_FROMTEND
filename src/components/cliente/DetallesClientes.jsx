@@ -15,9 +15,9 @@ export const DetallesClientes = ({ detallesClientes }) => {
                                 <div className='col'>
                                     <div className='row'>
                                         <div>
-                                        <div className='mb-3'>
+                                        {/* <div className='mb-3'>
                                             <label htmlFor="tipoIdentificacion" className="r"> - Tipo de Identificación:  </label><label htmlFor="">  {detallesClientes.tipoIdentificacion}</label>
-                                        </div>
+                                        </div> */}
                                         <div className='mb-3'>
                                             <label htmlFor="identificacion" className="r">- Identificación: </label>   <label >  {detallesClientes.identificacion}</label>
                                         </div>

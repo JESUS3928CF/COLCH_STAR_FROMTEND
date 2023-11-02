@@ -110,8 +110,8 @@ const AgregarCliente = () => {
                                             message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                         }
                                     })}>
-                                        <option value="C.C. ">C.C.</option>
-                                        <option value="C.E. ">C.E. </option>
+                                        <option value="C.C.">C.C. </option>
+                                        <option value="C.E.">C.E. </option>
                                     </select>
 
 
