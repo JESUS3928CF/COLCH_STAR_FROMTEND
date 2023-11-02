@@ -85,7 +85,13 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     const cambiarEstado = () => {
         validarElCambioDeEstado
     .then(resultado => resultado())
-    .catch(error => error());
+    .catch(error => {
+        if(typeof error =='function'){
+            error();
+        }else{
+            console.error(error);
+        }
+    });
     }
 
     return (

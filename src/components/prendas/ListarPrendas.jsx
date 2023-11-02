@@ -21,6 +21,7 @@ export const ListarPrendas = () => {
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
 
   const informacionModal = (Prendas) => {
+    
     if (!Prendas.estado) {
       return Swal.fire("Accion invalida!", "", "error");
     }
@@ -62,7 +63,7 @@ export const ListarPrendas = () => {
             <Buscador
               setDatosFiltrar={setprendasFiltrar}
               datos={Prendas}
-              camposFiltrar={['nombre', 'cantidad']}
+              camposFiltrar={['nombre']}
             />
           </div>
            
@@ -86,7 +87,7 @@ export const ListarPrendas = () => {
             <table className="table caption-top">
               {/* lista de prendas */}
               <thead>
-                <tr>
+                <tr >
                   <th scope="col">ID</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Cantidad</th>
@@ -100,8 +101,8 @@ export const ListarPrendas = () => {
               <tbody>
                 {/* {Datos traidos por el set prendas que realiza un mapeo} */}
 
-                {prendasFiltrar.map((Prendas) => (
-                  <tr key={Prendas.id}>
+                {prendasFiltrar.map((Prendas, index) => (
+                  <tr key={index}>
                     
                     <td>{Prendas.id_prenda}</td>
                     <td>{Prendas.nombre}</td>
@@ -110,6 +111,7 @@ export const ListarPrendas = () => {
 
                     <td>
                       <BotonCambioEstado
+                        id={1}
                         isChecked={Prendas.publicado}
                         nombreRegistro={'Prenda en el catalogo'}
                         ruta={`/prendas/publicado/${Prendas.id_prenda}`}
@@ -124,6 +126,7 @@ export const ListarPrendas = () => {
                     </td>
                     <td>
                       <BotonCambioEstado
+                      id={2}
                         isChecked={Prendas.estado}
                         nombreRegistro={'Prenda en el estado '}
                         ruta={`/prendas/estado/${Prendas.id_prenda}`}
