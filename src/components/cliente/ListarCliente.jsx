@@ -63,7 +63,7 @@ const ListarCliente = () => {
         if (!cliente.estado) {
             return Swal.fire(
                 'Acción inválida!',
-                'Este cliente no se puede editar porque está inhabilitado',
+                'Este cliente no se puede editar porque está Inhabilitado',
                 'error'
             );
         }

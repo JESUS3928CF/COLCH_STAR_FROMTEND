@@ -150,8 +150,11 @@ const EditarCliente = ({editarCliente}) => {
                                                     message: "No puede contener Letras ni  espacios en blanco"
                                                 },
                                                 validate: (value) => {
-                                                    return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
-                                                },
+                                                    if (value.length < 6 || value.length > 11) {
+                                                      return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                    }
+                                                    return true; // La validación pasa si cumple ambas condiciones
+                                                  },
 
 
                                             })}

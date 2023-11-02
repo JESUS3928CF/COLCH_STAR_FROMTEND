@@ -11,7 +11,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     
             return Swal.fire(
                 'Acción inválida!',
-                `Este  ${nombreRegistro} no se le puede cambiar el estado de publicación porque está inhabilitado`,
+                `Este  ${nombreRegistro} no se le puede cambiar el estado de publicación porque está Inhabilitado`,
                 'error'
             );
     }
@@ -40,14 +40,14 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     function cambiarEstadoDB () {
         Swal.fire({
             title: `¿Deseas ${
-                estado ? 'inhabilitar' : 'habilitar'
+                estado ? 'Inhabilitar' : 'Habilitar'
             } este ${nombreRegistro}?`,
             // text: "Este ",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: `Si, ${estado ? 'inhabilítalo' : 'habilítalo'}`,
+            confirmButtonText: `Si, ${estado ? 'Inhabilítalo' : 'Habilítalo'}`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -57,7 +57,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
 
                     if (response.status === 200) {
                         Swal.fire(
-                            `${estado ? 'inhabilitado' : 'habilitado'}`,
+                            `${estado ? 'Inhabilitado' : 'Habilitado'}`,
                             'Cambio de estado exitoso',
                             'success'
                         ).then(() => {
