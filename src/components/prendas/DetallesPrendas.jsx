@@ -1,31 +1,52 @@
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import HeaderModals from '../chared/HeaderModals';
-// import { useForm } from 'react-hook-form';
-// import { useEffect } from 'react';
+import { FcApproval,FcCancel } from "react-icons/fc";
+import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import './IconCss/style.Icon.css'
 
 export const DetallesPrendas = ({ detallesPrendas }) => {
-    // const {setValue}=useForm
 
-    // useEffect(()=>{
-    //     if(detallesPrendas){
-    //         setValue('publicado', detallesPrendas.publicado)
-    //     }
-    // },[detallesPrendas])
+    const { setValue,} =useForm();
+
+    useEffect(()=>{
+
+        if(detallesPrendas){
+
+            setValue("publicado",detallesPrendas.publicado)
+            setValue("estado",detallesPrendas.estado)
+            
+        }
+    
+    })
+
+    const informacion = (detallesPrendas) =>{
+        if(!detallesPrendas.publicado || !detallesPrendas.estado){
+            return <FcCancel/>
+
+        } else{
+            return<FcApproval/>
+        }
+    }
+
+    
 
     
     return (
         <div className='modal' id='modalDetallePrendas'>
             <div className='modal-dialog modal-dialog-centered'>
                 <div className='modal-content'>
-                    <HeaderModals title='Detalle de la prenda' />
+                    
+                    <HeaderModals title='Detalle prendas'  />
+                    
                     <div className='formulario'>
                         <div className='modal-body'>
                             <div className='container'>
                                 <div className='col'>
                                     <div className='row'>
                                         <div className='row gx-0'>
-                                            <div className='col-md-4'>
+                                            <div className='col-md-6'>
                                             <img   src={`${
                                                     import.meta.env
                                                         .VITE_BACKEND_URL
@@ -34,14 +55,24 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                 height='200px'
                                                 alt=''/>                                   
                                             </div>
-                                            <div className='col-md-8'>
+                                            <div className='col-md-5 ml-6 mt-3'>
                                                 <div className='card-body'>
-                                                    <h1 htmlFor="nombre" className='card-title'>Nombre: {detallesPrendas.nombre}</h1>
-                                                    <h1 htmlFor="cantidad" className='card-title'>Cantidad: {detallesPrendas.cantidad}</h1>
-                                                    <h1 htmlFor="precio" className='card-title'>Precio: {detallesPrendas.precio}</h1>
-                                                    <h1 htmlFor="Tela" className="card-title"> Tipo de tela: {detallesPrendas.tipo_de_tela}</h1>
-                                                    <h1 htmlFor="genero" className="card-title"> Genero: {detallesPrendas.genero}</h1>                                        
-                                                    <h1 htmlFor="Publicado" name='publicado' className="card-title" > Publicado: {detallesPrendas.publicado}</h1>                                        
+                                                    <h2 htmlFor="nombre" className='card-title' > <b>Nombre:</b> {detallesPrendas.nombre}</h2>
+                                                    <h3 htmlFor="cantidad" className='card-title'> <b>Cantidad:</b> {detallesPrendas.cantidad}</h3>
+                                                    <h3 htmlFor="precio" className='card-title'> <b>Precio:</b> {detallesPrendas.precio}</h3>
+                                                    <h3 htmlFor="Tela" className="card-title">  <b>Tipo de tela:</b> {detallesPrendas.tipo_de_tela}</h3>
+                                                    <h3 htmlFor="genero" className="card-title"> <b>Genero:</b> {detallesPrendas.genero}</h3> 
+                                                    <div className='text-center mt-4'>
+                                                    <h3 htmlFor="publicado" className="card-title"> <b>Publicado </b></h3>        
+                                                    <div className='tamanoIcon'>
+                                                        {informacion(detallesPrendas)}
+
+                                                    </div>
+
+                                                    
+
+                                                    </div>   
+                                    
                                                 </div>
 
                                             </div>

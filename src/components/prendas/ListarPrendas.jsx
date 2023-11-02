@@ -62,7 +62,7 @@ export const ListarPrendas = () => {
             <Buscador
               setDatosFiltrar={setprendasFiltrar}
               datos={Prendas}
-              camposFiltrar={["nombre", "cantidad"]}
+              camposFiltrar={['nombre', 'cantidad']}
             />
           </div>
            
@@ -111,14 +111,23 @@ export const ListarPrendas = () => {
                     <td>
                       <BotonCambioEstado
                         isChecked={Prendas.publicado}
+                        nombreRegistro={'Prenda en el catalogo'}
                         ruta={`/prendas/publicado/${Prendas.id_prenda}`}
+                        cambiarPublicacion={{
+
+                          estado: Prendas.estado,
+                          paraPublicacion:true
+
+                        }
+                        }
                       />
                     </td>
                     <td>
                       <BotonCambioEstado
                         isChecked={Prendas.estado}
-                        nombreRegistro={'Prenda en el catalogo '}
+                        nombreRegistro={'Prenda en el estado '}
                         ruta={`/prendas/estado/${Prendas.id_prenda}`}
+                        
                       />
                     </td>
 
