@@ -54,7 +54,7 @@ const AgregarPrendas = () => {
   return (
     <div>
       <div className="modal" id="myModal">
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog modal-dialog-centered modal-lg ">
           <div className="modal-content">
             <div className="agregar agr">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -214,7 +214,7 @@ const AgregarPrendas = () => {
                       },
                     })}
                   >
-                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="Seleccione una opcion" disabled={true} ></option>
                     <option value="Mujer">Mujer</option>
                     <option value="Hombre">Hombre</option>
                   </select>
@@ -246,7 +246,7 @@ const AgregarPrendas = () => {
                                 )}
 
                     
-                    <option value="" disabled selected>
+                    <option value="Seleccione una opcion" disabled={true}>
                       Selecciona una opcion
                     </option>
                     <option value="true">Si</option>

@@ -192,7 +192,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       },
                     })}
                   >
-                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="Seleccione una opcion" disabled={true} ></option>
                     <option value="Mujer">Mujer</option>
                     <option value="Hombre">Hombre</option>
                   </select>
@@ -214,7 +214,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       },
                     })}
                   >
-                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option  value="Seleccione una opcion" disabled={true}></option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                   </select>
