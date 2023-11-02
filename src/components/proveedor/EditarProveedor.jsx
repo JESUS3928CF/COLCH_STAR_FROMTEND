@@ -133,7 +133,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                             }
                                         })}>
                                             <option value="C.C.">C.C.</option>
-                                            <option value="NIT">NIT.</option>
+                                            <option value="NIT.">NIT.</option>
                                             <option value="C.E.">C.E. </option>
                                         </select>
 
