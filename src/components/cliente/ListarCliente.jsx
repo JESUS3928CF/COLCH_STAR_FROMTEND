@@ -16,6 +16,7 @@ import Buscador from '../chared/Buscador';
 import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
+import { DetallesClientes } from './DetallesClientes'
 
 
 //Componente
@@ -24,9 +25,19 @@ const ListarCliente = () => {
     //Estado de la barra de busqueda
     const [clientesFiltrar, setClientesFiltrar] = useState([]);
 
+    const [detallesClientes, setDetallesClientes] = useState({});
 
+
+    
     // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
     const [clientes, setClientes] = useState([]);
+
+    const informacionDetalleClientes = (cliente) => {
+        if (!cliente.estado) {
+          return Swal.fire("Accion invalida!", "", "error");
+        }
+        setDetallesClientes(cliente);
+      };
 
     // Solicitud a la url
     useEffect(() => {
@@ -66,7 +77,7 @@ const ListarCliente = () => {
     return (
         <div>
             <div style={contentStyle} className='contenedor'>
-                <h1 className='titulo'>Clientes</h1>
+                <h1 className='titulo'>Gestionar Clientes</h1>
 
                 {/* botón agregar */}
                 <div className='container-fluid seccion2' style={{ width: 0 }}>
@@ -106,12 +117,11 @@ const ListarCliente = () => {
                             <tr>
                                 <th scope='col'>ID</th>
                                 <th scope='col'>Nombre</th>
-                                <th scope='col'>Apellido</th>
                                 <th scope='col'>Identificación</th>
                                 <th scope='col'>Teléfono</th>
-                                <th scope='col'>Email</th>
-                                <th scope='col'>Dirección</th>
-                                <th scope='col'>Inhabilitar</th>
+                                <th scope='col' className='text-center'>Email</th>
+                                <th scope='col'>Estado</th>
+                                <th scope='col'>Detalles</th>
                                 <th scope='col'>Editar</th>
                             </tr>
                         </thead>
@@ -120,11 +130,9 @@ const ListarCliente = () => {
                                 <tr key={cliente.id_cliente}>
                                     <td>{cliente.id_cliente}</td>
                                     <td>{cliente.nombre}</td>
-                                    <td>{cliente.apellido}</td>
                                     <td>{cliente.tipoIdentificacion} {cliente.identificacion}</td>
                                     <td>{cliente.telefono}</td>
                                     <td>{cliente.email}</td>
-                                    <td>{cliente.direccion}</td>
                                     <td>
                                         <BotonCambioEstado
                                             id={cliente.id_cliente}
@@ -133,6 +141,13 @@ const ListarCliente = () => {
                                             ruta={`/clientes/estado/${cliente.id_cliente}`}
                                         />
                                     </td>
+                                    <td>
+                      <BotonNegro
+                        text="Ver"
+                        modalToOpen="#modalDetalleCliente"
+                        onClick={() => setDetallesClientes(cliente)}
+                      />
+                    </td>
                                     <td>
                                         <BotonNegro
                                             text='Editar'
@@ -151,6 +166,7 @@ const ListarCliente = () => {
                         </tbody>
                     </table>
                 </div>
+                <DetallesClientes detallesClientes={detallesClientes} />
                 <EditarCliente editarCliente={editarCliente} />
             </div>
 

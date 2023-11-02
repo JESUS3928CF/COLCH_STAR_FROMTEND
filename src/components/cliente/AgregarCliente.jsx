@@ -96,7 +96,7 @@ const AgregarCliente = () => {
                               <div className="mb-3" name="divIdentificacion">
 
                                 <label htmlFor="identificacionGuardar"
-                                    className="col-form-label">Identificación:*
+                                    className="col-form-label">Identificación:  *
                                 </label>
 
                                 <br />
@@ -111,8 +111,8 @@ const AgregarCliente = () => {
                                         }
                                     })}>
                                         {/* <option value="">.</option> */}
-                                        <option value="C.C. ">CC</option>
-                                        <option value="C.E. ">CE </option>
+                                        <option value="C.C. ">C.C.</option>
+                                        <option value="C.E. ">C.E. </option>
                                     </select>
 
 
@@ -149,7 +149,7 @@ const AgregarCliente = () => {
                                           htmlFor='nombre'
                                           className='col-form-label'
                                       >
-                                          Nombre:*
+                                          Nombres:  *
                                       </label>
                                       <input
                                           name='nombre'
@@ -167,7 +167,7 @@ const AgregarCliente = () => {
                                                   return validarEspaciosVacios(value);
                                               },
                                               pattern: {
-                                                value:  /^[A-Za-z\s]+$/,
+                                                value:  /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                                 message: "El nombre no puede contener números ni caracteres especiales"
                                               }
                                           })}
@@ -183,7 +183,7 @@ const AgregarCliente = () => {
                                           htmlFor='apellido'
                                           className='col-form-label'
                                       >
-                                          Apellido:*
+                                          Apellidos:  *
                                       </label>
                                       <input
                                           name='apellido'
@@ -200,7 +200,7 @@ const AgregarCliente = () => {
                                                   return validarEspaciosVacios(value);
                                               },
                                               pattern:{
-                                                value: /^[A-Za-z\s]+$/,
+                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                                 message: "El apellido no puede contener números ni caracteres especiales"
                                               }
                                           })}
@@ -211,13 +211,12 @@ const AgregarCliente = () => {
                                           />
                                       )}
                                   </div>
-                                  
                                   <div className='col-md-6'>
                                       <label
                                           htmlFor='telefono'
                                           className='col-form-label'
                                       >
-                                          Teléfono:*
+                                          Teléfono:  *
                                       </label>
                                       <input
                                           name='telefono'
@@ -250,10 +249,38 @@ const AgregarCliente = () => {
                                   </div>
                                   <div className='col-md-6'>
                                       <label
+                                          htmlFor='direccion'
+                                          className='col-form-label'
+                                      >
+                                          Dirección:  *
+                                      </label>
+                                      <input
+                                          name='direccion'
+                                          type='text'
+                                          className='form-control'
+                                          placeholder='. . .'
+                                          {...register('direccion', {
+                                              required:{
+                                                  value: true,
+                                                  message: 'La dirección es obligatoria',
+                                                },
+                                                validate: (value) => {
+                                                  return validarEspaciosVacios(value);
+                                              }
+                                          })}
+                                      />
+                                      {errors.direccion && (
+                                          <AlertaError
+                                              message={errors.direccion.message}
+                                          />
+                                      )}
+                                  </div>
+                                  <div className='mb-3'>
+                                      <label
                                           htmlFor='email'
                                           className='col-form-label'
                                       >
-                                          Email:*
+                                          Email:  *
                                       </label>
                                       <input
                                           name='email'
@@ -277,34 +304,6 @@ const AgregarCliente = () => {
                                       {errors.email && (
                                           <AlertaError
                                               message={errors.email.message}
-                                          />
-                                      )}
-                                  </div>
-                                  <div className='col-md-6'>
-                                      <label
-                                          htmlFor='direccion'
-                                          className='col-form-label'
-                                      >
-                                          Dirección:*
-                                      </label>
-                                      <input
-                                          name='direccion'
-                                          type='text'
-                                          className='form-control'
-                                          placeholder='. . .'
-                                          {...register('direccion', {
-                                              required:{
-                                                  value: true,
-                                                  message: 'La dirección es obligatoria',
-                                                },
-                                                validate: (value) => {
-                                                  return validarEspaciosVacios(value);
-                                              }
-                                          })}
-                                      />
-                                      {errors.direccion && (
-                                          <AlertaError
-                                              message={errors.direccion.message}
                                           />
                                       )}
                                   </div>

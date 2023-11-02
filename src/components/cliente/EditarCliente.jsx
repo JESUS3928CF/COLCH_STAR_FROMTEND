@@ -168,7 +168,7 @@ const EditarCliente = ({editarCliente}) => {
                                       htmlFor='nombreEditar'
                                       className='col-form-label'
                                   >
-                                      Nombre:
+                                      Nombres:
                                   </label>
                                   <input
                                       type='text'
@@ -188,7 +188,7 @@ const EditarCliente = ({editarCliente}) => {
                                               );
                                           },
                                           pattern: {
-                                              value: /^[A-Za-z\s]+$/,
+                                              value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                               message:
                                                   'El nombre no puede contener números ni caracteres especiales',
                                           },
@@ -205,7 +205,7 @@ const EditarCliente = ({editarCliente}) => {
                                       htmlFor='apellidoEditar'
                                       className='col-form-label'
                                   >
-                                      Apellido:
+                                      Apellidos:
                                   </label>
                                   <input
                                       type='text'
@@ -222,7 +222,7 @@ const EditarCliente = ({editarCliente}) => {
                                           return validarEspaciosVacios(value);
                                       },
                                       pattern:{
-                                        value: /^[A-Za-z\s]+$/,
+                                        value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                         message: "El apellido no puede contener números ni caracteres especiales"
                                       }
                                     })}
@@ -270,6 +270,36 @@ const EditarCliente = ({editarCliente}) => {
                                       />
                                   )}
                               </div>
+                              <div className='col-md-6'>
+                                  <label
+                                      htmlFor='direccionEditar'
+                                      className='col-form-label'
+                                  >
+                                      Dirección:
+                                  </label>
+                                  <input
+                                      type='text'
+                                      className='form-control'
+                                      id='direccionEditar'
+                                      name='direccion'
+                                      placeholder=''
+                                      {...register('direccion', {
+                                          required:{
+                                            value: true,
+                                            message: 'La dirección es obligatoria',
+                                          },
+                                          validate: (value) => {
+                                            return validarEspaciosVacios(value);
+                                        }
+                                      })}
+                                  />
+                                  {errors.direccion && (
+                                      <AlertaError
+                                          message={errors.direccion.message}
+                                      />
+                                  )}
+                                  
+                              </div>
                               <div className='mb-3'>
                                   <label
                                       htmlFor='emailEditar'
@@ -302,36 +332,6 @@ const EditarCliente = ({editarCliente}) => {
                                         message={errors.email.message}
                                     />
                                 )}
-                              </div>
-                              <div className='mb-3'>
-                                  <label
-                                      htmlFor='direccionEditar'
-                                      className='col-form-label'
-                                  >
-                                      Dirección:
-                                  </label>
-                                  <input
-                                      type='text'
-                                      className='form-control'
-                                      id='direccionEditar'
-                                      name='direccion'
-                                      placeholder=''
-                                      {...register('direccion', {
-                                          required:{
-                                            value: true,
-                                            message: 'La dirección es obligatoria',
-                                          },
-                                          validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        }
-                                      })}
-                                  />
-                                  {errors.direccion && (
-                                      <AlertaError
-                                          message={errors.direccion.message}
-                                      />
-                                  )}
-                                  
                               </div>
 
                               <div className='modal-footer'>
