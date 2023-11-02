@@ -1,3 +1,8 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------26 de septiembre 2023
+//Nos permitira Agregar un cliente, de ser necesario se podra agregar un cliente mediante un formulario donde se pediran datos
+//mas relevantes de este cliente y luego mostrarlo en la tabla listar 
+import styles from '../../pages/clientes.module.css';
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -10,6 +15,7 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
+import HeaderModals from '../chared/HeaderModals';
 
 
 //Componente
@@ -24,15 +30,16 @@ const AgregarCliente = () => {
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
 
-    const {nombre,apellido,cedula,telefono,email,direccion} = data
+    const {nombre,apellido,identificacion,telefono,email,direccion,tipoIdentificacion} = data
 
 
     try {
       // la ruta por donde voya mandar el objeto o el registro nuevo data
       const res = await axios.post('http://localhost:3000/api/clientes', {
+        identificacion: identificacion.trim(),
+        tipoIdentificacion: tipoIdentificacion.trim(),
         nombre: nombre.trim(),
         apellido: apellido.trim(),
-        cedula: cedula.trim(),
         telefono: telefono.trim(),
         email: email.trim(),
         direccion: direccion.trim()
@@ -52,16 +59,25 @@ const AgregarCliente = () => {
 
     } catch (err) {
           console.log(err)
+          if (err.response && err.response.status === 400) {
           Swal.fire({
             title: 'Error',
+            text: err.response.data.message,
+            icon: 'error',
+        })
+    }else{
+        // En caso de otros errores, muestra una alerta genérica de error
+        Swal.fire({
+            title: 'Error',
             text: "Hubo un error",
-            icon: 'Vuelva a intentarlo',
-        }).then( //el then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-            location.reload() //  recarga la pagina
-        );
-    }
-  };
+            icon: 'error',
 
+        }).then(() => { 
+            location.reload(); 
+        });
+    }
+  }
+  }
   return (
       <div>
           {/* modal agregar proveedor */}
@@ -69,94 +85,65 @@ const AgregarCliente = () => {
           <div className='modal' id='myModal'>
               <div className='modal-dialog modal-dialog-centered '>
                   <div className='modal-content'>
-                      <div className='agregar agr'>
-                          <h5 className='modal-title' id='exampleModalLabel'>
-                              Agregar cliente
-                          </h5>
-                          <button
-                              type='button'
-                              id='xAgregar'
-                              className='btn-close'
-                              data-bs-dismiss='modal'
-                              aria-label='Close'
-                          ></button>
-                      </div>
+                  <HeaderModals title={'Agregar Cliente'} />
                       <div className='formulario'>
+                        
                           <div className='modal-body'>
+
                             {/* <!-- formulario para agregar un usuario --> */}
                               <form className='row g-3 needs-validation' onSubmit={handleSubmit(onSubmit)}>
-                              {/* <div className='col-md-6 '>
-                                      <label
-                                          htmlFor='cedula'
-                                          className='col-form-label'
-                                      >
-                                          Tipo de documento:*
-                                      </label>
-                                      <input
-                                          name='cedula'
-                                          type='text'
-                                          className='form-control'
-                                          placeholder='. . .'
-                                          {...register('cedula', {
-                                              required:{
-                                                value: true,
-                                                message:'La cedula es obligatoria',
-                                              },
-                                            pattern:{
-                                              value: /^\d+$/,
-                                              message: 'No se permiten letras ni espacios en blanco',
+                              
+                              <div className="mb-3" name="divIdentificacion">
+
+                                <label htmlFor="identificacionGuardar"
+                                    className="col-form-label">Identificación:*
+                                </label>
+
+                                <br />
+
+                                <div className={styles.identi}>
+
+                                    <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" 
+                                    {...register('tipoIdentificacion', {
+                                        required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                            value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                            message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                        }
+                                    })}>
+                                        {/* <option value="">.</option> */}
+                                        <option value="C.C. ">CC</option>
+                                        <option value="C.E. ">CE </option>
+                                    </select>
+
+
+                                    <input type="text" className="form-control "
+                                        id={styles.identificacionGuardar}
+                                        name="identificacion"
+                                        placeholder=". . ."
+                                        //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
+                                        //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                        {...register('identificacion', {
+                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                            },
+                                            pattern: {
+                                                value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                message: "No puede contener Letras ni  espacios en blanco"
                                             },
                                             validate: (value) => {
-                                              const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                              if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
-                                                return 'La cédula debe tener minimo 7 digitos y maximo 11';
-                                              }
-                                              return true;
+                                                return validarEspaciosVacios(value); //validacion para no dejar tener espacios vacios
                                             },
-                                          })}
-                                      />
-                                      {errors.cedula && (
-                                          <AlertaError
-                                              message={errors.cedula.message}
-                                          />
-                                      )}
-                                  </div> */}
-                              <div className='col-md-6'>
-                                      <label
-                                          htmlFor='cedula'
-                                          className='col-form-label'
-                                      >
-                                          Cedula:*
-                                      </label>
-                                      <input
-                                          name='cedula'
-                                          type='text'
-                                          className='form-control'
-                                          placeholder='. . .'
-                                          {...register('cedula', {
-                                              required:{
-                                                value: true,
-                                                message:'La cedula es obligatoria',
-                                              },
-                                            pattern:{
-                                              value: /^\d+$/,
-                                              message: 'No se permiten letras ni espacios en blanco',
-                                            },
-                                            validate: (value) => {
-                                              const cedulaSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                              if (cedulaSinEspacios.length < 7 || cedulaSinEspacios.length > 11) {
-                                                return 'La cédula debe tener minimo 7 digitos y maximo 11';
-                                              }
-                                              return true;
-                                            },
-                                          })}
-                                      />
-                                      {errors.cedula && (
-                                          <AlertaError
-                                              message={errors.cedula.message}
-                                          />
-                                      )}
-                                  </div>
+
+
+                                        })}
+                                    />
+                                    {errors.identificacion && (
+                                        <AlertaError message={errors.identificacion.message} /> //muestra el mensaje de validacion
+                                    )}
+
+                                </div>
+                                </div>
                                   <div className='col-md-6'>
                                       <label
                                           htmlFor='nombre'
@@ -323,7 +310,7 @@ const AgregarCliente = () => {
                                   </div>
 
                                   <div className='modal-footer'>
-                                      <CancelarModal />
+                                      <CancelarModal modalToCancel='myModal'/>
                                       <GuardarModal />
                                   </div>
                               </form>

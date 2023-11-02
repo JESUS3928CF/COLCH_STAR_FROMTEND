@@ -28,7 +28,7 @@ const CancelarModal = ({ modalToCancel }) => {
 };
 
 CancelarModal.propTypes = {
-    modalToCancel: PropTypes.string.isRequired,
-};
+    modalToCancel: PropTypes.string,
+  };
 
 export default CancelarModal;

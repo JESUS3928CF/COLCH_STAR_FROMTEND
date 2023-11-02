@@ -4,11 +4,40 @@ import './BotonCambioEstado.css'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
 
-const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta }) => {
+const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublicacion = { estado : true, paraPublicacion : false} }) => {
+
+
+    const alertaError = () => {
+    
+            return Swal.fire(
+                'Acción inválida!',
+                `Este  ${nombreRegistro} no se le puede cambiar el estado de publicación porque está inhabilitado`,
+                'error'
+            );
+    }
+
+    /// Aca definimos si le podemos cambiar el estado de publicación de un reguistro
+    const validarElCambioDeEstado = new Promise((resolve, reject) => {
+
+        console.log(cambiarPublicacion)
+        console.log(cambiarPublicacion, isChecked)
+        let sePuedecambiar = true;
+
+        if(cambiarPublicacion.paraPublicacion && !cambiarPublicacion.estado) sePuedecambiar = false;
+        else if(cambiarPublicacion.paraPublicacion) nombreRegistro = nombreRegistro + " en el catalogo";
+
+        if(sePuedecambiar) {
+            resolve(cambiarEstadoDB);
+        } else {
+            reject(alertaError)
+        }
+    })
+
+    
 
     const [estado, setEstado] = useState(isChecked);
-    /// Cambiar Estado del registro
-    const cambiarEstado = (estado, nombreRegistro, ruta) => {
+    /// Cambiar Estado del registro en la base de datos
+    function cambiarEstadoDB () {
         Swal.fire({
             title: `¿Deseas ${
                 estado ? 'inhabilitar' : 'habilitar'
@@ -55,6 +84,12 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta }) => {
         });
     };
 
+    const cambiarEstado = () => {
+        validarElCambioDeEstado
+    .then(resultado => resultado())
+    .catch(error => error());
+    }
+
     return (
         <label className='switch-button' htmlFor={id}>
             <div className='switch-outer'>
@@ -82,6 +117,10 @@ BotonCambioEstado.propTypes = {
     isChecked: PropTypes.bool.isRequired,
     nombreRegistro: PropTypes.string.isRequired,
     ruta: PropTypes.string.isRequired,
+    cambioPublicacion: PropTypes.shape({
+        estado: PropTypes.bool.isRequired,
+        paraPublicacion: PropTypes.bool.isRequired,
+    })
 };
 
 export default BotonCambioEstado;

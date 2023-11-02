@@ -67,7 +67,7 @@ const ListarProveedores = () => {
             <div style={contentStyle} className='contenedor'>
 
                 {/* titulo */}
-                <h1 className="titulo">Proveedores</h1>
+                <h1 className="titulo">Gestionar Proveedor</h1>
 
 
                 {/* botón agregar */}
@@ -113,8 +113,9 @@ const ListarProveedores = () => {
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
-                                    <td>{proveedor.identificador}</td>
+                                    <td> {proveedor.tipoIdentificacion} { proveedor.identificador}</td>
                                     <td> <BotonCambioEstado
+                                        id={proveedor.id_proveedor}
                                         isChecked={proveedor.estado}
                                         nombreRegistro={'proveedor'}
                                         ruta={`/proveedores/estado/${proveedor.id_proveedor}`}

@@ -1,3 +1,8 @@
+// ------------------JESÚS ANTONIO COCHERO FLORIÁN
+//-------------------26 de septiembre 2023
+//Nos permitira Agregar un diseño, de ser necesario se podra agregar un diseño mediante un formulario donde se pediran datos
+//mas relevantes de este diseño y luego mostrarlo en la tabla listar  
+
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';

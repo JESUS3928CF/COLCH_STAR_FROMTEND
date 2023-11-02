@@ -15,6 +15,7 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations'
 import { useForm } from 'react-hook-form';
+import HeaderModals from '../chared/HeaderModals';
 
 
 //COMPONENTE
@@ -30,14 +31,15 @@ const AgregarProveedor = () => {
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { identificador, nombre, telefono, direccion } = data
+        const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
-
+        
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
                 // Campos en los que realiza el cambio
                 identificador: identificador.trim(),
+                tipoIdentificacion: tipoIdentificacion.trim(),
                 nombre: nombre.trim(),
                 telefono: telefono.trim(),
                 direccion: direccion.trim()
@@ -45,6 +47,7 @@ const AgregarProveedor = () => {
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
+           
 
             // Lanzar alerta del producto agregado
             Swal.fire({
@@ -54,19 +57,32 @@ const AgregarProveedor = () => {
             }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
                 location.reload(); //  recarga la pagina
             });
+            
 
         } catch (err) {
             console.log(err)
 
-            Swal.fire({
-                title: 'Error',
-                text: "Hubo un error",
-                icon: 'Vuelva a intentarlo',
-            }).then( //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-                location.reload() //  recarga la pagina
-            );
-        }
+            if (err.response && err.response.status === 400) {
 
+                Swal.fire({
+                    title: 'Error',
+                    text: err.response.data.message,
+                    icon: 'error',
+
+                })
+
+            } else {
+                // En caso de otros errores, muestra una alerta genérica de error
+                Swal.fire({
+                    title: 'Error',
+                    text: "Hubo un error",
+                    icon: 'error',
+
+                }).then(() => { 
+                    location.reload(); 
+                });
+            }          
+        }
     }
 
     return (
@@ -75,11 +91,8 @@ const AgregarProveedor = () => {
             <div className="modal" id="myModal" >
                 <div className="modal-dialog modal-dialog-centered ">
                     <div className="modal-content">
-                        <div className="agregar agr">
-                            <h5 className="modal-title" id="exampleModalLabel">Agregar proveedor</h5>
-                            <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
+                        <HeaderModals title={'Agregar Proveedor'} />
+                        
                         <div className="modal-body">
 
                             {/* formulario para agregar proveedor */}
@@ -88,16 +101,25 @@ const AgregarProveedor = () => {
                                 <div className="mb-3" name="divIdentificacion">
 
                                     <label htmlFor="identificacionGuardar"
-                                        className="col-form-label">Identificación:*
+                                        className="col-form-label">Identificación: *
                                     </label>
 
                                     <br />
 
                                     <div className={styles.identi}>
 
-                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" >
-                                            <option value="cedula">CC</option>
-                                            <option value="nit">NIT</option>
+                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" 
+                                        {...register('tipoIdentificacion', {
+                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                            }
+                                        })}>
+                                            {/* <option value="">.</option> */}
+                                            <option value="C.C. ">C.C.</option>
+                                            <option value="NIT. ">NIT.</option>
+                                            <option value="C.E. ">C.E. </option>
+
                                         </select>
 
 
@@ -134,7 +156,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="nombre"
                                         className="col-form-label">
-                                        Nombre:*
+                                        Nombre: *
                                     </label>
 
                                     <input type="text"
@@ -152,7 +174,7 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             },
                                             pattern: {
-                                                value: /^[A-Za-z\s]+$/,  //expreción regular para prohibir letras y caracteres 
+                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                                 message: "No puede contener números ni caracteres especiales"
                                             }
                                         })}
@@ -167,7 +189,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="telefono"
                                         className="col-form-label" >
-                                        Teléfono:*
+                                        Teléfono: *
                                     </label>
 
                                     <input type="text"
@@ -199,7 +221,7 @@ const AgregarProveedor = () => {
 
                                     <label htmlFor="direccionGuardar"
                                         className="col-form-label">
-                                        Dirección:*
+                                        Dirección: *
                                     </label>
 
                                     <input type="text"
@@ -220,7 +242,7 @@ const AgregarProveedor = () => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal />
+                                    <CancelarModal   modalToCancel="myModal"/>
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />
