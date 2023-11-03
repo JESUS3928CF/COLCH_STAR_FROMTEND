@@ -8,7 +8,8 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 260px; /* Ancho fijo del Navbar */
+    width: 260px;
+    /* Ancho fijo del Navbar */
     background: #14131b;
 }
 
@@ -175,12 +176,12 @@
 }
 
 /* style de el body del index */
-                    
+
 /* .fondo{
     overflow-y: scroll;
 } */
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     display: none;
 }
 
@@ -190,4 +191,71 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+
+/* Estilos para el submenú */
+.styles.submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+
+
+}
+
+.styles.submenu li {
+    padding: 10px;
+}
+
+.styles.submenu a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+
+}
+
+/* Mostrar el submenú cuando se hace clic en el enlace "Productos" */
+.styles.icon_link:hover .styles.submenu {
+    display: block;
+}
+
+.styles.submenu i {
+    margin-right: 10px;
+    /* Espacio entre el icono y el texto en el submenú */
+} 
+
+.sub {
+    color: white;
+    font-size: 16px;
+}
+
+.submenuu {
+    margin-left: 50px;
+    margin-right: 0px;
+    margin-top: 5px;
+
+}
+
+.su {
+    margin-top: -15px;
+
+
+
+}
+
+.si {
+    /* border: 1px solid black; */
+    padding: 0px 30px;
+
+
+}
+
+.spanImg {
+    /* border:  1px solid black; */
+    margin-right: 20px;
+}
+
+.siu{
+    margin-bottom: 8px;
 }

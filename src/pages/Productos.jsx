@@ -12,13 +12,13 @@ import '../css-general/table.min.css'
 const Productos = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
-    }; 
+    };
 
     return (
         <div>
             <Navbar />
             <div style={contentStyle} className='contenedor'>
- 
+
                 {/* titulo */}
 
                 <h1 class="titulo" >Productos</h1>
@@ -26,15 +26,15 @@ const Productos = () => {
                 {/* boton de agregar */}
 
                 <div className="container-fluid seccion2">
-                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{marginLeft:20    }} >Agregar
+                    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginLeft: 20 }} >Agregar
                         producto</button>
 
-                        {/* modal agregar producto */}
+                    {/* modal agregar producto */}
 
                     <div className="modal" id="myModal">
-                        <div className="modal-dialog modal-dialog-centered" style={{width:800, marginLeft:450}}>
-                            <div className="modal-content" style={{width: 800}} >
-                                <div className="modal-header modal-head-agregar" style={{width: 800}} >
+                        <div className="modal-dialog modal-dialog-centered" style={{ width: 800, marginLeft: 450 }}>
+                            <div className="modal-content" style={{ width: 800 }} >
+                                <div className="modal-header modal-head-agregar" style={{ width: 800 }} >
                                     <h5 className="modal-title" id="exampleModalLabel" >
                                         Agregar producto
                                     </h5>
@@ -87,61 +87,61 @@ const Productos = () => {
                                     </div>
 
                                     <div className="modal-body ">
-                                            <div className="form-label" >
-                                                <p className="detalleCompra">Agregar datos de los productos </p>
-                                            </div>
-                                            <div className="subFormulario">
+                                        <div className="form-label" >
+                                            <p className="detalleCompra">Agregar datos de los productos </p>
+                                        </div>
+                                        <div className="subFormulario">
 
-                                                <div className="mb-3">
-                                                    <label for="nombreCompraAgregar" className="col-form-label">Imagen:</label>
-                                                    <input type="file" className="form-control" id="imagen"
-                                                        placeholder="Ingresar nombre" />
+                                            <div className="mb-3">
+                                                <label for="nombreCompraAgregar" className="col-form-label">Imagen:</label>
+                                                <input type="file" className="form-control" id="imagen"
+                                                    placeholder="Ingresar nombre" />
+                                            </div>
+
+                                        </div>
+                                        <div className="bottonAgregarProducto">
+                                            <div> <button type="button" className="btn btn-info">Agregar nueva imagen</button>
+                                            </div>
+                                        </div>
+                                        <div className="subFormulario">
+
+                                            <div className="mb-3">
+                                                <br />
+                                                <label for="">Seleccionar Colores: </label>
+                                                <br />
+
+                                                <div className="form-check form-switch">
+                                                    <input className="form-check-input" type="checkbox" name="negroAgregar" />
+                                                    <label className="form-check-label" for="NegroAgregar">Negro</label>
                                                 </div>
 
-                                            </div>
-                                            <div className="bottonAgregarProducto">
-                                                <div> <button type="button" className="btn btn-info">Agregar nueva imagen</button>
+                                                <div className="form-check form-switch">
+                                                    <input className="form-check-input" type="checkbox" name="rojoAgregar"
+                                                        checked />
+                                                    <label className="form-check-label" for="rojoAgregar">Rojo</label>
                                                 </div>
-                                            </div>
-                                            <div className="subFormulario">
 
-                                                <div className="mb-3">
-                                                    <br />
-                                                    <label for="">Seleccionar Colores: </label>
-                                                    <br />
-
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" name="negroAgregar" />
-                                                        <label className="form-check-label" for="NegroAgregar">Negro</label>
-                                                    </div>
-
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" name="rojoAgregar"
-                                                            checked />
-                                                        <label className="form-check-label" for="rojoAgregar">Rojo</label>
-                                                    </div>
-
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" name="azulAgregar"
-                                                            checked />
-                                                        <label className="form-check-label" for="azulAgregar">Azul</label>
-                                                    </div>
-
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" name="verdeAgregar"
-                                                            checked />
-                                                        <label className="form-check-label" for="verdeAgregar">verde</label>
-                                                    </div>
-
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" name="grisAgregar"
-                                                            checked />
-                                                        <label className="form-check-label" for="grisAgregar">gris</label>
-                                                    </div>
-                                                    <br />
-
+                                                <div className="form-check form-switch">
+                                                    <input className="form-check-input" type="checkbox" name="azulAgregar"
+                                                        checked />
+                                                    <label className="form-check-label" for="azulAgregar">Azul</label>
                                                 </div>
+
+                                                <div className="form-check form-switch">
+                                                    <input className="form-check-input" type="checkbox" name="verdeAgregar"
+                                                        checked />
+                                                    <label className="form-check-label" for="verdeAgregar">verde</label>
+                                                </div>
+
+                                                <div className="form-check form-switch">
+                                                    <input className="form-check-input" type="checkbox" name="grisAgregar"
+                                                        checked />
+                                                    <label className="form-check-label" for="grisAgregar">gris</label>
+                                                </div>
+                                                <br />
+
                                             </div>
+                                        </div>
 
                                     </div>
 
@@ -151,24 +151,12 @@ const Productos = () => {
                         </div>
                     </div>
 
-                        {/* Boton para Buscar/filtrar */}
+                    {/* Boton para Buscar/filtrar */}
 
                     <form className="d-flex">
                         <input className="form-control me-2" type="search" placeholder="" aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
-
-                        {/* Boton para mostrar la lista de prendas */}
-
-                        <Link to={'/prendas'}><button type="button" className="btn btn-secondary">Lista de prendas</button></Link>
-
-
-                        {/* Boton para mostrar la lista de  diseños */}
-
-                       
-                    <Link to={'/diseno'}><button type="button" className="btn btn-secondary">Lista de diseños</button></Link>
-                    {/* <a href={Diseno}><button type="button" className="btn btn-secondary">Lista de diseños</button></a> */}
-
 
 
                 </div>
@@ -230,9 +218,9 @@ const Productos = () => {
                 {/* Modal para eidtar el producto */}
 
                 <div className="modal" id="modalEditar">
-                    <div className="modal-dialog modal-dialog-centered"  style={{width :800, marginLeft:450 }}>
-                        <div className="modal-content" style={{width :800 }}>
-                            <div className="modal-header modal-head-editar" style={{width :800 }}>
+                    <div className="modal-dialog modal-dialog-centered" style={{ width: 800, marginLeft: 450 }}>
+                        <div className="modal-content" style={{ width: 800 }}>
+                            <div className="modal-header modal-head-editar" style={{ width: 800 }}>
                                 <h5 className="modal-title">Editar datos del producto</h5>
                                 <button type="button" id="Editar" className="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -283,7 +271,7 @@ const Productos = () => {
                                 </div>
                                 <div className="modal-body ">
                                     <form action="" id="ColoresEditar">
-                                        <div className="form-label" style={{textAlign:'center'}} >
+                                        <div className="form-label" style={{ textAlign: 'center' }} >
                                             <p className="detalleCompra">Agregar datos de los productos </p>
                                         </div>
                                         <div className="subFormulario">
@@ -341,7 +329,7 @@ const Productos = () => {
 
 
                 {/* ver detalles modal */}
-                
+
                 <div className="modal" id="modalDetalles">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">

@@ -2,18 +2,28 @@ import styles from './Navbar.module.css';
 import logo from '../imgNavbar/LogoPNG.png';
 import profileImg from '../imgNavbar/1153861.png';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 
 
 
 export const Navbar = () => {
+
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+
+    const toggleSubMenu = () => {
+        setIsSubMenuOpen(!isSubMenuOpen);
+    };
+
+
+
     return (
         <div className={`${styles.sidebar} ${styles.close}`}>
             <div className={`${styles.logo_detalle}`}>
                 <i>
-                    <img src={logo} alt='imagen del logo' width='39px'  style={{marginLeft:30,marginTop:11}}/>
+                    <img src={logo} alt='imagen del logo' width='39px' style={{ marginLeft: 30, marginTop: 11 }} />
                 </i>
-                <span className={`${styles.nombre_logo}`} style={{marginTop:9}}>Colch Star</span>
+                <span className={`${styles.nombre_logo}`} style={{ marginTop: 9 }}>Colch Star</span>
             </div>
             <ul className={`${styles.nav_links}`}>
                 <li>
@@ -62,8 +72,35 @@ export const Navbar = () => {
                                 Productos
                             </span>
                         </Link>
+                        <i class='bx bx-right-arrow-alt' onClick={toggleSubMenu}></i>
                     </div>
                 </li>
+
+                {isSubMenuOpen && (
+                    <div className={`${styles.submenuu}`} >
+                        <ul className={`${styles.submenu}`}>
+
+                            <div className={`${styles.siu}`}>
+                                <Link to="/prendas" className={`${styles.si}`} >
+                                    <span className={`${styles.sub}`}>
+                                        <span className={`${styles.spanImg}`}><i class='bx bxs-t-shirt'></i></span>
+                                        Prendas
+                                    </span>
+                                </Link>
+                            </div>
+
+                            <Link to="/diseno" className={`${styles.si}`} >
+                                <span className={`${styles.sub}`}>
+                                    <span className={`${styles.spanImg}`}><i class='bx bxs-doughnut-chart'></i></span>
+                                    Diseños
+                                </span>
+                            </Link>
+
+                        </ul>
+                    </div>
+                )}
+
+
                 <li>
                     <div className={`${styles.iocn_link}`}>
                         <Link to={'/clientes'}>
