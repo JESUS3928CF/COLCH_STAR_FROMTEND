@@ -91,27 +91,30 @@ const ListarDisenos = () => {
                                         isChecked={diseno.publicado}
                                         nombreRegistro={'diseño'}
                                         ruta={`/disenos/publicado/${diseno.id_diseno}`}
-                                        cambiarPublicacion={
-                                            {
-                                                estado: diseno.estado,
-                                                paraPublicacion: true,
-                                            }
-                                        }
+                                        cambiarPublicacion={{
+                                            estado: diseno.estado,
+                                            paraPublicacion: true,
+                                        }}
                                     />
                                 </td>
                                 <td>
                                     <BotonCambioEstado
+                                        id={diseno.id_diseno}
                                         isChecked={diseno.estado}
                                         nombreRegistro={'diseño'}
                                         ruta={`/disenos/estado/${diseno.id_diseno}`}
                                     />
                                 </td>
                                 <td>
-                                {/* con el ternario determinamos si abrir o no el modal*/}
+                                    {/* con el ternario determinamos si abrir o no el modal*/}
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={diseno.estado? '#modalDiseño' : ''}
-                                        onClick={() => informacionModalEditar(diseno)}
+                                        modalToOpen={
+                                            diseno.estado ? '#modalDiseño' : ''
+                                        }
+                                        onClick={() =>
+                                            informacionModalEditar(diseno)
+                                        }
                                     />
                                 </td>
                             </tr>

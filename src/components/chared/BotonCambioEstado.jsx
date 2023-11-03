@@ -16,17 +16,18 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
             );
     }
 
-    /// Aca definimos si le podemos cambiar el estado de publicación de un reguistro
+    /// Aca definimos si le podemos cambiar el estado de publicación de un registro
     const validarElCambioDeEstado = new Promise((resolve, reject) => {
 
-        let sePuedecambiar = true;
+        let sePuedeCambiar = true;
 
-        if(cambiarPublicacion.paraPublicacion && !cambiarPublicacion.estado) sePuedecambiar = false;
+        if(cambiarPublicacion.paraPublicacion && !cambiarPublicacion.estado) sePuedeCambiar = false;
         else if(cambiarPublicacion.paraPublicacion) nombreRegistro = nombreRegistro + " en el catalogo";
 
-        if(sePuedecambiar) {
+        if(sePuedeCambiar) {
             resolve(cambiarEstadoDB);
         } else {
+            console.log("Que pasa")
             reject(alertaError)
         }
     })
@@ -95,7 +96,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     }
 
     return (
-        <label className='switch-button' htmlFor={id}>
+        <label className='switch-button' >
             <div className='switch-outer'>
                 <input
                     id={id}
