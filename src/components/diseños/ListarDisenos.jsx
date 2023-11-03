@@ -100,7 +100,6 @@ const ListarDisenos = () => {
                                     />
                                 </td>
                                 <td>
-                                    {/* Este ejemplo esta correcto el de publicado no por que aun me falta en endpoint en el back*/}
                                     <BotonCambioEstado
                                         isChecked={diseno.estado}
                                         nombreRegistro={'diseño'}
