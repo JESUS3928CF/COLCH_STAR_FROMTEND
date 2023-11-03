@@ -1,0 +1,31 @@
+.buscador{
+    padding: 0;
+    margin: 0;
+
+    margin-right: -650px;
+} 
+
+.ap{
+    padding: 0;
+    margin: 0;
+     margin-left: -650px; 
+} 
+
+#identificacionGuardar{
+    width: 380px;
+    float: right;
+    
+}
+
+#identificacionEditar{
+    width: 380px;
+    float: right;
+    
+}
+
+.atras{
+
+    margin-left: 50px;
+  
+} 
+
