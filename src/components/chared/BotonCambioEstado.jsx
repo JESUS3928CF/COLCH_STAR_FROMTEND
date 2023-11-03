@@ -80,7 +80,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
                 }
             }
         });
-    };
+    }
 
     const cambiarEstado = () => {
         validarElCambioDeEstado
@@ -101,7 +101,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
                     id={id}
                     type='checkbox'
                     checked={estado}
-                    onChange={() => cambiarEstado(estado, nombreRegistro, ruta)}
+                    onChange={() => cambiarEstado()}
                 />
                 <div className='button'>
                     <span className='button-toggle'></span>
@@ -121,10 +121,10 @@ BotonCambioEstado.propTypes = {
     isChecked: PropTypes.bool.isRequired,
     nombreRegistro: PropTypes.string.isRequired,
     ruta: PropTypes.string.isRequired,
-    cambioPublicacion: PropTypes.shape({
+    cambiarPublicacion: PropTypes.shape({
         estado: PropTypes.bool.isRequired,
         paraPublicacion: PropTypes.bool.isRequired,
-    })
+    }),
 };
 
 export default BotonCambioEstado;
