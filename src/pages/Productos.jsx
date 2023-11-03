@@ -34,33 +34,33 @@ const Productos = () => {
                                 <form action="" id="formularioAgregarProducto">
 
                                     <div className="mb-3" name="divProducto">
-                                        <label for="productoGuardar" className="col-form-label">Producto:</label>
+                                        <label htmlFor="productoGuardar" className="col-form-label">Producto:</label>
                                         <input type="text" className="form-control" id="productoGuardarr"
-                                            name="productoGuardar" placeholder="Ingresar producto" required />
+                                            name="productoGuardar" placeholder="Ingresar producto" />
                                     </div>
 
                                     <div className="mb-3" name="divCantidad">
-                                        <label for="cantidadGuardar" className="col-form-label">Cantidad:</label>
+                                        <label htmlFor="cantidadGuardar" className="col-form-label">Cantidad:</label>
                                         <input type="text" className="form-control" name="cantidadGuardar"
                                             id="cantidadGuardar" placeholder="Ingresar cantidad" />
                                     </div>
 
                                     <div className="mb-3" name="divPrecio">
-                                        <label for="precioGuardar" className="col-form-label">Precio</label>
+                                        <label htmlFor="precioGuardar" className="col-form-label">Precio</label>
                                         <input type="text" className="form-control" name="precioGuardar" id="precioGuardar"
                                             placeholder="Ingresar precio" />
                                     </div>
 
                                     <div className="mb-3" name="divTalla">
-                                        <label for="tallaGuardar" className="col-form-label">Talla:</label>
+                                        <label htmlFor="tallaGuardar" className="col-form-label">Talla:</label>
                                         <input type="text" className="form-control" id="tallaGuardar" name="tallaGuardar"
-                                            placeholder="Ingresar Talla" required />
+                                            placeholder="Ingresar Talla"  />
                                     </div>
 
                                     <div className="mb-3" name="divTela">
-                                        <label for="telaGuardar" className="col-form-label">Tela:</label>
+                                        <label htmlFor="telaGuardar" className="col-form-label">Tela:</label>
                                         <input type="text" className="form-control" id="telaGuardar" name="telaGuardar"
-                                            placeholder="Ingresar Tela" required />
+                                            placeholder="Ingresar Tela" />
                                     </div>
 
                                     <div className="modal-footer">
@@ -79,7 +79,7 @@ const Productos = () => {
                                 <div className="subFormulario">
 
                                     <div className="mb-3">
-                                        <label for="nombreCompraAgregar" className="col-form-label">Imagen:</label>
+                                        <label htmlFor="nombreCompraAgregar" className="col-form-label">Imagen:</label>
                                         <input type="file" className="form-control" id="imagen"
                                             placeholder="Ingresar nombre" />
                                     </div>
@@ -88,46 +88,7 @@ const Productos = () => {
                                 <div className="bottonAgregarProducto">
                                     <div> <button type="button" className="btn btn-info">Agregar nueva imagen</button>
                                     </div>
-                                </div>
-                                <div className="subFormulario">
-
-                                    <div className="mb-3">
-                                        <br />
-                                        <label for="">Seleccionar Colores: </label>
-                                        <br />
-
-                                        <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" name="negroAgregar" />
-                                            <label className="form-check-label" for="NegroAgregar">Negro</label>
-                                        </div>
-
-                                        <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" name="rojoAgregar"
-                                                checked />
-                                            <label className="form-check-label" for="rojoAgregar">Rojo</label>
-                                        </div>
-
-                                        <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" name="azulAgregar"
-                                                checked />
-                                            <label className="form-check-label" for="azulAgregar">Azul</label>
-                                        </div>
-
-                                        <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" name="verdeAgregar"
-                                                checked />
-                                            <label className="form-check-label" for="verdeAgregar">verde</label>
-                                        </div>
-
-                                        <div className="form-check form-switch">
-                                            <input className="form-check-input" type="checkbox" name="grisAgregar"
-                                                checked />
-                                            <label className="form-check-label" for="grisAgregar">gris</label>
-                                        </div>
-                                        <br />
-
-                                    </div>
-                                </div>
+                                </div>       
 
                             </div>
 
@@ -136,9 +97,6 @@ const Productos = () => {
 
                 </div>
             </div>
-
-
-
 
 
 
@@ -159,31 +117,31 @@ const Productos = () => {
 
                                 <form action="" id="formularioEditarProducto">
                                     <div className="mb-3" name="divProducto">
-                                        <label for="nombreEditar" className="col-form-label">Producto:</label>
+                                        <label htmlFor="nombreEditar" className="col-form-label">Producto:</label>
                                         <input type="text" name="productoEditar" className="form-control" id="productoEditar"
                                             placeholder="Ingresar producto" />
                                     </div>
 
                                     <div className="mb-3" name="divCantidad">
-                                        <label for="apellidoEditar" className="col-form-label">Cantidad:</label>
+                                        <label htmlFor="apellidoEditar" className="col-form-label">Cantidad:</label>
                                         <input type="text" name="cantidadEditar" className="form-control" id="cantidadEditar"
                                             placeholder="Ingresar cantidad" />
                                     </div>
 
                                     <div className="mb-3" name="divPrecio">
-                                        <label for="precioEditar" className="col-form-label">Precio:</label>
+                                        <label htmlFor="precioEditar" className="col-form-label">Precio:</label>
                                         <input type="text" name="precioEditar" className="form-control" id="precioEditar"
                                             placeholder="Ingresar el Precio" />
                                     </div>
 
                                     <div className="mb-3" name="divTalla">
-                                        <label for="tallaEditar" className="col-form-label">Talla:</label>
+                                        <label htmlFor="tallaEditar" className="col-form-label">Talla:</label>
                                         <input type="text" name="tallaEditar" className="form-control" id="tallaEditar"
                                             placeholder="Ingresar la talla " />
                                     </div>
 
                                     <div className="mb-3" name="divTela">
-                                        <label for="telaEditar" className="col-form-label">Tela:</label>
+                                        <label htmlFor="telaEditar" className="col-form-label">Tela:</label>
                                         <input type="text" name="telaEditar" className="form-control" id="telaEditar"
                                             placeholder="Ingresar la tela" />
                                     </div>
@@ -215,36 +173,6 @@ const Productos = () => {
                                         <div> <button type="button" className="btn btn-info">Agregar nueva imagen</button> </div>
                                     </div>
 
-                                    <div className="subFormulario">
-
-                                        <div className="mb-3">
-                                            <br />
-                                            <label for="">Seleccionar Color: </label>
-                                            <br />
-                                            <div className="form-check form-switch">
-                                                <input className="form-check-input" type="checkbox" id="negroEditar" />
-                                                <label className="form-check-label" for="NegroAgregar">Negro</label>
-                                            </div>
-                                            <div className="form-check form-switch">
-                                                <input className="form-check-input" type="checkbox" id="rojoEditar" checked />
-                                                <label className="form-check-label" for="rojoAgregar">Rojo</label>
-                                            </div>
-                                            <div className="form-check form-switch">
-                                                <input className="form-check-input" type="checkbox" id="azulEditar" checked />
-                                                <label className="form-check-label" for="azulAgregar">Azul</label>
-                                            </div>
-                                            <div className="form-check form-switch">
-                                                <input className="form-check-input" type="checkbox" id="verdeEditar" checked />
-                                                <label className="form-check-label" for="verdeAgregar">verde</label>
-                                            </div>
-                                            <div className="form-check form-switch">
-                                                <input className="form-check-input" type="checkbox" id="grisEditar" checked />
-                                                <label className="form-check-label" for="grisAgregar">gris</label>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>

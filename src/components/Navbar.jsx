@@ -72,7 +72,7 @@ export const Navbar = () => {
                                 Productos
                             </span>
                         </Link>
-                        <i class='bx bx-right-arrow-alt' onClick={toggleSubMenu}></i>
+                        <i className='bx bx-right-arrow-alt' onClick={toggleSubMenu}></i>
                     </div>
                 </li>
 
@@ -83,7 +83,7 @@ export const Navbar = () => {
                             <div className={`${styles.siu}`}>
                                 <Link to="/prendas" className={`${styles.si}`} >
                                     <span className={`${styles.sub}`}>
-                                        <span className={`${styles.spanImg}`}><i class='bx bxs-t-shirt'></i></span>
+                                        <span className={`${styles.spanImg}`}><i className='bx bxs-t-shirt'></i></span>
                                         Prendas
                                     </span>
                                 </Link>
@@ -91,7 +91,7 @@ export const Navbar = () => {
 
                             <Link to="/diseno" className={`${styles.si}`} >
                                 <span className={`${styles.sub}`}>
-                                    <span className={`${styles.spanImg}`}><i class='bx bxs-doughnut-chart'></i></span>
+                                    <span className={`${styles.spanImg}`}><i className='bx bxs-doughnut-chart'></i></span>
                                     Diseños
                                 </span>
                             </Link>

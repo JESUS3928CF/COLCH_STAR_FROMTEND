@@ -28,17 +28,17 @@ const ListarCliente = () => {
     const [detallesClientes, setDetallesClientes] = useState({});
 
 
-    
+
     // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
     const [clientes, setClientes] = useState([]);
 
-    
+
     const informacionDetalleClientes = (cliente) => {
         if (!cliente.estado) {
-          return Swal.fire("Accion invalida!", "", "error");
+            return Swal.fire("Accion invalida!", "", "error");
         }
         setDetallesClientes(cliente);
-      };
+    };
 
     // Solicitud a la url
     useEffect(() => {
@@ -74,7 +74,7 @@ const ListarCliente = () => {
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-    
+
     return (
         <div>
             <div style={contentStyle} className='contenedor'>
@@ -144,12 +144,12 @@ const ListarCliente = () => {
                                         />
                                     </td>
                                     <td>
-                      <BotonNegro
-                        text="Ver"
-                        modalToOpen="#modalDetalleCliente"
-                        onClick={() => setDetallesClientes(cliente)}
-                      />
-                    </td>
+                                        <BotonNegro
+                                            text="Ver"
+                                            modalToOpen="#modalDetalleCliente"
+                                            onClick={() => setDetallesClientes(cliente)}
+                                        />
+                                    </td>
                                     <td>
                                         <BotonNegro
                                             text='Editar'

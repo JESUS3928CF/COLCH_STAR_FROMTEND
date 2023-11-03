@@ -52,7 +52,7 @@ const ListarProducto = () => {
 
   const informacionModal = (producto) => {
     setEditarProducto(producto);
-};
+  };
 
 
   const contentStyle = {
@@ -102,6 +102,7 @@ const ListarProducto = () => {
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Id_prenda</th>
                 <th scope="col">Publicado</th>
                 <th scope="col">Inhabilitar</th>
                 <th scope="col">Ver Imagen</th>
@@ -116,8 +117,10 @@ const ListarProducto = () => {
                   <td>{producto.nombre}</td>
                   <td>{producto.cantidad}</td>
                   <td>{producto.precio}</td>
+                  <td>{producto.fk_prenda}</td>
                   <td>
                     <BotonCambioEstado
+                      id={producto.id_producto}
                       isChecked={producto.publicado}
                       nombreRegistro={'producto'}
                       ruta={`/productos/publicado/${producto.id_producto}`}
@@ -131,6 +134,7 @@ const ListarProducto = () => {
                   </td>
                   <td>
                     <BotonCambioEstado
+                      id={producto.id_producto}
                       isChecked={producto.estado}
                       nombreRegistro={'producto'}
                       ruta={`/productos/estado/${producto.id_producto}`}
