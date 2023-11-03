@@ -27,6 +27,7 @@ const ListarProveedores = () => {
     // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
     const [proveedores, setProveedor] = useState([]);
 
+
     // solicitud  a la url
     useEffect(() => {
         axios.get('http://localhost:3000/api/proveedores')
@@ -42,7 +43,8 @@ const ListarProveedores = () => {
     //estado para editar
     const [editarProveedor, setEditarProveedor] = useState("");
 
-    //al hacer click  en editar trae el proveedor y lo guarda en setEditarProveedor
+
+   //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
     const handleEditClick = (proveedor) => {
 
         if (!proveedor.estado) {
@@ -53,15 +55,13 @@ const ListarProveedores = () => {
             );
         }
         setEditarProveedor(proveedor);
-
     };
-
 
 
     const contentStyle = {
         marginLeft: '260px', // Ancho del Navbar
     };
-
+    
     return (
         <div>
             <div style={contentStyle} className='contenedor'>
@@ -144,6 +144,7 @@ const ListarProveedores = () => {
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
                 <EditarProveedor editarProveedor={editarProveedor} />
             </div>
+
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador

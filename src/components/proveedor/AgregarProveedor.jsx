@@ -48,7 +48,6 @@ const AgregarProveedor = () => {
 
             reset() //luego de ser agregado y mandado resetea el formulario
            
-
             // Lanzar alerta del producto agregado
             Swal.fire({
                 title: 'Proveedor agregado',
@@ -58,10 +57,10 @@ const AgregarProveedor = () => {
                 location.reload(); //  recarga la pagina
             });
             
-
         } catch (err) {
             console.log(err)
 
+            //VALIDACION que si existe la identificacion no se permitira agregar otro mas igual
             if (err.response && err.response.status === 400) {
 
                 Swal.fire({

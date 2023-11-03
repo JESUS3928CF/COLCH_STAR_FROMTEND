@@ -114,7 +114,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                         </div>
                         <div className="modal-body">
 
-                            {/* onSubmit={handleFormSubmit} */}
+
                             <form action="" id="formularioEditarProveedor" onSubmit={handleSubmit(onSubmit)} >
 
                                 <div className="mb-3" name="divIdentificacion">

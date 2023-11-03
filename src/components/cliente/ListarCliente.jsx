@@ -32,6 +32,7 @@ const ListarCliente = () => {
     // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
     const [clientes, setClientes] = useState([]);
 
+    
     const informacionDetalleClientes = (cliente) => {
         if (!cliente.estado) {
           return Swal.fire("Accion invalida!", "", "error");
