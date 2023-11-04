@@ -32,7 +32,7 @@ const EditarUsuario = ({ editarUsuario }) => {
 
   /// Función para guardar el cliente en la DB
   const onSubmit = (data) => {
-    const { nombre, apellido, telefono, email } = data;
+    const { nombre, apellido, telefono, email } = data
 
     // Ruta
     if (editarUsuario.id_usuario) {
@@ -87,8 +87,8 @@ const EditarUsuario = ({ editarUsuario }) => {
             </div>
             <div className="modal-body">
               {/* <!-- formulario para editar los datos de la tabla Usuarios --> */}
-              <form action="" onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-3" name="divNombre">
+              <form className="row g-3 needs-validation" action='' onSubmit={handleSubmit(onSubmit)}>
+                <div className="col-md-6" name="divNombre">
                   <label htmlFor="nombreEditar" className="col-form-label">
                     Nombre:
                   </label>
@@ -122,7 +122,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                     />
                 )}
             </div>
-                <div className="mb-3" name="divApellido">
+                <div className="col-md-6" name="divApellido">
                   <label htmlFor="apellidoEditar" className="col-form-label">
                     Apellido:
                   </label>
@@ -152,7 +152,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                           />
                       )}
               </div>
-                <div className="mb-3" name="divTelefono">
+                <div className="col-md-6" name="divTelefono">
                   <label htmlFor="telefonoEditar" className="col-form-label">
                     Teléfono:
                   </label>
@@ -186,7 +186,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                       />
                   )}
               </div>
-                <div className="mb-3">
+                <div className="col-md-6">
                   <label htmlFor="emailEditar" className="col-form-label">
                     Email:
                   </label>
@@ -216,34 +216,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                     />
                 )}
               </div>
-                {/* <div className="mb-3" name="divContraseña">
-                  <label for="contraseñaEditar" className="col-form-label">
-                    Contraseña:
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="contraseñaEditar"
-                    name="contraseñaEditar"
-                    placeholder="Ingresar contraseña"
-                  />
-                </div>
-                <div className="mb-3" name="divConfirmarContraseña">
-                  <label
-                    for="contraseñaconfirmarEditar"
-                    className="col-form-label"
-                  >
-                    Confirmar contraseña:
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="contraseñaconfirmarEditar"
-                    name="contraseñaconfirmarEditar"
-                    placeholder="Confirmar contraseña:"
-                  />
-                </div>
-                <label for="exampleDataList" className="form-label">
+                {/* <label for="exampleDataList" className="form-label">
                   Estado:
                 </label>
                 <select
@@ -263,7 +236,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                     <option value="3">Vendedor</option>
                     <option value="4">Comprador</option>
                   </select>
-                </div> */}
+                </div> */} 
 
                 <div className="modal-footer">
                   <CancelarModal />

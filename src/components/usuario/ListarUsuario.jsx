@@ -49,7 +49,7 @@ const ListarUsuario = () => {
                     'error'
                 );
             }
-            setEditarUsuario(usuarios);
+            setEditarUsuario(usuario);
         };
 
     const contentStyle = {
@@ -80,7 +80,6 @@ const ListarUsuario = () => {
                                 'apellido',
                                 'telefono',
                                 'email',
-                                'role'
                             ]}
                         />
                     </div>
@@ -110,9 +109,12 @@ const ListarUsuario = () => {
                                 <td>{usuario.apellido}</td>
                                 <td>{usuario.telefono}</td>
                                 <td>{usuario.email}</td>
-                                <td>{usuario.fk_rol}</td>
+                                {/* <td>{usuario.fk_rol}</td> */}
+                                {/* <td>{usuario.rol.nombre}</td> */}
+                                <td>{usuario.rol ? usuario.rol.nombre : 'N/A'}</td>
                                 <td>
                                     <BotonCambioEstado 
+                                    id={usuario.id_usuario}
                                     isChecked={usuario.estado}
                                     nombreRegistro={'usuario'}
                                     ruta={`/usuarios/estado/${usuario.id_usuario}`} />
