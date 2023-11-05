@@ -4,6 +4,8 @@ import '../css-general/tailwind.min.css'
 import '../css-general/inicio_style.css'
 import '../css-general/table.min.css'
 import ListarProducto from '../components/producto/ListarProducto';
+import AgregarProducto from '../components/producto/AgregarProducto';
+
 
 
 const Productos = () => {
@@ -12,92 +14,7 @@ const Productos = () => {
         <div>
             <Navbar />
             <ListarProducto />
-
-
-
-            {/* modal agregar producto */}
-
-            <div className="modal" id="myModal">
-                <div className="modal-dialog modal-dialog-centered" style={{ width: 800, marginLeft: 450 }}>
-                    <div className="modal-content" style={{ width: 800 }} >
-                        <div className="modal-header modal-head-agregar" style={{ width: 800 }} >
-                            <h5 className="modal-title" id="exampleModalLabel" >
-                                Agregar producto
-                            </h5>
-                            <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div className="formulario">
-                            <div className="modal-body">
-
-                                {/* Formulario para agregar producto */}
-                                <form action="" id="formularioAgregarProducto">
-
-                                    <div className="mb-3" name="divProducto">
-                                        <label htmlFor="productoGuardar" className="col-form-label">Producto:</label>
-                                        <input type="text" className="form-control" id="productoGuardarr"
-                                            name="productoGuardar" placeholder="Ingresar producto" />
-                                    </div>
-
-                                    <div className="mb-3" name="divCantidad">
-                                        <label htmlFor="cantidadGuardar" className="col-form-label">Cantidad:</label>
-                                        <input type="text" className="form-control" name="cantidadGuardar"
-                                            id="cantidadGuardar" placeholder="Ingresar cantidad" />
-                                    </div>
-
-                                    <div className="mb-3" name="divPrecio">
-                                        <label htmlFor="precioGuardar" className="col-form-label">Precio</label>
-                                        <input type="text" className="form-control" name="precioGuardar" id="precioGuardar"
-                                            placeholder="Ingresar precio" />
-                                    </div>
-
-                                    <div className="mb-3" name="divTalla">
-                                        <label htmlFor="tallaGuardar" className="col-form-label">Talla:</label>
-                                        <input type="text" className="form-control" id="tallaGuardar" name="tallaGuardar"
-                                            placeholder="Ingresar Talla"  />
-                                    </div>
-
-                                    <div className="mb-3" name="divTela">
-                                        <label htmlFor="telaGuardar" className="col-form-label">Tela:</label>
-                                        <input type="text" className="form-control" id="telaGuardar" name="telaGuardar"
-                                            placeholder="Ingresar Tela" />
-                                    </div>
-
-                                    <div className="modal-footer">
-                                        <button type="button" id="guardarCancelado" className="btn btn-danger"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <input type="submit" className="btn btn-success" value="Guardar" id="guardar" />
-                                    </div>
-
-                                </form>
-                            </div>
-
-                            <div className="modal-body ">
-                                <div className="form-label" >
-                                    <p className="detalleCompra">Agregar datos de los productos </p>
-                                </div>
-                                <div className="subFormulario">
-
-                                    <div className="mb-3">
-                                        <label htmlFor="nombreCompraAgregar" className="col-form-label">Imagen:</label>
-                                        <input type="file" className="form-control" id="imagen"
-                                            placeholder="Ingresar nombre" />
-                                    </div>
-
-                                </div>
-                                <div className="bottonAgregarProducto">
-                                    <div> <button type="button" className="btn btn-info">Agregar nueva imagen</button>
-                                    </div>
-                                </div>       
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+            <AgregarProducto/>
 
 
             {/* Modal para eidtar el producto */}
@@ -162,7 +79,7 @@ const Productos = () => {
                                     <div className="subFormulario">
 
                                         <div className="mb-3">
-                                            <label htmlFor="nombreCompraAgregar" className="col-form-label">Imagen:</label>
+                                            <label for="nombreCompraAgregar" className="col-form-label">Imagen:</label>
                                             <input type="file" className="form-control" id="nombreCompraEditar"
                                                 placeholder="Ingresar nombre" />
                                         </div>
