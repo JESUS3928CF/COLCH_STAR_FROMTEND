@@ -17,6 +17,8 @@ const Productos = () => {
             <AgregarProducto/>
 
 
+
+
             {/* Modal para eidtar el producto */}
 
             <div className="modal" id="modalEditar">

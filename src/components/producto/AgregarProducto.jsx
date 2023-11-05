@@ -2,97 +2,98 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import style from '../../pages/Productos.module.css'
+import CancelarModal from '../chared/CancelarModal';
+import GuardarModal from '../chared/GuardarModal';
+import HeaderModals from '../chared/HeaderModals';
 
 const AgregarProducto = () => {
   return (
     <div>
-      <div className="modal" id="myModal">
-                <div className="modal-dialog modal-dialog-centered"  >
-                    <div className="modal-content" style={{ width: 680 }} >
-                        <div className="modal-header modal-head-agregar" style={{ width: 680 }}>
-                            <h5 className="modal-title" id="exampleModalLabel" >
-                                Agregar producto
-                            </h5>
-                            <button type="button" id="xAgregar" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div className='formulario'>
+         {/* modal agregar producto */}
+         <div className='modal' id='myModal' >
+                <div className="modal-dialog modal-dialog-centered modal-lg ">
+                    <div className="modal-content">
 
+                        <HeaderModals title={'Agregar Producto'} />
 
-                            {/* Formulario para agregar producto */}
-                            <form action="" id="formularioAgregarProducto">
+                        <div className="modal-body">
 
-                                <div className={style.szs}>
+                            <form className="row g-3 needs-validation" >
 
-                                    <div className="mb-3" >
-                                        <label htmlFor="productoGuardar" className="col-form-label">Producto:</label>
-                                        <input type="text" className="form-control" id="productoGuardar" name="productoGuardar" placeholder="Ingresar producto" />
-                                    </div>
+                                <div className="col-md-6">
 
-                                    <div className="mb-3" >
-                                        <label htmlFor="cantidadGuardar" className="col-form-label">Cantidad:</label>
-                                        <input type="text" className="form-control" name="cantidadGuardar" id="cantidadGuardar" placeholder="Ingresar cantidad" />
-                                    </div>
+                                    <label htmlFor="productoGuardar" className="col-form-label">Producto:</label>
+                                    <input type="text" className="form-control" id="productoGuardar" name="productoGuardar" placeholder="Ingresar producto" />
 
-                                    <div className="mb-3" >
-                                        <label htmlFor="precioGuardar" className="col-form-label">Precio</label>
-                                        <input type="text" className="form-control" name="precioGuardar" id="precioGuardar" placeholder="Ingresar precio" />
-                                    </div>
+                                </div>
+
+                                <div className="col-md-6 ms-auto">
+
+                                    <label htmlFor="cantidadGuardar" className="col-form-label">Cantidad:</label>
+                                    <input type="text" className="form-control" name="cantidadGuardar" id="cantidadGuardar" placeholder="Ingresar cantidad" />
+
+                                </div>
+
+                                <div className="col-md-6 mt-2" name="precio">
+
+                                    <label htmlFor="precioGuardar" className="col-form-label">Precio: </label>
+                                    <input type="text" className="form-control" name="precioGuardar" id="precioGuardar" placeholder="Ingresar precio" />
 
                                 </div>
 
 
-                                <div  className={style.szss}>
+
+                                <div className="col-md-6" name="Publicado">
+                                    <label htmlFor="Publicar" className="col-form-control">
+                                        ¿Deseas publicarlo?
+                                    </label>
+
+                                    <select
+                                        name="publicado"
+                                        id=""
+                                        className="form-control"
+                                        title="Seleccione una opcion"
+                                    >
+
+                                        <option value="Seleccione una opcion" >
+                                            Selecciona una opcion
+                                        </option>
+                                        <option value="true">Si</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+
+                                <div className="mb-2" name="Archivo">
 
                                     <div className='mb-3'>
                                         <p style={{ textAlign: 'center', fontWeight: 500 }}>Imagen del producto: </p>
                                     </div>
 
-                                    <div className="mb-3">
-                                        <label htmlFor="nombreCompraAgregar" className="col-form-label">Imagen:</label>
-                                        <input type="file" className="form-control" id="imagen" placeholder="Ingresar nombre" />
-                                    </div>
-                                    <div className={style.aa}>
-                                        <div className="mb-3" >
-                                            <label htmlFor="Publicar" className="col-form-control">
-                                                ¿Deseas publicarlo?
-                                            </label>
+                                    <label htmlFor="Archivo" className="col-from-label">
+                                        Imagen de la prenda:
+                                    </label>
+                                    <input
+                                        type="file"
+                                        className="form-control custom"
+                                        name="imagen"
+                                        placeholder="PNG o JPG"
+                                        title="Ingrese la imagen de la prenda"
 
-                                            <select
-                                                name="publicado"
-                                                id=""
-                                                className="form-control"
-                                                title="Seleccione una opcion"
-                                            >
-                                                <option value="Seleccione una opción" >
-                                                    Selecciona una opcion
-                                                </option>
-                                                <option value="true">Si</option>
-                                                <option value="false">No</option>
-                                            </select>
+                                    />
 
-                                        </div>
-                                    </div>
                                 </div>
 
 
 
                                 <div className="modal-footer">
-                                    <button type="button" id="guardarCancelado" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                    <input type="submit" className="btn btn-success" value="Guardar" id="guardar" />
+
+                                    <CancelarModal modalToCancel="myModal" />
+                                    <GuardarModal />
                                 </div>
-
-
-
                             </form>
-
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
       
     </div>
