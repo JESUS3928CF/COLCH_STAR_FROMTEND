@@ -5,6 +5,7 @@ import '../../css-general/table.min.css'
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
+import style from '../../pages/Productos.module.css'
 
 const AgregarProducto = () => {
   return (
@@ -74,7 +75,7 @@ const AgregarProducto = () => {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-control custom"
+                                        className={style.customer}
                                         name="imagen"
                                         placeholder="PNG o JPG"
                                         title="Ingrese la imagen de la prenda"
