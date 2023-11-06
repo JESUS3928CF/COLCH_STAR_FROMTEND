@@ -11,6 +11,7 @@ import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
 import EditarProducto from './EditarProducto';
+import Header from '../chared/header/Header'
 
 const ListarProducto = () => {
 
@@ -61,7 +62,7 @@ const ListarProducto = () => {
       <div className='contenedor'>
 
         {/* titulo */}
-        <h1 className="titulo" >Gestionar Producto</h1>
+        <Header titulo='Gestiónar Productos' />
 
         {/* boton de agregar */}
         <div className="container-fluid seccion2" style={{ width: 0 }}>
