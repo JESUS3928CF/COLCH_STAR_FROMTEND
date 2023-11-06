@@ -34,7 +34,7 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
     }, [busqueda, datos]);
 
     return (
-        <div>
+        <div className="col-lg-3 col-md-5 col-sm-6">
             <form className='d-flex'>
                 <input
                     className='form-control me-2'

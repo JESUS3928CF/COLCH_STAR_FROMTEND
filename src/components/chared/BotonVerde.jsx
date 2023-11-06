@@ -7,6 +7,7 @@ const BotonVerde = ({ text, modalToOpen }) => {
             className='btn btn-success'
             data-bs-toggle='modal'
             data-bs-target={modalToOpen}
+            style={{ backgroundColor: '#47684e' }}
         >
             {text}
         </button>

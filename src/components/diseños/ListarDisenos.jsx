@@ -53,7 +53,7 @@ const ListarDisenos = () => {
 
     return (
         <>
-            <div className='seccion4'>
+            <div className='row p-2 pt-4 d-flex justify-content-center align-items-center'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Buscador
                     setDatosFiltrar={setDisenosFiltrar}
@@ -62,65 +62,71 @@ const ListarDisenos = () => {
                 />
             </div>
             <div className='tabla'>
-                <table className='table caption-top '>
-                    <caption>Lista de diseños</caption>
-                    <thead>
-                        <tr>
-                            <th scope='col'>Id</th>
-                            <th scope='col'>Nombre</th>
-                            <th scope='col'>Ver imagen</th>
-                            <th scope='col'>Publicado</th>
-                            <th scope='col'>Inhabilitar</th>
-                            <th scope='col'>Editar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {disenosFiltrar.map((diseno) => (
-                            <tr key={diseno.id_diseno}>
-                                <th scope='row'>{diseno.id_diseno}</th>
-                                <td>{diseno.nombre}</td>
-                                <td>
-                                    <BotonNegro
-                                        text='Ver'
-                                        modalToOpen='#modalDetalles'
-                                        onClick={() => informacionModal(diseno)}
-                                    />
-                                </td>
-                                <td>
-                                    <BotonCambioEstado
-                                        isChecked={diseno.publicado}
-                                        nombreRegistro={'diseño'}
-                                        ruta={`/disenos/publicado/${diseno.id_diseno}`}
-                                        cambiarPublicacion={{
-                                            estado: diseno.estado,
-                                            paraPublicacion: true,
-                                        }}
-                                    />
-                                </td>
-                                <td>
-                                    <BotonCambioEstado
-                                        id={diseno.id_diseno}
-                                        isChecked={diseno.estado}
-                                        nombreRegistro={'diseño'}
-                                        ruta={`/disenos/estado/${diseno.id_diseno}`}
-                                    />
-                                </td>
-                                <td>
-                                    {/* con el ternario determinamos si abrir o no el modal*/}
-                                    <BotonNegro
-                                        text='Editar'
-                                        modalToOpen={
-                                            diseno.estado ? '#modalDiseño' : ''
-                                        }
-                                        onClick={() =>
-                                            informacionModalEditar(diseno)
-                                        }
-                                    />
-                                </td>
+                <div className='table-responsive'>
+                    <table className='table caption-top'>
+                        <caption>Lista de diseños</caption>
+                        <thead>
+                            <tr>
+                                <th scope='col'>Id</th>
+                                <th scope='col'>Nombre</th>
+                                <th scope='col'>Ver imagen</th>
+                                <th scope='col'>Publicado</th>
+                                <th scope='col'>Inhabilitar</th>
+                                <th scope='col'>Editar</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {disenosFiltrar.map((diseno) => (
+                                <tr key={diseno.id_diseno}>
+                                    <th scope='row'>{diseno.id_diseno}</th>
+                                    <td>{diseno.nombre}</td>
+                                    <td>
+                                        <BotonNegro
+                                            text='Ver'
+                                            modalToOpen='#modalDetalles'
+                                            onClick={() =>
+                                                informacionModal(diseno)
+                                            }
+                                        />
+                                    </td>
+                                    <td>
+                                        <BotonCambioEstado
+                                            isChecked={diseno.publicado}
+                                            nombreRegistro='diseño'
+                                            ruta={`/disenos/publicado/${diseno.id_diseno}`}
+                                            cambiarPublicacion={{
+                                                estado: diseno.estado,
+                                                paraPublicacion: true,
+                                            }}
+                                        />
+                                    </td>
+                                    <td>
+                                        <BotonCambioEstado
+                                            id={diseno.id_diseno}
+                                            isChecked={diseno.estado}
+                                            nombreRegistro='diseño'
+                                            ruta={`/disenos/estado/${diseno.id_diseno}`}
+                                        />
+                                    </td>
+                                    <td>
+                                        {/* con el ternario determinamos si abrir o no el modal*/}
+                                        <BotonNegro
+                                            text='Editar'
+                                            modalToOpen={
+                                                diseno.estado
+                                                    ? '#modalDiseño'
+                                                    : ''
+                                            }
+                                            onClick={() =>
+                                                informacionModalEditar(diseno)
+                                            }
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div className='seccion4'>

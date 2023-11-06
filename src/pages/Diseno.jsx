@@ -11,29 +11,32 @@ export const Diseno = () => {
 
     return (
         <div>
-
             <div>
-                <Header titulo='Gestionar Diseños'/>
-                <div className='container-fluid seccion2'>
-                    {/* botón de agregar diseño  */}
-                    <BotonVerde
-                        text={'Agregar diseño'}
-                        modalToOpen={'#myModalAgregarDiseno'}
-                    />
+                <Header titulo='Gestionar Diseños' />
 
-                    {/* modal de agregar diseño  */}
-                    <AgregarDiseno />
+                {/* Sección de los Botones de diseños*/}
+                <div className='container-fluid'>
+                    <div className='row'>
+                        {/* botón de agregar diseño  */}
+                        <div className='col-md-6 col-ms-12 pb-md-0 pb-4 d-flex justify-content-center align-items-center'>
+                            <BotonVerde
+                                text={'Agregar diseño'}
+                                modalToOpen={'#myModalAgregarDiseno'}
+                            />
 
-                    <BotonVerde
-                        text='Modificar precio'
-                        modalToOpen='#myModalPrecio'
-                    />
+                            {/* modal de agregar diseño  */}
+                            <AgregarDiseno />
+                        </div>
+                        <div className='col-md-6 col-ms-12 d-flex justify-content-center align-items-center'>
+                            <BotonVerde
+                                text='Modificar precio'
+                                modalToOpen='#myModalPrecio'
+                            />
 
-                    {/* modal de precio de los diseños  */}
-                    <PrecioDiseno />
-                    
-                    {/* botón para mostrar la lista de productos    */}
-                    {/* <a href="./productos.html"><button type="button" className="btn btn-secondary">Atrás</button></a> */}
+                            {/* modal de precio de los diseños  */}
+                            <PrecioDiseno />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Tabla para listar diseños */}
