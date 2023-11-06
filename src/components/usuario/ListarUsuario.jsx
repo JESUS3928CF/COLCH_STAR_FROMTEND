@@ -56,7 +56,7 @@ const ListarUsuario = () => {
         <div>
             <div className='contenedor'>
 
-                <h1 className="titulo">Usuarios</h1>
+                <h1 className="titulo">Gestionar Usuarios</h1>
 
                 {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }} >
