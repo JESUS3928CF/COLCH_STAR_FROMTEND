@@ -1,4 +1,4 @@
-import { Navbar } from '../components/Navbar';
+
 import '../css-general/cssgeneral.css'
 import '../css-general/tailwind.min.css'
 import '../css-general/inicio_style.css'
@@ -12,7 +12,6 @@ const Productos = () => {
 
     return (
         <div>
-            <Navbar />
             <ListarProducto />
             <AgregarProducto/>
 

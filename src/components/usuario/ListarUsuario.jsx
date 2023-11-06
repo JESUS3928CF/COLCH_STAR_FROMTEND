@@ -2,7 +2,6 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from '../../pages/Clientes.module.css';
@@ -52,15 +51,12 @@ const ListarUsuario = () => {
             setEditarUsuario(usuario);
         };
 
-    const contentStyle = {
-        marginLeft: '260px', // Ancho del Navbar
-    };
 
     return (
         <div>
-            <div style={contentStyle} className='contenedor'>
+            <div className='contenedor'>
 
-                <h1 className="titulo">Usuarios</h1>
+                <h1 className="titulo">Gestionar Usuarios</h1>
 
                 {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }} >

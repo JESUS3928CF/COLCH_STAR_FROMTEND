@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
+import Header from '../chared/header/Header'
 
 
 //componente
@@ -57,17 +58,12 @@ const ListarProveedores = () => {
         setEditarProveedor(proveedor);
     };
 
-
-    const contentStyle = {
-        marginLeft: '260px', // Ancho del Navbar
-    };
-    
     return (
         <div>
-            <div style={contentStyle} className='contenedor'>
+            <div className='contenedor'>
 
                 {/* titulo */}
-                <h1 className="titulo">Gestionar Proveedor</h1>
+                <Header titulo='Gestiónar Proveedores' />
 
 
                 {/* botón agregar */}
