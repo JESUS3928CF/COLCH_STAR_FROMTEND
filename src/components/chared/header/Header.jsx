@@ -1,10 +1,20 @@
+import PropTypes from 'prop-types';
+import styles from './Header.module.css';
 
-const Header = () => {
-  return (
-    <div>
-      <h1> Titulo </h1>
-    </div>
-  )
-}
+const Header = ({ titulo }) => {
+    return (
+        <div className={`container-fluid ${styles.contenedor}`}>
+            <div className='row d-flex justify-content-center align-items-center'>
+                <div className='col text-center'>
+                    <h1 className={styles.titulo}> {titulo} </h1>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-export default Header
+Header.propTypes = {
+    titulo: PropTypes.string.isRequired
+};
+
+export default Header;

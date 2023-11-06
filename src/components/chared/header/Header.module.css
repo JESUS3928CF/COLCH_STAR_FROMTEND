@@ -1,0 +1,24 @@
+.titulo {
+    padding-top: 15px;
+    padding-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.contenedor {
+    margin: 0%;
+    background-color: #f8f8f8;
+}
+
+/*/ Si se manejan las mismas clases es decir los mismos elementos poner las resoluciones más grandes primero  */
+@media screen and (max-width: 700px) {
+    .titulo {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .titulo {
+        font-size: 20px;
+    }
+}

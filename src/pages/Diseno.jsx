@@ -5,6 +5,7 @@ import PrecioDiseno from '../components/diseños/PrecioDiseno';
 
 
 import ListarDisenos from '../components/diseños/ListarDisenos';
+import Header from '../components/chared/header/Header';
 
 export const Diseno = () => {
 
@@ -12,7 +13,7 @@ export const Diseno = () => {
         <div>
 
             <div>
-                <h1 className='titulo'>Diseños</h1>
+                <Header titulo='Gestionar Diseños'/>
                 <div className='container-fluid seccion2'>
                     {/* botón de agregar diseño  */}
                     <BotonVerde

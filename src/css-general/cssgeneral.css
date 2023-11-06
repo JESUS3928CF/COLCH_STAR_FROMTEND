@@ -14,6 +14,7 @@ button.swal2-confirm.swal2-styled{
     background-color: rgb(252, 246, 246)
 }
 
+/* Puede que este estilo se borre más adelante si todos usan el header */
 .titulo {
     margin-top: -35px;
     margin-left: -50px;
