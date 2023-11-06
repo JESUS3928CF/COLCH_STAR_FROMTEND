@@ -1,6 +1,3 @@
-import { Navbar } from '../components/Navbar';
-import { Link } from 'react-router-dom';
-
 /// Componentes integrados
 import BotonVerde from '../components/chared/BotonVerde';
 import AgregarDiseno from '../components/diseños/AgregarDiseno';
@@ -10,15 +7,11 @@ import PrecioDiseno from '../components/diseños/PrecioDiseno';
 import ListarDisenos from '../components/diseños/ListarDisenos';
 
 export const Diseno = () => {
-    const contentStyle = {
-        marginLeft: '260px', // Ancho del Navbar
-    };
 
     return (
         <div>
-            <Navbar />
 
-            <div style={contentStyle}>
+            <div>
                 <h1 className='titulo'>Diseños</h1>
                 <div className='container-fluid seccion2'>
                     {/* botón de agregar diseño  */}

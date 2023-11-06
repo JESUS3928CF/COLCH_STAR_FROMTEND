@@ -1,12 +1,11 @@
 // ------------------HERLYN NORBEY DAVID POSO
 //-------------------26 de septiembre 2023
-// Nos permitira Listar uno o todos los clientes de la base de datos y que agreguemos por medio del agregar cliente,
-// existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
+// Nos permitirá Listar uno o todos los clientes de la base de datos y que agreguemos por medio del agregar cliente,
+// existirá una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../pages/Clientes.module.css";
@@ -27,13 +26,6 @@ const ListarCliente = () => {
 
   // Conexión para traer todos los datos de la base de datos, con cliente que es que se va hacer el mapeo en la tabla listar
   const [clientes, setClientes] = useState([]);
-
-  const informacionDetalleClientes = (cliente) => {
-    if (!cliente.estado) {
-      return Swal.fire("Accion invalida!", "", "error");
-    }
-    setDetallesClientes(cliente);
-  };
 
   // Solicitud a la url
   useEffect(() => {
@@ -66,13 +58,11 @@ const ListarCliente = () => {
     setEditarCliente(cliente);
   };
 
-  const contentStyle = {
-    marginLeft: "260px", // Ancho del Navbar
-  };
+ 
 
   return (
     <div>
-      <div style={contentStyle} className="contenedor">
+      <div className="contenedor">
         <h1 className="titulo">Gestionar Clientes</h1>
 
         {/* botón agregar */}

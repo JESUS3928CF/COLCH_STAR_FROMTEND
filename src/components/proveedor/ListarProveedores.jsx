@@ -57,14 +57,9 @@ const ListarProveedores = () => {
         setEditarProveedor(proveedor);
     };
 
-
-    const contentStyle = {
-        marginLeft: '260px', // Ancho del Navbar
-    };
-    
     return (
         <div>
-            <div style={contentStyle} className='contenedor'>
+            <div className='contenedor'>
 
                 {/* titulo */}
                 <h1 className="titulo">Gestionar Proveedor</h1>

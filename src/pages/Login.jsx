@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 // import styles from "./Login.module.css"; // Import the CSS module
 
 const Login = () => {
@@ -15,7 +15,11 @@ const Login = () => {
       });
     }
   
+    const navigate = useNavigate();
     const onSubmit = () => {
+
+      navigate("/administracion");
+
       axios.post('http://localhost:3000/api/usuarios/login', body)
         .then(({ data }) => {
           console.log(data);
@@ -43,9 +47,9 @@ const Login = () => {
                         <label>Contraseña</label>
                     </div>
                     <div className="button_group" id="login_button">
-                        <Link to={"/dashboard"} className="btn" id="submitIngresar" onClick={onSubmit}>
+                        <p className="btn" id="submitIngresar" onClick={onSubmit}>
                           Iniciar sesión
-                        </Link>
+                        </p>
                       </div>
                     <div className="create-account">
                         <p>Olvido su contraseña? <a href="#" className="register-link">Click aquí</a></p>

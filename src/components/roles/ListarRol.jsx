@@ -1,8 +1,5 @@
 import "../../css-general/cssgeneral.css";
-import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
-import "../../css-general/table.min.css";
-import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../pages/Roles.module.css";
@@ -34,7 +31,7 @@ const ListarRol = () => {
       });
   }, []);
 
-  //Esatdo para editar
+  //Estado para editar
   const [editarRol, setEditarRol] = useState("");
 
   //Al hacer click  en editar trae el cliente y lo guarda en setCliente
@@ -48,14 +45,9 @@ const ListarRol = () => {
     }
     setEditarRol(rol);
   };
-
-  const contentStyle = {
-    marginLeft: "260px", // Ancho del Navbar
-  };
-
   return (
     <div>
-      <div style={contentStyle} className="contenedor">
+      <div className="contenedor">
         <h1 className="titulo">Roles</h1>
 
         {/* botón agregar */}

@@ -1,5 +1,5 @@
 import './App.css';
-import MyRoutes from './Routes';
+import MyRoutes from './routers/Routes';
 
 //* Estilos de bootstrap
 

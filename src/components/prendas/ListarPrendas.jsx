@@ -28,7 +28,7 @@ export const ListarPrendas = () => {
     setDetallesPrendas(Prendas);
   };
 
-  //  //Solicitud de la url
+  //Solicitud de la url
   useEffect(() => {
     const consultarPrendas = async () => {
       const respuesta = await clienteAxios.get("/prendas");
@@ -39,17 +39,12 @@ export const ListarPrendas = () => {
     consultarPrendas();
   }, []);
 
-  const contentStyle = {
-    marginLeft: "260px",
-  };
-
   return (
     <>
       <div>
 
 
-        <div style={contentStyle} className="contenedor">
-          {/* {titulo} */}
+        <div className="contenedor">
         
           <h1 className="titulo"> Prendas</h1>
 
