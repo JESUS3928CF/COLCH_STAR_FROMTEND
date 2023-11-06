@@ -112,7 +112,7 @@ const AgregarUsuario = () => {
                           return validarEspaciosVacios(value);
                         },
                         pattern: {
-                          value: /^[A-Za-z\s]+$/,
+                          value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                           message:
                             "El nombre no puede contener números ni caracteres especiales",
                         },
@@ -141,7 +141,7 @@ const AgregarUsuario = () => {
                           return validarEspaciosVacios(value);
                         },
                         pattern: {
-                          value: /^[A-Za-z\s]+$/,
+                          value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                           message:
                             "El apellido no puede contener números ni caracteres especiales",
                         },
