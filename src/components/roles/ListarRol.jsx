@@ -52,7 +52,7 @@ const ListarRol = () => {
               {/*Quiten el titulo y agregan el componente*/}
               {/*<h1 className="titulo">Roles</h1>*/}
 
-              <Header titulo='Gestión de roles' />
+              <Header titulo='Gestión de Roles' />
 
               {/* botón agregar */}
               <div className='container-fluid seccion2' style={{ width: 0 }}>
