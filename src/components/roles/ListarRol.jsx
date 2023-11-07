@@ -55,8 +55,9 @@ const ListarRol = () => {
               <Header titulo='Gestión de Roles' />
 
               {/* botón agregar */}
-              <div className='container-fluid seccion2' style={{ width: 0 }}>
-                  <div className={styles.ap}>
+              <div className='container-fluid'>
+                <div className="row">
+                  <div className={`${styles.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
                       <button
                           type='button'
                           className='btn-a'
@@ -68,7 +69,7 @@ const ListarRol = () => {
                   </div>
 
                   {/* Boton para Buscar/filtrar */}
-                  <div className={styles.buscador}>
+                  <div className={`${styles.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
                       {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                       <Buscador
                           setDatosFiltrar={setRolesFiltrar}
@@ -76,6 +77,7 @@ const ListarRol = () => {
                           camposFiltrar={['nombre', 'fecha_creacion']}
                       />
                   </div>
+              </div>
               </div>
 
               {/* tabla  para listar el producto */}
