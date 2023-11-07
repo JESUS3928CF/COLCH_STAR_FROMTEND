@@ -88,8 +88,11 @@ const PrecioDiseno = () => {
                                 {...register('id_precio', {
                                     required: true,
                                 })}
+                                value=''
                             >
-                                <option value=''>Seleccione un tamaño</option>
+                                <option value=''>
+                                    Seleccione un tamaño
+                                </option>
                                 {precios.map((precio) => (
                                     <option
                                         key={precio.id_precio_diseno}

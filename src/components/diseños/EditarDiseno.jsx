@@ -154,6 +154,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                       message: "El estado de publicación es obligatorio",
                     },
                   })}
+                  value={detalleDiseno.publicado}
                 >
                   <option value="" disabled selected>
                     Selecciona una opción

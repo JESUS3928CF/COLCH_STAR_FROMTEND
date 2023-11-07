@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 //* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar
@@ -24,7 +24,7 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
         } else {
-            setDatosFiltrar(datos.slice(0,10)); // Mostrar todos los datos en el estado de filtrado
+            setDatosFiltrar(datos.slice(0, 10)); // Mostrar todos los datos en el estado de filtrado
         }
     };
 
@@ -34,17 +34,15 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
     }, [busqueda, datos]);
 
     return (
-        <div>
-            <form className='d-flex'>
-                <input
-                    className='form-control me-2'
-                    type='search'
-                    placeholder='Buscar...'
-                    value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
-                />
-            </form>
-        </div>
+        <form className='d-flex'>
+            <input
+                className='form-control me-2'
+                type='search'
+                placeholder='Buscar...'
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+            />
+        </form>
     );
 };
 

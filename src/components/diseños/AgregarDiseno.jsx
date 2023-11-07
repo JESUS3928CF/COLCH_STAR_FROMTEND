@@ -94,8 +94,8 @@ const AgregarDiseno = () => {
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return ( validarEspaciosVacios(value) );
-                                        }
+                                            return validarEspaciosVacios(value);
+                                        },
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -120,7 +120,7 @@ const AgregarDiseno = () => {
                                         },
                                         validate: (value) => {
                                             return validarImagen(value[0]);
-                                        }
+                                        },
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -146,10 +146,10 @@ const AgregarDiseno = () => {
                                             value: true,
                                             message:
                                                 'El estado de publicación es obligatorio',
-                                        }
+                                        },
                                     })}
                                 >
-                                    <option value='' disabled selected>
+                                    <option value=''>
                                         Selecciona una opción
                                     </option>
                                     <option value='true'>Si</option>
