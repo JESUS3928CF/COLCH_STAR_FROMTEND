@@ -18,7 +18,7 @@ export const Diseno = () => {
                 <div className='container-fluid'>
                     <div className='row'>
                         {/* botón de agregar diseño  */}
-                        <div className='col-md-6 col-ms-12 pb-md-0 pb-4 d-flex justify-content-center align-items-center'>
+                        <div className='col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center'>
                             <BotonVerde
                                 text={'Agregar diseño'}
                                 modalToOpen={'#myModalAgregarDiseno'}
@@ -27,7 +27,7 @@ export const Diseno = () => {
                             {/* modal de agregar diseño  */}
                             <AgregarDiseno />
                         </div>
-                        <div className='col-md-6 col-ms-12 d-flex justify-content-center align-items-center'>
+                        <div className='col-md-6 col-ms-6 d-flex justify-content-center align-items-center'>
                             <BotonVerde
                                 text='Modificar precio'
                                 modalToOpen='#myModalPrecio'

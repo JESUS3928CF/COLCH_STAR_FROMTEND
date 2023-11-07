@@ -88,7 +88,6 @@ const PrecioDiseno = () => {
                                 {...register('id_precio', {
                                     required: true,
                                 })}
-                                value=''
                             >
                                 <option value=''>
                                     Seleccione un tamaño
