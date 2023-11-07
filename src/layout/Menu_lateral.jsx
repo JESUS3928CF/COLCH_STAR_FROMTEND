@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const MenuLateral = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    // const [isSidebarOpen, setSidebarOpen] = useState(false); estado para el botón de cerrar menú
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -14,9 +14,10 @@ const MenuLateral = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!isSidebarOpen);
-    };
+    // "Esto es para el botón para cerrar el menú "
+    // const toggleSidebar = () => { por ahora no lo necesitamos
+    //     setSidebarOpen(!isSidebarOpen);
+    // };
 
     useEffect(() => {
         const handleResize = () => {
@@ -37,7 +38,7 @@ const MenuLateral = () => {
         <>
             <div
                 className={`${styles.sidebar} ${
-                    isSidebarOpen || anchoPantalla <= 1000 ? styles.close : ''
+                    anchoPantalla <= 1200 ? styles.close : ''
                 } `}
             >
                 <div className={`${styles.logo_details}`}>
@@ -247,7 +248,7 @@ const MenuLateral = () => {
             </div>
             {/*<ButtonCloseMenu onClick={toggleSidebar} />*/}
             <section className={styles.home_section}>
-                <div>
+                <div style={{ maxHeight: '100vh', overflowY: 'auto' }}>
                     <Outlet />
                 </div>
             </section>

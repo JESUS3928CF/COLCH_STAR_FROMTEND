@@ -27,7 +27,6 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
         if(sePuedeCambiar) {
             resolve(cambiarEstadoDB);
         } else {
-            console.log("Que pasa")
             reject(alertaError)
         }
     })

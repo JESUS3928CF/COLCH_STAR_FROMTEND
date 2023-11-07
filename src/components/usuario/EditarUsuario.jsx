@@ -20,19 +20,20 @@ const EditarUsuario = ({ editarUsuario }) => {
     setValue, // Añade esta función para actualizar dinámicamente los valores
   } = useForm();
 
-  // Cuando editarCliente cambia, actualiza los valores del formulario
+  // Cuando editarUsuario cambia, actualiza los valores del formulario
   useEffect(() => {
     if (editarUsuario) {
       setValue("nombre", editarUsuario.nombre);
       setValue("apellido", editarUsuario.apellido);
       setValue("telefono", editarUsuario.telefono);
       setValue("email", editarUsuario.email);
+      setValue("fk_rol", editarUsuario.fk_rol);
     }
   }, [editarUsuario]);
 
   /// Función para guardar el cliente en la DB
   const onSubmit = (data) => {
-    const { nombre, apellido, telefono, email } = data
+    const { nombre, apellido, telefono, email, fk_rol } = data
 
     // Ruta
     if (editarUsuario.id_usuario) {
@@ -45,6 +46,7 @@ const EditarUsuario = ({ editarUsuario }) => {
             apellido: apellido.trim(),
             telefono: telefono.trim(),
             email: email.trim(),
+            fk_rol: fk_rol,
           }
         )
         .then((response) => {
@@ -59,11 +61,22 @@ const EditarUsuario = ({ editarUsuario }) => {
         })
         .catch((error) => {
           console.error("Error al actualizar el usuario", error);
+          if (error.response && error.response.status === 400) {
+
           Swal.fire({
             title: "Error",
-            text: "Hubo un error al actualizar el usuario",
+            text: error.response.data.message,
             icon: "error",
           });
+        }else{
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un error',
+            icon: 'error',
+          }).then(() => {
+            location.reload();
+          });
+        }
         });
     } else {
       console.error("No se pudo obtener el ID del usuario");
