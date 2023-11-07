@@ -27,12 +27,13 @@ const EditarUsuario = ({ editarUsuario }) => {
       setValue("apellido", editarUsuario.apellido);
       setValue("telefono", editarUsuario.telefono);
       setValue("email", editarUsuario.email);
+      setValue("fk_rol", editarUsuario.fk_rol);
     }
   }, [editarUsuario]);
 
   /// Función para guardar el cliente en la DB
   const onSubmit = (data) => {
-    const { nombre, apellido, telefono, email } = data
+    const { nombre, apellido, telefono, email, fk_rol } = data
 
     // Ruta
     if (editarUsuario.id_usuario) {
@@ -45,6 +46,7 @@ const EditarUsuario = ({ editarUsuario }) => {
             apellido: apellido.trim(),
             telefono: telefono.trim(),
             email: email.trim(),
+            fk_rol: fk_rol,
           }
         )
         .then((response) => {
