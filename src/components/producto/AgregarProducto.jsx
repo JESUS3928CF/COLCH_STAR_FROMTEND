@@ -8,8 +8,9 @@ import HeaderModals from '../chared/HeaderModals';
 import style from '../../pages/Productos.module.css'
 import axios from 'axios'
 import Swal from 'sweetalert2';
+import AlertaError from '../chared/AlertaError';
 import { useForm } from 'react-hook-form';
-import { validarEspaciosVacios } from '../../Validations/validations'
+import { validarEspaciosVacios, validarImagen } from '../../Validations/validations'
 
 const AgregarProducto = () => {
 
@@ -173,7 +174,7 @@ const AgregarProducto = () => {
                                     <select
                                         name="publicado"
                                         id=""
-                                        className="form-control"
+                                        className={`form-control ${style.customerr}`}
                                         title="Seleccione una opcion"
                                         {...register('publicado', {
                                             required: {
@@ -209,7 +210,7 @@ const AgregarProducto = () => {
                                     </label>
                                     <input
                                         type="file"
-                                        className={style.customer}
+                                        className={`form-control ${style.customer}`}
                                         name="imagen"
                                         title="Ingrese la imagen de la prenda"
                                         {...register('imagen', {

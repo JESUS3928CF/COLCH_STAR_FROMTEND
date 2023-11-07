@@ -80,7 +80,7 @@ const Productos = () => {
                                     <div className="subFormulario">
 
                                         <div className="mb-3">
-                                            <label for="nombreCompraAgregar" className="col-form-label">Imagen:</label>
+                                            <label htmlFor="nombreCompraAgregar" className="col-form-label">Imagen:</label>
                                             <input type="file" className="form-control" id="nombreCompraEditar"
                                                 placeholder="Ingresar nombre" />
                                         </div>
