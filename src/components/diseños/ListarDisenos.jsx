@@ -55,11 +55,13 @@ const ListarDisenos = () => {
         <>
             <div className='row p-2 pt-4 d-flex justify-content-center align-items-center'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                <Buscador
-                    setDatosFiltrar={setDisenosFiltrar}
-                    datos={disenos}
-                    camposFiltrar={['nombre', 'publicacion']}
-                />
+                <div className='col-lg-3 col-md-5 col-sm-6'>
+                    <Buscador
+                        setDatosFiltrar={setDisenosFiltrar}
+                        datos={disenos}
+                        camposFiltrar={['nombre', 'publicacion']}
+                    />
+                </div>
             </div>
             <div className='tabla'>
                 <div className='table-responsive'>
@@ -91,6 +93,7 @@ const ListarDisenos = () => {
                                     </td>
                                     <td>
                                         <BotonCambioEstado
+                                            id={diseno.id_diseno}
                                             isChecked={diseno.publicado}
                                             nombreRegistro='diseño'
                                             ruta={`/disenos/publicado/${diseno.id_diseno}`}

@@ -73,7 +73,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
   });
 
   return (
-    <>
       <div className="modal" id="modalEditarPrenda">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -99,9 +98,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                         value: true,
                         message: "El nombres es obligatorio",
                       },
-                      validate: (value) => {
-                        return validarEspaciosVacios(value);
-                      },
+                      validate: (value) => validarEspaciosVacios(value)
                     })}
                   />
                 </div>
@@ -145,9 +142,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                         value: true,
                         message: "El precio es obligatorio",
                       },
-                      validate: (value) => {
-                        return validarEspaciosVacios(value);
-                      },
+                      validate: (value) =>  validarEspaciosVacios(value)
                     })}
                   />
                 </div>
@@ -168,9 +163,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                         value: true,
                         message: "El tipo de tela es obligatorio",
                       },
-                      validate: (value) => {
-                        return validarEspaciosVacios(value);
-                      },
+                      validate: (value) => validarEspaciosVacios(value)
                     })}
                   />
                 </div>
@@ -192,7 +185,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       },
                     })}
                   >
-                    <option value="Seleccione una opcion" disabled={true} ></option>
+                    <option value="Seleccione una opción" disabled={true} ></option>
                     <option value="Mujer">Mujer</option>
                     <option value="Hombre">Hombre</option>
                   </select>
@@ -214,7 +207,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       },
                     })}
                   >
-                    <option  value="Seleccione una opcion" disabled={true}></option>
+                    <option  value="Seleccione una opción" disabled={true}></option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                   </select>
@@ -234,9 +227,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                     className="form-control"
                     title="Inserte un archivo PNG "
                     {...register("imagen", {
-                      validate: (value) => {
-                        return validarImagen(value[0]);
-                      },
+                      validate: (value) => validarImagen(value[0])
                     })}
                   />
                 </div>
@@ -250,7 +241,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 

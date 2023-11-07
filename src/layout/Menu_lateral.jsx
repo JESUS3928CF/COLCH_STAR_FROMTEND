@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const MenuLateral = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    // const [isSidebarOpen, setSidebarOpen] = useState(false); estado para el botón de cerrar menú
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -37,9 +37,7 @@ const MenuLateral = () => {
     return (
         <>
             <div
-                className={`${styles.sidebar} ${
-                    isSidebarOpen || anchoPantalla <= 1200 ? styles.close : ''
-                } `}
+                className={`${styles.sidebar} ${ anchoPantalla <= 1200 ? styles.close : ''} `}
             >
                 <div className={`${styles.logo_details}`}>
                     <i>
