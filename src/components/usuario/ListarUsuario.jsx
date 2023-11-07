@@ -11,6 +11,7 @@ import Buscador from '../chared/Buscador';
 import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
+import Header from "../chared/header/Header";
 
 
 const ListarUsuario = () => {
@@ -56,7 +57,7 @@ const ListarUsuario = () => {
         <div>
             <div className='contenedor'>
 
-                <h1 className="titulo">Gestionar Usuarios</h1>
+            <Header titulo='Gestión de Usuarios' />
 
                 {/* botón agregar */}
                 <div className="container-fluid seccion2" style={{ width: 0 }} >

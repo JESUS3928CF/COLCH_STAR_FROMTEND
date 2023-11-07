@@ -20,7 +20,7 @@ const EditarUsuario = ({ editarUsuario }) => {
     setValue, // Añade esta función para actualizar dinámicamente los valores
   } = useForm();
 
-  // Cuando editarCliente cambia, actualiza los valores del formulario
+  // Cuando editarUsuario cambia, actualiza los valores del formulario
   useEffect(() => {
     if (editarUsuario) {
       setValue("nombre", editarUsuario.nombre);
@@ -59,11 +59,22 @@ const EditarUsuario = ({ editarUsuario }) => {
         })
         .catch((error) => {
           console.error("Error al actualizar el usuario", error);
+          if (error.response && error.response.status === 400) {
+
           Swal.fire({
             title: "Error",
-            text: "Hubo un error al actualizar el usuario",
+            text: error.response.data.message,
             icon: "error",
           });
+        }else{
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un error',
+            icon: 'error',
+          }).then(() => {
+            location.reload();
+          });
+        }
         });
     } else {
       console.error("No se pudo obtener el ID del usuario");
