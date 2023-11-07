@@ -37,7 +37,9 @@ const MenuLateral = () => {
     return (
         <>
             <div
-                className={`${styles.sidebar} ${ anchoPantalla <= 1200 ? styles.close : ''} `}
+                className={`${styles.sidebar} ${
+                    anchoPantalla <= 1200 ? styles.close : ''
+                } `}
             >
                 <div className={`${styles.logo_details}`}>
                     <i>
@@ -246,7 +248,7 @@ const MenuLateral = () => {
             </div>
             {/*<ButtonCloseMenu onClick={toggleSidebar} />*/}
             <section className={styles.home_section}>
-                <div>
+                <div style={{ maxHeight: '100vh', overflowY: 'auto' }}>
                     <Outlet />
                 </div>
             </section>

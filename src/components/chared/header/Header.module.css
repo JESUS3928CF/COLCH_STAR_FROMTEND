@@ -17,7 +17,7 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
     .titulo {
         font-size: 20px;
     }
