@@ -57,8 +57,6 @@ const ListarProducto = () => {
     setEditarProducto(producto);
   };
 
-
-
   return (
     <div>
       <div className='contenedor'>
