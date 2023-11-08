@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------10 de octubre 2023
+// Nos permitirá Listar uno o todos los usuarios de la base de datos y que agreguemos por medio del agregar usuario,
+// existirá una barra buscar que nos permite buscar cualquier información de estos usuarios, la busqueda se realiza por cualquier campo que este en esta tabla
 import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
@@ -13,7 +17,6 @@ import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
 import crossing_out from "../roles/crossing_out.svg";
-
 
 const ListarUsuario = () => {
   //Estado de la barra de busqueda
@@ -39,7 +42,7 @@ const ListarUsuario = () => {
   //Esatdo para editar
   const [editarUsuario, setEditarUsuario] = useState("");
 
-  //Al hacer click  en editar trae el cliente y lo guarda en setCliente
+  //Al hacer click  en editar trae el usuario y lo guarda en setUsuario
   const handleEditClick = (usuario) => {
     if (!usuario.estado) {
       return Swal.fire(
@@ -149,5 +152,4 @@ const ListarUsuario = () => {
     </div>
   );
 };
-
 export default ListarUsuario;

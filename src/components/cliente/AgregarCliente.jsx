@@ -17,7 +17,6 @@ import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 
-
 //Componente
 const AgregarCliente = () => {
   const {
@@ -323,5 +322,4 @@ const AgregarCliente = () => {
       </div>
   );
 }
-
 export default AgregarCliente

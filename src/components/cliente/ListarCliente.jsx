@@ -109,7 +109,6 @@ const ListarCliente = () => {
                 <th scope="col">Nombres</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Teléfono</th>
-                {/* <th scope='col' className='text-center'>Email</th> */}
                 <th scope="col">Estado</th>
                 <th scope="col">Detalles</th>
                 <th scope="col">Editar</th>

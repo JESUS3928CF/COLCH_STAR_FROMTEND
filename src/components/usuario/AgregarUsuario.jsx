@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------10 de octubre 2023
+//Nos permitira Agregar un usuario, se podra agregar el usuario mediante un formulario con sus respectivas validaciones donde se pediran los datos
+//mas relevantes de este usuario y luego se mostrara en la tabla listar usuarios
 import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
@@ -240,9 +244,9 @@ const AgregarUsuario = () => {
                           message: "La contraseña es obligatoria",
                         },
                         pattern: {
-                          value: /^.{6,}$/, // Expresión regular que verifica al menos 6 caracteres.
+                          value: /^\S{6,}$/,  // Expresión regular que verifica al menos 6 caracteres.
                           message:
-                            "La contraseña debe tener al menos 6 caracteres",
+                            "La contraseña debe tener al menos 6 caracteres sin espacios",
                         },
                       })}
                     />

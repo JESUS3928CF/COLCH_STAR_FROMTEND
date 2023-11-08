@@ -14,27 +14,6 @@ export const DetallesClientes = ({ detallesClientes }) => {
             <div className="modal-body">
               <div className="container">
                 <div className="col">
-                  {/* <div className='row'>
-                                        <div className='mb-3'>
-                                            <label htmlFor="identificacion" className="r">- Identificación: </label>   <label >  {detallesClientes.identificacion}</label>
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor="nombre" className="r"> - Nombres: </label> <label >  {detallesClientes.nombre}</label>
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor="apellido" className="r"> - Apellidos: </label> <label > {detallesClientes.apellido}</label>
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor="telefono" className="r">- Teléfono: </label> <label > {detallesClientes.telefono}</label>
-                                        </div>
-                                        <div className='mb-3'>
-                                            <label htmlFor="email" className="r">- Email: </label> <label > {detallesClientes.email} </label>
-                                        </div>
-
-                                        <div className='mb-3'>
-                                        <label htmlFor="direccion" className="r"  >- Dirección:</label>  <label > {detallesClientes.direccion} </label>
-                                        </div>
-                                    </div> */}
                   <form className="row g-3 needs-validation">
                     <div className="mb-3" name="divIdentificacion">
                       <label

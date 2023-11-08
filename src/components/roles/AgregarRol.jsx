@@ -1,3 +1,7 @@
+// ------------------HERLYN NORBEY DAVID POSO
+//-------------------10 de octubre 2023
+//Nos permitira Agregar un rol, se podra agregar el rol mediante un formulario con sus respectivas validaciones donde se pediran los datos
+//mas relevantes de este rol y luego se mostrara en la tabla listar roles
 import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
@@ -12,41 +16,49 @@ import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 
+//Componente
 function AgregarRol() {
+
+  //Estado para el seleccionar permisos
   const [seleccionarPermisos, setSeleccionarPermisos] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState(null);
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
+    register, //Regitra o identifica cada elemento o cada input
+    handleSubmit,  //Para manejar el envio del formulario
+    formState: { errors }, //Ver errores que tiene el formulario
+    reset,  //Resetea el formulario
   } = useForm();
 
+  //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
     const { nombre } = data;
 
+    // Validación que manda un alerta que al menos se debe seleccionar un permiso
     if (seleccionarPermisos.length === 0) {
       setErrorMensaje("Debes seleccionar al menos un permiso");
       return;
     }
 
     try {
+      // la ruta por donde voya mandar el objeto o el registro nuevo data
       const res = await axios.post("http://localhost:3000/api/rol", {
         nombre: nombre.trim(),
         permisos: seleccionarPermisos,
       });
+      //Luego de mandarlo se cierra el modal
 
-      reset();
+      reset(); //Luego de ser agregado y mandado resetea el formulario
       setSeleccionarPermisos([]);
       setErrorMensaje(null);
 
+      // Lanzar alerta del rol agregado
       Swal.fire({
         title: "Rol agregado",
         text: res.data.message,
         icon: "success",
-      }).then(() => {
-        location.reload();
+      }).then(() => { //El then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
+        location.reload(); //  recarga la pagina
       });
     } catch (err) {
       console.log(err);
@@ -68,6 +80,7 @@ function AgregarRol() {
 
   return (
     <div>
+          {/* modal agregar proveedor */}
       <div className="modal" id="myModal">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -87,9 +100,10 @@ function AgregarRol() {
                       type="text"
                       className="form-control"
                       placeholder=". . ."
+                      //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
                       {...register("nombre", {
-                        required: {
-                          value: true,
+                        required: { // Es una propiedad que indica que el campo es obligatorio. 
+                          value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
                           message: "El nombre es obligatorio",
                         },
                         validate: (value) => {
@@ -106,6 +120,7 @@ function AgregarRol() {
                       <AlertaError message={errors.nombre.message} />
                     )}
                   </div>
+                  {/* se seleccionan los permisos que va tener ese rol creado */}
                   <label>Seleccionar permisos:  *</label>
                   {errorMensaje && <AlertaError message={errorMensaje} />}
                   <div className="form-check form-switch">
@@ -177,5 +192,4 @@ function AgregarRol() {
     </div>
   );
 }
-
 export default AgregarRol;

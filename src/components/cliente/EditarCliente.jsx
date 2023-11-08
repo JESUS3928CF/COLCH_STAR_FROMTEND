@@ -21,8 +21,6 @@ import clienteAxios from '../../config/axios';
 
 //Componente
 const EditarCliente = ({editarCliente}) => {
-
-
     const {
         register,
         handleSubmit,
@@ -101,7 +99,7 @@ const EditarCliente = ({editarCliente}) => {
 
   return (
       <div>
-          {/* modal de editar proveedor */}
+          {/* modal de editar clientes */}
           <div className='modal' id='modalEditar'>
               <div className='modal-dialog modal-dialog-centered'>
                   <div className='modal-content'>
