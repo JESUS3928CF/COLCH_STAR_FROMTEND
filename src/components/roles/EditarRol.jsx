@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import AlertaError from "../chared/AlertaError";
 import { validarEspaciosVacios } from "../../Validations/validations";
 
-
 const EditarRol = ({ editarRol }) => {
   const {
     register,
@@ -20,6 +19,7 @@ const EditarRol = ({ editarRol }) => {
     setValue,
   } = useForm();
   const [permisos, setPermisos] = useState([]);
+  const [errorPermisos, setErrorPermisos] = useState(null);
 
   useEffect(() => {
     if (editarRol) {
@@ -38,6 +38,13 @@ const EditarRol = ({ editarRol }) => {
 
   const onSubmit = (data) => {
     const { nombre } = data;
+
+    if (permisos.length === 0) {
+      setErrorPermisos("Debes seleccionar al menos un permiso");
+      return;
+    } else {
+      setErrorPermisos(null);
+    }
 
     if (editarRol && editarRol.id_rol) {
       axios
@@ -60,20 +67,17 @@ const EditarRol = ({ editarRol }) => {
 
           if (error.response && error.response.status === 400) {
             Swal.fire({
-              title: 'Error',
+              title: "Error",
               text: error.response.data.message,
-              icon: 'error',
-          });
-          }else{
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un error',
-                icon: 'error',
-            }).then(() => {
-                location.reload();
+              icon: "error",
             });
-        }
-
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: "Ya existe este Rol",
+              icon: "error",
+            })
+          }
         });
     } else {
       console.error("No se pudo obtener el ID del rol");
@@ -130,8 +134,8 @@ const EditarRol = ({ editarRol }) => {
                   )}
                 </div>
                 <div className="container">
-                  <label htmlFor="">Seleccionar permisos:</label>
-                  <br />
+                  <label htmlFor="">Seleccionar permisos: *</label>
+                  {errorPermisos && <AlertaError message={errorPermisos} />}
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
@@ -142,10 +146,7 @@ const EditarRol = ({ editarRol }) => {
                         handlePermisoChange("usuario", e.target.checked)
                       }
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="usuarioEditar"
-                    >
+                    <label className="form-check-label" htmlFor="usuarioEditar">
                       Usuario
                     </label>
                   </div>
@@ -159,10 +160,7 @@ const EditarRol = ({ editarRol }) => {
                         handlePermisoChange("rol", e.target.checked)
                       }
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="rolEditar"
-                    >
+                    <label className="form-check-label" htmlFor="rolEditar">
                       Rol
                     </label>
                   </div>
@@ -210,10 +208,7 @@ const EditarRol = ({ editarRol }) => {
                         handlePermisoChange("cliente", e.target.checked)
                       }
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="clienteEditar"
-                    >
+                    <label className="form-check-label" htmlFor="clienteEditar">
                       Cliente
                     </label>
                   </div>
@@ -227,10 +222,7 @@ const EditarRol = ({ editarRol }) => {
                         handlePermisoChange("compra", e.target.checked)
                       }
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="compraEditar"
-                    >
+                    <label className="form-check-label" htmlFor="compraEditar">
                       Compra
                     </label>
                   </div>
@@ -244,10 +236,7 @@ const EditarRol = ({ editarRol }) => {
                         handlePermisoChange("orden", e.target.checked)
                       }
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="ordenEditar"
-                    >
+                    <label className="form-check-label" htmlFor="ordenEditar">
                       Orden
                     </label>
                   </div>
@@ -266,4 +255,3 @@ const EditarRol = ({ editarRol }) => {
 };
 
 export default EditarRol;
-

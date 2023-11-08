@@ -40,7 +40,7 @@ const AgregarUsuario = () => {
 
       // Lanzar alerta del usuario agregado
       Swal.fire({
-        title: "Usuario agregado",
+        title: "Usuario Agregado",
         text: res.data.message,
         icon: "success",
       }).then(() => {
