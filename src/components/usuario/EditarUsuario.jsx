@@ -240,7 +240,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                       })}
                     >
                       <option value="">Seleccionar rol</option>
-                      <option value="34">Empleado</option>
+                      <option value="81">Empleado</option>
                     </select>
                     {errors.fk_rol && (
                       <AlertaError message={errors.fk_rol.message} />

@@ -285,7 +285,7 @@ const AgregarUsuario = () => {
                       })}
                     >
                       <option value="">Seleccionar rol</option>
-                      <option value="34">Empleado</option>
+                      <option value="81">Empleado</option>
                       {/* Asegúrate de que el valor coincida con el valor en la base de datos */}
                     </select>
                     {errors.fk_rol && (
