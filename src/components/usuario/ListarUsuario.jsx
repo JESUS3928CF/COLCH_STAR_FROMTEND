@@ -12,6 +12,7 @@ import Paginador from "../chared/Paginador";
 import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
+import crossing_out from "../chared/header/crossing_out.svg";
 
 const ListarUsuario = () => {
   //Estado de la barra de busqueda
@@ -109,12 +110,21 @@ const ListarUsuario = () => {
                   <td>{usuario.email}</td>
                   <td>{usuario.rol ? usuario.rol.nombre : "N/A"}</td>
                   <td>
-                    <BotonCambioEstado
-                      id={usuario.id_usuario}
-                      isChecked={usuario.estado}
-                      nombreRegistro={"usuario"}
-                      ruta={`/usuarios/estado/${usuario.id_usuario}`}
-                    />
+                    {usuario.rol && usuario.rol.nombre === "Administrador" ? (
+                      <img
+                        width="50px"
+                        src={crossing_out}
+                        alt="No permitido"
+                        style={{ marginLeft: "18px" }}
+                      />
+                    ) : (
+                      <BotonCambioEstado
+                        id={usuario.id_usuario}
+                        isChecked={usuario.estado}
+                        nombreRegistro={"usuario"}
+                        ruta={`/usuarios/estado/${usuario.id_usuario}`}
+                      />
+                    )}
                   </td>
                   <td>
                     <BotonNegro
