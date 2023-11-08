@@ -2,7 +2,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import CancelarModal from "../chared/CancelarModal";
@@ -19,6 +19,15 @@ const AgregarUsuario = () => {
     reset,
     getValues, //Resetea el formulario
   } = useForm();
+
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    // Realizar una solicitud para obtener la lista de roles desde el servidor
+    axios.get("http://localhost:3000/api/rol").then((response) => {
+      setRoles(response.data); // Almacenar la lista de roles en el estado
+    });
+  }, []);
 
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
@@ -50,22 +59,21 @@ const AgregarUsuario = () => {
     } catch (err) {
       console.log(err);
       if (err.response && err.response.status === 400) {
-
-      Swal.fire({
-        title: "Error",
-        text: err.response.data.message,
-        icon: "error",
-      })
-    }else{
-      Swal.fire({
-        title: 'Error',
-        text: "Hubo un error",
-        icon: 'error',
-
-    }).then(() => { 
-        location.reload(); 
-    });
-    }}
+        Swal.fire({
+          title: "Error",
+          text: err.response.data.message,
+          icon: "error",
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error",
+          icon: "error",
+        }).then(() => {
+          location.reload();
+        });
+      }
+    }
   };
 
   return (
@@ -93,10 +101,13 @@ const AgregarUsuario = () => {
             <div className="formulario">
               <div className="modal-body">
                 {/* <!-- formulario para agregar un usuario --> */}
-                <form className='row g-3 needs-validation' onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className="row g-3 needs-validation"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <div className="col-md-6">
                     <label htmlFor="nombre" className="col-form-label">
-                      Nombres:  *
+                      Nombres: *
                     </label>
                     <input
                       name="nombre"
@@ -124,7 +135,7 @@ const AgregarUsuario = () => {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="apellido" className="col-form-label">
-                      Apellidos:  *
+                      Apellidos: *
                     </label>
                     <input
                       name="apellido"
@@ -153,7 +164,7 @@ const AgregarUsuario = () => {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="telefono" className="col-form-label">
-                      Teléfono:  *
+                      Teléfono: *
                     </label>
                     <input
                       name="telefono"
@@ -188,7 +199,7 @@ const AgregarUsuario = () => {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="email" className="col-form-label">
-                      Email:  *
+                      Email: *
                     </label>
                     <input
                       name="email"
@@ -216,7 +227,7 @@ const AgregarUsuario = () => {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="contrasena" className="col-form-label">
-                      Contraseña:  *
+                      Contraseña: *
                     </label>
                     <input
                       name="contrasena"
@@ -244,7 +255,7 @@ const AgregarUsuario = () => {
                       htmlFor="contrasenaConfirmar"
                       className="col-form-label"
                     >
-                      Confirmar contraseña:  *
+                      Confirmar contraseña: *
                     </label>
                     <input
                       name="contrasenaConfirmar"
@@ -272,7 +283,7 @@ const AgregarUsuario = () => {
                   </div>
                   <div className="mb-3">
                     <label htmlFor="rol" className="col-form-label">
-                      Rol:  *
+                      Rol: *
                     </label>
                     <select
                       name="rol"
@@ -284,10 +295,19 @@ const AgregarUsuario = () => {
                         },
                       })}
                     >
-                      <option value="">Seleccionar rol</option>
-                      <option value="81">Empleado</option>
-                      {/* Asegúrate de que el valor coincida con el valor en la base de datos */}
+                      <option value="">Seleccionar Rol</option>
+                      {roles.map((rol) => {
+                        if (rol.nombre !== "Administrador") {
+                          return (
+                            <option key={rol.id_rol} value={rol.id_rol}>
+                              {rol.nombre}
+                            </option>
+                          );
+                        }
+                        return null;
+                      })}
                     </select>
+
                     {errors.fk_rol && (
                       <AlertaError message={errors.fk_rol.message} />
                     )}
