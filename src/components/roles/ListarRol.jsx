@@ -10,6 +10,7 @@ import Paginador from "../chared/Paginador";
 import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
+import crossing_out from "../roles/crossing_out.svg";
 
 
 const ListarRol = () => {
@@ -106,7 +107,7 @@ const ListarRol = () => {
                   <td>{rol.fecha_creacion}</td>
                   <td>
                     {rol.nombre === "Administrador" ? (
-                      "No permitido"
+                      <img width="50px"  src={crossing_out} alt="No permitido" style={{ marginLeft: '18px' }}/>
                     ) : (
                       <BotonCambioEstado
                         id={rol.id_rol}
