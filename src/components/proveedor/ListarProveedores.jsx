@@ -45,7 +45,7 @@ const ListarProveedores = () => {
     const [editarProveedor, setEditarProveedor] = useState("");
 
 
-   //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
+    //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
     const handleEditClick = (proveedor) => {
 
         if (!proveedor.estado) {
@@ -65,23 +65,29 @@ const ListarProveedores = () => {
                 {/* titulo */}
                 <Header titulo='Gestiónar Proveedores' />
 
+                
 
-                {/* botón agregar */}
-                <div className="container-fluid seccion2" style={{ width: 0 }}>
 
-                    <div className={styles.ap}>
-                        <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
-                            proveedor</button>
-                    </div>
+                    {/* botón agregar */}
+                    <div className="container-fluid " >
 
-                    {/* botón de buscar */}
-                    <div className={styles.buscador}>
-                        <Buscador
-                            setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
-                            datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
-                            camposFiltrar={['nombre', 'telefono', 'direccion', 'identificador']} //se le manda los campos por donde se puede filtrar
-                        />
+                    <div className="row">
 
+
+                        <div className={`${styles.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+                            <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+                                proveedor</button>
+                        </div>
+
+                        {/* botón de buscar */}
+                        <div className={`${styles.buscador} col-md-6 col-ms-8 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+                            <Buscador
+                                setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
+                                datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
+                                camposFiltrar={['nombre', 'telefono', 'direccion', 'identificador']} //se le manda los campos por donde se puede filtrar
+                            />
+
+                        </div>
                     </div>
                 </div>
 
@@ -109,7 +115,7 @@ const ListarProveedores = () => {
                                     <td>{proveedor.nombre}</td>
                                     <td>{proveedor.telefono}</td>
                                     <td>{proveedor.direccion}</td>
-                                    <td> {proveedor.tipoIdentificacion} { proveedor.identificador}</td>
+                                    <td> {proveedor.tipoIdentificacion} {proveedor.identificador}</td>
                                     <td> <BotonCambioEstado
                                         id={proveedor.id_proveedor}
                                         isChecked={proveedor.estado}

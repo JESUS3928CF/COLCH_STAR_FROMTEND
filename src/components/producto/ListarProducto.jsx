@@ -12,6 +12,8 @@ import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
 import EditarProducto from './EditarProducto';
 import Header from '../chared/header/Header'
+import DetallesProducto from './DetallesProducto';
+
 
 const ListarProducto = () => {
 
@@ -64,26 +66,30 @@ const ListarProducto = () => {
         {/* titulo */}
         <Header titulo='Gestiónar Productos' />
 
-        {/* boton de agregar */}
-        <div className="container-fluid seccion2" style={{ width: 0 }}>
+        
+          {/* boton de agregar */}
+          <div className="container-fluid " >
 
-          <div className={styles.ap}>
-            <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
-              producto</button>
+          <div className="row">
+
+            <div className={`${styles.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+              <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
+                producto</button>
+            </div>
+
+
+            {/* Boton para Buscar/filtrar */}
+            <div className={`${styles.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+              <Buscador
+                setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
+                datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
+                camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
+              />
+
+            </div>
           </div>
-          {/* <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" style={{ marginLeft: 20 }} >Agregar
-            producto</button> */}
 
 
-          {/* Boton para Buscar/filtrar */}
-          <div className={styles.buscador}>
-            <Buscador
-              setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
-              datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
-              camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
-            />
-
-          </div>
 
 
         </div>
@@ -98,7 +104,7 @@ const ListarProducto = () => {
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
-                <th scope="col">Id_prenda</th>
+                {/* <th scope="col">Id_prenda</th> */}
                 <th scope="col">Publicado</th>
                 <th scope="col">Inhabilitar</th>
                 <th scope="col">Ver Imagen</th>
@@ -113,7 +119,7 @@ const ListarProducto = () => {
                   <td>{producto.nombre}</td>
                   <td>{producto.cantidad}</td>
                   <td>{producto.precio}</td>
-                  <td>{producto.fk_prenda}</td>
+                  {/* <td>{producto.fk_prenda}</td> */}
                   <td>
                     <BotonCambioEstado
                       id={producto.id_producto}
@@ -166,6 +172,7 @@ const ListarProducto = () => {
           </table>
         </div>
         <EditarProducto editarProducto={editarProducto} />
+        <DetallesProducto editarProducto={editarProducto} />
 
       </div>
       <div className='seccion4'>
