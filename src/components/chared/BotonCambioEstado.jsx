@@ -96,7 +96,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
 
     return (
         <label className='switch-button' >
-            <div className='switch-outer'>
+            <div className='switch-outer '>
                 <input
                     id={id}
                     type='checkbox'

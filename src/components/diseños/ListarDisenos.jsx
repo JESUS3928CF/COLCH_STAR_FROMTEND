@@ -3,14 +3,13 @@
 // Nos permitira Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
 // existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import { useEffect, useState } from 'react';
-import BotonCambioEstado from '../chared/BotonCambioEstado';
-import BotonNegro from '../chared/BotonNegro';
 import clienteAxios from '../../config/axios';
 import { DetalleDiseno } from './DetalleDiseno';
 import EditarDiseno from './EditarDiseno';
 import Buscador from '../chared/Buscador';
 import Paginador from '../chared/Paginador';
 import Swal from 'sweetalert2';
+import TablaDisenos from './TablaDiseno/TablaDisenos';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
@@ -18,11 +17,12 @@ const ListarDisenos = () => {
 
     // Este estado es para poder determinar que diseños concuerdan con la búsqueda y poder eliminar los que no
     const [disenosFiltrar, setDisenosFiltrar] = useState([]);
+    /// Para capturar el ancho de pantalla
 
     const [detalleDiseno, setDetalleDiseno] = useState({});
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
-    const informacionModalEditar = (diseno) => {
+    const LlenarInformacionModalEditar = (diseno) => {
         /// Aca enviamos una alerta para cundo no se puede editar el modal
         if (!diseno.estado) {
             return Swal.fire(
@@ -34,7 +34,7 @@ const ListarDisenos = () => {
         setDetalleDiseno(diseno);
     };
 
-    const informacionModal = (diseno) => {
+    const llenarInformacionModal = (diseno) => {
         setDetalleDiseno(diseno);
     };
 
@@ -55,80 +55,19 @@ const ListarDisenos = () => {
         <>
             <div className='p-2 pt-4 d-flex justify-content-center align-items-center'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                    <Buscador
-                        setDatosFiltrar={setDisenosFiltrar}
-                        datos={disenos}
-                        camposFiltrar={['nombre', 'publicacion']}
-                    />
+                <Buscador
+                    setDatosFiltrar={setDisenosFiltrar}
+                    datos={disenos}
+                    camposFiltrar={['nombre', 'publicacion']}
+                />
             </div>
-            <div className='tabla'>
-                <div className='table-responsive'>
-                    <table className='table caption-top'>
-                        <caption>Lista de diseños</caption>
-                        <thead>
-                            <tr>
-                                <th scope='col'>Id</th>
-                                <th scope='col'>Nombre</th>
-                                <th scope='col'>Ver imagen</th>
-                                <th scope='col'>Publicado</th>
-                                <th scope='col'>Inhabilitar</th>
-                                <th scope='col'>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {disenosFiltrar.map((diseno) => (
-                                <tr key={diseno.id_diseno}>
-                                    <th scope='row'>{diseno.id_diseno}</th>
-                                    <td>{diseno.nombre}</td>
-                                    <td>
-                                        <BotonNegro
-                                            text='Ver'
-                                            modalToOpen='#modalDetalles'
-                                            onClick={() =>
-                                                informacionModal(diseno)
-                                            }
-                                        />
-                                    </td>
-                                    <td>
-                                        <BotonCambioEstado
-                                            id={diseno.id_diseno}
-                                            isChecked={diseno.publicado}
-                                            nombreRegistro='diseño'
-                                            ruta={`/disenos/publicado/${diseno.id_diseno}`}
-                                            cambiarPublicacion={{
-                                                estado: diseno.estado,
-                                                paraPublicacion: true,
-                                            }}
-                                        />
-                                    </td>
-                                    <td>
-                                        <BotonCambioEstado
-                                            id={diseno.id_diseno}
-                                            isChecked={diseno.estado}
-                                            nombreRegistro='diseño'
-                                            ruta={`/disenos/estado/${diseno.id_diseno}`}
-                                        />
-                                    </td>
-                                    <td>
-                                        {/* con el ternario determinamos si abrir o no el modal*/}
-                                        <BotonNegro
-                                            text='Editar'
-                                            modalToOpen={
-                                                diseno.estado
-                                                    ? '#modalDiseño'
-                                                    : ''
-                                            }
-                                            onClick={() =>
-                                                informacionModalEditar(diseno)
-                                            }
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+            {/* este componente me permite listar los diseños mediante una tabla o una card dependiendo de la resolución actual des dispositivo */}
+            <TablaDisenos
+                disenosFiltrar={disenosFiltrar}
+                LlenarInformacionModal={llenarInformacionModal}
+                LlenarInformacionModalEditar={LlenarInformacionModalEditar}
+            />
 
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
