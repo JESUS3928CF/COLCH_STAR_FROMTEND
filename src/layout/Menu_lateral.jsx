@@ -4,6 +4,7 @@ import logo from '../imgNavbar/LogoPNG.png';
 import profile from '../imgNavbar/1153861.png';
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { calcularAnchoDePantalla } from '../helpers/calcularAnchoDePantalla';
 
 const MenuLateral = () => {
     // const [isSidebarOpen, setSidebarOpen] = useState(false); estado para el botón de cerrar menú
@@ -20,18 +21,8 @@ const MenuLateral = () => {
     // };
 
     useEffect(() => {
-        const handleResize = () => {
-            const nuevoAnchoPantalla = window.innerWidth;
-            setAnchoPantalla(nuevoAnchoPantalla);
-        };
-
-        // Agregar el evento de cambio de tamaño de ventana
-        window.addEventListener('resize', handleResize);
-
-        // Limpia el evento cuando el componente se desmonta
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+        /// Calcular el ancho de pantalla actual
+        calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
 
     return (
@@ -64,7 +55,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Dashboard
                                 </Link>
@@ -81,7 +71,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/usuarios'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Usuarios
                                 </Link>
@@ -98,7 +87,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/roles'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Roles
                                 </Link>
@@ -118,7 +106,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/proveedores'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Proveedores
                                 </Link>
@@ -141,9 +128,9 @@ const MenuLateral = () => {
                         </div>
                         <ul className={styles.sub_menu}>
                             <li>
-                                <a className={styles.link_name} href='#'>
+                                <Link to={'/administracion/productos'} className={styles.link_name}>
                                     Productos
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <Link to={'/administracion/prendas'}>
@@ -167,7 +154,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/clientes'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Clientes
                                 </Link>
@@ -184,7 +170,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/compras'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Compras
                                 </Link>
@@ -201,7 +186,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/administracion/ordenes'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Ordenes
                                 </Link>
@@ -218,7 +202,6 @@ const MenuLateral = () => {
                                 <Link
                                     to={'/'}
                                     className={styles.link_name}
-                                    href='#'
                                 >
                                     Catálogo
                                 </Link>

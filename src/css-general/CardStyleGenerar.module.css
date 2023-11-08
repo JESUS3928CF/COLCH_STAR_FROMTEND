@@ -1,0 +1,25 @@
+.contenedor_card {
+    margin: 0px 5px;
+}
+
+.text {
+    font-weight: bold;
+}
+
+.text span {
+    font-weight: normal;
+}
+
+.button button {
+    width: 100%;
+}
+
+/*/ responsive para Texto */
+@media screen and (max-width: 350px) {
+
+    .textoEstado,
+    .button button,
+    .text {
+        font-size: 11px;
+    }
+}
