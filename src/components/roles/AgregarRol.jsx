@@ -14,6 +14,7 @@ import HeaderModals from '../chared/HeaderModals';
 
 function AgregarRol() {
   const [seleccionarPermisos, setSeleccionarPermisos] = useState([]);
+  const [errorMensaje, setErrorMensaje] = useState(null);
 
   const {
     register,
@@ -25,6 +26,11 @@ function AgregarRol() {
   const onSubmit = async (data) => {
     const { nombre } = data;
 
+    if (seleccionarPermisos.length === 0) {
+      setErrorMensaje("Debes seleccionar al menos un permiso");
+      return;
+    }
+
     try {
       const res = await axios.post("http://localhost:3000/api/rol", {
         nombre: nombre.trim(),
@@ -32,6 +38,8 @@ function AgregarRol() {
       });
 
       reset();
+      setSeleccionarPermisos([]);
+      setErrorMensaje(null);
 
       Swal.fire({
         title: "Rol agregado",
@@ -44,11 +52,9 @@ function AgregarRol() {
       console.log(err);
       Swal.fire({
         title: "Error",
-        text: "Hubo un error",
+        text: "Ya existe este Rol",
         icon: "error",
-      }).then(() => {
-        location.reload();
-      });
+      })
     }
   }
 
@@ -101,6 +107,7 @@ function AgregarRol() {
                     )}
                   </div>
                   <label>Seleccionar permisos:  *</label>
+                  {errorMensaje && <AlertaError message={errorMensaje} />}
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
