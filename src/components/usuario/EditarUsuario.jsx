@@ -232,8 +232,12 @@ const EditarUsuario = ({ editarUsuario }) => {
                     <select
                       name="rol"
                       className="form-control"
-                      {...register("fk_rol"
-                      )}
+                      {...register("fk_rol", {
+                        required: {
+                          value: true,
+                          message: "Debe seleccionar un rol",
+                        },
+                      })}
                     >
                       <option value="">Seleccionar rol</option>
                       <option value="34">Empleado</option>
