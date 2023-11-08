@@ -10,7 +10,7 @@ import Paginador from "../chared/Paginador";
 import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
-import crossing_out from "../chared/header/crossing_out.svg";
+import crossing_out from "../roles/crossing_out.svg";
 
 
 const ListarRol = () => {
