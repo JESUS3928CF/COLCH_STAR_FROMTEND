@@ -17,10 +17,10 @@ const EditarUsuario = ({ editarUsuario }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue, // Añade esta función para actualizar dinámicamente los valores
+    setValue,
   } = useForm();
+  const idAdministrador = 1;
 
-  // Cuando editarUsuario cambia, actualiza los valores del formulario
   useEffect(() => {
     if (editarUsuario) {
       setValue("nombre", editarUsuario.nombre);
@@ -31,17 +31,16 @@ const EditarUsuario = ({ editarUsuario }) => {
     }
   }, [editarUsuario]);
 
-  /// Función para guardar el cliente en la DB
+  const esAdministrador = editarUsuario && editarUsuario.id_usuario === idAdministrador;
+
   const onSubmit = (data) => {
     const { nombre, apellido, telefono, email, fk_rol } = data;
 
-    // Ruta
     if (editarUsuario.id_usuario) {
       axios
         .patch(
           `http://localhost:3000/api/usuarios/${editarUsuario.id_usuario}`,
           {
-            // Campos en los que realiza el cambio
             nombre: nombre.trim(),
             apellido: apellido.trim(),
             telefono: telefono.trim(),
@@ -98,7 +97,6 @@ const EditarUsuario = ({ editarUsuario }) => {
               ></button>
             </div>
             <div className="modal-body">
-              {/* <!-- formulario para editar los datos de la tabla Usuarios --> */}
               <form
                 className="row g-3 needs-validation"
                 action=""
@@ -182,12 +180,12 @@ const EditarUsuario = ({ editarUsuario }) => {
                         message: "No se permiten letras ni espacios en blanco",
                       },
                       validate: (value) => {
-                        const telefonoSinEspacios = value.replace(/\s/g, ""); // Eliminar espacios en blanco
+                        const telefonoSinEspacios = value.replace(/\s/g, "");
                         if (
                           telefonoSinEspacios.length < 7 ||
                           telefonoSinEspacios.length > 11
                         ) {
-                          return "El telefono debe tener minimo 7 digitos y maximo 12";
+                          return "El telefono debe tener mínimo 7 dígitos y máximo 12";
                         }
                         return true;
                       },
@@ -226,32 +224,27 @@ const EditarUsuario = ({ editarUsuario }) => {
                     <AlertaError message={errors.email.message} />
                   )}
                 </div>
-                <div className="mb-3">
+                {!esAdministrador && (  // Mostrar el campo solo si no es administrador
+                  <div className="mb-3">
                     <label htmlFor="rol" className="col-form-label">
-                      Rol:  *
+                      Rol:
                     </label>
                     <select
                       name="rol"
                       className="form-control"
-                      {...register("fk_rol", {
-                        required: {
-                          value: true,
-                          message: "Debe seleccionar un rol",
-                        },
-                      })}
+                      {...register("fk_rol"
+                      )}
                     >
                       <option value="">Seleccionar rol</option>
                       <option value="34">Empleado</option>
-                      {/* Asegúrate de que el valor coincida con el valor en la base de datos */}
                     </select>
                     {errors.fk_rol && (
                       <AlertaError message={errors.fk_rol.message} />
                     )}
                   </div>
-
+                )}
                 <div className="modal-footer">
                   <CancelarModal />
-
                   <GuardarModal />
                 </div>
               </form>
@@ -262,4 +255,5 @@ const EditarUsuario = ({ editarUsuario }) => {
     </div>
   );
 };
+
 export default EditarUsuario;
