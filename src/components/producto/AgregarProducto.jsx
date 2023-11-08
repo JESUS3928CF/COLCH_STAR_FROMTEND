@@ -21,6 +21,8 @@ const AgregarProducto = () => {
         reset, //resetea el formulario
     } = useForm();
 
+
+        //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { nombre, cantidad, precio, fk_prenda, imagen } = data
@@ -52,7 +54,6 @@ const AgregarProducto = () => {
 
         } catch (err) {
             console.log(err)
-
 
 
             // En caso de otros errores, muestra una alerta genérica de error
@@ -239,6 +240,7 @@ const AgregarProducto = () => {
 
                                     <CancelarModal modalToCancel="myModal" />
                                     <GuardarModal />
+                                    
                                 </div>
                             </form>
                         </div>

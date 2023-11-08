@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import HeaderModals from '../chared/HeaderModals';
 import { FcApproval, FcCancel } from 'react-icons/fc';
 import styles from '../../css-general/estilosReutilizables.module.css';

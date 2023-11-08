@@ -90,8 +90,6 @@ const ListarProducto = () => {
           </div>
 
 
-
-
         </div>
 
         {/* tabla  para listar el producto */}
