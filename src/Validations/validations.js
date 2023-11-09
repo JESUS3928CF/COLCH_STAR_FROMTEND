@@ -11,7 +11,8 @@ export function validarImagen(archivo) {
 
 ///
 export const validarEspaciosVacios = (value) => {
-    const valueArray = value.split('');
+    console.log(value);
+    const valueArray = value.toString().split('');
 
     return valueArray.every((letra) => letra === ' ')
         ? 'No se pueden espacios vacíos'
