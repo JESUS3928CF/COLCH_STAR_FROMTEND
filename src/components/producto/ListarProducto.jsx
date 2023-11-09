@@ -24,6 +24,7 @@ const ListarProducto = () => {
   const [productos, setProducto] = useState([]);
 
 
+
   // solicitud  a la url
   useEffect(() => {
     axios.get('http://localhost:3000/api/productos')
@@ -64,9 +65,9 @@ const ListarProducto = () => {
         {/* titulo */}
         <Header titulo='Gestiónar Productos' />
 
-        
-          {/* boton de agregar */}
-          <div className="container-fluid " >
+
+        {/* boton de agregar */}
+        <div className="container-fluid " >
 
           <div className="row">
 
@@ -100,7 +101,6 @@ const ListarProducto = () => {
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
-                {/* <th scope="col">Id_prenda</th> */}
                 <th scope="col">Publicado</th>
                 <th scope="col">Inhabilitar</th>
                 <th scope="col">Ver Imagen</th>
@@ -108,13 +108,18 @@ const ListarProducto = () => {
               </tr>
             </thead>
             <tbody>
+
               {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
               {ProductosFiltrar.map((producto) => (
+
                 <tr key={producto.id_producto}>
                   <td>{producto.id_producto}</td>
                   <td>{producto.nombre}</td>
                   <td>{producto.cantidad}</td>
                   <td>{producto.precio}</td>
+                  {console.log(producto)}
+                  {/* <td>{producto.prenda ? producto.prenda.nombre : "N/A"}</td> */}
+
                   {/* <td>{producto.fk_prenda}</td> */}
                   <td>
                     <BotonCambioEstado

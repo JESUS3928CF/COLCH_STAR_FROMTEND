@@ -2,6 +2,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
+import React, { useState, useEffect } from "react";
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
@@ -22,7 +23,19 @@ const AgregarProducto = () => {
     } = useForm();
 
 
-        //Función que se ejecuta cuando alguien intenta enviar el formulario
+    //estado pa las prendas 
+    const [Prendas, setPrendas] = useState([]);
+    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+    useEffect(() => {
+        // Realizar una solicitud para obtener la lista de roles desde el servidor
+        axios.get("http://localhost:3000/api/prendas").then((response) => {
+            setPrendas(response.data); // Almacenar la lista de roles en el estado
+        });
+    }, []);
+
+    
+
+    //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { nombre, cantidad, precio, fk_prenda, imagen, publicado } = data
@@ -38,7 +51,13 @@ const AgregarProducto = () => {
                 fk_prenda: fk_prenda.trim(),
                 publicado: publicado,
                 imagen: imagen[0]
-            })
+
+
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
@@ -165,6 +184,39 @@ const AgregarProducto = () => {
 
                                 </div>
 
+                                <div className="col-md-6 mt-2" >
+                                    <label htmlFor="rol" className="col-form-label">
+                                        Prenda: *
+                                    </label>
+                                    <select
+                                        name="fk_prenda"
+                                        className="form-control"
+                                        {...register("fk_prenda", {
+                                            required: {
+                                                value: true,
+                                                message: "Debe seleccionar una prenda",
+                                            },
+                                        })}
+                                    >
+                                        <option value="">Seleccionar prenda</option>
+                                        {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
+                                        esto se guarda en name = fk_prenda
+                                        {Prendas.map((prenda) => {
+                                            return (
+                                                <option key={prenda.id_prenda} value={prenda.id_prenda}>
+                                                    {prenda.nombre}
+                                                </option>
+                                            );
+
+
+                                        })}
+                                    </select>
+
+                                    {errors.fk_prenda && (
+                                        <AlertaError message={errors.fk_prenda.message} />
+                                    )}
+                                </div>
+
 
 
                                 <div className="col-md-6" name="Publicado">
@@ -224,7 +276,7 @@ const AgregarProducto = () => {
                                             }
                                         })}
 
-                                    /> 
+                                    />
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     {errors.imagen && (
                                         <AlertaError
@@ -240,7 +292,7 @@ const AgregarProducto = () => {
 
                                     <CancelarModal modalToCancel="myModal" />
                                     <GuardarModal />
-                                    
+
                                 </div>
                             </form>
                         </div>
