@@ -248,8 +248,8 @@ const EditarProducto = ({ editarProducto }) => {
                     })}
                   >
 
-                    <option value="Seleccione una opcion" >
-                      Selecciona una opcion
+                    <option value="" >
+                      Selecciona una opción
                     </option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
