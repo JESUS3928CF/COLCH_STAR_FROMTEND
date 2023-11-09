@@ -9,9 +9,8 @@ export function validarImagen(archivo) {
     return true;
 }
 
-///
+
 export const validarEspaciosVacios = (value) => {
-    console.log(value);
     const valueArray = value.toString().split('');
 
     return valueArray.every((letra) => letra === ' ')
