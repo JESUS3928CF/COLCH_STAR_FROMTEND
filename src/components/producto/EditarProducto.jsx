@@ -13,6 +13,9 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 
+
+
+
 const EditarProducto = ({ editarProducto }) => {
 
   const {
@@ -63,7 +66,7 @@ const EditarProducto = ({ editarProducto }) => {
         nombre: nombre.trim(),
         cantidad: cantidad.trim(),
         precio: precio.trim(),
-        fk_prenda: fk_prenda.trim(),
+        fk_prenda: fk_prenda,
         publicado: publicado,
         imagen: imagen[0]
       }, {
