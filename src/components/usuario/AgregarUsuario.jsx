@@ -1,12 +1,9 @@
 // ------------------HERLYN NORBEY DAVID POSO
 //-------------------10 de octubre 2023
-//Nos permitira Agregar un usuario, se podra agregar el usuario mediante un formulario con sus respectivas validaciones donde se pediran los datos
+//Nos permitirá Agregar un usuario, se podra agregar el usuario mediante un formulario con sus respectivas validaciones donde se pediran los datos
 //mas relevantes de este usuario y luego se mostrara en la tabla listar usuarios
 import "../../css-general/cssgeneral.css";
-import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
-import "../../css-general/table.min.css";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import CancelarModal from "../chared/CancelarModal";
@@ -14,6 +11,7 @@ import GuardarModal from "../chared/GuardarModal";
 import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import { validarEspaciosVacios } from "../../Validations/validations";
+import { useEffect, useState } from "react";
 
 const AgregarUsuario = () => {
   const {

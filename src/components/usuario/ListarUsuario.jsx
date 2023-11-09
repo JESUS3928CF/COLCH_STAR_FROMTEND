@@ -42,7 +42,7 @@ const ListarUsuario = () => {
       });
   }, []);
 
-  //Esatdo para editar
+  //Estado para editar
   const [editarUsuario, setEditarUsuario] = useState("");
 
   //Al hacer click  en editar trae el usuario y lo guarda en setUsuario
