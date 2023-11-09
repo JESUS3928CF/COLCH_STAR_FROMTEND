@@ -85,7 +85,7 @@ const AgregarCliente = () => {
               <div className='modal-dialog modal-dialog-centered '>
                   <div className='modal-content'>
                   <HeaderModals title={'Agregar Cliente'} />
-                      <div className='formulario'>
+                      <div>
                         
                           <div className='modal-body'>
 
@@ -100,8 +100,8 @@ const AgregarCliente = () => {
 
                                 <br />
 
-                                <div className={styles.identi}>
-
+                                <div className='row'>
+                                <div className='col-md-2'>
                                     <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" 
                                     {...register('tipoIdentificacion', {
                                         required: {          // Es una propiedad que indica que el campo es obligatorio. 
@@ -112,10 +112,10 @@ const AgregarCliente = () => {
                                         <option value="C.C.">C.C. </option>
                                         <option value="C.E.">C.E. </option>
                                     </select>
-
+                                </div>
+                                <div className='col-md-10'>
 
                                     <input type="text" className="form-control "
-                                        id={styles.identificacionGuardar}
                                         name="identificacion"
                                         placeholder=". . ."
                                         //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
@@ -139,6 +139,8 @@ const AgregarCliente = () => {
 
                                         })}
                                     />
+                                </div>
+
                                     {errors.identificacion && (
                                         <AlertaError message={errors.identificacion.message} /> //muestra el mensaje de validacion
                                     )}

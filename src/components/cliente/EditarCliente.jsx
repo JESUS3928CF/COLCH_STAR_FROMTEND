@@ -125,16 +125,18 @@ const EditarCliente = ({editarCliente}) => {
                                     </label>
                                     <br />
 
-                                    <div className={styles.identi}>
-
+                                    <div className='row'>
+                                    <div className='col-md-2'>
 
                                         <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion')}>
                                             <option value="C.C.">C.C.</option>
                                             <option value="C.E.">C.E.</option>
                                         </select>
+                                </div>
+                                <div className='col-md-10'>
+
 
                                         <input type="text" className="form-control"
-                                            id={styles.identificacionEditar}
                                             name="identificacion"
                                             placeholder="Ingresar su identificacion"
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
@@ -158,6 +160,7 @@ const EditarCliente = ({editarCliente}) => {
 
                                             })}
                                         />
+                                        </div>
                                         {errors.identificacion && (
                                             <AlertaError message={errors.identificacion.message} /> //muestra el mensaje de validacion
                                         )}
