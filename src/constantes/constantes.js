@@ -1,2 +1,2 @@
-export const resolucionCars = 1200;
+export const resolucionCards = 1200;
 

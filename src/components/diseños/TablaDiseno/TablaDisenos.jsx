@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { calcularAnchoDePantalla } from '../../../helpers/calcularAnchoDePantalla';
 
 import styles from '../../../css-general/CardStyleGenerar.module.css';
+import { resolucionCards } from '../../../constantes/constantes';
 
 const TablaDisenos = ({
     disenosFiltrar,
@@ -19,7 +20,7 @@ const TablaDisenos = ({
     }, []);
 
     
-    return anchoPantalla >= 1200 ? (
+    return anchoPantalla >= resolucionCards ? (
         <div className='tabla'>
             <div className='table-responsive'>
                 <table className='table caption-top'>
