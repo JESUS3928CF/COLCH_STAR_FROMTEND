@@ -69,7 +69,7 @@ const Login = () => {
                 >
                     <div className={`${styles.form_box} ${styles.login}`}>
                         <form>
-                            <h2>¡Bienvenido!</h2>
+                            <h2 style={{ fontWeight: 'bold' }}>¡Bienvenido!</h2>
                             <br />
                             <div className={styles.input_box}>
                                 <span className={styles.icon}>
@@ -86,7 +86,10 @@ const Login = () => {
                                 <label>Contraseña</label>
                             </div>
                             <div className={styles.button_group}>
-                                <button className={styles.btn} onClick={autenticarUsuario}>
+                                <button
+                                    className={styles.btn}
+                                    onClick={autenticarUsuario}
+                                >
                                     {' '}
                                     Iniciar sesión
                                 </button>
@@ -106,7 +109,9 @@ const Login = () => {
                     </div>
                     <div className={`${styles.form_box} ${styles.register}`}>
                         <form>
-                            <h2>Recuperar contraseña</h2>
+                            <h2 style={{ fontWeight: 'bold' }}>
+                                Recuperar contraseña
+                            </h2>
                             <p>Ingrese su correo electrónico de recuperación</p>
                             <br />
                             <div className={styles.input_box}>
