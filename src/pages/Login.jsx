@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import styles from './Login.module.css'; // Import the CSS module
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [isActivate, setIsActivate] = useState(false);
+
+
+    const navigate = useNavigate();
+
+    const autenticarUsuario = () => {
+      navigate("/administracion")
+    }
 
     return (
         <div className={styles.contenedor}>
@@ -78,7 +86,7 @@ const Login = () => {
                                 <label>Contraseña</label>
                             </div>
                             <div className={styles.button_group}>
-                                <button className={styles.btn}>
+                                <button className={styles.btn} onClick={autenticarUsuario}>
                                     {' '}
                                     Iniciar sesión
                                 </button>
