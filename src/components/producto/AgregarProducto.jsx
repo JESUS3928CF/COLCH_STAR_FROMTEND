@@ -33,7 +33,7 @@ const AgregarProducto = () => {
         });
     }, []);
 
-    
+
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
@@ -117,7 +117,7 @@ const AgregarProducto = () => {
                                                 message: 'El nombre es obligatorio',
                                             },
                                             validate: (value) => {
-                                                return (validarEspaciosVacios(value));
+                                                return validarEspaciosVacios(value);
                                             }
                                         })}
                                     />
@@ -143,7 +143,7 @@ const AgregarProducto = () => {
                                                 message: 'El cantidad es obligatorio',
                                             },
                                             validate: (value) => {
-                                                return (validarEspaciosVacios(value));
+                                                return validarEspaciosVacios(value);
                                             }
                                         })}
                                     />
@@ -170,7 +170,7 @@ const AgregarProducto = () => {
                                                 message: 'El precio es obligatorio',
                                             },
                                             validate: (value) => {
-                                                return (validarEspaciosVacios(value));
+                                                return validarEspaciosVacios(value);
                                             }
                                         })}
 

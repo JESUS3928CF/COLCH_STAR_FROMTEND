@@ -1,4 +1,3 @@
-import React from 'react'
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -10,8 +9,8 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError'
 import { useForm } from 'react-hook-form'
-import { useEffect } from 'react';
-import { validarEspaciosVacios, validarImagen } from '../../Validations/validations'
+import { useState, useEffect } from 'react';
+import { validarEspaciosVacios, validarImagen, } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 
 const EditarProducto = ({ editarProducto }) => {
@@ -25,6 +24,17 @@ const EditarProducto = ({ editarProducto }) => {
   } = useForm();
 
 
+  //estado pa las prendas 
+  const [Prendas, setPrendas] = useState([]);
+  // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+  useEffect(() => {
+    // Realizar una solicitud para obtener la lista de roles desde el servidor
+    axios.get("http://localhost:3000/api/prendas").then((response) => {
+      setPrendas(response.data); // Almacenar la lista de roles en el estado
+    });
+  }, []);
+
+
 
   //por medio de editarproveedor se traen lo que hay en el listar, y por medio del estado setvalue
   //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
@@ -34,6 +44,8 @@ const EditarProducto = ({ editarProducto }) => {
       setValue('cantidad', editarProducto.cantidad);
       setValue('precio', editarProducto.precio);
       setValue('publicado', editarProducto.publicado);
+      setValue("fk_prenda", editarProducto.fk_prenda);
+
     }
   }, [editarProducto]);
 
@@ -46,7 +58,7 @@ const EditarProducto = ({ editarProducto }) => {
 
     if (editarProducto.id_producto) {
       // ruta 
-      axios.patch(`http://localhost:3000/api/proveedores/${editarProducto.id_producto}`, {
+      axios.patch(`http://localhost:3000/api/productos/${editarProducto.id_producto}`, {
         // Campos en los que realiza el cambio
         nombre: nombre.trim(),
         cantidad: cantidad.trim(),
@@ -54,12 +66,16 @@ const EditarProducto = ({ editarProducto }) => {
         fk_prenda: fk_prenda.trim(),
         publicado: publicado,
         imagen: imagen[0]
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       })
         .then(response => {
-          console.log('Proveedor actualizado:', response.data);
+          console.log('Producto actualizado:', response.data);
           //alerta de proveedor actualizado
           Swal.fire({
-            title: 'Proveedor actualizado',
+            title: 'Producto actualizado',
             text: response.data.message,
             icon: 'success',
           }).then(() => {
@@ -67,7 +83,7 @@ const EditarProducto = ({ editarProducto }) => {
           });
         })
         .catch(error => {
-          console.error('Error al actualizar el proveedor', error);
+          console.error('Error al actualizar el Producto', error);
 
           Swal.fire({
             title: 'Error',
@@ -79,7 +95,7 @@ const EditarProducto = ({ editarProducto }) => {
 
         });
     } else {
-      console.error('No se pudo obtener el ID del proveedor');
+      console.error('No se pudo obtener el ID del Producto');
     }
   };
 
@@ -113,7 +129,7 @@ const EditarProducto = ({ editarProducto }) => {
                         message: 'El nombre es obligatorio',
                       },
                       validate: (value) => {
-                        return (validarEspaciosVacios(value));
+                        return validarEspaciosVacios(value);
                       }
                     })}
                   />
@@ -139,7 +155,7 @@ const EditarProducto = ({ editarProducto }) => {
                         message: 'El cantidad es obligatorio',
                       },
                       validate: (value) => {
-                        return (validarEspaciosVacios(value));
+                        return validarEspaciosVacios(value);
                       }
                     })}
                   />
@@ -166,7 +182,7 @@ const EditarProducto = ({ editarProducto }) => {
                         message: 'El precio es obligatorio',
                       },
                       validate: (value) => {
-                        return (validarEspaciosVacios(value));
+                        return validarEspaciosVacios(value);
                       }
                     })}
 
@@ -177,7 +193,38 @@ const EditarProducto = ({ editarProducto }) => {
                     />
                   )}
 
+                </div>
+                <div className="col-md-6 mt-2" >
+                  <label htmlFor="rol" className="col-form-label">
+                    Prenda: *
+                  </label>
+                  <select
+                    name="fk_prenda"
+                    className="form-control"
+                    {...register("fk_prenda", {
+                      required: {
+                        value: true,
+                        message: "Debe seleccionar una prenda",
+                      },
+                    })}
+                  >
+                    <option value="">Seleccionar prenda</option>
+                    {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
+                    {/* esto se guarda en name = fk_prenda */}
+                    {Prendas.map((prenda) => {
+                      return (
+                        <option key={prenda.id_prenda} value={prenda.id_prenda}>
+                          {prenda.nombre}
+                        </option>
+                      );
 
+
+                    })}
+                  </select>
+
+                  {errors.fk_prenda && (
+                    <AlertaError message={errors.fk_prenda.message} />
+                  )}
                 </div>
 
 
@@ -230,10 +277,6 @@ const EditarProducto = ({ editarProducto }) => {
                     name="imagen"
                     title="Ingrese la imagen de la prenda"
                     {...register('imagen', {
-                      required: {
-                        value: true,
-                        message: 'La imagen es obligatoria',
-                      },
                       validate: (value) => {
                         return validarImagen(value[0]);
                       }

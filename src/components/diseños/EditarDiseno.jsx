@@ -127,7 +127,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                                     className='form-control'
                                     name='imagen'
                                     type='file'
-                                    {...register('imagen', {
+                                    {...register('imagen',{
                                         validate: (value) => {
                                             return validarImagen(value[0]);
                                         },
