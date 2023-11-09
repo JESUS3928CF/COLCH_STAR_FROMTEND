@@ -64,7 +64,7 @@ const EditarProducto = ({ editarProducto }) => {
       axios.patch(`http://localhost:3000/api/productos/${editarProducto.id_producto}`, {
         // Campos en los que realiza el cambio
         nombre: nombre.trim(),
-        cantidad: cantidad,
+        cantidad: cantidad.trim(),
         precio: precio.trim(),
         fk_prenda: fk_prenda,
         publicado: publicado,
