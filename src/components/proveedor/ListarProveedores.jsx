@@ -64,10 +64,10 @@ const ListarProveedores = () => {
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
-  useEffect(() => {
-    /// Calcular el ancho de pantalla actual
-    calcularAnchoDePantalla(setAnchoPantalla);
-  }, []);
+    useEffect(() => {
+        /// Calcular el ancho de pantalla actual
+        calcularAnchoDePantalla(setAnchoPantalla);
+    }, []);
 
     return (
         <div>
