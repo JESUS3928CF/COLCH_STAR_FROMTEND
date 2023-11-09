@@ -7,7 +7,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import styles from '../../pages/proveedores.module.css';
+import style from '../../pages/proveedores.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarProveedor from './EditarProveedor';
 import Buscador from '../chared/Buscador';
@@ -17,6 +17,10 @@ import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
 import Header from '../chared/header/Header'
+import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
+import { resolucionCars } from "../../constantes/constantes.js";
+import styles from "../../css-general/CardStyleGenerar.module.css";
+
 
 
 //componente
@@ -58,6 +62,13 @@ const ListarProveedores = () => {
         setEditarProveedor(proveedor);
     };
 
+    const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+
+  useEffect(() => {
+    /// Calcular el ancho de pantalla actual
+    calcularAnchoDePantalla(setAnchoPantalla);
+  }, []);
+
     return (
         <div>
             <div className='contenedor'>
@@ -74,13 +85,13 @@ const ListarProveedores = () => {
                     <div className="row">
 
 
-                        <div className={`${styles.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+                        <div className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
                             <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
                                 proveedor</button>
                         </div>
 
                         {/* botón de buscar */}
-                        <div className={`${styles.buscador} col-md-6 col-ms-8 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+                        <div className={`${style.buscador} col-md-6 col-ms-8 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
                             <Buscador
                                 setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
@@ -92,6 +103,7 @@ const ListarProveedores = () => {
                 </div>
 
                 {/* tabla  para listar el proveedor */}
+                {anchoPantalla >= resolucionCars ? (
                 <div className="tabla">
                     <table className="table caption-top ">
 
@@ -143,12 +155,70 @@ const ListarProveedores = () => {
                         </tbody>
                     </table>
                 </div>
+                ):(<div className={`row pt-4 justify-content-center`}>
+                {ProveedoresFiltrar.map((proveedor) => (
+                  <div
+                    className={`col-md-4 col-sm-6 col-xs-12`}
+                    key={proveedor.id_proveedor}
+                  >
+                    <div className={`card mb-4 ${styles.contenedor_card}`}>
+                      <div className="card-body">
+                        <p className={styles.text}>
+                          Id: <span>{proveedor.id_proveedor}</span>
+                        </p>
+                        <p className={styles.text}>
+                          Nombre: <span>{proveedor.nombre}</span>
+                        </p>
+                        <p className={styles.text}>
+                        Teléfono: <span>{proveedor.telefono}</span>
+                        </p>
+                        <p className={styles.text}>
+                        Identificación: <span>{proveedor.tipoIdentificacion} {proveedor.identificador}</span>
+                        </p>
+    
+                        <div className="row pt-3">
+                          <div className="col justify-content-center align-items-center ">
+                            <div className="text-center">
+                              <strong className={`${styles.textoEstado}`}>
+                                {" "}
+                                Estado{" "}
+                              </strong>
+                            </div>
+                            <div className="text-center">
+                              <BotonCambioEstado
+                                id={proveedor.id_proveedor}
+                                isChecked={proveedor.estado}
+                                nombreRegistro={"proveedor"}
+                                ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-footer">
+                        <div className="row">
+                          <div
+                            className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
+                          >
+                            <BotonNegro
+                              text="Editar"
+                              modalToOpen={proveedor.estado ? "#modalEditar" : ""}
+                              onClick={() => handleEditClick(proveedor)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
                 <EditarProveedor editarProveedor={editarProveedor} />
             </div>
 
             <div className='seccion4'>
-                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setProveedoresFiltrar}
                     datos={proveedores}
