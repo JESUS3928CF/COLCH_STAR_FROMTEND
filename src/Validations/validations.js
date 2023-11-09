@@ -11,10 +11,16 @@ export function validarImagen(archivo) {
 
 ///
 export const validarEspaciosVacios = (value) => {
-    console.log(value);
     const valueArray = value.toString().split('');
 
     return valueArray.every((letra) => letra === ' ')
         ? 'No se pueden espacios vacíos'
         : true;
 };
+
+
+/// Validar booleanos
+export const validarBooleanos = (value) => {
+    if (value === true || value === false) return true;
+    return 'El estado de publicación es obligatorio';
+}

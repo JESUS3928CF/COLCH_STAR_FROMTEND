@@ -11,6 +11,7 @@ import HeaderModals from "../chared/HeaderModals";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
+  validarBooleanos,
   validarEspaciosVacios,
   validarImagen,
 } from "../../Validations/validations";
@@ -36,6 +37,8 @@ const EditarDiseno = ({ detalleDiseno }) => {
   }, [detalleDiseno]);
 
     const editarDiseno = handleSubmit(async (data) => {
+
+      console.log(data)
 
     /// Crear un form-data por que así el back puede recibir imágenes
     const formData = new FormData();
@@ -107,9 +110,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                                             value: true,
                                             message: 'El nombre es obligatorio',
                                         },
-                                        validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
+                                        validate: (value) => validarEspaciosVacios(value)
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -128,9 +129,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                                     name='imagen'
                                     type='file'
                                     {...register('imagen',{
-                                        validate: (value) => {
-                                            return validarImagen(value[0]);
-                                        },
+                                        validate: (value) =>  validarImagen(value[0])
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -149,10 +148,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                   className="form-control"
                   name="publicado"
                   {...register("publicado", {
-                    required: {
-                      value: true,
-                      message: "El estado de publicación es obligatorio",
-                    },
+                    validate: (value) =>  validarBooleanos(value)
                   })}
                   value={detalleDiseno.publicado}
                 >
