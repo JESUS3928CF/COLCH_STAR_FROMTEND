@@ -17,6 +17,8 @@ const TablaDisenos = ({
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
+
+    
     return anchoPantalla >= 1200 ? (
         <div className='tabla'>
             <div className='table-responsive'>
@@ -85,7 +87,7 @@ const TablaDisenos = ({
             </div>
         </div>
     ) : (
-        <div className={`row pt-4`}>
+        <div className={`row pt-4 justify-content-center`}>
             {disenosFiltrar.map((diseno) => (
                 <div
                     className={`col-md-4 col-sm-6 col-xs-12`}

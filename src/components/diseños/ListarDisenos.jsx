@@ -20,6 +20,7 @@ const ListarDisenos = () => {
     /// Para capturar el ancho de pantalla
 
     const [detalleDiseno, setDetalleDiseno] = useState({});
+    
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
     const LlenarInformacionModalEditar = (diseno) => {
