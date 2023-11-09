@@ -86,9 +86,7 @@ const AgregarUsuario = () => {
 
       <div className="modal" id="myModal">
         <div
-          className="modal-dialog modal-dialog-centered"
-          style={{ width: 800, marginLeft: 450 }}
-        >
+          className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="agregar agr">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -102,7 +100,7 @@ const AgregarUsuario = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="formulario">
+            <div>
               <div className="modal-body">
                 {/* <!-- formulario para agregar un usuario --> */}
                 <form

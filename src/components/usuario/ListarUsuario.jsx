@@ -8,7 +8,7 @@ import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import styles from "../../pages/Clientes.module.css";
+import style from "../../pages/Clientes.module.css";
 import BotonCambioEstado from "../chared/BotonCambioEstado";
 import EditarUsuario from "./EditarUsuario";
 import Buscador from "../chared/Buscador";
@@ -17,6 +17,9 @@ import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
 import crossing_out from "../roles/crossing_out.svg";
+import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
+import styles from "../../css-general/CardStyleGenerar.module.css";
+import { resolucionCars } from "../../constantes/constantes.js";
 
 const ListarUsuario = () => {
   //Estado de la barra de busqueda
@@ -54,16 +57,23 @@ const ListarUsuario = () => {
     setEditarUsuario(usuario);
   };
 
+  const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+
+  useEffect(() => {
+    /// Calcular el ancho de pantalla actual
+    calcularAnchoDePantalla(setAnchoPantalla);
+  }, []);
+
   return (
     <div>
-      <div className="contenedor">
+      <div>
         <Header titulo="Gestión de Usuarios" />
 
         {/* botón agregar */}
         <div className="container-fluid">
           <div className="row">
             <div
-              className={`${styles.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
+              className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
             >
               <button
                 type="button"
@@ -77,7 +87,7 @@ const ListarUsuario = () => {
 
             {/* Boton para Buscar/filtrar */}
             <div
-              className={`${styles.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
+              className={`${style.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
             >
               {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
               <Buscador
@@ -88,9 +98,8 @@ const ListarUsuario = () => {
             </div>
           </div>
         </div>
-
         {/* tabla  para listar usuarios */}
-        <div className="tabla">
+        {anchoPantalla >= resolucionCars ? (<div className="tabla">
           <table className="table caption-top ">
             <thead>
               <tr>
@@ -142,6 +151,79 @@ const ListarUsuario = () => {
             </tbody>
           </table>
         </div>
+        ):(<div className={`row pt-4 justify-content-center`}>
+        {usuariosFiltrar.map((usuario) => (
+          <div
+            className={`col-md-4 col-sm-6 col-xs-12`}
+            key={usuario.id_usuario}
+          >
+            <div className={`card mb-4 ${styles.contenedor_card}`}>
+              <div className="card-body">
+                <p className={styles.text}>
+                  Id: <span>{usuario.id_usuario}</span>
+                </p>
+                <p className={styles.text}>
+                  Nombres: <span>{usuario.nombre}</span>
+                </p>
+                <p className={styles.text}>
+                  Apellidos: <span>{usuario.apellido}</span>
+                </p>
+                <p className={styles.text}>
+                  Teléfono: <span>{usuario.telefono}</span>
+                </p>
+                <p className={styles.text}>
+                  Email: <span>{usuario.email}</span>
+                </p>
+                <p className={styles.text}>
+                  Rol: <span>{usuario.rol ? usuario.rol.nombre : "N/A"}</span>
+                </p>
+
+                <div className="row pt-3">
+                  <div className="col justify-content-start align-items-center ">
+                    <div className="">
+                      <strong className={`${styles.textoEstado}`}>
+                        {" "}
+                        Estado{" "}
+                      </strong>
+                    </div>
+                    <div className="">
+                    {usuario.rol && usuario.rol.nombre === "Administrador" ? (
+                      <img
+                        width="50px"
+                        src={crossing_out}
+                        alt="No permitido"
+                        style={{ marginLeft: "18px" }}
+                      />
+                    ) : (
+                      <BotonCambioEstado
+                        id={usuario.id_usuario}
+                        isChecked={usuario.estado}
+                        nombreRegistro={"usuario"}
+                        ruta={`/usuarios/estado/${usuario.id_usuario}`}
+                      />
+                    )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-footer">
+                <div className="row">
+                  <div
+                    className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
+                  >
+                    <BotonNegro
+                      text="Editar"
+                      modalToOpen={usuario.estado ? "#modalEditar" : ""}
+                      onClick={() => handleEditClick(usuario)}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
         <EditarUsuario editarUsuario={editarUsuario} />
       </div>
 
