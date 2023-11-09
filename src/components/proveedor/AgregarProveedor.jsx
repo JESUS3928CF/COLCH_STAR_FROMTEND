@@ -33,7 +33,7 @@ const AgregarProveedor = () => {
 
         const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
-        
+
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
@@ -47,7 +47,7 @@ const AgregarProveedor = () => {
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
-           
+
             // Lanzar alerta del producto agregado
             Swal.fire({
                 title: 'Proveedor agregado',
@@ -56,7 +56,7 @@ const AgregarProveedor = () => {
             }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
                 location.reload(); //  recarga la pagina
             });
-            
+
         } catch (err) {
             console.log(err)
 
@@ -77,10 +77,10 @@ const AgregarProveedor = () => {
                     text: "Hubo un error",
                     icon: 'error',
 
-                }).then(() => { 
-                    location.reload(); 
+                }).then(() => {
+                    location.reload();
                 });
-            }          
+            }
         }
     }
 
@@ -91,7 +91,7 @@ const AgregarProveedor = () => {
                 <div className="modal-dialog modal-dialog-centered ">
                     <div className="modal-content">
                         <HeaderModals title={'Agregar Proveedor'} />
-                        
+
                         <div className="modal-body">
 
                             {/* formulario para agregar proveedor */}
@@ -104,49 +104,54 @@ const AgregarProveedor = () => {
                                     </label>
 
                                     <br />
-
-                                    <div className={styles.identi}>
-
-                                        <select style={{ width: 80, height: 40 }} id="tipoIdentificacion" 
-                                        {...register('tipoIdentificacion', {
-                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
-                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
-                                            }
-                                        })}>
-                                            {/* <option value="">.</option> */}
-                                            <option value="C.C. ">C.C.</option>
-                                            <option value="NIT. ">NIT.</option>
-                                            <option value="C.E. ">C.E. </option>
-
-                                        </select>
+                                    <div className="row">
+                                        <div className="col-md-2">
 
 
-                                        <input type="text" className="form-control "
-                                            id={styles.identificacionGuardar}
-                                            name="identificador"
-                                            placeholder=". . ."
-                                            //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
-                                            //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
-                                            {...register('identificador', {
-                                                required: {          // Es una propiedad que indica que el campo es obligatorio. 
-                                                    value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                                    message: 'La Identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
-                                                },
-                                                pattern: {
-                                                    value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
-                                                    message: "No puede contener Letras ni  espacios en blanco"
-                                                },
-                                                validate: (value) => {
-                                                    if (value.length < 6 || value.length > 11) {
-                                                      return 'La Identificación debe tener entre 6 y 11 dígitos';
+
+                                            <select style={{ width: 80, height: 40 }} id="tipoIdentificacion"
+                                                {...register('tipoIdentificacion', {
+                                                    required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                        value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                        message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                                     }
-                                                    return true; // La validación pasa si cumple ambas condiciones
-                                                  },
+                                                })}>
+                                                {/* <option value="">.</option> */}
+                                                <option value="C.C. ">C.C.</option>
+                                                <option value="NIT. ">NIT.</option>
+                                                <option value="C.E. ">C.E. </option>
+
+                                            </select>
+                                        </div>
+                                        <div className="col-md-10">
 
 
-                                            })}
-                                        />
+                                            <input type="text" className="form-control "
+                                                id='identificacionGuardar'
+                                                name="identificador"
+                                                placeholder=". . ."
+                                                //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
+                                                //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                                                {...register('identificador', {
+                                                    required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                        value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                        message: 'La Identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                                    },
+                                                    pattern: {
+                                                        value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
+                                                        message: "No puede contener Letras ni  espacios en blanco"
+                                                    },
+                                                    validate: (value) => {
+                                                        if (value.length < 6 || value.length > 11) {
+                                                            return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                        }
+                                                        return true; // La validación pasa si cumple ambas condiciones
+                                                    },
+
+
+                                                })}
+                                            />
+                                        </div>
                                         {errors.identificador && (
                                             <AlertaError message={errors.identificador.message} /> //muestra el mensaje de validacion
                                         )}
@@ -210,10 +215,10 @@ const AgregarProveedor = () => {
                                             validate: (value) => {
                                                 const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
                                                 if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
-                                                  return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                    return 'El telefono debe tener minimo 7 digitos y maximo 12';
                                                 }
                                                 return true;
-                                              },
+                                            },
 
                                         })}
                                     />
@@ -236,8 +241,9 @@ const AgregarProveedor = () => {
                                         name="direccion"
                                         placeholder=". . ."
                                         {...register('direccion', {
-                                            required: {value: true,
-                                                message:'La Dirección es obligatoria',
+                                            required: {
+                                                value: true,
+                                                message: 'La Dirección es obligatoria',
                                             },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(value);
@@ -253,7 +259,7 @@ const AgregarProveedor = () => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal   modalToCancel="myModal"/>
+                                    <CancelarModal modalToCancel="myModal" />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />
