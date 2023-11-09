@@ -25,7 +25,7 @@ const AgregarProducto = () => {
         //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { nombre, cantidad, precio, fk_prenda, imagen } = data
+        const { nombre, cantidad, precio, fk_prenda, imagen, publicado } = data
 
 
         try {

@@ -176,7 +176,7 @@ const ListarCliente = () => {
                       Id: <span>{cliente.id_cliente}</span>
                     </p>
                     <p className={styles.text}>
-                      Identificación: <span>{cliente.identificacion}</span>
+                      Identificación: <span>{cliente.tipoIdentificacion} {cliente.identificacion}</span>
                     </p>
                     <p className={styles.text}>
                       Nombres: <span>{cliente.nombre}</span>
