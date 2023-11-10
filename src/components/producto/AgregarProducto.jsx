@@ -234,7 +234,6 @@ const AgregarProducto = () => {
 
                                     <select
                                         name="publicado"
-                                        id=""
                                         className={`form-control ${style.customerr}`}
                                         title="Seleccione una opcion"
                                         {...register('publicado', {
@@ -242,11 +241,11 @@ const AgregarProducto = () => {
                                                 value: true,
                                                 message:
                                                     'El estado de publicación es obligatorio',
-                                            }
+                                            },
                                         })}
                                     >
 
-                                        <option value="Seleccione una opcion" >
+                                        <option value="" >
                                             Selecciona una opcion
                                         </option>
                                         <option value="true">Si</option>
