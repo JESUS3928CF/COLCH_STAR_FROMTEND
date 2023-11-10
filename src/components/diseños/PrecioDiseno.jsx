@@ -39,11 +39,9 @@ const PrecioDiseno = () => {
     const actualizarPrecio = handleSubmit(async (data) => {
 
         try {
-            const res = await clienteAxios.put(`/precio_disenos/${data.id_precio}`, {
-                precio: data.precio,
+            const res = await clienteAxios.put(`/precio_disenos/${data?.id_precio}`, {
+                precio: data?.precio,
             });
-
-            console.log(res);
 
             // Lanzar alerta del producto agregado
             Swal.fire({
