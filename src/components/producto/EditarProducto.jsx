@@ -65,7 +65,7 @@ const EditarProducto = ({ editarProducto }) => {
         // Campos en los que realiza el cambio
         nombre: nombre.trim(),
         cantidad: cantidad,
-        precio: precio.trim(),
+        precio: precio,
         fk_prenda: fk_prenda,
         publicado: publicado,
         imagen: imagen[0]
@@ -112,7 +112,7 @@ const EditarProducto = ({ editarProducto }) => {
         <div className="modal-dialog modal-dialog-centered modal-lg ">
           <div className="modal-content">
 
-            <HeaderModals title={'Agregar Producto'} />
+            <HeaderModals title={'Editar Producto'} />
 
             <div className="modal-body">
 
@@ -189,7 +189,7 @@ const EditarProducto = ({ editarProducto }) => {
                         message: 'El precio es obligatorio',
                       },
                       pattern: {
-                        value: /^\d+$/,
+                        value: /^\d+(\.\d+)?$/,
                         message: "No puede contener Letras ni espacios en blanco"
                     },
                       validate: (value) => {

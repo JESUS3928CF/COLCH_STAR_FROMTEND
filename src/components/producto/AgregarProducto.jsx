@@ -174,7 +174,7 @@ const AgregarProducto = () => {
                                                 message: 'El precio es obligatorio',
                                             },
                                             pattern: {
-                                                value: /^\d+$/,
+                                                value: /^\d+(\.\d+)?$/,
                                                 message: "No puede contener Letras ni espacios en blanco"
                                             },
                                             validate: (value) => {

@@ -149,7 +149,7 @@ const ListarProducto = () => {
                       <BotonCambioEstado
                         id={producto.id_producto}
                         isChecked={producto.estado}
-                        nombreRegistro={'producto'}
+                        nombreRegistro={'productos'}
                         ruta={`/productos/estado/${producto.id_producto}`}
                       />
                     </td>
