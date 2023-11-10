@@ -142,6 +142,10 @@ const AgregarProducto = () => {
                                                 value: true,
                                                 message: 'El cantidad es obligatorio',
                                             },
+                                            pattern: {
+                                                value: /^\d+$/,
+                                                message: "No puede contener Letras ni espacios en blanco"
+                                            },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(value);
                                             }
@@ -168,6 +172,10 @@ const AgregarProducto = () => {
                                             required: {
                                                 value: true,
                                                 message: 'El precio es obligatorio',
+                                            },
+                                            pattern: {
+                                                value: /^\d+$/,
+                                                message: "No puede contener Letras ni espacios en blanco"
                                             },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(value);
