@@ -1,6 +1,6 @@
 // ------------------JESÚS ANTONIO COCHERO FLORIÁN
 //-------------------26 de septiembre 2023
-//Nos permitira Editar un diseño, luego de tener diseños en la tabla listar, se le podra hacer sus repectivas modificaciones
+//Nos permitirá Editar un diseño, luego de tener diseños en la tabla listar, se le podrá hacer sus respectivas modificaciones
 // a dichos diseños
 
 import PropTypes from "prop-types";
@@ -11,6 +11,7 @@ import HeaderModals from "../chared/HeaderModals";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
+  validarBooleanos,
   validarEspaciosVacios,
   validarImagen,
 } from "../../Validations/validations";
@@ -39,9 +40,9 @@ const EditarDiseno = ({ detalleDiseno }) => {
 
     /// Crear un form-data por que así el back puede recibir imágenes
     const formData = new FormData();
-    formData.append("nombre", data.nombre.trim());
-    formData.append("publicado", data.publicado);
-    formData.append("imagen", data.imagen[0]);
+    formData.append("nombre", data?.nombre.trim());
+    formData.append("publicado", data?.publicado);
+    formData.append("imagen", data?.imagen[0]);
 
     /// editar el diseño
     try {
@@ -75,9 +76,6 @@ const EditarDiseno = ({ detalleDiseno }) => {
     }
   });
 
-
-    
-
     return (
         <div className='modal' id='modalDiseño'>
             <div className='modal-dialog modal-dialog-centered'>
@@ -107,9 +105,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                                             value: true,
                                             message: 'El nombre es obligatorio',
                                         },
-                                        validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
+                                        validate: (value) => validarEspaciosVacios(value)
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -128,9 +124,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                                     name='imagen'
                                     type='file'
                                     {...register('imagen',{
-                                        validate: (value) => {
-                                            return validarImagen(value[0]);
-                                        },
+                                        validate: (value) =>  validarImagen(value[0])
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -149,14 +143,11 @@ const EditarDiseno = ({ detalleDiseno }) => {
                   className="form-control"
                   name="publicado"
                   {...register("publicado", {
-                    required: {
-                      value: true,
-                      message: "El estado de publicación es obligatorio",
-                    },
+                    validate: (value) =>  validarBooleanos(value)
                   })}
                   value={detalleDiseno.publicado}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Selecciona una opción
                   </option>
                   <option value="true">Si</option>

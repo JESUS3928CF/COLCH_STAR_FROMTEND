@@ -28,9 +28,14 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     >
                                                         {' '}
                                                         <img
-                                                            src={`${import.meta.env
-                                                                .VITE_BACKEND_URL
-                                                                }/${editarProducto.imagen}`}
+                                                            src={
+                                                                editarProducto.imagen
+                                                                    ? `${import.meta.env
+                                                                        .VITE_BACKEND_URL
+                                                                    }/${editarProducto.imagen
+                                                                    }`
+                                                                    : ''
+                                                            }
                                                             alt={editarProducto.nombre}
                                                             title='Ver Imagen Completa'
                                                         />
@@ -45,9 +50,14 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     >
                                                         {' '}
                                                         <img
-                                                            src={`${import.meta.env
-                                                                .VITE_BACKEND_URL
-                                                                }/${editarProducto.imagen}`}
+                                                            src={
+                                                                editarProducto.imagen
+                                                                    ? `${import.meta.env
+                                                                        .VITE_BACKEND_URL
+                                                                    }/${editarProducto.imagen
+                                                                    }`
+                                                                    : ''
+                                                            }
                                                             alt={editarProducto.nombre}
                                                             title='Ver Imagen Completa'
                                                         />
@@ -62,12 +72,19 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     >
                                                         {' '}
                                                         <img
-                                                            src={`${import.meta.env
-                                                                .VITE_BACKEND_URL
-                                                                }/${editarProducto.prenda && editarProducto.prenda.imagen}`}
+                                                            src={
+                                                                editarProducto.imagen
+                                                                    ? `${import.meta.env
+                                                                        .VITE_BACKEND_URL
+                                                                    }/${editarProducto.prenda && editarProducto.prenda.imagen
+                                                                    }`
+                                                                    : ''
+                                                            }
                                                             alt={editarProducto.nombre}
                                                             title='Ver Imagen Completa'
                                                         />
+
+
                                                     </a>
                                                 </div>
 

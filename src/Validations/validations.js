@@ -17,3 +17,10 @@ export const validarEspaciosVacios = (value) => {
         ? 'No se pueden espacios vacíos'
         : true;
 };
+
+
+/// Validar booleanos
+export const validarBooleanos = (value) => {
+    if (value === true || value === false) return true;
+    return 'El estado de publicación es obligatorio';
+}
