@@ -10,7 +10,7 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError'
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react';
-import { validarEspaciosVacios, validarImagen, } from '../../Validations/validations'
+import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 
 
@@ -247,7 +247,6 @@ const EditarProducto = ({ editarProducto }) => {
 
                   <select
                     name="publicado"
-                    id=""
                     className={`form-control ${style.customerr}`}
                     title="Seleccione una opcion"
                     {...register('publicado', {
