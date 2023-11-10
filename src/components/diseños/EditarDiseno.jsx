@@ -1,6 +1,6 @@
 // ------------------JESÚS ANTONIO COCHERO FLORIÁN
 //-------------------26 de septiembre 2023
-//Nos permitira Editar un diseño, luego de tener diseños en la tabla listar, se le podra hacer sus repectivas modificaciones
+//Nos permitirá Editar un diseño, luego de tener diseños en la tabla listar, se le podrá hacer sus respectivas modificaciones
 // a dichos diseños
 
 import PropTypes from "prop-types";
@@ -38,13 +38,11 @@ const EditarDiseno = ({ detalleDiseno }) => {
 
     const editarDiseno = handleSubmit(async (data) => {
 
-      console.log(data)
-
     /// Crear un form-data por que así el back puede recibir imágenes
     const formData = new FormData();
-    formData.append("nombre", data.nombre.trim());
-    formData.append("publicado", data.publicado);
-    formData.append("imagen", data.imagen[0]);
+    formData.append("nombre", data?.nombre.trim());
+    formData.append("publicado", data?.publicado);
+    formData.append("imagen", data?.imagen[0]);
 
     /// editar el diseño
     try {
@@ -77,9 +75,6 @@ const EditarDiseno = ({ detalleDiseno }) => {
       }).then(location.reload());
     }
   });
-
-
-    
 
     return (
         <div className='modal' id='modalDiseño'>
@@ -152,7 +147,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                   })}
                   value={detalleDiseno.publicado}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Selecciona una opción
                   </option>
                   <option value="true">Si</option>

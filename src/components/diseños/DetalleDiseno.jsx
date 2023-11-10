@@ -29,10 +29,16 @@ export const DetalleDiseno = ({ detalleDiseno }) => {
                                         >
                                             {' '}
                                             <img
-                                                src={`${
-                                                    import.meta.env
-                                                        .VITE_BACKEND_URL
-                                                }/${detalleDiseno.imagen}`}
+                                                src={
+                                                    detalleDiseno.imagen
+                                                        ? `${
+                                                              import.meta.env
+                                                                  .VITE_BACKEND_URL
+                                                          }/${
+                                                              detalleDiseno.imagen
+                                                          }`
+                                                        : ''
+                                                }
                                                 alt={detalleDiseno.nombre}
                                                 title='Ver Imagen Completa'
                                             />

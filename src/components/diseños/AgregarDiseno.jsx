@@ -26,8 +26,6 @@ const AgregarDiseno = () => {
 
 
     const guardarDiseno = handleSubmit( async (data) => {
-        console.log(data);
-
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
         formData.append('nombre', data.nombre.trim());
@@ -41,8 +39,6 @@ const AgregarDiseno = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
-            console.log(res)
 
             // Lanzar alerta del producto agregado
             Swal.fire({
