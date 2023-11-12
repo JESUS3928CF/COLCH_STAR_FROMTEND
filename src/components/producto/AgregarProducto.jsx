@@ -35,13 +35,19 @@ const AgregarProducto = () => {
 
 
 
-
     //estado pa las prendas 
     const [detalle_diseno, setdetalle_diseno] = useState([]);
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+    // useEffect(() => {
+    //     // Realizar una solicitud para obtener la lista de roles desde el servidor
+    //     axios.get("http://localhost:3000/api/detalle_diseno").then((response) => {
+    //         setdetalle_diseno(response.data); // Almacenar la lista de roles en el estado
+    //     });
+    // }, []);
+
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios.get("http://localhost:3000/api/detalle_diseno").then((response) => {
+        axios.get("http://localhost:3000/api/disenos").then((response) => {
             setdetalle_diseno(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
@@ -260,18 +266,18 @@ const AgregarProducto = () => {
                                         }}
                                     >
                                         <option value="">Seleccionar prenda</option>
-                                        {detalle_diseno.map((detalle) => (
+                                        {detalle_diseno.map((diseno) => (
                                             <option
-                                                key={detalle.id_detalle_diseno}
-                                                value={detalle.id_detalle_diseno}
+                                                key={diseno.id_diseno}
+                                                value={diseno.id_diseno}
                                             >
-                                                {detalle.fk_diseno }
+                                                {diseno.nombre }
                                             </option>
                                         ))}
                                     </select>
 
-                                    {errors.fk_detalle_diseno && (
-                                        <AlertaError message={errors.fk_detalle_diseno.message} />
+                                    {errors.diseno && (
+                                        <AlertaError message={errors.diseno.message} />
                                     )}
                                 </div>
 

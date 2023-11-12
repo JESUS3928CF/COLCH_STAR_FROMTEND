@@ -45,7 +45,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Diseño:</h2>
                                                     <a
                                                         href={`${import.meta.env.VITE_BACKEND_URL
-                                                            }/${editarProducto.imagen}`}
+                                                            }/${editarProducto.disenos && editarProducto.disenos.imagen}`}
                                                         className={styles.contenedor_imagen}
                                                     >
                                                         {' '}
