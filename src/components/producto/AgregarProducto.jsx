@@ -35,10 +35,25 @@ const AgregarProducto = () => {
 
 
 
+
+    //estado pa las prendas 
+    const [detalle_diseno, setdetalle_diseno] = useState([]);
+    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+    useEffect(() => {
+        // Realizar una solicitud para obtener la lista de roles desde el servidor
+        axios.get("http://localhost:3000/api/detalle_diseno").then((response) => {
+            setdetalle_diseno(response.data); // Almacenar la lista de roles en el estado
+        });
+    }, []);
+
+   
+
+
+
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { nombre, cantidad, precio, fk_prenda, imagen, publicado } = data
+        const { nombre, cantidad, precio, fk_prenda, imagen, publicado, fk_detalle_diseno } = data
 
 
         try {
@@ -49,6 +64,7 @@ const AgregarProducto = () => {
                 cantidad: cantidad.trim(),
                 precio: precio.trim(),
                 fk_prenda: fk_prenda.trim(),
+                fk_detalle_diseno: fk_detalle_diseno.trim(),
                 publicado: publicado,
                 imagen: imagen[0]
 
@@ -223,6 +239,39 @@ const AgregarProducto = () => {
 
                                     {errors.fk_prenda && (
                                         <AlertaError message={errors.fk_prenda.message} />
+                                    )}
+                                </div>
+
+                                <div className="col-md-6 mt-2" >
+                                    <label htmlFor="rol" className="col-form-label">
+                                        Prenda: *
+                                    </label>
+                                    <select
+                                        name="fk_detalle_diseno"
+                                        className="form-control"
+                                        {...register("fk_detalle_diseno", {
+                                            required: {
+                                                value: true,
+                                                message: "Debe seleccionar una prenda",
+                                            },
+                                        })}
+                                        onChange={(e) => {
+                                           
+                                        }}
+                                    >
+                                        <option value="">Seleccionar prenda</option>
+                                        {detalle_diseno.map((detalle) => (
+                                            <option
+                                                key={detalle.id_detalle_diseno}
+                                                value={detalle.id_detalle_diseno}
+                                            >
+                                                {detalle.fk_diseno }
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    {errors.fk_detalle_diseno && (
+                                        <AlertaError message={errors.fk_detalle_diseno.message} />
                                     )}
                                 </div>
 
