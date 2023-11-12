@@ -8,13 +8,31 @@ import {
 } from '../../Validations/validations';
 import Swal from 'sweetalert2';
 import AlertaError from '../chared/AlertaError';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const AgregarPrendas = () => {
+
+    const [Tallas, setTalla]= useState([]);
+    const [Colors,setColors]=useState([]);
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    useEffect(()=>{
+        axios.get("http://localhost:3000/api/colors").then((res)=>{
+            setColors(res.data)
+        })
+    },[])
+
+    useEffect(()=>{
+        axios.get("http://localhost:3000/api/tallas").then((response)=>{
+            setTalla(response.data)
+        });
+    },[])
 
     const guardarPrenda = handleSubmit(async (data) => {
         const formData = new FormData();
@@ -25,6 +43,10 @@ const AgregarPrendas = () => {
         formData.append('genero', data.genero.trim());
         formData.append('publicado', data.publicado);
         formData.append('imagen', data.imagen[0]);
+        formData.append('Talla',data.talla);
+        formData.append('color',data.colores);
+
+        console.log(guardarPrenda)
 
         try {
             const res = await clienteAxios.post('/prendas', formData, {
@@ -54,7 +76,7 @@ const AgregarPrendas = () => {
     return (
         <div>
             <div className='modal' id='myModal'>
-                <div className='modal-dialog modal-dialog-centered modal-lg '>
+                <div className='modal-dialog modal-dialog-centered modal-lg ' style={{marginLeft: 350  }}>
                     <div className='modal-content'>
                         <div className='agregar agr'>
                             <h5 className='modal-title' id='exampleModalLabel'>
@@ -268,7 +290,7 @@ const AgregarPrendas = () => {
                                         )}
 
                                         <option
-                                            value='Seleccione una opcion'
+                                            value=''
                                             disabled={true}
                                         >
                                             Selecciona una opcion
@@ -277,6 +299,81 @@ const AgregarPrendas = () => {
                                         <option value='false'>No</option>
                                     </select>
                                 </div>
+
+                                <div className='col-md-6' name='Publicado'>
+                                    <label
+                                        htmlFor='Publicar'
+                                        className='col-form-control'
+                                    >
+                                        Talla
+                                    </label>
+
+                                    <select
+                                        name='Talla'
+                                        id=''
+                                        className='form-control'
+                                        title='Seleccione una opcion'
+                                        {...register('Talla', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'La talla es obligatoria',
+                                            },
+                                        })}
+                                    >
+                                        <option
+                                            value=''
+                                        >
+                                            Selecciona una opcion
+                                        </option>
+                                        {Tallas.map((talla)=>{
+                                            return(
+                                                <option key={talla.id_prenda_talla} value={talla.id_prenda_talla}>
+                                                    {talla.talla}
+                                                </option>
+                                            )
+                                        })}
+            
+                                    </select>
+                                </div>
+
+                                <div className='col-md-6' name='Publicado'>
+                                    <label
+                                        htmlFor='Publicar'
+                                        className='col-form-control'
+                                    >
+                                        Colores
+                                    </label>
+
+                                    <select
+                                        name='color'
+                                        id=''
+                                        className='form-control'
+                                        title='Seleccione una opcion'
+                                        {...register('color', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'El color es obligatorio',
+                                            },
+                                        })}
+                                    >
+                                        <option
+                                            value=''
+                                        >
+                                            Selecciona una opcion
+                                        </option>
+                                        {Colors.map((colors)=>{
+                                            return(
+                                                <option key={colors.id_color} value={colors.id_color}>
+                                                    {colors.color}
+                                                </option>
+                                            )
+                                        })}
+            
+                                    </select>
+                                </div>
+
 
                                 <div className='mb-3' name='Archivo'>
                                     <label
@@ -309,6 +406,9 @@ const AgregarPrendas = () => {
                                         />
                                     )}
                                 </div>
+
+                               
+                                
 
                                 <div className='modal-footer'>
                                     <CancelarModal />

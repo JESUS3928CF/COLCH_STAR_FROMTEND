@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../../pages/proveedores.module.css";
+import style from "../../pages/proveedores.module.css";
 import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
@@ -12,6 +12,8 @@ import Buscador from "../chared/Buscador";
 import clienteAxios from "../../config/axios";
 import Paginador from "../chared/Paginador";
 import Swal from "sweetalert2";
+import Header from "../chared/header/Header";
+
 
 export const ListarPrendas = () => {
   // conexión para traer todos los datos de la base de datos
@@ -41,43 +43,49 @@ export const ListarPrendas = () => {
 
   return (
     <>
-      <div>
-
-
-        <div className="contenedor">
+      <div>   
+      <Header titulo='Gestión de Prendas' />
+  
         
-          <h1 className="titulo"> Prendas</h1>
+      <div className='container-fluid'>
+                  <div className='row'>
+                      <div
+                          className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
+                      >
+                          <button
+                              type='button'
+                              className='btn-a'
+                              data-bs-toggle='modal'
+                              data-bs-target='#myModal'
+                          >
+                              Agregar Prenda
+                          </button>
+                      </div>
 
-          
-
-          {/* {boton de agregar */}
-          <div className="container-fluid seccion3" style={{ width: 0 }}>
-               {/* boton de buscar */}
-
-          <div className="seccion3">
-            <Buscador
-              setDatosFiltrar={setprendasFiltrar}
-              datos={Prendas}
-              camposFiltrar={['nombre']}
-            />
-          </div>
-           
-            <div className={styles.ap}>
-              <button
-                type="button"
-                className="btn-a"
-                data-bs-toggle="modal"
-                data-bs-target="#myModal"
-              >
-                Agregar Prendas
-              </button>
-            </div>
-          </div>
+                      {/* Boton para Buscar/filtrar */}
+                      <div
+                          className={`${style.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
+                      >
+                          {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                          <Buscador
+                              setDatosFiltrar={setprendasFiltrar}
+                              datos={Prendas}
+                              camposFiltrar={[
+                                  'nombre',
+                                  
+                                  
+                              ]}
+                          />
+                      </div>
+                  </div>
+              </div>
+        
+      
 
        
 
           {/* tabla de prendas */}
-
+          
           <div className="tabla">
             <table className="table caption-top">
               {/* lista de prendas */}
@@ -150,7 +158,6 @@ export const ListarPrendas = () => {
               </tbody>
             </table>
           </div>
-        </div>
         <div className="seccion4">
           {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
           <Paginador setDatosFiltrar={setprendasFiltrar} datos={Prendas} />
