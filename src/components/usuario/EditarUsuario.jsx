@@ -15,30 +15,36 @@ import { useForm } from "react-hook-form";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
 
-//Componente
 const EditarUsuario = ({ editarUsuario }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue, // Añade esta función para actualizar dinámicamente los valores
+    setValue,
   } = useForm();
-  const idAdministrador = 1;
   const [roles, setRoles] = useState([]);
+  const [idAdministrador, setIdAdministrador] = useState(null);
+  const [esAdministrador, setEsAdministrador] = useState(false);
 
   useEffect(() => {
-    // Realiza una solicitud GET a tu API para obtener los roles
     axios
       .get("http://localhost:3000/api/rol")
       .then((response) => {
-        setRoles(response.data); // Actualiza el estado con la lista de roles
+        setRoles(response.data);
+
+        const administrador = response.data.find(
+          (rol) => rol.nombre === "Administrador"
+        );
+
+        if (administrador) {
+          setIdAdministrador(administrador.id_rol);
+        }
       })
       .catch((error) => {
         console.error("Error al obtener los roles", error);
       });
   }, []);
 
-    // Cuando editarUsuario cambia, actualiza los valores del formulario
   useEffect(() => {
     if (editarUsuario) {
       setValue("nombre", editarUsuario.nombre);
@@ -46,17 +52,14 @@ const EditarUsuario = ({ editarUsuario }) => {
       setValue("telefono", editarUsuario.telefono);
       setValue("email", editarUsuario.email);
       setValue("fk_rol", editarUsuario.fk_rol);
+
+      setEsAdministrador(editarUsuario.fk_rol === idAdministrador);
     }
-  }, [editarUsuario]);
+  }, [editarUsuario, idAdministrador]);
 
-  const esAdministrador =
-  editarUsuario && editarUsuario.fk_rol === idAdministrador;
-
-    /// Función para guardar el cliente en la DB
   const onSubmit = (data) => {
     const { nombre, apellido, telefono, email, fk_rol } = data;
 
-        // Ruta
     if (editarUsuario.id_usuario) {
       axios
         .patch(
@@ -104,7 +107,7 @@ const EditarUsuario = ({ editarUsuario }) => {
 
   return (
     <div>
-          {/* modal de editar usuarios */}
+      {/* modal de editar usuarios */}
       <div className="modal" id="modalEditar">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -137,15 +140,16 @@ const EditarUsuario = ({ editarUsuario }) => {
                     //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                     //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                     {...register("nombre", {
-                      required: {  // Es una propiedad que indica que el campo es obligatorio. 
-                        value: true,  // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                        message: "El nombre es obligatorio",  // es un mensaje que se mostrará si la validación falla.
+                      required: {
+                        // Es una propiedad que indica que el campo es obligatorio.
+                        value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                        message: "El nombre es obligatorio", // es un mensaje que se mostrará si la validación falla.
                       },
                       validate: (value) => {
                         return validarEspaciosVacios(value);
                       },
                       pattern: {
-                        value: /^[A-Za-z\s]+$/,
+                          value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                         message:
                           "El nombre no puede contener números ni caracteres especiales",
                       },
@@ -174,7 +178,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                         return validarEspaciosVacios(value);
                       },
                       pattern: {
-                        value: /^[A-Za-z\s]+$/,
+                        value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                         message:
                           "El apellido no puede contener números ni caracteres especiales",
                       },
@@ -262,6 +266,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                           message: "Debe seleccionar un rol",
                         },
                       })}
+                      onChange={(e) => setSelectedRol(e.target.value)}
                     >
                       <option value="">Seleccionar rol</option>
                       {roles.map((rol) => {
@@ -280,6 +285,7 @@ const EditarUsuario = ({ editarUsuario }) => {
                     )}
                   </div>
                 )}
+
                 <div className="modal-footer">
                   <CancelarModal />
                   <GuardarModal />
