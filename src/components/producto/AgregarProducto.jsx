@@ -99,11 +99,6 @@ const AgregarProducto = () => {
     }
 
 
-    const [selectedDesigns, setSelectedDesigns] = useState([]);
-    const [selectedDesignPrices, setSelectedDesignPrices] = useState([]);
-
-
-
 
     return (
         <div>

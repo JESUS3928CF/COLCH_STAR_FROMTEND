@@ -12,8 +12,8 @@ import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
-
-
+import BotonNegro from '../chared/BotonNegro'
+import AgregarDisenoModal from './AgregarDisenoModal'
 
 
 const EditarProducto = ({ editarProducto }) => {
@@ -160,7 +160,7 @@ const EditarProducto = ({ editarProducto }) => {
                       pattern: {
                         value: /^\d+$/,
                         message: "No puede contener Letras ni espacios en blanco"
-                    },
+                      },
                       validate: (value) => {
                         return validarEspaciosVacios(value);
                       }
@@ -191,7 +191,7 @@ const EditarProducto = ({ editarProducto }) => {
                       pattern: {
                         value: /^\d+(\.\d+)?$/,
                         message: "No puede contener Letras ni espacios en blanco"
-                    },
+                      },
                       validate: (value) => {
                         return validarEspaciosVacios(value);
                       }
@@ -310,6 +310,12 @@ const EditarProducto = ({ editarProducto }) => {
 
 
                 <div className="modal-footer">
+                  {/* <div className={style.bottonDiseno} >
+                    <BotonNegro
+                      text='Agregar Diseño'
+                      modalToOpen={'#myModalDiseno'}
+                    />
+                  </div> */}
 
                   <CancelarModal modalToCancel="modalEditar" />
                   <GuardarModal />
@@ -319,6 +325,7 @@ const EditarProducto = ({ editarProducto }) => {
           </div>
         </div>
       </div>
+      {/* <AgregarDisenoModal /> */}
 
     </div>
   )
