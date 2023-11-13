@@ -19,7 +19,7 @@ import { useDisenosContext } from '../../../context/disenosProvider';
 const AgregarProducto = () => {
 
 
-    
+
     const { disenos } = useDisenosContext();
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -38,36 +38,6 @@ const AgregarProducto = () => {
             setPrendas(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
-
-
-
-    //estado pa las prendas 
-    const [detalle_diseno, setdetalle_diseno] = useState([]);
-    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
-    // useEffect(() => {
-    //     // Realizar una solicitud para obtener la lista de roles desde el servidor
-    //     axios.get("http://localhost:3000/api/detalle_diseno").then((response) => {
-    //         setdetalle_diseno(response.data); // Almacenar la lista de roles en el estado
-    //     });
-    // }, []);
-
-    useEffect(() => {
-        // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios.get("http://localhost:3000/api/disenos").then((response) => {
-            setdetalle_diseno(response.data); // Almacenar la lista de roles en el estado
-        });
-    }, []);
-
-
-    const [Precio, setPrecio] = useState([]);
-    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
-    useEffect(() => {
-        // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios.get("http://localhost:3000/api/precio_diseno").then((response) => {
-            setPrecio(response.data); // Almacenar la lista de roles en el estado
-        });
-    }, []);
-
 
 
 
@@ -128,7 +98,7 @@ const AgregarProducto = () => {
         }
     }
 
-    
+
     const [selectedDesigns, setSelectedDesigns] = useState([]);
     const [selectedDesignPrices, setSelectedDesignPrices] = useState([]);
 
@@ -301,7 +271,7 @@ const AgregarProducto = () => {
                                     )}
                                 </div>
 
-                              
+
 
                                 <div className='col-md-6' name='Publicado'>
                                     <label
@@ -342,7 +312,7 @@ const AgregarProducto = () => {
                                         htmlFor='Archivo'
                                         className='col-from-label'
                                     >
-                                        Imagen de la prenda:
+                                        Imagen del producto:
                                     </label>
                                     <input
                                         type='file'
@@ -368,13 +338,13 @@ const AgregarProducto = () => {
                                     )}
                                 </div>
 
-                                <div className='col-md-6' name='Publicado'>
-                                    <BotonNegro
-                                        text='Agregar Diseño'
-                                        modalToOpen={'#myModalDiseno'}
-                                    />
-                                </div>
                                 <div className='modal-footer'>
+                                    <div className={style.bottonDiseno} >
+                                        <BotonNegro
+                                            text='Agregar Diseño'
+                                            modalToOpen={'#myModalDiseno'}
+                                        />
+                                    </div>
                                     <CancelarModal modalToCancel='myModal' />
                                     <GuardarModal />
                                 </div>
@@ -384,7 +354,7 @@ const AgregarProducto = () => {
                 </div>
             </div>
 
-            <AgregarDisenoModal/>
+            <AgregarDisenoModal />
         </div>
     );
 }
