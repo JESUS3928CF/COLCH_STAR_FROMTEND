@@ -6,10 +6,16 @@ import PrecioDiseno from '../components/diseños/PrecioDiseno';
 
 import ListarDisenos from '../components/diseños/ListarDisenos';
 import Header from '../components/chared/header/Header';
+import useAuth from '../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 
 export const Diseno = () => {
+    /// extrayendo la información para la autenticación
+    const { auth, loading } = useAuth();
+    if (loading == true) return 'Cargando...';
 
-    return (
+
+    return auth.usuario.permisos.includes('producto') ? (
         <div>
             <div>
                 <Header titulo='Gestionar Diseños' />
@@ -43,6 +49,8 @@ export const Diseno = () => {
                 <ListarDisenos />
             </div>
         </div>
+    ) : (
+        <Navigate to={'/administracion'} />
     );
 };
 
