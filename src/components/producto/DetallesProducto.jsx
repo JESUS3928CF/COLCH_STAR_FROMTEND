@@ -3,7 +3,9 @@ import HeaderModals from '../chared/HeaderModals';
 import { FcApproval, FcCancel } from 'react-icons/fc';
 import styles from '../../css-general/estilosReutilizables.module.css';
 
+
 const DetallesProducto = ({ editarProducto }) => {
+
     return (
         <div>
             <div className='modal' id='modalDetalles'>
@@ -24,28 +26,6 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     <a
                                                         href={`${import.meta.env.VITE_BACKEND_URL
                                                             }/${editarProducto.imagen}`}
-                                                        className={styles.contenedor_imagen}
-                                                    >
-                                                        {' '}
-                                                        <img
-                                                            src={
-                                                                editarProducto.imagen
-                                                                    ? `${import.meta.env
-                                                                        .VITE_BACKEND_URL
-                                                                    }/${editarProducto.imagen
-                                                                    }`
-                                                                    : ''
-                                                            }
-                                                            alt={editarProducto.nombre}
-                                                            title='Ver Imagen Completa'
-                                                        />
-                                                    </a>
-                                                </div>
-                                                <div className='col-md-6'>
-                                                    <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Diseño:</h2>
-                                                    <a
-                                                        href={`${import.meta.env.VITE_BACKEND_URL
-                                                            }/${editarProducto.disenos && editarProducto.disenos.imagen}`}
                                                         className={styles.contenedor_imagen}
                                                     >
                                                         {' '}
@@ -91,7 +71,14 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                                 {/* <div className='col-md-5 ml-5'> */}
                                                 <div className='card-body '>
-                                                    <h2
+                                                    {editarProducto.disenos && editarProducto.disenos.map(diseno => (
+                                                        <div key={diseno.nombre}>
+                                                            <img src={diseno.imagen} alt={diseno.nombre} />
+                                                            <p>Tamaño: {diseno.tamano}</p>
+                                                        </div>
+                                                    ))}
+
+<h2
                                                         htmlFor='nombre'
                                                         className='card-title'
                                                     >
@@ -107,44 +94,46 @@ const DetallesProducto = ({ editarProducto }) => {
                                                         <b>Tela:</b>{' '}
                                                         {editarProducto.prenda && editarProducto.prenda.tipo_de_tela}
                                                     </h2>
-                                                </div>
-
-                                            </div>
 
 
-                                            <div className='text-center mt-4 d-flex justify-content-center align-items-center'>
-                                                <h3
-                                                    htmlFor='publicado'
-                                                    className='card-title'
-                                                >
-                                                    {' '}
-                                                    <b>Publicado </b>
-                                                </h3>
-                                                <div
-                                                    style={{
-                                                        fontSize: '40px',
-                                                        paddingLeft: '10px',
-                                                        paddingBottom: '5px',
-                                                    }}
-                                                >
-                                                    {editarProducto.publicado &&
-                                                        editarProducto.estado ? (
-                                                        <FcApproval />
-                                                    ) : (
-                                                        <FcCancel />
-                                                    )}
                                                 </div>
                                             </div>
-
 
                                         </div>
+
+
+                                        <div className='text-center mt-4 d-flex justify-content-center align-items-center'>
+                                            <h3
+                                                htmlFor='publicado'
+                                                className='card-title'
+                                            >
+                                                {' '}
+                                                <b>Publicado </b>
+                                            </h3>
+                                            <div
+                                                style={{
+                                                    fontSize: '40px',
+                                                    paddingLeft: '10px',
+                                                    paddingBottom: '5px',
+                                                }}
+                                            >
+                                                {editarProducto.publicado &&
+                                                    editarProducto.estado ? (
+                                                    <FcApproval />
+                                                ) : (
+                                                    <FcCancel />
+                                                )}
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+
+
                 </div>
             </div>
         </div>

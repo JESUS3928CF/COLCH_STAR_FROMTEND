@@ -121,17 +121,12 @@ const ListarProducto = () => {
 
                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
                 {ProductosFiltrar.map((producto) => (
-                  
 
                   <tr key={producto.id_producto}>
                     <td>{producto.id_producto}</td>
                     <td>{producto.nombre}</td>
                     <td>{producto.cantidad}</td>
                     <td>{producto.precio}</td>
-                    {console.log(producto)}
-                    {/* <td>{producto.prenda ? producto.prenda.nombre : "N/A"}</td> */}
-
-                    {/* <td>{producto.fk_prenda}</td> */}
                     <td>
                       <BotonCambioEstado
                         id={producto.id_producto}

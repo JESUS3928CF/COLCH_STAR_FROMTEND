@@ -52,14 +52,25 @@ const AgregarProducto = () => {
         });
     }, []);
 
-   
+
+    const [Precio, setPrecio] = useState([]);
+    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+    useEffect(() => {
+        // Realizar una solicitud para obtener la lista de roles desde el servidor
+        axios.get("http://localhost:3000/api/precio_diseno").then((response) => {
+            setPrecio(response.data); // Almacenar la lista de roles en el estado
+        });
+    }, []);
+
+
+
 
 
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { nombre, cantidad, precio, fk_prenda, imagen, publicado, fk_detalle_diseno } = data
+        const { nombre, cantidad, precio, fk_prenda, imagen, publicado, disenos } = data
 
 
         try {
@@ -70,9 +81,14 @@ const AgregarProducto = () => {
                 cantidad: cantidad.trim(),
                 precio: precio.trim(),
                 fk_prenda: fk_prenda.trim(),
-                fk_detalle_diseno: fk_detalle_diseno.trim(),
                 publicado: publicado,
-                imagen: imagen[0]
+                imagen: imagen[0],
+                disenos: disenos.map((diseno) => ({
+                    fk_diseno: diseno, // Ajusta esto según la estructura de tu objeto
+                    fk_precio_diseno: diseno, // Debes definir esta función
+                })),
+
+
 
 
             }, {
@@ -109,6 +125,9 @@ const AgregarProducto = () => {
 
         }
     }
+
+    const [selectedDesigns, setSelectedDesigns] = useState([]);
+    const [selectedDesignPrices, setSelectedDesignPrices] = useState([]);
 
 
 
@@ -250,28 +269,55 @@ const AgregarProducto = () => {
 
                                 <div className="col-md-6 mt-2" >
                                     <label htmlFor="rol" className="col-form-label">
-                                        Prenda: *
+                                        diseno: *
                                     </label>
                                     <select
-                                        name="fk_detalle_diseno"
-                                        className="form-control"
-                                        {...register("fk_detalle_diseno", {
+                                        name="disenos"
+                                        className="form-control" // Allow multiple selections
+                                        {...register("disenos", {
                                             required: {
                                                 value: true,
-                                                message: "Debe seleccionar una prenda",
+                                                message: "Debe seleccionar al menos un diseño",
                                             },
                                         })}
-                                        onChange={(e) => {
-                                           
-                                        }}
                                     >
-                                        <option value="">Seleccionar prenda</option>
+                                        <option value="" disabled>Seleccionar diseño</option>
                                         {detalle_diseno.map((diseno) => (
                                             <option
                                                 key={diseno.id_diseno}
                                                 value={diseno.id_diseno}
                                             >
-                                                {diseno.nombre }
+                                                {diseno.nombre}
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    {errors.diseno && (
+                                        <AlertaError message={errors.diseno.message} />
+                                    )}
+
+                                </div>
+                                <div className="col-md-6 mt-2" >
+                                    <label htmlFor="rol" className="col-form-label">
+                                        precio: *
+                                    </label>
+                                    <select
+                                        name="disenos"
+                                        className="form-control" // Allow multiple selections
+                                        {...register("disenos", {
+                                            required: {
+                                                value: true,
+                                                message: "Debe seleccionar al menos un diseño",
+                                            },
+                                        })}
+                                    >
+                                        <option value="" disabled>Seleccionar diseño</option>
+                                        {Precio.map((precio) => (
+                                            <option
+                                                key={precio.id_precio_diseno}
+                                                value={precio.id_precio_diseno}
+                                            >
+                                                {precio.tamano}
                                             </option>
                                         ))}
                                     </select>
