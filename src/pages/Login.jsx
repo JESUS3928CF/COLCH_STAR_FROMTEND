@@ -1,16 +1,50 @@
 import { useState } from 'react';
 import styles from './Login.module.css'; // Import the CSS module
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { useForm } from 'react-hook-form';
+import { validarEspaciosVacios } from '../Validations/validations';
+import AlertaError from '../components/chared/AlertaError';
+import clienteAxios from '../config/axios';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const [isActivate, setIsActivate] = useState(false);
 
+    /// Variable de autenticación del provider
+    const { auth } = useAuth();
+
+    /// variables para el formulario
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    console.log(auth);
 
     const navigate = useNavigate();
 
-    const autenticarUsuario = () => {
-      navigate("/administracion")
-    }
+    const autenticarUsuario = handleSubmit(async (data) => {
+        console.log(data);
+        const { email, contrasena } = data;
+
+        /// Hacer la petición al backend
+        try {
+            const respuesta = await clienteAxios.post('/usuarios/login', {
+                email,
+                contrasena,
+            });
+            localStorage.setItem('token', respuesta.data.token);
+            // navigate('/administracion');
+        } catch (error) {
+            console.log(error);
+            return Swal.fire({
+                title: `${error.response.data.message}`,
+                icon: 'error',
+            });
+        }
+    });
 
     return (
         <div className={styles.contenedor}>
@@ -68,22 +102,56 @@ const Login = () => {
                     }`}
                 >
                     <div className={`${styles.form_box} ${styles.login}`}>
-                        <form>
+                        <form onSubmit={autenticarUsuario}>
                             <h2 style={{ fontWeight: 'bold' }}>¡Bienvenido!</h2>
                             <br />
                             <div className={styles.input_box}>
                                 <span className={styles.icon}>
                                     <i className='bx bxs-envelope'></i>
                                 </span>
-                                <input type='email' />
+                                <input
+                                    type='email'
+                                    {...register('email', {
+                                        required: {
+                                            value: true,
+                                            message: 'El email es obligatorio',
+                                        },
+                                        validate: (value) =>
+                                            validarEspaciosVacios(value),
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                            message:
+                                                'El Email no tiene un formato válido',
+                                        },
+                                    })}
+                                />
                                 <label>Email</label>
+                                {errors.email && (
+                                    <AlertaError
+                                        message={errors.email.message}
+                                    />
+                                )}
                             </div>
                             <div className={styles.input_box}>
                                 <span className={styles.icon}>
                                     <i className='bx bxs-lock-alt'></i>
                                 </span>
-                                <input type='password' />
+                                <input
+                                    type='password'
+                                    {...register('contrasena', {
+                                        required: {
+                                            value: true,
+                                            message:
+                                                'La contraseña es obligatoria',
+                                        },
+                                    })}
+                                />
                                 <label>Contraseña</label>
+                                {errors.contrasena && (
+                                    <AlertaError
+                                        message={errors.contrasena.message}
+                                    />
+                                )}
                             </div>
                             <div className={styles.button_group}>
                                 <button
