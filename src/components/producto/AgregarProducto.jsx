@@ -12,9 +12,15 @@ import Swal from 'sweetalert2';
 import AlertaError from '../chared/AlertaError';
 import { useForm } from 'react-hook-form';
 import { validarEspaciosVacios, validarImagen } from '../../Validations/validations'
+import BotonNegro from '../chared/BotonNegro';
+import AgregarDisenoModal from './AgregarDisenoModal';
+import { useDisenosContext } from '../../../context/disenosProvider';
 
 const AgregarProducto = () => {
 
+
+    
+    const { disenos } = useDisenosContext();
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -70,32 +76,28 @@ const AgregarProducto = () => {
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { nombre, cantidad, precio, fk_prenda, imagen, publicado, disenos } = data
-
+        const { nombre, cantidad, precio, fk_prenda, imagen, publicado } = data
 
         try {
-            // la ruta por donde voya mandar el objeto o el registro nuevo data
-            const res = await axios.post("http://localhost:3000/api/productos", {
-                // Campos en los que realiza el cambio
-                nombre: nombre.trim(),
-                cantidad: cantidad.trim(),
-                precio: precio.trim(),
-                fk_prenda: fk_prenda.trim(),
-                publicado: publicado,
-                imagen: imagen[0],
-                disenos: disenos.map((diseno) => ({
-                    fk_diseno: diseno, // Ajusta esto según la estructura de tu objeto
-                    fk_precio_diseno: diseno, // Debes definir esta función
-                })),
-
-
-
-
-            }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
+            // la ruta por donde voya mandar el objeto o el registro nuevo dat
+            const res = await axios.post(
+                'http://localhost:3000/api/productos',
+                {
+                    // Campos en los que realiza el cambio
+                    nombre: nombre.trim(),
+                    cantidad: cantidad.trim(),
+                    precio: precio.trim(),
+                    fk_prenda: fk_prenda.trim(),
+                    publicado: publicado,
+                    imagen: imagen[0],
+                    disenos: JSON.stringify(disenos)
                 },
-            });
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
             //luego de mandarlo ce cierra el modal
 
             reset() //luego de ser agregado y mandado resetea el formulario
@@ -126,6 +128,7 @@ const AgregarProducto = () => {
         }
     }
 
+    
     const [selectedDesigns, setSelectedDesigns] = useState([]);
     const [selectedDesignPrices, setSelectedDesignPrices] = useState([]);
 
@@ -135,32 +138,40 @@ const AgregarProducto = () => {
     return (
         <div>
             {/* modal agregar producto */}
-            <div className='modal' id='myModal' >
-                <div className="modal-dialog modal-dialog-centered modal-lg ">
-                    <div className="modal-content">
-
+            <div className='modal' id='myModal'>
+                <div className='modal-dialog modal-dialog-centered modal-lg '>
+                    <div className='modal-content'>
                         <HeaderModals title={'Agregar Producto'} />
 
-                        <div className="modal-body">
-
-                            <form className="row g-3 needs-validation" onSubmit={handleSubmit(onSubmit)}>
-
-                                <div className="col-md-6">
-
-                                    <label htmlFor="productoGuardar"
-                                        className="col-form-label">Producto:</label>
-                                    <input type="text" className="form-control"
-                                        id="productoGuardar"
-                                        name="nombre"
-                                        placeholder=". . . "
+                        <div className='modal-body'>
+                            <form
+                                className='row g-3 needs-validation'
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
+                                <div className='col-md-6'>
+                                    <label
+                                        htmlFor='productoGuardar'
+                                        className='col-form-label'
+                                    >
+                                        Producto:
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        id='productoGuardar'
+                                        name='nombre'
+                                        placeholder='. . . '
                                         {...register('nombre', {
                                             required: {
                                                 value: true,
-                                                message: 'El nombre es obligatorio',
+                                                message:
+                                                    'El nombre es obligatorio',
                                             },
                                             validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            }
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
+                                            },
                                         })}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
@@ -169,28 +180,37 @@ const AgregarProducto = () => {
                                             message={errors.nombre.message}
                                         />
                                     )}
-
                                 </div>
 
-                                <div className="col-md-6 ms-auto">
-
-                                    <label htmlFor="cantidadGuardar"
-                                        className="col-form-label">Cantidad:</label>
-                                    <input type="text" className="form-control"
-                                        name="cantidad" id="cantidadGuardar"
-                                        placeholder=". . ."
+                                <div className='col-md-6 ms-auto'>
+                                    <label
+                                        htmlFor='cantidadGuardar'
+                                        className='col-form-label'
+                                    >
+                                        Cantidad:
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        name='cantidad'
+                                        id='cantidadGuardar'
+                                        placeholder='. . .'
                                         {...register('cantidad', {
                                             required: {
                                                 value: true,
-                                                message: 'El cantidad es obligatorio',
+                                                message:
+                                                    'El cantidad es obligatorio',
                                             },
                                             pattern: {
                                                 value: /^\d+$/,
-                                                message: "No puede contener Letras ni espacios en blanco"
+                                                message:
+                                                    'No puede contener Letras ni espacios en blanco',
                                             },
                                             validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            }
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
+                                            },
                                         })}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
@@ -199,145 +219,102 @@ const AgregarProducto = () => {
                                             message={errors.cantidad.message}
                                         />
                                     )}
-
                                 </div>
 
-                                <div className="col-md-6 mt-2" name="precio">
-
-                                    <label htmlFor="precioGuardar"
-                                        className="col-form-label">Precio: </label>
-                                    <input type="text" className="form-control"
-                                        name="precio"
-                                        id="precioGuardar"
-                                        placeholder=". . ."
+                                <div className='col-md-6 mt-2' name='precio'>
+                                    <label
+                                        htmlFor='precioGuardar'
+                                        className='col-form-label'
+                                    >
+                                        Precio:{' '}
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        name='precio'
+                                        id='precioGuardar'
+                                        placeholder='. . .'
                                         {...register('precio', {
                                             required: {
                                                 value: true,
-                                                message: 'El precio es obligatorio',
+                                                message:
+                                                    'El precio es obligatorio',
                                             },
                                             pattern: {
                                                 value: /^\d+(\.\d+)?$/,
-                                                message: "No puede contener Letras ni espacios en blanco"
+                                                message:
+                                                    'No puede contener Letras ni espacios en blanco',
                                             },
                                             validate: (value) => {
-                                                return validarEspaciosVacios(value);
-                                            }
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
+                                            },
                                         })}
-
                                     />
                                     {errors.precio && (
                                         <AlertaError
                                             message={errors.precio.message}
                                         />
                                     )}
-
-
                                 </div>
 
-                                <div className="col-md-6 mt-2" >
-                                    <label htmlFor="rol" className="col-form-label">
+                                <div className='col-md-6 mt-2'>
+                                    <label
+                                        htmlFor='rol'
+                                        className='col-form-label'
+                                    >
                                         Prenda: *
                                     </label>
                                     <select
-                                        name="fk_prenda"
-                                        className="form-control"
-                                        {...register("fk_prenda", {
+                                        name='fk_prenda'
+                                        className='form-control'
+                                        {...register('fk_prenda', {
                                             required: {
                                                 value: true,
-                                                message: "Debe seleccionar una prenda",
+                                                message:
+                                                    'Debe seleccionar una prenda',
                                             },
                                         })}
                                     >
-                                        <option value="">Seleccionar prenda</option>
+                                        <option value=''>
+                                            Seleccionar prenda
+                                        </option>
                                         {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
                                         esto se guarda en name = fk_prenda
                                         {Prendas.map((prenda) => {
                                             return (
-                                                <option key={prenda.id_prenda} value={prenda.id_prenda}>
+                                                <option
+                                                    key={prenda.id_prenda}
+                                                    value={prenda.id_prenda}
+                                                >
                                                     {prenda.nombre}
                                                 </option>
                                             );
-
-
                                         })}
                                     </select>
 
                                     {errors.fk_prenda && (
-                                        <AlertaError message={errors.fk_prenda.message} />
+                                        <AlertaError
+                                            message={errors.fk_prenda.message}
+                                        />
                                     )}
                                 </div>
 
-                                <div className="col-md-6 mt-2" >
-                                    <label htmlFor="rol" className="col-form-label">
-                                        diseno: *
-                                    </label>
-                                    <select
-                                        name="disenos"
-                                        className="form-control" // Allow multiple selections
-                                        {...register("disenos", {
-                                            required: {
-                                                value: true,
-                                                message: "Debe seleccionar al menos un diseño",
-                                            },
-                                        })}
+                              
+
+                                <div className='col-md-6' name='Publicado'>
+                                    <label
+                                        htmlFor='Publicar'
+                                        className='col-form-control'
                                     >
-                                        <option value="" disabled>Seleccionar diseño</option>
-                                        {detalle_diseno.map((diseno) => (
-                                            <option
-                                                key={diseno.id_diseno}
-                                                value={diseno.id_diseno}
-                                            >
-                                                {diseno.nombre}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    {errors.diseno && (
-                                        <AlertaError message={errors.diseno.message} />
-                                    )}
-
-                                </div>
-                                <div className="col-md-6 mt-2" >
-                                    <label htmlFor="rol" className="col-form-label">
-                                        precio: *
-                                    </label>
-                                    <select
-                                        name="disenos"
-                                        className="form-control" // Allow multiple selections
-                                        {...register("disenos", {
-                                            required: {
-                                                value: true,
-                                                message: "Debe seleccionar al menos un diseño",
-                                            },
-                                        })}
-                                    >
-                                        <option value="" disabled>Seleccionar diseño</option>
-                                        {Precio.map((precio) => (
-                                            <option
-                                                key={precio.id_precio_diseno}
-                                                value={precio.id_precio_diseno}
-                                            >
-                                                {precio.tamano}
-                                            </option>
-                                        ))}
-                                    </select>
-
-                                    {errors.diseno && (
-                                        <AlertaError message={errors.diseno.message} />
-                                    )}
-                                </div>
-
-
-
-                                <div className="col-md-6" name="Publicado">
-                                    <label htmlFor="Publicar" className="col-form-control">
                                         ¿Deseas publicarlo?
                                     </label>
 
                                     <select
-                                        name="publicado"
+                                        name='publicado'
                                         className={`form-control ${style.customerr}`}
-                                        title="Seleccione una opcion"
+                                        title='Seleccione una opcion'
                                         {...register('publicado', {
                                             required: {
                                                 value: true,
@@ -346,12 +323,11 @@ const AgregarProducto = () => {
                                             },
                                         })}
                                     >
-
-                                        <option value="" >
-                                            Selecciona una opcion
+                                        <option value=''>
+                                            Selecciona una opción
                                         </option>
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value='true'>Si</option>
+                                        <option value='false'>No</option>
                                     </select>
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     {errors.publicado && (
@@ -361,30 +337,28 @@ const AgregarProducto = () => {
                                     )}
                                 </div>
 
-                                <div className="mb-2" name="Archivo">
-
-                                    <div className='mb-3'>
-                                        <p style={{ textAlign: 'center', fontWeight: 500 }}>Imagen del producto: </p>
-                                    </div>
-
-                                    <label htmlFor="Archivo" className="col-from-label">
+                                <div className='mb-2' name='Archivo'>
+                                    <label
+                                        htmlFor='Archivo'
+                                        className='col-from-label'
+                                    >
                                         Imagen de la prenda:
                                     </label>
                                     <input
-                                        type="file"
+                                        type='file'
                                         className={`form-control ${style.customer}`}
-                                        name="imagen"
-                                        title="Ingrese la imagen de la prenda"
+                                        name='imagen'
+                                        title='Ingrese la imagen de la prenda'
                                         {...register('imagen', {
                                             required: {
                                                 value: true,
-                                                message: 'La imagen es obligatoria',
+                                                message:
+                                                    'La imagen es obligatoria',
                                             },
                                             validate: (value) => {
                                                 return validarImagen(value[0]);
-                                            }
+                                            },
                                         })}
-
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     {errors.imagen && (
@@ -392,16 +366,17 @@ const AgregarProducto = () => {
                                             message={errors.imagen.message}
                                         />
                                     )}
-
                                 </div>
 
-
-
-                                <div className="modal-footer">
-
-                                    <CancelarModal modalToCancel="myModal" />
+                                <div className='col-md-6' name='Publicado'>
+                                    <BotonNegro
+                                        text='Agregar Diseño'
+                                        modalToOpen={'#myModalDiseno'}
+                                    />
+                                </div>
+                                <div className='modal-footer'>
+                                    <CancelarModal modalToCancel='myModal' />
                                     <GuardarModal />
-
                                 </div>
                             </form>
                         </div>
@@ -409,8 +384,9 @@ const AgregarProducto = () => {
                 </div>
             </div>
 
+            <AgregarDisenoModal/>
         </div>
-    )
+    );
 }
 
 export default AgregarProducto
