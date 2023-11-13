@@ -1,6 +1,6 @@
 // ------------------JESÚS ANTONIO COCHERO FLORIÁN
 //-------------------26 de septiembre 2023
-//Nos permitite Mostrar la información de los diseños percios de los diseños y editarlos por hay mismo si asi lo requiere
+//Nos permite Mostrar la información de los diseños precios de los diseños y editarlos por hay mismo si asi lo requiere
 
 import { useEffect, useState } from 'react';
 import CancelarModal from '../chared/CancelarModal';
