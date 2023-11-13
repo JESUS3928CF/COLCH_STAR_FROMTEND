@@ -12,7 +12,7 @@ const Login = () => {
     const [isActivate, setIsActivate] = useState(false);
 
     /// Variable de autenticación del provider
-    const { auth } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     /// variables para el formulario
     const {
@@ -35,8 +35,11 @@ const Login = () => {
                 email,
                 contrasena,
             });
-            localStorage.setItem('token', respuesta.data.token);
-            // navigate('/administracion');
+            localStorage.setItem('token', respuesta.data.usuario.token);
+
+            setAuth(respuesta.data);
+
+            navigate('/administracion');
         } catch (error) {
             console.log(error);
             return Swal.fire({
