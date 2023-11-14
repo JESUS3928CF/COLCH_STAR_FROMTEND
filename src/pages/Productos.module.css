@@ -31,13 +31,18 @@
 
 .customer {
     width: 100%; /* Cambiado a un porcentaje para ser más flexible */
-    max-width: 740px; /* Establece un ancho máximo para evitar que se extienda demasiado en pantallas grandes */
+    max-width: 380px;
+    margin-top: 5px; 
 }
 
 .customerr {
-    margin-top: 6px;
+    margin-top: 1.5%; /* Utilizando porcentaje para el margen superior */
 }
 
 .bottonDiseno {
-    margin-right: 52%; /* Puedes ajustar el porcentaje según tus necesidades */
+    margin-right: 52%; /* Utilizando porcentaje para el margen derecho */
 }
+
+
+
+

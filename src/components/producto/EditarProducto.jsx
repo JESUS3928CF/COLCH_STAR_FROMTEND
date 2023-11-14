@@ -57,15 +57,13 @@ const EditarProducto = ({ editarProducto }) => {
 
 
 
-
-
   //funcion que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = (data) => {
 
     //se guardan los datos  a cambiar al data
     const { nombre, cantidad, precio, fk_prenda, publicado, imagen } = data
 
-console.log(disenos)
+    console.log(disenos)
 
     if (editarProducto.id_producto) {
       // ruta 
@@ -131,7 +129,9 @@ console.log(disenos)
                 <div className="col-md-6">
 
                   <label htmlFor="productoGuardar"
-                    className="col-form-label">Producto:</label>
+                    className="col-form-label">Producto: *
+                  </label>
+
                   <input type="text" className="form-control"
                     id="productoGuardar"
                     name="nombre"
@@ -158,7 +158,9 @@ console.log(disenos)
                 <div className="col-md-6 ms-auto">
 
                   <label htmlFor="cantidadGuardar"
-                    className="col-form-label">Cantidad:</label>
+                    className="col-form-label">Cantidad: *
+                  </label>
+
                   <input type="text" className="form-control"
                     name="cantidad" id="cantidadGuardar"
                     placeholder=". . ."
@@ -188,7 +190,9 @@ console.log(disenos)
                 <div className="col-md-6 mt-2" name="precio">
 
                   <label htmlFor="precioGuardar"
-                    className="col-form-label">Precio: </label>
+                    className="col-form-label">Precio:
+                  </label>
+
                   <input type="text" className="form-control"
                     name="precio"
                     id="precioGuardar"
@@ -216,9 +220,11 @@ console.log(disenos)
 
                 </div>
                 <div className="col-md-6 mt-2" >
+
                   <label htmlFor="rol" className="col-form-label">
                     Prenda: *
                   </label>
+
                   <select
                     name="fk_prenda"
                     className="form-control"
@@ -239,13 +245,13 @@ console.log(disenos)
                         </option>
                       );
 
-
                     })}
                   </select>
 
                   {errors.fk_prenda && (
                     <AlertaError message={errors.fk_prenda.message} />
                   )}
+
                 </div>
 
 
@@ -260,20 +266,13 @@ console.log(disenos)
                     className={`form-control ${style.customerr}`}
                     title="Seleccione una opcion"
                     {...register('publicado', {
-                      required: {
-                        value: true,
-                        message:
-                          'El estado de publicación es obligatorio',
-
-                      },
-                    }, {
                       validate: (value) => validarBooleanos(value)
-                    }
 
+                    },
                     )}
+                    value={editarProducto.publicado}
                   >
-
-                    <option value="" >
+                    <option value="" disabled >
                       Selecciona una opción
                     </option>
                     <option value="true">Si</option>
@@ -287,15 +286,12 @@ console.log(disenos)
                   )}
                 </div>
 
-                <div className="mb-2" name="Archivo">
-
-                  <div className='mb-3'>
-                    <p style={{ textAlign: 'center', fontWeight: 500 }}>Imagen del producto: </p>
-                  </div>
+                <div className="col-md-6" name="Archivo">
 
                   <label htmlFor="Archivo" className="col-from-label">
-                    Imagen de la prenda:
+                    Imagen de la Producto Final: *
                   </label>
+
                   <input
                     type="file"
                     className={`form-control ${style.customer}`}
@@ -320,23 +316,26 @@ console.log(disenos)
 
 
                 <div className="modal-footer">
+
                   <div className={style.bottonDiseno} >
                     <BotonNegro
                       text='Agregar Diseño'
                       modalToOpen={'#myModalDiseno'}
-                      
+
                     />
                   </div>
 
                   <CancelarModal modalToCancel="modalEditar" />
                   <GuardarModal />
+
                 </div>
+
               </form>
             </div>
           </div>
         </div>
       </div>
-      {/* <AgregarDisenoModal /> */}
+
 
     </div>
   )

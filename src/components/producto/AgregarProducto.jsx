@@ -1,3 +1,9 @@
+// ------------------BRIAN PAREJA HERNANDEZ
+//-------------------26 de septiembre 2023
+//Nos permitira Agregar un producto, de ser necesario se podra agregar un producto mediante un formulario donde se pediran datos mas
+//mas relevantes de este producto y luego mostrarlo en la tabla listar, se podra agregar mediante un boton dferentes disños 
+
+
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
@@ -109,17 +115,20 @@ const AgregarProducto = () => {
                         <HeaderModals title={'Agregar Producto'} />
 
                         <div className='modal-body'>
+
                             <form
                                 className='row g-3 needs-validation'
                                 onSubmit={handleSubmit(onSubmit)}
+
                             >
                                 <div className='col-md-6'>
                                     <label
                                         htmlFor='productoGuardar'
                                         className='col-form-label'
                                     >
-                                        Producto:
+                                        Producto: *
                                     </label>
+
                                     <input
                                         type='text'
                                         className='form-control'
@@ -145,6 +154,7 @@ const AgregarProducto = () => {
                                             message={errors.nombre.message}
                                         />
                                     )}
+
                                 </div>
 
                                 <div className='col-md-6 ms-auto'>
@@ -152,8 +162,9 @@ const AgregarProducto = () => {
                                         htmlFor='cantidadGuardar'
                                         className='col-form-label'
                                     >
-                                        Cantidad:
+                                        Cantidad: *
                                     </label>
+
                                     <input
                                         type='text'
                                         className='form-control'
@@ -184,15 +195,18 @@ const AgregarProducto = () => {
                                             message={errors.cantidad.message}
                                         />
                                     )}
+
                                 </div>
 
                                 <div className='col-md-6 mt-2' name='precio'>
+
                                     <label
                                         htmlFor='precioGuardar'
                                         className='col-form-label'
                                     >
                                         Precio:{' '}
                                     </label>
+
                                     <input
                                         type='text'
                                         className='form-control'
@@ -222,15 +236,18 @@ const AgregarProducto = () => {
                                             message={errors.precio.message}
                                         />
                                     )}
+
                                 </div>
 
                                 <div className='col-md-6 mt-2'>
+
                                     <label
                                         htmlFor='rol'
                                         className='col-form-label'
                                     >
                                         Prenda: *
                                     </label>
+
                                     <select
                                         name='fk_prenda'
                                         className='form-control'
@@ -269,6 +286,7 @@ const AgregarProducto = () => {
 
 
                                 <div className='col-md-6' name='Publicado'>
+
                                     <label
                                         htmlFor='Publicar'
                                         className='col-form-control'
@@ -302,13 +320,15 @@ const AgregarProducto = () => {
                                     )}
                                 </div>
 
-                                <div className='mb-2' name='Archivo'>
+                                <div className='col-md-6' name='Archivo'>
                                     <label
                                         htmlFor='Archivo'
                                         className='col-from-label'
                                     >
-                                        Imagen del producto:
+                                        Imagen de la Producto Final: *
+
                                     </label>
+
                                     <input
                                         type='file'
                                         className={`form-control ${style.customer}`}
@@ -334,8 +354,10 @@ const AgregarProducto = () => {
                                 </div>
 
                                 <div className='modal-footer'>
+
                                     <div className={style.bottonDiseno} >
                                         <BotonNegro
+                                            // modalClouse={"modal"}
                                             text='Agregar Diseño'
                                             modalToOpen={'#myModalDiseno'}
                                         />
@@ -343,6 +365,8 @@ const AgregarProducto = () => {
                                     <CancelarModal modalToCancel='myModal' />
                                     <GuardarModal />
                                 </div>
+
+
                             </form>
                         </div>
                     </div>
