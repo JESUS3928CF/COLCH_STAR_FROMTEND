@@ -17,7 +17,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
     }
 
     /// Aca definimos si le podemos cambiar el estado de publicación de un registro
-    const validarElCambioDeEstado = new Promise((resolve, reject) => {
+    const validarElCambioDeEstado = new Promise((resolve) => {
 
         let sePuedeCambiar = true;
 

@@ -3,13 +3,17 @@ import styles from './Menu_lateral.module.css';
 import logo from '../imgNavbar/LogoPNG.png';
 import profile from '../imgNavbar/1153861.png';
 import { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import { calcularAnchoDePantalla } from '../helpers/calcularAnchoDePantalla';
+import useAuth from '../hooks/useAuth';
 
 const MenuLateral = () => {
     // const [isSidebarOpen, setSidebarOpen] = useState(false); estado para el botón de cerrar menú
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+
+    /// extrayendo la información para la autenticación
+    const { auth, loading, singOff } = useAuth();
 
     const toggleSubMenu = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
@@ -24,6 +28,8 @@ const MenuLateral = () => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
+
+    if (loading == true) return 'Cargando...';
 
     return (
         <>
@@ -61,137 +67,197 @@ const MenuLateral = () => {
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <Link to={'/administracion/usuarios'}>
-                            <i className='bx bx-user'></i>
-                            <span className={styles.link_name}>Usuarios</span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/usuarios'}
-                                    className={styles.link_name}
-                                >
-                                    Usuarios
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to={'/administracion/roles'}>
-                            <i className='bx bxs-user-detail'></i>
-                            <span className={styles.link_name}>Roles</span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/roles'}
-                                    className={styles.link_name}
-                                >
-                                    Roles
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <Link to={'/administracion/proveedores'}>
-                            <i className='bx bxs-phone'></i>
-                            <span className={styles.link_name}>
-                                Proveedores
-                            </span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/proveedores'}
-                                    className={styles.link_name}
-                                >
-                                    Proveedores
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li className={`${isSubMenuOpen ? styles.showMenu : ''} `}>
-                        <div className={styles.iocn_link}>
-                            <Link to={'/administracion/productos'}>
-                                <i className='bx bxs-truck'></i>
+                    {auth.usuario.permisos.includes('usuario') ? (
+                        <li>
+                            <Link to={'/administracion/usuarios'}>
+                                <i className='bx bx-user'></i>
                                 <span className={styles.link_name}>
-                                    Productos
+                                    Usuarios
                                 </span>
                             </Link>
-                            <i
-                                className={`bx bxs-chevron-down ${styles.arrow}`}
-                                onClick={toggleSubMenu}
-                            ></i>
-                        </div>
-                        <ul className={styles.sub_menu}>
-                            <li>
-                                <Link to={'/administracion/productos'} className={styles.link_name}>
-                                    Productos
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/usuarios'}
+                                        className={styles.link_name}
+                                    >
+                                        Usuarios
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('rol') ? (
+                        <li>
+                            <Link to={'/administracion/roles'}>
+                                <i className='bx bxs-user-detail'></i>
+                                <span className={styles.link_name}>Roles</span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/roles'}
+                                        className={styles.link_name}
+                                    >
+                                        Roles
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('proveedor') ? (
+                        <li>
+                            <Link to={'/administracion/proveedores'}>
+                                <i className='bx bxs-phone'></i>
+                                <span className={styles.link_name}>
+                                    Proveedores
+                                </span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/proveedores'}
+                                        className={styles.link_name}
+                                    >
+                                        Proveedores
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('producto') ? (
+                        <li
+                            className={`${
+                                isSubMenuOpen ? styles.showMenu : ''
+                            } `}
+                        >
+                            <div className={styles.iocn_link}>
+                                <Link to={'/administracion/productos'}>
+                                    <i className='bx bxs-truck'></i>
+                                    <span className={styles.link_name}>
+                                        Productos
+                                    </span>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link to={'/administracion/prendas'}>
-                                    Prendas
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/administracion/disenos'}>
-                                    Diseños
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to={'/administracion/clientes'}>
-                            <i className='bx bx-child'></i>
-                            <span className={styles.link_name}>Clientes</span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/clientes'}
-                                    className={styles.link_name}
-                                >
+                                <i
+                                    className={`bx bxs-chevron-down ${styles.arrow}`}
+                                    onClick={toggleSubMenu}
+                                ></i>
+                            </div>
+                            <ul className={styles.sub_menu}>
+                                <li>
+                                    <Link
+                                        to={'/administracion/productos'}
+                                        className={styles.link_name}
+                                    >
+                                        Productos
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/administracion/prendas'}>
+                                        Prendas
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={'/administracion/disenos'}>
+                                        Diseños
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('cliente') ? (
+                        <li>
+                            <Link to={'/administracion/clientes'}>
+                                <i className='bx bx-child'></i>
+                                <span className={styles.link_name}>
                                     Clientes
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to={'/administracion/compras'}>
-                            <i className='bx bxs-cart-download'></i>
-                            <span className={styles.link_name}>Compras</span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/compras'}
-                                    className={styles.link_name}
-                                >
+                                </span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/clientes'}
+                                        className={styles.link_name}
+                                    >
+                                        Clientes
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('compra') ? (
+                        <li>
+                            <Link to={'/administracion/compras'}>
+                                <i className='bx bxs-cart-download'></i>
+                                <span className={styles.link_name}>
                                     Compras
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to={'/administracion/ordenes'}>
-                            <i className='bx bx-credit-card-alt'></i>
-                            <span className={styles.link_name}>Ordenes</span>
-                        </Link>
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion/ordenes'}
-                                    className={styles.link_name}
-                                >
+                                </span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/compras'}
+                                        className={styles.link_name}
+                                    >
+                                        Compras
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
+                    {auth.usuario.permisos.includes('orden') ? (
+                        <li>
+                            <Link to={'/administracion/ordenes'}>
+                                <i className='bx bx-credit-card-alt'></i>
+                                <span className={styles.link_name}>
                                     Ordenes
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
+                                </span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/ordenes'}
+                                        className={styles.link_name}
+                                    >
+                                        Ordenes
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+
                     <li>
                         <Link to={'/'}>
                             <i className='bx bxs-purchase-tag'></i>
@@ -199,10 +265,7 @@ const MenuLateral = () => {
                         </Link>
                         <ul className={`${styles.sub_menu} ${styles.blank}`}>
                             <li>
-                                <Link
-                                    to={'/'}
-                                    className={styles.link_name}
-                                >
+                                <Link to={'/'} className={styles.link_name}>
                                     Catálogo
                                 </Link>
                             </li>
@@ -211,20 +274,27 @@ const MenuLateral = () => {
                     <li>
                         <div className={styles.profile_details}>
                             <div className={styles.profile_content}>
-                                <img src={profile} alt='imagen de perfil' />
+                                <img
+                                    onClick={singOff}
+                                    src={profile}
+                                    alt='imagen de perfil'
+                                />
                             </div>
                             <div className={styles.name_job}>
                                 <div className={styles.profile_name}>
-                                    Jesús Cochero
+                                    {auth.usuario.nombre.split(' ')[0] +
+                                        ' ' +
+                                        auth.usuario.apellido.split(' ')[0]}
                                 </div>
-                                <div className={styles.job}>Admin</div>
+                                <div className={styles.job}>
+                                    {auth.usuario.rol.nombre}
+                                </div>
                             </div>
-                            <Link to={'/login'}>
-                                <i
-                                    className='bx bx-log-out'
-                                    style={{ paddingLeft: '17px' }}
-                                ></i>
-                            </Link>
+                            <i
+                                className='bx bx-log-out'
+                                style={{ paddingLeft: '17px' }}
+                                onClick={singOff}
+                            ></i>
                         </div>
                     </li>
                 </ul>
@@ -232,7 +302,7 @@ const MenuLateral = () => {
             {/*<ButtonCloseMenu onClick={toggleSidebar} />*/}
             <section className={styles.home_section}>
                 <div style={{ maxHeight: '100vh', overflowY: 'auto' }}>
-                    <Outlet />
+                    {auth?.usuario ? <Outlet /> : <Navigate to={'/login'} />}
                 </div>
             </section>
         </>
