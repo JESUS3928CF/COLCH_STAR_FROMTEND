@@ -13,7 +13,8 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
-import AgregarDisenoModal from './AgregarDisenoModal'
+import { useDisenosContext } from '../../../context/disenosProvider';
+
 
 
 const EditarProducto = ({ editarProducto }) => {
@@ -52,12 +53,19 @@ const EditarProducto = ({ editarProducto }) => {
     }
   }, [editarProducto]);
 
+  const { disenos } = useDisenosContext();
+
+
+
+
+
   //funcion que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = (data) => {
 
     //se guardan los datos  a cambiar al data
     const { nombre, cantidad, precio, fk_prenda, publicado, imagen } = data
 
+console.log(disenos)
 
     if (editarProducto.id_producto) {
       // ruta 
@@ -68,7 +76,9 @@ const EditarProducto = ({ editarProducto }) => {
         precio: precio,
         fk_prenda: fk_prenda,
         publicado: publicado,
-        imagen: imagen[0]
+        imagen: imagen[0],
+        disenos: JSON.stringify(disenos)
+
       }, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -310,12 +320,13 @@ const EditarProducto = ({ editarProducto }) => {
 
 
                 <div className="modal-footer">
-                  {/* <div className={style.bottonDiseno} >
+                  <div className={style.bottonDiseno} >
                     <BotonNegro
                       text='Agregar Diseño'
                       modalToOpen={'#myModalDiseno'}
+                      
                     />
-                  </div> */}
+                  </div>
 
                   <CancelarModal modalToCancel="modalEditar" />
                   <GuardarModal />
