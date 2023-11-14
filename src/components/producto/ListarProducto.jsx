@@ -1,3 +1,10 @@
+// ------------------BRIAN PAREJA HERNANDEZ
+//-------------------26 de septiembre 2023
+//* Nos permitira Listar un producto, traer la informacion de los productos de la base de datos y representarla en una tabla 
+//* existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo
+//permiti el manejo del publicado donde dicidimos si publicar la prenda en el catalogo o no
+
+
 import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'

@@ -40,7 +40,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
     }
   }, [detalleDiseno]);
 
-    const editarDiseno = handleSubmit(async (data) => {
+  const editarDiseno = handleSubmit(async (data) => {
 
     /// Crear un form-data por que así el back puede recibir imágenes
     const formData = new FormData();
@@ -81,64 +81,64 @@ const EditarDiseno = ({ detalleDiseno }) => {
     }
   });
 
-    return (
-        <div className='modal' id='modalDiseño'>
-            <div className='modal-dialog modal-dialog-centered'>
-                <div className='modal-content'>
-                    <HeaderModals title='Editar Diseño' />
-                    <div className='modal-body'>
-                        {/* formulario para editar un Diseño */}
-                        <form
-                            action=''
-                            id='formularioAgregarDiseño'
-                            onSubmit={editarDiseno}
-                        >
-                            <div className='mb-3'>
-                                <label
-                                    htmlFor='nombre'
-                                    className='col-form-label'
-                                >
-                                    Nombre:
-                                </label>
-                                <input
-                                    name='nombre'
-                                    type='text'
-                                    className='form-control'
-                                    placeholder='. . .'
-                                    {...register('nombre', {
-                                        required: {
-                                            value: true,
-                                            message: 'El nombre es obligatorio',
-                                        },
-                                        validate: (value) => validarEspaciosVacios(value)
-                                    })}
-                                />
-                                {/* en esta etiqueta va salir el error de validación  */}
-                                {errors.nombre && (
-                                    <AlertaError
-                                        message={errors.nombre.message}
-                                    />
-                                )}
-                            </div>
-                            <div className='mb-3'>
-                                <label htmlFor='imagen' className='form-label'>
-                                    Subir imagen
-                                </label>
-                                <input
-                                    className='form-control'
-                                    name='imagen'
-                                    type='file'
-                                    {...register('imagen',{
-                                        validate: (value) =>  validarImagen(value[0])
-                                    })}
-                                />
-                                {/* en esta etiqueta va salir el error de validación  */}
-                                {errors.imagen && (
-                                    <AlertaError
-                                        message={errors.imagen.message}
-                                    />
-                                )}
-                            </div>
+  return (
+    <div className='modal' id='modalDiseño'>
+      <div className='modal-dialog modal-dialog-centered'>
+        <div className='modal-content'>
+          <HeaderModals title='Editar Diseño' />
+          <div className='modal-body'>
+            {/* formulario para editar un Diseño */}
+            <form
+              action=''
+              id='formularioAgregarDiseño'
+              onSubmit={editarDiseno}
+            >
+              <div className='mb-3'>
+                <label
+                  htmlFor='nombre'
+                  className='col-form-label'
+                >
+                  Nombre:
+                </label>
+                <input
+                  name='nombre'
+                  type='text'
+                  className='form-control'
+                  placeholder='. . .'
+                  {...register('nombre', {
+                    required: {
+                      value: true,
+                      message: 'El nombre es obligatorio',
+                    },
+                    validate: (value) => validarEspaciosVacios(value)
+                  })}
+                />
+                {/* en esta etiqueta va salir el error de validación  */}
+                {errors.nombre && (
+                  <AlertaError
+                    message={errors.nombre.message}
+                  />
+                )}
+              </div>
+              <div className='mb-3'>
+                <label htmlFor='imagen' className='form-label'>
+                  Subir imagen
+                </label>
+                <input
+                  className='form-control'
+                  name='imagen'
+                  type='file'
+                  {...register('imagen', {
+                    validate: (value) => validarImagen(value[0])
+                  })}
+                />
+                {/* en esta etiqueta va salir el error de validación  */}
+                {errors.imagen && (
+                  <AlertaError
+                    message={errors.imagen.message}
+                  />
+                )}
+              </div>
 
               <div className="mb-3">
                 <label htmlFor="rolGuardar" className="col-form-label">
@@ -148,7 +148,7 @@ const EditarDiseno = ({ detalleDiseno }) => {
                   className="form-control"
                   name="publicado"
                   {...register("publicado", {
-                    validate: (value) =>  validarBooleanos(value)
+                    validate: (value) => validarBooleanos(value)
                   })}
                   value={detalleDiseno.publicado}
                 >
