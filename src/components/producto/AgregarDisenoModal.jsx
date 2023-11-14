@@ -47,7 +47,7 @@ const AgregarDisenoModal = () => {
             <div className='modal-dialog modal-dialog-centered'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Modificar precio del los diseños' />
+                    <HeaderModals title='Modificar precio del los diseños' NoReset= {true} />
 
                     <div className='modal-body'>
                         {/* formulario para agregar un cliente  */}
