@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 
 //* Importa las funciones de validación
 import { validarEspaciosVacios, validarImagen } from '../../Validations/validations.js';
+import useAuth from '../../hooks/useAuth.jsx';
 
 const AgregarDiseno = () => {
     /// Funciones del paquete react-hook-form necesarias para las validaciones
@@ -24,6 +25,8 @@ const AgregarDiseno = () => {
         formState: { errors },
     } = useForm();
 
+
+    const { token } = useAuth();
 
     const guardarDiseno = handleSubmit( async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
@@ -37,6 +40,7 @@ const AgregarDiseno = () => {
             const res = await clienteAxios.post('/disenos', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
                 },
             });
 

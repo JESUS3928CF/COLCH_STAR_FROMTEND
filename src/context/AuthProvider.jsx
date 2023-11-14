@@ -11,6 +11,14 @@ const AuthProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
 
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        };
     //! Este use effect Para que cuando carge la app revisar si el usuario esta autenticado o no
     useEffect(() => {
         const autenticarUsuario = async () => {
@@ -54,7 +62,7 @@ const AuthProvider = ({ children }) => {
    };
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, loading, singOff }}>
+        <AuthContext.Provider value={{ auth, setAuth, loading, singOff, config, token }}>
             {children}
         </AuthContext.Provider>
     );

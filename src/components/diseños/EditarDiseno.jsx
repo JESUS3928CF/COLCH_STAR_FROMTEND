@@ -18,8 +18,12 @@ import {
 import AlertaError from "../chared/AlertaError";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const EditarDiseno = ({ detalleDiseno }) => {
+
+  const { token } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -47,13 +51,14 @@ const EditarDiseno = ({ detalleDiseno }) => {
     /// editar el diseño
     try {
       const res = await clienteAxios.put(
-        `/disenos/${detalleDiseno.id_diseno}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+          `/disenos/${detalleDiseno.id_diseno}`,
+          formData,
+          {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+                  Authorization: `Bearer ${token}`,
+              },
+          }
       );
 
 
