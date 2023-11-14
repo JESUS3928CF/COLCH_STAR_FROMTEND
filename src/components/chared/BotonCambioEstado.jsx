@@ -3,6 +3,7 @@ import clienteAxios from '../../config/axios';
 import './BotonCambioEstado.css'
 import PropTypes from 'prop-types'
 import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublicacion = { estado : true, paraPublicacion : false} }) => {
 
@@ -31,6 +32,8 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
         }
     })
 
+    const { config } = useAuth();
+
     
 
     const [estado, setEstado] = useState(isChecked);
@@ -51,7 +54,7 @@ const BotonCambioEstado = ({ id, isChecked, nombreRegistro, ruta, cambiarPublica
             if (result.isConfirmed) {
                 try {
                     // Realiza la petición PATCH
-                    const response = await clienteAxios.patch(ruta, { estado });
+                    const response = await clienteAxios.patch(ruta, { estado }, config);
 
                     if (response.status === 200) {
                         Swal.fire(

@@ -13,7 +13,8 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
-import AgregarDisenoModal from './AgregarDisenoModal'
+import { useDisenosContext } from '../../../context/disenosProvider';
+
 
 
 const EditarProducto = ({ editarProducto }) => {
@@ -52,12 +53,17 @@ const EditarProducto = ({ editarProducto }) => {
     }
   }, [editarProducto]);
 
+  const { disenos } = useDisenosContext();
+
+
+
   //funcion que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = (data) => {
 
     //se guardan los datos  a cambiar al data
     const { nombre, cantidad, precio, fk_prenda, publicado, imagen } = data
 
+    console.log(disenos)
 
     if (editarProducto.id_producto) {
       // ruta 
@@ -68,7 +74,9 @@ const EditarProducto = ({ editarProducto }) => {
         precio: precio,
         fk_prenda: fk_prenda,
         publicado: publicado,
-        imagen: imagen[0]
+        imagen: imagen[0],
+        disenos: JSON.stringify(disenos)
+
       }, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -121,7 +129,9 @@ const EditarProducto = ({ editarProducto }) => {
                 <div className="col-md-6">
 
                   <label htmlFor="productoGuardar"
-                    className="col-form-label">Producto:</label>
+                    className="col-form-label">Producto: *
+                  </label>
+
                   <input type="text" className="form-control"
                     id="productoGuardar"
                     name="nombre"
@@ -148,7 +158,9 @@ const EditarProducto = ({ editarProducto }) => {
                 <div className="col-md-6 ms-auto">
 
                   <label htmlFor="cantidadGuardar"
-                    className="col-form-label">Cantidad:</label>
+                    className="col-form-label">Cantidad: *
+                  </label>
+
                   <input type="text" className="form-control"
                     name="cantidad" id="cantidadGuardar"
                     placeholder=". . ."
@@ -178,7 +190,9 @@ const EditarProducto = ({ editarProducto }) => {
                 <div className="col-md-6 mt-2" name="precio">
 
                   <label htmlFor="precioGuardar"
-                    className="col-form-label">Precio: </label>
+                    className="col-form-label">Precio:
+                  </label>
+
                   <input type="text" className="form-control"
                     name="precio"
                     id="precioGuardar"
@@ -206,9 +220,11 @@ const EditarProducto = ({ editarProducto }) => {
 
                 </div>
                 <div className="col-md-6 mt-2" >
+
                   <label htmlFor="rol" className="col-form-label">
                     Prenda: *
                   </label>
+
                   <select
                     name="fk_prenda"
                     className="form-control"
@@ -229,13 +245,13 @@ const EditarProducto = ({ editarProducto }) => {
                         </option>
                       );
 
-
                     })}
                   </select>
 
                   {errors.fk_prenda && (
                     <AlertaError message={errors.fk_prenda.message} />
                   )}
+
                 </div>
 
 
@@ -250,20 +266,13 @@ const EditarProducto = ({ editarProducto }) => {
                     className={`form-control ${style.customerr}`}
                     title="Seleccione una opcion"
                     {...register('publicado', {
-                      required: {
-                        value: true,
-                        message:
-                          'El estado de publicación es obligatorio',
-
-                      },
-                    }, {
                       validate: (value) => validarBooleanos(value)
-                    }
 
+                    },
                     )}
+                    value={editarProducto.publicado}
                   >
-
-                    <option value="" >
+                    <option value="" disabled >
                       Selecciona una opción
                     </option>
                     <option value="true">Si</option>
@@ -277,15 +286,12 @@ const EditarProducto = ({ editarProducto }) => {
                   )}
                 </div>
 
-                <div className="mb-2" name="Archivo">
-
-                  <div className='mb-3'>
-                    <p style={{ textAlign: 'center', fontWeight: 500 }}>Imagen del producto: </p>
-                  </div>
+                <div className="col-md-6" name="Archivo">
 
                   <label htmlFor="Archivo" className="col-from-label">
-                    Imagen de la prenda:
+                    Imagen de la Producto Final: *
                   </label>
+
                   <input
                     type="file"
                     className={`form-control ${style.customer}`}
@@ -310,22 +316,26 @@ const EditarProducto = ({ editarProducto }) => {
 
 
                 <div className="modal-footer">
-                  {/* <div className={style.bottonDiseno} >
+
+                  <div className={style.bottonDiseno} >
                     <BotonNegro
                       text='Agregar Diseño'
                       modalToOpen={'#myModalDiseno'}
+
                     />
-                  </div> */}
+                  </div>
 
                   <CancelarModal modalToCancel="modalEditar" />
                   <GuardarModal />
+
                 </div>
+
               </form>
             </div>
           </div>
         </div>
       </div>
-      {/* <AgregarDisenoModal /> */}
+
 
     </div>
   )

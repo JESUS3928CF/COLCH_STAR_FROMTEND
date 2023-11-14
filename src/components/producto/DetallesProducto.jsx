@@ -10,7 +10,7 @@ const DetallesProducto = ({ editarProducto }) => {
         <div>
             <div className='modal' id='modalDetalles'>
 
-                <div className='modal-dialog modal-dialog-centered modal-lg '>
+                <div className='modal-dialog modal-dialog-centered modal '>
                     <div className='modal-content ' >
                         <HeaderModals title='Imagen del producto' />
                         <div className='formulario'>
@@ -20,65 +20,102 @@ const DetallesProducto = ({ editarProducto }) => {
                                         <div className='row'>
 
                                             <div className='row d-flex justify-content-center align-items-center'>
+                                                <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                                                    <div className="carousel-inner">
 
-                                                <div className='col-md-6'>
-                                                    <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Producto:</h2>
-                                                    <a
-                                                        href={`${import.meta.env.VITE_BACKEND_URL
-                                                            }/${editarProducto.imagen}`}
-                                                        className={styles.contenedor_imagen}
-                                                    >
-                                                        {' '}
-                                                        <img
-                                                            src={
-                                                                editarProducto.imagen
-                                                                    ? `${import.meta.env
+                                                        <div className ={`carousel-item active ${styles.tamano}`}>
+                                                            <div className={styles.titu} >
+                                                                <h2 >Producto:</h2>
+                                                            </div>
+
+                                                            <img
+                                                                src={
+                                                                    editarProducto.imagen
+                                                                        ? `${import.meta.env
+                                                                            .VITE_BACKEND_URL
+                                                                        }/${editarProducto.imagen
+                                                                        }`
+                                                                        : ''
+
+                                                                }
+                                                                alt={editarProducto.nombre}
+                                                                title='Ver Imagen Completa'
+                                                                className={styles.contenedor_imagen}
+                                                            />
+                                                        </div>
+
+                                                        <div className={`carousel-item  ${styles.tamano}`} >
+
+                                                            <div className={styles.titu} >
+                                                                <h2 >Prenda</h2>
+                                                            </div>
+
+                                                            <img
+                                                                src={
+                                                                    editarProducto.imagen
+                                                                        ? `${import.meta.env
+                                                                            .VITE_BACKEND_URL
+                                                                        }/${editarProducto.prenda && editarProducto.prenda.imagen
+                                                                        }`
+                                                                        : ''
+                                                                }
+                                                                alt={editarProducto.nombre}
+                                                                title='Ver Imagen Completa'
+                                                                className={styles.contenedor_imagen}
+                                                            />
+                                                        </div>
+
+
+
+                                                        {editarProducto.disenos && editarProducto.disenos.map(diseno => (
+                                                            <div key={diseno.nombre} className={`carousel-item  ${styles.tamano}`}>
+
+                                                                <div className={styles.titu} >
+                                                                    <h2 >Diseños</h2>
+                                                                </div>
+
+                                                                <a href=""
+                                                                    className={styles.contenedor_imagen}>
+
+                                                                    <img src={diseno.imagen ? `${import.meta.env
                                                                         .VITE_BACKEND_URL
-                                                                    }/${editarProducto.imagen
-                                                                    }`
-                                                                    : ''
-                                                            }
-                                                            alt={editarProducto.nombre}
-                                                            title='Ver Imagen Completa'
-                                                        />
-                                                    </a>
+                                                                        }/${diseno.imagen && diseno.imagen
+                                                                        }`
+                                                                        : ''}
+                                                                        alt={diseno.nombre}
+                                                                        className={styles.contenedor_imagen}
+                                                                    />
+
+                                                                </a>
+                                                                <br />
+
+                                                                <p>Tamaño: {diseno.tamano}</p>
+
+                                                            </div>
+                                                        ))}
+
+                                                    </div>
+                                                    <button  className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                                        <span className={` carousel-control-prev-icon ${styles.flecha}`} aria-hidden="true"></span>
+                                                        <span  className="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                                        <span className={`carousel-control-next-icon ${styles.flecha}`} aria-hidden="true"></span>
+                                                        <span className="visually-hidden">Next</span>
+                                                    </button>
                                                 </div>
-                                                <div className='col-md-6'>
-                                                    <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Prenda:</h2>
-                                                    <a
-                                                        href={`${import.meta.env.VITE_BACKEND_URL
-                                                            }/${editarProducto.prenda && editarProducto.prenda.imagen}`}
-                                                        className={styles.contenedor_imagen}
-                                                    >
-                                                        {' '}
-                                                        <img
-                                                            src={
-                                                                editarProducto.imagen
-                                                                    ? `${import.meta.env
-                                                                        .VITE_BACKEND_URL
-                                                                    }/${editarProducto.prenda && editarProducto.prenda.imagen
-                                                                    }`
-                                                                    : ''
-                                                            }
-                                                            alt={editarProducto.nombre}
-                                                            title='Ver Imagen Completa'
-                                                        />
 
 
-                                                    </a>
-                                                </div>
+
+
+
 
 
                                                 {/* <div className='col-md-5 ml-5'> */}
-                                                <div className='card-body '>
-                                                    {editarProducto.disenos && editarProducto.disenos.map(diseno => (
-                                                        <div key={diseno.nombre}>
-                                                            <img src={diseno.imagen} alt={diseno.nombre} />
-                                                            <p>Tamaño: {diseno.tamano}</p>
-                                                        </div>
-                                                    ))}
+                                                <div className={` card-body  ${styles.car}`}>
 
-<h2
+
+                                                    <h2
                                                         htmlFor='nombre'
                                                         className='card-title'
                                                     >
