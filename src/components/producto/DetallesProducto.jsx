@@ -21,7 +21,7 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                             <div className='row d-flex justify-content-center align-items-center'>
 
-                                                <div className='col-md-6'>
+                                                <div className='col-md-4'>
                                                     <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Producto:</h2>
                                                     <a
                                                         href={`${import.meta.env.VITE_BACKEND_URL
@@ -43,7 +43,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                         />
                                                     </a>
                                                 </div>
-                                                <div className='col-md-6'>
+                                                <div className='col-md-4'>
                                                     <h2 style={{ textAlign: 'center', fontWeight: 600 }}>Prenda:</h2>
                                                     <a
                                                         href={`${import.meta.env.VITE_BACKEND_URL
@@ -67,13 +67,20 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                                     </a>
                                                 </div>
+                                                
 
 
                                                 {/* <div className='col-md-5 ml-5'> */}
                                                 <div className='card-body '>
                                                     {editarProducto.disenos && editarProducto.disenos.map(diseno => (
                                                         <div key={diseno.nombre}>
-                                                            <img src={diseno.imagen} alt={diseno.nombre} />
+                                                            
+
+                                                            <img src={diseno.imagen ? `${import.meta.env
+                                                                        .VITE_BACKEND_URL
+                                                                    }/${diseno.imagen && diseno.imagen
+                                                                    }`
+                                                                    : ''} alt={diseno.nombre} />
                                                             <p>Tamaño: {diseno.tamano}</p>
                                                         </div>
                                                     ))}
