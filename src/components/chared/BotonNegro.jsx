@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta, onClick }) => {
+const BotonNegro = ({ text, modalToOpen , modalClouse, quieresAbrirRuta, onClick }) => {
     if (quieresAbrirRuta) {
         return (
             <button
@@ -19,6 +19,7 @@ const BotonNegro = ({ text, modalToOpen , quieresAbrirRuta, onClick }) => {
             className='btn btn-secondary'
             data-bs-toggle='modal'
             data-bs-target={modalToOpen}
+            data-bs-dismiss={modalClouse}
             style={{ backgroundColor: '#252432' }}
             onClick={onClick}
         >

@@ -1,10 +1,18 @@
+import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+
 const Compras = () => {
-    return (
+    const { auth, loading } = useAuth();
+    if (loading == true) return 'Cargando...';
+
+    return auth.usuario.permisos.includes('compra') ? (
         <div>
             <div>
-                <h1>Dashboard</h1>
+                <h1>compras</h1>
             </div>
         </div>
+    ) : (
+        <Navigate to={'/administracion'} />
     );
 };
 

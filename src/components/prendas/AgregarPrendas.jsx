@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AgregarColors from "./AgregarColors";
 import HeaderModals from '../chared/HeaderModals';
+import styles from '../../pages/Productos.module.css'
+import BotonNegro from "../chared/BotonNegro";
+
 
 
 
@@ -367,15 +370,14 @@ const AgregarPrendas = () => {
                 </div>
 
                 <div className="modal-footer">
-                  <button
-                    className="btn btn-secondary"
-                    style={{ backgroundColor: "#252432" }}
-                    data-bs-target="#myModalColors"
-                    data-bs-toggle="modal"
-                    data-bs-dismiss="modal"
-                  >
-                    Agregar Color
-                  </button>
+                  <div className={styles.bottonDiseno}>
+                    <BotonNegro text="Agregrar color" 
+                    modalToOpen={'#myModalColors'} 
+                    modalClouse={'modal'} />
+                 
+
+                  </div>
+                
                   <CancelarModal />
                   <GuardarModal />
                 </div>
