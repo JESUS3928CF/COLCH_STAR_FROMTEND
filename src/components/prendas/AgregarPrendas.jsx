@@ -84,7 +84,7 @@ const AgregarPrendas = () => {
       <div className="modal" id="myModal">
         <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
-            <HeaderModals title={'Agregar Producto'} />
+            <HeaderModals title={'Agregar Prenda'} />
 
 
             <div className="modal-body">

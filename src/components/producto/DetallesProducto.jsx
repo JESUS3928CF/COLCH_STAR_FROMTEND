@@ -39,7 +39,7 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                                                 }
                                                                 alt={editarProducto.nombre}
-                                                                title='Ver Imagen Completa'
+                                                                title={editarProducto.nombre}
                                                                 className={styles.contenedor_imagen}
                                                             />
                                                         </div>
@@ -60,7 +60,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                                         : ''
                                                                 }
                                                                 alt={editarProducto.nombre}
-                                                                title='Ver Imagen Completa'
+                                                                title={editarProducto.nombre}
                                                                 className={styles.contenedor_imagen}
                                                             />
                                                         </div>
@@ -83,7 +83,9 @@ const DetallesProducto = ({ editarProducto }) => {
                                                                         }`
                                                                         : ''}
                                                                         alt={diseno.nombre}
+                                                                        title= {diseno.nombre}
                                                                         className={styles.contenedor_imagen}
+                                                                        
                                                                     />
 
                                                                 </a>
