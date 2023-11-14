@@ -1,3 +1,9 @@
+//----------------TOMAS SANTIAGO VANEGAS SANCHEZ
+//--------------------14 de noviembre 203
+
+// Permitirar agregar una prenda, color mediante un formulario
+//y se mostarra en la tabla de prendas
+
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import clienteAxios from "../../config/axios";
@@ -78,13 +84,18 @@ const AgregarPrendas = () => {
       }).then(location.reload());
     }
   });
+  
+
+
+
+
 
   return (
     <>
       <div className="modal" id="myModal">
-        <div className="modal-dialog modal-dialog-centered modal-lg">
+        <div className={`modal-dialog modal-dialog-centered  modal-lg ${styles.modal}`}>
           <div className="modal-content">
-            <HeaderModals title={'Agregar Producto'} />
+            <HeaderModals title={'Agregar Prendas'} />
 
 
             <div className="modal-body">

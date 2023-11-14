@@ -41,3 +41,13 @@
 .bottonDiseno {
     margin-right: 52%; /* Puedes ajustar el porcentaje según tus necesidades */
 }
+
+
+.modal{
+    margin-left: 300px;
+}
+
+.custom {
+    width: 800px; /* Ancho máximo del modal */
+    margin: 1.75rem auto; /* Margen superior e inferior */
+  }

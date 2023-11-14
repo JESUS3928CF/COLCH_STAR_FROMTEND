@@ -5,14 +5,14 @@ import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from "../chared/HeaderModals";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
-
-
 import Swal from "sweetalert2";
-
-
+import ModalesButton from "../chared/ModalesButton";
+import BotonNegro from "../chared/BotonNegro";
 
 
 const AgregarColors = () => {
+
+    
 
     const {
         register,
@@ -38,9 +38,8 @@ const AgregarColors = () => {
                 title: 'Color agregado',
                 text: res.data.message,
                 icon: 'success',
-            }).then(() => {
-                location.reload();
-            });
+
+            }).then(location.reload());
         } catch (error) {
             Swal.fire({
                 title: 'Error',
@@ -50,6 +49,7 @@ const AgregarColors = () => {
         }
 
     })
+    
 
 
     return (
@@ -62,7 +62,11 @@ const AgregarColors = () => {
                         <HeaderModals title={'Agregar color'} />
 
                         <div className="modal-body">
-                            <form onSubmit={handleSubmit(onSubmit)}
+                            <form onSubmit={
+                            handleSubmit(onSubmit)
+}
+
+                            
                                 className='row g-3 needs-validation'
                             >
                                 <div className='col-md-6' name='color'>
@@ -135,8 +139,10 @@ const AgregarColors = () => {
                                 </div>
 
                                 <div className='modal-footer'>
-                                    <CancelarModal />
-                                    <GuardarModal />
+                                <BotonNegro  text={'Cancelar'} modalToOpen={'#myModal'} modalClouse={'modal'}/>
+                                <GuardarModal/>
+
+
                                 </div>
                             </form>
                         </div>
@@ -144,8 +150,7 @@ const AgregarColors = () => {
                 </div>
             </div>
 
-
-
+            
         </>
     )
 }
