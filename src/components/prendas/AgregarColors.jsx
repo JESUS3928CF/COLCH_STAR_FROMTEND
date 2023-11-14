@@ -6,7 +6,6 @@ import HeaderModals from "../chared/HeaderModals";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
-import ModalesButton from "../chared/ModalesButton";
 import BotonNegro from "../chared/BotonNegro";
 
 
