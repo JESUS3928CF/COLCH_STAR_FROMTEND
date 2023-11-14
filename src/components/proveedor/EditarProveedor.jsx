@@ -43,10 +43,8 @@ const EditarProveedor = ({ editarProveedor }) => {
             setValue('nombre', editarProveedor.nombre);
             setValue('telefono', editarProveedor.telefono);
             setValue('direccion', editarProveedor.direccion);
-            console.log(tipoIdentificacion)
         }
     }, [editarProveedor]);
-
 
 
 
