@@ -17,11 +17,13 @@ const AgregarDisenoModal = () => {
     const { agregarDiseno } = useDisenosContext();
 
 
-    const agregarNuevoDiseno = (data) => {
-        agregarDiseno(data)
 
+    const agregarNuevoDiseno = (data) => {
+
+        agregarDiseno(data)
     };
 
+   
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
@@ -32,7 +34,6 @@ const AgregarDisenoModal = () => {
             setDetalle_diseno(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
-    // console.log('Detalle de diseño:', detalle_diseno);
 
 
     const [Precio, setPrecio] = useState([]);
@@ -45,7 +46,6 @@ const AgregarDisenoModal = () => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });
     }, []);
-
 
 
 
@@ -125,7 +125,6 @@ const AgregarDisenoModal = () => {
                                             </option>
                                         ))}
                                     </select>
-                                    <br />
 
                                     {errors.diseno && (
                                         <AlertaError
@@ -133,10 +132,13 @@ const AgregarDisenoModal = () => {
                                         />
                                     )}
 
-                                    <div className="col-md-6">
+                                    <div className="col-md-5 ml-6 mt-3">
+
+
+
+
 
                                         
-
 
 
 
