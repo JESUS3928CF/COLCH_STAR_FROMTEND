@@ -12,6 +12,7 @@ import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import { useEffect, useState } from "react";
+import HeaderModals from '../chared/HeaderModals';
 
 const AgregarUsuario = () => {
   const {
@@ -90,19 +91,7 @@ const AgregarUsuario = () => {
         <div
           className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <div className="agregar agr">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Agregar Usuario
-              </h5>
-              <button
-                type="button"
-                id="xAgregar"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div>
+          <HeaderModals title={'Agregar Usuario'} />
               <div className="modal-body">
                 {/* <!-- formulario para agregar un usuario --> */}
                 <form
@@ -350,7 +339,6 @@ const AgregarUsuario = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

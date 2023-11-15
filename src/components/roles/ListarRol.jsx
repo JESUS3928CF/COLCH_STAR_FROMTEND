@@ -221,7 +221,7 @@ const ListarRol = () => {
                                                   'Administrador' ? (
                                                       <img
                                                           width='50px'
-                                                          src={crossing_out}
+                                                          src={editar}
                                                           alt='No permitido'
                                                           style={{
                                                               marginLeft:
