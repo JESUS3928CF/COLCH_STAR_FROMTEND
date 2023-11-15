@@ -27,8 +27,12 @@ function AgregarRol() {
     register, //Regitra o identifica cada elemento o cada input
     handleSubmit,  //Para manejar el envio del formulario
     formState: { errors }, //Ver errores que tiene el formulario
+    setValue,
+    trigger,
     reset,  //Resetea el formulario
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
@@ -115,6 +119,10 @@ function AgregarRol() {
                             "El nombre no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("nombre", e.target.value);
+                        trigger("nombre");
+                      }}
                     />
                     {errors.nombre && (
                       <AlertaError message={errors.nombre.message} />

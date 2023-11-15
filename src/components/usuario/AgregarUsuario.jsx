@@ -18,9 +18,13 @@ const AgregarUsuario = () => {
     register, //Regitra o identifica cada elemento o cada input
     handleSubmit, //Para manejar el envio del formulario
     formState: { errors }, //Ver errores que tiene el formulario
-    reset,
-    getValues, //Resetea el formulario
-  } = useForm();
+    setValue,
+    trigger,
+    reset,  //Resetea el formulario
+    getValues,
+  } = useForm({
+    mode: "onChange",
+  });
 
   const [roles, setRoles] = useState([]);
 
@@ -128,6 +132,10 @@ const AgregarUsuario = () => {
                             "El nombre no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("nombre", e.target.value);
+                        trigger("nombre");
+                      }}
                     />
                     {errors.nombre && (
                       <AlertaError message={errors.nombre.message} />
@@ -157,6 +165,10 @@ const AgregarUsuario = () => {
                             "El apellido no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("apellido", e.target.value);
+                        trigger("apellido");
+                      }}
                     />
                     {errors.apellido && (
                       <AlertaError message={errors.apellido.message} />
@@ -192,6 +204,10 @@ const AgregarUsuario = () => {
                           return true;
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("telefono", e.target.value);
+                        trigger("telefono");
+                      }}
                     />
                     {errors.telefono && (
                       <AlertaError message={errors.telefono.message} />
@@ -220,6 +236,10 @@ const AgregarUsuario = () => {
                           message: "El Email no tiene un formato válido",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("email", e.target.value);
+                        trigger("email");
+                      }}
                     />
                     {errors.email && (
                       <AlertaError message={errors.email.message} />
@@ -245,6 +265,10 @@ const AgregarUsuario = () => {
                             "La contraseña debe tener al menos 6 caracteres sin espacios",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("contrasena", e.target.value);
+                        trigger("contrasena");
+                      }}
                     />
                     {errors.contrasena && (
                       <AlertaError message={errors.contrasena.message} />
@@ -274,6 +298,10 @@ const AgregarUsuario = () => {
                           );
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("contrasenaConfirmar", e.target.value);
+                        trigger("contrasenaConfirmar");
+                      }}
                     />
                     {errors.contrasenaConfirmar && (
                       <AlertaError

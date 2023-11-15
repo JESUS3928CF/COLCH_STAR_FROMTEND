@@ -18,11 +18,15 @@ import { validarEspaciosVacios } from "../../Validations/validations";
 //Componente
 function EditarRol({ editarRol }) {
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register, //Regitra o identifica cada elemento o cada input
+    handleSubmit,  //Para manejar el envio del formulario
+    formState: { errors }, //Ver errores que tiene el formulario
     setValue,
-  } = useForm();
+    trigger,
+    reset,  //Resetea el formulario
+  } = useForm({
+    mode: "onChange",
+  });
 
   // a la hora del editar el rol del administrador no va aparecer el rol
   const [permisos, setPermisos] = useState([]);
@@ -146,6 +150,10 @@ function EditarRol({ editarRol }) {
                           "El nombre no puede contener números ni caracteres especiales",
                       },
                     })}
+                    onChange={(e) => {
+                      setValue("nombre", e.target.value);
+                      trigger("nombre");
+                    }}
                   />
                   {errors.nombre && (
                     <AlertaError message={errors.nombre.message} />
