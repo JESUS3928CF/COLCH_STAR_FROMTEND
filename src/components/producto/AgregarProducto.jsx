@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { validarEspaciosVacios, validarImagen } from '../../Validations/validations'
 import BotonNegro from '../chared/BotonNegro';
 import AgregarDisenoModal from './AgregarDisenoModal';
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../context/disenosProvider';
 
 const AgregarProducto = () => {
 

@@ -13,7 +13,7 @@ import Diseno from '../pages/Diseno';
 import Prendas from '../pages/Prendas';
 import MenuLateral from '../layout/Menu_lateral';
 import { AuthProvider } from '../context/AuthProvider';
-import { DisenosProvider } from '../../context/disenosProvider';
+import { DisenosProvider } from '../context/disenosProvider';
 
 const MyRoutes = () => {
     return (

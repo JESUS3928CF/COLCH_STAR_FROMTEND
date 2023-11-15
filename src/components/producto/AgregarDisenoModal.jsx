@@ -5,7 +5,7 @@ import axios from 'axios';
 import AlertaError from '../chared/AlertaError';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../context/disenosProvider';
 
 const AgregarDisenoModal = () => {
     const {
@@ -16,10 +16,16 @@ const AgregarDisenoModal = () => {
 
     const { agregarDiseno } = useDisenosContext();
 
+
+
     const agregarNuevoDiseno = (data) => {
-        
+
+        console.log('Datos del formulario:', data);
+
         agregarDiseno(data)
     };
+
+   
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
@@ -30,6 +36,7 @@ const AgregarDisenoModal = () => {
             setDetalle_diseno(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
+
 
     const [Precio, setPrecio] = useState([]);
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
@@ -42,94 +49,117 @@ const AgregarDisenoModal = () => {
             });
     }, []);
 
+
+
     return (
         <div className='modal' id='myModalDiseno'>
             <div className='modal-dialog modal-dialog-centered'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Diseno y  Tamaño' NoReset= {true} />
+                    <HeaderModals title='Diseno y  Tamaño' NoReset={true} />
 
                     <div className='modal-body'>
-                        {/* formulario para agregar un cliente  */}
                         <form
                             action=''
                             id='formularioModificar'
                             onSubmit={handleSubmit(agregarNuevoDiseno)}
                         >
-                            <div className='col-md-6 mt-2'>
-                                <label htmlFor='rol' className='col-form-label'>
-                                    diseno: *
-                                </label>
-                                <select
-                                    className='form-control' // Allow multiple selections
-                                    {...register('id_diseno', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'Debe seleccionar al menos un diseño',
-                                        },
-                                    })}
-                                >
-                                    <option value='' disabled>
-                                        Seleccionar diseño
-                                    </option>
-                                    {detalle_diseno.map((diseno) => (
-                                        <option
-                                            key={diseno.id_diseno}
-                                            value={diseno.id_diseno}
-                                        >
-                                            {diseno.nombre}
+                            <div className="row gx-0">
+                                <div className="col-md-6">
+
+
+
+                                    <label htmlFor='rol' className='col-form-label'>
+                                        diseno: *
+                                    </label>
+                                    <select
+                                        className='form-control' // Allow multiple selections
+                                        {...register('id_diseno', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'Debe seleccionar al menos un diseño',
+                                            },
+                                        })}
+                                    >
+                                        <option value='' disabled>
+                                            Seleccionar diseño
                                         </option>
-                                    ))}
-                                </select>
+                                        {detalle_diseno.map((diseno) => (
+                                            <option
+                                                key={diseno.id_diseno}
+                                                value={diseno.id_diseno}
+                                            >
+                                                {diseno.nombre}
+                                            </option>
+                                        ))}
+                                    </select>
 
-                                {errors.diseno && (
-                                    <AlertaError
-                                        message={errors.diseno.message}
-                                    />
-                                )}
-                            </div>
+                                    {errors.diseno && (
+                                        <AlertaError
+                                            message={errors.diseno.message}
+                                        />
+                                    )}
 
-                            <div className='col-md-6 mt-2'>
-                                <label htmlFor='rol' className='col-form-label'>
-                                    diseno: *
-                                </label>
-                                <select
-                                    className='form-control' // Allow multiple selections
-                                    {...register('id_precio_diseno', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'Debe seleccionar al menos un tamaño',
-                                        },
-                                    })}
-                                >
-                                    <option value='' disabled>
-                                        Seleccionar tamaño
-                                    </option>
-                                    {Precio.map((precio) => (
-                                        <option
-                                            key={precio.id_precio_diseno}
-                                            value={precio.id_precio_diseno}
-                                        >
-                                            {precio.tamano}
+
+                                    <label htmlFor='rol' className='col-form-label'>
+                                        diseno: *
+                                    </label>
+                                    <select
+                                        className='form-control' // Allow multiple selections
+                                        {...register('id_precio_diseno', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'Debe seleccionar al menos un tamaño',
+                                            },
+                                        })}
+                                    >
+                                        <option value='' disabled>
+                                            Seleccionar tamaño
                                         </option>
-                                    ))}
-                                </select>
+                                        {Precio.map((precio) => (
+                                            <option
+                                                key={precio.id_precio_diseno}
+                                                value={precio.id_precio_diseno}
+                                            >
+                                                {precio.tamano}
+                                            </option>
+                                        ))}
+                                    </select>
 
-                                {errors.diseno && (
-                                    <AlertaError
-                                        message={errors.diseno.message}
-                                    />
-                                )}
-                            </div>
+                                    {errors.diseno && (
+                                        <AlertaError
+                                            message={errors.diseno.message}
+                                        />
+                                    )}
 
-                            <div className='modal-footer'>
-                                {/* Botón para cancelar*/}
-                                <CancelarModal NoReset= {true} />
+                                    <div className="col-md-5 ml-6 mt-3">
 
-                                {/* Botón para guardar*/}
-                                <GuardarModal />
+
+
+
+
+                                        
+
+
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div className='modal-footer'>
+                                    {/* Botón para cancelar*/}
+                                    <CancelarModal NoReset={true} />
+
+                                    {/* Botón para guardar*/}
+                                    <GuardarModal />
+                                </div>
+
                             </div>
                         </form>
                     </div>
