@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../context/disenosProvider';
 
 
 
