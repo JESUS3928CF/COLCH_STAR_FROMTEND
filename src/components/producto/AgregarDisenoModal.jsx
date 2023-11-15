@@ -14,19 +14,35 @@ const AgregarDisenoModal = () => {
         formState: { errors },
     } = useForm();
 
-    const { agregarDiseno } = useDisenosContext();
+    const { agregarDiseno, disenos } = useDisenosContext();
 
 
+
+
+    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState('');
 
     const agregarNuevoDiseno = (data) => {
-
-        agregarDiseno(data)
+        agregarDiseno(data);
+    
+        const selectedId = data.id_diseno;
+    
+        let selectedDiseno = [];
+    
+        for (let i = 0; i < disenos.length; i++) {
+            const matchingDiseno = detalle_diseno.find((diseno) => diseno.id_diseno == disenos[i].id_diseno);
+            if (matchingDiseno) {
+                selectedDiseno.push(matchingDiseno.nombre);
+            }
+        }
+        setSelectedDisenoNombre(selectedDiseno);
     };
 
-   
+
+
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
+    // console.log( detalle_diseno)
 
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
@@ -47,6 +63,11 @@ const AgregarDisenoModal = () => {
             });
     }, []);
 
+    
+
+    
+    
+    
 
 
     return (
@@ -79,6 +100,7 @@ const AgregarDisenoModal = () => {
                                                     'Debe seleccionar al menos un diseño',
                                             },
                                         })}
+
                                     >
                                         <option value='' disabled>
                                             Seleccionar diseño
@@ -135,12 +157,14 @@ const AgregarDisenoModal = () => {
                                     <div className="col-md-5 ml-6 mt-3">
 
 
+                                    {selectedDisenoNombre && (
+                                        <div>
+                                            <div>{selectedDisenoNombre}</div>
+                                        </div>
+                                    )}
 
 
-
-                                        
-
-
+                                
 
                                     </div>
 
