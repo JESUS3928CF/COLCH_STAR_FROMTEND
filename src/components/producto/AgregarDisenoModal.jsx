@@ -16,20 +16,9 @@ const AgregarDisenoModal = () => {
 
     const { agregarDiseno } = useDisenosContext();
 
-    const [nombreDisenoSeleccionado, setNombreDisenoSeleccionado] = useState("");
-
 
     const agregarNuevoDiseno = (data) => {
         agregarDiseno(data)
-
-
-
-        const disenoSeleccionado = detalle_diseno.find(
-            (diseno) => diseno.id_diseno === parseInt(data.id_diseno)
-        );
-        const nuevoNombre = disenoSeleccionado.nombre;
-
-        setNombresDisenosSeleccionados((prevNombres) => [...prevNombres, nuevoNombre]);
 
     };
 
@@ -136,6 +125,7 @@ const AgregarDisenoModal = () => {
                                             </option>
                                         ))}
                                     </select>
+                                    <br />
 
                                     {errors.diseno && (
                                         <AlertaError
@@ -145,11 +135,7 @@ const AgregarDisenoModal = () => {
 
                                     <div className="col-md-6">
 
-                                        {nombreDisenoSeleccionado && (
-                                            <div> {nombreDisenoSeleccionado}</div>
-                                        )}
-
-
+                                        
 
 
 
