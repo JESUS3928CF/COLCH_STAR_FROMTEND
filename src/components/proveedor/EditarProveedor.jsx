@@ -32,7 +32,11 @@ const EditarProveedor = ({ editarProveedor }) => {
         handleSubmit, //para manejar el envio del formulario
         formState: { errors }, //ver errores que tiene el formulario
         setValue, // Añade esta función para actualizar dinámicamente los valores
-    } = useForm();
+        trigger,
+        reset, //Resetea el formulario
+    } = useForm({
+        mode: "onChange",
+    });
 
     //por medio de editarproveedor se traen lo que hay en el listar, y por medio del estado setvalue
     //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
@@ -162,9 +166,11 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                         }
                                                         return true; // La validación pasa si cumple ambas condiciones
                                                     },
-
-
                                                 })}
+                                                onChange={(e) => {
+                                                    setValue("identificador", e.target.value);
+                                                    trigger("identificador");
+                                                }}
                                             />
                                         </div>
                                         {errors.identificador && (
@@ -199,6 +205,10 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 message: "No puede contener números ni caracteres especiales"
                                             }
                                         })}
+                                        onChange={(e) => {
+                                            setValue("nombre", e.target.value);
+                                            trigger("nombre");
+                                        }}
                                     />
                                     {errors.nombre && (
                                         <AlertaError message={errors.nombre.message} /> //muestra el mensaje de validacion
@@ -232,6 +242,10 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 return true;
                                             },
                                         })}
+                                        onChange={(e) => {
+                                            setValue("telefono", e.target.value);
+                                            trigger("telefono");
+                                        }}
                                     />
                                     {errors.telefono && (
                                         <AlertaError message={errors.telefono.message} /> //muestra el mensaje de validacion
@@ -257,6 +271,10 @@ const EditarProveedor = ({ editarProveedor }) => {
                                                 return validarEspaciosVacios(value);
                                             }
                                         })}
+                                        onChange={(e) => {
+                                            setValue("direccion", e.target.value);
+                                            trigger("direccion");
+                                        }}
                                     />
                                     {errors.direccion && (
                                         <AlertaError message={errors.direccion.message} /> //muestra el mensaje de validacion

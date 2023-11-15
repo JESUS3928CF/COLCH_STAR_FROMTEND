@@ -16,16 +16,23 @@ const AgregarDisenoModal = () => {
 
     const { agregarDiseno } = useDisenosContext();
 
+    const [nombreDisenoSeleccionado, setNombreDisenoSeleccionado] = useState("");
 
 
     const agregarNuevoDiseno = (data) => {
-
-        console.log('Datos del formulario:', data);
-
         agregarDiseno(data)
+
+
+
+        const disenoSeleccionado = detalle_diseno.find(
+            (diseno) => diseno.id_diseno === parseInt(data.id_diseno)
+        );
+        const nuevoNombre = disenoSeleccionado.nombre;
+
+        setNombresDisenosSeleccionados((prevNombres) => [...prevNombres, nuevoNombre]);
+
     };
 
-   
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
@@ -36,6 +43,7 @@ const AgregarDisenoModal = () => {
             setDetalle_diseno(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
+    // console.log('Detalle de diseño:', detalle_diseno);
 
 
     const [Precio, setPrecio] = useState([]);
@@ -48,6 +56,7 @@ const AgregarDisenoModal = () => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });
     }, []);
+
 
 
 
@@ -134,13 +143,14 @@ const AgregarDisenoModal = () => {
                                         />
                                     )}
 
-                                    <div className="col-md-5 ml-6 mt-3">
+                                    <div className="col-md-6">
+
+                                        {nombreDisenoSeleccionado && (
+                                            <div> {nombreDisenoSeleccionado}</div>
+                                        )}
 
 
 
-
-
-                                        
 
 
 
