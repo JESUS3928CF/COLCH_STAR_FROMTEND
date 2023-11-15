@@ -123,6 +123,7 @@ function AgregarRol() {
                   {/* se seleccionan los permisos que va tener ese rol creado */}
                   <label>Seleccionar permisos:  *</label>
                   {errorMensaje && <AlertaError message={errorMensaje} />}
+                  <div className="col-md-6">
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
@@ -155,6 +156,8 @@ function AgregarRol() {
                     />
                     <label>Producto</label>
                   </div>
+                  </div>
+                  <div className="col-md-6">
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
@@ -178,6 +181,7 @@ function AgregarRol() {
                       onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
                     />
                     <label>Orden</label>
+                  </div>
                   </div>
                   <div className="modal-footer">
                     <CancelarModal modalToCancel={'myModal'} />

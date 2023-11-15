@@ -20,11 +20,15 @@ import HeaderModals from "../chared/HeaderModals";
 //Componente
 const AgregarCliente = () => {
   const {
-    register, //Regitra o identifica cada elemento o cada input
-    handleSubmit, //Para manejar el envio del formulario
-    formState: { errors }, //Ver errores que tiene el formulario
-    reset, //Resetea el formulario
-  } = useForm();
+    register,    //Regitra o identifica cada elemento o cada input
+    handleSubmit,     //Para manejar el envio del formulario
+    formState: { errors },   //Ver errores que tiene el formulario
+    setValue,
+    trigger,
+    reset,        //Resetea el formulario
+  } = useForm({
+    mode: "onChange",
+  });
 
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
@@ -114,10 +118,9 @@ const AgregarCliente = () => {
                           id="tipoIdentificacion"
                           {...register("tipoIdentificacion", {
                             required: {
-                              // Es una propiedad que indica que el campo es obligatorio.
-                              value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                              value: true,
                               message:
-                                "El tipo de identificación es obligatoria", // es un mensaje que se mostrará si la validación falla.
+                                "El tipo de identificación es obligatorio",
                             },
                           })}
                         >
@@ -131,34 +134,33 @@ const AgregarCliente = () => {
                           className="form-control "
                           name="identificacion"
                           placeholder=". . ."
-                          //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
-                          //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                           {...register("identificacion", {
-                            required: {
-                              // Es una propiedad que indica que el campo es obligatorio.
-                              value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                              message: "La Identificación es obligatoria", // es un mensaje que se mostrará si la validación falla.
-                            },
+                            required: "La Identificación es obligatoria",
                             pattern: {
-                              value: /^\d+$/, //expreción regular para prohibir letras y espacios en blamco
+                              value: /^\d+$/, // Expresión regular para prohibir letras y espacios en blanco
                               message:
-                                "No puede contener Letras ni  espacios en blanco",
+                                "No puede contener letras ni espacios en blanco",
                             },
                             validate: (value) => {
                               if (value.length < 6 || value.length > 11) {
                                 return "La Identificación debe tener entre 6 y 11 dígitos";
                               }
-                              return true; // La validación pasa si cumple ambas condiciones
+                              return true;
                             },
                           })}
+                          onChange={(e) => {
+                            setValue("identificacion", e.target.value);
+                            trigger("identificacion");
+                          }}
                         />
                       </div>
 
                       {errors.identificacion && (
-                        <AlertaError message={errors.identificacion.message} /> //muestra el mensaje de validacion
+                        <AlertaError message={errors.identificacion.message} />
                       )}
                     </div>
                   </div>
+
                   <div className="col-md-6">
                     <label htmlFor="nombre" className="col-form-label">
                       Nombres: *
@@ -168,13 +170,13 @@ const AgregarCliente = () => {
                       type="text"
                       className="form-control"
                       placeholder=". . ."
-                      //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
                       {...register("nombre", {
                         required: {
                           value: true,
-                          message: "El nombre es obligatorio",
+                          message: "El Nombre es obligatorio",
                         },
                         validate: (value) => {
+                          // Valida espacios
                           return validarEspaciosVacios(value);
                         },
                         pattern: {
@@ -183,11 +185,18 @@ const AgregarCliente = () => {
                             "El nombre no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("nombre", e.target.value);
+                        trigger("nombre");
+                      }}
                     />
                     {errors.nombre && (
-                      <AlertaError message={errors.nombre.message} />
+                      <AlertaError
+                        message={errors.nombre.message}
+                      />
                     )}
                   </div>
+
                   <div className="col-md-6">
                     <label htmlFor="apellido" className="col-form-label">
                       Apellidos: *
@@ -203,7 +212,7 @@ const AgregarCliente = () => {
                           message: "El apellido es obligatorio",
                         },
                         validate: (value) => {
-                          // valida espacios
+                          // Valida espacios
                           return validarEspaciosVacios(value);
                         },
                         pattern: {
@@ -212,11 +221,16 @@ const AgregarCliente = () => {
                             "El apellido no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("apellido", e.target.value);
+                        trigger("apellido");
+                      }}
                     />
                     {errors.apellido && (
                       <AlertaError message={errors.apellido.message} />
                     )}
                   </div>
+
                   <div className="col-md-6">
                     <label htmlFor="telefono" className="col-form-label">
                       Teléfono: *
@@ -229,7 +243,7 @@ const AgregarCliente = () => {
                       {...register("telefono", {
                         required: {
                           value: true,
-                          message: "El telefono es obligatorio",
+                          message: "El teléfono es obligatorio",
                         },
                         pattern: {
                           value: /^\d+$/,
@@ -240,18 +254,23 @@ const AgregarCliente = () => {
                           const telefonoSinEspacios = value.replace(/\s/g, ""); // Eliminar espacios en blanco
                           if (
                             telefonoSinEspacios.length < 7 ||
-                            telefonoSinEspacios.length > 11
+                            telefonoSinEspacios.length > 12
                           ) {
-                            return "El telefono debe tener minimo 7 digitos y maximo 12";
+                            return "El teléfono debe tener mínimo 7 dígitos y máximo 12";
                           }
                           return true;
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("telefono", e.target.value);
+                        trigger("telefono");
+                      }}
                     />
                     {errors.telefono && (
                       <AlertaError message={errors.telefono.message} />
                     )}
                   </div>
+
                   <div className="col-md-6">
                     <label htmlFor="direccion" className="col-form-label">
                       Dirección: *
@@ -270,11 +289,16 @@ const AgregarCliente = () => {
                           return validarEspaciosVacios(value);
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("direccion", e.target.value);
+                        trigger("direccion");
+                      }}
                     />
                     {errors.direccion && (
                       <AlertaError message={errors.direccion.message} />
                     )}
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="email" className="col-form-label">
                       Email: *
@@ -298,6 +322,10 @@ const AgregarCliente = () => {
                           message: "El Email no tiene un formato válido",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("email", e.target.value);
+                        trigger("email");
+                      }}
                     />
                     {errors.email && (
                       <AlertaError message={errors.email.message} />

@@ -32,7 +32,7 @@ function EditarRol({ editarRol }) {
     ? "Editar rol Administrador"
     : "Editar permisos del rol";
 
-    // Cuando editarRol cambia, actualiza los valores del formulario
+  // Cuando editarRol cambia, actualiza los valores del formulario
   useEffect(() => {
     if (editarRol) {
       setValue("nombre", editarRol.nombre);
@@ -48,7 +48,7 @@ function EditarRol({ editarRol }) {
     }
   };
 
-    /// Función para guardar el cliente en la DB
+  /// Función para guardar el cliente en la DB
   const onSubmit = (data) => {
     const { nombre } = data;
 
@@ -59,7 +59,7 @@ function EditarRol({ editarRol }) {
       setErrorPermisos(null);
     }
 
-        // Ruta
+    // Ruta
     if (editarRol && editarRol.id_rol) {
       axios
         .patch(`http://localhost:3000/api/rol/${editarRol.id_rol}`, {
@@ -100,7 +100,7 @@ function EditarRol({ editarRol }) {
 
   return (
     <div>
-          {/* modal de editar roles */}
+      {/* modal de editar roles */}
       <div className="modal" id="modalEditar">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -130,9 +130,10 @@ function EditarRol({ editarRol }) {
                     className="form-control"
                     placeholder=""
                     //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
-                     //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
+                    //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                     {...register("nombre", {
-                      required: { // Es una propiedad que indica que el campo es obligatorio. 
+                      required: {
+                        // Es una propiedad que indica que el campo es obligatorio.
                         value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
                         message: "El nombre es obligatorio", // es un mensaje que se mostrará si la validación falla.
                       },
@@ -153,128 +154,144 @@ function EditarRol({ editarRol }) {
                 <div className="container">
                   {!esRolAdministrador && (
                     <div>
-                      {/* selecciona los permisos que va editar */}
                       <label htmlFor="">Seleccionar permisos: *</label>
                       {errorPermisos && <AlertaError message={errorPermisos} />}
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditar"
-                          id="usuarioEditar"
-                          checked={permisos.includes("usuario")}
-                          onChange={(e) =>
-                            handlePermisoChange("usuario", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="usuarioEditar"
-                        >
-                          Usuario
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarDos"
-                          id="rolEditar"
-                          checked={permisos.includes("rol")}
-                          onChange={(e) =>
-                            handlePermisoChange("rol", e.target.checked)
-                          }
-                        />
-                        <label className="form-check-label" htmlFor="rolEditar">
-                          Rol
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarTres"
-                          id="proveedorEditar"
-                          checked={permisos.includes("proveedor")}
-                          onChange={(e) =>
-                            handlePermisoChange("proveedor", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="proveedorEditar"
-                        >
-                          Proveedor
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarCuatro"
-                          id="productoEditar"
-                          checked={permisos.includes("producto")}
-                          onChange={(e) =>
-                            handlePermisoChange("producto", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="productoEditar"
-                        >
-                          Producto
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarCinco"
-                          id="clienteEditar"
-                          checked={permisos.includes("cliente")}
-                          onChange={(e) =>
-                            handlePermisoChange("cliente", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="clienteEditar"
-                        >
-                          Cliente
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarSeis"
-                          id="compraEditar"
-                          checked={permisos.includes("compra")}
-                          onChange={(e) =>
-                            handlePermisoChange("compra", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="compraEditar"
-                        >
-                          Compra
-                        </label>
-                      </div>
-                      <div className="form-check form-switch">
-                        <input
-                          type="checkbox"
-                          name="seleccionEditarSiete"
-                          id="ordenEditar"
-                          checked={permisos.includes("orden")}
-                          onChange={(e) =>
-                            handlePermisoChange("orden", e.target.checked)
-                          }
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="ordenEditar"
-                        >
-                          Orden
-                        </label>
+                      <div className="row">
+                        <div className="col">
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditar"
+                              id="usuarioEditar"
+                              checked={permisos.includes("usuario")}
+                              onChange={(e) =>
+                                handlePermisoChange("usuario", e.target.checked)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="usuarioEditar"
+                            >
+                              Usuario
+                            </label>
+                          </div>
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarDos"
+                              id="rolEditar"
+                              checked={permisos.includes("rol")}
+                              onChange={(e) =>
+                                handlePermisoChange("rol", e.target.checked)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="rolEditar"
+                            >
+                              Rol
+                            </label>
+                          </div>
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarTres"
+                              id="proveedorEditar"
+                              checked={permisos.includes("proveedor")}
+                              onChange={(e) =>
+                                handlePermisoChange(
+                                  "proveedor",
+                                  e.target.checked
+                                )
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="proveedorEditar"
+                            >
+                              Proveedor
+                            </label>
+                          </div>
+
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarCuatro"
+                              id="productoEditar"
+                              checked={permisos.includes("producto")}
+                              onChange={(e) =>
+                                handlePermisoChange(
+                                  "producto",
+                                  e.target.checked
+                                )
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="productoEditar"
+                            >
+                              Producto
+                            </label>
+                          </div>
+                        </div>
+                        <div className="col">
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarCinco"
+                              id="clienteEditar"
+                              checked={permisos.includes("cliente")}
+                              onChange={(e) =>
+                                handlePermisoChange("cliente", e.target.checked)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="clienteEditar"
+                            >
+                              Cliente
+                            </label>
+                          </div>
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarSeis"
+                              id="compraEditar"
+                              checked={permisos.includes("compra")}
+                              onChange={(e) =>
+                                handlePermisoChange("compra", e.target.checked)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="compraEditar"
+                            >
+                              Compra
+                            </label>
+                          </div>
+                          <div className="form-check form-switch">
+                            <input
+                              type="checkbox"
+                              name="seleccionEditarSiete"
+                              id="ordenEditar"
+                              checked={permisos.includes("orden")}
+                              onChange={(e) =>
+                                handlePermisoChange("orden", e.target.checked)
+                              }
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="ordenEditar"
+                            >
+                              Orden
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
+
                 <div className="modal-footer">
                   <CancelarModal />
                   <GuardarModal />
