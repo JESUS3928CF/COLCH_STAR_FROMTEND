@@ -12,7 +12,7 @@ const DetallesProducto = ({ editarProducto }) => {
 
                 <div className='modal-dialog modal-dialog-centered modal '>
                     <div className='modal-content ' >
-                        <HeaderModals title='Imagen del producto' />
+                        <HeaderModals title='Imagen del producto'  NoReset={true} />
                         <div className='formulario'>
                             <div className='modal-body'>
                                 <div className='container'>
