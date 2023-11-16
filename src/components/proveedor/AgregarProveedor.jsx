@@ -277,7 +277,7 @@ const AgregarProveedor = () => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal modalToCancel="myModal" />
+                                    <CancelarModal modalToCancel="myModal" name= 'Cancelar' />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />

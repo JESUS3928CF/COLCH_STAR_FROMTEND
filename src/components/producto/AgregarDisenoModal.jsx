@@ -176,7 +176,7 @@ const AgregarDisenoModal = () => {
 
                                 <div className='modal-footer'>
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal NoReset={true} />
+                                    <CancelarModal NoReset={true}  name= 'Regresar' />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />

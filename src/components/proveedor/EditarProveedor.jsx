@@ -285,7 +285,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal modalToCancel="modalEditar" />
+                                    <CancelarModal modalToCancel="modalEditar" name= 'Cancelar' />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />

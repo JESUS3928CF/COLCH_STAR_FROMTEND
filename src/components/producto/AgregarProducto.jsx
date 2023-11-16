@@ -374,7 +374,7 @@ const AgregarProducto = () => {
                                             modalToOpen={'#myModalDiseno'}
                                         />
                                     </div>
-                                    <CancelarModal modalToCancel='myModal' />
+                                    <CancelarModal modalToCancel='myModal' name= 'Cancelar' />
                                     <GuardarModal />
                                 </div>
 

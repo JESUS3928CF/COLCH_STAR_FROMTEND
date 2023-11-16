@@ -335,7 +335,7 @@ const EditarProducto = ({ editarProducto }) => {
                     />
                   </div>
 
-                  <CancelarModal modalToCancel="modalEditar" />
+                  <CancelarModal modalToCancel="modalEditar" name= 'Cancelar' />
                   <GuardarModal />
 
                 </div>

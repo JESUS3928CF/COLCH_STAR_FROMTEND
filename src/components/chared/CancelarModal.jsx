@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const CancelarModal = ({ modalToCancel, NoReset}) => {
+const CancelarModal = ({ modalToCancel, NoReset, name}) => {
 
     //funcion que cuando le de click en cancelar se refresque la pagina y se restablesca la informacion que estaba en el formulario
     const onClick = () =>  {
@@ -10,6 +10,7 @@ const CancelarModal = ({ modalToCancel, NoReset}) => {
         }
         
     }
+
 
     
 
@@ -26,7 +27,7 @@ const CancelarModal = ({ modalToCancel, NoReset}) => {
             onClick={onClick}
             
         >
-           Regresar
+          {name}
         </button>
         
     );
