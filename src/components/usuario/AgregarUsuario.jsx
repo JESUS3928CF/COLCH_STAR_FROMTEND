@@ -65,7 +65,7 @@ const AgregarUsuario = () => {
       });
     } catch (err) {
       console.log(err);
-      if (err.response && err.response.status === 400) {
+      if (err.response && err.response.status === 403) {
         Swal.fire({
           title: "Error",
           text: err.response.data.message,

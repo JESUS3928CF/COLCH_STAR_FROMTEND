@@ -89,7 +89,7 @@ const EditarUsuario = ({ editarUsuario }) => {
         })
         .catch((error) => {
           console.error("Error al actualizar el usuario", error);
-          if (error.response && error.response.status === 400) {
+          if (error.response && error.response.status === 403) {
             Swal.fire({
               title: "Error",
               text: error.response.data.message,
