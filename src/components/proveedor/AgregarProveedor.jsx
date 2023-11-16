@@ -40,7 +40,7 @@ const AgregarProveedor = () => {
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
-                // Campos en los que realiza el cambio
+               //campos base de datos / campos que tiene la informacion. se manda toda la informacion
                 identificador: identificador.trim(),
                 tipoIdentificacion: tipoIdentificacion.trim(),
                 nombre: nombre.trim(),
