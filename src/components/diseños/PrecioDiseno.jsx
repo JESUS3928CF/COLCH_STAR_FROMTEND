@@ -16,8 +16,12 @@ const PrecioDiseno = () => {
         register,
         handleSubmit,
         formState: { errors },
+        trigger,
         setValue,
-    } = useForm();
+    } = useForm({
+        mode: 'onChange',
+    });
+
 
     // Para poner el precio correspondiente aca tamaño
     const definirPrecio = (precio) => {
@@ -40,7 +44,7 @@ const PrecioDiseno = () => {
 
         try {
             const res = await clienteAxios.put(`/precio_disenos/${data?.id_precio}`, {
-                precio: data?.precio,
+                precio: data?.precio
             });
 
             // Lanzar alerta del producto agregado
@@ -86,10 +90,12 @@ const PrecioDiseno = () => {
                                 {...register('id_precio', {
                                     required: true,
                                 })}
+                                onChange={(e) => {
+                                    setValue('id_precio', e.target.value);
+                                    trigger('id_precio');
+                                }}
                             >
-                                <option value=''>
-                                    Seleccione un tamaño
-                                </option>
+                                <option value=''>Seleccione un tamaño</option>
                                 {precios.map((precio) => (
                                     <option
                                         key={precio.id_precio_diseno}
@@ -129,6 +135,10 @@ const PrecioDiseno = () => {
                                                 'Este campo solo puede contener números',
                                         },
                                     })}
+                                    onChange={(e) => {
+                                        setValue('precio', e.target.value);
+                                        trigger('precio');
+                                    }}
                                 />
                                 {errors.precio && (
                                     <AlertaError

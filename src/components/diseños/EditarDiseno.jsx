@@ -25,11 +25,14 @@ const EditarDiseno = ({ detalleDiseno }) => {
   const { token } = useAuth();
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm();
+      register,
+      handleSubmit,
+      formState: { errors },
+      trigger,
+      setValue,
+  } = useForm({
+      mode: 'onChange',
+  });
 
   // Cuando recibe el detalleDiseno, actualiza los valores del formulario
   useEffect(() => {
@@ -150,7 +153,6 @@ const EditarDiseno = ({ detalleDiseno }) => {
                   {...register("publicado", {
                     validate: (value) => validarBooleanos(value)
                   })}
-                  value={detalleDiseno.publicado}
                 >
                   <option value="" disabled>
                     Selecciona una opción

@@ -1,7 +1,7 @@
 // ------------------JESÚS ANTONIO COCHERO FLORIÁN
 //-------------------26 de septiembre 2023
-//Nos permitira Agregar un diseño, de ser necesario se podra agregar un diseño mediante un formulario donde se pediran datos
-//mas relevantes de este diseño y luego mostrarlo en la tabla listar  
+//Nos permitirá Agregar un diseño, de ser necesario se podrá agregar un diseño mediante un formulario donde se pedirán datos
+//mas relevantes de este diseño y luego mostrarlo en la tabla listar
 
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
@@ -14,7 +14,10 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
 //* Importa las funciones de validación
-import { validarEspaciosVacios, validarImagen } from '../../Validations/validations.js';
+import {
+    validarEspaciosVacios,
+    validarImagen,
+} from '../../Validations/validations.js';
 import useAuth from '../../hooks/useAuth.jsx';
 
 const AgregarDiseno = () => {
@@ -23,17 +26,20 @@ const AgregarDiseno = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
-
+        trigger,
+        setValue
+    } = useForm({
+        mode: 'onChange',
+    });
 
     const { token } = useAuth();
 
-    const guardarDiseno = handleSubmit( async (data) => {
+    const guardarDiseno = handleSubmit(async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
-        formData.append('nombre', data.nombre.trim());
-        formData.append('publicado', data.publicado);
-        formData.append('imagen', data.imagen[0]);
+        formData.append('nombre', data?.nombre.trim());
+        formData.append('publicado', data?.publicado);
+        formData.append('imagen', data?.imagen[0]);
 
         /// Almacenar el diseño en la DB
         try {
@@ -52,17 +58,14 @@ const AgregarDiseno = () => {
             }).then(() => {
                 location.reload();
             });
-
         } catch (error) {
             console.log(error);
             // Lanzar alerta de error
             Swal.fire({
                 title: 'Error',
-                text: "Hubo un error",
+                text: 'Hubo un error',
                 icon: 'Vuelva a intentarlo',
-            }).then(
-                location.reload()
-            );
+            }).then(location.reload());
         }
     });
 
@@ -93,10 +96,13 @@ const AgregarDiseno = () => {
                                             value: true,
                                             message: 'El nombre es obligatorio',
                                         },
-                                        validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
+                                        validate: (value) =>
+                                            validarEspaciosVacios(value),
                                     })}
+                                    onChange={(e) => {
+                                        setValue('nombre', e.target.value);
+                                        trigger('nombre');
+                                    }}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
                                 {errors.nombre && (
@@ -118,9 +124,8 @@ const AgregarDiseno = () => {
                                             value: true,
                                             message: 'La imagen es obligatoria',
                                         },
-                                        validate: (value) => {
-                                            return validarImagen(value[0]);
-                                        },
+                                        validate: (value) =>
+                                            validarImagen(value[0]),
                                     })}
                                 />
                                 {/* en esta etiqueta va salir el error de validación  */}
@@ -165,7 +170,7 @@ const AgregarDiseno = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal/>
+                                <CancelarModal />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
