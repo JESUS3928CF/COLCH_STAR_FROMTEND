@@ -280,7 +280,7 @@ const EditarProducto = ({ editarProducto }) => {
 
                     },
                     )}
-                    value={editarProducto.publicado}
+                    
                   >
                     <option value="" disabled >
                       Selecciona una opción
