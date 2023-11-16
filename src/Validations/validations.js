@@ -21,6 +21,7 @@ export const validarEspaciosVacios = (value) => {
 
 /// Validar booleanos
 export const validarBooleanos = (value) => {
-    if (value === true || value === false) return true;
+    const valueBool = Boolean(value)
+    if (valueBool === true || value === false) return true;
     return 'El estado de publicación es obligatorio';
 }

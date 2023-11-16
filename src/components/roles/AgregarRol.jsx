@@ -6,7 +6,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import CancelarModal from "../chared/CancelarModal";
@@ -29,7 +29,7 @@ function AgregarRol() {
     formState: { errors }, //Ver errores que tiene el formulario
     setValue,
     trigger,
-    reset,  //Resetea el formulario
+    reset,
   } = useForm({
     mode: "onChange",
   });

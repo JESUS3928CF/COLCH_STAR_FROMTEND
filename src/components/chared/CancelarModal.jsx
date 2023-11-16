@@ -9,10 +9,7 @@ const CancelarModal = ({ modalToCancel, NoReset, name="Cancelar"}) => {
         }
         
     }
-
-
     
-
     return (
         <button
             type='button'
