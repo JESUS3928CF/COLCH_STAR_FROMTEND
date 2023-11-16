@@ -64,7 +64,7 @@ const AgregarProveedor = () => {
             console.log(err)
 
             //VALIDACION que si existe la identificacion no se permitira agregar otro mas igual
-            if (err.response && err.response.status === 400) {
+            if (err.response && err.response.status === 403) {
 
                 Swal.fire({
                     title: 'Error',

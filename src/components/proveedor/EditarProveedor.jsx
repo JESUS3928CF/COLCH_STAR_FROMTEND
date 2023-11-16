@@ -82,7 +82,7 @@ const EditarProveedor = ({ editarProveedor }) => {
                 .catch(error => {
                     console.error('Error al actualizar el proveedor', error);
 
-                    if (error.response && error.response.status === 400) {
+                    if (error.response && error.response.status === 403) {
                         Swal.fire({
                             title: 'Error',
                             text: error.response.data.message,
