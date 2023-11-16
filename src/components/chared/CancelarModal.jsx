@@ -26,7 +26,7 @@ const CancelarModal = ({ modalToCancel, NoReset}) => {
             onClick={onClick}
             
         >
-            Cancelar
+           Regresar
         </button>
         
     );

@@ -12,7 +12,7 @@ const DetallesProducto = ({ editarProducto }) => {
 
                 <div className='modal-dialog modal-dialog-centered modal '>
                     <div className='modal-content ' >
-                        <HeaderModals title='Imagen del producto'  NoReset={true} />
+                        <HeaderModals title='Imagen del producto' NoReset={true} />
                         <div className='formulario'>
                             <div className='modal-body'>
                                 <div className='container'>
@@ -23,7 +23,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                 <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
                                                     <div className="carousel-inner">
 
-                                                        <div className ={`carousel-item active ${styles.tamano}`}>
+                                                        <div className={`carousel-item active ${styles.tamano}`}>
                                                             <div className={styles.titu} >
                                                                 <h2 >Producto:</h2>
                                                             </div>
@@ -67,8 +67,8 @@ const DetallesProducto = ({ editarProducto }) => {
 
 
 
-                                                        {editarProducto.disenos && editarProducto.disenos.map(diseno => (
-                                                            <div key={diseno.nombre} className={`carousel-item  ${styles.tamano}`}>
+                                                        {editarProducto.disenos && editarProducto.disenos.map((diseno, index) => (
+                                                            <div key={`${diseno.nombre}-${index}`} className={`carousel-item  ${styles.tamano}`}>
 
                                                                 <div className={styles.titu} >
                                                                     <h2 >Diseños</h2>
@@ -83,9 +83,9 @@ const DetallesProducto = ({ editarProducto }) => {
                                                                         }`
                                                                         : ''}
                                                                         alt={diseno.nombre}
-                                                                        title= {diseno.nombre}
+                                                                        title={diseno.nombre}
                                                                         className={styles.contenedor_imagen}
-                                                                        
+
                                                                     />
 
                                                                 </a>
@@ -97,9 +97,9 @@ const DetallesProducto = ({ editarProducto }) => {
                                                         ))}
 
                                                     </div>
-                                                    <button  className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                                         <span className={` carousel-control-prev-icon ${styles.flecha}`} aria-hidden="true"></span>
-                                                        <span  className="visually-hidden">Previous</span>
+                                                        <span className="visually-hidden">Previous</span>
                                                     </button>
                                                     <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                                                         <span className={`carousel-control-next-icon ${styles.flecha}`} aria-hidden="true"></span>
