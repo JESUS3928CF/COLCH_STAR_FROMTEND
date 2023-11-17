@@ -43,6 +43,20 @@
     margin-right: 52%; /* Utilizando porcentaje para el margen derecho */
 }
 
+/* .h3container{
+    border: 1px solid black;
+    margin-bottom: 10px;
+    width: 170px;
+} */
+
+
+.diseñosModalTitle{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 7px;
+}
+
 
 
 

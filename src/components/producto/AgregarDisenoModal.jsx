@@ -6,6 +6,7 @@ import AlertaError from '../chared/AlertaError';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
+import style from '../../pages/Productos.module.css'
 
 const AgregarDisenoModal = () => {
     const {
@@ -23,11 +24,11 @@ const AgregarDisenoModal = () => {
 
     const agregarNuevoDiseno = (data) => {
         agregarDiseno(data);
-    
+
         const selectedId = data.id_diseno;
-    
+
         let selectedDiseno = [];
-    
+
         for (let i = 0; i < disenos.length; i++) {
             const matchingDiseno = detalle_diseno.find((diseno) => diseno.id_diseno == disenos[i].id_diseno);
             if (matchingDiseno) {
@@ -63,16 +64,16 @@ const AgregarDisenoModal = () => {
             });
     }, []);
 
-    
 
-    
-    
-    
+
+
+
+
 
 
     return (
         <div className='modal' id='myModalDiseno'>
-            <div className='modal-dialog modal-dialog-centered'>
+            <div className='modal-dialog modal-dialog-centered modal-lg'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
                     <HeaderModals title='Diseno y  Tamaño' NoReset={true} />
@@ -83,13 +84,13 @@ const AgregarDisenoModal = () => {
                             id='formularioModificar'
                             onSubmit={handleSubmit(agregarNuevoDiseno)}
                         >
-                            <div className="row gx-0">
+                            <div className="row ">
                                 <div className="col-md-6">
 
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        diseno: *
+                                        Diseños: 
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -123,7 +124,7 @@ const AgregarDisenoModal = () => {
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        diseno: *
+                                        Tamaño: 
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -154,35 +155,35 @@ const AgregarDisenoModal = () => {
                                         />
                                     )}
 
-                                    <div className="col-md-5 ml-6 mt-3">
+                                </div>
+                                <div className='col-md-6'>
 
-
+                                    <p className={style.diseñosModalTitle}>Diseños seleccionados</p>
+                                   
                                     {selectedDisenoNombre && (
-                                        <div>
-                                            <div>{selectedDisenoNombre}</div>
-                                        </div>
+                                        // <div className={style.h3container}>
+
+                                        <p>{` ${selectedDisenoNombre.join('\n- ')}`}</p>
+                                        // </div>
                                     )}
 
 
-                                
-
-                                    </div>
-
-                                </div>
-
-
-
-
-
-                                <div className='modal-footer'>
-                                    {/* Botón para cancelar*/}
-                                    <CancelarModal NoReset={true}  name= 'Regresar' />
-
-                                    {/* Botón para guardar*/}
-                                    <GuardarModal />
                                 </div>
 
                             </div>
+                            <br />
+
+
+
+                            <div className='modal-footer'>
+                                {/* Botón para cancelar*/}
+                                <CancelarModal NoReset={true} name='Regresar' />
+
+                                {/* Botón para guardar*/}
+                                <GuardarModal />
+                            </div>
+
+
                         </form>
                     </div>
                 </div>
