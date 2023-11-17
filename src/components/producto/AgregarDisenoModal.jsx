@@ -158,7 +158,7 @@ const AgregarDisenoModal = () => {
                                 </div>
                                 <div className='col-md-6'>
 
-                                    <p className={style.diseñosModalTitle}>Diseños seleccionados</p>
+                                    <p className={style.diseñosModalTitle}>Diseños seleccionados:</p>
                                    
                                     {selectedDisenoNombre && (
                                         // <div className={style.h3container}>
