@@ -180,7 +180,7 @@ const AgregarDisenoModal = () => {
                                 <CancelarModal NoReset={true} name='Regresar' />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal />
+                                <GuardarModal/>
                             </div>
 
 
