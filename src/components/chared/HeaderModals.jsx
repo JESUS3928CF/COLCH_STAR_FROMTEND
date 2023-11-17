@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 
-const HeaderModals = ({ title }) => {
+const HeaderModals = ({ title , NoReset}) => {
 
-    const click = () => {
-
+    const click = () =>  {
+        if (NoReset != true){
         location.reload()
-
+        
+        }
+        
     }
     
     

@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../context/disenosProvider';
 
 
 
@@ -23,10 +23,12 @@ const EditarProducto = ({ editarProducto }) => {
     register, //regitra o identifica cada elemento o cada input
     handleSubmit, //para manejar el envio del formulario
     formState: { errors }, //ver errores que tiene el formulario
-    setValue,
-    reset, //resetea el formulario
-  } = useForm();
-
+    setValue, // Añade esta función para actualizar dinámicamente los valores
+    trigger,
+    reset, //Resetea el formulario
+  } = useForm({
+    mode: "onChange",
+  });
 
   //estado pa las prendas 
   const [Prendas, setPrendas] = useState([]);
@@ -145,6 +147,10 @@ const EditarProducto = ({ editarProducto }) => {
                         return validarEspaciosVacios(value);
                       }
                     })}
+                    onChange={(e) => {
+                      setValue("nombre", e.target.value);
+                      trigger("nombre");
+                    }}
                   />
                   {/* en esta etiqueta va salir el error de validación  */}
                   {errors.nombre && (
@@ -177,6 +183,10 @@ const EditarProducto = ({ editarProducto }) => {
                         return validarEspaciosVacios(value);
                       }
                     })}
+                    onChange={(e) => {
+                      setValue("cantidad", e.target.value);
+                      trigger("cantidad");
+                    }}
                   />
                   {/* en esta etiqueta va salir el error de validación  */}
                   {errors.cantidad && (
@@ -270,7 +280,7 @@ const EditarProducto = ({ editarProducto }) => {
 
                     },
                     )}
-                    value={editarProducto.publicado}
+                    
                   >
                     <option value="" disabled >
                       Selecciona una opción
@@ -325,7 +335,7 @@ const EditarProducto = ({ editarProducto }) => {
                     />
                   </div>
 
-                  <CancelarModal modalToCancel="modalEditar" />
+                  <CancelarModal modalToCancel="modalEditar" name= 'Cancelar' />
                   <GuardarModal />
 
                 </div>

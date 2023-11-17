@@ -16,7 +16,7 @@ import Paginador from "../chared/Paginador";
 import BotonNegro from "../chared/BotonNegro";
 import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
-import crossing_out from "../roles/crossing_out.svg";
+import editar from "../roles/editar.png";
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
 import styles from "../../css-general/CardStyleGenerar.module.css";
 import { resolucionCards } from "../../constantes/constantes.js";
@@ -137,8 +137,8 @@ const ListarUsuario = () => {
                                           usuario.rol.nombre ===
                                               'Administrador' ? (
                                               <img
-                                                  width='50px'
-                                                  src={crossing_out}
+                                                  width='40px'
+                                                  src={editar}
                                                   alt='No permitido'
                                                   style={{ marginLeft: '18px' }}
                                               />
@@ -222,7 +222,7 @@ const ListarUsuario = () => {
                                                       'Administrador' ? (
                                                       <img
                                                           width='50px'
-                                                          src={crossing_out}
+                                                          src={editar}
                                                           alt='No permitido'
                                                           style={{
                                                               marginLeft:

@@ -6,7 +6,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import CancelarModal from "../chared/CancelarModal";
@@ -27,8 +27,12 @@ function AgregarRol() {
     register, //Regitra o identifica cada elemento o cada input
     handleSubmit,  //Para manejar el envio del formulario
     formState: { errors }, //Ver errores que tiene el formulario
-    reset,  //Resetea el formulario
-  } = useForm();
+    setValue,
+    trigger,
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
 
   //Función que se ejecuta cuando alguien intenta enviar el formulario
   const onSubmit = async (data) => {
@@ -115,6 +119,10 @@ function AgregarRol() {
                             "El nombre no puede contener números ni caracteres especiales",
                         },
                       })}
+                      onChange={(e) => {
+                        setValue("nombre", e.target.value);
+                        trigger("nombre");
+                      }}
                     />
                     {errors.nombre && (
                       <AlertaError message={errors.nombre.message} />
@@ -123,6 +131,7 @@ function AgregarRol() {
                   {/* se seleccionan los permisos que va tener ese rol creado */}
                   <label>Seleccionar permisos:  *</label>
                   {errorMensaje && <AlertaError message={errorMensaje} />}
+                  <div className="col-md-6">
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
@@ -155,6 +164,8 @@ function AgregarRol() {
                     />
                     <label>Producto</label>
                   </div>
+                  </div>
+                  <div className="col-md-6">
                   <div className="form-check form-switch">
                     <input
                       type="checkbox"
@@ -178,6 +189,7 @@ function AgregarRol() {
                       onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
                     />
                     <label>Orden</label>
+                  </div>
                   </div>
                   <div className="modal-footer">
                     <CancelarModal modalToCancel={'myModal'} />

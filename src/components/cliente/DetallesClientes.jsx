@@ -25,13 +25,17 @@ export const DetallesClientes = ({ detallesClientes }) => {
                       <br />
 
                       <div className={styles.identi}>
+                      {/* Se utiliza un operador lógico (&&) para verificar si tanto detallesClientes.tipoIdentificacion
+                      como detallesClientes.identificacion tienen valores. Si ambos tienen valores, se crea una cadena
+                      que concatena ambos valores, de lo contrario, se proporciona una cadena vacía como valor predeterminado. */}
                         <input
                           type="text"
                           className="form-control"
-                          value={
-                            detallesClientes.tipoIdentificacion +
-                            " " +
+                          defaultValue={
+                            detallesClientes.tipoIdentificacion &&
                             detallesClientes.identificacion
+                              ? `${detallesClientes.tipoIdentificacion} ${detallesClientes.identificacion}`
+                              : ""
                           }
                           readOnly
                         />
@@ -44,7 +48,7 @@ export const DetallesClientes = ({ detallesClientes }) => {
                       <input
                         type="text"
                         className="form-control"
-                        value={detallesClientes.nombre}
+                        defaultValue={detallesClientes.nombre}
                         readOnly
                       />
                     </div>
@@ -55,40 +59,40 @@ export const DetallesClientes = ({ detallesClientes }) => {
                       <input
                         type="text"
                         className="form-control"
-                        value={detallesClientes.apellido}
+                        defaultValue={detallesClientes.apellido}
                         readOnly
                       />
                     </div>
                     <div className="col-md-6">
                       <label htmlFor="telefono" className="col-form-label">
-                        Teléfono: 
+                        Teléfono:
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        value={detallesClientes.telefono}
+                        defaultValue={detallesClientes.telefono}
                         readOnly
                       />
                     </div>
                     <div className="col-md-6">
                       <label htmlFor="direccion" className="col-form-label">
-                        Dirección: 
+                        Dirección:
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        value={detallesClientes.direccion}
+                        defaultValue={detallesClientes.direccion}
                         readOnly
                       />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="email" className="col-form-label">
-                        Email: 
+                        Email:
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        value={detallesClientes.email}
+                        defaultValue={detallesClientes.email}
                         readOnly
                       />
                     </div>

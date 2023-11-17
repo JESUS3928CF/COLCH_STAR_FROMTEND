@@ -21,7 +21,12 @@ const EditarUsuario = ({ editarUsuario }) => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+    trigger,
+    reset,  //Resetea el formulario
+  } = useForm({
+    mode: "onChange",
+  });
+
   const [roles, setRoles] = useState([]);
   const [idAdministrador, setIdAdministrador] = useState(null);
   const [esAdministrador, setEsAdministrador] = useState(false);
@@ -84,7 +89,7 @@ const EditarUsuario = ({ editarUsuario }) => {
         })
         .catch((error) => {
           console.error("Error al actualizar el usuario", error);
-          if (error.response && error.response.status === 400) {
+          if (error.response && error.response.status === 403) {
             Swal.fire({
               title: "Error",
               text: error.response.data.message,
@@ -154,6 +159,10 @@ const EditarUsuario = ({ editarUsuario }) => {
                           "El nombre no puede contener números ni caracteres especiales",
                       },
                     })}
+                    onChange={(e) => {
+                      setValue("nombre", e.target.value);
+                      trigger("nombre");
+                    }}
                   />
                   {errors.nombre && (
                     <AlertaError message={errors.nombre.message} />
@@ -183,6 +192,10 @@ const EditarUsuario = ({ editarUsuario }) => {
                           "El apellido no puede contener números ni caracteres especiales",
                       },
                     })}
+                    onChange={(e) => {
+                      setValue("apellido", e.target.value);
+                      trigger("apellido");
+                    }}
                   />
                   {errors.apellido && (
                     <AlertaError message={errors.apellido.message} />
@@ -218,6 +231,10 @@ const EditarUsuario = ({ editarUsuario }) => {
                         return true;
                       },
                     })}
+                    onChange={(e) => {
+                      setValue("telefono", e.target.value);
+                      trigger("telefono");
+                    }}
                   />
                   {errors.telefono && (
                     <AlertaError message={errors.telefono.message} />
@@ -247,6 +264,10 @@ const EditarUsuario = ({ editarUsuario }) => {
                         message: "El Email no tiene un formato válido",
                       },
                     })}
+                    onChange={(e) => {
+                      setValue("email", e.target.value);
+                      trigger("email");
+                    }}
                   />
                   {errors.email && (
                     <AlertaError message={errors.email.message} />

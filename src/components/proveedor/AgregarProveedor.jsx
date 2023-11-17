@@ -25,19 +25,21 @@ const AgregarProveedor = () => {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
         formState: { errors }, //ver errores que tiene el formulario
+        setValue,
+        trigger,
         reset, //resetea el formulario
-    } = useForm();
-
+    } = useForm({
+        mode: "onChange",
+      });
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
-
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo data
             const res = await axios.post("http://localhost:3000/api/proveedores", {
-                // Campos en los que realiza el cambio
+               //campos base de datos / campos que tiene la informacion. se manda toda la informacion
                 identificador: identificador.trim(),
                 tipoIdentificacion: tipoIdentificacion.trim(),
                 nombre: nombre.trim(),
@@ -61,7 +63,7 @@ const AgregarProveedor = () => {
             console.log(err)
 
             //VALIDACION que si existe la identificacion no se permitira agregar otro mas igual
-            if (err.response && err.response.status === 400) {
+            if (err.response && err.response.status === 403) {
 
                 Swal.fire({
                     title: 'Error',
@@ -147,9 +149,11 @@ const AgregarProveedor = () => {
                                                         }
                                                         return true; // La validación pasa si cumple ambas condiciones
                                                     },
-
-
                                                 })}
+                                                onChange={(e) => {
+                                                    setValue("identificador", e.target.value);
+                                                    trigger("identificador");
+                                                  }}
                                             />
                                         </div>
                                         {errors.identificador && (
@@ -185,6 +189,11 @@ const AgregarProveedor = () => {
                                                 message: "No puede contener números ni caracteres especiales"
                                             }
                                         })}
+                                        onChange={(e) => {
+                                            setValue("nombre", e.target.value);
+                                            trigger("nombre");
+                                          }}
+                                        
                                     />
                                     {errors.nombre && (
                                         <AlertaError message={errors.nombre.message} /> //muestra el mensaje de validacion
@@ -221,6 +230,10 @@ const AgregarProveedor = () => {
                                             },
 
                                         })}
+                                        onChange={(e) => {
+                                            setValue("telefono", e.target.value);
+                                            trigger("telefono");
+                                          }}
                                     />
                                     {errors.telefono && (
                                         <AlertaError message={errors.telefono.message} /> //muestra el mensaje de validacion
@@ -249,6 +262,10 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             }
                                         })}
+                                        onChange={(e) => {
+                                            setValue("direccion", e.target.value);
+                                            trigger("direccion");
+                                          }}
                                     />
                                     {errors.direccion && (
                                         <AlertaError message={errors.direccion.message} /> //muestra el mensaje de validacion
@@ -259,7 +276,7 @@ const AgregarProveedor = () => {
                                 <div className="modal-footer">
 
                                     {/* Botón para cancelar*/}
-                                    <CancelarModal modalToCancel="myModal" />
+                                    <CancelarModal modalToCancel="myModal" name= 'Cancelar' />
 
                                     {/* Botón para guardar*/}
                                     <GuardarModal />

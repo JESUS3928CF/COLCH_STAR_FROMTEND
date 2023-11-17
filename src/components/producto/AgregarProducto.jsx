@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import { validarEspaciosVacios, validarImagen } from '../../Validations/validations'
 import BotonNegro from '../chared/BotonNegro';
 import AgregarDisenoModal from './AgregarDisenoModal';
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../context/disenosProvider';
 
 const AgregarProducto = () => {
 
@@ -31,9 +31,12 @@ const AgregarProducto = () => {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
         formState: { errors }, //ver errores que tiene el formulario
+        setValue,
+        trigger,
         reset, //resetea el formulario
-    } = useForm();
-
+    } = useForm({
+        mode: "onChange",
+    });
 
     //estado pa las prendas 
     const [Prendas, setPrendas] = useState([]);
@@ -148,6 +151,10 @@ const AgregarProducto = () => {
                                                 );
                                             },
                                         })}
+                                        onChange={(e) => {
+                                            setValue("nombre", e.target.value);
+                                            trigger("nombre");
+                                        }}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     {errors.nombre && (
@@ -189,6 +196,10 @@ const AgregarProducto = () => {
                                                 );
                                             },
                                         })}
+                                        onChange={(e) => {
+                                            setValue("cantidad", e.target.value);
+                                            trigger("cantidad");
+                                        }}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
                                     {errors.cantidad && (
@@ -363,7 +374,7 @@ const AgregarProducto = () => {
                                             modalToOpen={'#myModalDiseno'}
                                         />
                                     </div>
-                                    <CancelarModal modalToCancel='myModal' />
+                                    <CancelarModal modalToCancel='myModal' name= 'Cancelar' />
                                     <GuardarModal />
                                 </div>
 
