@@ -317,44 +317,8 @@ const AgregarPrendas = () => {
                     <AlertaError message={errors.tallas.message} />
                   )}
 
-
-
                 </div>
-
-                <div className="col-md-6" name="Publicado">
-                  <label htmlFor="Publicar" className="col-form-control">
-                    Colores
-                  </label>
-
-                  <select
-                    name="colores"
-                    id=""
-                    className="form-control"
-                    title="Seleccione una opcion"
-                    {...register("colores", {
-                      required: {
-                        value: true,
-                        message: "El color es obligatorio",
-                      },
-                    })}
-                  >
-
-                    <option value="">Selecciona una opcion</option>
-                    {Colors.map((colors) => {
-                      return (
-                        <option key={colors.id_color} value={colors.id_color}>
-                          {colors.color}
-                        </option>
-                      );
-                    })}
-                  </select>
-
-                  {errors.colores && (
-                    <AlertaError message={errors.colores.message} />
-                  )}
-                </div>
-
-                <div className="mb-3" name="Archivo">
+                <div className="col-md-6" name="Archivo">
                   <label htmlFor="Archivo" className="col-from-label">
                     Imagen de la prenda:
                   </label>
@@ -383,9 +347,8 @@ const AgregarPrendas = () => {
                 <div className="modal-footer">
                   <div className={styles.bottonDiseno}>
                     <BotonNegro text="Agregrar color" 
-                    modalToOpen={'#myModalColors'} 
-                    modalClouse={'modal'} />
-                 
+                    modalToOpen={'#crearColor'} 
+                    modalClouse={'modal'} />               
 
                   </div>
                 

@@ -1,18 +1,16 @@
 import axios from "axios"
 import { useForm } from "react-hook-form";
-import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from "../chared/HeaderModals";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
+import SeleccionarColors from "./SeleccionarColor";
+
 
 
 const AgregarColors = () => {
-
-    
-
     const {
         register,
         handleSubmit,
@@ -20,19 +18,14 @@ const AgregarColors = () => {
     } = useForm();
 
 
+
     const onSubmit = (async (data) => {
         const { color, codigo } = data
-
-
-
         try {
             const res = await axios.post("http://localhost:3000/api/colors", {
                 color: color.trim(),
                 codigo: codigo.trim()
             })
-
-
-
             Swal.fire({
                 title: 'Color agregado',
                 text: res.data.message,
@@ -48,7 +41,7 @@ const AgregarColors = () => {
         }
 
     })
-    
+
 
 
     return (
@@ -62,10 +55,8 @@ const AgregarColors = () => {
 
                         <div className="modal-body">
                             <form onSubmit={
-                            handleSubmit(onSubmit)
-}
-
-                            
+                                handleSubmit(onSubmit)
+                            }
                                 className='row g-3 needs-validation'
                             >
                                 <div className='col-md-6' name='color'>
@@ -112,7 +103,7 @@ const AgregarColors = () => {
                                         Codigo:
                                     </label>
                                     <input
-                                        type='text'
+                                        type='color'
                                         className='form-control'
                                         name='codigo'
                                         placeholder='codigo'
@@ -138,9 +129,9 @@ const AgregarColors = () => {
                                 </div>
 
                                 <div className='modal-footer'>
-                                <BotonNegro  text={'Cancelar'} modalToOpen={'#myModal'} modalClouse={'modal'}/>
-                                <GuardarModal/>
-
+                                  
+                                    <BotonNegro text={'Cancelar'} modalToOpen={'#crearColor'} modalClouse={'modal'} />
+                                    <GuardarModal />
 
                                 </div>
                             </form>
@@ -148,14 +139,12 @@ const AgregarColors = () => {
                     </div>
                 </div>
             </div>
+            <SeleccionarColors/>
 
-            
+
         </>
     )
 }
 
-// AgregarColors.prototype={
-//     Colores: PropTypes.object.isRequired
-// }
 
 export default AgregarColors
