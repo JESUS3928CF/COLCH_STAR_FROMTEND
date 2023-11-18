@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import { useEffect, useState } from "react";
 import HeaderModals from '../chared/HeaderModals';
+import useAuth from "../../hooks/useAuth";
 
 const AgregarUsuario = () => {
   const {
@@ -28,10 +29,11 @@ const AgregarUsuario = () => {
   });
 
   const [roles, setRoles] = useState([]);
+  const { config } = useAuth();
 
   useEffect(() => {
     // Realizar una solicitud para obtener la lista de roles desde el servidor
-    axios.get("http://localhost:3000/api/rol").then((response) => {
+    axios.get("http://localhost:3000/api/rol", config).then((response) => {
       setRoles(response.data); // Almacenar la lista de roles en el estado
     });
   }, []);

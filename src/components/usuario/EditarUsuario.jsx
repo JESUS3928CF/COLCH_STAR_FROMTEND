@@ -6,7 +6,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
@@ -14,8 +14,12 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
+import useAuth from "../../hooks/useAuth";
 
 const EditarUsuario = ({ editarUsuario }) => {
+
+  const { config } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -33,7 +37,7 @@ const EditarUsuario = ({ editarUsuario }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/rol")
+      .get("http://localhost:3000/api/rol", config)
       .then((response) => {
         setRoles(response.data);
 
@@ -67,44 +71,45 @@ const EditarUsuario = ({ editarUsuario }) => {
 
     if (editarUsuario.id_usuario) {
       axios
-        .patch(
-          `http://localhost:3000/api/usuarios/${editarUsuario.id_usuario}`,
-          {
-            nombre: nombre.trim(),
-            apellido: apellido.trim(),
-            telefono: telefono.trim(),
-            email: email.trim(),
-            fk_rol: fk_rol,
-          }
-        )
-        .then((response) => {
-          console.log("Usuario Actualizado:", response.data);
-          Swal.fire({
-            title: "Usuario Actualizado",
-            text: response.data.message,
-            icon: "success",
-          }).then(() => {
-            location.reload();
+          .patch(
+              `http://localhost:3000/api/usuarios/${editarUsuario.id_usuario}`,
+              {
+                  nombre: nombre.trim(),
+                  apellido: apellido.trim(),
+                  telefono: telefono.trim(),
+                  email: email.trim(),
+                  fk_rol: fk_rol,
+              },
+              config
+          )
+          .then((response) => {
+              console.log('Usuario Actualizado:', response.data);
+              Swal.fire({
+                  title: 'Usuario Actualizado',
+                  text: response.data.message,
+                  icon: 'success',
+              }).then(() => {
+                  location.reload();
+              });
+          })
+          .catch((error) => {
+              console.error('Error al actualizar el usuario', error);
+              if (error.response && error.response.status === 403) {
+                  Swal.fire({
+                      title: 'Error',
+                      text: error.response.data.message,
+                      icon: 'error',
+                  });
+              } else {
+                  Swal.fire({
+                      title: 'Error',
+                      text: 'Hubo un error',
+                      icon: 'error',
+                  }).then(() => {
+                      location.reload();
+                  });
+              }
           });
-        })
-        .catch((error) => {
-          console.error("Error al actualizar el usuario", error);
-          if (error.response && error.response.status === 403) {
-            Swal.fire({
-              title: "Error",
-              text: error.response.data.message,
-              icon: "error",
-            });
-          } else {
-            Swal.fire({
-              title: "Error",
-              text: "Hubo un error",
-              icon: "error",
-            }).then(() => {
-              location.reload();
-            });
-          }
-        });
     } else {
       console.error("No se pudo obtener el ID del usuario");
     }

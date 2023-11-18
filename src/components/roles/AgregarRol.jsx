@@ -15,6 +15,7 @@ import AlertaError from '../chared/AlertaError';
 import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
+import useAuth from "../../hooks/useAuth";
 
 //Componente
 function AgregarRol() {
@@ -22,6 +23,7 @@ function AgregarRol() {
   //Estado para el seleccionar permisos
   const [seleccionarPermisos, setSeleccionarPermisos] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState(null);
+  const { config } = useAuth();
 
   const {
     register, //Regitra o identifica cada elemento o cada input
@@ -49,7 +51,7 @@ function AgregarRol() {
       const res = await axios.post("http://localhost:3000/api/rol", {
         nombre: nombre.trim(),
         permisos: seleccionarPermisos,
-      });
+      }, config);
       //Luego de mandarlo se cierra el modal
 
       reset(); //Luego de ser agregado y mandado resetea el formulario
