@@ -15,11 +15,12 @@ import {
 import Swal from "sweetalert2";
 import AlertaError from "../chared/AlertaError";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import AgregarColors from "./AgregarColors";
 import HeaderModals from '../chared/HeaderModals';
 import styles from '../../pages/Productos.module.css'
 import BotonNegro from "../chared/BotonNegro";
+import { useColorsContex } from "../../context/ColorsProvider";
 
 
 
@@ -27,6 +28,11 @@ import BotonNegro from "../chared/BotonNegro";
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
   const [Colors, setColors] = useState([]);
+  const {colores} = useColorsContex() || {}
+
+  console.log(colores)
+
+
 
   const {
     register,
@@ -56,7 +62,7 @@ const AgregarPrendas = () => {
     formData.append("publicado", data.publicado);
     formData.append("imagen", data.imagen[0]);
     formData.append("tallas", data.tallas);
-    formData.append("colores", data.colores);
+    formData.append("colores", JSON.stringify(colores));
 
     console.log(guardarPrenda);
 

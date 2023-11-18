@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 const  ColorsContex = createContext();
 
 
-export const ColorProvider=({colors})=>{
+export const ColorsProvider=({children})=>{
     const [colores, setColores]= useState([]);
 
     const agregarColors= (data)=>{
@@ -12,14 +12,14 @@ export const ColorProvider=({colors})=>{
         setColores(newColors);
     };
 
-    const contexValues = {
+    const contextValue = {
         colores,
         agregarColors,
     };
 
     return(
-        <ColorsContex.Provider value={contexValues}>
-            {colors}
+        <ColorsContex.Provider value={contextValue}>
+            {children}
         </ColorsContex.Provider>
     );
 };

@@ -32,8 +32,7 @@ export const ListarPrendas = () => {
   const [Prendas, setPrendas] = useState([]);
   const [detallesPrendas, setDetallesPrendas] = useState({});
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
-  const [Colors, setColors] = useState({});
-  const [Tallas, setTalla] = useState([]);
+
 
 
   const informacionModal = (Prendas) => {
