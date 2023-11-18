@@ -30,6 +30,7 @@ const EditarUsuario = ({ editarUsuario }) => {
   const [roles, setRoles] = useState([]);
   const [idAdministrador, setIdAdministrador] = useState(null);
   const [esAdministrador, setEsAdministrador] = useState(false);
+  const [selectedRol, setSelectedRol] = useState("");
 
   useEffect(() => {
     axios
