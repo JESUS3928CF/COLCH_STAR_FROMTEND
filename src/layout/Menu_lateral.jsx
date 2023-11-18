@@ -8,7 +8,6 @@ import { calcularAnchoDePantalla } from '../helpers/calcularAnchoDePantalla';
 import useAuth from '../hooks/useAuth';
 
 const MenuLateral = () => {
-    // const [isSidebarOpen, setSidebarOpen] = useState(false); estado para el botón de cerrar menú
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -19,17 +18,12 @@ const MenuLateral = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
 
-    // "Esto es para el botón para cerrar el menú "
-    // const toggleSidebar = () => { por ahora no lo necesitamos
-    //     setSidebarOpen(!isSidebarOpen);
-    // };
-
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
 
-    if (loading == true) return 'Cargando...';
+    if (loading) return 'Cargando...';
 
     return (
         <>
