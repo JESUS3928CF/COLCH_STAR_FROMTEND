@@ -38,7 +38,7 @@ const EditarUsuario = ({ editarUsuario }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/rol", config)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rol`, config)
       .then((response) => {
         setRoles(response.data);
 
@@ -73,7 +73,7 @@ const EditarUsuario = ({ editarUsuario }) => {
     if (editarUsuario.id_usuario) {
       axios
           .patch(
-              `http://localhost:3000/api/usuarios/${editarUsuario.id_usuario}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${editarUsuario.id_usuario}`,
               {
                   nombre: nombre.trim(),
                   apellido: apellido.trim(),

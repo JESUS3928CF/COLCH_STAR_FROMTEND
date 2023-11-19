@@ -33,7 +33,7 @@ const ListarUsuario = () => {
     useEffect(() => {
         // Realiza una solicitud al backend para obtener la lista de usuarios
         axios
-            .get('http://localhost:3000/api/usuarios', config)
+            .get(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, config)
             .then((response) => {
                 // Actualiza el estado con la lista de usuarios
                 setUsuarios(response.data);

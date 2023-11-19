@@ -33,7 +33,7 @@ const ListarRol = () => {
   useEffect(() => {
     // Realiza una solicitud al backend para obtener la lista de usuarios
     axios
-      .get("http://localhost:3000/api/rol", config)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rol`, config)
       .then((response) => {
         // Actualiza el estado con la lista de usuarios
         setRoles(response.data);

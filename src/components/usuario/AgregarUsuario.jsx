@@ -33,7 +33,7 @@ const AgregarUsuario = () => {
 
   useEffect(() => {
     // Realizar una solicitud para obtener la lista de roles desde el servidor
-    axios.get("http://localhost:3000/api/rol", config).then((response) => {
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/rol`, config).then((response) => {
       setRoles(response.data); // Almacenar la lista de roles en el estado
     });
   }, []);
@@ -44,14 +44,14 @@ const AgregarUsuario = () => {
 
     try {
       // la ruta por donde voya mandar el objeto o el registro nuevo data
-      const res = await axios.post("http://localhost:3000/api/usuarios", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, {
         nombre: nombre.trim(),
         apellido: apellido.trim(),
         telefono: telefono.trim(),
         email: email.trim(),
         contrasena: contrasena.trim(),
         fk_rol: fk_rol.trim(),
-      });
+      },config);
       //Luego de mandarlo se cierra el modal
 
       reset(); //Luego de ser agregado y mandado resetea el formulario

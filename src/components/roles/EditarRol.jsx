@@ -70,7 +70,7 @@ function EditarRol({ editarRol }) {
     // Ruta
     if (editarRol && editarRol.id_rol) {
       axios
-        .patch(`http://localhost:3000/api/rol/${editarRol.id_rol}`, {
+        .patch(`${import.meta.env.VITE_BACKEND_URL}/api/rol/${editarRol.id_rol}`, {
           nombre: nombre.trim(),
           permisos: permisos,
         }, config)
