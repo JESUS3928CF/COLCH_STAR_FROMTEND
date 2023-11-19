@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 import useAuth from "../../hooks/useAuth";
+import CheckBox from "../chared/checkBox/CheckBox";
 
 //Componente
 function AgregarRol() {
@@ -85,125 +86,162 @@ function AgregarRol() {
   }
 
   return (
-    <div>
+      <div>
           {/* modal agregar proveedor */}
-      <div className="modal" id="myModal">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <HeaderModals title={"Agregar Rol"} />
-            <div className="formulario">
-              <div className="modal-body">
-                <form
-                  className="row g-3 needs-validation"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <div className="mb-3" name="divNombre">
-                    <label htmlFor="nombreGuardar" className="col-form-label">
-                      Nombre del Rol:  *
-                    </label>
-                    <input
-                      name="nombre"
-                      type="text"
-                      className="form-control"
-                      placeholder=". . ."
-                      //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
-                      {...register("nombre", {
-                        required: { // Es una propiedad que indica que el campo es obligatorio. 
-                          value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                          message: "El nombre es obligatorio",
-                        },
-                        validate: (value) => {
-                          return validarEspaciosVacios(value);
-                        },
-                        pattern: {
-                          value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                          message:
-                            "El nombre no puede contener números ni caracteres especiales",
-                        },
-                      })}
-                      onChange={(e) => {
-                        setValue("nombre", e.target.value);
-                        trigger("nombre");
-                      }}
-                    />
-                    {errors.nombre && (
-                      <AlertaError message={errors.nombre.message} />
-                    )}
+          <div className='modal' id='myModal'>
+              <div className='modal-dialog modal-dialog-centered'>
+                  <div className='modal-content'>
+                      <HeaderModals title={'Agregar Rol'} />
+                      <div className='formulario'>
+                          <div className='modal-body'>
+                              <form
+                                  className='row g-3 needs-validation'
+                                  onSubmit={handleSubmit(onSubmit)}
+                              >
+                                  <div className='mb-3' name='divNombre'>
+                                      <label
+                                          htmlFor='nombreGuardar'
+                                          className='col-form-label'
+                                      >
+                                          Nombre del Rol: *
+                                      </label>
+                                      <input
+                                          name='nombre'
+                                          type='text'
+                                          className='form-control'
+                                          placeholder='. . .'
+                                          //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
+                                          {...register('nombre', {
+                                              required: {
+                                                  // Es una propiedad que indica que el campo es obligatorio.
+                                                  value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                  message:
+                                                      'El nombre es obligatorio',
+                                              },
+                                              validate: (value) => {
+                                                  return validarEspaciosVacios(
+                                                      value
+                                                  );
+                                              },
+                                              pattern: {
+                                                  value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
+                                                  message:
+                                                      'El nombre no puede contener números ni caracteres especiales',
+                                              },
+                                          })}
+                                          onChange={(e) => {
+                                              setValue(
+                                                  'nombre',
+                                                  e.target.value
+                                              );
+                                              trigger('nombre');
+                                          }}
+                                      />
+                                      {errors.nombre && (
+                                          <AlertaError
+                                              message={errors.nombre.message}
+                                          />
+                                      )}
+                                  </div>
+                                  {/* se seleccionan los permisos que va tener ese rol creado */}
+                                  <label>Seleccionar permisos: *</label>
+                                  {errorMensaje && (
+                                      <AlertaError message={errorMensaje} />
+                                  )}
+                                  <div className='col-md-6'>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'usuario'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'rol'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'proveedor'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'producto'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                  </div>
+                                  <div className='col-md-6'>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'cliente'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'compra'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                      <div className='form-check form-switch'>
+                                          <CheckBox
+                                              text={'orden'}
+                                              onChange={(e) =>
+                                                  handlePermisoChange(
+                                                      e.target.value,
+                                                      e.target.checked
+                                                  )
+                                              }
+                                          />
+                                      </div>
+                                  </div>
+                                  <div className='modal-footer'>
+                                      <CancelarModal
+                                          modalToCancel={'myModal'}
+                                      />
+                                      <GuardarModal />
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
                   </div>
-                  {/* se seleccionan los permisos que va tener ese rol creado */}
-                  <label>Seleccionar permisos:  *</label>
-                  {errorMensaje && <AlertaError message={errorMensaje} />}
-                  <div className="col-md-6">
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="usuario"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Usuario</label>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="rol"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Rol</label>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="proveedor"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Proveedor</label>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="producto"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Producto</label>
-                  </div>
-                  </div>
-                  <div className="col-md-6">
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="cliente"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Cliente</label>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="compra"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Compra</label>
-                  </div>
-                  <div className="form-check form-switch">
-                    <input
-                      type="checkbox"
-                      value="orden"
-                      onChange={(e) => handlePermisoChange(e.target.value, e.target.checked)}
-                    />
-                    <label>Orden</label>
-                  </div>
-                  </div>
-                  <div className="modal-footer">
-                    <CancelarModal modalToCancel={'myModal'} />
-                    <GuardarModal />
-                  </div>
-                </form>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
   );
 }
 export default AgregarRol;
