@@ -6,7 +6,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
@@ -14,9 +14,13 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import AlertaError from "../chared/AlertaError";
 import { validarEspaciosVacios } from "../../Validations/validations";
+import useAuth from "../../hooks/useAuth";
 
 //Componente
 function EditarRol({ editarRol }) {
+
+  const { config } = useAuth();
+
   const {
     register, //Regitra o identifica cada elemento o cada input
     handleSubmit,  //Para manejar el envio del formulario
@@ -66,10 +70,10 @@ function EditarRol({ editarRol }) {
     // Ruta
     if (editarRol && editarRol.id_rol) {
       axios
-        .patch(`http://localhost:3000/api/rol/${editarRol.id_rol}`, {
+        .patch(`${import.meta.env.VITE_BACKEND_URL}/api/rol/${editarRol.id_rol}`, {
           nombre: nombre.trim(),
           permisos: permisos,
-        })
+        }, config)
         .then((response) => {
           console.log("Rol actualizado:", response.data);
           Swal.fire({

@@ -20,9 +20,12 @@ import Header from "../chared/header/Header";
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
 import styles from "../../css-general/CardStyleGenerar.module.css";
 import { resolucionCards } from "../../constantes/constantes.js";
+import useAuth from "../../hooks/useAuth";
+
 
 //Componente
 const ListarCliente = () => {
+  const { config } = useAuth();
   //Estado de la barra de busqueda
   const [clientesFiltrar, setClientesFiltrar] = useState([]);
 
@@ -35,7 +38,7 @@ const ListarCliente = () => {
   useEffect(() => {
     // Realiza una solicitud al backend para obtener la lista de usuarios
     axios
-      .get("http://localhost:3000/api/clientes")
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/clientes`, config)
       .then((response) => {
         // Actualiza el estado con la lista de usuarios
         setClientes(response.data);
