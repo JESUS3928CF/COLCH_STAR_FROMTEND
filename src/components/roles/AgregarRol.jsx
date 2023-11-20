@@ -73,12 +73,22 @@ function AgregarRol() {
       });
     } catch (err) {
       console.log(err);
-      Swal.fire({
+      if (err.response && err.response.status === 403) {
+        Swal.fire({
+          title: "Error",
+          text: err.response.data.message,
+          icon: "error",
+        });
+      }else{
+         Swal.fire({
         title: "Error",
-        text: "Ya existe este Rol",
+        text: "Hubo un error",
         icon: "error",
+      }).then(() => {
+        location.reload();
       });
     }
+  }
   };
 
   const handlePermisoChange = (permiso, isChecked) => {
