@@ -14,12 +14,14 @@ import Prendas from '../pages/Prendas';
 import MenuLateral from '../layout/Menu_lateral';
 import { AuthProvider } from '../context/AuthProvider';
 import { DisenosProvider } from '../context/disenosProvider';
+import { ColorsProvider } from '../context/ColorsProvider';
 
 const MyRoutes = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
                 <DisenosProvider>
+                    <ColorsProvider>
                     <Routes>
                         <Route path='/' element={<Catalogo />}></Route>
                         <Route path='/login' element={<Login />}></Route>
@@ -50,6 +52,7 @@ const MyRoutes = () => {
                             <Route path='prendas' element={<Prendas />}></Route>
                         </Route>
                     </Routes>
+                    </ColorsProvider>
                 </DisenosProvider>
             </AuthProvider>
         </BrowserRouter>

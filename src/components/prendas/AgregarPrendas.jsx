@@ -21,6 +21,7 @@ import HeaderModals from '../chared/HeaderModals';
 import styles from '../../pages/Productos.module.css'
 import BotonNegro from "../chared/BotonNegro";
 import { useColorsContex } from "../../context/ColorsProvider";
+import SeleccionarColors from './SeleccionarColor'
 
 
 
@@ -28,9 +29,8 @@ import { useColorsContex } from "../../context/ColorsProvider";
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
   const [Colors, setColors] = useState([]);
-  const {colores} = useColorsContex() || {}
+  const {colors} = useColorsContex()
 
-  console.log(colores)
 
 
 
@@ -52,26 +52,28 @@ const AgregarPrendas = () => {
     });
   }, []);
 
-  const guardarPrenda = handleSubmit(async (data) => {
-    const formData = new FormData();
-    formData.append("nombre", data.nombre.trim());
-    formData.append("cantidad", data.cantidad.trim());
-    formData.append("precio", data.precio.trim());
-    formData.append("tipo_de_tela", data.tipo_de_tela.trim());
-    formData.append("genero", data.genero.trim());
-    formData.append("publicado", data.publicado);
-    formData.append("imagen", data.imagen[0]);
-    formData.append("tallas", data.tallas);
-    formData.append("colores", JSON.stringify(colores));
-
-    console.log(guardarPrenda);
+  const onSubmit = async (data) => {
+    const {nombre, cantidad,precio,tipo_de_tela,genero,imagen,publicado,tallas}= data
 
     try {
-      const res = await clienteAxios.post("/prendas", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+
+      const res = await axios.post( 'http://localhost:3000/api/prendas',{
+        nombre:nombre.trim(),
+        cantidad: cantidad.trim(),
+        precio:precio.trim(),
+        tipo_de_tela: tipo_de_tela.trim(),
+        genero:genero,
+        imagen: imagen[0],
+        publicado: publicado,
+        tallas: tallas,
+        colores: JSON.stringify(colors)
+      },
+      {
+        headers:{
+          'Content-Type': 'multipart/form-data',
+        }
       });
+      
 
       console.log(data);
 
@@ -89,7 +91,7 @@ const AgregarPrendas = () => {
         icon: "Vuelva a intentarlo",
       }).then(location.reload());
     }
-  });
+  };
   
 
 
@@ -107,7 +109,7 @@ const AgregarPrendas = () => {
             <div className="modal-body">
               <form
                 className="row g-3 needs-validation"
-                onSubmit={guardarPrenda}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="col-md-6" name="nombre">
                   <label htmlFor="nombre" className="col-form-label">
@@ -367,6 +369,7 @@ const AgregarPrendas = () => {
         </div>
       </div>
       <AgregarColors />
+      <SeleccionarColors/>
     </>
   );
 };

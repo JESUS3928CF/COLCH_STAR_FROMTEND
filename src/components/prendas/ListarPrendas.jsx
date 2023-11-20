@@ -93,6 +93,10 @@ export const ListarPrendas = () => {
                 datos={Prendas}
                 camposFiltrar={[
                   'nombre',
+                  'cantidad',
+                  'precio'
+
+                  
 
 
                 ]}

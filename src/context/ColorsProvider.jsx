@@ -5,15 +5,15 @@ const  ColorsContex = createContext();
 
 
 export const ColorsProvider=({children})=>{
-    const [colores, setColores]= useState([]);
+    const [colors, setColores]= useState([]);
 
     const agregarColors= (data)=>{
-        const  newColors = [...colores,data];
+        const  newColors = [...colors,data];
         setColores(newColors);
     };
 
     const contextValue = {
-        colores,
+        colors,
         agregarColors,
     };
 
