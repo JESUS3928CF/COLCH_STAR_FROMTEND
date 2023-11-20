@@ -2,7 +2,7 @@ import Styles from './CheckBox.module.css';
 import PropTypes from 'prop-types';
 
 
-const CheckBox = ({ text, onChange, checked = false }) => {
+const CheckBox = ({ text, onChange, checked }) => {
     function capitalizarPrimeraLetra(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }

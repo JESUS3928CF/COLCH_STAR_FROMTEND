@@ -92,7 +92,6 @@ function EditarRol({ editarRol }) {
                     });
                 })
                 .catch((error) => {
-                    console.error('Error al actualizar el rol', error);
 
                     if (error.response && error.response.status === 400) {
                         Swal.fire({
