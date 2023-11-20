@@ -1,3 +1,12 @@
+//----------TOMAS SANTIAGO VANEGAS SANCHEZ---------------
+//---------- 26 de septiembre 2023
+
+//Permitira ver los datos que estan en la base de datos y la representara en una tabla y en un boton
+// ver detalles donde nos mostrara una informacion mas completa
+
+//Tiene una barra de busquede que nos ayudara a buscar una prenda en la tabla 
+
+
 import { useEffect, useState } from "react";
 import style from "../../pages/proveedores.module.css";
 import "../../css-general/cssgeneral.css";
@@ -23,8 +32,7 @@ export const ListarPrendas = () => {
   const [Prendas, setPrendas] = useState([]);
   const [detallesPrendas, setDetallesPrendas] = useState({});
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
-  const [Colors, setColors] = useState({});
-  const [Tallas, setTalla] = useState([]);
+
 
 
   const informacionModal = (Prendas) => {
@@ -85,6 +93,10 @@ export const ListarPrendas = () => {
                 datos={Prendas}
                 camposFiltrar={[
                   'nombre',
+                  'cantidad',
+                  'precio'
+
+                  
 
 
                 ]}
@@ -267,10 +279,6 @@ export const ListarPrendas = () => {
             </div>
           ))}
         </div>)}
-
-
-
-
 
 
 
