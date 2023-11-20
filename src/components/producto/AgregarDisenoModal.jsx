@@ -7,6 +7,7 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
+import BotonNegro from '../chared/BotonNegro';
 
 const AgregarDisenoModal = () => {
     const {
@@ -177,7 +178,8 @@ const AgregarDisenoModal = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal NoReset={true} name='Regresar' />
+
+                                <BotonNegro text={'Regresar'} modalToOpen={'#myModal'} modalClouse={"modal"}/>
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal/>

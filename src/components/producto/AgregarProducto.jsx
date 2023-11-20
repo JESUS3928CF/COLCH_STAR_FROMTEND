@@ -372,6 +372,7 @@ const AgregarProducto = () => {
                                             // modalClouse={"modal"}
                                             text='Agregar Diseño'
                                             modalToOpen={'#myModalDiseno'}
+                                            modalClouse={"modal"}
                                         />
                                     </div>
                                     <CancelarModal modalToCancel='myModal' name= 'Cancelar' />
