@@ -1,3 +1,9 @@
+//----------------TOMAS SANTIAGO VANEGAS SANCHEZ
+//--------------------14 de noviembre 203
+
+// Permitirar agregar una prenda, color mediante un formulario
+//y se mostarra en la tabla de prendas
+
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import clienteAxios from "../../config/axios";
@@ -9,11 +15,13 @@ import {
 import Swal from "sweetalert2";
 import AlertaError from "../chared/AlertaError";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import AgregarColors from "./AgregarColors";
 import HeaderModals from '../chared/HeaderModals';
 import styles from '../../pages/Productos.module.css'
 import BotonNegro from "../chared/BotonNegro";
+import { useColorsContex } from "../../context/ColorsProvider";
+import SeleccionarColors from './SeleccionarColor'
 
 
 
@@ -21,6 +29,10 @@ import BotonNegro from "../chared/BotonNegro";
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
   const [Colors, setColors] = useState([]);
+  const {colors} = useColorsContex()
+
+
+
 
   const {
     register,
@@ -40,26 +52,28 @@ const AgregarPrendas = () => {
     });
   }, []);
 
-  const guardarPrenda = handleSubmit(async (data) => {
-    const formData = new FormData();
-    formData.append("nombre", data.nombre.trim());
-    formData.append("cantidad", data.cantidad.trim());
-    formData.append("precio", data.precio.trim());
-    formData.append("tipo_de_tela", data.tipo_de_tela.trim());
-    formData.append("genero", data.genero.trim());
-    formData.append("publicado", data.publicado);
-    formData.append("imagen", data.imagen[0]);
-    formData.append("tallas", data.tallas);
-    formData.append("colores", data.colores);
-
-    console.log(guardarPrenda);
+  const onSubmit = async (data) => {
+    const {nombre, cantidad,precio,tipo_de_tela,genero,imagen,publicado,tallas}= data
 
     try {
-      const res = await clienteAxios.post("/prendas", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+
+      const res = await axios.post( 'http://localhost:3000/api/prendas',{
+        nombre:nombre.trim(),
+        cantidad: cantidad.trim(),
+        precio:precio.trim(),
+        tipo_de_tela: tipo_de_tela.trim(),
+        genero:genero,
+        imagen: imagen[0],
+        publicado: publicado,
+        tallas: tallas,
+        colores: JSON.stringify(colors)
+      },
+      {
+        headers:{
+          'Content-Type': 'multipart/form-data',
+        }
       });
+      
 
       console.log(data);
 
@@ -77,12 +91,17 @@ const AgregarPrendas = () => {
         icon: "Vuelva a intentarlo",
       }).then(location.reload());
     }
-  });
+  };
+  
+
+
+
+
 
   return (
     <>
       <div className="modal" id="myModal">
-        <div className="modal-dialog modal-dialog-centered modal-lg">
+        <div className={`modal-dialog modal-dialog-centered  modal-lg ${styles.modal}`}>
           <div className="modal-content">
             <HeaderModals title={'Agregar Prenda'} />
 
@@ -90,7 +109,7 @@ const AgregarPrendas = () => {
             <div className="modal-body">
               <form
                 className="row g-3 needs-validation"
-                onSubmit={guardarPrenda}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="col-md-6" name="nombre">
                   <label htmlFor="nombre" className="col-form-label">
@@ -306,44 +325,8 @@ const AgregarPrendas = () => {
                     <AlertaError message={errors.tallas.message} />
                   )}
 
-
-
                 </div>
-
-                <div className="col-md-6" name="Publicado">
-                  <label htmlFor="Publicar" className="col-form-control">
-                    Colores
-                  </label>
-
-                  <select
-                    name="colores"
-                    id=""
-                    className="form-control"
-                    title="Seleccione una opcion"
-                    {...register("colores", {
-                      required: {
-                        value: true,
-                        message: "El color es obligatorio",
-                      },
-                    })}
-                  >
-
-                    <option value="">Selecciona una opcion</option>
-                    {Colors.map((colors) => {
-                      return (
-                        <option key={colors.id_color} value={colors.id_color}>
-                          {colors.color}
-                        </option>
-                      );
-                    })}
-                  </select>
-
-                  {errors.colores && (
-                    <AlertaError message={errors.colores.message} />
-                  )}
-                </div>
-
-                <div className="mb-3" name="Archivo">
+                <div className="col-md-6" name="Archivo">
                   <label htmlFor="Archivo" className="col-from-label">
                     Imagen de la prenda:
                   </label>
@@ -372,9 +355,8 @@ const AgregarPrendas = () => {
                 <div className="modal-footer">
                   <div className={styles.bottonDiseno}>
                     <BotonNegro text="Agregrar color" 
-                    modalToOpen={'#myModalColors'} 
-                    modalClouse={'modal'} />
-                 
+                    modalToOpen={'#crearColor'} 
+                    modalClouse={'modal'} />               
 
                   </div>
                 
@@ -387,6 +369,7 @@ const AgregarPrendas = () => {
         </div>
       </div>
       <AgregarColors />
+      <SeleccionarColors/>
     </>
   );
 };
