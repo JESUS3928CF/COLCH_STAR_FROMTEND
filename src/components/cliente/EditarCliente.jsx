@@ -16,10 +16,11 @@ import { useForm } from "react-hook-form";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import { useEffect } from "react";
 import AlertaError from "../chared/AlertaError";
-import clienteAxios from "../../config/axios";
+import useAuth from "../../hooks/useAuth";
 
 //Componente
 const EditarCliente = ({ editarCliente }) => {
+  const { config } = useAuth();
   const {
     register,
     handleSubmit,
@@ -72,7 +73,8 @@ const EditarCliente = ({ editarCliente }) => {
             telefono: telefono.trim(),
             email: email.trim(),
             direccion: direccion.trim(),
-          }
+          },
+          config
         )
         .then((response) => {
           console.log("Cliente actualizado:", response.data);
@@ -173,9 +175,9 @@ const EditarCliente = ({ editarCliente }) => {
                           },
                         })}
                         onChange={(e) => {
-                            setValue("identificacion", e.target.value);
-                            trigger("identificacion");
-                          }}
+                          setValue("identificacion", e.target.value);
+                          trigger("identificacion");
+                        }}
                       />
                     </div>
                     {errors.identificacion && (
@@ -209,9 +211,9 @@ const EditarCliente = ({ editarCliente }) => {
                       },
                     })}
                     onChange={(e) => {
-                        setValue("nombre", e.target.value);
-                        trigger("nombre");
-                      }}
+                      setValue("nombre", e.target.value);
+                      trigger("nombre");
+                    }}
                   />
                   {errors.nombre && (
                     <AlertaError message={errors.nombre.message} />
@@ -242,9 +244,9 @@ const EditarCliente = ({ editarCliente }) => {
                       },
                     })}
                     onChange={(e) => {
-                        setValue("apellido", e.target.value);
-                        trigger("apellido");
-                      }}
+                      setValue("apellido", e.target.value);
+                      trigger("apellido");
+                    }}
                   />
                   {errors.apellido && (
                     <AlertaError message={errors.apellido.message} />
@@ -281,9 +283,9 @@ const EditarCliente = ({ editarCliente }) => {
                       },
                     })}
                     onChange={(e) => {
-                        setValue("telefono", e.target.value);
-                        trigger("telefono");
-                      }}
+                      setValue("telefono", e.target.value);
+                      trigger("telefono");
+                    }}
                   />
                   {errors.telefono && (
                     <AlertaError message={errors.telefono.message} />
@@ -309,9 +311,9 @@ const EditarCliente = ({ editarCliente }) => {
                       },
                     })}
                     onChange={(e) => {
-                        setValue("direccion", e.target.value);
-                        trigger("direccion");
-                      }}
+                      setValue("direccion", e.target.value);
+                      trigger("direccion");
+                    }}
                   />
                   {errors.direccion && (
                     <AlertaError message={errors.direccion.message} />
@@ -342,9 +344,9 @@ const EditarCliente = ({ editarCliente }) => {
                       },
                     })}
                     onChange={(e) => {
-                        setValue("email", e.target.value);
-                        trigger("email");
-                      }}
+                      setValue("email", e.target.value);
+                      trigger("email");
+                    }}
                   />
                   {errors.email && (
                     <AlertaError message={errors.email.message} />

@@ -11,14 +11,14 @@ const AuthProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
 
-        const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        };
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    };
     //! Este use effect Para que cuando carge la app revisar si el usuario esta autenticado o no
     useEffect(() => {
         const autenticarUsuario = async () => {
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
 
             if (!token) {
                 setLoading(false);
-                return
+                return;
             }
 
             const config = {
@@ -44,25 +44,33 @@ const AuthProvider = ({ children }) => {
                 setAuth({});
             }
 
-            setLoading(false)
+            setLoading(false);
         };
 
         autenticarUsuario();
     }, []);
 
-
-
     const navigate = useNavigate();
     /// Función para cerrar sección
-   const singOff = () => {
-       localStorage.removeItem('token');
-       setAuth({});
+    const singOff = () => {
+        localStorage.removeItem('token');
+        setAuth({});
 
-       navigate('/login')
-   };
+        navigate('/login');
+    };
+
+    /// Funcionalidad para cerrar y abrir el menú lateral
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    // "Esto es para el botón para cerrar el menú "
+    const toggleSidebar = () => {
+        setSidebarOpen(!isSidebarOpen);
+    };
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, loading, singOff, config, token }}>
+        <AuthContext.Provider
+            value={{ auth, setAuth, loading, singOff, config, token }}
+        >
             {children}
         </AuthContext.Provider>
     );

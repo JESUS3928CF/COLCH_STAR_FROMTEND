@@ -18,6 +18,7 @@ import editar from "../roles/editar.png";
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 import { resolucionCards } from "../../constantes/constantes.js";
+import useAuth from "../../hooks/useAuth.jsx";
 
 
 
@@ -25,12 +26,14 @@ const ListarRol = () => {
   // Estado de la barra de búsqueda
   const [rolesFiltrar, setRolesFiltrar] = useState([]);
 
+  const { config } = useAuth();
+
   const [rol, setRoles] = useState([]);
 
   useEffect(() => {
     // Realiza una solicitud al backend para obtener la lista de usuarios
     axios
-      .get("http://localhost:3000/api/rol")
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rol`, config)
       .then((response) => {
         // Actualiza el estado con la lista de usuarios
         setRoles(response.data);

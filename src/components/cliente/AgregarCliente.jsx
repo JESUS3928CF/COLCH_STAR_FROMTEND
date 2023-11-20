@@ -16,9 +16,11 @@ import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import HeaderModals from "../chared/HeaderModals";
+import useAuth from "../../hooks/useAuth";
 
 //Componente
 const AgregarCliente = () => {
+  const { config } = useAuth();
   const {
     register,    //Regitra o identifica cada elemento o cada input
     handleSubmit,     //Para manejar el envio del formulario
@@ -44,7 +46,7 @@ const AgregarCliente = () => {
 
     try {
       // la ruta por donde voya mandar el objeto o el registro nuevo data
-      const res = await axios.post("http://localhost:3000/api/clientes", {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/clientes`, {
         identificacion: identificacion.trim(),
         tipoIdentificacion: tipoIdentificacion.trim(),
         nombre: nombre.trim(),
@@ -52,7 +54,7 @@ const AgregarCliente = () => {
         telefono: telefono.trim(),
         email: email.trim(),
         direccion: direccion.trim(),
-      });
+      },config);
       //Luego de mandarlo se cierra el modal
 
       reset(); //Luego de ser agregado y mandado resetea el formulario
