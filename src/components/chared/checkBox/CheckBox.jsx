@@ -32,6 +32,7 @@ const CheckBox = ({ text, onChange, checked }) => {
 CheckBox.propTypes = {
     text: PropTypes.string.isRequired, // Validación para asegurar que `text` es una cadena y es requerido
     onChange: PropTypes.func.isRequired, // Validación para asegurar que `onChange` es una función y es requerido
+    checked: PropTypes.bool.isRequired
 };
 
 export default CheckBox;

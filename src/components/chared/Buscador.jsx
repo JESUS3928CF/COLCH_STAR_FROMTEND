@@ -14,8 +14,6 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
                     if (
                         dato[campo] &&
                         dato[campo]
-
-                        
                             .toString()
                             .toLowerCase()
                             .includes(busqueda.toLowerCase())
