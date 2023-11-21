@@ -2,7 +2,7 @@ import Styles from './CheckBox.module.css';
 import PropTypes from 'prop-types';
 
 
-const CheckBox = ({ text, onChange, checked = false }) => {
+const CheckBox = ({ text, onChange, checked }) => {
     function capitalizarPrimeraLetra(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
@@ -32,6 +32,7 @@ const CheckBox = ({ text, onChange, checked = false }) => {
 CheckBox.propTypes = {
     text: PropTypes.string.isRequired, // Validación para asegurar que `text` es una cadena y es requerido
     onChange: PropTypes.func.isRequired, // Validación para asegurar que `onChange` es una función y es requerido
+    checked: PropTypes.bool.isRequired
 };
 
 export default CheckBox;

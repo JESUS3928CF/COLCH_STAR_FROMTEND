@@ -95,10 +95,6 @@ export const ListarPrendas = () => {
                   'nombre',
                   'cantidad',
                   'precio'
-
-                  
-
-
                 ]}
               />
             </div>
