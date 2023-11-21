@@ -93,7 +93,7 @@ function EditarRol({ editarRol }) {
                 })
                 .catch((error) => {
 
-                    if (error.response && error.response.status === 400) {
+                    if (error.response && error.response.status === 403) {
                         Swal.fire({
                             title: 'Error',
                             text: error.response.data.message,
@@ -102,8 +102,10 @@ function EditarRol({ editarRol }) {
                     } else {
                         Swal.fire({
                             title: 'Error',
-                            text: 'Ya existe este Rol',
+                            text: 'Hubo un error',
                             icon: 'error',
+                        }).then(() => {
+                            location.reload();
                         });
                     }
                 });
