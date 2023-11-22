@@ -8,12 +8,12 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
     const realizarBusqueda = () => {
         // Filtrar los datos si hay un término de búsqueda, de lo contrario, mostrar todos los datos
         if (busqueda) {
-            console.log(datos)
             const resultados = datos.filter((dato) => {
                 for (const campo of camposFiltrar) {
+                    console.log(JSON.stringify(dato[campo]));
                     if (
                         dato[campo] &&
-                        dato[campo]
+                        JSON.stringify(dato[campo])
                             .toString()
                             .toLowerCase()
                             .includes(busqueda.toLowerCase())
@@ -26,14 +26,14 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
         } else {
-            setDatosFiltrar(datos.slice(0, 10)); // Mostrar todos los datos en el estado de filtrado
+            setDatosFiltrar(datos); // Mostrar todos los datos en el estado de filtrado
         }
     };
 
     // Realizar la búsqueda automáticamente cuando cambia el valor del campo de entrada
     useEffect(() => {
         realizarBusqueda();
-    }, [busqueda, datos]);
+    }, [busqueda, datos, setDatosFiltrar]);
 
     return (
         <form className='d-flex'>

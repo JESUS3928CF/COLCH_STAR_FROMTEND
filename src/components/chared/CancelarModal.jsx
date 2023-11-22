@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 
-const CancelarModal = ({ modalToCancel, NoReset, name="Cancelar"}) => {
+const CancelarModal = ({ modalToCancel, NoReset, name="Cancelar"}, reset) => {
 
-    //funcion que cuando le de click en cancelar se refresque la pagina y se restablesca la informacion que estaba en el formulario
+    //función que cuando le de click en cancelar se refresque la pagina y se restablezca la informacion que estaba en el formulario
     const onClick = () =>  {
         if (!NoReset){
-            location.reload()
+            if(reset){
+                reset()
+            }
         }
         
     }

@@ -101,6 +101,7 @@ const ListarUsuario = () => {
                                     'apellido',
                                     'telefono',
                                     'email',
+                                    'rol'
                                 ]}
                             />
                         </div>

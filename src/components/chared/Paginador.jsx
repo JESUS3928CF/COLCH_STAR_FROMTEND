@@ -14,7 +14,6 @@ const Paginador = ({ setDatosFiltrar, datos }) => {
     }
 
     const filtrarDatos = (e, pagina) => {
-
         const datosFinales = registrosPorPagina * pagina;
         const datosIniciales = datosFinales - registrosPorPagina;
 
@@ -44,7 +43,7 @@ const Paginador = ({ setDatosFiltrar, datos }) => {
     };
     // style={{marginLeft: 150}
     return (
-        <nav aria-label='Page navigation example' >
+        <nav aria-label='Page navigation example'>
             <ul className='pagination'>
                 <li className='page-item'>
                     <a className='page-link' href='#' aria-label='Previous'>
@@ -65,10 +64,6 @@ const Paginador = ({ setDatosFiltrar, datos }) => {
         </nav>
     );
 };
-
-
-
-
 
 Paginador.propTypes = {
     setDatosFiltrar: PropTypes.func.isRequired,
