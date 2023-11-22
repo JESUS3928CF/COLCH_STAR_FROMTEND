@@ -7,24 +7,24 @@ import '../../css-general/cssgeneral.css';
 import '../../css-general/tailwind.min.css';
 import '../../css-general/inicio_style.css';
 import '../../css-general/table.min.css';
-import React from 'react';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
-import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
-import useAuth from '../../hooks/useAuth';
 import useClientes from '../../hooks/useCliente';
-import { cerrarModal } from './CerrarModal';
+import { useState } from 'react';
+import useGeneral from '../../hooks/useGeneral';
 
 //Componente
 const AgregarCliente = () => {
-    const { config } = useAuth();
 
+    const { handleClick } = useGeneral();
     const { agregarCliente } = useClientes();
+    
+    const [closeModal, setCloseModal] = useState(false);
+
 
     const {
         register, //Regitra o identifica cada elemento o cada input
@@ -61,7 +61,10 @@ const AgregarCliente = () => {
             direccion: direccion.trim(),
         });
 
-        cerrarModal();
+        // todo: Cerrar modal
+        
+        await setCloseModal(true);
+        handleClick();
 
         // reset(); //Luego de ser agregado y mandado resetea el formulario
     };
@@ -413,7 +416,7 @@ const AgregarCliente = () => {
                                             modalToCancel='myModal'
                                             reset={reset}
                                         />
-                                        <GuardarModal />
+                                        <GuardarModal shouldDismiss = {closeModal}/>
                                     </div>
                                 </form>
                             </div>

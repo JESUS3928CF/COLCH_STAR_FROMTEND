@@ -16,70 +16,76 @@ import { AuthProvider } from '../context/AuthProvider';
 import { DisenosProvider } from '../context/disenosProvider';
 import { ColorsProvider } from '../context/ColorsProvider';
 import { ClientesProvider } from '../context/ClientesProvider';
+import { GeneralProvider } from '../context/GeneralProvider';
 
 const MyRoutes = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <DisenosProvider>
-                    <ColorsProvider>
-                        <ClientesProvider>
-                            <Routes>
-                                <Route path='/' element={<Catalogo />}></Route>
-                                <Route
-                                    path='/login'
-                                    element={<Login />}
-                                ></Route>
-
-                                {/* Área para rutas privadas */}
-                                <Route
-                                    path='/administracion'
-                                    element={<MenuLateral />}
-                                >
-                                    <Route index element={<Dashboard />} />
+                <GeneralProvider>
+                    <DisenosProvider>
+                        <ColorsProvider>
+                            <ClientesProvider>
+                                <Routes>
                                     <Route
-                                        path='usuarios'
-                                        element={<Usuarios />}
+                                        path='/'
+                                        element={<Catalogo />}
                                     ></Route>
                                     <Route
-                                        path='roles'
-                                        element={<Roles />}
-                                    ></Route>
-                                    <Route
-                                        path='proveedores'
-                                        element={<Proveedores />}
-                                    ></Route>
-                                    <Route
-                                        path='productos'
-                                        element={<Productos />}
+                                        path='/login'
+                                        element={<Login />}
                                     ></Route>
 
+                                    {/* Área para rutas privadas */}
                                     <Route
-                                        path='clientes'
-                                        element={<Clientes />}
-                                    ></Route>
+                                        path='/administracion'
+                                        element={<MenuLateral />}
+                                    >
+                                        <Route index element={<Dashboard />} />
+                                        <Route
+                                            path='usuarios'
+                                            element={<Usuarios />}
+                                        ></Route>
+                                        <Route
+                                            path='roles'
+                                            element={<Roles />}
+                                        ></Route>
+                                        <Route
+                                            path='proveedores'
+                                            element={<Proveedores />}
+                                        ></Route>
+                                        <Route
+                                            path='productos'
+                                            element={<Productos />}
+                                        ></Route>
 
-                                    <Route
-                                        path='compras'
-                                        element={<Compras />}
-                                    ></Route>
-                                    <Route
-                                        path='ordenes'
-                                        element={<Ordenes />}
-                                    ></Route>
-                                    <Route
-                                        path='disenos'
-                                        element={<Diseno />}
-                                    ></Route>
-                                    <Route
-                                        path='prendas'
-                                        element={<Prendas />}
-                                    ></Route>
-                                </Route>
-                            </Routes>
-                        </ClientesProvider>
-                    </ColorsProvider>
-                </DisenosProvider>
+                                        <Route
+                                            path='clientes'
+                                            element={<Clientes />}
+                                        ></Route>
+
+                                        <Route
+                                            path='compras'
+                                            element={<Compras />}
+                                        ></Route>
+                                        <Route
+                                            path='ordenes'
+                                            element={<Ordenes />}
+                                        ></Route>
+                                        <Route
+                                            path='disenos'
+                                            element={<Diseno />}
+                                        ></Route>
+                                        <Route
+                                            path='prendas'
+                                            element={<Prendas />}
+                                        ></Route>
+                                    </Route>
+                                </Routes>
+                            </ClientesProvider>
+                        </ColorsProvider>
+                    </DisenosProvider>
+                </GeneralProvider>
             </AuthProvider>
         </BrowserRouter>
     );
