@@ -14,6 +14,7 @@ import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Va
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
 import { useDisenosContext } from '../../context/disenosProvider';
+import EditarDisenoModal from './EditarDisenoModal'
 
 
 
@@ -330,7 +331,9 @@ const EditarProducto = ({ editarProducto }) => {
                   <div className={style.bottonDiseno} >
                     <BotonNegro
                       text='Agregar Diseño'
-                      modalToOpen={'#myModalDiseno'}
+                      modalToOpen={'#myModalDisenoE'}
+                      modalClouse={'modal'}
+
 
                     />
                   </div>
@@ -345,6 +348,7 @@ const EditarProducto = ({ editarProducto }) => {
           </div>
         </div>
       </div>
+      <EditarDisenoModal/>
 
 
     </div>
