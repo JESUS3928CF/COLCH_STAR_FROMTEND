@@ -57,6 +57,7 @@ const ListarRol = () => {
         "error"
       );
     }
+    console.log(rolesFiltrar);
     setEditarRol(rol);
   };
 
@@ -95,7 +96,11 @@ const ListarRol = () => {
                           <Buscador
                               setDatosFiltrar={setRolesFiltrar}
                               datos={rol}
-                              camposFiltrar={['nombre', 'fecha_creacion']}
+                              camposFiltrar={[
+                                  'nombre',
+                                  'fecha_creacion',
+                                  'permisos',
+                              ]}
                           />
                       </div>
                   </div>
@@ -276,7 +281,10 @@ const ListarRol = () => {
           </div>
           <div className='seccion4'>
               {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-              <Paginador setDatosFiltrar={setRolesFiltrar} datos={rol} />
+              <Paginador
+                  setDatosFiltrar={setRolesFiltrar}
+                  datos={rol}
+              />
           </div>
       </div>
   );
