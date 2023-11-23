@@ -64,7 +64,7 @@ const EditarProducto = ({ editarProducto }) => {
   const onSubmit = (data) => {
 
     //se guardan los datos  a cambiar al data
-    const { nombre, cantidad, precio, fk_prenda, publicado, imagen } = data
+    const { nombre, cantidad, fk_prenda, publicado, imagen } = data
 
     console.log(disenos)
 
@@ -74,7 +74,7 @@ const EditarProducto = ({ editarProducto }) => {
         // Campos en los que realiza el cambio
         nombre: nombre.trim(),
         cantidad: cantidad,
-        precio: precio,
+        // precio: precio,
         fk_prenda: fk_prenda,
         publicado: publicado,
         imagen: imagen[0],
@@ -112,8 +112,6 @@ const EditarProducto = ({ editarProducto }) => {
       console.error('No se pudo obtener el ID del Producto');
     }
   };
-
-
 
 
   return (
@@ -198,7 +196,7 @@ const EditarProducto = ({ editarProducto }) => {
 
                 </div>
 
-                <div className="col-md-6 mt-2" name="precio">
+                {/* <div className="col-md-6 mt-2" name="precio">
 
                   <label htmlFor="precioGuardar"
                     className="col-form-label">Precio:
@@ -229,7 +227,7 @@ const EditarProducto = ({ editarProducto }) => {
                     />
                   )}
 
-                </div>
+                </div> */}
                 <div className="col-md-6 mt-2" >
 
                   <label htmlFor="rol" className="col-form-label">

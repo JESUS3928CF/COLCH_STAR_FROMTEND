@@ -57,7 +57,7 @@ const AgregarProducto = () => {
 
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data
 
-        console.log(disenos)
+        // console.log(disenos)
         try {
             // la ruta por donde voya mandar el objeto o el registro nuevo dat
             const res = await axios.post(
