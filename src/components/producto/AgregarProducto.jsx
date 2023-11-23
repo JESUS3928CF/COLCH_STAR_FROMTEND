@@ -55,7 +55,7 @@ const AgregarProducto = () => {
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
-        const { nombre, cantidad, precio, fk_prenda, imagen, publicado } = data
+        const { nombre, cantidad, fk_prenda, imagen, publicado } = data
 
         console.log(disenos)
         try {
@@ -66,7 +66,7 @@ const AgregarProducto = () => {
                     // Campos en los que realiza el cambio
                     nombre: nombre.trim(),
                     cantidad: cantidad.trim(),
-                    precio: precio.trim(),
+                    // precio: precio.trim(),
                     fk_prenda: fk_prenda.trim(),
                     publicado: publicado,
                     imagen: imagen[0],
@@ -210,7 +210,7 @@ const AgregarProducto = () => {
 
                                 </div>
 
-                                <div className='col-md-6 mt-2' name='precio'>
+                                {/* <div className='col-md-6 mt-2' name='precio'>
 
                                     <label
                                         htmlFor='precioGuardar'
@@ -249,7 +249,7 @@ const AgregarProducto = () => {
                                         />
                                     )}
 
-                                </div>
+                                </div> */}
 
                                 <div className='col-md-6 mt-2'>
 
