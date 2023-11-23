@@ -5,23 +5,6 @@ const GuardarModal = ({ shouldDismiss = false }) => {
 
     const { buttonRef } = useGeneral();
 
-    // const buttonRef = useRef();
-
-    // useEffect(() => {
-    //     const handleClick = (buttonRef) => {
-    //         // Simular clic automático
-    //         console.log('Se le dio click al botón');
-    //         buttonRef.current.click();
-    //     };
-
-    //     const timeoutId = setTimeout(() => {
-    //         handleClick();
-    //     }, 3000);
-
-    //     // Limpieza del temporizador al desmontar el componente
-    //     return () => clearTimeout(timeoutId);
-    // }, []);
-
     // Crear un objeto de propiedades dinámicas
     const buttonProps = {
         type: 'submit',
@@ -39,7 +22,7 @@ const GuardarModal = ({ shouldDismiss = false }) => {
 };
 
 GuardarModal.protoTypes = {
-    shouldDismiss: PropTypes.bool,
+    shouldDismiss: PropTypes.bool
 };
 
 export default GuardarModal;

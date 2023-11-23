@@ -2,7 +2,6 @@
 //-------------------26 de septiembre 2023
 //Nos permitira Agregar un cliente, de ser necesario se podra agregar un cliente mediante un formulario donde se pediran datos
 //mas relevantes de este cliente y luego mostrarlo en la tabla listar
-import styles from '../../pages/clientes.module.css';
 import '../../css-general/cssgeneral.css';
 import '../../css-general/tailwind.min.css';
 import '../../css-general/inicio_style.css';
@@ -14,21 +13,20 @@ import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 import useClientes from '../../hooks/useCliente';
-import { useState } from 'react';
 import useGeneral from '../../hooks/useGeneral';
 
 //Componente
 const AgregarCliente = () => {
 
-    const { handleClick } = useGeneral();
-    const { agregarCliente } = useClientes();
     
-    const [closeModal, setCloseModal] = useState(false);
+    const { agregarCliente } = useClientes();
+    const { closeModal } = useGeneral();
+
 
 
     const {
-        register, //Regitra o identifica cada elemento o cada input
-        handleSubmit, //Para manejar el envio del formulario
+        register, //Registra o identifica cada elemento o cada input
+        handleSubmit, //Para manejar el envió del formulario
         formState: { errors }, //Ver errores que tiene el formulario
         setValue,
         trigger,
@@ -59,14 +57,9 @@ const AgregarCliente = () => {
             telefono: telefono.trim(),
             email: email.trim(),
             direccion: direccion.trim(),
-        });
+        }, reset);
 
-        // todo: Cerrar modal
         
-        await setCloseModal(true);
-        handleClick();
-
-        // reset(); //Luego de ser agregado y mandado resetea el formulario
     };
     return (
         <div>

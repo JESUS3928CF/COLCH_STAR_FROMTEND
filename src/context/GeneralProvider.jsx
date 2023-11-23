@@ -1,20 +1,32 @@
-import { createContext, useRef } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
 
 
 const generalContext = createContext();
 
 const GeneralProvider = ({ children }) => {
-    /// Referencia y función Para cerrar un modal
+    /// Estado Referencia y función Para cerrar un modal
+    const [closeModal, setCloseModal] = useState(false);
+
     const buttonRef = useRef();
 
     const handleClick = () => {
         // Simular clic automático
-        console.log('Se le dio click al botón', buttonRef);
-        buttonRef.current.click();
+        setCloseModal(!closeModal);
     };
 
+    useEffect(() => {
+        // Este efecto se ejecuta después de que el estado closeModal cambia
+        if (closeModal) {
+            console.log('Se le dio click al botón', buttonRef);
+            buttonRef.current.click();
+            setCloseModal(false);
+        }
+    }, [closeModal]);
+
     return (
-        <generalContext.Provider value={{ buttonRef, handleClick }}>
+        <generalContext.Provider
+            value={{ buttonRef, handleClick, closeModal, setCloseModal }}
+        >
             {children}
         </generalContext.Provider>
     );

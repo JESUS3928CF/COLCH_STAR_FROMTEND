@@ -2,11 +2,13 @@ import { createContext, useEffect, useState } from "react"
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import useGeneral from "../hooks/useGeneral";
 
 const clientesContext = createContext()
 
 const ClientesProvider = ({children}) => {
 
+    const { handleClick, closeModal } = useGeneral();
     const { config, auth } = useAuth();
   
     // primer state
@@ -29,7 +31,11 @@ const ClientesProvider = ({children}) => {
     }, [auth])
 
 
-    const agregarCliente = async (cliente) => {
+    const agregarCliente = async (cliente, reset) => {
+
+        /// Si el modal esta para cerrar no se agregara un nuevo cliente
+        if(closeModal) return reset();
+
         try {
             const res = await clienteAxios.post('/clientes', cliente, config);
 
@@ -39,10 +45,17 @@ const ClientesProvider = ({children}) => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
-                //El then se ejecuta luego de interactuar con el modal de validación, then se ejecuta cuando lo de arriba se cumpla
-                //todo: Mostrar el cliente agregado
+                
             });
-            consultarClientes();
+
+            // Cerrar modal
+            handleClick();
+
+            
+
+            // consultarClientes();
+            const nuevoCliente = [...clientes, cliente];
+            setClientes(nuevoCliente);
         } catch (err) {
             if (err.response && err.response.status === 403) {
                 Swal.fire({

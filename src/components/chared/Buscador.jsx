@@ -10,7 +10,6 @@ const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
         if (busqueda) {
             const resultados = datos.filter((dato) => {
                 for (const campo of camposFiltrar) {
-                    console.log(JSON.stringify(dato[campo]));
                     if (
                         dato[campo] &&
                         JSON.stringify(dato[campo])

@@ -18,7 +18,7 @@ import { DetallesClientes } from './DetallesClientes';
 import Header from '../chared/header/Header';
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
-import { resolucionCards } from '../../constantes/constantes.js';
+import { registrosPorPagina, resolucionCards } from '../../constantes/constantes.js';
 import useClientes from '../../hooks/useCliente.jsx';
 
 //Componente
@@ -33,8 +33,8 @@ const ListarCliente = () => {
 
     // Solicitud a la url
     useEffect(() => {
-        setClientesFiltrar(clientes.slice(0, 10));
-    }, []);
+        setClientesFiltrar(clientes.slice(0, registrosPorPagina));
+    }, [clientes]);
 
     //Esatdo para editar
     const [editarCliente, setEditarCliente] = useState('');
