@@ -8,7 +8,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
@@ -119,11 +119,9 @@ const AgregarProducto = () => {
                         <HeaderModals title={'Agregar Producto'} />
 
                         <div className='modal-body'>
-
                             <form
                                 className='row g-3 needs-validation'
                                 onSubmit={handleSubmit(onSubmit)}
-
                             >
                                 <div className='col-md-6'>
                                     <label
@@ -152,8 +150,8 @@ const AgregarProducto = () => {
                                             },
                                         })}
                                         onChange={(e) => {
-                                            setValue("nombre", e.target.value);
-                                            trigger("nombre");
+                                            setValue('nombre', e.target.value);
+                                            trigger('nombre');
                                         }}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
@@ -162,7 +160,6 @@ const AgregarProducto = () => {
                                             message={errors.nombre.message}
                                         />
                                     )}
-
                                 </div>
 
                                 <div className='col-md-6 ms-auto'>
@@ -197,8 +194,11 @@ const AgregarProducto = () => {
                                             },
                                         })}
                                         onChange={(e) => {
-                                            setValue("cantidad", e.target.value);
-                                            trigger("cantidad");
+                                            setValue(
+                                                'cantidad',
+                                                e.target.value
+                                            );
+                                            trigger('cantidad');
                                         }}
                                     />
                                     {/* en esta etiqueta va salir el error de validación  */}
@@ -207,7 +207,6 @@ const AgregarProducto = () => {
                                             message={errors.cantidad.message}
                                         />
                                     )}
-
                                 </div>
 
                                 {/* <div className='col-md-6 mt-2' name='precio'>
@@ -252,7 +251,6 @@ const AgregarProducto = () => {
                                 </div> */}
 
                                 <div className='col-md-6 mt-2'>
-
                                     <label
                                         htmlFor='rol'
                                         className='col-form-label'
@@ -295,10 +293,7 @@ const AgregarProducto = () => {
                                     )}
                                 </div>
 
-
-
                                 <div className='col-md-6' name='Publicado'>
-
                                     <label
                                         htmlFor='Publicar'
                                         className='col-form-control'
@@ -338,7 +333,6 @@ const AgregarProducto = () => {
                                         className='col-from-label'
                                     >
                                         Imagen de la Producto Final: *
-
                                     </label>
 
                                     <input
@@ -366,20 +360,20 @@ const AgregarProducto = () => {
                                 </div>
 
                                 <div className='modal-footer'>
-
-                                    <div className={style.bottonDiseno} >
+                                    <div className={style.bottonDiseno}>
                                         <BotonNegro
                                             // modalClouse={"modal"}
                                             text='Agregar Diseño'
                                             modalToOpen={'#myModalDiseno'}
-                                            modalClouse={"modal"}
+                                            modalClouse={'modal'}
                                         />
                                     </div>
-                                    <CancelarModal modalToCancel='myModal' name= 'Cancelar' />
+                                    <CancelarModal
+                                        name='Cancelar'
+                                        reset={reset}
+                                    />
                                     <GuardarModal />
                                 </div>
-
-
                             </form>
                         </div>
                     </div>

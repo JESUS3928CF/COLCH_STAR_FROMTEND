@@ -38,6 +38,7 @@ const AgregarPrendas = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
 
   useEffect(() => {
@@ -360,7 +361,7 @@ const AgregarPrendas = () => {
 
                   </div>
                 
-                  <CancelarModal />
+                  <CancelarModal reset={reset}/>
                   <GuardarModal />
                 </div>
               </form>

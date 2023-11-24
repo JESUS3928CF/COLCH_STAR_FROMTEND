@@ -1,5 +1,5 @@
 import { createContext, useEffect, useRef, useState } from 'react';
-
+import PropTypes from 'prop-types';
 
 const generalContext = createContext();
 
@@ -30,6 +30,11 @@ const GeneralProvider = ({ children }) => {
             {children}
         </generalContext.Provider>
     );
+};
+
+// PropTypes para validar los props
+GeneralProvider.propTypes = {
+    children: PropTypes.array.isRequired,
 };
 
 export {  GeneralProvider };

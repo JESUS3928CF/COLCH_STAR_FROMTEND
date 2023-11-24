@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 const CancelarModal = ({ modalToCancel, reset, name = 'Cancelar' }) => {
     //función que cuando le de click en cancelar se refresque la pagina y se restablezca la informacion que estaba en el formulario
     const onClick = () => {
-        reset();
+
+        if(reset) reset();
     };
 
     return (
