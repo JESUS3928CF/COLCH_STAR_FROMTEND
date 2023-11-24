@@ -27,7 +27,8 @@ const AgregarDiseno = () => {
         handleSubmit,
         formState: { errors },
         trigger,
-        setValue
+        setValue,
+        reset,
     } = useForm({
         mode: 'onChange',
     });
@@ -170,7 +171,7 @@ const AgregarDiseno = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal />
+                                <CancelarModal reset={reset}/>
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
