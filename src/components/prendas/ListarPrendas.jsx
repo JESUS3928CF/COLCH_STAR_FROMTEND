@@ -92,6 +92,7 @@ export const ListarPrendas = () => {
                 setDatosFiltrar={setprendasFiltrar}
                 datos={Prendas}
                 camposFiltrar={[
+                  'id_prenda',
                   'nombre',
                   'cantidad',
                   'precio'

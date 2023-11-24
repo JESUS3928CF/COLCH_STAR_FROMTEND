@@ -20,12 +20,10 @@ const SeleccionarColors = () => {
   const { agregarColors, colors } = useColorsContex();
   const [selectColorsName, setSelectColorsName] = useState("");
 
-  console.log(colors);
 
   const agregarNewColors = (data) => {
     agregarColors(data);
 
-    const id = data.id_color;
     let selectColors = [];
 
     for (let i = 0; i < colors.length; i++) {

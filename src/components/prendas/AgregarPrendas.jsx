@@ -17,22 +17,18 @@ import AlertaError from "../chared/AlertaError";
 import { useEffect, useState } from "react";
 import axios, { formToJSON } from "axios";
 import AgregarColors from "./AgregarColors";
-import HeaderModals from '../chared/HeaderModals';
-import styles from '../../pages/Productos.module.css'
+import HeaderModals from "../chared/HeaderModals";
+import styles from "../../pages/Productos.module.css";
 import BotonNegro from "../chared/BotonNegro";
 import { useColorsContex } from "../../context/ColorsProvider";
-import SeleccionarColors from './SeleccionarColor'
-
-
-
+import SeleccionarColors from "./SeleccionarColor";
 
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
   const [Colors, setColors] = useState([]);
-  const {colors} = useColorsContex()
-
-
-
+  const { colors } = useColorsContex();
+  const [Prendas, setPrendas] = useState([]);
+  const [tipoDeTela, setTipoDeTela] = useState("");
 
   const {
     register,
@@ -48,33 +44,41 @@ const AgregarPrendas = () => {
   }, []);
 
   useEffect(() => {
+    axios.get("http://localhost:3000/api/prendas").then((ress) => {
+      setPrendas(ress.data);
+    });
+  }, []);
+
+  useEffect(() => {
     axios.get("http://localhost:3000/api/tallas").then((response) => {
       setTalla(response.data);
     });
   }, []);
 
   const onSubmit = async (data) => {
-    const {nombre, cantidad,precio,tipo_de_tela,genero,imagen,publicado,tallas}= data
+    const { nombre, cantidad, precio, genero, imagen, publicado, tallas } =
+      data;
 
     try {
-
-      const res = await axios.post( 'http://localhost:3000/api/prendas',{
-        nombre:nombre.trim(),
-        cantidad: cantidad.trim(),
-        precio:precio.trim(),
-        tipo_de_tela: tipo_de_tela.trim(),
-        genero:genero,
-        imagen: imagen[0],
-        publicado: publicado,
-        tallas: tallas,
-        colores: JSON.stringify(colors)
-      },
-      {
-        headers:{
-          'Content-Type': 'multipart/form-data',
+      const res = await axios.post(
+        "http://localhost:3000/api/prendas",
+        {
+          nombre: nombre.trim(),
+          cantidad: cantidad.trim(),
+          precio: precio.trim(),
+          tipo_de_tela: tipoDeTela.trim(),
+          genero: genero,
+          imagen: imagen[0],
+          publicado: publicado,
+          tallas: tallas,
+          colores: JSON.stringify(colors),
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-      
+      );
 
       console.log(data);
 
@@ -93,19 +97,15 @@ const AgregarPrendas = () => {
       }).then(location.reload());
     }
   };
-  
-
-
-
-
 
   return (
     <>
       <div className="modal" id="myModal">
-        <div className={`modal-dialog modal-dialog-centered  modal-lg ${styles.modal}`}>
+        <div
+          className={`modal-dialog modal-dialog-centered  modal-lg ${styles.modal}`}
+        >
           <div className="modal-content">
-            <HeaderModals title={'Agregar Prenda'} />
-
+            <HeaderModals title={"Agregar Prenda"} />
 
             <div className="modal-body">
               <form
@@ -132,8 +132,9 @@ const AgregarPrendas = () => {
                       },
                       pattern: {
                         value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                        message: 'Error no se puede numeros ni caracteres especiales en el nombre'
-                      }
+                        message:
+                          "Error no se puede numeros ni caracteres especiales en el nombre",
+                      },
                     })}
                   />
                   {errors.nombre && (
@@ -161,9 +162,8 @@ const AgregarPrendas = () => {
                       },
                       pattern: {
                         value: /^\d+$/,
-                        message: 'No se peremiten letras'
-
-                      }
+                        message: "No se peremiten letras",
+                      },
                     })}
                   />
                   {errors.cantidad && (
@@ -191,8 +191,8 @@ const AgregarPrendas = () => {
                       },
                       pattern: {
                         value: /^\d+(\.\d{1,2})?$/,
-                        message: 'No se permiten letras'
-                      }
+                        message: "No se permiten letras",
+                      },
                     })}
                   />
 
@@ -201,33 +201,27 @@ const AgregarPrendas = () => {
                   )}
                 </div>
 
-                <div className="col-md-6 ms-6 mt-4" name="Tela">
-                  <label htmlFor="tipo_de_tela" className="col-from-label">
-                    Tipo de tela:
-                  </label>
+                <div className="col-md-6 mt-4">
+                  <label htmlFor="searchInput">Tipo de tela:</label>
                   <input
-                    type="text"
+                    type="search "
+                    name="Telasss"
+                    id="searchInput"
+                    list="Telasss"
+                    placeholder="Buscar o ingresar valor"
                     className="form-control"
-                    name="tipo_de_tela"
-                    placeholder="Tipo de tela "
-                    title="Ingresa el tipo de tela"
-                    {...register("tipo_de_tela", {
-                      required: {
-                        value: true,
-                        message: "El tipo de tela  es obligatoria",
-                      },
-                      validate: (value) => {
-                        return validarEspaciosVacios(value);
-                      },
-                      pattern: {
-                        value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                        message: 'No puede ingresar numeros'
-                      }
-                    })}
+                    onChange={(e) => setTipoDeTela(e.target.value)}
                   />
-                  {errors.tipo_de_tela && (
-                    <AlertaError message={errors.tipo_de_tela.message} />
-                  )}
+
+                  <datalist id="Telasss">
+                    {Array.from(
+                      new Set(Prendas.map((prenda) => prenda.tipo_de_tela))
+                    ).map((tipo, index) => (
+                      <option key={index} value={tipo}>
+                        {tipo}
+                      </option>
+                    ))}
+                  </datalist>
                 </div>
 
                 <div className="col-md-6">
@@ -247,21 +241,17 @@ const AgregarPrendas = () => {
                       },
                     })}
                   >
-
-                    <option
-                      value=""
-                      disabled={false}
-                    > Selecciona una opción</option>
+                    <option value="" disabled={false}>
+                      {" "}
+                      Selecciona una opción
+                    </option>
                     <option value="Mujer">Mujer</option>
                     <option value="Hombre">Hombre</option>
                   </select>
 
                   {errors.genero && (
-                    <AlertaError
-                      message={errors.genero.message}
-                    />
+                    <AlertaError message={errors.genero.message} />
                   )}
-
                 </div>
 
                 <div className="col-md-6" name="Publicado">
@@ -281,11 +271,7 @@ const AgregarPrendas = () => {
                       },
                     })}
                   >
-
-
-                    <option value="" >
-                      Selecciona una opcion
-                    </option>
+                    <option value="">Selecciona una opcion</option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                   </select>
@@ -312,7 +298,6 @@ const AgregarPrendas = () => {
                       },
                     })}
                   >
-
                     <option value="">Selecciona una opcion</option>
 
                     <option value={(Tallas.tallas = "S")}> S </option>
@@ -325,7 +310,6 @@ const AgregarPrendas = () => {
                   {errors.tallas && (
                     <AlertaError message={errors.tallas.message} />
                   )}
-
                 </div>
                 <div className="col-md-6" name="Archivo">
                   <label htmlFor="Archivo" className="col-from-label">
@@ -355,10 +339,11 @@ const AgregarPrendas = () => {
 
                 <div className="modal-footer">
                   <div className={styles.bottonDiseno}>
-                    <BotonNegro text="Agregrar color" 
-                    modalToOpen={'#crearColor'} 
-                    modalClouse={'modal'} />               
-
+                    <BotonNegro
+                      text="Agregrar color"
+                      modalToOpen={"#crearColor"}
+                      modalClouse={"modal"}
+                    />
                   </div>
                 
                   <CancelarModal reset={reset}/>
@@ -370,7 +355,7 @@ const AgregarPrendas = () => {
         </div>
       </div>
       <AgregarColors />
-      <SeleccionarColors/>
+      <SeleccionarColors />
     </>
   );
 };
