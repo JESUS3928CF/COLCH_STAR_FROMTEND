@@ -28,14 +28,18 @@ const AgregarPrendas = () => {
   const [Colors, setColors] = useState([]);
   const { colors } = useColorsContex();
   const [Prendas, setPrendas] = useState([]);
-  const [tipoDeTela, setTipoDeTela] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } = useForm();
+    setValue,
+    trigger,
+    reset,
+    getValues
+  } = useForm({
+    mode: 'onChange',
+  });
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
@@ -56,8 +60,16 @@ const AgregarPrendas = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    const { nombre, cantidad, precio, genero, imagen, publicado, tallas } =
-      data;
+    const {
+      nombre,
+      cantidad,
+      precio,
+      genero,
+      imagen,
+      tipo_de_tela,
+      publicado,
+      tallas,
+    } = data;
 
     try {
       const res = await axios.post(
@@ -66,7 +78,7 @@ const AgregarPrendas = () => {
           nombre: nombre.trim(),
           cantidad: cantidad.trim(),
           precio: precio.trim(),
-          tipo_de_tela: tipoDeTela.trim(),
+          tipo_de_tela: tipo_de_tela.trim(),
           genero: genero,
           imagen: imagen[0],
           publicado: publicado,
@@ -136,6 +148,11 @@ const AgregarPrendas = () => {
                           "Error no se puede numeros ni caracteres especiales en el nombre",
                       },
                     })}
+                    onChange={(e)=>{
+                      setValue('nombre', e.target.value),
+                      trigger('nombre')
+
+                    }}
                   />
                   {errors.nombre && (
                     <AlertaError message={errors.nombre.message} />
@@ -165,6 +182,11 @@ const AgregarPrendas = () => {
                         message: "No se peremiten letras",
                       },
                     })}
+                    onChange={(e)=>{
+                      setValue('cantidad', e.target.value),
+                      trigger('cantidad')
+
+                    }}
                   />
                   {errors.cantidad && (
                     <AlertaError message={errors.cantidad.message} />
@@ -194,6 +216,11 @@ const AgregarPrendas = () => {
                         message: "No se permiten letras",
                       },
                     })}
+                    onChange={(e)=>{
+                      setValue('precio', e.target.value),
+                      trigger('precio')
+
+                    }}
                   />
 
                   {errors.precio && (
@@ -204,14 +231,36 @@ const AgregarPrendas = () => {
                 <div className="col-md-6 mt-4">
                   <label htmlFor="searchInput">Tipo de tela:</label>
                   <input
-                    type="search "
+                    type="text "
                     name="Telasss"
                     id="searchInput"
                     list="Telasss"
-                    placeholder="Buscar o ingresar valor"
+                    placeholder="Ingrese el tipo de tela"
                     className="form-control"
-                    onChange={(e) => setTipoDeTela(e.target.value)}
+                    {...register("tipo_de_tela", {
+                      required: {
+                        value: true,
+                        message: "El tipo de tela  es obligatorio",
+                      },
+                      validate: (value) => {
+                        return validarEspaciosVacios(value);
+                      },
+                      pattern: {
+                        value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
+                        message:
+                          "Error no se puede numeros ni caracteres especiales en el tipo de tela",
+                      },
+                    })}
+                    onChange={(e)=>{
+                      setValue('tipo_de_tela', e.target.value),
+                      trigger('tipo_de_tela')
+
+                    }}
                   />
+
+                  {errors.tipo_de_tela && (
+                    <AlertaError message={errors.tipo_de_tela.message} />
+                  )}
 
                   <datalist id="Telasss">
                     {Array.from(
@@ -240,6 +289,11 @@ const AgregarPrendas = () => {
                         message: "El genero es obligatoria",
                       },
                     })}
+                    onChange={(e)=>{
+                      setValue('genero', e.target.value),
+                      trigger('genero')
+
+                    }}
                   >
                     <option value="" disabled={false}>
                       {" "}
@@ -270,6 +324,7 @@ const AgregarPrendas = () => {
                         message: "El estado de publicación es obligatorio",
                       },
                     })}
+      
                   >
                     <option value="">Selecciona una opcion</option>
                     <option value="true">Si</option>
@@ -345,8 +400,8 @@ const AgregarPrendas = () => {
                       modalClouse={"modal"}
                     />
                   </div>
-                
-                  <CancelarModal reset={reset}/>
+
+                  <CancelarModal reset={reset} />
                   <GuardarModal />
                 </div>
               </form>
