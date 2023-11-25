@@ -130,7 +130,7 @@ const AgregarColors = () => {
 
                                 <div className='modal-footer'>
                                   
-                                    <BotonNegro text={'Cancelar'} modalToOpen={'#crearColor'} modalClouse={'modal'} />
+                                    <BotonNegro text={'Regresar'} modalToOpen={'#crearColor'} modalClouse={'modal'} />
                                     <GuardarModal />
 
                                 </div>
