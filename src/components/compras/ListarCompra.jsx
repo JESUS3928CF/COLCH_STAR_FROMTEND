@@ -5,12 +5,12 @@ import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
 import style from "../../pages/Clientes.module.css";
 import Header from "../chared/header/Header";
-import Buscador from '../chared/Buscador';
-import Paginador from '../chared/Paginador';
-import BotonNegro from '../chared/BotonNegro';
-import BotonCambioEstado from '../chared/BotonCambioEstado';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import Buscador from "../chared/Buscador";
+import Paginador from "../chared/Paginador";
+import BotonNegro from "../chared/BotonNegro";
+import BotonCambioEstado from "../chared/BotonCambioEstado";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ListarCompra = () => {
   //Estado de la barra de busqueda
@@ -76,7 +76,7 @@ const ListarCompra = () => {
                 <th scope="col">Nombre proveedor</th>
                 <th scope="col">Total compra</th>
                 <th scope="col">Fecha de compra</th>
-                {/* <th scope="col">Detalles</th> */}
+                <th scope="col">Detalles</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Editar</th>
               </tr>
@@ -88,6 +88,13 @@ const ListarCompra = () => {
                   <td>{compra.proveedor ? compra.proveedor.nombre : "N/A"}</td>
                   <td>{compra.total_de_compra}</td>
                   <td>{compra.fecha}</td>
+                  <td>
+                    <BotonNegro
+                      text="Ver"
+                      modalToOpen="#modalDetalleCompra"
+                      onClick={() => setDetalleCompra(compra)}
+                    />
+                  </td>
                   <td>
                     <BotonCambioEstado
                       id={compra.id_compra}
@@ -111,9 +118,9 @@ const ListarCompra = () => {
       </div>
 
       <div className="seccion4">
-      {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-      <Paginador setDatosFiltrar={setComprasFiltrar} datos={compra} />
-      </div> 
+        {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+        <Paginador setDatosFiltrar={setComprasFiltrar} datos={compra} />
+      </div>
     </div>
   );
 };
