@@ -43,7 +43,6 @@ export const ListarPrendas = () => {
     setDetallesPrendas(Prendas);
   };
 
-  console.log(detallesPrendas)
 
   //Solicitud de la url
   useEffect(() => {

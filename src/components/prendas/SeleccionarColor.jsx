@@ -18,7 +18,7 @@ const SeleccionarColors = () => {
   } = useForm();
 
   const { agregarColors, colors } = useColorsContex();
-  const [selectColorsName, setSelectColorsName] = useState("");
+  const [selectColorsName, setSelectColorsName] = useState(0);
 
 
   const agregarNewColors = (data) => {
@@ -34,7 +34,7 @@ const SeleccionarColors = () => {
         selectColors.push(matchingColors.color);
       }
     }
-    setSelectColorsName(selectColors);
+    setSelectColorsName(data.id_color);
   };
 
   const [colorss, setColors] = useState([]);
@@ -105,7 +105,7 @@ const SeleccionarColors = () => {
                     />
                   </div>
                   <BotonNegro
-                    text={"Cancelar"}
+                    text={"Regresar"}
                     modalToOpen={"#myModal"}
                     modalClouse={"modal"}
                   />

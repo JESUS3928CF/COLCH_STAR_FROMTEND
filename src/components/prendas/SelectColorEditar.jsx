@@ -101,7 +101,7 @@ const SeleccionarColorsEditar = () => {
                   <div style={{ marginRight: 129 }}>
                   </div>
                   <BotonNegro
-                    text={"Cancelar"}
+                    text={"Regresar"}
                     modalToOpen={"#modalEditarPrenda"}
                     modalClouse={"modal"}
                   />
