@@ -8,7 +8,6 @@ const clientesContext = createContext()
 
 const ClientesProvider = ({children}) => {
 
-    const { handleClick, closeModal } = useGeneral();
     const { config, auth } = useAuth();
   
     // primer state
@@ -31,10 +30,8 @@ const ClientesProvider = ({children}) => {
     }, [auth])
 
 
-    const agregarCliente = async (cliente, reset) => {
+    const agregarCliente = async (cliente, reset, handleClose) => {
 
-        /// Si el modal esta para cerrar no se agregara un nuevo cliente
-        if(closeModal) return reset();
 
         try {
             const res = await clienteAxios.post('/clientes', cliente, config);
@@ -45,17 +42,15 @@ const ClientesProvider = ({children}) => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
-                
+                reset();
+
+                // consultarClientes();
+                const nuevoCliente = [...clientes, cliente];
+                setClientes(nuevoCliente);
+                handleClose();
             });
 
-            // Cerrar modal
-            handleClick();
-
             
-
-            // consultarClientes();
-            const nuevoCliente = [...clientes, cliente];
-            setClientes(nuevoCliente);
         } catch (err) {
             if (err.response && err.response.status === 403) {
                 Swal.fire({
@@ -70,7 +65,7 @@ const ClientesProvider = ({children}) => {
                     text: 'Hubo un error',
                     icon: 'error',
                 }).then(() => {
-                    location.reload();
+                    
                 });
             }
         }

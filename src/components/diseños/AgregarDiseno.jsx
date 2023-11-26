@@ -22,7 +22,6 @@ import {
 import useAuth from '../../hooks/useAuth.jsx';
 import { Fragment, useState } from 'react';
 import BotonVerde from '../chared/BotonVerde.jsx';
-import { Button } from 'react-bootstrap';
 
 const AgregarDiseno = () => {
     /// Funcionalidad para cerra el modal
@@ -84,10 +83,7 @@ const AgregarDiseno = () => {
 
     return (
         <Fragment>
-            <BotonVerde
-                text={'Agregar diseño'}
-                onClick={handleShow}
-            />
+            <BotonVerde text={'Agregar Diseño'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={handleClose}

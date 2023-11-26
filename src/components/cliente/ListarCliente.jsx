@@ -20,6 +20,7 @@ import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 import { registrosPorPagina, resolucionCards } from '../../constantes/constantes.js';
 import useClientes from '../../hooks/useCliente.jsx';
+import AgregarCliente from './AgregarCliente.jsx';
 
 //Componente
 const ListarCliente = () => {
@@ -68,14 +69,7 @@ const ListarCliente = () => {
                         <div
                             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                         >
-                            <button
-                                type='button'
-                                className='btn-a'
-                                data-bs-toggle='modal'
-                                data-bs-target='#myModal'
-                            >
-                                Agregar Cliente
-                            </button>
+                            <AgregarCliente/>
                         </div>
 
                         {/* Boton para Buscar/filtrar */}
