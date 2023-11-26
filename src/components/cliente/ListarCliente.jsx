@@ -24,8 +24,14 @@ import AgregarCliente from './AgregarCliente.jsx';
 
 //Componente
 const ListarCliente = () => {
+    const { clientes, editarEstado } = useClientes();
 
-    const { clientes } = useClientes();
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     //Estado de la barra de busqueda
     const [clientesFiltrar, setClientesFiltrar] = useState([]);
@@ -50,6 +56,8 @@ const ListarCliente = () => {
             );
         }
         setEditarCliente(cliente);
+        /// Para poder abrir el modal
+        handleShow();
     };
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -69,7 +77,7 @@ const ListarCliente = () => {
                         <div
                             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                         >
-                            <AgregarCliente/>
+                            <AgregarCliente />
                         </div>
 
                         {/* Boton para Buscar/filtrar */}
@@ -126,6 +134,7 @@ const ListarCliente = () => {
                                                 isChecked={cliente.estado}
                                                 nombreRegistro={'cliente'}
                                                 ruta={`/clientes/estado/${cliente.id_cliente}`}
+                                                editarEstado={editarEstado}
                                             />
                                         </td>
                                         <td>
@@ -210,6 +219,9 @@ const ListarCliente = () => {
                                                             'cliente'
                                                         }
                                                         ruta={`/clientes/estado/${cliente.id_cliente}`}
+                                                        editarEstado={
+                                                            editarEstado
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -254,7 +266,11 @@ const ListarCliente = () => {
                 )}
 
                 <DetallesClientes detallesClientes={detallesClientes} />
-                <EditarCliente editarCliente={editarCliente} />
+                <EditarCliente
+                    cliente={editarCliente}
+                    show={show}
+                    handleClose={handleClose}
+                />
             </div>
 
             <div className='seccion4'>
