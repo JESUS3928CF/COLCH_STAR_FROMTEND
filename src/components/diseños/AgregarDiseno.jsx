@@ -8,6 +8,7 @@ import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
 import clienteAxios from '../../config/axios';
 import AlertaError from '../chared/AlertaError';
+import Modal from 'react-bootstrap/Modal';
 
 import { useForm } from 'react-hook-form';
 
@@ -19,8 +20,17 @@ import {
     validarImagen,
 } from '../../Validations/validations.js';
 import useAuth from '../../hooks/useAuth.jsx';
+import { Fragment, useState } from 'react';
+import BotonVerde from '../chared/BotonVerde.jsx';
+import { Button } from 'react-bootstrap';
 
 const AgregarDiseno = () => {
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     /// Funciones del paquete react-hook-form necesarias para las validaciones
     const {
         register,
@@ -57,7 +67,7 @@ const AgregarDiseno = () => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
-                location.reload();
+                handleClose();
             });
         } catch (error) {
             console.log(error);
@@ -66,13 +76,24 @@ const AgregarDiseno = () => {
                 title: 'Error',
                 text: 'Hubo un error',
                 icon: 'Vuelva a intentarlo',
-            }).then(location.reload());
+            }).then(
+                handleClose()
+            );
         }
     });
 
     return (
-        <div className='modal' id='myModalAgregarDiseno'>
-            <div className='modal-dialog modal-dialog-centered'>
+        <Fragment>
+            <BotonVerde
+                text={'Agregar diseño'}
+                onClick={handleShow}
+            />
+            <Modal
+                show={show}
+                onHide={handleClose}
+                className='modal d-flex align-items-center justify-content-center'
+                id='myModalAgregarDiseno'
+            >
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
                     <HeaderModals title={'Agregar diseño'} />
@@ -171,7 +192,7 @@ const AgregarDiseno = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal reset={reset}/>
+                                <CancelarModal reset={reset} />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
@@ -179,8 +200,8 @@ const AgregarDiseno = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </Modal>
+        </Fragment>
     );
 };
 

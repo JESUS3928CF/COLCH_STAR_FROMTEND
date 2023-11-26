@@ -25,10 +25,7 @@ export const Diseno = () => {
                     <div className='row'>
                         {/* botón de agregar diseño  */}
                         <div className='col-md-6 pb-md-0 pb-4 d-flex justify-content-around align-items-center'>
-                            <BotonVerde
-                                text={'Agregar diseño'}
-                                modalToOpen={'#myModalAgregarDiseno'}
-                            />
+                            
 
                             {/* modal de agregar diseño  */}
                             <AgregarDiseno />
