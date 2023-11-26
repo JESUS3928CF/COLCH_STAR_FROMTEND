@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react"
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
-import useGeneral from "../hooks/useGeneral";
 
 const clientesContext = createContext()
 
@@ -43,10 +42,7 @@ const ClientesProvider = ({children}) => {
                 icon: 'success',
             }).then(() => {
                 reset();
-
-                // consultarClientes();
-                const nuevoCliente = [...clientes, cliente];
-                setClientes(nuevoCliente);
+                setClientes([...clientes, res.data.nuevoCliente]);
                 handleClose();
             });
 
