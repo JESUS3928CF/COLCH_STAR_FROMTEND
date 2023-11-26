@@ -4,7 +4,6 @@
 // existirá una barra buscar que nos permite buscar cualquier de este rol informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import "../../css-general/cssgeneral.css";
 import "../../css-general/inicio_style.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import style from "../../pages/Roles.module.css";
 import BotonCambioEstado from "../chared/BotonCambioEstado";
@@ -17,33 +16,28 @@ import Header from "../chared/header/Header";
 import editar from "../roles/editar.png";
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
-import { resolucionCards } from "../../constantes/constantes.js";
-import useAuth from "../../hooks/useAuth.jsx";
+import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
+import useRol from '../../hooks/useRol.jsx';
+import AgregarRol from "./AgregarRol.jsx";
 
 
 
 const ListarRol = () => {
+
+    const { roles, editarEstado } = useRol();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
   // Estado de la barra de búsqueda
   const [rolesFiltrar, setRolesFiltrar] = useState([]);
 
-  const { config } = useAuth();
-
-  const [rol, setRoles] = useState([]);
-
   useEffect(() => {
-    // Realiza una solicitud al backend para obtener la lista de usuarios
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/rol`, config)
-      .then((response) => {
-        // Actualiza el estado con la lista de usuarios
-        setRoles(response.data);
-
-        setRolesFiltrar(response.data.slice(0, 10));
-      })
-      .catch((error) => {
-        console.error("Error al obtener la lista de roles:", error);
-      });
-  }, []);
+        setRolesFiltrar(roles.slice(0, 10, registrosPorPagina));
+  }, [roles]);
 
   // Estado para editar
   const [editarRol, setEditarRol] = useState("");
@@ -57,8 +51,8 @@ const ListarRol = () => {
         "error"
       );
     }
-    console.log(rolesFiltrar);
     setEditarRol(rol);
+    handleShow();
   };
 
   const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
@@ -78,14 +72,7 @@ const ListarRol = () => {
                       <div
                           className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                       >
-                          <button
-                              type='button'
-                              className='btn-a'
-                              data-bs-toggle='modal'
-                              data-bs-target='#myModal'
-                          >
-                              Agregar Rol
-                          </button>
+                          <AgregarRol/>
                       </div>
 
                       {/* Boton para Buscar/filtrar */}
@@ -95,7 +82,7 @@ const ListarRol = () => {
                           {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                           <Buscador
                               setDatosFiltrar={setRolesFiltrar}
-                              datos={rol}
+                              datos={roles}
                               camposFiltrar={[
                                   'nombre',
                                   'fecha_creacion',
@@ -150,6 +137,7 @@ const ListarRol = () => {
                                                   isChecked={rol.estado}
                                                   nombreRegistro='rol'
                                                   ruta={`/rol/estado/${rol.id_rol}`}
+                                                editarEstado={editarEstado}
                                               />
                                           )}
                                       </td>
@@ -242,6 +230,9 @@ const ListarRol = () => {
                                                           isChecked={rol.estado}
                                                           nombreRegistro='rol'
                                                           ruta={`/rol/estado/${rol.id_rol}`}
+                                                          editarEstado={
+                                                            editarEstado
+                                                        }
                                                       />
                                                   )}
                                               </div>
@@ -277,13 +268,15 @@ const ListarRol = () => {
                       ))}
                   </div>
               )}
-              <EditarRol editarRol={editarRol} />
+              <EditarRol editarRol={editarRol} 
+              show={show}
+              handleClose={handleClose}/>
           </div>
           <div className='seccion4'>
               {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
               <Paginador
                   setDatosFiltrar={setRolesFiltrar}
-                  datos={rol}
+                  datos={roles}
               />
           </div>
       </div>

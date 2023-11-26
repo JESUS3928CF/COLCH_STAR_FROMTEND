@@ -12,7 +12,6 @@ const Roles = () => {
     return auth.usuario.permisos.includes('rol') ? (
         <div>
             <ListarRol />
-            <AgregarRol />
         </div>
     ) : (
         <Navigate to={'/administracion'} />

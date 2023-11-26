@@ -18,7 +18,7 @@ const BotonVerde = ({ text, modalToOpen, onClick }) => {
 
 BotonVerde.propTypes = {
     text: PropTypes.string.isRequired,
-    modalToOpen: PropTypes.string.isRequired,
+    modalToOpen: PropTypes.string,
     onClick: PropTypes.func,
 };
 export default BotonVerde;

@@ -17,6 +17,7 @@ import { DisenosProvider } from '../context/disenosProvider';
 import { ColorsProvider } from '../context/ColorsProvider';
 import { ClientesProvider } from '../context/ClientesProvider';
 import { GeneralProvider } from '../context/GeneralProvider';
+import { RolesProvider } from '../context/RolesProvider';
 
 const MyRoutes = () => {
     return (
@@ -26,6 +27,7 @@ const MyRoutes = () => {
                     <DisenosProvider>
                         <ColorsProvider>
                             <ClientesProvider>
+                                <RolesProvider>
                                 <Routes>
                                     <Route
                                         path='/'
@@ -82,6 +84,7 @@ const MyRoutes = () => {
                                         ></Route>
                                     </Route>
                                 </Routes>
+                                </RolesProvider>
                             </ClientesProvider>
                         </ColorsProvider>
                     </DisenosProvider>

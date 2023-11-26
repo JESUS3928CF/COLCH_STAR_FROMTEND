@@ -7,23 +7,31 @@ import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
 import { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import AlertaError from "../chared/AlertaError";
-import Swal from "sweetalert2";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import HeaderModals from "../chared/HeaderModals";
-import useAuth from "../../hooks/useAuth";
 import CheckBox from "../chared/checkBox/CheckBox";
+import { Modal } from 'react-bootstrap';
+import BotonVerde from '../chared/BotonVerde';
+import useRol from '../../hooks/useRol';
+
 
 //Componente
 function AgregarRol() {
+
+    const { agregarRol } = useRol();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
   //Estado para el seleccionar permisos
   const [seleccionarPermisos, setSeleccionarPermisos] = useState([]);
   const [errorMensaje, setErrorMensaje] = useState(null);
-  const { config } = useAuth();
 
   const {
     register, //Regitra o identifica cada elemento o cada input
@@ -46,49 +54,19 @@ function AgregarRol() {
       return;
     }
 
-    try {
-      // la ruta por donde voya mandar el objeto o el registro nuevo data
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/rol`,
+    agregarRol(
         {
           nombre: nombre.trim(),
           permisos: seleccionarPermisos,
         },
-        config
+        reset,
+        handleClose
       );
       //Luego de mandarlo se cierra el modal
 
-      reset(); //Luego de ser agregado y mandado resetea el formulario
       setSeleccionarPermisos([]);
       setErrorMensaje(null);
 
-      // Lanzar alerta del rol agregado
-      Swal.fire({
-        title: "Rol agregado",
-        text: res.data.message,
-        icon: "success",
-      }).then(() => {
-        //El then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-        location.reload(); //  recarga la pagina
-      });
-    } catch (err) {
-      console.log(err);
-      if (err.response && err.response.status === 403) {
-        Swal.fire({
-          title: "Error",
-          text: err.response.data.message,
-          icon: "error",
-        });
-      }else{
-         Swal.fire({
-        title: "Error",
-        text: "Hubo un error",
-        icon: "error",
-      }).then(() => {
-        location.reload();
-      });
-    }
-  }
   };
 
   const handlePermisoChange = (permiso, isChecked) => {
@@ -101,12 +79,16 @@ function AgregarRol() {
 
   return (
       <div>
-          {/* modal agregar proveedor */}
-          <div className='modal' id='myModal'>
-              <div className='modal-dialog modal-dialog-centered'>
+            <BotonVerde text={'Agregar Rol'} onClick={handleShow} />
+            <Modal
+                show={show}
+                onHide={handleClose}
+                className='modal d-flex align-items-center justify-content-center'
+                id='myModal'
+            >
                   <div className='modal-content'>
                       <HeaderModals title={'Agregar Rol'} />
-                      <div className='formulario'>
+                      <div>
                           <div className='modal-body'>
                               <form
                                   className='row g-3 needs-validation'
@@ -265,15 +247,18 @@ function AgregarRol() {
                                       </div>
                                   </div>
                                   <div className='modal-footer'>
-                                      <CancelarModal reset={reset} />
-                                      <GuardarModal />
-                                  </div>
+                                    <CancelarModal
+                                        modalToCancel='myModal'
+                                        reset={reset}
+                                        handleClose={handleClose}
+                                    />
+                                    <GuardarModal />
+                                </div>
                               </form>
                           </div>
                       </div>
-                  </div>
-              </div>
           </div>
+          </Modal>
       </div>
   );
 }
