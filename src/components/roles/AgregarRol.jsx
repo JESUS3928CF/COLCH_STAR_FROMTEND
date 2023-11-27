@@ -25,7 +25,10 @@ function AgregarRol() {
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => { 
+        setSeleccionarPermisos([])
+        setShow(false)
+    };
     const handleShow = () => setShow(true);
   //Estado para el seleccionar permisos
   const [seleccionarPermisos, setSeleccionarPermisos] = useState([]);
@@ -62,7 +65,7 @@ function AgregarRol() {
       );
       //Luego de mandarlo se cierra el modal
 
-      setSeleccionarPermisos([]);
+    //   setSeleccionarPermisos([]);
       setErrorMensaje(null);
 
   };
