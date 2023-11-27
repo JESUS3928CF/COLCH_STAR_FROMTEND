@@ -18,6 +18,7 @@ import { ColorsProvider } from '../context/ColorsProvider';
 import { ClientesProvider } from '../context/ClientesProvider';
 import { GeneralProvider } from '../context/GeneralProvider';
 import { RolesProvider } from '../context/RolesProvider';
+import {UsuariosProvider } from '../context/UsuariosProvider'; //
 
 const MyRoutes = () => {
     return (
@@ -28,6 +29,7 @@ const MyRoutes = () => {
                         <ColorsProvider>
                             <ClientesProvider>
                                 <RolesProvider>
+                                    <UsuariosProvider>
                                 <Routes>
                                     <Route
                                         path='/'
@@ -84,6 +86,7 @@ const MyRoutes = () => {
                                         ></Route>
                                     </Route>
                                 </Routes>
+                                </UsuariosProvider>
                                 </RolesProvider>
                             </ClientesProvider>
                         </ColorsProvider>

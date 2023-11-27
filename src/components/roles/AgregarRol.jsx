@@ -3,9 +3,7 @@
 //Nos permitira Agregar un rol, se podra agregar el rol mediante un formulario con sus respectivas validaciones donde se pediran los datos
 //mas relevantes de este rol y luego se mostrara en la tabla listar roles
 import "../../css-general/cssgeneral.css";
-import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
-import "../../css-general/table.min.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CancelarModal from "../chared/CancelarModal";

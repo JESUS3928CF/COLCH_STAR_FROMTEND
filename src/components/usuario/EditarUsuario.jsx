@@ -10,13 +10,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
-import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
 import useAuth from "../../hooks/useAuth";
+import { Modal } from 'react-bootstrap';
+import HeaderModals from '../chared/HeaderModals';
+import useUsuario from '../../hooks/useUsuario';
 
-const EditarUsuario = ({ editarUsuario }) => {
+const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
+
+  const { editarUsuarios } = useUsuario();
+
 
   const { config } = useAuth();
 
@@ -68,70 +73,25 @@ const EditarUsuario = ({ editarUsuario }) => {
   }, [editarUsuario, idAdministrador]);
 
   const onSubmit = (data) => {
-    const { nombre, apellido, telefono, email, fk_rol } = data;
-
-    if (editarUsuario.id_usuario) {
-      axios
-          .patch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${editarUsuario.id_usuario}`,
-              {
-                  nombre: nombre.trim(),
-                  apellido: apellido.trim(),
-                  telefono: telefono.trim(),
-                  email: email.trim(),
-                  fk_rol: fk_rol,
-              },
-              config
-          )
-          .then((response) => {
-              console.log('Usuario Actualizado:', response.data);
-              Swal.fire({
-                  title: 'Usuario Actualizado',
-                  text: response.data.message,
-                  icon: 'success',
-              }).then(() => {
-                  location.reload();
-              });
-          })
-          .catch((error) => {
-              console.error('Error al actualizar el usuario', error);
-              if (error.response && error.response.status === 403) {
-                  Swal.fire({
-                      title: 'Error',
-                      text: error.response.data.message,
-                      icon: 'error',
-                  });
-              } else {
-                  Swal.fire({
-                      title: 'Error',
-                      text: 'Hubo un error',
-                      icon: 'error',
-                  }).then(() => {
-                      location.reload();
-                  });
-              }
-          });
-    } else {
-      console.error("No se pudo obtener el ID del usuario");
-    }
+    editarUsuarios(
+      data,
+      editarUsuario,
+      handleClose
+    );
   };
 
   return (
     <div>
+
       {/* modal de editar usuarios */}
-      <div className="modal" id="modalEditar">
-        <div className="modal-dialog modal-dialog-centered">
+      <Modal
+        show={show}
+        onHide={handleClose}
+        className="modal d-flex align-items-center justify-content-center"
+        id="modalEditar"
+      >
           <div className="modal-content">
-            <div className="editar edi">
-              <h5 className="modal-title">Editar datos del usuario</h5>
-              <button
-                type="button"
-                id="xEditar"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
+        <HeaderModals title={'Editar Usuario'} />
             <div className="modal-body">
               <form
                 className="row g-3 needs-validation"
@@ -314,14 +274,14 @@ const EditarUsuario = ({ editarUsuario }) => {
                 )}
 
                 <div className="modal-footer">
-                  <CancelarModal />
+                <CancelarModal handleClose={handleClose} 
+                />
                   <GuardarModal />
                 </div>
               </form>
             </div>
           </div>
-        </div>
-      </div>
+      </Modal>
     </div>
   );
 };

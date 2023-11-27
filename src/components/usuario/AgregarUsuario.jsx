@@ -9,13 +9,25 @@ import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
-import Swal from 'sweetalert2';
 import { validarEspaciosVacios } from '../../Validations/validations';
 import { useEffect, useState } from 'react';
 import HeaderModals from '../chared/HeaderModals';
+import { Modal } from 'react-bootstrap';
+import BotonVerde from '../chared/BotonVerde';
+import useUsuario from '../../hooks/useUsuario';
 import useAuth from '../../hooks/useAuth';
 
 const AgregarUsuario = () => {
+
+    const { agregarUsuario } = useUsuario();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
     const {
         register, //Regitra o identifica cada elemento o cada input
         handleSubmit, //Para manejar el envio del formulario
@@ -44,11 +56,8 @@ const AgregarUsuario = () => {
     const onSubmit = async (data) => {
         const { nombre, apellido, telefono, email, contrasena, fk_rol } = data;
 
-        try {
-            // la ruta por donde voya mandar el objeto o el registro nuevo data
-            const res = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/usuarios`,
-                {
+        agregarUsuario(
+            {
                     nombre: nombre.trim(),
                     apellido: apellido.trim(),
                     telefono: telefono.trim(),
@@ -56,47 +65,21 @@ const AgregarUsuario = () => {
                     contrasena: contrasena.trim(),
                     fk_rol: fk_rol.trim(),
                 },
-                config
+                reset,
+                handleClose
             );
-            //Luego de mandarlo se cierra el modal
-
-            reset(); //Luego de ser agregado y mandado resetea el formulario
-
-            // Lanzar alerta del usuario agregado
-            Swal.fire({
-                title: 'Usuario Agregado',
-                text: res.data.message,
-                icon: 'success',
-            }).then(() => {
-                //El then se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-                location.reload(); //  recarga la pagina
-            });
-        } catch (err) {
-            console.log(err);
-            if (err.response && err.response.status === 403) {
-                Swal.fire({
-                    title: 'Error',
-                    text: err.response.data.message,
-                    icon: 'error',
-                });
-            } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Hubo un error',
-                    icon: 'error',
-                }).then(() => {
-                    location.reload();
-                });
-            }
-        }
     };
 
     return (
         <div>
-            {/* modal agregar usuario */}
+            <BotonVerde text={'Agregar Usuario'} onClick={handleShow} />
 
-            <div className='modal' id='myModal'>
-                <div className='modal-dialog modal-dialog-centered'>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                className='modal d-flex align-items-center justify-content-center'
+                id='myModal'
+            >
                     <div className='modal-content'>
                         <HeaderModals title={'Agregar Usuario'} />
                         <div className='modal-body'>
@@ -398,14 +381,17 @@ const AgregarUsuario = () => {
                                     )}
                                 </div>
                                 <div className='modal-footer'>
-                                    <CancelarModal reset={reset} />
+                                <CancelarModal
+                                        modalToCancel='myModal'
+                                        reset={reset}
+                                        handleClose={handleClose}
+                                    />
                                     <GuardarModal />
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
+                </Modal>
         </div>
     );
 };
