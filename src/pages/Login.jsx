@@ -12,7 +12,7 @@ const Login = () => {
     const [isActivate, setIsActivate] = useState(false);
 
     /// Variable de autenticación del provider
-    const { auth, setAuth } = useAuth();
+    const { setAuth } = useAuth();
 
     /// variables para el formulario
     const {
@@ -21,12 +21,10 @@ const Login = () => {
         formState: { errors },
     } = useForm();
 
-    console.log(auth);
 
     const navigate = useNavigate();
 
     const autenticarUsuario = handleSubmit(async (data) => {
-        console.log(data);
         const { email, contrasena } = data;
 
         /// Hacer la petición al backend
@@ -35,13 +33,13 @@ const Login = () => {
                 email,
                 contrasena,
             });
+
             localStorage.setItem('token', respuesta.data.usuario.token);
 
             setAuth(respuesta.data);
 
             navigate('/administracion');
         } catch (error) {
-            console.log(error);
             return Swal.fire({
                 title: `${error.response.data.message}`,
                 icon: 'error',

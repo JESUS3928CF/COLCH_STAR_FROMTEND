@@ -25,6 +25,8 @@ const MenuLateral = () => {
 
     if (loading) return 'Cargando...';
 
+    console.log(auth.usuario)
+
     return (
         <>
             <div
