@@ -22,6 +22,11 @@ const ListarCompra = () => {
   const [compra, setCompras] = useState([]);
   const [details, setDetails]= useState([])
   const [detallesCompras, setDetalleCompra] = useState({});
+  const [proveedor,setProveedor]= useState({})
+
+  // useEffect(()=>{
+  //   axios.get('')
+  // })
 
 
 
@@ -82,7 +87,7 @@ useEffect(()=>{
               <Buscador
                 setDatosFiltrar={setComprasFiltrar}
                 datos={compra}
-                camposFiltrar={["fecha"]}
+                camposFiltrar={["proveedor", "fecha" ,"total_de_compra"]}
               />
             </div>
           </div>

@@ -25,13 +25,13 @@ export const DetalleCompras = ({ detallesCompras }) => {
     axios.get("http://localhost:3000/api/proveedores").then((res) => {
       setProveedor(res.data);
     });
-  });
+  },[]);
 
   useEffect(()=>{
     axios.get('http://localhost:3000/api/prendas').then((res)=>{
       setPrendas(res.data)
     })
-  })
+  },[])
 
 const R = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_compra)?.fk_prenda
 
@@ -134,7 +134,7 @@ const R = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_com
                     </label>
                     <br />
 
-                    {/* <label htmlFor="">{consult.find(consultP => consultP.id_prenda === consultD.fk_prenda )?.nombre} </label> */}
+                    <label htmlFor="">{prendas.find(prenda => prenda.id_prenda === R )?.nombre} </label>
                     
 
                     <br />
