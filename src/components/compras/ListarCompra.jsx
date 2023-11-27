@@ -11,6 +11,8 @@ import BotonNegro from "../chared/BotonNegro";
 import BotonCambioEstado from "../chared/BotonCambioEstado";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {DetalleCompras} from "./DetallesCompras";
+import AgregarCompras from "./AgregarCompra";
 
 const ListarCompra = () => {
   //Estado de la barra de busqueda
@@ -18,6 +20,18 @@ const ListarCompra = () => {
 
   // Conexión para traer todos los datos de la base de datos, con la compra que es que se va hacer el mapeo en la tabla listar
   const [compra, setCompras] = useState([]);
+  const [details, setDetails]= useState([])
+  const [detallesCompras, setDetalleCompra] = useState({});
+
+
+
+useEffect(()=>{
+  axios.get('http://localhost:3000/api/compraDetalles')
+  .then((res)=>{
+    setDetails(res.data)
+  })
+},[])
+
 
   // Solicitud a la url
   useEffect(() => {
@@ -34,7 +48,12 @@ const ListarCompra = () => {
         console.error("Error al obtener la lista de compras:", error);
       });
   }, []);
+
+
+
+
   return (
+    <>
     <div>
       <div>
         <Header titulo="Gestión de Compras" />
@@ -49,7 +68,7 @@ const ListarCompra = () => {
                 type="button"
                 className="btn-a"
                 data-bs-toggle="modal"
-                data-bs-target="#myModal"
+                data-bs-target="#myModalAgregarComprar"
               >
                 Agregar Compra
               </button>
@@ -76,9 +95,9 @@ const ListarCompra = () => {
                 <th scope="col">Nombre proveedor</th>
                 <th scope="col">Total compra</th>
                 <th scope="col">Fecha de compra</th>
-                <th scope="col">Detalles</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Detalles</th>
+
               </tr>
             </thead>
             <tbody>
@@ -89,13 +108,6 @@ const ListarCompra = () => {
                   <td>{compra.total_de_compra}</td>
                   <td>{compra.fecha}</td>
                   <td>
-                    <BotonNegro
-                      text="Ver"
-                      modalToOpen="#modalDetalleCompra"
-                      onClick={() => setDetalleCompra(compra)}
-                    />
-                  </td>
-                  <td>
                     <BotonCambioEstado
                       id={compra.id_compra}
                       isChecked={compra.estado}
@@ -105,11 +117,12 @@ const ListarCompra = () => {
                   </td>
                   <td>
                     <BotonNegro
-                      text="Editar"
-                      modalToOpen={compra.estado ? "#modalEditar" : ""}
-                      onClick={() => handleEditClick(compra)}
+                      text="Ver"
+                      modalToOpen= {"#modalDetalleCompra"}
+                      onClick={() => setDetalleCompra(compra)}
                     />
                   </td>
+                 
                 </tr>
               ))}
             </tbody>
@@ -122,6 +135,10 @@ const ListarCompra = () => {
         <Paginador setDatosFiltrar={setComprasFiltrar} datos={compra} />
       </div>
     </div>
+    <DetalleCompras detallesCompras={detallesCompras}/>
+
+
+    </>
   );
 };
 

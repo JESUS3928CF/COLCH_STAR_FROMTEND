@@ -47,10 +47,11 @@ const BotonCambioEstado = ({
                 estado ? 'Inhabilitar' : 'Habilitar'
             } este ${nombreRegistro}?`,
             // text: "Este ",
-            icon: 'warning',
+            icon: 'question',
+            iconColor: '#fa0000',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3E5743',
+            cancelButtonColor: '#252432',
             confirmButtonText: `Si, ${estado ? 'Inhabilítalo' : 'Habilítalo'}`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
