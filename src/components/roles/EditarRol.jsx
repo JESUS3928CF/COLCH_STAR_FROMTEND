@@ -44,7 +44,7 @@ function EditarRol({ editarRol, handleClose, show }) {
       setValue("nombre", editarRol.nombre);
       setPermisos(editarRol.permisos);
     }
-  }, [editarRol]);
+  }, [editarRol, show]);
 
   const handlePermisoChange = (permiso, isChecked) => {
     if (isChecked) {
@@ -220,7 +220,7 @@ function EditarRol({ editarRol, handleClose, show }) {
               </div>
 
               <div className="modal-footer">
-                <CancelarModal handleClose={handleClose} />
+                <CancelarModal handleClose={handleClose} reset={reset}/>
                 <GuardarModal />
               </div>
             </form>

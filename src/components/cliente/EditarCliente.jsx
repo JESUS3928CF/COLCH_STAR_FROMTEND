@@ -26,6 +26,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
         formState: { errors },
         setValue, // Añade esta función para actualizar dinámicamente los valores
         trigger,
+        reset
     } = useForm({
         mode: 'onChange',
     });
@@ -41,14 +42,14 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
             setValue('email', cliente.email);
             setValue('direccion', cliente.direccion);
         }
-    }, [cliente]);
+    }, [cliente, show]);
 
     /// Función para guardar el cliente en la DB
     const onSubmit = (data) => {
 
         /// Le pasamos el id del cliente que queremos editar
         data.id_cliente = cliente.id_cliente
-        editarCliente(data, handleClose);
+        editarCliente(data, handleClose,reset);
 
     };
 
@@ -336,7 +337,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                             </div>
 
                             <div className='modal-footer'>
-                                <CancelarModal handleClose={handleClose}/>
+                                <CancelarModal handleClose={handleClose} reset={reset}/>
 
                                 <GuardarModal />
                             </div>

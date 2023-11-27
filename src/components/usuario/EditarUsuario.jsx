@@ -70,7 +70,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
 
       setEsAdministrador(editarUsuario.fk_rol === idAdministrador);
     }
-  }, [editarUsuario, idAdministrador]);
+  }, [editarUsuario, idAdministrador, show]);
 
   const onSubmit = (data) => {
     editarUsuarios(
@@ -211,7 +211,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                     Email:
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
                     id="emailEditar"
                     name="email"
@@ -275,7 +275,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
 
                 <div className="modal-footer">
                 <CancelarModal handleClose={handleClose} 
-                />
+                 reset={reset}/>
                   <GuardarModal />
                 </div>
               </form>

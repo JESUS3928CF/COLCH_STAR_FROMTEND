@@ -61,7 +61,7 @@ const ClientesProvider = ({ children }) => {
         }
     };
 
-    const editarCliente = (cliente, handleClose) => {
+    const editarCliente = (cliente, handleClose, reset) => {
         const {
             identificacion,
             tipoIdentificacion,
@@ -104,6 +104,7 @@ const ClientesProvider = ({ children }) => {
                         );
                         setClientes(clienteActualizado);
                         handleClose();
+                        reset()
                     });
                 })
                 .catch((error) => {
