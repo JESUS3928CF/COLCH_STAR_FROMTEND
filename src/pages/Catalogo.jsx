@@ -22,7 +22,8 @@ const Catalogo = () => {
     if (loading == true) return 'Cargando...';
 
     return (
-        <>
+        <div className={style.contenedorCatalogo}>
+
             <header>
                 <a href="#" className={style.logo}>
                     <img src={logo} alt="" />
@@ -46,7 +47,8 @@ const Catalogo = () => {
                     )}
                 </div>
             </header>
-            <body>
+
+            <body >
 
 
             // JSX
@@ -92,6 +94,7 @@ const Catalogo = () => {
                     <div className="swiper-button-next"></div>
                     <div className="swiper-button-prev"></div>
                 </main>
+
                 <main className={style.categories} id="categories">
                     <div className={style.heading}>
                         <h1>Explore nuestros productos <br /><span>Categorias</span></h1>
@@ -118,22 +121,8 @@ const Catalogo = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </body>
-        </>
+        </div>
 
 
 
