@@ -2,18 +2,30 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { get, useForm } from "react-hook-form";
 import HeaderModals from "../chared/HeaderModals";
-import CancelarModal from "../chared/CancelarModal";
-import GuardarModal from "../chared/GuardarModal";
 import axios from "axios";
+import { FcApproval, FcCancel } from "react-icons/fc";
+import style from '../prendas/IconCss/style.Icon.css'
+
+
+
 
 export const DetalleCompras = ({ detallesCompras }) => {
   const { setValue } = useForm();
 
   const [detalle, setDetalle] = useState([]);
   const [proveedor, setProveedor] = useState([]);
-  const [prendas, setPrendas]= useState([])
+  const [prendas, setPrendas] = useState([]);
 
 
+
+
+  const informacion = (detallesCompras) => {
+    if (!detallesCompras.estado) {
+      return <FcCancel />;
+    } else {
+      return <FcApproval />;
+    }
+  };
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/compraDetalles").then((res) => {
@@ -25,22 +37,26 @@ export const DetalleCompras = ({ detallesCompras }) => {
     axios.get("http://localhost:3000/api/proveedores").then((res) => {
       setProveedor(res.data);
     });
-  },[]);
+  }, []);
 
-  useEffect(()=>{
-    axios.get('http://localhost:3000/api/prendas').then((res)=>{
-      setPrendas(res.data)
-    })
-  },[])
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/prendas").then((res) => {
+      setPrendas(res.data);
+    });
+  }, []);
 
-const fkPrenda = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_compra)?.fk_prenda
+  const fkPrenda = detalle.find(
+    (detalles) => detalles.fk_compra === detallesCompras.id_compra
+  )?.fk_prenda;
 
-const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
+  const nombre = prendas.find(
+    (prenda) => prenda.id_prenda === fkPrenda
+  )?.nombre;
 
-// const P = prendas.find(prenda=> prenda.id_prenda === R.fi)?.nombre
+  // const P = prendas.find(prenda=> prenda.id_prenda === R.fi)?.nombre
 
-// console.log(detallesCompras)
-// console.log(R)
+  // console.log(detallesCompras)
+  // console.log(R)
 
   return (
     <div>
@@ -60,15 +76,22 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="nombreCompraAgregar"
                       className="col-form-label"
                     >
-                      Nombre del proveedor
+                      <b>Nombre del proveedor</b>
                     </label>
                     <br />
-                    <label htmlFor="">
-                      { proveedor.find(proveedores => proveedores.id_proveedor === detallesCompras.fk_proveedor)?.nombre
 
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={
+                        proveedor.find(
+                          (proveedores) =>
+                            proveedores.id_proveedor ===
+                            detallesCompras.fk_proveedor
+                        )?.nombre
                       }
-                    </label>
-
+                      readOnly
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -76,12 +99,16 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="totalCompraAgregar"
                       className="col-form-label"
                     >
-                      Fecha
+                      <b>Fecha de compra</b>
                     </label>
                     <br />
-                    <label htmlFor="">
 
-                      {detallesCompras.fecha}</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={detallesCompras.fecha}
+                      readOnly
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -89,10 +116,22 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="nombreCompraAgregar"
                       className="col-form-label"
                     >
-                      Cantidad
+                      <b>Cantidad</b>
                     </label>
                     <br />
-                    <label htmlFor="">{detalle.find(detalles=> detalles.id_detalle_compra === detallesCompras.id_compra )?.cantidad}</label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={
+                        detalle.find(
+                          (detalles) =>
+                            detalles.id_detalle_compra ===
+                            detallesCompras.id_compra
+                        )?.cantidad
+                      }
+                      readOnly
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -100,10 +139,22 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="totalCompraAgregar"
                       className="col-form-label"
                     >
-                      Precio
+                      <b>Precio</b>
                     </label>
                     <br />
-                    <label htmlFor="">{detalle.find(detalles=> detalles.id_detalle_compra === detallesCompras.id_compra)?.precio}</label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={
+                        detalle.find(
+                          (detalles) =>
+                            detalles.id_detalle_compra ===
+                            detallesCompras.id_compra
+                        )?.precio
+                      }
+                      readOnly
+                    />
                   </div>
 
                   <div className="col-md-6">
@@ -111,10 +162,18 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="totalCompraAgregar"
                       className="col-form-label"
                     >
-                      Precio Total
+                      <b>Precio Total</b>
                     </label>
                     <br />
-                    <label htmlFor="">{detallesCompras.total_de_compra}</label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={detallesCompras.total_de_compra}
+                      readOnly
+                    />
+
+                    <label htmlFor=""></label>
                   </div>
 
                   <div className="col-md-6">
@@ -122,15 +181,29 @@ const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
                       htmlFor="totalCompraAgregar"
                       className="col-form-label"
                     >
-                      Producto comprado:
+                      <b>Producto comprado:</b>
                     </label>
                     <br />
-                    <label htmlFor="">{fkPrenda=== null? 'Diseños' : nombre } </label>
-                  </div>
 
+                    <input
+                      type="text"
+                      className="form-control"
+                      defaultValue={fkPrenda === null ? "Diseños" : nombre}
+                      readOnly
+                    />
+
+
+                  </div>
+                  <div className="col-md-6">
+                            <label htmlFor="publicado" className="text">
+
+                              <b>Publicado </b>
+                            </label>
+                            <div className='position'>
+                              {informacion(detallesCompras)}
+                            </div>
+                          </div>
                 </form>
-
-              
               </div>
             </div>
           </div>
