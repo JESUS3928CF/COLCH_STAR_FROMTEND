@@ -12,10 +12,24 @@ import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations'
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
+import useProveedores from '../../hooks/useProveedor.jsx';
+import BotonVerde from '../chared/BotonVerde';
+import { Modal } from 'react-bootstrap';
+
 
 
 //COMPONENTE
 const AgregarProveedor = () => {
+
+    const { agregarProveedor } = useProveedores();
+
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -26,67 +40,42 @@ const AgregarProveedor = () => {
         reset, //resetea el formulario
     } = useForm({
         mode: "onChange",
-      });
+    });
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
 
-        try {
-            // la ruta por donde voya mandar el objeto o el registro nuevo data
-            const res = await axios.post("http://localhost:3000/api/proveedores", {
-               //campos base de datos / campos que tiene la informacion. se manda toda la informacion
+
+        // la ruta por donde voya mandar el objeto o el registro nuevo data
+        agregarProveedor(
+            {
+                //campos base de datos / campos que tiene la informacion. se manda toda la informacion
                 identificador: identificador.trim(),
                 tipoIdentificacion: tipoIdentificacion.trim(),
                 nombre: nombre.trim(),
                 telefono: telefono.trim(),
                 direccion: direccion.trim()
-            })
-            //luego de mandarlo ce cierra el modal
+            },
+            reset,
+            handleClose
 
-            reset() //luego de ser agregado y mandado resetea el formulario
-
-            // Lanzar alerta del producto agregado
-            Swal.fire({
-                title: 'Proveedor agregado',
-                text: res.data.message,
-                icon: 'success',
-            }).then(() => { //el hen se ejecuta luego de interactuar con el modal de validacion, then se ejecuta cuando lo de arriba se cumpla
-                location.reload(); //  recarga la pagina
-            });
-
-        } catch (err) {
-            console.log(err)
-
-            //VALIDACION que si existe la identificacion no se permitira agregar otro mas igual
-            if (err.response && err.response.status === 403) {
-
-                Swal.fire({
-                    title: 'Error',
-                    text: err.response.data.message,
-                    icon: 'error',
-
-                })
-
-            } else {
-                // En caso de otros errores, muestra una alerta genérica de error
-                Swal.fire({
-                    title: 'Error',
-                    text: "Hubo un error",
-                    icon: 'error',
-
-                }).then(() => {
-                    location.reload();
-                });
-            }
-        }
+        )
     }
+
 
     return (
         <div>
             {/* modal agregar proveedor */}
-            <div className='modal' id='myModal'>
-                <div className='modal-dialog modal-dialog-centered '>
+
+            <BotonVerde text={'Agregar Proveedor'} onClick={handleShow} />
+
+            <Modal
+                show={show}
+                onHide={handleClose}
+                className='modal d-flex align-items-center justify-content-center'
+                id='myModal'
+            >
                     <div className='modal-content'>
                         <HeaderModals title={'Agregar Proveedor'} />
 
@@ -261,9 +250,9 @@ const AgregarProveedor = () => {
                                                     value.replace(/\s/g, ''); // Eliminar espacios en blanco
                                                 if (
                                                     telefonoSinEspacios.length <
-                                                        7 ||
+                                                    7 ||
                                                     telefonoSinEspacios.length >
-                                                        11
+                                                    11
                                                 ) {
                                                     return 'El telefono debe tener minimo 7 digitos y maximo 12';
                                                 }
@@ -331,6 +320,7 @@ const AgregarProveedor = () => {
                                     <CancelarModal
                                         reset={reset}
                                         name='Cancelar'
+                                        handleClose={handleClose}
                                     />
 
                                     {/* Botón para guardar*/}
@@ -339,8 +329,7 @@ const AgregarProveedor = () => {
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
+            </Modal>
         </div>
     );
 }
