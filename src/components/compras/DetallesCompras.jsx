@@ -33,7 +33,9 @@ export const DetalleCompras = ({ detallesCompras }) => {
     })
   },[])
 
-const R = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_compra)?.fk_prenda
+const fkPrenda = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_compra)?.fk_prenda
+
+const nombre = prendas.find(prenda => prenda.id_prenda === fkPrenda )?.nombre
 
 // const P = prendas.find(prenda=> prenda.id_prenda === R.fi)?.nombre
 
@@ -66,6 +68,7 @@ const R = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_com
 
                       }
                     </label>
+
                   </div>
 
                   <div className="col-md-6">
@@ -119,27 +122,12 @@ const R = detalle.find(detalles => detalles.fk_compra === detallesCompras.id_com
                       htmlFor="totalCompraAgregar"
                       className="col-form-label"
                     >
-                      Diseño
+                      Producto comprado:
                     </label>
                     <br />
-                    <label htmlFor="">{detalle.find(detalles=> detalles.id_detalle_compra === detallesCompras.id_compra)?.diseno}</label>
+                    <label htmlFor="">{fkPrenda=== null? 'Diseños' : nombre } </label>
                   </div>
 
-                  <div className="mb-3">
-                    <label
-                      htmlFor="totalCompraAgregar"
-                      className="col-form-label"
-                    >
-                      Prendas
-                    </label>
-                    <br />
-
-                    <label htmlFor="">{prendas.find(prenda => prenda.id_prenda === R )?.nombre} </label>
-                    
-
-                    <br />
-                    <label htmlFor=""></label>
-                  </div>
                 </form>
 
               

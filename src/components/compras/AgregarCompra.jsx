@@ -33,6 +33,7 @@ const AgregarCompras = () => {
   const [compra, setCompra] = useState([]);
   const [proveedor, setProveedor] = useState([]);
   const [Prendas, setPrendas] = useState([]);
+  const [precios, setPrecios]= useState(0)
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/compra").then((res) => {
@@ -53,30 +54,32 @@ const AgregarCompras = () => {
   }, []);
 
   const onSubmit = async (data) => {
+
     const {
-      total_de_compra,
       fecha,
       fk_proveedor,
       cantidad,
       precio,
-      diseno,
       fk_prenda,
+      total= cantidad*precio
     } = data;
+
+
 
     try {
       const newCompra = await axios.post("http://localhost:3000/api/compra", {
-        total_de_compra: total_de_compra.trim(),
+        total_de_compra: total,
         fecha: fecha.trim(),
         fk_proveedor: fk_proveedor.trim(),
         DetallesCompras: [
           {
             cantidad: cantidad.trim(),
             precio: precio.trim(),
-            diseno: diseno.trim(),
             fk_prenda: fk_prenda.trim(),
           },
         ],
       });
+      console.log(newCompra)
 
       Swal.fire({
         title: "Prenda agregado",
@@ -145,20 +148,17 @@ const AgregarCompras = () => {
 
                     <div className="col-md-6 mt-2">
                       <label htmlFor="rol" className="col-form-label">
-                        Prenda: *
+                        Productos: *
                       </label>
 
                       <select
                         name="fk_prenda"
                         className="form-control"
                         {...register("fk_prenda", {
-                          required: {
-                            value: true,
-                            message: "Debe seleccionar una prenda",
-                          },
+                          
                         })}
                       >
-                        <option value="">Seleccionar prenda</option>
+                        <option value="">Diseños</option>
                         {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
                         esto se guarda en name = fk_prenda
                         {Prendas.map((prenda) => {
@@ -295,24 +295,8 @@ const AgregarCompras = () => {
                         type="text"
                         className="form-control"
                         id="totalCompraAgregar"
-                        placeholder=". . ."
-                        {...register("total_de_compra", {
-                          required: {
-                            value: true,
-                            message: "El total_de_compra es obligatoria",
-                          },
-                          validate: (value) => {
-                            return validarEspaciosVacios(value);
-                          },
-                          pattern: {
-                            value: /^\d+(\.\d{1,2})?$/,
-                            message: "No se permiten letras",
-                          },
-                        })}
-                        onChange={(e) => {
-                          setValue("total_de_compra", e.target.value),
-                            trigger("total_de_compra");
-                        }}
+                        readOnly
+                        
                       />
 
                       {errors.total_de_compra && (
@@ -320,41 +304,7 @@ const AgregarCompras = () => {
                       )}
                     </div>
 
-                    <div className="mb-3">
-                      <label
-                        htmlFor="totalCompraAgregar"
-                        className="col-form-label"
-                      >
-                        Diseño
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="totalCompraAgregar"
-                        placeholder=". . ."
-                        {...register("diseno", {
-                          required: {
-                            value: true,
-                            message: "El diseno es obligatorio",
-                          },
-                          validate: (value) => {
-                            return validarEspaciosVacios(value);
-                          },
-                          pattern: {
-                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                            message:
-                              "Error no se puede numeros ni caracteres especiales en el nombre",
-                          },
-                        })}
-                        onChange={(e) => {
-                          setValue("diseno", e.target.value), trigger("diseno");
-                        }}
-                      />
-
-                      {errors.diseno && (
-                        <AlertaError message={errors.diseno.message} />
-                      )}
-                    </div>
+                  
 
                  
                     <div className="modal-footer">
