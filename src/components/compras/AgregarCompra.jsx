@@ -9,12 +9,15 @@ import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
-import { validarEspaciosVacios } from "../../Validations/validations";
+import { validarFecha } from "../../Validations/validations";
 import HeaderModals from "../chared/HeaderModals";
-import useAuth from "../../hooks/useAuth";
-import CheckBox from "../chared/checkBox/CheckBox";
+import { useComprasContex } from "../../context/ComprasProvider";
+import { format } from 'date-fns';
+
 
 const AgregarCompras = () => {
+
+
 
 
   const handleClose = () => setShow(false);
@@ -33,7 +36,7 @@ const AgregarCompras = () => {
   const [compra, setCompra] = useState([]);
   const [proveedor, setProveedor] = useState([]);
   const [Prendas, setPrendas] = useState([]);
-  const [precios, setPrecios]= useState(0)
+  const {agregarDetalleCompras, compras } = useComprasContex()
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/compra").then((res) => {
@@ -55,6 +58,9 @@ const AgregarCompras = () => {
 
   const onSubmit = async (data) => {
 
+
+   
+
     const {
       fecha,
       fk_proveedor,
@@ -64,6 +70,9 @@ const AgregarCompras = () => {
       total= cantidad*precio
     } = data;
 
+    agregarDetalleCompras(data)
+
+    
 
 
     try {
@@ -200,7 +209,7 @@ const AgregarCompras = () => {
                             message: "Error",
                           },
                           validate: (value) => {
-                            return validarEspaciosVacios(value);
+                            return validarFecha(value);
                           },
                         })}
                         onChange={(e) => {
@@ -231,12 +240,9 @@ const AgregarCompras = () => {
                             value: true,
                             message: "La cantidad es obligatoria",
                           },
-                          validate: (value) => {
-                            return validarEspaciosVacios(value);
-                          },
                           pattern: {
                             value: /^\d+$/,
-                            message: "No se peremiten letras",
+                            message: "No se peremiten letras ni caracteres especiales",
                           },
                         })}
                         onChange={(e) => {
@@ -255,7 +261,7 @@ const AgregarCompras = () => {
                         htmlFor="totalCompraAgregar"
                         className="col-form-label"
                       >
-                        Precio
+                        Precio unitario
                       </label>
                       <input
                         type="text"
@@ -265,14 +271,11 @@ const AgregarCompras = () => {
                         {...register("precio", {
                           required: {
                             value: true,
-                            message: "El precio es obligatoria",
-                          },
-                          validate: (value) => {
-                            return validarEspaciosVacios(value);
+                            message: "El precio es obligatorio",
                           },
                           pattern: {
-                            value: /^\d+(\.\d{1,2})?$/,
-                            message: "No se permiten letras",
+                            value: /^\d+$/,
+                            message: "No se permiten letras ni caracteres espaciales",
                           },
                         })}
                         onChange={(e) => {

@@ -25,3 +25,15 @@ export const validarBooleanos = (value) => {
     if (valueBool === true || value === false) return true;
     return 'El estado de publicación es obligatorio';
 }
+
+export const validarFecha = (value) => {
+    const fechaIngresada = new Date(value);
+    const fechaActual = new Date();
+  
+    if (fechaIngresada >= fechaActual) {
+      return 'La fecha no puede ser futura';
+    }
+  
+    return true; // Puedes devolver cualquier valor que indique que la fecha es válida
+  };
+  
