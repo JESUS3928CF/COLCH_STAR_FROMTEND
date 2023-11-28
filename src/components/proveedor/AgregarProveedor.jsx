@@ -4,24 +4,24 @@
 //mas relevantes de este proveedor y luego mostrarlo en la tabla listar 
 import '../../css-general/cssgeneral.css'
 import '../../css-general/inicio_style.css'
-import axios from 'axios'
-import Swal from 'sweetalert2';
+
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations'
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
-import useProveedores from '../../hooks/useProveedor.jsx';
+import useProveedor from '../../hooks/useProveedor.jsx';
 import BotonVerde from '../chared/BotonVerde';
 import { Modal } from 'react-bootstrap';
+import {  useState } from 'react';
 
 
 
 //COMPONENTE
 const AgregarProveedor = () => {
 
-    const { agregarProveedor } = useProveedores();
+    const { agregarProveedor } = useProveedor();
 
 
     /// Funcionalidad para cerra el modal

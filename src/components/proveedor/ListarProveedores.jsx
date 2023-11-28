@@ -18,15 +18,15 @@ import Buscador from '../chared/Buscador';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import { resolucionCards } from "../../constantes/constantes.js";
-import useProveedores from '../../hooks/useProveedor.jsx'
+import {  registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
+import useProveedor from '../../hooks/useProveedor.jsx'
 import AgregarProveedor from './AgregarProveedor.jsx';
 
 
 //Componente
 const ListarProveedores = () => {
 
-    const { proveedores, editarEstado } = useProveedores();
+    const { proveedores, editarEstado } = useProveedor();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -37,8 +37,6 @@ const ListarProveedores = () => {
     //estado de la barra buscador
     const [ProveedoresFiltrar, setProveedoresFiltrar] = useState([]);
 
-    // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
-    // const [proveedores, setProveedor] = useState([]);
 
 
     // solicitud  a la url
@@ -252,10 +250,11 @@ const ListarProveedores = () => {
                     </div>
                 )}
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
-                <EditarProveedor editarProveedor={editarProveedor}  
+                <EditarProveedor proveedor={editarProveedor}  
                 show={show} 
                  handleClose={handleClose} />
             </div>
+            
 
             <div className='seccion4'>
                 {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}

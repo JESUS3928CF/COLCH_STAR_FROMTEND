@@ -14,7 +14,7 @@ const Proveedores = () => {
     return auth.usuario.permisos.includes('proveedor') ? (
         <div>
             <ListarProveedores />
-            <AgregarProveedor />
+            {/* <AgregarProveedor /> */}
         </div>
     ) : (
         <Navigate to={'/administracion'} />

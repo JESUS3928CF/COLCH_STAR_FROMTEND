@@ -68,7 +68,7 @@ const ListarCliente = () => {
 
     return (
         <div>
-            <div>
+            <div >
                 <Header titulo='Gestión de Clientes' />
 
                 {/* botón agregar */}

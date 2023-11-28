@@ -14,17 +14,18 @@ import styles from '../../pages/proveedores.module.css';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError'
-import { set, useForm } from 'react-hook-form'
+import {  useForm } from 'react-hook-form'
 import { useEffect } from 'react';
 import { validarEspaciosVacios } from '../../Validations/validations'
-import useProveedores from '../../hooks/useProveedor.jsx'
+import useProveedor from '../../hooks/useProveedor.jsx'
 import HeaderModals from '../chared/HeaderModals';
+import { Modal } from 'react-bootstrap';
 
 //COMPONENTE
 const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
     /// Provider de clientes
-    const { editarProveedor } = useProveedores();
+    const { editarProveedor } = useProveedor();
 
 
     const {
@@ -41,12 +42,13 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
     //por medio de editarproveedor se traen lo que hay en el listar, y por medio del estado setvalue
     //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
     useEffect(() => {
-        if (editarProveedor) {
-            setValue('tipoIdentificacion', editarProveedor.tipoIdentificacion);
-            setValue('identificador', editarProveedor.identificador);
-            setValue('nombre', editarProveedor.nombre);
-            setValue('telefono', editarProveedor.telefono);
-            setValue('direccion', editarProveedor.direccion);
+        console.log(proveedor)
+        if (proveedor) {
+            setValue('tipoIdentificacion', proveedor.tipoIdentificacion);
+            setValue('identificador', proveedor.identificador);
+            setValue('nombre', proveedor.nombre);
+            setValue('telefono', proveedor.telefono);
+            setValue('direccion', proveedor.direccion);
         }
     }, [proveedor, show]);
 
@@ -245,7 +247,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                             <div className="modal-footer">
 
                                 {/* Botón para cancelar*/}
-                                <CancelarModal modalToCancel="modalEditar" name='Cancelar' />
+                                <CancelarModal  handleClose={handleClose} reset={reset}  />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />

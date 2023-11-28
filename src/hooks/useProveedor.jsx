@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import proveedoresContext from '../context/ProveedoresProvider'
 
 
-const useProveedores = () => {
+const useProveedor = () => {
     return useContext(proveedoresContext);
 };
 
-export default useProveedores;
+export default useProveedor;

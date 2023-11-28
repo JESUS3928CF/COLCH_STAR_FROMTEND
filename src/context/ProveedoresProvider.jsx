@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const proveedoresContext = createContext();
 
-const proveedoresProvider = ({ children }) => {
+const ProveedoresProvider = ({ children }) => {
     const { config, auth } = useAuth();
 
     // primer state
@@ -140,5 +140,5 @@ const proveedoresProvider = ({ children }) => {
     );
 };
 
-export { proveedoresProvider };
+export { ProveedoresProvider };
 export default proveedoresContext;
