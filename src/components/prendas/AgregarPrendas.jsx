@@ -83,7 +83,7 @@ const AgregarPrendas = () => {
           imagen: imagen[0],
           publicado: publicado,
           tallas: tallas,
-          colores: JSON.stringify(colors),
+          colores: JSON.stringify(colors)|| [],
         },
         {
           headers: {

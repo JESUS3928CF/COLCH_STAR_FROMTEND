@@ -4,7 +4,7 @@ import { get, useForm } from "react-hook-form";
 import HeaderModals from "../chared/HeaderModals";
 import axios from "axios";
 import { FcApproval, FcCancel } from "react-icons/fc";
-import style from '../prendas/IconCss/style.Icon.css'
+import '../prendas/IconCss/style.Icon.css'
 
 
 
