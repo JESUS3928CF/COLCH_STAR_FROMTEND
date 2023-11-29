@@ -21,6 +21,8 @@ import { RolesProvider } from '../context/RolesProvider';
 import { UsuariosProvider } from '../context/UsuariosProvider'; //
 import { ComprasProviders } from '../context/ComprasProvider';
 import { ProveedoresProvider } from '../context/ProveedoresProvider';
+import { ProductosProvider } from '../context/ProductosProvider';
+
 
 
 const MyRoutes = () => {
@@ -35,62 +37,64 @@ const MyRoutes = () => {
                                     <RolesProvider>
                                         <UsuariosProvider>
                                             <ProveedoresProvider>
-                                                <Routes>
-                                                    <Route
-                                                        path='/'
-                                                        element={<Catalogo />}
-                                                    ></Route>
-                                                    <Route
-                                                        path='/login'
-                                                        element={<Login />}
-                                                    ></Route>
-
-                                                    {/* Área para rutas privadas */}
-                                                    <Route
-                                                        path='/administracion'
-                                                        element={<MenuLateral />}
-                                                    >
-                                                        <Route index element={<Dashboard />} />
+                                                <ProductosProvider>
+                                                    <Routes>
                                                         <Route
-                                                            path='usuarios'
-                                                            element={<Usuarios />}
+                                                            path='/'
+                                                            element={<Catalogo />}
                                                         ></Route>
                                                         <Route
-                                                            path='roles'
-                                                            element={<Roles />}
-                                                        ></Route>
-                                                        <Route
-                                                            path='proveedores'
-                                                            element={<Proveedores />}
-                                                        ></Route>
-                                                        <Route
-                                                            path='productos'
-                                                            element={<Productos />}
+                                                            path='/login'
+                                                            element={<Login />}
                                                         ></Route>
 
+                                                        {/* Área para rutas privadas */}
                                                         <Route
-                                                            path='clientes'
-                                                            element={<Clientes />}
-                                                        ></Route>
+                                                            path='/administracion'
+                                                            element={<MenuLateral />}
+                                                        >
+                                                            <Route index element={<Dashboard />} />
+                                                            <Route
+                                                                path='usuarios'
+                                                                element={<Usuarios />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='roles'
+                                                                element={<Roles />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='proveedores'
+                                                                element={<Proveedores />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='productos'
+                                                                element={<Productos />}
+                                                            ></Route>
 
-                                                        <Route
-                                                            path='compras'
-                                                            element={<Compras />}
-                                                        ></Route>
-                                                        <Route
-                                                            path='ordenes'
-                                                            element={<Ordenes />}
-                                                        ></Route>
-                                                        <Route
-                                                            path='disenos'
-                                                            element={<Diseno />}
-                                                        ></Route>
-                                                        <Route
-                                                            path='prendas'
-                                                            element={<Prendas />}
-                                                        ></Route>
-                                                    </Route>
-                                                </Routes>
+                                                            <Route
+                                                                path='clientes'
+                                                                element={<Clientes />}
+                                                            ></Route>
+
+                                                            <Route
+                                                                path='compras'
+                                                                element={<Compras />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='ordenes'
+                                                                element={<Ordenes />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='disenos'
+                                                                element={<Diseno />}
+                                                            ></Route>
+                                                            <Route
+                                                                path='prendas'
+                                                                element={<Prendas />}
+                                                            ></Route>
+                                                        </Route>
+                                                    </Routes>
+                                                </ProductosProvider>
                                             </ProveedoresProvider>
                                         </UsuariosProvider>
                                     </RolesProvider>

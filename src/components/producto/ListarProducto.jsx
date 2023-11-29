@@ -21,35 +21,36 @@ import EditarProducto from './EditarProducto';
 import Header from '../chared/header/Header'
 import DetallesProducto from './DetallesProducto';
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import { resolucionCards } from "../../constantes/constantes.js";
+import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
 import styles from "../../css-general/CardStyleGenerar.module.css";
+import useProducto from '../../hooks/useProducto.jsx';
+import AgregarProducto from './AgregarProducto.jsx'
 
 
 const ListarProducto = () => {
 
+  const { productos, editarEstado } = useProducto();
+
+
+  /// Funcionalidad para cerra el modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   //estado de la barra buscador
   const [ProductosFiltrar, setProductosFiltrar] = useState([]);
 
-  // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
-  const [productos, setProducto] = useState([]);
-
+  const [detallesProductos, setDetallesProductos] = useState({});
 
 
   // solicitud  a la url
   useEffect(() => {
-    axios.get('http://localhost:3000/api/productos')
-      .then(response => {
-        // traeos los datos y se los mnadamos a proveedor, es decir set proveedor actualiza el estado de proveedor
-        setProducto(response.data);
-      })
-      .catch(error => {
-        console.error('Error al obtener la lista de productos', error);
-      })
-  }, []);
+    setProductosFiltrar(productos.slice(0, 10, registrosPorPagina));
+  }, [productos]);
 
   //estado para editar
   const [editarProducto, setEditarProducto] = useState("");
-
 
   //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar a editar
   const handleEditClick = (producto) => {
@@ -62,11 +63,12 @@ const ListarProducto = () => {
       );
     }
     setEditarProducto(producto);
+    handleShow();
   };
 
-  const informacionModal = (producto) => {
-    setEditarProducto(producto);
-  };
+  // const informacionModal = (producto) => {
+  //   setEditarProducto(producto);
+  // };
 
   const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -89,8 +91,7 @@ const ListarProducto = () => {
           <div className="row">
 
             <div className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
-              <button type="button" className="btn-a" data-bs-toggle="modal" data-bs-target="#myModal">Agregar
-                producto</button>
+              <AgregarProducto/>
             </div>
 
 
@@ -154,13 +155,14 @@ const ListarProducto = () => {
                         isChecked={producto.estado}
                         nombreRegistro={'productos'}
                         ruta={`/productos/estado/${producto.id_producto}`}
+                        editarEstado={editarEstado}
                       />
                     </td>
                     <td>
                       <BotonNegro
                         text='Ver'
                         modalToOpen='#modalDetalles'
-                        onClick={() => informacionModal(producto)}
+                        onClick={() => setDetallesProductos(producto)}
                       />
                     </td>
 
@@ -233,6 +235,7 @@ const ListarProducto = () => {
                             isChecked={producto.estado}
                             nombreRegistro={'producto'}
                             ruta={`/productos/estado/${producto.id_producto}`}
+                            editarEstado={editarEstado}
                           />
                         </div>
                       </div>
@@ -247,10 +250,7 @@ const ListarProducto = () => {
                           text='Detalles'
                           modalToOpen='#modalDetalles'
                           onClick={() =>
-                            informacionModal(
-                              producto
-                            )
-                          }
+                            setDetallesProductos(producto)}
                         />
                       </div>
                       <div
@@ -278,8 +278,11 @@ const ListarProducto = () => {
           </div>
         )}
 
-        <EditarProducto editarProducto={editarProducto} />
-        <DetallesProducto editarProducto={editarProducto} />
+        <EditarProducto editarProducto={editarProducto}
+          show={show}
+          handleClose={handleClose} />
+
+        <DetallesProducto detallesProductos={detallesProductos} />
 
       </div>
       <div className='seccion4'>

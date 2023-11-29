@@ -19,7 +19,7 @@ const Productos = () => {
     return auth.usuario.permisos.includes('producto') ? (
         <div>
             <ListarProducto />
-            <AgregarProducto />
+            {/* <AgregarProducto /> */}
         </div>
     ) : (
         <Navigate to={'/administracion'} />

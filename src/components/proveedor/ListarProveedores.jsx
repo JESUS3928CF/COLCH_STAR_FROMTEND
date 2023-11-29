@@ -218,6 +218,7 @@ const ListarProveedores = () => {
                                                             'proveedor'
                                                         }
                                                         ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
+                                                        editarEstado={editarEstado}
                                                     />
                                                 </div>
                                             </div>
