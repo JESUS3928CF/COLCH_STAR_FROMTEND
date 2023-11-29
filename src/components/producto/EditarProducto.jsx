@@ -67,7 +67,7 @@ const EditarProducto = ({ editarProducto, handleClose, show }) => {
     }
   }, [editarProducto, show]);
 
-  const { disenos } = useDisenosContext();
+  
 
 
 

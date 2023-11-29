@@ -9,7 +9,7 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 
-const AgregarDisenoModal = () => {
+const AgregarDisenoModal = ({handleShow}) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -173,7 +173,9 @@ const AgregarDisenoModal = () => {
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
 
-                                <BotonNegro text={'Regresar'} modalToOpen={'#myModal'} modalClouse={"modal"}/>
+                                <BotonNegro text={'Regresar'} modalToOpen={'#myModal'} 
+                                modalClouse={"modal"}
+                                 onClick={handleShow}/>
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal/>

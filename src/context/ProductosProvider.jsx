@@ -2,12 +2,15 @@ import { createContext, useEffect, useState } from "react";
 import productoAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { useDisenosContext } from "./disenosProvider";
+
 
 const productosContext = createContext();
-import axios from "axios";
+
 
 const ProductosProvider = ({ children }) => {
-    const { config, auth } = useAuth();
+    const {  auth, token } = useAuth();
 
     // primer state
     const [productos, setProductos] = useState([]);
@@ -16,7 +19,7 @@ const ProductosProvider = ({ children }) => {
 
     const consultarProductos = async () => {
         try {
-            const { data } = await productoAxios.get("/productos", config);
+            const { data } = await productoAxios.get("/productos");
 
             setProductos(data);
         } catch (error) {
@@ -29,16 +32,22 @@ const ProductosProvider = ({ children }) => {
 
     const agregarProducto = async (producto, reset, handleClose) => {
         try {
-            const res = await productoAxios.post("/productos", producto, config);
+            const res = await productoAxios.post("/productos", producto, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             // Lanzar alerta del producto agregado
             Swal.fire({
                 title: "Producto agregado",
                 text: res.data.message,
                 icon: "success",
-            }).then(() => {     
+            }).then(() => {
                 reset();
-                setProductos([...productos, res.data.nuevoProducto]);
+                // setProductos([...productos, res.data.nuevoProducto]);
+                consultarProductos()
                 handleClose();
             });
         } catch (err) {
@@ -54,6 +63,8 @@ const ProductosProvider = ({ children }) => {
 
         }
     };
+
+    const { disenos } = useDisenosContext();
 
     const editarProductos = (data, editarProducto, handleClose) => {
         //se guardan los datos  a cambiar al data
@@ -73,7 +84,10 @@ const ProductosProvider = ({ children }) => {
                         imagen: imagen[0],
                         disenos: JSON.stringify(disenos)
                     },
-                    config
+                    {headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`,
+                    },}
                 )
                 .then((response) => {
                     console.log("Producto Actualizado:", response.data);
@@ -106,7 +120,7 @@ const ProductosProvider = ({ children }) => {
         productoEditado.estado = !productoEditado.estado;
 
         const productoActualizado = productos.map((producto) =>
-        producto.id_producto == id ? productoEditado : producto
+            producto.id_producto == id ? productoEditado : producto
         );
 
         setProductos(productoActualizado);

@@ -85,11 +85,7 @@ const AgregarProducto = () => {
                 imagen: imagen[0],
                 disenos: JSON.stringify(disenos)
             },
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            }, reset,
+             reset,
             handleClose
         )
     }
@@ -338,7 +334,6 @@ const AgregarProducto = () => {
                                                 'La imagen es obligatoria',
                                         },
                                         validate: (value) => {
-                                            console.log(value);
                                             return validarImagen(value[0]);
                                         },
                                     })}
@@ -356,8 +351,8 @@ const AgregarProducto = () => {
                                     <BotonNegro
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'
-                                        // modalToOpen='#myModalDiseno'
-                                        // modalClouse= 'myModal'
+                                        modalToOpen='#myModalDiseno'
+                                        onClick={handleClose}
                                     />
                                 </div>
                                 <CancelarModal
@@ -372,7 +367,7 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal />
+            <AgregarDisenoModal handleShow = {handleShow} />
         </div>
     );
 }
