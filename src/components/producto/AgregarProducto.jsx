@@ -27,8 +27,6 @@ import useAuth from '../../hooks/useAuth';
 
 
 
-
-
 const AgregarProducto = () => {
 
     const { agregarProducto } = useProducto();

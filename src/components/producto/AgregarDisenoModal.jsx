@@ -40,8 +40,6 @@ const AgregarDisenoModal = ({handleShow}) => {
     };
 
 
-
-
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
     // console.log( detalle_diseno)
@@ -161,19 +159,16 @@ const AgregarDisenoModal = ({handleShow}) => {
                                         <p>{` ${selectedDisenoNombre.join('\n- ')}`}</p>
                                         // </div>
                                     )}
-
-
                                 </div>
 
                             </div>
                             <br />
 
-
-
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
 
-                                <BotonNegro text={'Regresar'} modalToOpen={'#myModal'} 
+                                <BotonNegro text={'Regresar'}
+                                // modalToOpen={'#myModal'} 
                                 modalClouse={"modal"}
                                  onClick={handleShow}/>
 
