@@ -220,7 +220,10 @@ function EditarRol({ editarRol, handleClose, show }) {
               </div>
 
               <div className="modal-footer">
-                <CancelarModal handleClose={handleClose} reset={reset}/>
+                <CancelarModal handleClose={() => {
+                  setErrorPermisos(null)
+                  handleClose();
+                }} reset={reset}/>
                 <GuardarModal />
               </div>
             </form>
