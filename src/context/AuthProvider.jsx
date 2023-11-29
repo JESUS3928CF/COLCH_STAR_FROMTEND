@@ -41,6 +41,10 @@ const AuthProvider = ({ children }) => {
                 setAuth(data);
             } catch (error) {
                 console.log(error.response.data.message);
+                /// Esto es para cerrar sección para cuando el token expire o no sea valido
+                if(error.response.data.message === "Token no valido"){
+                    singOff();
+                }
                 setAuth({});
             }
 
@@ -48,7 +52,7 @@ const AuthProvider = ({ children }) => {
         };
 
         autenticarUsuario();
-    }, []);
+    }, [loading]);
 
     const navigate = useNavigate();
     /// Función para cerrar sección
