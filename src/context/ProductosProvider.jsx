@@ -36,9 +36,9 @@ const ProductosProvider = ({ children }) => {
                 title: "Producto agregado",
                 text: res.data.message,
                 icon: "success",
-            }).then(() => {
+            }).then(() => {     
                 reset();
-                consultarProductos();
+                setProductos([...productos, res.data.nuevoProducto]);
                 handleClose();
             });
         } catch (err) {

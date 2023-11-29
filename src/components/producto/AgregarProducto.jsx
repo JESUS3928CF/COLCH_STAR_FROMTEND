@@ -338,6 +338,7 @@ const AgregarProducto = () => {
                                                 'La imagen es obligatoria',
                                         },
                                         validate: (value) => {
+                                            console.log(value); 
                                             return validarImagen(value[0]);
                                         },
                                     })}
