@@ -338,7 +338,7 @@ const AgregarProducto = () => {
                                                 'La imagen es obligatoria',
                                         },
                                         validate: (value) => {
-                                            console.log(value); 
+                                            console.log(value);
                                             return validarImagen(value[0]);
                                         },
                                     })}
@@ -354,10 +354,10 @@ const AgregarProducto = () => {
                             <div className='modal-footer'>
                                 <div className={style.bottonDiseno}>
                                     <BotonNegro
-                                        // modalClouse={"modal"}
+                                        // modalClouse= "myModal"
                                         text='Agregar Diseño'
-                                        modalToOpen={'#myModalDiseno'}
-                                        modalClouse={'myModal'}
+                                        // modalToOpen='#myModalDiseno'
+                                        // modalClouse= 'myModal'
                                     />
                                 </div>
                                 <CancelarModal

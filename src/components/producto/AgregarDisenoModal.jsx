@@ -66,12 +66,6 @@ const AgregarDisenoModal = () => {
     }, []);
 
 
-
-
-
-
-
-
     return (
         <div className='modal' id='myModalDiseno'>
             <div className='modal-dialog modal-dialog-centered modal-lg'>
