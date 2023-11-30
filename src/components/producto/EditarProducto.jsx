@@ -84,215 +84,219 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
 
 
   return (
-    <div>
-      {/* modal agregar producto */}
-      <Modal
-        show={show}
-        onHide={handleClose}
-        className="modal d-flex align-items-center justify-content-center"
-        id="modalEditar"
-      >
-        <div className={`modal-content ${style.taa}`}>
+      <div>
+          {/* modal agregar producto */}
+          <Modal
+              show={show}
+              onHide={handleClose}
+              className='modal d-flex align-items-center justify-content-center'
+              id='modalEditar'
+          >
+              <div className={`modal-content ${style.taa}`}>
+                  <HeaderModals title={'Editar Producto'} />
 
-          <HeaderModals title={'Editar Producto'} />
+                  <div className='modal-body'>
+                      <form
+                          className='row g-3 needs-validation'
+                          onSubmit={handleSubmit(onSubmit)}
+                      >
+                          <div className='col-md-6'>
+                              <label
+                                  htmlFor='productoGuardar'
+                                  className='col-form-label'
+                              >
+                                  Producto: *
+                              </label>
 
-          <div className="modal-body">
+                              <input
+                                  type='text'
+                                  className='form-control'
+                                  id='productoGuardar'
+                                  name='nombre'
+                                  placeholder='. . . '
+                                  {...register('nombre', {
+                                      required: {
+                                          value: true,
+                                          message: 'El nombre es obligatorio',
+                                      },
+                                      validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                  })}
+                                  onChange={(e) => {
+                                      setValue('nombre', e.target.value);
+                                      trigger('nombre');
+                                  }}
+                              />
+                              {/* en esta etiqueta va salir el error de validación  */}
+                              {errors.nombre && (
+                                  <AlertaError
+                                      message={errors.nombre.message}
+                                  />
+                              )}
+                          </div>
 
-            <form className="row g-3 needs-validation" onSubmit={handleSubmit(onSubmit)}>
+                          <div className='col-md-6 ms-auto'>
+                              <label
+                                  htmlFor='cantidadGuardar'
+                                  className='col-form-label'
+                              >
+                                  Cantidad: *
+                              </label>
 
-              <div className="col-md-6">
+                              <input
+                                  type='text'
+                                  className='form-control'
+                                  name='cantidad'
+                                  id='cantidadGuardar'
+                                  placeholder='. . .'
+                                  {...register('cantidad', {
+                                      required: {
+                                          value: true,
+                                          message: 'El cantidad es obligatorio',
+                                      },
+                                      pattern: {
+                                          value: /^\d+$/,
+                                          message:
+                                              'No puede contener Letras ni espacios en blanco',
+                                      },
+                                      validate: (value) => {
+                                          return validarEspaciosVacios(value);
+                                      },
+                                  })}
+                                  onChange={(e) => {
+                                      setValue('cantidad', e.target.value);
+                                      trigger('cantidad');
+                                  }}
+                              />
+                              {/* en esta etiqueta va salir el error de validación  */}
+                              {errors.cantidad && (
+                                  <AlertaError
+                                      message={errors.cantidad.message}
+                                  />
+                              )}
+                          </div>
 
-                <label htmlFor="productoGuardar"
-                  className="col-form-label">Producto: *
-                </label>
+                          <div className='col-md-6 mt-2'>
+                              <label htmlFor='rol' className='col-form-label'>
+                                  Prenda: *
+                              </label>
 
-                <input type="text" className="form-control"
-                  id="productoGuardar"
-                  name="nombre"
-                  placeholder=". . . "
-                  {...register('nombre', {
-                    required: {
-                      value: true,
-                      message: 'El nombre es obligatorio',
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    }
-                  })}
-                  onChange={(e) => {
-                    setValue("nombre", e.target.value);
-                    trigger("nombre");
-                  }}
-                />
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.nombre && (
-                  <AlertaError
-                    message={errors.nombre.message}
-                  />
-                )}
+                              <select
+                                  name='fk_prenda'
+                                  className='form-control'
+                                  {...register('fk_prenda', {
+                                      required: {
+                                          value: true,
+                                          message:
+                                              'Debe seleccionar una prenda',
+                                      },
+                                  })}
+                              >
+                                  <option value=''>Seleccionar prenda</option>
+                                  {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
+                                  {/* esto se guarda en name = fk_prenda */}
+                                  {Prendas.map((prenda) => {
+                                      return (
+                                          <option
+                                              key={prenda.id_prenda}
+                                              value={prenda.id_prenda}
+                                          >
+                                              {prenda.nombre}
+                                          </option>
+                                      );
+                                  })}
+                              </select>
 
+                              {errors.fk_prenda && (
+                                  <AlertaError
+                                      message={errors.fk_prenda.message}
+                                  />
+                              )}
+                          </div>
+
+                          <div className='col-md-6' name='Publicado'>
+                              <label
+                                  htmlFor='Publicar'
+                                  className='col-form-control'
+                              >
+                                  ¿Deseas publicarlo?
+                              </label>
+
+                              <select
+                                  name='publicado'
+                                  className={`form-control ${style.customerr}`}
+                                  title='Seleccione una opcion'
+                                  {...register('publicado', {
+                                      validate: (value) =>
+                                          validarBooleanos(value),
+                                  })}
+                              >
+                                  <option value='' disabled>
+                                      Selecciona una opción
+                                  </option>
+                                  <option value='true'>Si</option>
+                                  <option value='false'>No</option>
+                              </select>
+                              {/* en esta etiqueta va salir el error de validación  */}
+                              {errors.publicado && (
+                                  <AlertaError
+                                      message={errors.publicado.message}
+                                  />
+                              )}
+                          </div>
+
+                          <div className='col-md-6' name='Archivo'>
+                              <label
+                                  htmlFor='Archivo'
+                                  className='col-from-label'
+                              >
+                                  Imagen de la Producto Final: *
+                              </label>
+
+                              <input
+                                  type='file'
+                                  className={`form-control ${style.customer}`}
+                                  name='imagen'
+                                  title='Ingrese la imagen de la prenda'
+                                  {...register('imagen', {
+                                      validate: (value) => {
+                                          return validarImagen(value[0]);
+                                      },
+                                  })}
+                              />
+                              {/* en esta etiqueta va salir el error de validación  */}
+                              {errors.imagen && (
+                                  <AlertaError
+                                      message={errors.imagen.message}
+                                  />
+                              )}
+                          </div>
+
+                          <div className='modal-footer'>
+                              <div className={style.bottonDiseno}>
+                                  <BotonNegro
+                                      text='Agregar Diseño'
+                                      modalToOpen='#myModalDisenoE'
+                                      onClick={handleClose}
+                                  />
+                              </div>
+
+                              <CancelarModal
+                                  reset={reset}
+                                  handleClose={handleClose}
+                              />
+
+                              <GuardarModal />
+                          </div>
+                      </form>
+                  </div>
               </div>
+          </Modal>
 
-              <div className="col-md-6 ms-auto">
-
-                <label htmlFor="cantidadGuardar"
-                  className="col-form-label">Cantidad: *
-                </label>
-
-                <input type="text" className="form-control"
-                  name="cantidad" id="cantidadGuardar"
-                  placeholder=". . ."
-                  {...register('cantidad', {
-                    required: {
-                      value: true,
-                      message: 'El cantidad es obligatorio',
-                    },
-                    pattern: {
-                      value: /^\d+$/,
-                      message: "No puede contener Letras ni espacios en blanco"
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value);
-                    }
-                  })}
-                  onChange={(e) => {
-                    setValue("cantidad", e.target.value);
-                    trigger("cantidad");
-                  }}
-                />
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.cantidad && (
-                  <AlertaError
-                    message={errors.cantidad.message}
-                  />
-                )}
-
-              </div>
-
-              <div className="col-md-6 mt-2" >
-
-                <label htmlFor="rol" className="col-form-label">
-                  Prenda: *
-                </label>
-
-                <select
-                  name="fk_prenda"
-                  className="form-control"
-                  {...register("fk_prenda", {
-                    required: {
-                      value: true,
-                      message: "Debe seleccionar una prenda",
-                    },
-                  })}
-                >
-                  <option value="">Seleccionar prenda</option>
-                  {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
-                  {/* esto se guarda en name = fk_prenda */}
-                  {Prendas.map((prenda) => {
-                    return (
-                      <option key={prenda.id_prenda} value={prenda.id_prenda}>
-                        {prenda.nombre}
-                      </option>
-                    );
-
-                  })}
-                </select>
-
-                {errors.fk_prenda && (
-                  <AlertaError message={errors.fk_prenda.message} />
-                )}
-
-              </div>
-
-
-
-              <div className="col-md-6" name="Publicado">
-                <label htmlFor="Publicar" className="col-form-control">
-                  ¿Deseas publicarlo?
-                </label>
-
-                <select
-                  name="publicado"
-                  className={`form-control ${style.customerr}`}
-                  title="Seleccione una opcion"
-                  {...register('publicado', {
-                    validate: (value) => validarBooleanos(value)
-
-                  },
-                  )}
-
-                >
-                  <option value="" disabled >
-                    Selecciona una opción
-                  </option>
-                  <option value="true">Si</option>
-                  <option value="false">No</option>
-                </select>
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.publicado && (
-                  <AlertaError
-                    message={errors.publicado.message}
-                  />
-                )}
-              </div>
-
-              <div className="col-md-6" name="Archivo">
-
-                <label htmlFor="Archivo" className="col-from-label">
-                  Imagen de la Producto Final: *
-                </label>
-
-                <input
-                  type="file"
-                  className={`form-control ${style.customer}`}
-                  name="imagen"
-                  title="Ingrese la imagen de la prenda"
-                  {...register('imagen', {
-                    validate: (value) => {
-                      return validarImagen(value[0]);
-                    }
-                  })}
-
-                />
-                {/* en esta etiqueta va salir el error de validación  */}
-                {errors.imagen && (
-                  <AlertaError
-                    message={errors.imagen.message}
-                  />
-                )}
-
-              </div>
-
-
-
-              <div className="modal-footer">
-
-                <div className={style.bottonDiseno} >
-                  <BotonNegro
-                    text='Agregar Diseño'
-                    modalToOpen= '#myModalDisenoE'
-                    onClick={handleClose}
-
-                  />
-                </div>
-
-                <CancelarModal  reset={reset} 
-                handleClose={handleClose} 
-                />
-                 
-                <GuardarModal />
-
-              </div>
-
-            </form>
-          </div>
-        </div>
-      </Modal>
-
-      <EditarDisenoModal  handleShow={handleShow}/>
-
-    </div >
-  )
+          <EditarDisenoModal handleShow={handleShow} />
+      </div>
+  );
 }
 
 export default EditarProducto
