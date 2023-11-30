@@ -29,7 +29,7 @@ import AgregarProducto from './AgregarProducto.jsx'
 
 const ListarProducto = () => {
 
-  const { productos, editarEstado } = useProducto();
+  const { productos, editarEstado, editarPublicacion } = useProducto();
 
   /// Funcionalidad para cerra el modal
   const [show, setShow] = useState(false);
@@ -137,6 +137,7 @@ const ListarProducto = () => {
                                                   estado: producto.estado,
                                                   paraPublicacion: true,
                                               }}
+                                              editarEstado={editarPublicacion}
                                           />
                                       </td>
                                       <td>

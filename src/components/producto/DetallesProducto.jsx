@@ -84,6 +84,7 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                                         alt={diseno.nombre}
                                                                         title={diseno.nombre}
                                                                         className={styles.contenedor_imagen}
+                                                                         style={{width:180, marginLeft:30}}
 
                                                                     />
 
