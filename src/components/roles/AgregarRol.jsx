@@ -27,6 +27,7 @@ function AgregarRol() {
 
     const handleClose = () => { 
         setSeleccionarPermisos([])
+        setErrorMensaje(null);
         setShow(false)
     };
     const handleShow = () => setShow(true);
