@@ -4,6 +4,7 @@ import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2";
 import HeaderModals from "../chared/HeaderModals";
 import {
+  validarBooleanos,
   validarEspaciosVacios,
   validarImagen,
 } from "../../Validations/validations";
@@ -12,6 +13,10 @@ import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import PropTypes from "prop-types";
 import axios from "axios";
+import BotonNegro from "../chared/BotonNegro";
+import styles from "../../pages/Productos.module.css";
+import SeleccionarColorsEditar from "./SelectColorEditar";
+import { useColorsContex } from "../../context/ColorsProvider";
 
 const EditarPrendas = ({ detallesPrendas }) => {
   const {
@@ -19,10 +24,21 @@ const EditarPrendas = ({ detallesPrendas }) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    trigger,
     reset,
   } = useForm();
 
   const [Colors, setColors] = useState([]);
+  const [Prendas , setPrendas]= useState([])
+  const {colors}= useColorsContex()
+  const [Tallas, setTalla] = useState([]);
+
+
+  useEffect(()=>{
+    axios.get("http://localhost:3000/api/prendas").then((res)=>{
+      setPrendas(res.data);
+    })
+  },[])
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
@@ -30,7 +46,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
     });
   }, []);
 
-  const [Tallas, setTalla] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/tallas").then((response) => {
@@ -40,34 +55,45 @@ const EditarPrendas = ({ detallesPrendas }) => {
 
   useEffect(() => {
     if (detallesPrendas) {
+      setValue('id_prenda', detallesPrendas.id_prenda)
       setValue("nombre", detallesPrendas.nombre);
       setValue("cantidad", detallesPrendas.cantidad);
       setValue("precio", detallesPrendas.precio);
       setValue("tipo_de_tela", detallesPrendas.tipo_de_tela);
       setValue("genero", detallesPrendas.genero);
       setValue("publicado", detallesPrendas.publicado);
-      setValue("tallas", detallesPrendas.tallas);
+      setValue("tallas", detallesPrendas.Talla);
       setValue("colores", detallesPrendas.colores);
     }
   }, [detallesPrendas]);
 
-  const editarPrenda = handleSubmit(async (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append("nombre", data.nombre.trim());
-    formData.append("cantidad", data.cantidad);
-    formData.append("precio", data.precio.trim());
-    formData.append("tipo_de_tela", data.tipo_de_tela.trim());
-    formData.append("genero", data.genero.trim());
-    formData.append("publicado", data.publicado);
-    formData.append("imagen", data.imagen[0]);
-    formData.append("tallas", data.tallas);
-    formData.append("colores", data.colores);
+  const onSubmitt = async (data)=>{
+    const {
+      nombre,
+      cantidad,
+      precio,
+      genero,
+      imagen,
+      tipo_de_tela,
+      publicado,
+      tallas,
+    } = data;
 
     try {
       const res = await clienteAxios.put(
         `http://localhost:3000/api/prendas/${detallesPrendas.id_prenda}`,
-        formData,
+        {
+          nombre: nombre.trim(),
+          cantidad: cantidad,
+          precio: precio.trim(),
+          tipo_de_tela: tipo_de_tela.trim(),
+          genero: genero,
+          imagen: imagen[0],
+          publicado: publicado,
+          tallas: tallas,
+          colores: JSON.stringify(colors),
+        },
+
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
@@ -84,18 +110,22 @@ const EditarPrendas = ({ detallesPrendas }) => {
         text: "Error al actualizar",
         icon: "error",
       }).then(() => {
+        console.log(error)
         location.reload();
+
       });
     }
-  });
+  };
 
+  
   return (
+    <>
     <div className="modal" id="modalEditarPrenda">
       <div className="modal-dialog modal-dialog-centered modal-lg ">
         <div className="modal-content">
           <HeaderModals title="Editar prendas" />
           <div className="modal-body">
-            <form onSubmit={editarPrenda} className="row g-3 needs-validation">
+            <form onSubmit={handleSubmit(onSubmitt)} className="row g-3 needs-validation">
               <div className="col-md-6">
                 <label htmlFor="nombre" className="col-from-label">
                   Nombre
@@ -120,6 +150,9 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       message: "No puede ingresar numeros",
                     },
                   })}
+
+                  onChange={(e)=>{setValue('nombre', e.target.value), trigger('nombre')}
+                }
                 />
 
                 {errors.nombre && (
@@ -151,6 +184,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                       message: 'No se permiten letras'
                     }
                   })}
+                  onChange={(e)=>{setValue('cantidad', e.target.value), trigger('cantidad')}}
                 />
 
                 {errors.cantidad && (
@@ -183,43 +217,57 @@ const EditarPrendas = ({ detallesPrendas }) => {
                     }
 
                   })}
+                  onChange={(e)=>{setValue('precio', e.target.value), trigger('precio')}}
                 />
                 {errors.precio && (
                   <AlertaError message={errors.precio.message} />
                 )}
               </div>
 
-              <div className="col-md-6">
-                <label htmlFor="tipo_de_tela" className="col-from-label">
-                  Tipo de tela
-                </label>
-                <input
-                  type="text"
-                  id="tipo_de_tela"
-                  name="tipo_de_tela"
-                  className="form-control"
-                  placeholder="Tipo de tela"
-                  title="¿Deseas editar el tipo de tela?"
-                  {...register("tipo_de_tela", {
-                    required: {
-                      value: true,
-                      message: "El tipo de tela es obligatorio",
-                    },
-                    validate: (value) => {
-                      return validarEspaciosVacios(value)
-                    },
-                    pattern: {
-                      value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                      message: 'No puede ingresar numeros'
-                    }
+              <div className="col-md-6 mt-4">
+                  <label htmlFor="searchInput">Tipo de tela:</label>
+                  <input
+                    type="text "
+                    name="Telasss"
+                    id="searchInput"
+                    list="Telasss"
+                    placeholder="Ingrese el tipo de tela"
+                    className="form-control"
+                    {...register("tipo_de_tela", {
+                      required: {
+                        value: true,
+                        message: "El tipo de tela  es obligatorio",
+                      },
+                      validate: (value) => {
+                        return validarEspaciosVacios(value);
+                      },
+                      pattern: {
+                        value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
+                        message:
+                          "Error no se puede numeros ni caracteres especiales en el tipo de tela",
+                      },
+                    })}
+                    onChange={(e)=>{
+                      setValue('tipo_de_tela', e.target.value),
+                      trigger('tipo_de_tela')
 
-                  })}
-                />
+                    }}
+                  />
 
-                {errors.tipo_de_tela && (
-                  <AlertaError message={errors.tipo_de_tela.message} />
-                )}
-              </div>
+                  {errors.tipo_de_tela && (
+                    <AlertaError message={errors.tipo_de_tela.message} />
+                  )}
+
+                  <datalist id="Telasss">
+                    {Array.from(
+                      new Set(Prendas.map((prenda) => prenda.tipo_de_tela))
+                    ).map((tipo, index) => (
+                      <option key={index} value={tipo}>
+                        {tipo}
+                      </option>
+                    ))}
+                  </datalist>
+                </div>
 
               <div className="col-md-6">
                 <label htmlFor="genero" className="col-from-label">
@@ -245,6 +293,9 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   <option value="Mujer">Mujer</option>
                   <option value="Hombre">Hombre</option>
                 </select>
+                {errors.genero && (
+                  <AlertaError message={errors.genero.message} />
+                )}
               </div>
 
               <div className="col-md-6">
@@ -257,10 +308,9 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   className="form-control"
                   title="Estado de la publicacion"
                   {...register("publicado", {
-                    required: {
-                      value: true,
-                      message: "El estado de la publicacion es obligatoria",
-                    },
+                    validate: (value)=>{
+                      validarBooleanos(value)
+                    }
                   })}
                 >
                   <option
@@ -292,8 +342,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
                     },
                   })}
                 >
-                  <option value="">Selecciona una opcion</option>
-
                   <option value={(Tallas.tallas = "S")}> S </option>
                   <option value={(Tallas.tallas = "M")}> M </option>
                   <option value={(Tallas.tallas = "L")}> L </option>
@@ -308,41 +356,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
 
               </div>
 
-              <div className="col-md-6" name="Publicado">
-                <label htmlFor="Publicar" className="col-form-control">
-                  Colores
-                </label>
-
-                <select
-                  name="colores"
-                  id=""
-                  className="form-control"
-                  title="Seleccione una opcion"
-                  {...register("colores", {
-                    required: {
-                      value: true,
-                      message: "El color es obligatorio",
-                    },
-                  })}
-                >
-                  <option value="">Selecciona una opcion</option>
-
-                  {Colors.map((colors) => {
-                    return (
-                      <option key={colors.id_color} value={colors.id_color}>
-                        {colors.color}
-                      </option>
-                    );
-                  })}
-                </select>
-
-
-                {errors.colores && (
-                  <AlertaError message={errors.colores.message} />
-                )}
-              </div>
-
-              <div className="mb-3">
+                <div className="col-md-6">
                 <label htmlFor="imagen" className="col-from-label">
                   Subir imagen
                 </label>
@@ -359,14 +373,24 @@ const EditarPrendas = ({ detallesPrendas }) => {
               </div>
 
               <div className="modal-footer">
-                <CancelarModal />
-                <GuardarModal />
-              </div>
+                  <div className={styles.bottonDiseno}>
+                    <BotonNegro
+                      text="Editar color"
+                      modalToOpen={"#crearColorEditar"}
+                      modalClouse={"modal"}
+                    />
+                  </div>
+
+                  <CancelarModal />
+                  <GuardarModal />
+                </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <SeleccionarColorsEditar/>
+    </>
   );
 };
 

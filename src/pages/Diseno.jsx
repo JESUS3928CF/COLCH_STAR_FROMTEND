@@ -4,15 +4,16 @@ import AgregarDiseno from '../components/diseños/AgregarDiseno';
 import PrecioDiseno from '../components/diseños/PrecioDiseno';
 
 
-import ListarDisenos from '../components/diseños/ListarDisenos';
+
 import Header from '../components/chared/header/Header';
 import useAuth from '../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
+import ListarDisenos from '../components/diseños/TablaDiseno/ListarDisenos';
 
 export const Diseno = () => {
     /// extrayendo la información para la autenticación
     const { auth, loading } = useAuth();
-    if (loading == true) return 'Cargando...';
+    if (loading) return 'Cargando...';
 
 
     return auth.usuario.permisos.includes('producto') ? (
@@ -25,10 +26,7 @@ export const Diseno = () => {
                     <div className='row'>
                         {/* botón de agregar diseño  */}
                         <div className='col-md-6 pb-md-0 pb-4 d-flex justify-content-around align-items-center'>
-                            <BotonVerde
-                                text={'Agregar diseño'}
-                                modalToOpen={'#myModalAgregarDiseno'}
-                            />
+                            
 
                             {/* modal de agregar diseño  */}
                             <AgregarDiseno />

@@ -43,6 +43,7 @@ export const ListarPrendas = () => {
     setDetallesPrendas(Prendas);
   };
 
+
   //Solicitud de la url
   useEffect(() => {
     const consultarPrendas = async () => {

@@ -12,8 +12,6 @@ const Usuarios = () => {
     return auth.usuario.permisos.includes('usuario') ? (
         <div>
             <ListarUsuario />
-            <AgregarUsuario />
-            {/* <EditarUsuario/> */}
         </div>
     ) : (
         <Navigate to={'/administracion'} />

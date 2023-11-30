@@ -9,7 +9,7 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 
-const AgregarDisenoModal = () => {
+const AgregarDisenoModal = ({handleShow}) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -40,8 +40,6 @@ const AgregarDisenoModal = () => {
     };
 
 
-
-
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
     // console.log( detalle_diseno)
@@ -64,12 +62,6 @@ const AgregarDisenoModal = () => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });
     }, []);
-
-
-
-
-
-
 
 
     return (
@@ -167,19 +159,18 @@ const AgregarDisenoModal = () => {
                                         <p>{` ${selectedDisenoNombre.join('\n- ')}`}</p>
                                         // </div>
                                     )}
-
-
                                 </div>
 
                             </div>
                             <br />
 
-
-
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
 
-                                <BotonNegro text={'Regresar'} modalToOpen={'#myModal'} modalClouse={"modal"}/>
+                                <BotonNegro text={'Regresar'}
+                                // modalToOpen={'#myModal'} 
+                                modalClouse={"modal"}
+                                 onClick={handleShow}/>
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal/>

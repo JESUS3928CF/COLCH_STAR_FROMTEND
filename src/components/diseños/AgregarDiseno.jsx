@@ -6,21 +6,29 @@
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
-import clienteAxios from '../../config/axios';
 import AlertaError from '../chared/AlertaError';
-
+import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
-
-import Swal from 'sweetalert2';
 
 //* Importa las funciones de validación
 import {
     validarEspaciosVacios,
     validarImagen,
 } from '../../Validations/validations.js';
-import useAuth from '../../hooks/useAuth.jsx';
+import { Fragment, useState } from 'react';
+import BotonVerde from '../chared/BotonVerde.jsx';
+import { useDisenosContext } from '../../context/disenosProvider.jsx';
 
 const AgregarDiseno = () => {
+
+    const { agregarDisenoDB } = useDisenosContext();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     /// Funciones del paquete react-hook-form necesarias para las validaciones
     const {
         register,
@@ -33,7 +41,6 @@ const AgregarDiseno = () => {
         mode: 'onChange',
     });
 
-    const { token } = useAuth();
 
     const guardarDiseno = handleSubmit(async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
@@ -42,37 +49,19 @@ const AgregarDiseno = () => {
         formData.append('publicado', data?.publicado);
         formData.append('imagen', data?.imagen[0]);
 
-        /// Almacenar el diseño en la DB
-        try {
-            const res = await clienteAxios.post('/disenos', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
 
-            // Lanzar alerta del producto agregado
-            Swal.fire({
-                title: 'Diseño agregado',
-                text: res.data.message,
-                icon: 'success',
-            }).then(() => {
-                location.reload();
-            });
-        } catch (error) {
-            console.log(error);
-            // Lanzar alerta de error
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
-            }).then(location.reload());
-        }
+        /// Almacenar en la DB
+        agregarDisenoDB(formData, handleClose, reset);
     });
 
     return (
-        <div className='modal' id='myModalAgregarDiseno'>
-            <div className='modal-dialog modal-dialog-centered'>
+        <Fragment>
+            <BotonVerde text={'Agregar Diseño'} onClick={handleShow} />
+            <Modal
+                show={show}
+                onHide={handleClose}
+                className='modal d-flex align-items-center justify-content-center'
+            >
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
                     <HeaderModals title={'Agregar diseño'} />
@@ -171,7 +160,10 @@ const AgregarDiseno = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal reset={reset}/>
+                                <CancelarModal
+                                    reset={reset}
+                                    handleClose={handleClose}
+                                />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
@@ -179,8 +171,8 @@ const AgregarDiseno = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </Modal>
+        </Fragment>
     );
 };
 

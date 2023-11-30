@@ -3,24 +3,30 @@
 // Nos permitira Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
 // existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import { useEffect, useState } from 'react';
-import clienteAxios from '../../config/axios';
-import { DetalleDiseno } from './DetalleDiseno';
-import EditarDiseno from './EditarDiseno';
-import Buscador from '../chared/Buscador';
-import Paginador from '../chared/Paginador';
+import { DetalleDiseno } from '../DetalleDiseno';
+import EditarDiseno from '../EditarDiseno';
+import Buscador from '../../chared/Buscador';
+import Paginador from '../../chared/Paginador';
 import Swal from 'sweetalert2';
-import TablaDisenos from './TablaDiseno/TablaDisenos';
+import TablaDisenos from './TablaDisenos';
+import { useDisenosContext } from '../../../context/disenosProvider';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
-    const [disenos, setDisenos] = useState([]);
+
+    const { disenosDB } = useDisenosContext();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     // Este estado es para poder determinar que diseños concuerdan con la búsqueda y poder eliminar los que no
     const [disenosFiltrar, setDisenosFiltrar] = useState([]);
     /// Para capturar el ancho de pantalla
 
     const [detalleDiseno, setDetalleDiseno] = useState({});
-    
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
     const LlenarInformacionModalEditar = (diseno) => {
@@ -33,6 +39,7 @@ const ListarDisenos = () => {
             );
         }
         setDetalleDiseno(diseno);
+        handleShow();
     };
 
     const llenarInformacionModal = (diseno) => {
@@ -41,16 +48,8 @@ const ListarDisenos = () => {
 
     /// Use Effect para consultar la api cuando carge la pagina
     useEffect(() => {
-        /// Query a la api
-        const consultarDisenos = async () => {
-            const respuesta = await clienteAxios.get('/disenos');
-            setDisenos(respuesta.data);
-            setDisenosFiltrar(respuesta.data.slice(0, 10)); // Inicializa con los primeros 10 diseños
-        };
-
-        /// Hacer la petición a la api
-        consultarDisenos();
-    }, []);
+        setDisenosFiltrar(disenosDB.slice(0, 10)); // Inicializa con los primeros 10 diseños
+    }, [disenosDB]);
 
     return (
         <>
@@ -58,7 +57,7 @@ const ListarDisenos = () => {
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Buscador
                     setDatosFiltrar={setDisenosFiltrar}
-                    datos={disenos}
+                    datos={disenosDB}
                     camposFiltrar={['nombre', 'publicacion']}
                 />
             </div>
@@ -74,7 +73,7 @@ const ListarDisenos = () => {
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setDisenosFiltrar}
-                    datos={disenos}
+                    datos={disenosDB}
                 />
             </div>
 
@@ -82,7 +81,11 @@ const ListarDisenos = () => {
             <DetalleDiseno detalleDiseno={detalleDiseno} />
 
             {/* <!-- modal para editar diseño --> */}
-            <EditarDiseno detalleDiseno={detalleDiseno} />
+            <EditarDiseno
+                detalleDiseno={detalleDiseno}
+                show={show}
+                handleClose={handleClose}
+            />
         </>
     );
 };

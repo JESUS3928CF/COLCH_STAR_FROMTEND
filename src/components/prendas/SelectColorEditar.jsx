@@ -10,7 +10,7 @@ import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
 import { useColorsContex } from "../../context/ColorsProvider";
 
-const SeleccionarColors = () => {
+const SeleccionarColorsEditar = () => {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ const SeleccionarColors = () => {
   } = useForm();
 
   const { agregarColors, colors } = useColorsContex();
-  const [selectColorsName, setSelectColorsName] = useState(0);
+  const [selectColorsName, setSelectColorsName] = useState("");
 
 
   const agregarNewColors = (data) => {
@@ -34,8 +34,9 @@ const SeleccionarColors = () => {
         selectColors.push(matchingColors.color);
       }
     }
-    setSelectColorsName(data.id_color);
+    setSelectColorsName(selectColors);
   };
+
 
   const [colorss, setColors] = useState([]);
 
@@ -49,13 +50,13 @@ const SeleccionarColors = () => {
     <>
       <div
         className="modal fade"
-        id="crearColor"
+        id="crearColorEditar"
         aria-hidden="true"
         aria-labelledby="exampleModalToggleLabel2"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <HeaderModals title={"Agregar color"} />
+            <HeaderModals title={"Editar color"} />
             <div className="modal-body">
               <form
                 onSubmit={handleSubmit(agregarNewColors)}
@@ -98,15 +99,10 @@ const SeleccionarColors = () => {
 
                 <div className="modal-footer">
                   <div style={{ marginRight: 129 }}>
-                    <BotonNegro
-                      text="Crear color"
-                      modalToOpen={"#myModalColors"}
-                      modalClouse={"modal"}
-                    />
                   </div>
                   <BotonNegro
                     text={"Regresar"}
-                    modalToOpen={"#myModal"}
+                    modalToOpen={"#modalEditarPrenda"}
                     modalClouse={"modal"}
                   />
                   <GuardarModal />
@@ -122,4 +118,4 @@ const SeleccionarColors = () => {
 
 
 
-export default SeleccionarColors;
+export default SeleccionarColorsEditar;

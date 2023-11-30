@@ -6,7 +6,6 @@ import '../../css-general/cssgeneral.css';
 import '../../css-general/tailwind.min.css';
 import '../../css-general/inicio_style.css';
 import '../../css-general/table.min.css';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import style from '../../pages/Clientes.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
@@ -19,31 +18,25 @@ import Header from '../chared/header/Header';
 import editar from '../roles/editar.png';
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
-import { resolucionCards } from '../../constantes/constantes.js';
-import useAuth from '../../hooks/useAuth.jsx';
+import {registrosPorPagina, resolucionCards } from '../../constantes/constantes.js';
+import useUsuario from '../../hooks/useUsuario.jsx';
+import AgregarUsuario from './AgregarUsuario.jsx';
 
 const ListarUsuario = () => {
-    const { config } = useAuth();
+    const { usuarios, editarEstado } = useUsuario();
+
+        /// Funcionalidad para cerra el modal
+        const [show, setShow] = useState(false);
+
+        const handleClose = () => setShow(false);
+        const handleShow = () => setShow(true);
 
     //Estado de la barra de busqueda
     const [usuariosFiltrar, setUsuariosFiltrar] = useState([]);
 
-    const [usuarios, setUsuarios] = useState([]);
-
     useEffect(() => {
-        // Realiza una solicitud al backend para obtener la lista de usuarios
-        axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, config)
-            .then((response) => {
-                // Actualiza el estado con la lista de usuarios
-                setUsuarios(response.data);
-
-                setUsuariosFiltrar(response.data.slice(0, 10));
-            })
-            .catch((error) => {
-                console.error('Error al obtener la lista de usuarios:', error);
-            });
-    }, []);
+        setUsuariosFiltrar(usuarios.slice(0, 10, registrosPorPagina));
+    }, [usuarios]);
 
     //Estado para editar
     const [editarUsuario, setEditarUsuario] = useState('');
@@ -58,6 +51,7 @@ const ListarUsuario = () => {
             );
         }
         setEditarUsuario(usuario);
+        handleShow();
     };
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
@@ -78,14 +72,7 @@ const ListarUsuario = () => {
                         <div
                             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                         >
-                            <button
-                                type='button'
-                                className='btn-a'
-                                data-bs-toggle='modal'
-                                data-bs-target='#myModal'
-                            >
-                                Agregar Usuario
-                            </button>
+                          <AgregarUsuario/>
                         </div>
 
                         {/* Boton para Buscar/filtrar */}
@@ -154,6 +141,7 @@ const ListarUsuario = () => {
                                                     isChecked={usuario.estado}
                                                     nombreRegistro={'usuario'}
                                                     ruta={`/usuarios/estado/${usuario.id_usuario}`}
+                                                    editarEstado={editarEstado}
                                                 />
                                             )}
                                         </td>
@@ -249,6 +237,9 @@ const ListarUsuario = () => {
                                                                 'usuario'
                                                             }
                                                             ruta={`/usuarios/estado/${usuario.id_usuario}`}
+                                                            editarEstado={
+                                                                editarEstado
+                                                            }
                                                         />
                                                     )}
                                                 </div>
@@ -279,7 +270,10 @@ const ListarUsuario = () => {
                         ))}
                     </div>
                 )}
-                <EditarUsuario editarUsuario={editarUsuario} />
+                <EditarUsuario editarUsuario={editarUsuario}
+                show={show}
+                handleClose={handleClose}
+                 />
             </div>
 
             <div className='seccion4'>

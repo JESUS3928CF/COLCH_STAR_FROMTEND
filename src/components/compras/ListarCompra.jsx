@@ -5,12 +5,15 @@ import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
 import style from "../../pages/Clientes.module.css";
 import Header from "../chared/header/Header";
-import Buscador from '../chared/Buscador';
-import Paginador from '../chared/Paginador';
-import BotonNegro from '../chared/BotonNegro';
-import BotonCambioEstado from '../chared/BotonCambioEstado';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import Buscador from "../chared/Buscador";
+import Paginador from "../chared/Paginador";
+import BotonNegro from "../chared/BotonNegro";
+import BotonCambioEstado from "../chared/BotonCambioEstado";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import {DetalleCompras} from "./DetallesCompras";
+import AgregarCompras from "./AgregarCompra";
+import useAuth from "../../hooks/useAuth";
 
 const ListarCompra = () => {
   //Estado de la barra de busqueda
@@ -18,9 +21,34 @@ const ListarCompra = () => {
 
   // Conexión para traer todos los datos de la base de datos, con la compra que es que se va hacer el mapeo en la tabla listar
   const [compra, setCompras] = useState([]);
+  const [details, setDetails]= useState([])
+  const [detallesCompras, setDetalleCompra] = useState({});
+  const [proveedor,setProveedor]= useState({})
+
+  // useEffect(()=>{
+  //   axios.get('')
+  // })
+
+  
+
+  const { auth } = useAuth();
+
+useEffect(()=>{
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
+  axios.get('http://localhost:3000/api/compraDetalles')
+  .then((res)=>{
+    setDetails(res.data)
+  })
+},[auth])
+
 
   // Solicitud a la url
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
     // Realiza una solicitud al backend para obtener la lista de usuarios
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/api/compra`)
@@ -33,8 +61,13 @@ const ListarCompra = () => {
       .catch((error) => {
         console.error("Error al obtener la lista de compras:", error);
       });
-  }, []);
+  }, [auth]);
+
+
+
+
   return (
+    <>
     <div>
       <div>
         <Header titulo="Gestión de Compras" />
@@ -49,7 +82,7 @@ const ListarCompra = () => {
                 type="button"
                 className="btn-a"
                 data-bs-toggle="modal"
-                data-bs-target="#myModal"
+                data-bs-target="#myModalAgregarComprar"
               >
                 Agregar Compra
               </button>
@@ -63,7 +96,7 @@ const ListarCompra = () => {
               <Buscador
                 setDatosFiltrar={setComprasFiltrar}
                 datos={compra}
-                camposFiltrar={["fecha"]}
+                camposFiltrar={["proveedor", "fecha" ,"total_de_compra"]}
               />
             </div>
           </div>
@@ -76,9 +109,9 @@ const ListarCompra = () => {
                 <th scope="col">Nombre proveedor</th>
                 <th scope="col">Total compra</th>
                 <th scope="col">Fecha de compra</th>
-                {/* <th scope="col">Detalles</th> */}
                 <th scope="col">Estado</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Detalles</th>
+
               </tr>
             </thead>
             <tbody>
@@ -98,11 +131,12 @@ const ListarCompra = () => {
                   </td>
                   <td>
                     <BotonNegro
-                      text="Editar"
-                      modalToOpen={compra.estado ? "#modalEditar" : ""}
-                      onClick={() => handleEditClick(compra)}
+                      text="Ver"
+                      modalToOpen= {"#modalDetalleCompra"}
+                      onClick={() => setDetalleCompra(compra)}
                     />
                   </td>
+                 
                 </tr>
               ))}
             </tbody>
@@ -111,10 +145,14 @@ const ListarCompra = () => {
       </div>
 
       <div className="seccion4">
-      {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-      <Paginador setDatosFiltrar={setComprasFiltrar} datos={compra} />
-      </div> 
+        {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+        <Paginador setDatosFiltrar={setComprasFiltrar} datos={compra} />
+      </div>
     </div>
+    <DetalleCompras detallesCompras={detallesCompras}/>
+
+
+    </>
   );
 };
 

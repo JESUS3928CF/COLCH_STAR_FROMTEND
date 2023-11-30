@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 const BotonNegro = ({ text, modalToOpen , modalClouse, quieresAbrirRuta, onClick }) => {
     if (quieresAbrirRuta) {
         return (
-            <button
+            <Button
                 type='button'
                 className='btn btn-secondary'
                 style={{ backgroundColor: '#252432', color: '#fff' }}
             >
                 {text}
-            </button>
+            </Button>
         );
     }
 
     return (
-        <button
+        <Button
             type='button'
             className='btn btn-secondary'
             data-bs-toggle='modal'
@@ -24,7 +25,7 @@ const BotonNegro = ({ text, modalToOpen , modalClouse, quieresAbrirRuta, onClick
             onClick={onClick}
         >
             {text}
-        </button>
+        </Button>
     );
 
     
