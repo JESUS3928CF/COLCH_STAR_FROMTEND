@@ -31,7 +31,6 @@ const ListarProducto = () => {
 
   const { productos, editarEstado } = useProducto();
 
-
   /// Funcionalidad para cerra el modal
   const [show, setShow] = useState(false);
 
@@ -41,10 +40,11 @@ const ListarProducto = () => {
   //estado de la barra buscador
   const [ProductosFiltrar, setProductosFiltrar] = useState([]);
 
+  //detallesProductos
   const [detallesProductos, setDetallesProductos] = useState({});
 
 
-  // solicitud  a la url
+
   useEffect(() => {
     setProductosFiltrar(productos.slice(0, 10, registrosPorPagina));
   }, [productos]);
@@ -66,10 +66,8 @@ const ListarProducto = () => {
     handleShow();
   };
 
-  // const informacionModal = (producto) => {
-  //   setEditarProducto(producto);
-  // };
 
+  //ancho de la pantalla para el Resposive
   const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
   useEffect(() => {

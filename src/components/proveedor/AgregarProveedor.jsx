@@ -82,7 +82,7 @@ const AgregarProveedor = () => {
                         <div className='modal-body'>
                             {/* formulario para agregar proveedor */}
                             <form
-                                id='formularioAgregarProveedor'
+                                className='row g-1 needs-validation'
                                 onSubmit={handleSubmit(onSubmit)}
                             >
                                 <div className='mb-3' name='divIdentificacion'>

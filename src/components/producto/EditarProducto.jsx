@@ -23,7 +23,7 @@ import useAuth from '../../hooks/useAuth';
 
 
 
-const EditarProducto = ({ editarProducto, handleClose, show }) => {
+const EditarProducto = ({ editarProducto, handleClose, show ,handleShow}) => {
 
   const { editarProductos } = useProducto();
 
@@ -91,7 +91,7 @@ const EditarProducto = ({ editarProducto, handleClose, show }) => {
         className="modal d-flex align-items-center justify-content-center"
         id="modalEditar"
       >
-        <div className="modal-content">
+        <div className={`modal-content ${style.taa}`}>
 
           <HeaderModals title={'Editar Producto'} />
 
@@ -168,38 +168,6 @@ const EditarProducto = ({ editarProducto, handleClose, show }) => {
 
               </div>
 
-              {/* <div className="col-md-6 mt-2" name="precio">
-
-                  <label htmlFor="precioGuardar"
-                    className="col-form-label">Precio:
-                  </label>
-
-                  <input type="text" className="form-control"
-                    name="precio"
-                    id="precioGuardar"
-                    placeholder=". . ."
-                    {...register('precio', {
-                      required: {
-                        value: true,
-                        message: 'El precio es obligatorio',
-                      },
-                      pattern: {
-                        value: /^\d+(\.\d+)?$/,
-                        message: "No puede contener Letras ni espacios en blanco"
-                      },
-                      validate: (value) => {
-                        return validarEspaciosVacios(value);
-                      }
-                    })}
-
-                  />
-                  {errors.precio && (
-                    <AlertaError
-                      message={errors.precio.message}
-                    />
-                  )}
-
-                </div> */}
               <div className="col-md-6 mt-2" >
 
                 <label htmlFor="rol" className="col-form-label">
@@ -302,7 +270,7 @@ const EditarProducto = ({ editarProducto, handleClose, show }) => {
                   <BotonNegro
                     text='Agregar Diseño'
                     modalToOpen={'#myModalDisenoE'}
-                    modalClouse={'modalEditar'}
+                    onClick={handleClose}
 
                   />
                 </div>
@@ -318,7 +286,7 @@ const EditarProducto = ({ editarProducto, handleClose, show }) => {
         </div>
       </Modal>
 
-      <EditarDisenoModal />
+      <EditarDisenoModal  handleShow={handleShow}/>
 
     </div >
   )

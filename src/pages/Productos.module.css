@@ -30,7 +30,7 @@
 }
 
 .customer {
-    width: 100%; /* Cambiado a un porcentaje para ser más flexible */
+    width: 130%; /* Cambiado a un porcentaje para ser más flexible */
     max-width: 380px;
     margin-top: 5px; 
 }
@@ -40,7 +40,7 @@
 }
 
 .bottonDiseno {
-    margin-right: 52%; /* Utilizando porcentaje para el margen derecho */
+    margin-right: 34%; /* Utilizando porcentaje para el margen derecho */
 }
 
 /* .h3container{
@@ -55,6 +55,13 @@
     font-weight: 600;
     text-align: center;
     margin-bottom: 7px;
+}
+
+
+
+.taa{
+    width: 120%;
+    right: 10%;
 }
 
 

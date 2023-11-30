@@ -83,7 +83,7 @@ const AgregarProducto = () => {
                 imagen: imagen[0],
                 disenos: JSON.stringify(disenos)
             },
-             reset,
+            reset,
             handleClose
         )
     }
@@ -96,16 +96,17 @@ const AgregarProducto = () => {
             <Modal
                 show={show}
                 onHide={handleClose}
-                className='modal d-flex align-items-center justify-content-center'
+                className="modal d-flex align-items-center justify-content-center "
+                
                 id='myModal'
             >
 
-                <div className='modal-content'>
+                <div  className={`modal-content ${style.taa}`} > 
                     <HeaderModals title={'Agregar Producto'} />
 
                     <div className='modal-body'>
                         <form
-                            className='row g-3 needs-validation'
+                            className="row g-3 needs-validation"
                             onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='col-md-6'>
@@ -194,47 +195,6 @@ const AgregarProducto = () => {
                                 )}
                             </div>
 
-                            {/* <div className='col-md-6 mt-2' name='precio'>
-
-                                    <label
-                                        htmlFor='precioGuardar'
-                                        className='col-form-label'
-                                    >
-                                        Precio:{' '}
-                                    </label>
-
-                                    <input
-                                        type='text'
-                                        className='form-control'
-                                        name='precio'
-                                        id='precioGuardar'
-                                        placeholder='. . .'
-                                        {...register('precio', {
-                                            required: {
-                                                value: true,
-                                                message:
-                                                    'El precio es obligatorio',
-                                            },
-                                            pattern: {
-                                                value: /^\d+(\.\d+)?$/,
-                                                message:
-                                                    'No puede contener Letras ni espacios en blanco',
-                                            },
-                                            validate: (value) => {
-                                                return validarEspaciosVacios(
-                                                    value
-                                                );
-                                            },
-                                        })}
-                                    />
-                                    {errors.precio && (
-                                        <AlertaError
-                                            message={errors.precio.message}
-                                        />
-                                    )}
-
-                                </div> */}
-
                             <div className='col-md-6 mt-2'>
                                 <label
                                     htmlFor='rol'
@@ -317,7 +277,7 @@ const AgregarProducto = () => {
                                     htmlFor='Archivo'
                                     className='col-from-label'
                                 >
-                                    Imagen de la Producto Final: *
+                                    Producto Final: *
                                 </label>
 
                                 <input
@@ -354,7 +314,7 @@ const AgregarProducto = () => {
                                     />
                                 </div>
                                 <CancelarModal
-                                    modalToCancel='myModal'
+                                    // modalToCancel='myModal'
                                     reset={reset}
                                     handleClose={handleClose}
                                 />
@@ -365,7 +325,7 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal handleShow = {handleShow} />
+            <AgregarDisenoModal handleShow={handleShow} />
         </div>
     );
 }

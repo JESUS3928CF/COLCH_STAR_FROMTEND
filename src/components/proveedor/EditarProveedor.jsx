@@ -14,7 +14,7 @@ import styles from '../../pages/proveedores.module.css';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError'
-import {  useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useEffect } from 'react';
 import { validarEspaciosVacios } from '../../Validations/validations'
 import useProveedor from '../../hooks/useProveedor.jsx'
@@ -79,7 +79,9 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                     <div className="modal-body">
 
 
-                        <form action="" id="formularioEditarProveedor" onSubmit={handleSubmit(onSubmit)} >
+                        <form className='row g-1 needs-validation'
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
 
                             <div className="mb-3" name="divIdentificacion">
 
@@ -90,9 +92,6 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
                                 <div className='row'>
                                     <div className='col-md-2'>
-
-
-
 
                                         <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion', {
                                             required: {          // Es una propiedad que indica que el campo es obligatorio. 
@@ -110,7 +109,6 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                         <input type="text" className="form-control"
                                             id='identificacionEditar'
                                             name="identificador"
-                                            placeholder="Ingresar su identificacion"
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                             //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                             {...register('identificador', {
@@ -151,7 +149,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
                                 <input type="text" className="form-control" id="nombreEditar"
                                     name="nombre"
-                                    placeholder="Ingresar nombre"
+
                                     //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
                                     //  Nombre Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                     {...register('nombre', {
@@ -186,7 +184,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
                                 <input type="text" className="form-control" id="telefonoEditar"
                                     name="telefono"
-                                    placeholder="Ingresar teléfono"
+
                                     {...register('telefono', {
                                         required: {
                                             value: true,
@@ -223,7 +221,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
                                 <input type="text" className="form-control" id="direccionEditar"
                                     name="direccion"
-                                    placeholder="Ingresar dirección"
+
                                     {...register('direccion', {
                                         required: {
                                             value: true,
@@ -247,7 +245,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                             <div className="modal-footer">
 
                                 {/* Botón para cancelar*/}
-                                <CancelarModal  handleClose={handleClose} reset={reset}  />
+                                <CancelarModal handleClose={handleClose} reset={reset} />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
