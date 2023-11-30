@@ -15,8 +15,12 @@ const GeneralProvider = ({ children }) => {
 };
 
 // PropTypes para validar los props
+// PropTypes para validar los props
 GeneralProvider.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node),
+    ]),
 };
 
 export {  GeneralProvider };

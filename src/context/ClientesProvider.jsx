@@ -16,6 +16,9 @@ const ClientesProvider = ({ children }) => {
 
     const consultarClientes = async () => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
             const { data } = await clienteAxios.get('/clientes', config);
 
             setClientes(data);
@@ -29,6 +32,7 @@ const ClientesProvider = ({ children }) => {
 
     const agregarCliente = async (cliente, reset, handleClose) => {
         try {
+            
             const res = await clienteAxios.post('/clientes', cliente, config);
 
             // Lanzar alerta del producto agregado

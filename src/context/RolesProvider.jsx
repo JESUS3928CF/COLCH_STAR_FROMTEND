@@ -15,6 +15,8 @@ const RolesProvider = ({ children }) => {
 
     const consultarRoles = async () => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
             const { data } = await rolAxios.get('/rol', config);
 
             setRoles(data);
