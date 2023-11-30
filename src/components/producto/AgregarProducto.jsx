@@ -38,8 +38,9 @@ const AgregarProducto = () => {
     const handleShow = () => setShow(true);
 
 
-
     const { disenos } = useDisenosContext();
+
+    
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario

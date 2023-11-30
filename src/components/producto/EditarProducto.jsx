@@ -23,9 +23,10 @@ import useAuth from '../../hooks/useAuth';
 
 
 
-const EditarProducto = ({ editarProducto, handleClose, show ,handleShow}) => {
+const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
 
   const { editarProductos } = useProducto();
+
 
   const { config } = useAuth();
 
@@ -269,14 +270,16 @@ const EditarProducto = ({ editarProducto, handleClose, show ,handleShow}) => {
                 <div className={style.bottonDiseno} >
                   <BotonNegro
                     text='Agregar Diseño'
-                    modalToOpen={'#myModalDisenoE'}
+                    modalToOpen= '#myModalDisenoE'
                     onClick={handleClose}
 
                   />
                 </div>
 
-                <CancelarModal handleClose={handleClose}
-                  reset={reset} />
+                <CancelarModal  reset={reset} 
+                handleClose={handleClose} 
+                />
+                 
                 <GuardarModal />
 
               </div>
