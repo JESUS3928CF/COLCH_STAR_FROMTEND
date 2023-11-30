@@ -6,20 +6,15 @@
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
-import clienteAxios from '../../config/axios';
 import AlertaError from '../chared/AlertaError';
 import Modal from 'react-bootstrap/Modal';
-
 import { useForm } from 'react-hook-form';
-
-import Swal from 'sweetalert2';
 
 //* Importa las funciones de validación
 import {
     validarEspaciosVacios,
     validarImagen,
 } from '../../Validations/validations.js';
-import useAuth from '../../hooks/useAuth.jsx';
 import { Fragment, useState } from 'react';
 import BotonVerde from '../chared/BotonVerde.jsx';
 import { useDisenosContext } from '../../context/disenosProvider.jsx';
@@ -66,7 +61,6 @@ const AgregarDiseno = () => {
                 show={show}
                 onHide={handleClose}
                 className='modal d-flex align-items-center justify-content-center'
-                id='myModalAgregarDiseno'
             >
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
@@ -166,7 +160,10 @@ const AgregarDiseno = () => {
 
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal reset={reset} />
+                                <CancelarModal
+                                    reset={reset}
+                                    handleClose={handleClose}
+                                />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />

@@ -13,7 +13,7 @@ import ListarDisenos from '../components/diseños/TablaDiseno/ListarDisenos';
 export const Diseno = () => {
     /// extrayendo la información para la autenticación
     const { auth, loading } = useAuth();
-    if (loading == true) return 'Cargando...';
+    if (loading) return 'Cargando...';
 
 
     return auth.usuario.permisos.includes('producto') ? (

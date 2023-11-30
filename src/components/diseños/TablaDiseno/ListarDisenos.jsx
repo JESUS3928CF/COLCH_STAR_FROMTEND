@@ -3,7 +3,6 @@
 // Nos permitira Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
 // existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import { useEffect, useState } from 'react';
-import clienteAxios from '../../../config/axios';
 import { DetalleDiseno } from '../DetalleDiseno';
 import EditarDiseno from '../EditarDiseno';
 import Buscador from '../../chared/Buscador';

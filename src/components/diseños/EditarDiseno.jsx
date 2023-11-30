@@ -26,7 +26,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
         register,
         handleSubmit,
         formState: { errors },
-        trigger,
+        reset,
         setValue,
     } = useForm({
         mode: 'onChange',
@@ -139,7 +139,10 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
 
                         <div className='modal-footer'>
                             {/* Botón para cancelar*/}
-                            <CancelarModal />
+                            <CancelarModal
+                                handleClose={handleClose}
+                                reset={reset}
+                            />
 
                             {/* Botón para guardar*/}
                             <GuardarModal />

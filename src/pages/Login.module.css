@@ -164,8 +164,14 @@
     box-shadow: rgba(0, 0, 0, 0.4);
 
 }
-.cambiar_seccion:hover {
+
+.cambiar_seccion {
     color: rgb(64, 14, 108);
+    text-decoration: underline;
+}
+
+.cambiar_seccion:hover {
+    text-decoration: none;
     font-size: 15px;
     transition-duration: 0.5s;
 }

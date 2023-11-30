@@ -96,12 +96,12 @@ const LoginForm = ({ setIsActivate }) => {
             <div className={styles.create_account}>
                 <p>
                     Olvido su contraseña?{' '}
-                    <p
+                    <span
                         className={styles.cambiar_seccion}
                         onClick={() => setIsActivate(true)}
                     >
                         Click aquí
-                    </p>
+                    </span>
                 </p>
             </div>
         </form>
@@ -144,8 +144,8 @@ const Login = () => {
 
         } catch (error) {
             console.log(error)
-             Swal.fire({
-                 title: `Hubo un error`,
+            Swal.fire({
+                 title: `${error.response.data.message}`,
                  icon: 'error',
              });
         }
@@ -246,12 +246,12 @@ const Login = () => {
                             <button className={styles.btn}>Enviar</button>
                             <div className={styles.create_account}>
                                 <p>
-                                    <p
+                                    <span
                                         className={styles.cambiar_seccion}
                                         onClick={() => setIsActivate(false)}
                                     >
                                         Inicio
-                                    </p>
+                                    </span>
                                 </p>
                             </div>
                         </form>
