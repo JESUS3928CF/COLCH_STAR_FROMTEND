@@ -22,6 +22,7 @@ import styles from "../../pages/Productos.module.css";
 import BotonNegro from "../chared/BotonNegro";
 import { useColorsContex } from "../../context/ColorsProvider";
 import SeleccionarColors from "./SeleccionarColor";
+import { Breadcrumb } from "react-bootstrap";
 
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
@@ -71,43 +72,62 @@ const AgregarPrendas = () => {
       tallas,
     } = data;
 
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/api/prendas",
-        {
-          nombre: nombre.trim(),
-          cantidad: cantidad.trim(),
-          precio: precio.trim(),
-          tipo_de_tela: tipo_de_tela.trim(),
-          genero: genero,
-          imagen: imagen[0],
-          publicado: publicado,
-          tallas: tallas,
-          colores: JSON.stringify(colors)|| [],
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+    if(colors==''){
 
-      console.log(data);
-
-      Swal.fire({
-        title: "Prenda agregado",
-        text: res.data.message,
-        icon: "success",
-      }).then(() => {
-        location.reload();
-      });
-    } catch (error) {
       Swal.fire({
         title: "Error",
-        text: "Hubo un error",
-        icon: "Vuelva a intentarlo",
-      }).then(location.reload());
+        text: "Seleccione un color",
+        icon: "error",
+      })
+
+      
     }
+    else{
+
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/api/prendas",
+          {
+            nombre: nombre.trim(),
+            cantidad: cantidad.trim(),
+            precio: precio.trim(),
+            tipo_de_tela: tipo_de_tela.trim(),
+            genero: genero,
+            imagen: imagen[0],
+            publicado: publicado,
+            tallas: tallas,
+            colores: JSON.stringify(colors),
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+  
+        console.log(colors)
+  
+        
+  
+  
+        Swal.fire({
+          title: "Prenda agregado",
+          text: res.data.message,
+          icon: "success",
+        }).then(() => {
+          location.reload();
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error",
+          icon: "Vuelva a intentarlo",
+        }).then(location.reload());
+      }
+
+
+    }
+
   };
 
   return (
@@ -400,6 +420,8 @@ const AgregarPrendas = () => {
                       modalClouse={"modal"}
                     />
                   </div>
+
+                                  
 
                   <CancelarModal reset={reset} />
                   <GuardarModal />

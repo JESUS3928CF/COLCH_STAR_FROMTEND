@@ -12,10 +12,19 @@ export const ColorsProvider=({children})=>{
         setColores(newColors);
     };
 
+    const coloresEditar = (colores) => {
+
+        setColores(colores)
+
+    }
+    
     const contextValue = {
         colors,
         agregarColors,
+        coloresEditar
     };
+
+    
 
     return(
         <ColorsContex.Provider value={contextValue}>
