@@ -129,9 +129,22 @@ const ProductosProvider = ({ children }) => {
         setProductos(productoActualizado);
     };
 
+    const editarPublicacion = (id) => {
+        let productoEditado = productos.find(
+            (producto) => producto.id_producto === id
+        );
+        productoEditado.publicado = !productoEditado.publicado;
+
+        const productoActualizado = productos.map((producto) =>
+        producto.id_producto == id ? productoEditado : producto
+        );
+
+        setProductos(productoActualizado);
+    };
+
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos }}
+            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion }}
         >
             {children}
         </productosContext.Provider>
