@@ -59,6 +59,7 @@ const ClientesProvider = ({ children }) => {
                     text: 'Hubo un error',
                     icon: 'error',
                 }).then(() => {
+                    reset()
                     handleClose();
                 });
             }
