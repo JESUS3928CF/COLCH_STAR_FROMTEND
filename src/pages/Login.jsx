@@ -7,10 +7,9 @@ import { validarEspaciosVacios } from '../Validations/validations';
 import AlertaError from '../components/chared/AlertaError';
 import clienteAxios from '../config/axios';
 import Swal from 'sweetalert2';
+import PropTypes from 'prop-types'; 
 
-const Login = () => {
-    const [isActivate, setIsActivate] = useState(false);
-
+const LoginForm = ({ setIsActivate }) => {
     /// Variable de autenticación del provider
     const { setAuth } = useAuth();
 
@@ -20,7 +19,6 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-
 
     const navigate = useNavigate();
 
@@ -44,6 +42,112 @@ const Login = () => {
                 title: `${error.response.data.message}`,
                 icon: 'error',
             });
+        }
+    });
+    return (
+        <form onSubmit={autenticarUsuario}>
+            <h2 style={{ fontWeight: 'bold' }}>¡Bienvenido!</h2>
+            <br />
+            <div className={styles.input_box}>
+                <span className={styles.icon}>
+                    <i className='bx bxs-envelope'></i>
+                </span>
+                <input
+                    type='email'
+                    {...register('email', {
+                        required: {
+                            value: true,
+                            message: 'El email es obligatorio',
+                        },
+                        validate: (value) => validarEspaciosVacios(value),
+                        pattern: {
+                            value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                            message: 'El Email no tiene un formato válido',
+                        },
+                    })}
+                />
+                <label>Email</label>
+                {errors.email && <AlertaError message={errors.email.message} />}
+            </div>
+            <div className={styles.input_box}>
+                <span className={styles.icon}>
+                    <i className='bx bxs-lock-alt'></i>
+                </span>
+                <input
+                    type='password'
+                    {...register('contrasena', {
+                        required: {
+                            value: true,
+                            message: 'La contraseña es obligatoria',
+                        },
+                    })}
+                />
+                <label>Contraseña</label>
+                {errors.contrasena && (
+                    <AlertaError message={errors.contrasena.message} />
+                )}
+            </div>
+            <div className={styles.button_group}>
+                <button className={styles.btn} onClick={autenticarUsuario}>
+                    {' '}
+                    Iniciar sesión
+                </button>
+            </div>
+            <div className={styles.create_account}>
+                <p>
+                    Olvido su contraseña?{' '}
+                    <p
+                        className={styles.cambiar_seccion}
+                        onClick={() => setIsActivate(true)}
+                    >
+                        Click aquí
+                    </p>
+                </p>
+            </div>
+        </form>
+    );
+};
+
+// Define PropTypes para las props del componente
+LoginForm.propTypes = {
+    setIsActivate: PropTypes.func.isRequired,
+};
+
+const Login = () => {
+    const [isActivate, setIsActivate] = useState(false);
+
+    /// variables para el formulario
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm();
+
+    // const navigate = useNavigate();
+
+
+    const validarEmail = handleSubmit(async(data) => {
+
+        try {
+            const res = await clienteAxios.post('/usuarios/password-perdida', {
+                email: data.email,
+            });
+
+            Swal.fire({
+                title: "Email enviado",
+                text: res.data.message,
+                icon: 'success',
+            }).then( () => {
+                reset()
+            });
+
+        } catch (error) {
+            console.log(error)
+             Swal.fire({
+                 title: `Hubo un error`,
+                 icon: 'error',
+             });
         }
     });
 
@@ -103,8 +207,14 @@ const Login = () => {
                     }`}
                 >
                     <div className={`${styles.form_box} ${styles.login}`}>
-                        <form onSubmit={autenticarUsuario}>
-                            <h2 style={{ fontWeight: 'bold' }}>¡Bienvenido!</h2>
+                        <LoginForm setIsActivate={setIsActivate}/>
+                    </div>
+                    <div className={`${styles.form_box} ${styles.register}`}>
+                        <form onSubmit={validarEmail}>
+                            <h2 style={{ fontWeight: 'bold' }}>
+                                Recuperar contraseña
+                            </h2>
+                            <p>Ingrese su correo electrónico de recuperación</p>
                             <br />
                             <div className={styles.input_box}>
                                 <span className={styles.icon}>
@@ -132,63 +242,6 @@ const Login = () => {
                                         message={errors.email.message}
                                     />
                                 )}
-                            </div>
-                            <div className={styles.input_box}>
-                                <span className={styles.icon}>
-                                    <i className='bx bxs-lock-alt'></i>
-                                </span>
-                                <input
-                                    type='password'
-                                    {...register('contrasena', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'La contraseña es obligatoria',
-                                        },
-                                    })}
-                                />
-                                <label>Contraseña</label>
-                                {errors.contrasena && (
-                                    <AlertaError
-                                        message={errors.contrasena.message}
-                                    />
-                                )}
-                            </div>
-                            <div className={styles.button_group}>
-                                <button
-                                    className={styles.btn}
-                                    onClick={autenticarUsuario}
-                                >
-                                    {' '}
-                                    Iniciar sesión
-                                </button>
-                            </div>
-                            <div className={styles.create_account}>
-                                <p>
-                                    Olvido su contraseña?{' '}
-                                    <p
-                                        className={styles.cambiar_seccion}
-                                        onClick={() => setIsActivate(true)}
-                                    >
-                                        Click aquí
-                                    </p>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
-                    <div className={`${styles.form_box} ${styles.register}`}>
-                        <form>
-                            <h2 style={{ fontWeight: 'bold' }}>
-                                Recuperar contraseña
-                            </h2>
-                            <p>Ingrese su correo electrónico de recuperación</p>
-                            <br />
-                            <div className={styles.input_box}>
-                                <span className={styles.icon}>
-                                    <i className='bx bxs-envelope'></i>
-                                </span>
-                                <input type='email' />
-                                <label>Email</label>
                             </div>
                             <button className={styles.btn}>Enviar</button>
                             <div className={styles.create_account}>

@@ -15,6 +15,8 @@ const UsuariosProvider = ({ children }) => {
 
   const consultarUsuarios = async () => {
     try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
       const { data } = await usuarioAxios.get("/usuarios", config);
 
       setUsuarios(data);
