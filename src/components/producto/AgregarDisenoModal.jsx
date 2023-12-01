@@ -8,6 +8,7 @@ import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
+import { closestTo } from 'date-fns';
 
 const AgregarDisenoModal = ({handleShow, handleClose}) => {
     const {
@@ -17,6 +18,10 @@ const AgregarDisenoModal = ({handleShow, handleClose}) => {
     } = useForm();
 
 
+    // const [show, setShow] = useState(false);
+
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
     
 
     const { agregarDiseno, disenos } = useDisenosContext();
@@ -25,13 +30,32 @@ const AgregarDisenoModal = ({handleShow, handleClose}) => {
 
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState('');
+    
+    useEffect(() => {
+        // Actualizar selectedDisenoNombre cuando cambie detalle_diseno o disenos
+        let selectedDiseno = [...selectedDisenoNombre];
+    
+        for (let i = 0; i < disenos.length; i++) {
+          const matchingDiseno = detalle_diseno.find(
+            (diseno) => diseno.id_diseno == disenos[i].id_diseno
+          );
+          if (matchingDiseno) {
+            selectedDiseno.push(matchingDiseno.nombre);
+          }
+        }
+    
+        setSelectedDisenoNombre(selectedDiseno);
+      }, [ disenos, agregarNuevoDiseno]);
 
-    const agregarNuevoDiseno = (data) => {
-        agregarDiseno(data);
+      
+    
 
-        const selectedId = data.id_diseno;
+    const agregarNuevoDiseno = () => {
 
-        let selectedDiseno = [];
+
+        let selectedDiseno = [...selectedDisenoNombre];
+
+        console.log(selectedDisenoNombre)
 
         for (let i = 0; i < disenos.length; i++) {
             const matchingDiseno = detalle_diseno.find((diseno) => diseno.id_diseno == disenos[i].id_diseno);
@@ -40,6 +64,7 @@ const AgregarDisenoModal = ({handleShow, handleClose}) => {
             }
         }
         setSelectedDisenoNombre(selectedDiseno);
+
     };
 
 

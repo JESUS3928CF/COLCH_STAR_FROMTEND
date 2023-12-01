@@ -89,6 +89,8 @@ const AgregarProducto = () => {
         )
     }
 
+    const [selectedImage, setSelectedImage] = useState(null);
+
     return (
         <div>
             {/* modal agregar producto */}
@@ -96,7 +98,10 @@ const AgregarProducto = () => {
 
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className="modal d-flex align-items-center justify-content-center "
                 
                 id='myModal'

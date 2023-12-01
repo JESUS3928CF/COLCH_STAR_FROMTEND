@@ -59,7 +59,10 @@ const AgregarDiseno = () => {
             <BotonVerde text={'Agregar Diseño'} onClick={handleShow} />
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
             >
                 <div className='modal-content'>
