@@ -59,6 +59,8 @@ const AgregarPrendas = () => {
     });
   }, []);
 
+
+
   const onSubmit = async (data) => {
     const {
       nombre,
@@ -71,6 +73,14 @@ const AgregarPrendas = () => {
       tallas,
     } = data;
 
+    if(colors==''){
+      Swal.fire({
+        title: "Error",
+        text: "Seleccione los colores",
+        icon: "error",
+      })
+    }else{
+      
     try {
       const res = await axios.post(
         "http://localhost:3000/api/prendas",
@@ -108,6 +118,8 @@ const AgregarPrendas = () => {
         icon: "Vuelva a intentarlo",
       }).then(location.reload());
     }
+    }
+
   };
 
   return (

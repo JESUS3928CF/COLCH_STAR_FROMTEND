@@ -58,17 +58,21 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
             {/* modal de editar clientes */}
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
             >
                 <div className='modal-content'>
-                    <HeaderModals title={'Editar Cliente'} 
-                    handleClose={() => {
-                        reset();
-                        handleClose();
-                    }}
-                />
+                    <HeaderModals
+                        title={'Editar Cliente'}
+                        handleClose={() => {
+                            reset();
+                            handleClose();
+                        }}
+                    />
                     <div className='modal-body'>
                         {/* <!-- formulario para editar los datos de la tabla clientes --> */}
                         <form
@@ -342,7 +346,10 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                             </div>
 
                             <div className='modal-footer'>
-                                <CancelarModal handleClose={handleClose} reset={reset}/>
+                                <CancelarModal
+                                    handleClose={handleClose}
+                                    reset={reset}
+                                />
 
                                 <GuardarModal />
                             </div>

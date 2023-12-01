@@ -20,8 +20,6 @@ export const DisenosProvider = ({ children }) => {
 
     /// Query a la api
     const consultarDisenos = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) return;
         const respuesta = await clienteAxios.get('/disenos');
         setDisenosDB(respuesta.data);
     };

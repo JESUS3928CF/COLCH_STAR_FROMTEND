@@ -4,6 +4,7 @@ import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2";
 import HeaderModals from "../chared/HeaderModals";
 import {
+  validarBooleanos,
   validarEspaciosVacios,
   validarImagen,
 } from "../../Validations/validations";
@@ -307,10 +308,9 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   className="form-control"
                   title="Estado de la publicacion"
                   {...register("publicado", {
-                    required: {
-                      value: true,
-                      message: "El estado de la publicacion es obligatoria",
-                    },
+                    validate: (value)=>{
+                      validarBooleanos(value)
+                    }
                   })}
                 >
                   <option
@@ -381,7 +381,7 @@ const EditarPrendas = ({ detallesPrendas }) => {
                     />
                   </div>
 
-                  <CancelarModal reset={reset} />
+                  <CancelarModal />
                   <GuardarModal />
                 </div>
             </form>

@@ -88,15 +88,21 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
             {/* modal agregar producto */}
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
             >
                 <div className={`modal-content`}>
-                    <HeaderModals title={'Editar Producto'} handleClose={() => {
-                        reset();
-                        handleClose();
-                    }} />
+                    <HeaderModals
+                        title={'Editar Producto'}
+                        handleClose={() => {
+                            reset();
+                            handleClose();
+                        }}
+                    />
 
                     <div className='modal-body'>
                         <form
@@ -156,7 +162,8 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
                                     {...register('cantidad', {
                                         required: {
                                             value: true,
-                                            message: 'El cantidad es obligatorio',
+                                            message:
+                                                'El cantidad es obligatorio',
                                         },
                                         pattern: {
                                             value: /^\d+$/,
@@ -285,7 +292,6 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
                                     />
                                 </div>
 
-
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
@@ -298,8 +304,10 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
                 </div>
             </Modal>
 
-            <EditarDisenoModal handleClose={handleClose}
-                handleShow={handleShow} />
+            <EditarDisenoModal
+                handleClose={handleClose}
+                handleShow={handleShow}
+            />
         </div>
     );
 }

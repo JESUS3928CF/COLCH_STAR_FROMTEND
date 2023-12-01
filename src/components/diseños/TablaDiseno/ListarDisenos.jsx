@@ -58,9 +58,9 @@ const ListarDisenos = () => {
         <>
             {/* Sección de los Botones de diseños*/}
             <div className='container-fluid'>
-                <div className='row'>
+                <div className='row pl-4'>
                     {/* botón de agregar diseño  */}
-                    <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
+                    <div className='col-md-3 col-sm-12  pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
                         {/* modal de agregar diseño  */}
                         <AgregarDiseno />
                     </div>
@@ -73,7 +73,7 @@ const ListarDisenos = () => {
                         {/* modal de precio de los diseños  */}
                         <PrecioDiseno />
                     </div>
-                    <div className='col-md-5 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center p-0'>
+                    <div className='col-md-6 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center p-0'>
                         {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                         <Buscador
                             setDatosFiltrar={setDisenosFiltrar}

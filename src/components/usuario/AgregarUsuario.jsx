@@ -76,7 +76,10 @@ const AgregarUsuario = () => {
 
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='myModal'
             >
