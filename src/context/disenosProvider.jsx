@@ -18,6 +18,13 @@ export const DisenosProvider = ({ children }) => {
         setDisenos(nuevoDisenos);
     };
 
+    const eliminarDiseno = (index) => {
+        console.log(index)
+        const nuevosDisenos = [...disenos];
+        nuevosDisenos.splice(index, 1);
+        setDisenos(nuevosDisenos);
+    };
+
     /// Query a la api
     const consultarDisenos = async () => {
         const respuesta = await clienteAxios.get('/disenos');
@@ -129,6 +136,7 @@ export const DisenosProvider = ({ children }) => {
         editarDisenoDB,
         editarEstado,
         editarPublicacion,
+        eliminarDiseno,
     };
 
     return (
