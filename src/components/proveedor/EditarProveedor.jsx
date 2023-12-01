@@ -75,7 +75,10 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                 id='modalEditar'
             >
                 <div className="modal-content">
-                    <HeaderModals title={'Editar Proveedor'} />
+                    <HeaderModals title={'Editar Proveedor'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }} />
                     <div className="modal-body">
 
 

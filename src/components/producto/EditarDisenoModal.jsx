@@ -9,11 +9,12 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 
-const EditarDisenoModal = ({handleShow}) => {
+const EditarDisenoModal = ({handleShow, handleClose}) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
         formState: { errors },
+        reset
     } = useForm();
 
     const { agregarDiseno, disenos } = useDisenosContext();
@@ -26,7 +27,6 @@ const EditarDisenoModal = ({handleShow}) => {
     const agregarNuevoDiseno = (data) => {
         agregarDiseno(data);
 
-        const selectedId = data.id_diseno;
 
         let selectedDiseno = [];
 
@@ -77,7 +77,10 @@ const EditarDisenoModal = ({handleShow}) => {
             <div className='modal-dialog modal-dialog-centered modal-lg'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Diseno y  Tamaño' NoReset={true} />
+                    <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}  />
 
                     <div className='modal-body'>
                         <form

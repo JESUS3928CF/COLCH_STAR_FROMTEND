@@ -9,12 +9,15 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 
-const AgregarDisenoModal = ({handleShow}) => {
+const AgregarDisenoModal = ({handleShow, handleClose}) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
         formState: { errors },
     } = useForm();
+
+
+    
 
     const { agregarDiseno, disenos } = useDisenosContext();
 
@@ -65,11 +68,14 @@ const AgregarDisenoModal = ({handleShow}) => {
 
 
     return (
-        <div className='modal' id='myModalDiseno'>
+        <div className='modal' id='myModalDiseno' >
             <div className='modal-dialog modal-dialog-centered modal-lg'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Diseno y  Tamaño' NoReset={true} />
+                    <HeaderModals title='Diseno y  Tamaño'  handleClose={() => {
+                        reset();
+                        handleClose();
+                    }} />
 
                     <div className='modal-body'>
                         <form

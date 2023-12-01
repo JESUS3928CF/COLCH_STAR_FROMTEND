@@ -103,7 +103,10 @@ const AgregarProducto = () => {
             >
 
                 <div  className={`modal-content `} > 
-                    <HeaderModals title={'Agregar Producto'} />
+                    <HeaderModals title={'Agregar Producto'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}  />
 
                     <div className='modal-body'>
                         <form
@@ -326,7 +329,8 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal handleShow={handleShow} />
+            <AgregarDisenoModal handleClose={handleClose}
+                handleShow={handleShow} />
         </div>
     );
 }
