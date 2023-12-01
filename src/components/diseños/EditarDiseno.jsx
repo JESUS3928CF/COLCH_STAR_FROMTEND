@@ -39,7 +39,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
             setValue('publicado', detalleDiseno.publicado);
             // Añade las demás propiedades aquí
         }
-    }, [detalleDiseno]);
+    }, [detalleDiseno, show]);
 
     const editarDiseno = handleSubmit(async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
@@ -54,7 +54,10 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
     return (
         <Modal
             show={show}
-            onHide={handleClose}
+            onHide={() => {
+                reset();
+                handleClose();
+            }}
             className='modal d-flex align-items-center justify-content-center'
         >
             <div className='modal-content'>

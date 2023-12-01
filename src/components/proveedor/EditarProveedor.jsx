@@ -70,198 +70,244 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
 
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
             >
-                <div className="modal-content">
-                    <HeaderModals title={'Editar Proveedor'} handleClose={() => {
-                        reset();
-                        handleClose();
-                    }} />
-                    <div className="modal-body">
-
-
-                        <form className='row g-1 needs-validation'
+                <div className='modal-content'>
+                    <HeaderModals
+                        title={'Editar Proveedor'}
+                        handleClose={() => {
+                            reset();
+                            handleClose();
+                        }}
+                    />
+                    <div className='modal-body'>
+                        <form
+                            className='row g-1 needs-validation'
                             onSubmit={handleSubmit(onSubmit)}
                         >
-
-                            <div className="mb-3" name="divIdentificacion">
-
-                                <label htmlFor="identificacionEditar"
-                                    className="col-form-label">Identificacion: *
+                            <div className='mb-3' name='divIdentificacion'>
+                                <label
+                                    htmlFor='identificacionEditar'
+                                    className='col-form-label'
+                                >
+                                    Identificacion: *
                                 </label>
                                 <br />
 
                                 <div className='row'>
                                     <div className='col-md-2'>
-
-                                        <select style={{ width: 80, height: 40 }} {...register('tipoIdentificacion', {
-                                            required: {          // Es una propiedad que indica que el campo es obligatorio. 
-                                                value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                                message: 'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
-                                            }
-                                        })}>
-                                            <option value="C.C.">C.C.</option>
-                                            <option value="NIT.">NIT.</option>
-                                            <option value="C.E.">C.E. </option>
+                                        <select
+                                            style={{ width: 80, height: 40 }}
+                                            {...register('tipoIdentificacion', {
+                                                required: {
+                                                    // Es una propiedad que indica que el campo es obligatorio.
+                                                    value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                                    message:
+                                                        'El tipo de identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
+                                                },
+                                            })}
+                                        >
+                                            <option value='C.C.'>C.C.</option>
+                                            <option value='NIT.'>NIT.</option>
+                                            <option value='C.E.'>C.E. </option>
                                         </select>
                                     </div>
                                     <div className='col-md-10'>
-
-                                        <input type="text" className="form-control"
+                                        <input
+                                            type='text'
+                                            className='form-control'
                                             id='identificacionEditar'
-                                            name="identificador"
+                                            name='identificador'
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                             //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                             {...register('identificador', {
-                                                required: {          // Es una propiedad que indica que el campo es obligatorio. 
+                                                required: {
+                                                    // Es una propiedad que indica que el campo es obligatorio.
                                                     value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                                    message: 'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                                    message:
+                                                        'La Identificación es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                                 },
                                                 pattern: {
-                                                    value: /^\d+$/,   //expreción regular para prohibir letras y espacios en blamco 
-                                                    message: "No puede contener Letras ni  espacios en blanco"
+                                                    value: /^\d+$/, //expreción regular para prohibir letras y espacios en blamco
+                                                    message:
+                                                        'No puede contener Letras ni  espacios en blanco',
                                                 },
                                                 validate: (value) => {
-                                                    if (value.length < 6 || value.length > 11) {
+                                                    if (
+                                                        value.length < 6 ||
+                                                        value.length > 11
+                                                    ) {
                                                         return 'La Identificación debe tener entre 6 y 11 dígitos';
                                                     }
                                                     return true; // La validación pasa si cumple ambas condiciones
                                                 },
                                             })}
                                             onChange={(e) => {
-                                                setValue("identificador", e.target.value);
-                                                trigger("identificador");
+                                                setValue(
+                                                    'identificador',
+                                                    e.target.value
+                                                );
+                                                trigger('identificador');
                                             }}
                                         />
                                     </div>
                                     {errors.identificador && (
-                                        <AlertaError message={errors.identificador.message} /> //muestra el mensaje de validacion
+                                        <AlertaError
+                                            message={
+                                                errors.identificador.message
+                                            }
+                                        /> //muestra el mensaje de validacion
                                     )}
                                 </div>
-
-
                             </div>
 
-                            <div className="mb-3" name="divNombre">
-
-                                <label htmlFor="nombreEditar"
-                                    className="col-form-label">Nombres: *
+                            <div className='mb-3' name='divNombre'>
+                                <label
+                                    htmlFor='nombreEditar'
+                                    className='col-form-label'
+                                >
+                                    Nombres: *
                                 </label>
 
-                                <input type="text" className="form-control" id="nombreEditar"
-                                    name="nombre"
-
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    id='nombreEditar'
+                                    name='nombre'
                                     //register es una funcion, nos devuelv propiedades para asigar esas propiedades al input  se pone . . .
                                     //  Nombre Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                     {...register('nombre', {
-                                        required: {     // Es una propiedad que indica que el campo es obligatorio.
-                                            value: true,  // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                            message: 'El Nombre es obligatorio',  // es un mensaje que se mostrará si la validación falla.
+                                        required: {
+                                            // Es una propiedad que indica que el campo es obligatorio.
+                                            value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
+                                            message: 'El Nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                         },
                                         validate: (value) => {
                                             return validarEspaciosVacios(value);
                                         },
                                         pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/, //expreción regular para prohibir letras y caracteres 
-                                            message: "No puede contener números ni caracteres especiales"
-                                        }
+                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/, //expreción regular para prohibir letras y caracteres
+                                            message:
+                                                'No puede contener números ni caracteres especiales',
+                                        },
                                     })}
                                     onChange={(e) => {
-                                        setValue("nombre", e.target.value);
-                                        trigger("nombre");
+                                        setValue('nombre', e.target.value);
+                                        trigger('nombre');
                                     }}
                                 />
                                 {errors.nombre && (
-                                    <AlertaError message={errors.nombre.message} /> //muestra el mensaje de validacion
+                                    <AlertaError
+                                        message={errors.nombre.message}
+                                    /> //muestra el mensaje de validacion
                                 )}
-
                             </div>
 
-                            <div className="mb-3" name="divTelefono">
-
-                                <label htmlFor="telefonoEditar"
-                                    className="col-form-label">Teléfono: *
+                            <div className='mb-3' name='divTelefono'>
+                                <label
+                                    htmlFor='telefonoEditar'
+                                    className='col-form-label'
+                                >
+                                    Teléfono: *
                                 </label>
 
-                                <input type="text" className="form-control" id="telefonoEditar"
-                                    name="telefono"
-
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    id='telefonoEditar'
+                                    name='telefono'
                                     {...register('telefono', {
                                         required: {
                                             value: true,
-                                            message: 'El teléfono es obligatorio',
+                                            message:
+                                                'El teléfono es obligatorio',
                                         },
                                         pattern: {
                                             value: /^\d+$/,
-                                            message: "No puede contener Letras ni espacios en blanco"
+                                            message:
+                                                'No puede contener Letras ni espacios en blanco',
                                         },
                                         validate: (value) => {
-                                            const telefonoSinEspacios = value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                            if (telefonoSinEspacios.length < 7 || telefonoSinEspacios.length > 11) {
+                                            const telefonoSinEspacios =
+                                                value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                            if (
+                                                telefonoSinEspacios.length <
+                                                    7 ||
+                                                telefonoSinEspacios.length > 11
+                                            ) {
                                                 return 'El telefono debe tener minimo 7 digitos y maximo 12';
                                             }
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue("telefono", e.target.value);
-                                        trigger("telefono");
+                                        setValue('telefono', e.target.value);
+                                        trigger('telefono');
                                     }}
                                 />
                                 {errors.telefono && (
-                                    <AlertaError message={errors.telefono.message} /> //muestra el mensaje de validacion
+                                    <AlertaError
+                                        message={errors.telefono.message}
+                                    /> //muestra el mensaje de validacion
                                 )}
-
                             </div>
 
-                            <div className="mb-3" name="divDireccion">
-
-                                <label htmlFor="direccionEditar"
-                                    className="col-form-label">Dirección: *
+                            <div className='mb-3' name='divDireccion'>
+                                <label
+                                    htmlFor='direccionEditar'
+                                    className='col-form-label'
+                                >
+                                    Dirección: *
                                 </label>
 
-                                <input type="text" className="form-control" id="direccionEditar"
-                                    name="direccion"
-
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    id='direccionEditar'
+                                    name='direccion'
                                     {...register('direccion', {
                                         required: {
                                             value: true,
-                                            message: 'La Dirección es obligatoria',
+                                            message:
+                                                'La Dirección es obligatoria',
                                         },
                                         validate: (value) => {
                                             return validarEspaciosVacios(value);
-                                        }
+                                        },
                                     })}
                                     onChange={(e) => {
-                                        setValue("direccion", e.target.value);
-                                        trigger("direccion");
+                                        setValue('direccion', e.target.value);
+                                        trigger('direccion');
                                     }}
                                 />
                                 {errors.direccion && (
-                                    <AlertaError message={errors.direccion.message} /> //muestra el mensaje de validacion
+                                    <AlertaError
+                                        message={errors.direccion.message}
+                                    /> //muestra el mensaje de validacion
                                 )}
-
                             </div>
 
-                            <div className="modal-footer">
-
+                            <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal handleClose={handleClose} reset={reset} />
+                                <CancelarModal
+                                    handleClose={handleClose}
+                                    reset={reset}
+                                />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
                             </div>
                         </form>
                     </div>
-
                 </div>
-
             </Modal>
         </div>
-
-    )
+    );
 }
 
 export default EditarProveedor
