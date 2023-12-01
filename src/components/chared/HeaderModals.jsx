@@ -16,6 +16,7 @@ const HeaderModals = ({ title, handleClose}) => {
                 className='btn-close'
                 data-bs-dismiss='modal'
                 aria-label='Close'
+                style={{ backgroundColor: "white"}}
             ></button>
         </div>
     );
@@ -24,7 +25,7 @@ const HeaderModals = ({ title, handleClose}) => {
 
 HeaderModals.propTypes = {
     title: PropTypes.string.isRequired,
-    handleClose: PropTypes.func.isRequired,
+    handleClose: PropTypes.func,
 };
 
 export default HeaderModals;
