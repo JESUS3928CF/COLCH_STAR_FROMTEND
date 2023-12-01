@@ -63,7 +63,12 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                 id='modalEditar'
             >
                 <div className='modal-content'>
-                    <HeaderModals title={'Editar Cliente'} />
+                    <HeaderModals title={'Editar Cliente'} 
+                    handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                     <div className='modal-body'>
                         {/* <!-- formulario para editar los datos de la tabla clientes --> */}
                         <form

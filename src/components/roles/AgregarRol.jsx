@@ -89,7 +89,11 @@ function AgregarRol() {
                 id='myModal'
             >
                   <div className='modal-content'>
-                      <HeaderModals title={'Agregar Rol'} />
+                      <HeaderModals title={'Agregar Rol'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                       <div>
                           <div className='modal-body'>
                               <form

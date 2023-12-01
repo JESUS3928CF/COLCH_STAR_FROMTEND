@@ -81,7 +81,11 @@ const AgregarUsuario = () => {
                 id='myModal'
             >
                     <div className='modal-content'>
-                        <HeaderModals title={'Agregar Usuario'} />
+                        <HeaderModals title={'Agregar Usuario'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                         <div className='modal-body'>
                             {/* <!-- formulario para agregar un usuario --> */}
                             <form

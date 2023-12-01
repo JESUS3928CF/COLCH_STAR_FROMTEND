@@ -91,7 +91,11 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
         id="modalEditar"
       >
           <div className="modal-content">
-        <HeaderModals title={'Editar Usuario'} />
+        <HeaderModals title={'Editar Usuario'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
             <div className="modal-body">
               <form
                 className="row g-3 needs-validation"

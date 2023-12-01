@@ -76,7 +76,11 @@ function EditarRol({ editarRol, handleClose, show }) {
         id="modalEditar"
       >
         <div className="modal-content">
-        <HeaderModals title={'Editar Rol'} />
+        <HeaderModals title={'Editar Rol'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
 
           
           <div className="modal-body">
