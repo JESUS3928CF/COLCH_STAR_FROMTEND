@@ -102,7 +102,7 @@ const AgregarProducto = () => {
                 id='myModal'
             >
 
-                <div  className={`modal-content ${style.taa}`} > 
+                <div  className={`modal-content `} > 
                     <HeaderModals title={'Agregar Producto'} />
 
                     <div className='modal-body'>
@@ -273,7 +273,7 @@ const AgregarProducto = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6' name='Archivo'>
+                            <div className='col-md-12' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'
@@ -283,7 +283,7 @@ const AgregarProducto = () => {
 
                                 <input
                                     type='file'
-                                    className={`form-control ${style.customer}`}
+                                    className={`form-control `}
                                     name='imagen'
                                     title='Ingrese la imagen de la prenda'
                                     {...register('imagen', {
@@ -306,7 +306,7 @@ const AgregarProducto = () => {
                             </div>
 
                             <div className='modal-footer'>
-                                <div className={style.bottonDiseno}>
+                                <div className="pr-5">
                                     <BotonNegro
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'

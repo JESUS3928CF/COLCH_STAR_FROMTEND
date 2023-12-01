@@ -92,7 +92,7 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
               className='modal d-flex align-items-center justify-content-center'
               id='modalEditar'
           >
-              <div className={`modal-content ${style.taa}`}>
+              <div className={`modal-content`}>
                   <HeaderModals title={'Editar Producto'} />
 
                   <div className='modal-body'>
@@ -246,7 +246,7 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
                               )}
                           </div>
 
-                          <div className='col-md-6' name='Archivo'>
+                          <div className='col-md-12' name='Archivo'>
                               <label
                                   htmlFor='Archivo'
                                   className='col-from-label'
@@ -256,7 +256,7 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
 
                               <input
                                   type='file'
-                                  className={`form-control ${style.customer}`}
+                                  className={`form-control`}
                                   name='imagen'
                                   title='Ingrese la imagen de la prenda'
                                   {...register('imagen', {
@@ -273,8 +273,8 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
                               )}
                           </div>
 
-                          <div className='modal-footer'>
-                              <div className={style.bottonDiseno}>
+                          <div className='modal-footer '>
+                              <div className='pr-5'>
                                   <BotonNegro
                                       text='Agregar Diseño'
                                       modalToOpen='#myModalDisenoE'
@@ -282,6 +282,7 @@ const EditarProducto = ({ editarProducto, handleClose, show , handleShow}) => {
                                   />
                               </div>
 
+                              
                               <CancelarModal
                                   reset={reset}
                                   handleClose={handleClose}
