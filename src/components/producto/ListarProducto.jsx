@@ -204,6 +204,35 @@ const ListarProducto = () => {
                                       </p>
 
                                       <div className='row pt-3'>
+                                          <div className='col-6 justify-content-center align-items-center '>
+                                              <div className='text-center'>
+                                                  <strong
+                                                      className={`${styles.textoEstado}`}
+                                                  >
+                                                      {' '}
+                                                      Publicado{' '}
+                                                  </strong>
+                                              </div>
+                                              <div className='text-center'>
+                                                  <BotonCambioEstado
+                                                      id={producto.id_producto}
+                                                      isChecked={
+                                                          producto.publicado
+                                                      }
+                                                      nombreRegistro={
+                                                          'producto'
+                                                      }
+                                                      ruta={`/productos/publicado/${producto.id_producto}`}
+                                                      cambiarPublicacion={{
+                                                          estado: producto.estado,
+                                                          paraPublicacion: true,
+                                                      }}
+                                                      editarEstado={
+                                                          editarPublicacion
+                                                      }
+                                                  />
+                                              </div>
+                                          </div>
                                           <div className='col justify-content-center align-items-center '>
                                               <div className='text-center'>
                                                   <strong
