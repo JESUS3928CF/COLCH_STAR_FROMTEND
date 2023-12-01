@@ -20,14 +20,16 @@ import BotonVerde from '../chared/BotonVerde.jsx';
 import { useDisenosContext } from '../../context/disenosProvider.jsx';
 
 const AgregarDiseno = () => {
-
     const { agregarDisenoDB } = useDisenosContext();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        reset();
+        setShow(true);
+    };
 
     /// Funciones del paquete react-hook-form necesarias para las validaciones
     const {
@@ -41,14 +43,12 @@ const AgregarDiseno = () => {
         mode: 'onChange',
     });
 
-
     const guardarDiseno = handleSubmit(async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
         const formData = new FormData();
         formData.append('nombre', data?.nombre.trim());
         formData.append('publicado', data?.publicado);
         formData.append('imagen', data?.imagen[0]);
-
 
         /// Almacenar en la DB
         agregarDisenoDB(formData, handleClose, reset);
@@ -64,7 +64,10 @@ const AgregarDiseno = () => {
             >
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title={'Agregar diseño'} />
+                    <HeaderModals
+                        title={'Agregar diseño'}
+                        handleClose={handleClose}
+                    />
 
                     <div className='modal-body'>
                         {/* formulario para agregar un Diseño */}

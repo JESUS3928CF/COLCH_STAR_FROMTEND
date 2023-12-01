@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const HeaderModals = ({ title}) => {
+const HeaderModals = ({ title, handleClose}) => {
 
     
     
@@ -10,13 +10,21 @@ const HeaderModals = ({ title}) => {
             style={{ backgroundColor: '#252432' }}
         >
             <h5 className='modal-title'>{title}</h5>
+            <button
+                type='button'
+                onClick={handleClose? () => handleClose() : () => {}}
+                className='btn-close'
+                data-bs-dismiss='modal'
+                aria-label='Close'
+            ></button>
         </div>
     );
     
 };
 
 HeaderModals.propTypes = {
-    title: PropTypes.string.isRequired, 
-}
+    title: PropTypes.string.isRequired,
+    handleClose: PropTypes.func.isRequired,
+};
 
 export default HeaderModals;

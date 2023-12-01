@@ -15,7 +15,9 @@ export const DetalleDiseno = ({ detalleDiseno }) => {
         <div className='modal' id='modalDetalles'>
             <div className='modal-dialog modal-dialog-centered'>
                 <div className='modal-content'>
-                    <HeaderModals title='Imagen del diseño' />
+                    <HeaderModals
+                        title='Imagen del diseño'
+                    />
                     <div className='formulario'>
                         <div className='modal-body'>
                             <div className='container'>
