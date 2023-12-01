@@ -30,29 +30,12 @@ const AgregarDisenoModal = ({handleShow, handleClose}) => {
 
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState('');
-    
-    useEffect(() => {
-        // Actualizar selectedDisenoNombre cuando cambie detalle_diseno o disenos
-        let selectedDiseno = [...selectedDisenoNombre];
-    
-        for (let i = 0; i < disenos.length; i++) {
-          const matchingDiseno = detalle_diseno.find(
-            (diseno) => diseno.id_diseno == disenos[i].id_diseno
-          );
-          if (matchingDiseno) {
-            selectedDiseno.push(matchingDiseno.nombre);
-          }
-        }
-    
-        setSelectedDisenoNombre(selectedDiseno);
-      }, [ disenos, agregarNuevoDiseno]);
 
-      
-    
+    const agregarNuevoDiseno = (data) => {
 
-    const agregarNuevoDiseno = () => {
+        agregarDiseno(data);
 
-
+        
         let selectedDiseno = [...selectedDisenoNombre];
 
         console.log(selectedDisenoNombre)
