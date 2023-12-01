@@ -89,6 +89,8 @@ const AgregarProducto = () => {
         )
     }
 
+    const [selectedImage, setSelectedImage] = useState(null);
+
     return (
         <div>
             {/* modal agregar producto */}
