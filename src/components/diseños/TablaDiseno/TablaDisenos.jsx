@@ -27,7 +27,6 @@ const TablaDisenos = ({
         <div className='tabla'>
             <div className='table-responsive'>
                 <table className='table caption-top'>
-                    <caption>Lista de diseños</caption>
                     <thead>
                         <tr>
                             <th scope='col'>Id</th>

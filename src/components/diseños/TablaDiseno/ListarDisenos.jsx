@@ -10,6 +10,9 @@ import Paginador from '../../chared/Paginador';
 import Swal from 'sweetalert2';
 import TablaDisenos from './TablaDisenos';
 import { useDisenosContext } from '../../../context/disenosProvider';
+import AgregarDiseno from '../AgregarDiseno';
+import BotonVerde from '../../chared/BotonVerde';
+import PrecioDiseno from '../PrecioDiseno';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
@@ -53,13 +56,32 @@ const ListarDisenos = () => {
 
     return (
         <>
-            <div className='p-2 pt-4 d-flex justify-content-center align-items-center'>
-                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                <Buscador
-                    setDatosFiltrar={setDisenosFiltrar}
-                    datos={disenosDB}
-                    camposFiltrar={['nombre', 'publicacion']}
-                />
+            {/* Sección de los Botones de diseños*/}
+            <div className='container-fluid'>
+                <div className='row'>
+                    {/* botón de agregar diseño  */}
+                    <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
+                        {/* modal de agregar diseño  */}
+                        <AgregarDiseno />
+                    </div>
+                    <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
+                        <BotonVerde
+                            text='Modificar precio'
+                            modalToOpen='#myModalPrecio'
+                        />
+
+                        {/* modal de precio de los diseños  */}
+                        <PrecioDiseno />
+                    </div>
+                    <div className='col-md-5 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center p-0'>
+                        {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                        <Buscador
+                            setDatosFiltrar={setDisenosFiltrar}
+                            datos={disenosDB}
+                            camposFiltrar={['nombre', 'publicacion']}
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* este componente me permite listar los diseños mediante una tabla o una card dependiendo de la resolución actual des dispositivo */}
