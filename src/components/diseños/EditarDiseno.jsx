@@ -48,7 +48,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
         formData.append('publicado', data?.publicado);
         formData.append('imagen', data?.imagen[0]);
 
-        editarDisenoDB(formData,detalleDiseno, handleClose)
+        editarDisenoDB(formData, detalleDiseno, handleClose);
     });
 
     return (
@@ -58,7 +58,13 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
             className='modal d-flex align-items-center justify-content-center'
         >
             <div className='modal-content'>
-                <HeaderModals title='Editar Diseño' />
+                <HeaderModals
+                    title='Editar Diseño'
+                    handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                 <div className='modal-body'>
                     {/* formulario para editar un Diseño */}
                     <form
@@ -157,7 +163,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
 EditarDiseno.propTypes = {
     detalleDiseno: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired,
-    show: PropTypes.bool.isRequired
+    show: PropTypes.bool.isRequired,
 };
 
 export default EditarDiseno;
