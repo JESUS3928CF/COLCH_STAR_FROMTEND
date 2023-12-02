@@ -7,6 +7,8 @@ import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css';
 import BotonNegro from '../chared/BotonNegro';
+import logo from '../../imgNavbar/cruz.png'
+
 
 const AgregarDisenoModal = ({ handleShow, handleClose }) => {
     const {
@@ -170,17 +172,15 @@ const AgregarDisenoModal = ({ handleShow, handleClose }) => {
 
                                     {selectedDisenoNombre.map(
                                         (diseno, index) => (
-                                            <p key={index}>
-                                                {diseno.nombre}{' '}
-                                                <span
-                                                    onClick={() =>
-                                                        eliminarDiseno01(index)
-                                                    }
-                                                >
-                                                    {' '}
-                                                    X{' '}
-                                                </span>
-                                            </p>
+                                            <div key={index} className={style.disenocontainer}>
+                                                <p>
+                                                    <span className={style.disenonombre}>- {diseno.nombre}</span>
+                                                    <span onClick={() => eliminarDiseno01(index)}>
+                                                        <img src={logo} alt="" className={style.logoimg} />
+                                                    </span>
+                                                    
+                                                </p>
+                                            </div>
                                         )
                                     )}
                                 </div>
