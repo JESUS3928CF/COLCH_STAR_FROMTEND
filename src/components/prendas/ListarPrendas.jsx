@@ -26,6 +26,7 @@ import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
 import styles from "../../css-general/CardStyleGenerar.module.css";
 import { resolucionCards } from "../../constantes/constantes.js";
 import {usePrendasContex} from '../../context/PrendasProvider.jsx'
+import SeleccionarColorsEditar from "./SelectColorEditar.jsx";
 
 export const ListarPrendas = () => {
   // conexión para traer todos los datos de la base de datos
@@ -290,6 +291,7 @@ export const ListarPrendas = () => {
       </div>
       <DetallesPrendas detallesPrendas={detallesPrendas} />
       <EditarPrendas detallesPrendas={detallesPrendas} />
+      <SeleccionarColorsEditar detallesPrendas={detallesPrendas}/>
     </>
   );
 };

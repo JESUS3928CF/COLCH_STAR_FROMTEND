@@ -64,7 +64,6 @@ const EditarPrendas = ({ detallesPrendas }) => {
       setValue("publicado", detallesPrendas.publicado);
       setValue("tallas", detallesPrendas.Talla);
       setValue("colores", detallesPrendas.color);
-      console.log(detallesPrendas.color)
 
     }
   }, [detallesPrendas]);
@@ -82,45 +81,40 @@ const EditarPrendas = ({ detallesPrendas }) => {
     } = data;
 
 
-if(colors==''){
-  alert("Seleccjione un color")
-}else {
+  
   try {
-    const res = await clienteAxios.put(
-      `http://localhost:3000/api/prendas/${detallesPrendas.id_prenda}`,
-      {
-        nombre: nombre.trim(),
-        cantidad: cantidad,
-        precio: precio.trim(),
-        tipo_de_tela: tipo_de_tela.trim(),
-        genero: genero,
-        imagen: imagen[0],
-        publicado: publicado,
-        tallas: tallas,
-        colores: JSON.stringify(colors),
-      },
+  const res = await clienteAxios.put(
+    `http://localhost:3000/api/prendas/${detallesPrendas.id_prenda}`,
+    {
+      nombre: nombre.trim(),
+      cantidad: cantidad,
+      precio: precio.trim(),
+      tipo_de_tela: tipo_de_tela.trim(),
+      genero: genero,
+      imagen: imagen[0],
+      publicado: publicado,
+      tallas: tallas,
+      colores: JSON.stringify(colors=='' ? detallesPrendas.color : colors),
+    },
+    { headers: { "Content-Type": "multipart/form-data" } }
+  );
 
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-
-    Swal.fire({
-      title: "Prenda Actualizada",
-      text: res.data.message,
-      icon: "success",
-    }).then(() => {
-      location.reload();
-    });
-  } catch (error) {
-    Swal.fire({
-      title: "Error",
-      text: "Error al actualizar",
-      icon: "error",
-    }).then(() => {
-      console.log(error)
-      location.reload();
-
-    });
-  }
+  Swal.fire({
+    title: "Prenda Actualizada",
+    text: res.data.message,
+    icon: "success",
+  }).then(() => {
+    location.reload();
+  });
+} catch (error) {
+  Swal.fire({
+    title: "Error",
+    text: "Error al actualizar",
+    icon: "error",
+  }).then(() => {
+    console.log(error);
+    location.reload();
+  });
 }
 
   
@@ -316,11 +310,10 @@ if(colors==''){
                   name="publicado"
                   className="form-control"
                   title="Estado de la publicacion"
-                  {...register("publicado", {
-                    validate: (value)=>{
-                      validarBooleanos(value)
-                    }
+                  {...register('publicado',{
+                    validate:(value)=> validarBooleanos(value)
                   })}
+                  
                 >
                   <option
                     value="Seleccione una opción"
@@ -390,7 +383,7 @@ if(colors==''){
                     />
                   </div>
 
-                  <CancelarModal />
+                  <CancelarModal  />
                   <GuardarModal />
                 </div>
             </form>

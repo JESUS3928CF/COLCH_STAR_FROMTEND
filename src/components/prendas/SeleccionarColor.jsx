@@ -14,36 +14,42 @@ const SeleccionarColors = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const { agregarColors, colors } = useColorsContex();
-  const [selectColorsName, setSelectColorsName] = useState(0);
+  const { agregarColors, eliminarColors, setColores } = useColorsContex();
+
+  const eliminarColors01 = (index) => {
+    const newColors = [...selectColorsName];
+    newColors.splice(index, 1);
+    selectColorsName(newColors);
+    eliminarColors(index);
+  };
+
+  const [selectColorsName, setSelectColorsName] = useState([]);
 
 
-  const agregarNewColors = (data) => {
+  const agregarNuevoColor = (data) => {
+    console.log(data)
     agregarColors(data);
 
-    let selectColors = [];
-
-    for (let i = 0; i < colors.length; i++) {
-      const matchingColors = colorss.find(
-        (Colors) => Colors.id_color == colors[i].id_color
-      );
-      if (matchingColors) {
-        selectColors.push(matchingColors.color);
-      }
-    }
-    setSelectColorsName(data.id_color);
+    const newColor = colorss.find(
+      (colores) => colores.id_color == data.id_color
+    );
+    setSelectColorsName([...selectColorsName, newColor]);
   };
 
   const [colorss, setColors] = useState([]);
+
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
       setColors(res.data);
     });
   }, []);
+
+
 
   return (
     <>
@@ -55,10 +61,17 @@ const SeleccionarColors = () => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <HeaderModals title={"Agregar color"} />
+            <HeaderModals
+              title="Agregar colores"
+              handleClose={() => {
+                reset(), handleClose();
+                setSelectColorsName([]);
+                setColores([]);
+              }}
+            />
             <div className="modal-body">
               <form
-                onSubmit={handleSubmit(agregarNewColors)}
+                onSubmit={handleSubmit(agregarNuevoColor)}
                 className="row g-3 needs-validation"
               >
                 <div className="col-md-6">
@@ -71,7 +84,7 @@ const SeleccionarColors = () => {
                     {...register("id_color", {
                       required: {
                         value: true,
-                        message: "Debe seleccionar al menos un diseño",
+                        message: "Debe seleccionar al menos un color",
                       },
                     })}
                   >
@@ -86,13 +99,18 @@ const SeleccionarColors = () => {
                   </select>
 
                   <div className="col-md-5 ml-6 mt-3">
-                    {selectColorsName && (
-                      <div>
-                        <br />
-                        <div>{selectColorsName}</div>
-                        <br />
-                      </div>
-                    )}
+                    {selectColorsName.map((color, index) => (
+                      <p key={index}>
+                        {color.color}{' '}
+
+                        <span onClick={()=> eliminarColors01(index)} >
+
+                          {''}X{''}
+                          
+                        </span>
+                      </p>
+                     
+                    ))}
                   </div>
                 </div>
 
@@ -119,7 +137,5 @@ const SeleccionarColors = () => {
     </>
   );
 };
-
-
 
 export default SeleccionarColors;
