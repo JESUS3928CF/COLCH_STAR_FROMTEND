@@ -18,12 +18,12 @@ import { ColorsProvider } from '../context/ColorsProvider';
 import { ClientesProvider } from '../context/ClientesProvider';
 import { GeneralProvider } from '../context/GeneralProvider';
 import { RolesProvider } from '../context/RolesProvider';
-import { UsuariosProvider } from '../context/UsuariosProvider'; //
-import { ComprasProviders } from '../context/ComprasProvider';
+import { UsuariosProvider } from '../context/UsuariosProvider'; 
 import { ProveedoresProvider } from '../context/ProveedoresProvider';
 import { ProductosProvider } from '../context/ProductosProvider';
 import RecuperarPassword from '../pages/ResuperarPassword';
-
+import { PrendasProvider } from '../context/PrendasProvider';
+import { ComprasProviders } from '../context/ComprasProvider';
 
 const MyRoutes = () => {
     return (
@@ -31,6 +31,7 @@ const MyRoutes = () => {
             <AuthProvider>
                 <GeneralProvider>
                     <DisenosProvider>
+                        <PrendasProvider>
                         <ColorsProvider>
                             <ComprasProviders>
                                 <ClientesProvider>
@@ -135,6 +136,7 @@ const MyRoutes = () => {
                                 </ClientesProvider>
                             </ComprasProviders>
                         </ColorsProvider>
+                        </PrendasProvider>
                     </DisenosProvider>
                 </GeneralProvider>
             </AuthProvider>

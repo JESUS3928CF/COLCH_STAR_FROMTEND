@@ -38,10 +38,18 @@ const AgregarProducto = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    // funcion para cerrar modal de AgregarDiseñosModal
+    const [showw, setShoww] = useState(false);
+
+    const handleClosee = () => { setShoww(false), handleShow() }
+    const handleShoww = () => { setShoww(true), handleClose() }
+    const handleClosex = () => setShoww(false);
+
+
 
     const { disenos } = useDisenosContext();
 
-    
+
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -53,7 +61,7 @@ const AgregarProducto = () => {
         mode: "onChange",
     });
 
-    
+
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const [Prendas, setPrendas] = useState([]);
     const { config } = useAuth();
@@ -87,7 +95,7 @@ const AgregarProducto = () => {
                 imagen: imagen[0],
                 disenos: JSON.stringify(disenos)
             },
-            
+
 
             reset,
             handleClose
@@ -106,15 +114,15 @@ const AgregarProducto = () => {
                     handleClose();
                 }}
                 className="modal d-flex align-items-center justify-content-center "
-                
+
                 id='myModal'
             >
 
-                <div  className={`modal-content `} > 
+                <div className={`modal-content `} >
                     <HeaderModals title={'Agregar Producto'} handleClose={() => {
                         reset();
                         handleClose();
-                    }}  />
+                    }} />
 
                     <div className='modal-body'>
                         <form
@@ -322,7 +330,7 @@ const AgregarProducto = () => {
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'
                                         modalToOpen='#myModalDiseno'
-                                        onClick={handleClose}
+                                        onClick={handleShoww}
                                     />
                                 </div>
                                 <CancelarModal
@@ -337,8 +345,13 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal handleClose={handleClose}
-                handleShow={handleShow} />
+            <AgregarDisenoModal
+                // le pasamos las funciones a AgregarDiseñoModal
+                handleClosee={handleClosee}
+                handleShoww={handleShoww}
+                showw={showw}
+                handleClosex={handleClosex}
+            />
         </div>
     );
 }
