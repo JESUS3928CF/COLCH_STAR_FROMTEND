@@ -25,12 +25,13 @@ import Header from "../chared/header/Header";
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
 import styles from "../../css-general/CardStyleGenerar.module.css";
 import { resolucionCards } from "../../constantes/constantes.js";
+import {usePrendasContex} from '../../context/PrendasProvider.jsx'
 
 export const ListarPrendas = () => {
   // conexión para traer todos los datos de la base de datos
 
-  const [Prendas, setPrendas] = useState([]);
-  const [detallesPrendas, setDetallesPrendas] = useState({});
+  const {Prendas} = usePrendasContex();
+  const [detallesPrendas, setDetallesPrendas] = useState({}|| null);
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
 
 
@@ -46,14 +47,15 @@ export const ListarPrendas = () => {
 
   //Solicitud de la url
   useEffect(() => {
-    const consultarPrendas = async () => {
-      const respuesta = await clienteAxios.get("/prendas");
-      setPrendas(respuesta.data);
-      setprendasFiltrar(respuesta.data);
-    };
-
-    consultarPrendas();
-  }, []);
+    // const consultarPrendas = async () => {
+    //   const respuesta = await clienteAxios.get("/prendas");
+    //   setPrendas(respuesta.data);
+    //   
+    // };
+    // console.log(Prendas)
+    setprendasFiltrar(Prendas);
+    // consultarPrendas();
+  }, [Prendas]);
 
   const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -61,6 +63,7 @@ export const ListarPrendas = () => {
     /// Calcular el ancho de pantalla actual
     calcularAnchoDePantalla(setAnchoPantalla);
   }, []);
+
 
 
   return (

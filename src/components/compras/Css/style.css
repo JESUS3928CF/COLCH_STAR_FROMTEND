@@ -1,0 +1,15 @@
+.formDetallesCompras{
+    margin-left: 320px;
+    margin-top: -290px;
+    /* padding-top: -320px; */
+    position:absolute;
+    border-color: #dc3545; /* Cambiar el color del borde para campos inválidos */
+
+}
+
+.botonGuardarDetalles{
+    position: absolute;
+    margin-top: 250px;
+    right: 310px;
+}
+

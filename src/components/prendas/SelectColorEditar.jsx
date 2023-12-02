@@ -9,8 +9,11 @@ import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
 import { useColorsContex } from "../../context/ColorsProvider";
+import { DetallesPrendas } from "./DetallesPrendas";
 
 const SeleccionarColorsEditar = () => {
+
+  const { coloresEditar} = useColorsContex()
   const {
     register,
     handleSubmit,
@@ -25,6 +28,8 @@ const SeleccionarColorsEditar = () => {
     agregarColors(data);
 
     let selectColors = [];
+
+    console.log(colors)
 
     for (let i = 0; i < colors.length; i++) {
       const matchingColors = colorss.find(
@@ -44,7 +49,12 @@ const SeleccionarColorsEditar = () => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
       setColors(res.data);
     });
+
   }, []);
+
+
+ 
+
 
   return (
     <>
