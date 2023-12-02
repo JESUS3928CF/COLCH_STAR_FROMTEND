@@ -26,10 +26,7 @@ const MenuLateral = () => {
     }, []);
     
     useEffect(() => {
-        alert(auth.usuario)
         if (!loading && auth.usuario === undefined) return navigate('/login');
-
-
     }, [loading]);
 
     if (loading || !auth.usuario) return 'Cargando...';
