@@ -241,7 +241,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                         required: {
                                             value: true,
                                             message:
-                                                'El telefono es obligatorio',
+                                                'El teléfono es obligatorio',
                                         },
                                         pattern: {
                                             value: /^\d+$/,
@@ -254,9 +254,9 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             if (
                                                 telefonoSinEspacios.length <
                                                     7 ||
-                                                telefonoSinEspacios.length > 11
+                                                telefonoSinEspacios.length > 10
                                             ) {
-                                                return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                return 'El teléfono debe tener minimo 7 digitos y maximo 10';
                                             }
                                             return true;
                                         },
@@ -330,7 +330,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                         pattern: {
                                             value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                             message:
-                                                'El Email no tiene un formato válido',
+                                                'El email no tiene un formato válido',
                                         },
                                     })}
                                     onChange={(e) => {

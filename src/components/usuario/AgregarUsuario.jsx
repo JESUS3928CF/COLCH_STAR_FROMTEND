@@ -188,7 +188,7 @@ const AgregarUsuario = () => {
                                             required: {
                                                 value: true,
                                                 message:
-                                                    'El telefono es obligatorio',
+                                                    'El teléfono es obligatorio',
                                             },
                                             pattern: {
                                                 value: /^\d+$/,
@@ -202,9 +202,9 @@ const AgregarUsuario = () => {
                                                     telefonoSinEspacios.length <
                                                         7 ||
                                                     telefonoSinEspacios.length >
-                                                        11
+                                                        10
                                                 ) {
-                                                    return 'El telefono debe tener mínimo 7 dígitos y máximo 12';
+                                                    return 'El telefono debe tener mínimo 7 dígitos y máximo 10';
                                                 }
                                                 return true;
                                             },
@@ -280,9 +280,9 @@ const AgregarUsuario = () => {
                                                     'La contraseña es obligatoria',
                                             },
                                             pattern: {
-                                                value: /^\S{6,}$/, // Expresión regular que verifica al menos 6 caracteres.
+                                                value: /^(?!\s)(?!.*\s)[^\s]{6,15}$/, // Expresión regular que verifica al menos 6 caracteres.
                                                 message:
-                                                    'La contraseña debe tener al menos 6 caracteres sin espacios',
+                                                    'La contraseña debe tener entre 6 y 15 dígitos sin espacios',
                                             },
                                         })}
                                         onChange={(e) => {

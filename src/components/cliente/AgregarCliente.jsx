@@ -188,7 +188,7 @@ const AgregarCliente = () => {
                                             required: {
                                                 value: true,
                                                 message:
-                                                    'El Nombre es obligatorio',
+                                                    'El nombre es obligatorio',
                                             },
                                             validate: (value) => {
                                                 // Valida espacios
@@ -289,9 +289,9 @@ const AgregarCliente = () => {
                                                     telefonoSinEspacios.length <
                                                         7 ||
                                                     telefonoSinEspacios.length >
-                                                        12
+                                                        10
                                                 ) {
-                                                    return 'El teléfono debe tener mínimo 7 dígitos y máximo 12';
+                                                    return 'El teléfono debe tener mínimo 7 dígitos y máximo 10';
                                                 }
                                                 return true;
                                             },
@@ -376,7 +376,7 @@ const AgregarCliente = () => {
                                             pattern: {
                                                 value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                                 message:
-                                                    'El Email no tiene un formato válido',
+                                                    'El email no tiene un formato válido',
                                             },
                                         })}
                                         onChange={(e) => {

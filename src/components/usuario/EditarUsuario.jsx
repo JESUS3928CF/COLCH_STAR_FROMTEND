@@ -201,7 +201,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                   {...register('telefono', {
                                       required: {
                                           value: true,
-                                          message: 'El telefono es obligatorio',
+                                          message: 'El teléfono es obligatorio',
                                       },
                                       pattern: {
                                           value: /^\d+$/,
@@ -213,9 +213,9 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                               value.replace(/\s/g, '');
                                           if (
                                               telefonoSinEspacios.length < 7 ||
-                                              telefonoSinEspacios.length > 11
+                                              telefonoSinEspacios.length > 10
                                           ) {
-                                              return 'El telefono debe tener mínimo 7 dígitos y máximo 12';
+                                              return 'El teléfono debe tener mínimo 7 dígitos y máximo 10';
                                           }
                                           return true;
                                       },
@@ -255,7 +255,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                       pattern: {
                                           value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                           message:
-                                              'El Email no tiene un formato válido',
+                                              'El email no tiene un formato válido',
                                       },
                                   })}
                                   onChange={(e) => {
