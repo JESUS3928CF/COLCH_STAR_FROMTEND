@@ -20,6 +20,7 @@ import { GeneralProvider } from '../context/GeneralProvider';
 import { RolesProvider } from '../context/RolesProvider';
 import {UsuariosProvider } from '../context/UsuariosProvider'; //
 import {ComprasProviders} from '../context/ComprasProvider';
+import { PrendasProvider } from '../context/PrendasProvider';
 
 const MyRoutes = () => {
     return (
@@ -27,6 +28,7 @@ const MyRoutes = () => {
             <AuthProvider>
                 <GeneralProvider>
                     <DisenosProvider>
+                        <PrendasProvider>
                         <ColorsProvider>
                         <ComprasProviders>
                             <ClientesProvider>
@@ -93,6 +95,7 @@ const MyRoutes = () => {
                             </ClientesProvider>
                             </ComprasProviders>
                         </ColorsProvider>
+                        </PrendasProvider>
                     </DisenosProvider>
                 </GeneralProvider>
             </AuthProvider>

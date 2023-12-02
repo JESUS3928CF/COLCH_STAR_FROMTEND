@@ -17,7 +17,7 @@ export const ColorsProvider=({children})=>{
         setColores(colores)
 
     }
-    
+
     const contextValue = {
         colors,
         agregarColors,
