@@ -316,10 +316,11 @@ if(colors==''){
                   name="publicado"
                   className="form-control"
                   title="Estado de la publicacion"
-                  {...register('publicado',{
-                    validate:(value)=> validarBooleanos(value)
+                  {...register("publicado", {
+                    validate: (value)=>{
+                      validarBooleanos(value)
+                    }
                   })}
-                  
                 >
                   <option
                     value="Seleccione una opción"
@@ -389,7 +390,7 @@ if(colors==''){
                     />
                   </div>
 
-                  <CancelarModal  />
+                  <CancelarModal />
                   <GuardarModal />
                 </div>
             </form>

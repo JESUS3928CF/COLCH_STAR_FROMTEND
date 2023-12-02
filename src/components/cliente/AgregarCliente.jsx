@@ -69,12 +69,20 @@ const AgregarCliente = () => {
 
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='myModal'
             >
                 <div className='modal-content'>
-                    <HeaderModals title={'Agregar Cliente'} />
+                    <HeaderModals title={'Agregar Cliente'} 
+                     handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                     <div>
                         <div className='modal-body'>
                             {/* <!-- formulario para agregar un usuario --> */}

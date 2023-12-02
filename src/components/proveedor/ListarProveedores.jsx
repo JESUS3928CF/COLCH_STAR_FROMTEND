@@ -8,48 +8,47 @@ import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
 import style from '../../pages/proveedores.module.css';
+import styles from "../../css-general/CardStyleGenerar.module.css";
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarProveedor from './EditarProveedor';
-import Buscador from '../chared/Buscador';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
-import Swal from 'sweetalert2';
 import Header from '../chared/header/Header'
+import Buscador from '../chared/Buscador';
+import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import { resolucionCards } from "../../constantes/constantes.js";
-import styles from "../../css-general/CardStyleGenerar.module.css";
+import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
+import useProveedor from '../../hooks/useProveedor.jsx'
+import AgregarProveedor from './AgregarProveedor.jsx';
 
 
-
-//componente
+//Componente
 const ListarProveedores = () => {
+
+    const { proveedores, editarEstado } = useProveedor();
+
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     //estado de la barra buscador
     const [ProveedoresFiltrar, setProveedoresFiltrar] = useState([]);
 
-    // conexión para traer todos los datos de la base de datos, con proveedor es que s eva acer el mapeo en la tabla listar
-    const [proveedores, setProveedor] = useState([]);
 
 
     // solicitud  a la url
     useEffect(() => {
-        axios.get('http://localhost:3000/api/proveedores')
-            .then(response => {
-                // traeos los datos y se los mnadamos a proveedor, es decir set proveedor actualiza el estado de proveedor
-                setProveedor(response.data);
-            })
-            .catch(error => {
-                console.error('Error al obtener la lista de proveedores', error);
-            })
-    }, []);
+        setProveedoresFiltrar(proveedores.slice(0, registrosPorPagina))
+    }, [proveedores]);
 
-    //estado para editar
+
+    //Estado para editar
     const [editarProveedor, setEditarProveedor] = useState("");
 
-
-    //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
+    //Si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
     const handleEditClick = (proveedor) => {
 
         if (!proveedor.estado) {
@@ -60,14 +59,20 @@ const ListarProveedores = () => {
             );
         }
         setEditarProveedor(proveedor);
+        handleShow();
     };
 
+
+
+    //ancho de la pantalla para el resposive
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+
 
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
+
 
     return (
         <div>
@@ -81,14 +86,7 @@ const ListarProveedores = () => {
                         <div
                             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                         >
-                            <button
-                                type='button'
-                                className='btn-a'
-                                data-bs-toggle='modal'
-                                data-bs-target='#myModal'
-                            >
-                                Agregar proveedor
-                            </button>
+                            <AgregarProveedor />
                         </div>
 
                         {/* botón de buscar */}
@@ -116,10 +114,10 @@ const ListarProveedores = () => {
                             <thead>
                                 <tr>
                                     <th scope='col'>ID</th>
+                                    <th scope='col'>Identificación</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Teléfono</th>
                                     <th scope='col'>Dirección</th>
-                                    <th scope='col'>Identificación</th>
                                     <th scope='col'>Inhabilitar</th>
                                     <th scope='col'>Editar</th>
                                 </tr>
@@ -129,14 +127,14 @@ const ListarProveedores = () => {
                                 {ProveedoresFiltrar.map((proveedor) => (
                                     <tr key={proveedor.id_proveedor}>
                                         <td>{proveedor.id_proveedor}</td>
-                                        <td>{proveedor.nombre}</td>
-                                        <td>{proveedor.telefono}</td>
-                                        <td>{proveedor.direccion}</td>
                                         <td>
                                             {' '}
                                             {proveedor.tipoIdentificacion}{' '}
                                             {proveedor.identificador}
                                         </td>
+                                        <td>{proveedor.nombre}</td>
+                                        <td>{proveedor.telefono}</td>
+                                        <td>{proveedor.direccion}</td>
                                         <td>
                                             {' '}
                                             <BotonCambioEstado
@@ -144,6 +142,7 @@ const ListarProveedores = () => {
                                                 isChecked={proveedor.estado}
                                                 nombreRegistro={'proveedor'}
                                                 ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
+                                                editarEstado={editarEstado}
                                             />
                                         </td>
                                         <td>
@@ -219,6 +218,7 @@ const ListarProveedores = () => {
                                                             'proveedor'
                                                         }
                                                         ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
+                                                        editarEstado={editarEstado}
                                                     />
                                                 </div>
                                             </div>
@@ -251,8 +251,11 @@ const ListarProveedores = () => {
                     </div>
                 )}
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
-                <EditarProveedor editarProveedor={editarProveedor} />
+                <EditarProveedor proveedor={editarProveedor}
+                    show={show}
+                    handleClose={handleClose} />
             </div>
+
 
             <div className='seccion4'>
                 {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}

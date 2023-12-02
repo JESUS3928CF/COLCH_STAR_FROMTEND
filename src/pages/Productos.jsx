@@ -10,6 +10,7 @@ import useAuth from '../hooks/useAuth';
 
 
 
+
 const Productos = () => {
     /// extrayendo la información para la autenticación
     const { auth, loading } = useAuth();
@@ -19,7 +20,7 @@ const Productos = () => {
     return auth.usuario.permisos.includes('producto') ? (
         <div>
             <ListarProducto />
-            <AgregarProducto />
+            {/* <AgregarProducto /> */}
         </div>
     ) : (
         <Navigate to={'/administracion'} />

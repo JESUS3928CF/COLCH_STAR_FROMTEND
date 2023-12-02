@@ -60,6 +60,8 @@ const AgregarPrendas = () => {
     });
   }, []);
 
+
+
   const onSubmit = async (data) => {
     const {
       nombre,
@@ -72,6 +74,14 @@ const AgregarPrendas = () => {
       tallas,
     } = data;
 
+    if(colors==''){
+      Swal.fire({
+        title: "Error",
+        text: "Seleccione los colores",
+        icon: "error",
+      })
+    }else{
+      
     if(colors==''){
 
       Swal.fire({
@@ -124,6 +134,8 @@ const AgregarPrendas = () => {
           icon: "Vuelva a intentarlo",
         }).then(location.reload());
       }
+    }
+
 
 
     }

@@ -4,12 +4,11 @@ import { FcApproval, FcCancel } from 'react-icons/fc';
 import styles from '../../css-general/estilosReutilizables.module.css';
 
 
-const DetallesProducto = ({ editarProducto }) => {
+const DetallesProducto = ({ detallesProductos }) => {
 
     return (
         <div>
             <div className='modal' id='modalDetalles'>
-
                 <div className='modal-dialog modal-dialog-centered modal '>
                     <div className='modal-content ' >
                         <HeaderModals title='Imagen del producto' NoReset={true} />
@@ -30,16 +29,16 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                                             <img
                                                                 src={
-                                                                    editarProducto.imagen
+                                                                    detallesProductos.imagen
                                                                         ? `${import.meta.env
                                                                             .VITE_BACKEND_URL
-                                                                        }/${editarProducto.imagen
+                                                                        }/${detallesProductos.imagen
                                                                         }`
                                                                         : ''
 
                                                                 }
-                                                                alt={editarProducto.nombre}
-                                                                title={editarProducto.nombre}
+                                                                alt={detallesProductos.nombre}
+                                                                title={detallesProductos.nombre}
                                                                 className={styles.contenedor_imagen}
                                                             />
                                                         </div>
@@ -52,22 +51,22 @@ const DetallesProducto = ({ editarProducto }) => {
 
                                                             <img
                                                                 src={
-                                                                    editarProducto.imagen
+                                                                    detallesProductos.imagen
                                                                         ? `${import.meta.env
                                                                             .VITE_BACKEND_URL
-                                                                        }/${editarProducto.prenda && editarProducto.prenda.imagen
+                                                                        }/${detallesProductos.prenda && detallesProductos.prenda.imagen
                                                                         }`
                                                                         : ''
                                                                 }
-                                                                alt={editarProducto.nombre}
-                                                                title={editarProducto.nombre}
+                                                                alt={detallesProductos.nombre}
+                                                                title={detallesProductos.nombre}
                                                                 className={styles.contenedor_imagen}
                                                             />
                                                         </div>
 
 
 
-                                                        {editarProducto.disenos && editarProducto.disenos.map((diseno, index) => (
+                                                        {detallesProductos.disenos && detallesProductos.disenos.map((diseno, index) => (
                                                             <div key={`${diseno.nombre}-${index}`} className={`carousel-item  ${styles.tamano}`}>
 
                                                                 <div className={styles.titu} >
@@ -85,6 +84,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                                         alt={diseno.nombre}
                                                                         title={diseno.nombre}
                                                                         className={styles.contenedor_imagen}
+                                                                         style={{width:180, marginLeft:30}}
 
                                                                     />
 
@@ -123,7 +123,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     >
                                                         {' '}
                                                         <b>Genero:</b>{' '}
-                                                        {editarProducto.prenda && editarProducto.prenda.genero}
+                                                        {detallesProductos.prenda && detallesProductos.prenda.genero}
                                                     </h2>
                                                     <h2
                                                         htmlFor='nombre'
@@ -131,7 +131,7 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     >
                                                         {' '}
                                                         <b>Tela:</b>{' '}
-                                                        {editarProducto.prenda && editarProducto.prenda.tipo_de_tela}
+                                                        {detallesProductos.prenda && detallesProductos.prenda.tipo_de_tela}
                                                     </h2>
 
 
@@ -156,8 +156,8 @@ const DetallesProducto = ({ editarProducto }) => {
                                                     paddingBottom: '5px',
                                                 }}
                                             >
-                                                {editarProducto.publicado &&
-                                                    editarProducto.estado ? (
+                                                {detallesProductos.publicado &&
+                                                    detallesProductos.estado ? (
                                                     <FcApproval />
                                                 ) : (
                                                     <FcCancel />

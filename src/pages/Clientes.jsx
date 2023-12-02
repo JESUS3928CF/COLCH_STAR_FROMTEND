@@ -1,14 +1,23 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import ListarCliente from '../components/cliente/ListarCliente';
 import useAuth from '../hooks/useAuth';
-// import EditarCliente from '../components/cliente/EditarCliente';
 
 
 const Clientes = () => {
-    
+    const navigate = useNavigate();
     const { auth, loading } = useAuth();
-    if (loading == true) return 'Cargando...';
 
+    /// Verificar que tenga una sección iniciada
+    const token = localStorage.getItem('token');
+    if (!token) return navigate('');
+
+
+    /// Verificar que el token que esta en el navegador sea valido
+    if (loading) return 'Cargando...';
+
+
+    
+    
 
     return auth.usuario.permisos.includes('cliente') ? (
         <div>

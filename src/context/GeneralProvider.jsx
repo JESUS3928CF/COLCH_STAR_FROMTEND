@@ -7,7 +7,7 @@ const GeneralProvider = ({ children }) => {
 
     return (
         <generalContext.Provider
-            value={{ }}
+            value={{}}
         >
             {children}
         </generalContext.Provider>
@@ -15,8 +15,12 @@ const GeneralProvider = ({ children }) => {
 };
 
 // PropTypes para validar los props
+// PropTypes para validar los props
 GeneralProvider.propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node),
+    ]),
 };
 
 export {  GeneralProvider };

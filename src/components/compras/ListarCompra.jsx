@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {DetalleCompras} from "./DetallesCompras";
 import AgregarCompras from "./AgregarCompra";
+import useAuth from "../../hooks/useAuth";
 
 const ListarCompra = () => {
   //Estado de la barra de busqueda
@@ -28,18 +29,26 @@ const ListarCompra = () => {
   //   axios.get('')
   // })
 
+  
 
+  const { auth } = useAuth();
 
 useEffect(()=>{
+  const token = localStorage.getItem('token');
+  if (!token) return;
+
   axios.get('http://localhost:3000/api/compraDetalles')
   .then((res)=>{
     setDetails(res.data)
   })
-},[])
+},[auth])
 
 
   // Solicitud a la url
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
     // Realiza una solicitud al backend para obtener la lista de usuarios
     axios
       .get(`${import.meta.env.VITE_BACKEND_URL}/api/compra`)
@@ -52,7 +61,7 @@ useEffect(()=>{
       .catch((error) => {
         console.error("Error al obtener la lista de compras:", error);
       });
-  }, []);
+  }, [auth]);
 
 
 

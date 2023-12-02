@@ -6,12 +6,15 @@ import { calcularAnchoDePantalla } from '../../../helpers/calcularAnchoDePantall
 
 import styles from '../../../css-general/CardStyleGenerar.module.css';
 import { resolucionCards } from '../../../constantes/constantes';
+import { useDisenosContext } from '../../../context/disenosProvider';
 
 const TablaDisenos = ({
     disenosFiltrar,
     LlenarInformacionModal,
     LlenarInformacionModalEditar,
 }) => {
+
+    const { editarEstado, editarPublicacion } = useDisenosContext();
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -24,7 +27,6 @@ const TablaDisenos = ({
         <div className='tabla'>
             <div className='table-responsive'>
                 <table className='table caption-top'>
-                    <caption>Lista de diseños</caption>
                     <thead>
                         <tr>
                             <th scope='col'>Id</th>
@@ -59,6 +61,7 @@ const TablaDisenos = ({
                                             estado: diseno.estado,
                                             paraPublicacion: true,
                                         }}
+                                        editarEstado={editarPublicacion}
                                     />
                                 </td>
                                 <td>
@@ -67,6 +70,7 @@ const TablaDisenos = ({
                                         isChecked={diseno.estado}
                                         nombreRegistro='diseño'
                                         ruta={`/disenos/estado/${diseno.id_diseno}`}
+                                        editarEstado={editarEstado}
                                     />
                                 </td>
                                 <td>
@@ -130,6 +134,7 @@ const TablaDisenos = ({
                                                 estado: diseno.estado,
                                                 paraPublicacion: true,
                                             }}
+                                            editarEstado={editarPublicacion}
                                         />
                                     </div>
                                 </div>
@@ -146,6 +151,7 @@ const TablaDisenos = ({
                                             isChecked={diseno.estado}
                                             nombreRegistro='diseño'
                                             ruta={`/disenos/estado/${diseno.id_diseno}`}
+                                            editarEstado={editarEstado}
                                         />
                                     </div>
                                 </div>

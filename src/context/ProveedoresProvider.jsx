@@ -1,48 +1,44 @@
 import { createContext, useEffect, useState } from 'react';
-import clienteAxios from '../config/axios';
+import proveedorAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const clientesContext = createContext();
+const proveedoresContext = createContext();
 
-const ClientesProvider = ({ children }) => {
+const ProveedoresProvider = ({ children }) => {
     const { config, auth } = useAuth();
 
     // primer state
-    const [clientes, setClientes] = useState([]);
+    const [proveedores, setProveedores] = useState([]);
 
     // función para obtener los clientes solo cuando se carge el componente
 
-    const consultarClientes = async () => {
+    const consultarProveedores = async () => {
         try {
-            const token = localStorage.getItem('token');
-            if (!token) return;
+            const { data } = await proveedorAxios.get('/proveedores', config);
 
-            const { data } = await clienteAxios.get('/clientes', config);
-
-            setClientes(data);
+            setProveedores(data);
         } catch (error) {
             console.log(error);
         }
     };
     useEffect(() => {
-        consultarClientes();
+        consultarProveedores();
     }, [auth]);
 
-    const agregarCliente = async (cliente, reset, handleClose) => {
+    const agregarProveedor = async (proveedor, reset, handleClose) => {
         try {
-            
-            const res = await clienteAxios.post('/clientes', cliente, config);
+            const res = await proveedorAxios.post('/proveedores', proveedor, config);
 
             // Lanzar alerta del producto agregado
             Swal.fire({
-                title: 'Cliente agregado',
+                title: 'Proveedor agregado',
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
                 reset();
-                setClientes([...clientes, res.data.nuevoCliente]);
+                setProveedores([...proveedores, res.data.nuevoProveedor]);
                 handleClose();
             });
         } catch (err) {
@@ -59,61 +55,50 @@ const ClientesProvider = ({ children }) => {
                     text: 'Hubo un error',
                     icon: 'error',
                 }).then(() => {
-                    reset()
                     handleClose();
                 });
             }
         }
     };
 
-    const editarCliente = (cliente, handleClose, reset) => {
-        const {
-            identificacion,
-            tipoIdentificacion,
-            nombre,
-            apellido,
-            telefono,
-            email,
-            direccion,
-        } = cliente;
+    const editarProveedor = (proveedor, handleClose, reset) => {
 
-        if (cliente.id_cliente) {
+        const { tipoIdentificacion, identificador, nombre, telefono, direccion } = proveedor
+
+        if (proveedor.id_proveedor) {
             axios
                 .patch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/clientes/${
-                        cliente.id_cliente
+                    `${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${proveedor.id_proveedor
                     }`,
                     {
-                        // Campos en los que realiza el cambio
+                        // campos en los que realiza el cambio
                         tipoIdentificacion: tipoIdentificacion.trim(),
-                        identificacion: identificacion.trim(),
+                        identificador: identificador.trim(),
                         nombre: nombre.trim(),
-                        apellido: apellido.trim(),
                         telefono: telefono.trim(),
-                        email: email.trim(),
-                        direccion: direccion.trim(),
+                        direccion: direccion.trim()
                     },
                     config
                 )
                 .then((response) => {
                     Swal.fire({
-                        title: 'Cliente actualizado',
+                        title: 'Proveedor actualizado',
                         text: response.data.message,
                         icon: 'success',
                     }).then(() => {
-                        const clienteActualizado = clientes.map((cliente) =>
-                            cliente.id_cliente ===
-                            response.data.cliente.id_cliente
-                                ? response.data.cliente
-                                : cliente
+                        const proveedorActualizado = proveedores.map((proveedor) =>
+                        proveedor.id_proveedor ===
+                                response.data.proveedor.id_proveedor
+                                ? response.data.proveedor
+                                : proveedor
                         );
-                        setClientes(clienteActualizado);
+                        setProveedores(proveedorActualizado);
                         handleClose();
                         reset()
                     });
                 })
                 .catch((error) => {
-                    console.error('Error al actualizar el cliente', error);
+                    console.error('Error al actualizar el proveedor', error);
 
                     if (error.response && error.response.status === 403) {
                         Swal.fire({
@@ -126,34 +111,34 @@ const ClientesProvider = ({ children }) => {
                             title: 'Error',
                             text: 'Hubo un error',
                             icon: 'error',
-                        }).then(() => {});
+                        }).then(() => { });
                     }
                 });
         } else {
-            console.error('No se pudo obtener el ID del cliente');
+            console.error('No se pudo obtener el ID del proveedor');
         }
     };
 
     const editarEstado = (id) => {
 
-        let clienteEditado = clientes.find( cliente => cliente.id_cliente === id);
-        clienteEditado.estado = !clienteEditado.estado
+        let proveedorEditado = proveedores.find(proveedor => proveedor.id_proveedor === id);
+        proveedorEditado.estado = !proveedorEditado.estado
 
-        const clienteActualizado = clientes.map((cliente) =>
-            cliente.id_cliente == id ? clienteEditado : cliente
+        const proveedorActualizado = proveedores.map((proveedor) =>
+        proveedor.id_proveedor == id ? proveedorEditado : proveedor
         );
 
-        setClientes(clienteActualizado);
+        setProveedores(proveedorActualizado);
     };
 
     return (
-        <clientesContext.Provider
-            value={{ clientes, agregarCliente, editarCliente, editarEstado }}
+        <proveedoresContext.Provider
+            value={{ proveedores, agregarProveedor, editarProveedor, editarEstado }}
         >
             {children}
-        </clientesContext.Provider>
+        </proveedoresContext.Provider>
     );
 };
 
-export { ClientesProvider };
-export default clientesContext;
+export { ProveedoresProvider };
+export default proveedoresContext;
