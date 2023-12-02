@@ -29,7 +29,7 @@ const MenuLateral = () => {
         if (!loading && auth.usuario === undefined) return navigate('/login');
     }, [loading]);
 
-    if (loading) return 'Cargando...';
+    if (loading || !auth.usuario) return 'Cargando...';
 
     return (
         <>

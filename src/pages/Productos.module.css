@@ -65,6 +65,24 @@
 }
 
 
+.disenocontainer {
+    /* display: flex;  */
+    align-items: center; /* Centra verticalmente los elementos dentro del contenedor */
+}
+
+.disenonombre {
+    margin-right: 10px;
+    margin-top: 5%;
+    font-weight: 500;
+}
+
+.logoimg {
+    cursor: pointer;
+    display: inline-block; 
+    width: 20px;
+}
+
+
 
 
 
