@@ -9,7 +9,8 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 
-const EditarDisenoModal = ({handleShow, handleClose}) => {
+
+const EditarDisenoModal = ({ handleShow, handleClose,  }) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -17,26 +18,32 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
         reset
     } = useForm();
 
-    const { agregarDiseno, disenos } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
+
+    const eliminarDiseno01 = (index) => {
+        // Crea una copia del array original
+        const nuevosDisenos = [...selectedDisenoNombre];
+        // Elimina el elemento en el índice especificado
+        nuevosDisenos.splice(index, 1);
+        // Actualiza el estado con la nueva array sin el elemento eliminado
+        setSelectedDisenoNombre(nuevosDisenos);
+
+        eliminarDiseno(index)
+    };
 
 
-
-
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState('');
+    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
     const agregarNuevoDiseno = (data) => {
+        console.log(data);
         agregarDiseno(data);
 
+        console.log(selectedDisenoNombre);
+        const nuevoDiseno = detalle_diseno.find(
+            (diseno) => diseno.id_diseno == data.id_diseno
+        );
 
-        let selectedDiseno = [];
-
-        for (let i = 0; i < disenos.length; i++) {
-            const matchingDiseno = detalle_diseno.find((diseno) => diseno.id_diseno == disenos[i].id_diseno);
-            if (matchingDiseno) {
-                selectedDiseno.push(matchingDiseno.nombre);
-            }
-        }
-        setSelectedDisenoNombre(selectedDiseno);
+        setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
 
 
@@ -80,7 +87,9 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
                     <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
                         reset();
                         handleClose();
-                    }}  />
+                        setSelectedDisenoNombre([])
+                        setDisenos([])
+                    }} />
 
                     <div className='modal-body'>
                         <form
@@ -94,7 +103,7 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        Diseños: 
+                                        Diseños:
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -128,7 +137,7 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        Tamaño: 
+                                        Tamaño:
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -161,17 +170,25 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
 
                                 </div>
                                 <div className='col-md-6'>
+                                    <p className={style.diseñosModalTitle}>
+                                        Diseños seleccionados:
+                                    </p>
 
-                                    <p className={style.diseñosModalTitle}>Diseños seleccionados:</p>
-                                   
-                                    {selectedDisenoNombre && (
-                                        // <div className={style.h3container}>
-
-                                        <p>{` ${selectedDisenoNombre.join('\n- ')}`}</p>
-                                        // </div>
+                                    {selectedDisenoNombre.map(
+                                        (diseno, index) => (
+                                            <p key={index}>
+                                                {diseno.nombre}{' '}
+                                                <span
+                                                    onClick={() =>
+                                                        eliminarDiseno01(index)
+                                                    }
+                                                >
+                                                    {' '}
+                                                    X{' '}
+                                                </span>
+                                            </p>
+                                        )
                                     )}
-
-
                                 </div>
 
                             </div>
@@ -182,12 +199,12 @@ const EditarDisenoModal = ({handleShow, handleClose}) => {
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
 
-                                <BotonNegro text={'Regresar'} 
-                                 modalClouse={"modal"}
-                                 onClick={handleShow}/>
+                                <BotonNegro text={'Regresar'}
+                                    modalClouse={"modal"}
+                                    onClick={handleShow} />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal/>
+                                <GuardarModal />
                             </div>
 
 

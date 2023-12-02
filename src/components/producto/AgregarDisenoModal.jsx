@@ -7,7 +7,6 @@ import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css';
 import BotonNegro from '../chared/BotonNegro';
-import { DetalleDiseno } from '../diseños/DetalleDiseno';
 
 const AgregarDisenoModal = ({ handleShow, handleClose }) => {
     const {
@@ -17,7 +16,7 @@ const AgregarDisenoModal = ({ handleShow, handleClose }) => {
         reset,
     } = useForm();
 
-    const { agregarDiseno, eliminarDiseno } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
 
 
     const eliminarDiseno01 = (index) => {
@@ -46,7 +45,7 @@ const AgregarDisenoModal = ({ handleShow, handleClose }) => {
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
 
-    
+
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
@@ -80,6 +79,9 @@ const AgregarDisenoModal = ({ handleShow, handleClose }) => {
                         handleClose={() => {
                             reset();
                             handleClose();
+                            //para que se restablesca el modal cuando se cierre el modal
+                            setSelectedDisenoNombre([])
+                            setDisenos([])
                         }}
                     />
 

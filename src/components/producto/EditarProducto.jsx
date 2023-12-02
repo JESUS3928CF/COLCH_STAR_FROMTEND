@@ -13,7 +13,6 @@ import { useState, useEffect } from 'react';
 import { validarEspaciosVacios, validarImagen, validarBooleanos } from '../../Validations/validations'
 import HeaderModals from '../chared/HeaderModals'
 import BotonNegro from '../chared/BotonNegro'
-import { useDisenosContext } from '../../context/disenosProvider';
 import EditarDisenoModal from './EditarDisenoModal'
 import { Modal } from 'react-bootstrap';
 import useProducto from '../../hooks/useProducto.jsx';
@@ -307,6 +306,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
             <EditarDisenoModal
                 handleClose={handleClose}
                 handleShow={handleShow}
+                editarProducto= {editarProducto}
             />
         </div>
     );

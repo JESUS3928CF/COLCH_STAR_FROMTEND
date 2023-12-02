@@ -10,6 +10,7 @@ import useAuth from '../hooks/useAuth';
 
 
 
+
 const Productos = () => {
     /// extrayendo la información para la autenticación
     const { auth, loading } = useAuth();

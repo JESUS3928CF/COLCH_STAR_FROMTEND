@@ -137,6 +137,7 @@ export const DisenosProvider = ({ children }) => {
         editarEstado,
         editarPublicacion,
         eliminarDiseno,
+        setDisenos
     };
 
     return (
