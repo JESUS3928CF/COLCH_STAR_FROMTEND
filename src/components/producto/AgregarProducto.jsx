@@ -35,15 +35,17 @@ const AgregarProducto = () => {
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => { setShow(false);
+    };
     const handleShow = () => setShow(true);
 
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
 
     const handleClosee = () => { setShoww(false), handleShow() }
-    const handleShoww = () => { setShoww(true), handleClose() }
-    const handleClosex = () => setShoww(false);
+    const handleShoww = () => {   setShoww(true), handleClose() }
+    const handleClosex = () => { setShoww(false);
+    };
 
 
 
@@ -75,11 +77,11 @@ const AgregarProducto = () => {
     }, []);
 
 
-
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data
+
 
         //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
         //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven 
@@ -97,11 +99,11 @@ const AgregarProducto = () => {
             },
 
 
+
             reset,
             handleClose
         )
     }
-
     return (
         <div>
             {/* modal agregar producto */}
