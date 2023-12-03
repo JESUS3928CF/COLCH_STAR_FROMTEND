@@ -8,6 +8,8 @@ import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import clienteAxios from "../../config/axios";
 import { useForm } from "react-hook-form";
+import style from "../../pages/proveedores.module.css";
+
 import {
   validarEspaciosVacios,
   validarImagen,
@@ -22,13 +24,23 @@ import styles from "../../pages/Productos.module.css";
 import BotonNegro from "../chared/BotonNegro";
 import { useColorsContex } from "../../context/ColorsProvider";
 import SeleccionarColors from "./SeleccionarColor";
-import { Breadcrumb } from "react-bootstrap";
+import {Modal} from "react-bootstrap";
+import usePrendas from "../../hooks/usePrendas";
+import BotonVerde from "../chared/BotonVerde";
 
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
   const [Colors, setColors] = useState([]);
+
+
+
   const { colors } = useColorsContex();
-  const [Prendas, setPrendas] = useState([]);
+  const {agregarPrendas, Prendas} = usePrendas()
+  const [show, setShow]= useState(false)
+
+  const handleClose = ()=> setShow(false)
+  const handleShow = ()=> setShow(true)
+  
 
   const {
     register,
@@ -37,7 +49,6 @@ const AgregarPrendas = () => {
     setValue,
     trigger,
     reset,
-    getValues
   } = useForm({
     mode: 'onChange',
   });
@@ -48,11 +59,7 @@ const AgregarPrendas = () => {
     });
   }, []);
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/api/prendas").then((ress) => {
-      setPrendas(ress.data);
-    });
-  }, []);
+
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/tallas").then((response) => {
@@ -74,84 +81,53 @@ const AgregarPrendas = () => {
       tallas,
     } = data;
 
-    if(colors==''){
+    if (colors==''){
       Swal.fire({
         title: "Error",
         text: "Seleccione los colores",
         icon: "error",
       })
+
     }else{
-      
-    if(colors==''){
 
-      Swal.fire({
-        title: "Error",
-        text: "Seleccione un color",
-        icon: "error",
-      })
+      agregarPrendas({
+        nombre: nombre.trim(),
+        cantidad: cantidad.trim(),
+        precio: precio.trim(),
+        tipo_de_tela: tipo_de_tela.trim(),
+        genero: genero,
+        imagen: imagen[0],
+        publicado: publicado,
+        tallas: tallas,
+        colores: JSON.stringify(colors),
+      },
 
-      
+      reset,
+      handleClose
+    
+      )}
     }
-    else{
-
-      try {
-        const res = await axios.post(
-          "http://localhost:3000/api/prendas",
-          {
-            nombre: nombre.trim(),
-            cantidad: cantidad.trim(),
-            precio: precio.trim(),
-            tipo_de_tela: tipo_de_tela.trim(),
-            genero: genero,
-            imagen: imagen[0],
-            publicado: publicado,
-            tallas: tallas,
-            colores: JSON.stringify(colors),
-          },
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-  
-        console.log(colors)
-  
-        
-  
-  
-        Swal.fire({
-          title: "Prenda agregado",
-          text: res.data.message,
-          icon: "success",
-        }).then(() => {
-          location.reload();
-        });
-      } catch (error) {
-        Swal.fire({
-          title: "Error",
-          text: "Hubo un error",
-          icon: "Vuelva a intentarlo",
-        }).then(location.reload());
-      }
-    }
-
-
-
-    }
-
-  };
 
   return (
     <>
-      <div className="modal" id="myModal">
-        <div
-          className={`modal-dialog modal-dialog-centered  modal-lg ${styles.modal}`}
-        >
-          <div className="modal-content">
-            <HeaderModals title={"Agregar Prenda"} />
+      <BotonVerde text={'Agregar Prendas'} onClick={handleShow}/>
+      <Modal show={show}
+      onHide={()=>{
+        reset();
+        handleClose()      
+      }}
 
-            <div className="modal-body">
+      
+      id="myModal"
+      >
+              
+          <div className='modal-lg '>
+            <HeaderModals title={"Agregar Prenda"} handleClose={()=>{
+              reset()
+              handleClose()
+            }} />
+
+            <div className="modal-body ">
               <form
                 className="row g-3 needs-validation"
                 onSubmit={handleSubmit(onSubmit)}
@@ -425,26 +401,27 @@ const AgregarPrendas = () => {
                 </div>
 
                 <div className="modal-footer">
-                  <div className={styles.bottonDiseno}>
+                  <div>
                     <BotonNegro
                       text="Agregrar color"
                       modalToOpen={"#crearColor"}
-                      modalClouse={"modal"}
+                      onClick={handleClose}
                     />
                   </div>
 
                                   
 
-                  <CancelarModal reset={reset} />
+                  <CancelarModal reset={reset} handleClose={handleClose} />
                   <GuardarModal />
                 </div>
               </form>
             </div>
           </div>
-        </div>
-      </div>
+          </Modal>
       <AgregarColors />
-      <SeleccionarColors />
+      <SeleccionarColors handleClose={handleClose} handleShow={handleShow} />
+    
+      
     </>
   );
 };

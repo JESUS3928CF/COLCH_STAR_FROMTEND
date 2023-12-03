@@ -1,23 +1,16 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import HeaderModals from "../chared/HeaderModals";
-import { validarEspaciosVacios } from "../../Validations/validations";
-import AlertaError from "../chared/AlertaError";
-import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
 import { useColorsContex } from "../../context/ColorsProvider";
-import { DetallesPrendas } from "./DetallesPrendas";
 
 const SeleccionarColorsEditar = () => {
 
-  const { coloresEditar} = useColorsContex()
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
   const { agregarColors, colors } = useColorsContex();
