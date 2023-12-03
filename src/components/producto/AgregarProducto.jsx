@@ -35,13 +35,23 @@ const AgregarProducto = () => {
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => { setShow(false);
+    };
     const handleShow = () => setShow(true);
+
+    // funcion para cerrar modal de AgregarDiseñosModal
+    const [showw, setShoww] = useState(false);
+
+    const handleClosee = () => { setShoww(false), handleShow() }
+    const handleShoww = () => {   setShoww(true), handleClose() }
+    const handleClosex = () => { setShoww(false);
+    };
+
 
 
     const { disenos } = useDisenosContext();
 
-    
+
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -53,7 +63,7 @@ const AgregarProducto = () => {
         mode: "onChange",
     });
 
-    
+
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const [Prendas, setPrendas] = useState([]);
     const { config } = useAuth();
@@ -67,11 +77,11 @@ const AgregarProducto = () => {
     }, []);
 
 
-
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data
+
 
         //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
         //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven 
@@ -87,13 +97,13 @@ const AgregarProducto = () => {
                 imagen: imagen[0],
                 disenos: JSON.stringify(disenos)
             },
-            
+
+
 
             reset,
             handleClose
         )
     }
-
     return (
         <div>
             {/* modal agregar producto */}
@@ -106,15 +116,15 @@ const AgregarProducto = () => {
                     handleClose();
                 }}
                 className="modal d-flex align-items-center justify-content-center "
-                
+
                 id='myModal'
             >
 
-                <div  className={`modal-content `} > 
+                <div className={`modal-content `} >
                     <HeaderModals title={'Agregar Producto'} handleClose={() => {
                         reset();
                         handleClose();
-                    }}  />
+                    }} />
 
                     <div className='modal-body'>
                         <form
@@ -322,7 +332,7 @@ const AgregarProducto = () => {
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'
                                         modalToOpen='#myModalDiseno'
-                                        onClick={handleClose}
+                                        onClick={handleShoww}
                                     />
                                 </div>
                                 <CancelarModal
@@ -337,8 +347,13 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal handleClose={handleClose}
-                handleShow={handleShow} />
+            <AgregarDisenoModal
+                // le pasamos las funciones a AgregarDiseñoModal
+                handleClosee={handleClosee}
+                handleShoww={handleShoww}
+                showw={showw}
+                handleClosex={handleClosex}
+            />
         </div>
     );
 }

@@ -1,28 +1,42 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
+import clienteAxios from '../config/axios';
+import useAuth from '../hooks/useAuth';
 
-const ComprasContex = createContext();
+const comprasContext = createContext();
 
+const ComprasProviders = ({ children }) => {
+    /// Respaldo de las compras
+    const [compras, setCompras] = useState([]);
 
-export const ComprasProviders =({children})=>{
-    const [compras, setCompras]= useState([])
+    const { config, auth } = useAuth();
 
-    const agregarDetalleCompras = (data)=>{
-        const newDetallesCompras=[...compras,data];
-        setCompras(newDetallesCompras);
+    // función para obtener los clientes solo cuando se carge el componente
+
+    const consultarCompras = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const { data } = await clienteAxios.get('/compras', config);
+
+            setCompras(data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    const contextValue={
+    useEffect(() => {
+        consultarCompras();
+    }, [auth]);
+    const contextValue = {
         compras,
-        agregarDetalleCompras,
-    }
+    };
 
-    return(
-        <ComprasContex.Provider value={contextValue}>
+    return (
+        <comprasContext.Provider value={contextValue}>
             {children}
-        </ComprasContex.Provider>
-    )
+        </comprasContext.Provider>
+    );
 };
 
-export const useComprasContex=()=>{
-    return useContext(ComprasContex)
-};
+export { ComprasProviders };
+export default comprasContext;
