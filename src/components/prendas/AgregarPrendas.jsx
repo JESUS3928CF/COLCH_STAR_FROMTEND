@@ -36,8 +36,9 @@ const AgregarPrendas = () => {
 
   const { colors } = useColorsContex();
   const {agregarPrendas, Prendas} = usePrendas()
-  const [show, setShow]= useState(false)
 
+
+  const [show, setShow]= useState(false)
   const handleClose = ()=> setShow(false)
   const handleShow = ()=> setShow(true)
   

@@ -13,7 +13,7 @@ import logo from '../../imgNavbar/cruz.png'
 import style from '../../pages/Productos.module.css';
 
 
-const SeleccionarColors = ({handleShow,handleClose}) => {
+const SeleccionarColors = ({handleClose,handleShow}) => {
   const {
     register,
     handleSubmit,
