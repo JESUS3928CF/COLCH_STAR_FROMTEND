@@ -9,10 +9,11 @@ import Paginador from '../chared/Paginador';
 import BotonNegro from '../chared/BotonNegro';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import { useEffect, useState } from 'react';
-import { registrosPorPagina } from '../../constantes/constantes';
+import { registrosPorPagina, resolucionCards } from '../../constantes/constantes';
 import useCompras from '../../hooks/useCompras';
-import { DetalleCompras } from './DetallesCompras';
-// import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
+import  {DetalleCompras}  from './DetallesCompras';
+import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
+import styles from '../../css-general/CardStyleGenerar.module.css';
 
 const ListarCompra = () => {
     const { compras } = useCompras();
@@ -30,12 +31,12 @@ const ListarCompra = () => {
         console.log(comprasFiltrar);
     }, [compras]);
 
-    // const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+    const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
-    // useEffect(() => {
-    //     /// Calcular el ancho de pantalla actual
-    //     calcularAnchoDePantalla(setAnchoPantalla);
-    // }, []);
+    useEffect(() => {
+        /// Calcular el ancho de pantalla actual
+        calcularAnchoDePantalla(setAnchoPantalla);
+    }, []);
 
     return (
         <>
@@ -77,6 +78,7 @@ const ListarCompra = () => {
                             </div>
                         </div>
                     </div>
+                {anchoPantalla >= resolucionCards ? (
                     <div className='tabla'>
                         <table className='table caption-top '>
                             <thead>
@@ -124,6 +126,84 @@ const ListarCompra = () => {
                             </tbody>
                         </table>
                     </div>
+                ):(
+                    <div className={`row pt-4 justify-content-center`}>
+                        {comprasFiltrar.map((compra) => (
+                            <div
+                                className={`col-md-4 col-sm-6 col-xs-12`}
+                                key={compra.id_compra}
+                            >
+                                <div
+                                    className={`card mb-4 ${styles.contenedor_card}`}
+                                >
+                                    <div className='card-body'>
+                                        <p className={styles.text}>
+                                            Id:{' '}
+                                            <span>{compra.id_compra}</span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Proveedor:{' '}
+                                            <span>{compra.proveedor
+                                                ? compra.proveedor.nombre
+                                                : 'N/A'}</span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Total de Compra:{' '}
+                                            <span>{compra.total_de_compra}</span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Fecha:{' '}
+                                            <span>{compra.fecha}</span>
+                                        </p>
+
+                                        <div className='row pt-3'>
+                                            <div className='col justify-content-center align-items-center '>
+                                                <div className='text-center'>
+                                                    <strong
+                                                        className={`${styles.textoEstado}`}
+                                                    >
+                                                        {' '}
+                                                        Estado{' '}
+                                                    </strong>
+                                                </div>
+                                                <div className='text-center'>
+                                                    <BotonCambioEstado
+                                                        id={compra.id_compra}
+                                                        isChecked={
+                                                            compra.estado
+                                                        }
+                                                        nombreRegistro={
+                                                            'compra'
+                                                        }
+                                                        ruta={`/compra/estado/${compra.id_compra}`}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='card-footer'>
+                                        <div className='row'>
+                                            <div
+                                                className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
+                                            >
+                                                <BotonNegro
+                                                    text='Ver'
+                                                    modalToOpen= '#modalDetalleCompra'
+                                                    onClick={() =>
+                                                        setDetallesCompra(
+                                                            compra
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
                 </div>
 
                 <div className='seccion4'>
