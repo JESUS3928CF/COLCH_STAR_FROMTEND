@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 
-const GuardarModal = () => {
+const GuardarModal = ({text = "Guardar"}) => {
 
     // Crear un objeto de propiedades dinámicas
     const buttonProps = {
         type: 'submit',
         className: 'btn-AgregarP',
-        value: 'Guardar',
+        value: text,
     };
 
     return <input {...buttonProps} />;
 };
 
 GuardarModal.protoTypes = {
-    shouldDismiss: PropTypes.bool
+    text: PropTypes.string,
 };
 
 export default GuardarModal;

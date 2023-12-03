@@ -10,14 +10,15 @@ import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import { validarFecha } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
-import BotonNegro from '../chared/BotonNegro';
 import useProveedor from '../../hooks/useProveedor';
-import usePrendas from '../../hooks/usePrendas';
+import AgregarDetallesCompra from './AgregarDetallesCompra';
+import useCompras from '../../hooks/useCompras';
 
 const AgregarCompras = () => {
+    
+    const { agregarCompra } = useCompras();
 
     const { proveedores } = useProveedor();
-     const { Prendas } = usePrendas();
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
@@ -38,7 +39,10 @@ const AgregarCompras = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data)
+        console.log(data);
+
+        agregarCompra(data);
+
     };
 
     return (
@@ -48,126 +52,114 @@ const AgregarCompras = () => {
                     <div className='modal-content'>
                         <HeaderModals title={'Agregar Compra'} />
                         <div>
-                            <div className='modal-body '>
+                            <div className='modal-body'>
                                 <form
                                     action=''
                                     id='formularioagregarCompra'
                                     onSubmit={handleSubmit(onSubmit)}
                                 >
-                                    <div className='col-md-4'>
-                                        <label
-                                            htmlFor='rol'
-                                            className='col-form-label'
-                                        >
-                                            Proveedor: *
-                                        </label>
+                                    <div className='row'>
+                                        {' '}
+                                        <div className='col-md-6'>
+                                            <label
+                                                htmlFor='rol'
+                                                className='col-form-label'
+                                            >
+                                                Proveedor: *
+                                            </label>
 
-                                        <select
-                                            name='fk_proveedor'
-                                            className='form-control'
-                                            {...register('fk_proveedor', {
-                                                required: {
-                                                    value: true,
-                                                    message:
-                                                        'Debe seleccionar una proveedor',
-                                                },
-                                            })}
-                                        >
-                                            <option value=''>
-                                                Seleccionar Proveedor
-                                            </option>
-                                            {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
-                                            esto se guarda en name =
-                                            fk_proveedor
-                                            {proveedores.map((proveedor) => {
-                                                return (
-                                                    <option
-                                                        key={
-                                                            proveedor.id_proveedor
-                                                        }
-                                                        value={
-                                                            proveedor.id_proveedor
-                                                        }
-                                                    >
-                                                        {proveedor.nombre}
-                                                    </option>
-                                                );
-                                            })}
-                                        </select>
+                                            <select
+                                                name='fk_proveedor'
+                                                className='form-control'
+                                                {...register('fk_proveedor', {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            'Debe seleccionar una proveedor',
+                                                    },
+                                                })}
+                                            >
+                                                <option value=''>
+                                                    Seleccionar Proveedor
+                                                </option>
 
-                                        {errors.fk_proveedor && (
-                                            <AlertaError
-                                                message={
-                                                    errors.fk_proveedor.message
-                                                }
-                                            />
-                                        )}
-                                    </div>
+                                                {proveedores.map(
+                                                    (proveedor) => {
+                                                        return (
+                                                            <option
+                                                                key={
+                                                                    proveedor.id_proveedor
+                                                                }
+                                                                value={
+                                                                    proveedor.id_proveedor
+                                                                }
+                                                            >
+                                                                {
+                                                                    proveedor.nombre
+                                                                }
+                                                            </option>
+                                                        );
+                                                    }
+                                                )}
+                                            </select>
 
-                                    <div className='col-md-4'>
-                                        <label
-                                            htmlFor='totalCompraAgregar'
-                                            className='col-form-label'
-                                        >
-                                            Fecha
-                                        </label>
-                                        <input
-                                            type='date'
-                                            className='form-control'
-                                            id='totalCompraAgregar'
-                                            {...register('fecha', {
-                                                required: {
-                                                    value: true,
-                                                    message:
-                                                        'la fecha es obligatorio',
-                                                },
-                                                pattern: {
-                                                    value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',
-                                                    message: 'Error',
-                                                },
-                                                validate: (value) => {
-                                                    return validarFecha(value);
-                                                },
-                                            })}
-                                            onChange={(e) => {
-                                                setValue(
-                                                    'fecha',
-                                                    e.target.value
-                                                ),
+                                            {errors.fk_proveedor && (
+                                                <AlertaError
+                                                    message={
+                                                        errors.fk_proveedor
+                                                            .message
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                        <div className='col-md-6'>
+                                            <label
+                                                htmlFor='totalCompraAgregar'
+                                                className='col-form-label'
+                                            >
+                                                Fecha
+                                            </label>
+                                            <input
+                                                type='date'
+                                                className='form-control'
+                                                id='totalCompraAgregar'
+                                                {...register('fecha', {
+                                                    required: {
+                                                        value: true,
+                                                        message:
+                                                            'la fecha es obligatorio',
+                                                    },
+                                                    pattern: {
+                                                        value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',
+                                                        message: 'Error',
+                                                    },
+                                                    validate: (value) =>
+                                                        validarFecha(value),
+                                                })}
+                                                onChange={(e) => {
+                                                    setValue(
+                                                        'fecha',
+                                                        e.target.value
+                                                    );
                                                     trigger('fecha');
-                                            }}
-                                        />
-
-                                        {errors.fecha && (
-                                            <AlertaError
-                                                message={errors.fecha.message}
+                                                }}
                                             />
-                                        )}
+
+                                            {errors.fecha && (
+                                                <AlertaError
+                                                    message={
+                                                        errors.fecha.message
+                                                    }
+                                                />
+                                            )}
+                                        </div>
                                     </div>
 
-                                    <div className='col-md-4'>
-                                        <label
-                                            htmlFor='totalCompraAgregar'
-                                            className='col-form-label'
-                                        >
-                                            Precio Total
-                                        </label>
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            id='totalCompraAgregar'
-                                            readOnly
-                                        />
-
-                                        {errors.total_de_compra && (
-                                            <AlertaError
-                                                message={
-                                                    errors.total_de_compra
-                                                        .message
-                                                }
-                                            />
-                                        )}
+                                    <div className='col-md-4 my-3'>
+                                        <p>Precio total = 15000</p>
                                     </div>
+
+                                    <AgregarDetallesCompra />
 
                                     <div className='modal-footer'>
                                         <CancelarModal
@@ -176,153 +168,6 @@ const AgregarCompras = () => {
                                         <GuardarModal />
                                     </div>
                                 </form>
-
-                                <div action='' className='formDetallesCompras'>
-                                    <form
-                                        action=''
-                                        className='row g-3 needs-validation'
-                                        onSubmit={handleSubmit()}
-                                    >
-                                        <label htmlFor=' '>
-                                            Agregale los detalles de compras
-                                        </label>
-
-                                        <div className='col-md-5 '>
-                                            <label
-                                                htmlFor='rol'
-                                                className='col-form-label'
-                                            >
-                                                Productos: *
-                                            </label>
-
-                                            <select
-                                                name='fk_prenda'
-                                                className='form-control'
-                                                {...register('fk_prenda', {})}
-                                            >
-                                                <option value=''>
-                                                    Diseños
-                                                </option>
-                                                {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
-                                                esto se guarda en name =
-                                                fk_prenda
-                                                {Prendas.map((prenda) => {
-                                                    return (
-                                                        <option
-                                                            key={
-                                                                prenda.id_prenda
-                                                            }
-                                                            value={
-                                                                prenda.id_prenda
-                                                            }
-                                                        >
-                                                            {prenda.nombre}
-                                                        </option>
-                                                    );
-                                                })}
-                                            </select>
-
-                                            {errors.fk_prenda && (
-                                                <AlertaError
-                                                    message={
-                                                        errors.fk_prenda.message
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-
-                                        <div className='col-md-4'>
-                                            <label
-                                                htmlFor='nombreCompraAgregar'
-                                                className='col-form-label'
-                                            >
-                                                Cantidad
-                                            </label>
-                                            <input
-                                                type='text'
-                                                className='form-control'
-                                                id='nombreCompraAgregar'
-                                                name='nombreCompraAgregar'
-                                                placeholder='. . .'
-                                                {...register('cantidad', {
-                                                    required: {
-                                                        value: true,
-                                                        message:
-                                                            'La cantidad es obligatoria',
-                                                    },
-                                                    pattern: {
-                                                        value: /^\d+$/,
-                                                        message:
-                                                            'No se peremiten letras ni caracteres especiales',
-                                                    },
-                                                })}
-                                                onChange={(e) => {
-                                                    setValue(
-                                                        'cantidad',
-                                                        e.target.value
-                                                    ),
-                                                        trigger('cantidad');
-                                                }}
-                                            />
-
-                                            {errors.cantidad && (
-                                                <AlertaError
-                                                    message={
-                                                        errors.cantidad.message
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-
-                                        <div className='col-md-4'>
-                                            <label
-                                                htmlFor='totalCompraAgregar'
-                                                className='col-form-label'
-                                            >
-                                                Precio unitario
-                                            </label>
-                                            <input
-                                                type='text'
-                                                className='form-control'
-                                                id='totalCompraAgregar'
-                                                placeholder='. . .'
-                                                {...register('precio', {
-                                                    required: {
-                                                        value: true,
-                                                        message:
-                                                            'El precio es obligatorio',
-                                                    },
-                                                    pattern: {
-                                                        value: /^\d+$/,
-                                                        message:
-                                                            'No se permiten letras ni caracteres espaciales',
-                                                    },
-                                                })}
-                                                onChange={(e) => {
-                                                    setValue(
-                                                        'precio',
-                                                        e.target.value
-                                                    ),
-                                                        trigger('precio');
-                                                }}
-                                            />
-                                            {errors.precio && (
-                                                <AlertaError
-                                                    message={
-                                                        errors.precio.message
-                                                    }
-                                                />
-                                            )}
-                                        </div>
-
-                                        <div className='botonGuardarDetalles'>
-                                            <BotonNegro
-                                                text={'Agregar Detalles'}
-                                            />
-                                            <GuardarModal />
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -115,7 +115,6 @@ const ListarCompra = () => {
                                                     '#modalDetalleCompra'
                                                 }
                                                 onClick={() => {
-                                                    console.log(compra)
                                                     setDetallesCompra(compra);
                                                 }}
                                             />
