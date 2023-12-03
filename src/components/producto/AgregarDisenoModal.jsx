@@ -83,7 +83,7 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
 
     const [Precio, setPrecio] = useState([]);
     // console.log(Precio)
-
+    
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
