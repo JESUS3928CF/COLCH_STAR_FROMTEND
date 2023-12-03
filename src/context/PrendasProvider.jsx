@@ -60,7 +60,7 @@ const PrendasProvider = ({ children }) => {
     }
   };
 
-const {colors} = useColorsContex()
+const {colors,setColores} = useColorsContex()
 
 console.log(colors)
 
@@ -68,6 +68,8 @@ console.log(colors)
 
 
   const updatePrendas = (data, detallesPrendas, handleClose) => {
+    setColores(detallesPrendas.color)
+
     const {
       nombre,
       cantidad,
@@ -80,7 +82,6 @@ console.log(colors)
     } = data;
 
 
-    console.log(detallesPrendas.color[0].id_color)
 console.log(colors)
 
 console.log(data.nombre)
@@ -93,7 +94,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/prendas/${
-            updatePrendas.id_prenda
+            detallesPrendas.id_prenda
           }`,
           {
             nombre: 'Jesus',
@@ -104,9 +105,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             imagen: imagen[0],
             publicado: publicado,
             tallas: tallas,
-            colores: JSON.stringify(
-              colors === ' ' ? detallesPrendas.color : colors.id_color
-            ),
+            colores: JSON.stringify(colors== '' ? detallesPrendas.color: colors),
           },
           {
             headers: {

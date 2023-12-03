@@ -21,7 +21,7 @@ import usePrendas from '../../hooks/usePrendas.jsx'
 import useAuth from "../../hooks/useAuth";
 import { Modal } from "react-bootstrap";
 
-const EditarPrendas = ({ detallesPrendas,handleClose, show, handleShow }) => {
+const EditarPrendas = ({ detallesPrendas,show,handleClose}) => {
 
   const {updatePrendas,Prendas} = usePrendas()
 
@@ -77,6 +77,7 @@ const EditarPrendas = ({ detallesPrendas,handleClose, show, handleShow }) => {
     }
   }, [detallesPrendas,show]);
 
+  console.log(detallesPrendas.nombre)
   const onSubmitt = async (data)=>{
 
     
@@ -93,11 +94,12 @@ const EditarPrendas = ({ detallesPrendas,handleClose, show, handleShow }) => {
   
   return (
     <>
-    <Modal show={show}
-    onHide={()=>{
-      reset();
-      handleClose()
-    }}
+    <Modal 
+    show={show}
+    // onHide={()=>{
+    //   reset();
+    //   handleClose()
+    // }}
 
     className='modal d-flex align-items-center justify-content-center'
     id= 'modalEditarPrenda'
@@ -111,10 +113,10 @@ const EditarPrendas = ({ detallesPrendas,handleClose, show, handleShow }) => {
         <div className="modal-content">
           <HeaderModals title={'Editar Prendas'}
 
-          handleClose={()=>{
-            reset()
-            handleClose()
-          }}
+          // handleClose={()=>{
+          //   reset()
+          //   handleClose()
+          // }}
           
           
           />
@@ -383,8 +385,8 @@ const EditarPrendas = ({ detallesPrendas,handleClose, show, handleShow }) => {
     </Modal>
     <SeleccionarColorsEditar
 
-    handleClose={handleClose}
-    handleShow={handleShow}
+    // handleClose={handleClose}
+    // handleShow={handleShow}
     detallesPrendas= {detallesPrendas}
     
     />
