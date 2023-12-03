@@ -13,7 +13,7 @@ export const DisenosProvider = ({ children }) => {
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
 
-    console.log(disenosDB)
+    // console.log(disenosDB)
 
     const agregarDiseno = (data) => {
         const nuevoDisenos = [...disenos, data];

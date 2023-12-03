@@ -30,7 +30,7 @@ const Catalogo = () => {
     const { Prendas } = usePrendas();
     //hacemos el conteno de cuanrto diseños hay guardadoa
     const cantidadPrendas = Prendas ? Prendas.length : 0;
-    console.log(Prendas)
+    // console.log(Prendas)
 
 
     //traemos toda la informacion de producto guardada
@@ -42,7 +42,7 @@ const Catalogo = () => {
     const { disenosDB } = useDisenosContext();
     //hacemos el conteno de cuanrto diseños hay guardadoa
     const cantidadDisenos = disenosDB ? disenosDB.length : 0;
-    console.log(disenosDB)
+    // console.log(disenosDB)
 
 
 

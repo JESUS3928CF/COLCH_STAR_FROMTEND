@@ -62,7 +62,7 @@ const PrendasProvider = ({ children }) => {
 
 const {colors,setColores} = useColorsContex()
 
-console.log(colors)
+// console.log(colors)
 
 
 
