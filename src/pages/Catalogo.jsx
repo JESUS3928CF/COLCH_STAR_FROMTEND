@@ -17,27 +17,39 @@ import logoW from '../imgNavbar/whatsapp.svg'
 import logo10 from '../imgNavbar/LogoPNG.png'
 import { useDisenosContext } from '../context/disenosProvider';
 import useProducto from '../hooks/useProducto';
+import usePrendas from '../hooks/usePrendas';
 
 
 
 
-
+//Componente
 const Catalogo = () => {
-    const { productos } = useProducto();
 
-    const cantidadProductos = productos ? productos.length : 0;
+
+    //traemos toda la informacion de prendas guardada
+    const { Prendas } = usePrendas();
+    //hacemos el conteno de cuanrto diseños hay guardadoa
+    const cantidadPrendas = Prendas ? Prendas.length : 0;
+    console.log(Prendas)
+
+
+    //traemos toda la informacion de producto guardada
+    const { productos } = useProducto();
+    // const cantidadProductos = productos ? productos.length : 0;
     // console.log(productos)
 
+    //traemos toda la informacion de diseños guardada
     const { disenosDB } = useDisenosContext();
-
+    //hacemos el conteno de cuanrto diseños hay guardadoa
     const cantidadDisenos = disenosDB ? disenosDB.length : 0;
-
-
     console.log(disenosDB)
+
+
+
+
 
     const { auth, loading } = useAuth();
     if (loading == true) return 'Cargando...';
-
 
 
 
@@ -52,19 +64,19 @@ const Catalogo = () => {
                 {/* <div className={`${style.bx} ${style['bx-menu']}`} id="menuicon"></div> */}
 
                 <ul className={style.navbar}>
-                    <li>
+                    {/* <li>
                         <a href='#home' className={style.home_active}>
                             Home
                         </a>
-                    </li>
+                    </li> */}
                     <li>
                         <a href='#categories'>Categorias</a>
                     </li>
                     <li>
-                        <a href='#diseños'>Diseños</a>
+                        <a href='#products'>Productos</a>
                     </li>
                     <li>
-                        <a href='#products'>Productos</a>
+                        <a href='#diseños'>Diseños</a>
                     </li>
                     <li>
                         <a href='#about'>Nosotros</a>
@@ -167,11 +179,12 @@ const Catalogo = () => {
 
                 {/* Contenedor de contenido */}
                 <div className={style['categories-container']}>
+                    
                     {/* Box 1 */}
                     <div className={`${style.box} ${style.box1}`}>
                         <img className={style.img} src={logo4} alt='' />
                         <h2>Prendas</h2>
-                        <span><p> {cantidadProductos} Articulos </p></span>
+                        <span><p> {cantidadPrendas} Articulos </p></span>
                         <a href='#products'><i className={`bx bx-right-arrow-alt`}></i></a>
                     </div>
 
@@ -187,8 +200,48 @@ const Catalogo = () => {
                 </div>
             </section>
 
-            {/* //productoss */}
+
+
+            {/* //prendas */}
             <section className={style.products + ' ' + style.section} id="products" >
+                <div className={style.heading}>
+                    <h1>Nuestras Prendas  <br /> <span>Populares</span></h1>
+                    <a href="#" className={style.btn}>Comprar <i className="bx bx-right-arrow-alt"></i></a>
+                </div>
+
+                <div className={style.productsconatiner}>
+
+                    {Prendas
+                        .filter((Prendas) => Prendas.publicado) // Filter only published designs
+                        .map((Prendas) => (
+                            <div className={style.box} key={Prendas.id_diseno}>
+                                <img
+                                    className={style.imagenProducto + " " + style.img}
+                                    src={
+                                        Prendas.imagen
+                                            ? `${import.meta.env.VITE_BACKEND_URL}/${Prendas.imagen}`
+                                            : ''
+                                    }
+                                    alt=""
+                                />
+                                <div className={style.informacionProducto}>
+                                </div>
+                                <span className={style.discount}>
+                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}{Prendas.nombre}
+                                </span>
+                                <img className={style.iconoWhatapp + " " + style.img} src={logoW} alt="" />
+                            </div>
+                        ))}
+                </div>
+            </section>
+
+
+
+
+
+
+            {/* //productoss */}
+            <section className={style.products + ' ' + style.section} id="" >
                 <div className={style.heading}>
                     <h1>Nuestros Productos  <br /> <span>Populares</span></h1>
                     <a href="#" className={style.btn}>Comprar <i className="bx bx-right-arrow-alt"></i></a>
@@ -219,11 +272,6 @@ const Catalogo = () => {
                         ))}
                 </div>
             </section>
-
-
-
-
-
 
 
 

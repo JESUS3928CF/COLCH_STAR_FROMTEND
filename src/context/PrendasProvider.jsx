@@ -15,8 +15,8 @@ const PrendasProvider = ({ children }) => {
 
   const consultPrendas = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
+      // const token = localStorage.getItem("token");
+      // if (!token) return;
 
       const { data } = await clienteAxios.get("/prendas");
 
