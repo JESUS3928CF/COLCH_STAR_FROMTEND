@@ -77,6 +77,7 @@ const ComprasProviders = ({ children }) => {
 
     const contextValue = {
         compras,
+        agregarCompra,
     };
 
     return (

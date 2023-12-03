@@ -110,7 +110,9 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                     type='text'
                                                     className='form-control'
                                                     value={
-                                                        detalle.prenda.nombre
+                                                        detalle.prenda
+                                                            ?.nombre ||
+                                                        'Impresión de estampados'
                                                     }
                                                     readOnly
                                                 />

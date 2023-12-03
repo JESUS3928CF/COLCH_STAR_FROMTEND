@@ -12,11 +12,12 @@ import { validarFecha } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 import BotonNegro from '../chared/BotonNegro';
 import useProveedor from '../../hooks/useProveedor';
+import usePrendas from '../../hooks/usePrendas';
 
 const AgregarCompras = () => {
 
     const { proveedores } = useProveedor();
-
+     const { Prendas } = usePrendas();
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
