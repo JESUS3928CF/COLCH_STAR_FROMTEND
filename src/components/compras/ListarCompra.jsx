@@ -20,7 +20,7 @@ const ListarCompra = () => {
     /// Estado de la barra de busqueda y para lastar en la tabla la información
     const [comprasFiltrar, setComprasFiltrar] = useState([]);
 
-    const [detallesCompra, setDetallesCompra] = useState([]);
+    const [detallesCompra, setDetallesCompra] = useState({});
 
     /// Filtrar los 10 primeras ventas a mostrar en la vista
     useEffect(() => {
@@ -115,7 +115,7 @@ const ListarCompra = () => {
                                                     '#modalDetalleCompra'
                                                 }
                                                 onClick={() => {
-                                                    setDetallesCompra(compra.detalles);
+                                                    setDetallesCompra(compra);
                                                 }}
                                             />
                                         </td>

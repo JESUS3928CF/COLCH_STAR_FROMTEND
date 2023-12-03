@@ -12,6 +12,7 @@ const ProveedoresProvider = ({ children }) => {
     // primer state
     const [proveedores, setProveedores] = useState([]);
 
+
     // función para obtener los clientes solo cuando se carge el componente
 
     const consultarProveedores = async () => {

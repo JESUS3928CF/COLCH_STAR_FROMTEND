@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
 import '../prendas/IconCss/style.Icon.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const DetalleCompras = ({ detallesCompras }) => {
-    const { setValue } = useForm();
-
+    const [ detalles , setDetalles] = useState([]);
     useEffect(() => {
         console.log(detallesCompras);
+        
+        setDetalles(detallesCompras.detalles || []);
     }, [detallesCompras]);
 
     return (
@@ -24,9 +24,77 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                     id='formularioagregarCompra'
                                     className='row g-3 needs-validation'
                                 >
-                                    {detallesCompras.map((detalle, index) => (
-                                        <div key={detalle.id_detalle_compra} className='row'>
-                                            <p className='text-center'>
+                                    <p className='text-center'>
+                                        Información general
+                                    </p>
+
+                                    <div className='row'>
+                                        <div className='col-md-12 '>
+                                            <label
+                                                htmlFor='producto'
+                                                className='col-form-label'
+                                            >
+                                                Proveedor
+                                            </label>
+                                            <input
+                                                type='text'
+                                                className='form-control'
+                                                value={
+                                                    detallesCompras.proveedor
+                                                        ? detallesCompras
+                                                              .proveedor
+                                                              .nombre || ''
+                                                        : ''
+                                                }
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className='col-md-6 '>
+                                            <label
+                                                htmlFor='cantidad'
+                                                className='col-form-label'
+                                            >
+                                                Total de la compra:
+                                            </label>
+                                            <input
+                                                type='text'
+                                                className='form-control'
+                                                value={
+                                                    detallesCompras.total_de_compra
+                                                        ? detallesCompras.total_de_compra ||
+                                                          ''
+                                                        : ''
+                                                }
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className='col-md-6 '>
+                                            <label
+                                                htmlFor='nombre'
+                                                className='col-form-label'
+                                            >
+                                                Fecha de la compra:
+                                            </label>
+                                            <input
+                                                type='text'
+                                                className='form-control'
+                                                value={
+                                                    detallesCompras.fecha
+                                                        ? detallesCompras.fecha ||
+                                                          ''
+                                                        : ''
+                                                }
+                                                readOnly
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {detalles.map((detalle, index) => (
+                                        <div
+                                            key={detalle.id_detalle_compra}
+                                            className='row'
+                                        >
+                                            <p className='text-center mt-4'>
                                                 {' '}
                                                 Detalle #{index + 1}
                                             </p>
@@ -41,7 +109,11 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                 <input
                                                     type='text'
                                                     className='form-control'
-                                                    value={detalle.prenda.nombre}
+                                                    value={
+                                                        detalle.prenda
+                                                            ?.nombre ||
+                                                        'Impresión de estampados'
+                                                    }
                                                     readOnly
                                                 />
                                             </div>
