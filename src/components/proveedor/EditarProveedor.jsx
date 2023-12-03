@@ -42,7 +42,6 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
     //por medio de editarproveedor se traen lo que hay en el listar, y por medio del estado setvalue
     //  le pasan todo a nombre telefono etc, y con eso se les pasa por medio del value=¨nombre telefono etc al input  
     useEffect(() => {
-        console.log(proveedor)
         if (proveedor) {
             setValue('tipoIdentificacion', proveedor.tipoIdentificacion);
             setValue('identificador', proveedor.identificador);

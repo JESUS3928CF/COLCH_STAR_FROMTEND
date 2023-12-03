@@ -13,6 +13,8 @@ export const DisenosProvider = ({ children }) => {
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
 
+    console.log(disenosDB)
+
     const agregarDiseno = (data) => {
         const nuevoDisenos = [...disenos, data];
         setDisenos(nuevoDisenos);
@@ -20,8 +22,8 @@ export const DisenosProvider = ({ children }) => {
 
     /// Query a la api
     const consultarDisenos = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) return;
+        // const token = localStorage.getItem('token');
+        // if (!token) return;
         const respuesta = await clienteAxios.get('/disenos');
         setDisenosDB(respuesta.data);
     };

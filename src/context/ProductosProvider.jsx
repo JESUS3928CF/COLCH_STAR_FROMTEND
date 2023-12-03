@@ -19,8 +19,8 @@ const ProductosProvider = ({ children }) => {
 
     const consultarProductos = async () => {
         try {
-            const token = localStorage.getItem('token');
-            if (!token) return;
+            // const token = localStorage.getItem('token');
+            // if (!token) return;
 
             const { data } = await productoAxios.get("/productos");
 
