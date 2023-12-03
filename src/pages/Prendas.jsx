@@ -14,7 +14,6 @@ const Prendas =()=>{
     return auth.usuario.permisos.includes('producto') ? (
         <>
             <ListarPrendas />
-            <AgregarPrendas />
         </>
     ) : (
         <Navigate to={'/administracion'} />
