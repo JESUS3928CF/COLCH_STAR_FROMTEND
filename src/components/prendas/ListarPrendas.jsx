@@ -24,15 +24,27 @@ import Swal from "sweetalert2";
 import Header from "../chared/header/Header";
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
 import styles from "../../css-general/CardStyleGenerar.module.css";
-import { resolucionCards } from "../../constantes/constantes.js";
-import {usePrendasContex} from '../../context/PrendasProvider.jsx'
+import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
+import SeleccionarColorsEditar from "./SelectColorEditar.jsx";
+import usePrendas from "../../hooks/usePrendas.jsx";
+import AgregarPrendas from "./AgregarPrendas.jsx";
+
 
 export const ListarPrendas = () => {
   // conexión para traer todos los datos de la base de datos
 
-  const {Prendas} = usePrendasContex();
+  const {Prendas,consultPrendas,updateEstado,updatePublicado}= usePrendas()
+  const [show, setShow]= useState(false)
+  const handleClose= ()=> setShow(false) 
+  const handleShow= () => setShow(true)
+  
+  
   const [detallesPrendas, setDetallesPrendas] = useState({}|| null);
   const [prendasFiltrar, setprendasFiltrar] = useState([]);
+
+  useEffect(()=>{
+    setprendasFiltrar(Prendas.slice(0,10,registrosPorPagina))
+  },[Prendas])
 
 
 
@@ -42,20 +54,10 @@ export const ListarPrendas = () => {
       return Swal.fire("Accion invalida!", "", "error");
     }
     setDetallesPrendas(Prendas);
+    handleShow();
+    
   };
 
-
-  //Solicitud de la url
-  useEffect(() => {
-    // const consultarPrendas = async () => {
-    //   const respuesta = await clienteAxios.get("/prendas");
-    //   setPrendas(respuesta.data);
-    //   
-    // };
-    // console.log(Prendas)
-    setprendasFiltrar(Prendas);
-    // consultarPrendas();
-  }, [Prendas]);
 
   const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -75,17 +77,12 @@ export const ListarPrendas = () => {
         <div className='container-fluid'>
           <div className='row'>
             <div
-              className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
-            >
-              <button
-                type='button'
-                className='btn-a'
-                data-bs-toggle='modal'
-                data-bs-target='#myModal'
-              >
-                Agregar Prenda
-              </button>
-            </div>
+             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}>
+
+              <AgregarPrendas/>
+             </div>
+
+           
 
             {/* Boton para Buscar/filtrar */}
             <div
@@ -289,7 +286,11 @@ export const ListarPrendas = () => {
         </div>
       </div>
       <DetallesPrendas detallesPrendas={detallesPrendas} />
-      <EditarPrendas detallesPrendas={detallesPrendas} />
+      <EditarPrendas  detallesPrendas={detallesPrendas}
+      show={show}
+      handleClose={handleClose}
+      handleShow={handleShow} />
+      <SeleccionarColorsEditar detallesPrendas={detallesPrendas}/>
     </>
   );
 };

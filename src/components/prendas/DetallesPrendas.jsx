@@ -19,7 +19,6 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
     }
   },[detallesPrendas]);
 
-  console.log(detallesPrendas.color);
 
 
 
