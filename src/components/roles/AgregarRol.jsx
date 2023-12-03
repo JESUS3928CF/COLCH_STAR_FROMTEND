@@ -84,12 +84,19 @@ function AgregarRol() {
             <BotonVerde text={'Agregar Rol'} onClick={handleShow} />
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='myModal'
             >
                   <div className='modal-content'>
-                      <HeaderModals title={'Agregar Rol'} />
+                      <HeaderModals title={'Agregar Rol'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}
+                />
                       <div>
                           <div className='modal-body'>
                               <form

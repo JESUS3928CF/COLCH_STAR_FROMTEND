@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 import clienteAxios from '../../config/axios';
 import './BotonCambioEstado.css';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 
 const BotonCambioEstado = ({
@@ -39,12 +38,12 @@ const BotonCambioEstado = ({
 
     const { config } = useAuth();
 
-    const [estado, setEstado] = useState(isChecked);
+    // const [isChecked, setEstado] = useState(isChecked);
     /// Cambiar Estado del registro en la base de datos
     function cambiarEstadoDB() {
         Swal.fire({
             title: `¿Deseas ${
-                estado ? 'Inhabilitar' : 'Habilitar'
+                isChecked ? 'Inhabilitar' : 'Habilitar'
             } este ${nombreRegistro}?`,
             // text: "Este ",
             icon: 'question',
@@ -52,7 +51,7 @@ const BotonCambioEstado = ({
             showCancelButton: true,
             confirmButtonColor: '#3E5743',
             cancelButtonColor: '#252432',
-            confirmButtonText: `Si, ${estado ? 'Inhabilítalo' : 'Habilítalo'}`,
+            confirmButtonText: `Si, ${isChecked ? 'Inhabilítalo' : 'Habilítalo'}`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -60,13 +59,13 @@ const BotonCambioEstado = ({
                     // Realiza la petición PATCH
                     const response = await clienteAxios.patch(
                         ruta,
-                        { estado },
+                        { estado: isChecked },
                         config
                     );
 
                     if (response.status === 200) {
                         Swal.fire(
-                            `${estado ? 'Inhabilitado' : 'Habilitado'}`,
+                            `${isChecked ? 'Inhabilitado' : 'Habilitado'}`,
                             'Cambio de estado exitoso',
                             'success'
                         ).then(() => {
@@ -77,7 +76,7 @@ const BotonCambioEstado = ({
                             }
                         });
 
-                        setEstado(!estado);
+                        // setEstado(!isChecked);
                     } else {
                         Swal.fire(
                             'Error',
@@ -115,7 +114,7 @@ const BotonCambioEstado = ({
                 <input
                     id={id}
                     type='checkbox'
-                    checked={estado}
+                    checked={isChecked}
                     onChange={() => cambiarEstado()}
                 />
                 <div className='button'>

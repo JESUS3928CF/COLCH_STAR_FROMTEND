@@ -18,7 +18,7 @@ import Buscador from '../chared/Buscador';
 import Swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import {  registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
+import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
 import useProveedor from '../../hooks/useProveedor.jsx'
 import AgregarProveedor from './AgregarProveedor.jsx';
 
@@ -41,7 +41,7 @@ const ListarProveedores = () => {
 
     // solicitud  a la url
     useEffect(() => {
-        setProveedoresFiltrar(proveedores.slice(0,registrosPorPagina))     
+        setProveedoresFiltrar(proveedores.slice(0, registrosPorPagina))
     }, [proveedores]);
 
 
@@ -114,10 +114,10 @@ const ListarProveedores = () => {
                             <thead>
                                 <tr>
                                     <th scope='col'>ID</th>
+                                    <th scope='col'>Identificación</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Teléfono</th>
                                     <th scope='col'>Dirección</th>
-                                    <th scope='col'>Identificación</th>
                                     <th scope='col'>Inhabilitar</th>
                                     <th scope='col'>Editar</th>
                                 </tr>
@@ -127,14 +127,14 @@ const ListarProveedores = () => {
                                 {ProveedoresFiltrar.map((proveedor) => (
                                     <tr key={proveedor.id_proveedor}>
                                         <td>{proveedor.id_proveedor}</td>
-                                        <td>{proveedor.nombre}</td>
-                                        <td>{proveedor.telefono}</td>
-                                        <td>{proveedor.direccion}</td>
                                         <td>
                                             {' '}
                                             {proveedor.tipoIdentificacion}{' '}
                                             {proveedor.identificador}
                                         </td>
+                                        <td>{proveedor.nombre}</td>
+                                        <td>{proveedor.telefono}</td>
+                                        <td>{proveedor.direccion}</td>
                                         <td>
                                             {' '}
                                             <BotonCambioEstado
@@ -251,11 +251,11 @@ const ListarProveedores = () => {
                     </div>
                 )}
                 {/* //le mandamos el proveedor a editar la formulario EditarProveedor        */}
-                <EditarProveedor proveedor={editarProveedor}  
-                show={show} 
-                 handleClose={handleClose} />
+                <EditarProveedor proveedor={editarProveedor}
+                    show={show}
+                    handleClose={handleClose} />
             </div>
-            
+
 
             <div className='seccion4'>
                 {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}

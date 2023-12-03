@@ -17,8 +17,20 @@ import BotonNegro from "../chared/BotonNegro";
 import styles from "../../pages/Productos.module.css";
 import SeleccionarColorsEditar from "./SelectColorEditar";
 import { useColorsContex } from "../../context/ColorsProvider";
+import usePrendas from '../../hooks/usePrendas.jsx'
+import useAuth from "../../hooks/useAuth";
+import { Modal } from "react-bootstrap";
 
-const EditarPrendas = ({ detallesPrendas }) => {
+const EditarPrendas = ({ detallesPrendas,show,handleClose}) => {
+
+  const {updatePrendas,Prendas} = usePrendas()
+
+  const {config} = useAuth()
+
+
+
+
+
   const {
     register,
     handleSubmit,
@@ -26,19 +38,16 @@ const EditarPrendas = ({ detallesPrendas }) => {
     setValue,
     trigger,
     reset,
-  } = useForm();
+  } = useForm({
+    mode: "onChange"
+  });
 
   const [Colors, setColors] = useState([]);
-  const [Prendas , setPrendas]= useState([])
   const {colors}= useColorsContex()
   const [Tallas, setTalla] = useState([]);
 
 
-  useEffect(()=>{
-    axios.get("http://localhost:3000/api/prendas").then((res)=>{
-      setPrendas(res.data);
-    })
-  },[])
+  
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
@@ -63,67 +72,54 @@ const EditarPrendas = ({ detallesPrendas }) => {
       setValue("genero", detallesPrendas.genero);
       setValue("publicado", detallesPrendas.publicado);
       setValue("tallas", detallesPrendas.Talla);
-      setValue("colores", detallesPrendas.colores);
-    }
-  }, [detallesPrendas]);
+      setValue("colores", detallesPrendas.color);
 
+    }
+  }, [detallesPrendas,show]);
+
+  console.log(detallesPrendas.nombre)
   const onSubmitt = async (data)=>{
-    const {
-      nombre,
-      cantidad,
-      precio,
-      genero,
-      imagen,
-      tipo_de_tela,
-      publicado,
-      tallas,
-    } = data;
 
-    try {
-      const res = await clienteAxios.put(
-        `http://localhost:3000/api/prendas/${detallesPrendas.id_prenda}`,
-        {
-          nombre: nombre.trim(),
-          cantidad: cantidad,
-          precio: precio.trim(),
-          tipo_de_tela: tipo_de_tela.trim(),
-          genero: genero,
-          imagen: imagen[0],
-          publicado: publicado,
-          tallas: tallas,
-          colores: JSON.stringify(colors),
-        },
+    
 
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+    updatePrendas(
+      data,
+      detallesPrendas,
+      handleClose
+    )
 
-      Swal.fire({
-        title: "Prenda Actualizada",
-        text: res.data.message,
-        icon: "success",
-      }).then(() => {
-        location.reload();
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "Error",
-        text: "Error al actualizar",
-        icon: "error",
-      }).then(() => {
-        console.log(error)
-        location.reload();
+  }
 
-      });
-    }
-  };
 
   
   return (
     <>
-    <div className="modal" id="modalEditarPrenda">
-      <div className="modal-dialog modal-dialog-centered modal-lg ">
+    <Modal 
+    show={show}
+    // onHide={()=>{
+    //   reset();
+    //   handleClose()
+    // }}
+
+    className='modal d-flex align-items-center justify-content-center'
+    id= 'modalEditarPrenda'
+    >
+
+
+
+
+
+
         <div className="modal-content">
-          <HeaderModals title="Editar prendas" />
+          <HeaderModals title={'Editar Prendas'}
+
+          // handleClose={()=>{
+          //   reset()
+          //   handleClose()
+          // }}
+          
+          
+          />
           <div className="modal-body">
             <form onSubmit={handleSubmit(onSubmitt)} className="row g-3 needs-validation">
               <div className="col-md-6">
@@ -307,11 +303,10 @@ const EditarPrendas = ({ detallesPrendas }) => {
                   name="publicado"
                   className="form-control"
                   title="Estado de la publicacion"
-                  {...register("publicado", {
-                    validate: (value)=>{
-                      validarBooleanos(value)
-                    }
+                  {...register('publicado',{
+                    validate:(value)=> validarBooleanos(value)
                   })}
+                  
                 >
                   <option
                     value="Seleccione una opción"
@@ -381,15 +376,20 @@ const EditarPrendas = ({ detallesPrendas }) => {
                     />
                   </div>
 
-                  <CancelarModal />
+                  <CancelarModal  />
                   <GuardarModal />
                 </div>
             </form>
-          </div>
-        </div>
       </div>
     </div>
-    <SeleccionarColorsEditar/>
+    </Modal>
+    <SeleccionarColorsEditar
+
+    // handleClose={handleClose}
+    // handleShow={handleShow}
+    detallesPrendas= {detallesPrendas}
+    
+    />
     </>
   );
 };

@@ -3,7 +3,7 @@ import styles from './Menu_lateral.module.css';
 import logo from '../imgNavbar/LogoPNG.png';
 import profile from '../imgNavbar/1153861.png';
 import { useEffect, useState } from 'react';
-import { Link, Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { calcularAnchoDePantalla } from '../helpers/calcularAnchoDePantalla';
 import useAuth from '../hooks/useAuth';
 
@@ -14,6 +14,8 @@ const MenuLateral = () => {
     /// extrayendo la información para la autenticación
     const { auth, loading, singOff } = useAuth();
 
+    const navigate = useNavigate();
+
     const toggleSubMenu = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
@@ -22,8 +24,12 @@ const MenuLateral = () => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
+    
+    useEffect(() => {
+        if (!loading && auth.usuario === undefined) return navigate('/login');
+    }, [loading]);
 
-    if (loading) return 'Cargando...';
+    if (loading || !auth.usuario) return 'Cargando...';
 
     return (
         <>

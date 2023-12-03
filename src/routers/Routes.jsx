@@ -23,7 +23,7 @@ import { ComprasProviders } from '../context/ComprasProvider';
 import { ProveedoresProvider } from '../context/ProveedoresProvider';
 import { ProductosProvider } from '../context/ProductosProvider';
 import RecuperarPassword from '../pages/ResuperarPassword';
-
+import { PrendasProvider } from '../context/PrendasProvider';
 
 const MyRoutes = () => {
     return (
@@ -31,7 +31,9 @@ const MyRoutes = () => {
             <AuthProvider>
                 <GeneralProvider>
                     <DisenosProvider>
-                        <ColorsProvider>
+                    <ColorsProvider>
+                        <PrendasProvider>
+                        
                             <ComprasProviders>
                                 <ClientesProvider>
                                     <RolesProvider>
@@ -134,6 +136,7 @@ const MyRoutes = () => {
                                     </RolesProvider>
                                 </ClientesProvider>
                             </ComprasProviders>
+                        </PrendasProvider>
                         </ColorsProvider>
                     </DisenosProvider>
                 </GeneralProvider>

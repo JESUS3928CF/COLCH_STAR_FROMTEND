@@ -1,20 +1,16 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
 import HeaderModals from "../chared/HeaderModals";
-import { validarEspaciosVacios } from "../../Validations/validations";
-import AlertaError from "../chared/AlertaError";
-import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
 import { useColorsContex } from "../../context/ColorsProvider";
 
 const SeleccionarColorsEditar = () => {
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
   const { agregarColors, colors } = useColorsContex();
@@ -25,6 +21,8 @@ const SeleccionarColorsEditar = () => {
     agregarColors(data);
 
     let selectColors = [];
+
+    console.log(colors)
 
     for (let i = 0; i < colors.length; i++) {
       const matchingColors = colorss.find(
@@ -44,7 +42,12 @@ const SeleccionarColorsEditar = () => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
       setColors(res.data);
     });
+
   }, []);
+
+
+ 
+
 
   return (
     <>

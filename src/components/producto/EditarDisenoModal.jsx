@@ -8,35 +8,44 @@ import GuardarModal from '../chared/GuardarModal';
 import { useDisenosContext } from '../../context/disenosProvider';
 import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
+import logo from '../../imgNavbar/cruz.png'
 
-const EditarDisenoModal = ({handleShow}) => {
+
+
+const EditarDisenoModal = ({ handleShow, handleClose, }) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
         formState: { errors },
+        reset
     } = useForm();
 
-    const { agregarDiseno, disenos } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
+
+    const eliminarDiseno01 = (index) => {
+        // Crea una copia del array original
+        const nuevosDisenos = [...selectedDisenoNombre];
+        // Elimina el elemento en el índice especificado
+        nuevosDisenos.splice(index, 1);
+        // Actualiza el estado con la nueva array sin el elemento eliminado
+        setSelectedDisenoNombre(nuevosDisenos);
+
+        eliminarDiseno(index)
+    };
 
 
-
-
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState('');
+    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
     const agregarNuevoDiseno = (data) => {
+        console.log(data);
         agregarDiseno(data);
 
-        const selectedId = data.id_diseno;
+        console.log(selectedDisenoNombre);
+        const nuevoDiseno = detalle_diseno.find(
+            (diseno) => diseno.id_diseno == data.id_diseno
+        );
 
-        let selectedDiseno = [];
-
-        for (let i = 0; i < disenos.length; i++) {
-            const matchingDiseno = detalle_diseno.find((diseno) => diseno.id_diseno == disenos[i].id_diseno);
-            if (matchingDiseno) {
-                selectedDiseno.push(matchingDiseno.nombre);
-            }
-        }
-        setSelectedDisenoNombre(selectedDiseno);
+        setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
 
 
@@ -77,7 +86,12 @@ const EditarDisenoModal = ({handleShow}) => {
             <div className='modal-dialog modal-dialog-centered modal-lg'>
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Diseno y  Tamaño' NoReset={true} />
+                    <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
+                        reset();
+                        handleClose();
+                        setSelectedDisenoNombre([])
+                        setDisenos([])
+                    }} />
 
                     <div className='modal-body'>
                         <form
@@ -91,7 +105,7 @@ const EditarDisenoModal = ({handleShow}) => {
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        Diseños: 
+                                        Diseños:
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -125,7 +139,7 @@ const EditarDisenoModal = ({handleShow}) => {
 
 
                                     <label htmlFor='rol' className='col-form-label'>
-                                        Tamaño: 
+                                        Tamaño:
                                     </label>
                                     <select
                                         className='form-control' // Allow multiple selections
@@ -158,17 +172,23 @@ const EditarDisenoModal = ({handleShow}) => {
 
                                 </div>
                                 <div className='col-md-6'>
+                                    <p className={style.diseñosModalTitle}>
+                                        Diseños seleccionados:
+                                    </p>
 
-                                    <p className={style.diseñosModalTitle}>Diseños seleccionados:</p>
-                                   
-                                    {selectedDisenoNombre && (
-                                        // <div className={style.h3container}>
+                                    {selectedDisenoNombre.map(
+                                        (diseno, index) => (
+                                            <div key={index} className={style.disenocontainer}>
+                                                <p>
+                                                    <span className={style.disenonombre}>- {diseno.nombre}</span>
+                                                    <span onClick={() => eliminarDiseno01(index)}>
+                                                        <img src={logo} alt="" className={style.logoimg} />
+                                                    </span>
 
-                                        <p>{` ${selectedDisenoNombre.join('\n- ')}`}</p>
-                                        // </div>
+                                                </p>
+                                            </div>
+                                        )
                                     )}
-
-
                                 </div>
 
                             </div>
@@ -179,12 +199,12 @@ const EditarDisenoModal = ({handleShow}) => {
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
 
-                                <BotonNegro text={'Regresar'} 
-                                 modalClouse={"modal"}
-                                 onClick={handleShow}/>
+                                <BotonNegro text={'Regresar'}
+                                    modalClouse={"modal"}
+                                    onClick={handleShow} />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal/>
+                                <GuardarModal />
                             </div>
 
 

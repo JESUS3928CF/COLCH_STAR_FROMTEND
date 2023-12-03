@@ -2,6 +2,7 @@ import "../../css-general/cssgeneral.css";
 import "../../css-general/tailwind.min.css";
 import "../../css-general/inicio_style.css";
 import "../../css-general/table.min.css";
+import "./Css/style.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -12,7 +13,7 @@ import Swal from "sweetalert2";
 import { validarFecha } from "../../Validations/validations";
 import HeaderModals from "../chared/HeaderModals";
 import { useComprasContex } from "../../context/ComprasProvider";
-import { format } from 'date-fns';
+import BotonNegro from '../chared/BotonNegro'
 
 
 const AgregarCompras = () => {
@@ -37,6 +38,7 @@ const AgregarCompras = () => {
   const [proveedor, setProveedor] = useState([]);
   const [Prendas, setPrendas] = useState([]);
   const {agregarDetalleCompras, compras } = useComprasContex()
+  const [selectDetalles, setSelecDetalles]= useState(0)
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/compra").then((res) => {
@@ -56,37 +58,50 @@ const AgregarCompras = () => {
     });
   }, []);
 
+  const  newDetalle= async(data)=>{
+    agregarDetalleCompras(data)
+
+    let selectDetalles =[];
+
+    for (let i=0; i<compras.length; i++ ){
+      const matchingDetalles = detallesCompras.find
+      ((detalle)=> detalle.id_detalle_compra==compras[i].id_detalle_compra);
+      if(matchingDetalles){
+        selectDetalles.push(matchingDetalles.id_detalle_compra)
+
+      }
+    }
+      setSelecDetalles(data.id_detalle_compra)
+
+  }
+
+  const [detallesCompras, setDetallesCompras] = useState([])
+useEffect(()=>{
+  axios.get('http://localhost:3000/api/compraDetalles').then((res)=>{
+    setDetallesCompras(res.data)
+  })
+},[])
+
+
+
+
   const onSubmit = async (data) => {
-
-
-   
 
     const {
       fecha,
       fk_proveedor,
       cantidad,
       precio,
-      fk_prenda,
       total= cantidad*precio
     } = data;
 
-    agregarDetalleCompras(data)
-
     
-
-
     try {
       const newCompra = await axios.post("http://localhost:3000/api/compra", {
         total_de_compra: total,
         fecha: fecha.trim(),
         fk_proveedor: fk_proveedor.trim(),
-        DetallesCompras: [
-          {
-            cantidad: cantidad.trim(),
-            precio: precio.trim(),
-            fk_prenda: fk_prenda.trim(),
-          },
-        ],
+        DetallesCompras: JSON.stringify(compras)
       });
       console.log(newCompra)
 
@@ -109,7 +124,7 @@ const AgregarCompras = () => {
     <>
       <div>
         <div className="modal" id="myModalAgregarComprar">
-          <div className="modal-dialog modal-dialog-centered ">
+          <div className="modal-dialog modal-dialog-centered modal-lg">
             <div className="modal-content">
               <HeaderModals title={"Agregar Compra"} />
               <div>
@@ -117,10 +132,10 @@ const AgregarCompras = () => {
                   <form
                     action=""
                     id="formularioagregarCompra"
-                    className="row g-3 needs-validation"
+                    
                     onSubmit={handleSubmit(onSubmit)}
                   >
-                    <div className="col-md-6 mt-2">
+                    <div className="col-md-4">
                       <label htmlFor="rol" className="col-form-label">
                         Proveedor: *
                       </label>
@@ -155,39 +170,9 @@ const AgregarCompras = () => {
                       )}
                     </div>
 
-                    <div className="col-md-6 mt-2">
-                      <label htmlFor="rol" className="col-form-label">
-                        Productos: *
-                      </label>
+                 
 
-                      <select
-                        name="fk_prenda"
-                        className="form-control"
-                        {...register("fk_prenda", {
-                          
-                        })}
-                      >
-                        <option value="">Diseños</option>
-                        {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
-                        esto se guarda en name = fk_prenda
-                        {Prendas.map((prenda) => {
-                          return (
-                            <option
-                              key={prenda.id_prenda}
-                              value={prenda.id_prenda}
-                            >
-                              {prenda.nombre}
-                            </option>
-                          );
-                        })}
-                      </select>
-
-                      {errors.fk_prenda && (
-                        <AlertaError message={errors.fk_prenda.message} />
-                      )}
-                    </div>
-
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                       <label
                         htmlFor="totalCompraAgregar"
                         className="col-form-label"
@@ -222,7 +207,79 @@ const AgregarCompras = () => {
                       )}
                     </div>
 
-                    <div className="col-md-6">
+                   
+
+                   
+
+                    <div className="col-md-4">
+                      <label
+                        htmlFor="totalCompraAgregar"
+                        className="col-form-label"
+                      >
+                        Precio Total
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="totalCompraAgregar"
+                        readOnly
+                        
+                      />
+
+                      {errors.total_de_compra && (
+                        <AlertaError message={errors.total_de_compra.message} />
+                      )}
+                    </div>
+
+                  
+
+                 
+                    <div className="modal-footer">
+                      <CancelarModal handleClose={handleClose} />
+                      <GuardarModal />
+                    </div>
+                  </form>
+
+                    <div action="" className="formDetallesCompras">
+                   <form action="" className="row g-3 needs-validation" onSubmit={handleSubmit(newDetalle)}>
+
+                   <label htmlFor=" ">Agregale los detalles de compras</label>
+
+
+                 <div className="col-md-5 ">
+
+                      <label htmlFor="rol" className="col-form-label">
+                        Productos: *
+                      </label>
+
+                      <select
+                        name="fk_prenda"
+                        className="form-control"
+                        {...register("fk_prenda", {
+                          
+                        })}
+                      >
+                        <option value="">Diseños</option>
+                        {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
+                        esto se guarda en name = fk_prenda
+                        {Prendas.map((prenda) => {
+                          return (
+                            <option
+                              key={prenda.id_prenda}
+                              value={prenda.id_prenda}
+                            >
+                              {prenda.nombre}
+                            </option>
+                          );
+                        })}
+                      </select>
+
+                      {errors.fk_prenda && (
+                        <AlertaError message={errors.fk_prenda.message} />
+                      )}
+                    </div>
+
+                    <div className="col-md-4">
                       <label
                         htmlFor="nombreCompraAgregar"
                         className="col-form-label"
@@ -256,7 +313,7 @@ const AgregarCompras = () => {
                       )}
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                       <label
                         htmlFor="totalCompraAgregar"
                         className="col-form-label"
@@ -287,34 +344,15 @@ const AgregarCompras = () => {
                       )}
                     </div>
 
-                    <div className="col-md-6">
-                      <label
-                        htmlFor="totalCompraAgregar"
-                        className="col-form-label"
-                      >
-                        Precio Total
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="totalCompraAgregar"
-                        readOnly
-                        
-                      />
-
-                      {errors.total_de_compra && (
-                        <AlertaError message={errors.total_de_compra.message} />
-                      )}
-                    </div>
-
-                  
-
-                 
-                    <div className="modal-footer">
-                      <CancelarModal handleClose={handleClose} />
+                    <div className="botonGuardarDetalles">
+                      <BotonNegro text={'Agregar Detalles'} />
                       <GuardarModal />
+
+                      
                     </div>
-                  </form>
+                 </form>
+                 </div>
+                  
                 </div>
               </div>
             </div>

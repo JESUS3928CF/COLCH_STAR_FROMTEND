@@ -26,9 +26,10 @@ import useProducto from '../../hooks/useProducto.jsx';
 import useAuth from '../../hooks/useAuth';
 
 
-
+//Componente
 const AgregarProducto = () => {
 
+    // funcion que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
     /// Funcionalidad para cerra el modal
@@ -52,7 +53,8 @@ const AgregarProducto = () => {
         mode: "onChange",
     });
 
-    //estado pa las prendas 
+    
+    //estado de las prendas para resivir la informacion que lleg de la base de datos
     const [Prendas, setPrendas] = useState([]);
     const { config } = useAuth();
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
@@ -66,13 +68,14 @@ const AgregarProducto = () => {
 
 
 
-
-
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data
 
+        //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
+        //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven 
+        //y los mandan por la ruta a la base de datos
         agregarProducto(
             {
                 // Campos en los que realiza el cambio
@@ -84,6 +87,8 @@ const AgregarProducto = () => {
                 imagen: imagen[0],
                 disenos: JSON.stringify(disenos)
             },
+            
+
             reset,
             handleClose
         )
@@ -96,14 +101,20 @@ const AgregarProducto = () => {
 
             <Modal
                 show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
                 className="modal d-flex align-items-center justify-content-center "
                 
                 id='myModal'
             >
 
-                <div  className={`modal-content ${style.taa}`} > 
-                    <HeaderModals title={'Agregar Producto'} />
+                <div  className={`modal-content `} > 
+                    <HeaderModals title={'Agregar Producto'} handleClose={() => {
+                        reset();
+                        handleClose();
+                    }}  />
 
                     <div className='modal-body'>
                         <form
@@ -273,7 +284,7 @@ const AgregarProducto = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6' name='Archivo'>
+                            <div className='col-md-12' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'
@@ -283,7 +294,7 @@ const AgregarProducto = () => {
 
                                 <input
                                     type='file'
-                                    className={`form-control ${style.customer}`}
+                                    className={`form-control `}
                                     name='imagen'
                                     title='Ingrese la imagen de la prenda'
                                     {...register('imagen', {
@@ -306,7 +317,7 @@ const AgregarProducto = () => {
                             </div>
 
                             <div className='modal-footer'>
-                                <div className={style.bottonDiseno}>
+                                <div className="pr-5">
                                     <BotonNegro
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'
@@ -326,7 +337,8 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDisenoModal handleShow={handleShow} />
+            <AgregarDisenoModal handleClose={handleClose}
+                handleShow={handleShow} />
         </div>
     );
 }

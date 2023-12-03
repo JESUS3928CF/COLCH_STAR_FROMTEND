@@ -10,11 +10,17 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
   const { setValue } = useForm();
 
   useEffect(() => {
+    // console.log(detallesPrendas);
     if (detallesPrendas) {
+      // console.log('Detalles:',detallesPrendas);
       setValue("publicado", detallesPrendas.publicado);
       setValue("estado", detallesPrendas.estado);
+      setValue('colores', detallesPrendas.color)
     }
-  });
+  },[detallesPrendas]);
+
+
+
 
   const informacion = (detallesPrendas) => {
     if (!detallesPrendas.publicado || !detallesPrendas.estado) {
@@ -38,24 +44,24 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                     <div className="row gx-0">
                       <div className="col-md-6">
                         <a
-                          href={`${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen
-                            }`}
+                          href={`${import.meta.env.VITE_BACKEND_URL}/${
+                            detallesPrendas.imagen
+                          }`}
                           className={styles.contenedor_imagen}
                         >
                           {" "}
                           <img
                             src={
                               detallesPrendas.imagen
-                                ? `${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen
-                                }`
+                                ? `${import.meta.env.VITE_BACKEND_URL}/${
+                                    detallesPrendas.imagen
+                                  }`
                                 : ""
                             }
                             alt={detallesPrendas.imagen}
                             title="Ver imagen completa"
                           />
                         </a>
-
-
                       </div>
                       <div className="col-md-5 ml-6 mt-3">
                         <div className="card-body">
@@ -81,9 +87,16 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                           </h3>
 
                           <h3 htmlFor="Colores" className="card-title">
-                            {""}
                             <b>Colores:</b>
-                            {detallesPrendas.color}
+                           
+                            {detallesPrendas.color && detallesPrendas.color.map((color, index) => (
+                              <div key={`${color.id_color}_${index}`}>
+                                <span style={{ color: color.color }}>
+                                  {color.color}
+                                </span>
+                              </div>
+                            ))}
+
                           </h3>
 
                           <h3 htmlFor="tallas" className="card-title">

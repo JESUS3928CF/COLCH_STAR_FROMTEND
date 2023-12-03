@@ -34,6 +34,7 @@ const ProductosProvider = ({ children }) => {
     }, [auth]);
 
     const agregarProducto = async (producto, reset, handleClose) => {
+        // console.log(producto)
         try {
             const res = await productoAxios.post("/productos", producto, {
                 headers: {
