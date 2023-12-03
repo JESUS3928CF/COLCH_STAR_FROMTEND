@@ -15,8 +15,8 @@ const PrendasProvider = ({ children }) => {
 
   const consultPrendas = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) return;
+      // const token = localStorage.getItem("token");
+      // if (!token) return;
 
       const { data } = await clienteAxios.get("/prendas");
 
@@ -62,7 +62,7 @@ const PrendasProvider = ({ children }) => {
 
 const {colors,setColores} = useColorsContex()
 
-console.log(colors)
+// console.log(colors)
 
 
 
