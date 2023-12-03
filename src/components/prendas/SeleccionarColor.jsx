@@ -9,8 +9,11 @@ import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
 import { useColorsContex } from "../../context/ColorsProvider";
+import logo from '../../imgNavbar/cruz.png'
+import style from '../../pages/Productos.module.css';
 
-const SeleccionarColors = () => {
+
+const SeleccionarColors = ({handleShow,handleClose}) => {
   const {
     register,
     handleSubmit,
@@ -19,15 +22,16 @@ const SeleccionarColors = () => {
   } = useForm();
 
   const { agregarColors, eliminarColors, setColores } = useColorsContex();
+  const [selectColorsName, setSelectColorsName] = useState([]);
+
 
   const eliminarColors01 = (index) => {
     const newColors = [...selectColorsName];
     newColors.splice(index, 1);
-    selectColorsName(newColors);
+    setSelectColorsName(newColors);
     eliminarColors(index);
   };
 
-  const [selectColorsName, setSelectColorsName] = useState([]);
 
 
   const agregarNuevoColor = (data) => {
@@ -99,16 +103,22 @@ const SeleccionarColors = () => {
                   </select>
 
                   <div className="col-md-5 ml-6 mt-3">
+
                     {selectColorsName.map((color, index) => (
-                      <p key={index}>
-                        {color.color}{' '}
+
+                    <div key={index}>
+                      <p>
+
+                        <span> 
+                          -{color.color}
+                        </span>
 
                         <span onClick={()=> eliminarColors01(index)} >
-
-                          {''}X{''}
+                        <img src={logo} alt="" className={style.logoimg} />
                           
                         </span>
                       </p>
+                      </div>
                      
                     ))}
                   </div>
@@ -124,8 +134,10 @@ const SeleccionarColors = () => {
                   </div>
                   <BotonNegro
                     text={"Regresar"}
-                    modalToOpen={"#myModal"}
                     modalClouse={"modal"}
+                    onClick={handleShow}
+
+
                   />
                   <GuardarModal />
                 </div>

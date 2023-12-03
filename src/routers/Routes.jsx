@@ -31,8 +31,9 @@ const MyRoutes = () => {
             <AuthProvider>
                 <GeneralProvider>
                     <DisenosProvider>
+                    <ColorsProvider>
                         <PrendasProvider>
-                        <ColorsProvider>
+                        
                             <ComprasProviders>
                                 <ClientesProvider>
                                     <RolesProvider>
@@ -135,8 +136,8 @@ const MyRoutes = () => {
                                     </RolesProvider>
                                 </ClientesProvider>
                             </ComprasProviders>
-                        </ColorsProvider>
                         </PrendasProvider>
+                        </ColorsProvider>
                     </DisenosProvider>
                 </GeneralProvider>
             </AuthProvider>
