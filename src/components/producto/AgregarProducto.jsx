@@ -12,7 +12,6 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
 import style from '../../pages/Productos.module.css';
-import axios from 'axios';
 import AlertaError from '../chared/AlertaError';
 import { useForm } from 'react-hook-form';
 import {
@@ -25,7 +24,7 @@ import { useDisenosContext } from '../../context/disenosProvider';
 import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
 import useProducto from '../../hooks/useProducto.jsx';
-import useAuth from '../../hooks/useAuth';
+import usePrendas from '../../hooks/usePrendas.jsx';
 
 //Componente
 const AgregarProducto = () => {
@@ -71,8 +70,7 @@ const AgregarProducto = () => {
     });
 
     //estado de las prendas para resivir la informacion que lleg de la base de datos
-    const [Prendas, setPrendas] = useState([]);
-    const { config } = useAuth();
+    const {Prendas} = usePrendas()
 
 
     useEffect(() => {
@@ -80,14 +78,7 @@ const AgregarProducto = () => {
     }, [handleShow]);
 
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
-    useEffect(() => {
-        // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/api/prendas`, config)
-            .then((response) => {
-                setPrendas(response.data); // Almacenar la lista de roles en el estado
-            });
-    }, []);
+    
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
