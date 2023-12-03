@@ -25,21 +25,21 @@
     --bg-color: #fff;
 }
 
-section {
+.section {
     padding: 4.5rem 0 1.5rem;
 }
 
 /* navbar codigo */
 
-img {
+.img {
     width: 100%;
 }
 
-body ´ {
+.body  {
     color: var(--text-color);
 }
 
-header {
+.header {
     position: fixed;
     width: 100%;
     top: 0;
@@ -411,11 +411,11 @@ header {
 }
 
 @media (max-width: 991px) {
-    header {
+    .header {
         padding: 18px 4%;
     }
 
-    section {
+    .section {
         padding: 50px 4%;
     }
 

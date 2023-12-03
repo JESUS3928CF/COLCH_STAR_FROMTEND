@@ -24,7 +24,7 @@ const Catalogo = () => {
     return (
         <div className={style.contenedorCatalogo}>
 
-            <header>
+            <header className={style.header}>
                 <a href="#" className={style.logo}>
                     <img src={logo} alt="" />
                     Colch Star
