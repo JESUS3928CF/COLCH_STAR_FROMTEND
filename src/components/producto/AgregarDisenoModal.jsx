@@ -24,6 +24,9 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
 
     
 
+    const { disenosDB } = useDisenosContext();
+    
+
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
 
 
@@ -47,39 +50,13 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
         agregarDiseno(data);
 
         console.log(selectedDisenoNombre);
-        const nuevoDiseno = detalle_diseno.find(
-            (diseno) => diseno.id_diseno == data.id_diseno 
+        const nuevoDiseno = disenosDB.find(
+            (diseno) => diseno.id_diseno == data.id_diseno
         );
          console.log(nuevoDiseno);
 
-        // const nuevoTamaño = Precio.find(
-        //     (precio) => precio.id_precio_diseno === data.id_precio_diseno
-        //   );
-
-        //   console.log(nuevoTamaño)
-
-
-        //   const nuevoDisenoCompleto = {
-        //     ...nuevoDiseno,
-        //     tamano: nuevoTamaño ? nuevoTamaño.tamano : '' // Asegúrate de manejar el caso en que no se encuentre el tamaño
-        //   };
-          
-
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
-
-
-
-    //estado pa los diseños
-    const [detalle_diseno, setDetalle_diseno] = useState([]);
-    // console.log( detalle_diseno)
-
-    useEffect(() => {
-        // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios.get('http://localhost:3000/api/disenos').then((response) => {
-            setDetalle_diseno(response.data); // Almacenar la lista de roles en el estado
-        });
-    }, []);
 
     const [Precio, setPrecio] = useState([]);
     // console.log(Precio)
@@ -145,7 +122,7 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
                                     <option value='' >
                                         Seleccionar diseño
                                     </option>
-                                    {detalle_diseno.map((diseno) => (
+                                    {disenoDB.map((diseno) => (
                                         <option
                                             key={diseno.id_diseno}
                                             value={diseno.id_diseno}
