@@ -42,13 +42,28 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
     const agregarNuevoDiseno = (data) => {
+
         console.log(data);
         agregarDiseno(data);
 
         console.log(selectedDisenoNombre);
         const nuevoDiseno = detalle_diseno.find(
-            (diseno) => diseno.id_diseno == data.id_diseno
+            (diseno) => diseno.id_diseno == data.id_diseno 
         );
+         console.log(nuevoDiseno);
+
+        // const nuevoTamaño = Precio.find(
+        //     (precio) => precio.id_precio_diseno === data.id_precio_diseno
+        //   );
+
+        //   console.log(nuevoTamaño)
+
+
+        //   const nuevoDisenoCompleto = {
+        //     ...nuevoDiseno,
+        //     tamano: nuevoTamaño ? nuevoTamaño.tamano : '' // Asegúrate de manejar el caso en que no se encuentre el tamaño
+        //   };
+          
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
@@ -67,6 +82,8 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
     }, []);
 
     const [Precio, setPrecio] = useState([]);
+    // console.log(Precio)
+
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
@@ -189,7 +206,8 @@ const AgregarDisenoModal = ({handleClosee, showw, handleClosex}) => {
 
                                         <div key={index} className={style.disenocontainer}>
                                             <p>
-                                                <span className={style.disenonombre}>- {diseno.nombre}</span>
+                                                <span className={style.disenonombre}>- {diseno.nombre}{diseno.tamano}</span>
+                                                
                                                 <span onClick={() => eliminarDiseno01(index)}>
                                                     <img src={logo} alt="" className={style.logoimg} />
                                                 </span>
