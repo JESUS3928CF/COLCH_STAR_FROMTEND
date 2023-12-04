@@ -2,14 +2,16 @@
 //-------------------26 de septiembre 2023
 //Nos permite Mostrar la información de los diseños precios de los diseños y editarlos por hay mismo si asi lo requiere
 
-import { useEffect, useState } from 'react';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
-import clienteAxios from '../../config/axios';
 import { useForm } from 'react-hook-form';
 import AlertaError from '../chared/AlertaError';
-import Swal from 'sweetalert2';
+
+import { useDisenosContext } from '../../context/disenosProvider.jsx';
+import BotonVerde from '../chared/BotonVerde.jsx';
+import { Fragment, useState } from 'react';
+import { Modal } from 'react-bootstrap';
 
 const PrecioDiseno = () => {
     const {
@@ -18,60 +20,49 @@ const PrecioDiseno = () => {
         formState: { errors },
         trigger,
         setValue,
+        reset,
     } = useForm({
         mode: 'onChange',
     });
 
+    /// Funcionalidad para cerra el modal
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        reset();
+        setShow(true);
+    };
 
     // Para poner el precio correspondiente aca tamaño
     const definirPrecio = (precio) => {
-
-        if(!precio) return setValue('precio', '');
+        if (!precio) return setValue('precio', '');
         setValue('precio', precios[precio - 1].precio);
     };
 
-    const [precios, setPrecios] = useState([]);
-
-    useEffect(() => {
-        const consultarPrecios = async () => {
-            const respuesta = await clienteAxios.get('/precio_disenos');
-            setPrecios(respuesta.data);
-        };
-        consultarPrecios();
-    }, []);
+    const { precios, actualizarPrecioDB } = useDisenosContext();
 
     const actualizarPrecio = handleSubmit(async (data) => {
-
-        try {
-            const res = await clienteAxios.put(`/precio_disenos/${data?.id_precio}`, {
-                precio: data?.precio
-            });
-
-            // Lanzar alerta del producto agregado
-            Swal.fire({
-                title: 'Precio Editado',
-                text: res.data.message,
-                icon: 'success',
-            }).then(() => {
-                location.reload();
-            });
-        } catch (error) {
-            console.log(error);
-            // Lanzar alerta de error
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
-            }).then(location.reload());
-        }
+        actualizarPrecioDB(data,reset, handleClose);
     });
 
     return (
-        <div className='modal' id='myModalPrecio'>
-            <div className='modal-dialog modal-dialog-centered'>
+        <Fragment>
+            <BotonVerde text={'Modificar Precios'} onClick={handleShow} />
+            <Modal
+                show={show}
+                onHide={() => {
+                    reset();
+                    handleClose();
+                }}
+                className='modal d-flex align-items-center justify-content-center'
+            >
                 <div className='modal-content'>
                     {/* Cabecero del modal */}
-                    <HeaderModals title='Modificar precio del los diseños' />
+                    <HeaderModals
+                        title='Modificar precio del los diseños'
+                        handleClose={handleClose}
+                    />
 
                     <div className='modal-body'>
                         {/* formulario para agregar un cliente  */}
@@ -148,7 +139,10 @@ const PrecioDiseno = () => {
                             </div>
                             <div className='modal-footer'>
                                 {/* Botón para cancelar*/}
-                                <CancelarModal />
+                                <CancelarModal
+                                    reset={reset}
+                                    handleClose={handleClose}
+                                />
 
                                 {/* Botón para guardar*/}
                                 <GuardarModal />
@@ -156,8 +150,8 @@ const PrecioDiseno = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </Modal>
+        </Fragment>
     );
 };
 

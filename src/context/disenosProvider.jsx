@@ -13,6 +13,13 @@ export const DisenosProvider = ({ children }) => {
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
 
+
+    const [precios, setPrecios] = useState([]);
+
+    const consultarPrecios = async () => {
+        const respuesta = await clienteAxios.get('/precio_disenos');
+        setPrecios(respuesta.data);
+    };
     // console.log(disenosDB)
 
     const agregarDiseno = (data) => {
@@ -38,6 +45,7 @@ export const DisenosProvider = ({ children }) => {
     useEffect(() => {
         /// Hacer la petición a la api
         consultarDisenos();
+        consultarPrecios();
     }, [auth]);
 
     const agregarDisenoDB = async (formData, handleClose, reset) => {
@@ -130,6 +138,40 @@ export const DisenosProvider = ({ children }) => {
 
          setDisenosDB(clienteActualizado);
      };
+
+
+     const actualizarPrecioDB = async (data,reset,handleClose) => {
+
+        try {
+            const res = await clienteAxios.put("/precio_disenos/"+data?.id_precio, {
+                precio: data?.precio
+            });
+
+            // Lanzar alerta del producto agregado
+            Swal.fire({
+                title: 'Precio Editado',
+                text: res.data.message,
+                icon: 'success',
+            }).then(() => {
+                consultarPrecios();
+                reset();
+                handleClose();
+            });
+        } catch (error) {
+            console.log(error);
+            // Lanzar alerta de error
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error',
+                icon: 'Vuelva a intentarlo',
+            }).then( () => {
+                reset()
+                handleClose()
+            });
+        }
+     };
+
+
     // Proporcionar el estado y las funciones de actualización a los componentes hijos
     const contextValue = {
         disenos,
@@ -141,7 +183,9 @@ export const DisenosProvider = ({ children }) => {
         editarEstado,
         editarPublicacion,
         eliminarDiseno,
-        setDisenos
+        setDisenos,
+        precios,
+        actualizarPrecioDB,
     };
 
     return (
