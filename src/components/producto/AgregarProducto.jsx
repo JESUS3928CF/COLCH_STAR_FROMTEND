@@ -31,7 +31,6 @@ import usePrendas from '../../hooks/usePrendas.jsx';
 const AgregarProducto = () => {
 
 
-    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
 
 
     // función que llega del provider que tiene todas las rutas
@@ -99,6 +98,7 @@ const AgregarProducto = () => {
         );
     };
     return (
+ 
         <div>
             {/* modal agregar producto */}
             <BotonVerde text={'Agregar Producto'} onClick={handleShow} />
@@ -329,6 +329,7 @@ const AgregarProducto = () => {
                     </div>
                 </div>
             </Modal>
+
 
             <AgregarDisenoModal
                 // le pasamos las funciones a AgregarDiseñoModal

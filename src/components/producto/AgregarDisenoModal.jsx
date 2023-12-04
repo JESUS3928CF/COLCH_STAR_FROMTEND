@@ -13,7 +13,7 @@ import useProducto from '../../hooks/useProducto';
 
 
 //Componente
-const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
+const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
 
     
 
@@ -216,8 +216,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                 text={'Regresar'}
                                 modalClouse={'modal'}
                                 onClick={() => {
-                                    // setSelectedDisenoNombre([]);
-                                    // setDisenos([]);
                                     handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                             />
