@@ -9,6 +9,7 @@ import style from '../../pages/Productos.module.css';
 import BotonNegro from '../chared/BotonNegro';
 import logo from '../../imgNavbar/cruz.png';
 import { Modal } from 'react-bootstrap';
+import AgregarProducto from './AgregarProducto';
 
 
 //Componente
@@ -218,6 +219,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                     </form>
                 </div>
             </div>
+            <AgregarProducto  set = {setSelectedDisenoNombre}/>
         </Modal>
     );
 };

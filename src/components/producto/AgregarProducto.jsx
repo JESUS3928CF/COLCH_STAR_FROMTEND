@@ -32,6 +32,7 @@ const AgregarProducto = () => {
 
 
 
+
     // función que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
