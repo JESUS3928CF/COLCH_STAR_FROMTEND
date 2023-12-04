@@ -21,7 +21,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     } = useForm();
 
     //trae alguna funciones de disenos provider
-    const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno,  setDisenos } = useDisenosContext();
 
     //muestra los disenos existentes
     // console.log(disenosDB)
@@ -55,7 +55,11 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         );
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+
+
+
     };
+   
 
 
     //estado pa los diseños
@@ -197,19 +201,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                                     <img src={logo} alt="" className={style.logoimg} />
                                                 </span>
 
-                                            </p>
-                                        </div>
-                                    )
-                                )}
-                                {editarProducto.disenos && editarProducto.disenos.map(
-                                    (disenos, index) => (
-                                        <div key={index} className={style.disenocontainer}>
-                                            <p>
-                                                <span className={style.disenonombre}>- {disenos.nombre}</span>
-                                                <span onClick={() => eliminarDiseno01(index)}>
-                                                    <img src={logo} alt="" className={style.logoimg} />
-                                                </span>
-                                                {/* Puedes agregar lógica para eliminar este diseño también si es necesario */}
                                             </p>
                                         </div>
                                     )

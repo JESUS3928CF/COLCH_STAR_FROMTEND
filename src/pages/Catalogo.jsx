@@ -25,7 +25,8 @@ const Catalogo = () => {
     //traemos toda la informacion de prendas guardada
     const { Prendas } = usePrendas();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadPrendas = Prendas ? Prendas.length : 0;
+    const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
+
     // console.log(Prendas)
 
 
@@ -37,7 +38,7 @@ const Catalogo = () => {
     //traemos toda la informacion de diseños guardada
     const { disenosDB } = useDisenosContext();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadDisenos = disenosDB ? disenosDB.length : 0;
+    const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;;
     // console.log(disenosDB)
 
 
@@ -168,9 +169,9 @@ const Catalogo = () => {
                         Explore nuestros productos <br />
                         <span>Categorias</span>
                     </h1>
-                    <a href='#' className={style.btn}>
+                    {/* <a href='#' className={style.btn}>
                         Ver todo <i className={`bx bx-right-arrow-alt`}></i>
-                    </a>
+                    </a> */}
                 </div>
 
                 {/* Contenedor de contenido */}
@@ -315,7 +316,7 @@ const Catalogo = () => {
                     <span>Nosotros</span>
                     <p>En Colch Star, nos dedicamos apasionadamente a plasmar diseños únicos en prendas de vestir. Desde nuestra fundación en 2022, nos hemos destacado en la industria de los estampados de ropa, brindando soluciones creativas y de alta calidad a nuestros clientes</p>
                     <p>Bienvenidos a Colch Star, donde transformamos prendas en obras de arte y convertimos tus ideas en realidad.</p>
-                    <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a>
+                    {/* <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a> */}
                 </div>
             </section>
 
