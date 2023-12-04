@@ -67,6 +67,8 @@ const ComprasProviders = ({ children }) => {
                 reset();
                 consultarCompras();
                 handleClose();
+                setTotalCompra(0)
+                setDetallesCompra([])
             });
         } catch (error) {
             console.log(error);
@@ -96,6 +98,7 @@ const ComprasProviders = ({ children }) => {
         detallesCompra,
         setDetallesCompra,
         totalCompra,
+        setTotalCompra,
     };
 
     return (
