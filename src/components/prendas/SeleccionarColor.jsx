@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import logo from "../../imgNavbar/cruz.png";
 import style from "../../pages/Productos.module.css";
 import useColors from "../../hooks/useColors";
+import AgregarColors from "./AgregarColors";
 
 const SeleccionarColors = ({ handleClose, handleShow }) => {
   const {
@@ -153,6 +154,7 @@ const SeleccionarColors = ({ handleClose, handleShow }) => {
           </div>
         </div>
       </div>
+      <AgregarColors />
     </>
   );
 };

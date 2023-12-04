@@ -12,7 +12,7 @@ import { useState } from "react";
 
 
 
-const AgregarColors = () => {
+const AgregarColors = ({handleShow, handleClose}) => {
     const {
         register,
         reset,
@@ -20,9 +20,7 @@ const AgregarColors = () => {
         formState: { errors },
     } = useForm({mode: 'onChange'});
 
-    const [show, setShow]= useState(false)
-    const handleClose = ()=> setShow(false)
-    const handleShow = ()=> setShow(true)
+   
 
 
 
@@ -63,7 +61,13 @@ const AgregarColors = () => {
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
 
-                        <HeaderModals title={'Agregar color'} />
+                        <HeaderModals title={'Agregar color'}
+                        handleClose={()=>{
+                            reset()
+                            handleClose()
+                        }}
+                        
+                        />
 
                         <div className="modal-body">
                             <form onSubmit={
@@ -142,7 +146,13 @@ const AgregarColors = () => {
 
                                 <div className='modal-footer'>
                                   
-                                    <BotonNegro text={'Regresar'} modalToOpen={'#crearColor'} modalClouse={'modal'} />
+                                    <BotonNegro text={'Regresar'}
+
+                                     modalToOpen={'#crearColor'} 
+                                     modalClouse={'modal'}
+                                     
+                                     />
+                                     
                                     <GuardarModal />
 
                                 </div>
@@ -151,7 +161,6 @@ const AgregarColors = () => {
                     </div>
                 </div>
             </div>
-            {/* <SeleccionarColors  handleClose={handleClose} handleShow={handleShow}/> */}
 
 
         </>

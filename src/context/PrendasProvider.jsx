@@ -10,6 +10,7 @@ const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
   const { auth, token } = useAuth();
+  const {colors,setColores} = useColors()
 
   const [Prendas, setPrendas] = useState([]);
 
@@ -57,17 +58,18 @@ const PrendasProvider = ({ children }) => {
       }).then(() => {
         handleClose();
       });
+    }finally{
+      console.log("setColores",setColores([]))
     }
   };
 
-const {colors,setColores} = useColors()
+
 
 
 
 
 
   const updatePrendas = (data, detallesPrendas, handleClose) => {
-    setColores(detallesPrendas.color)
 
     const {
       nombre,
@@ -87,9 +89,13 @@ console.log(data.nombre)
 
 const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
 
+
 // console.log(nombre)
 
     if (updatePrendas) {
+     
+
+      console.log('colores',colors)
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/prendas/${
@@ -104,7 +110,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             imagen: imagen[0],
             publicado: publicado,
             tallas: tallas,
-            colores: JSON.stringify(colors== '' ? detallesPrendas.color: colors),
+            colores: JSON.stringify(colors== [] ? coloresEnviar: colors),
           },
           {
             headers: {
