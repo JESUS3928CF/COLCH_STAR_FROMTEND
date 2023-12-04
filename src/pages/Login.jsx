@@ -207,9 +207,11 @@ const Login = () => {
                     }`}
                 >
                     <div className={`${styles.form_box} ${styles.login}`}>
-                        <LoginForm setIsActivate={setIsActivate}/>
+                        <LoginForm setIsActivate={setIsActivate} />
                     </div>
-                    <div className={`${styles.form_box} ${styles.register}`}>
+                    <div
+                        className={`${styles.form_box} ${styles.register}`}
+                    >
                         <form onSubmit={validarEmail}>
                             <h2 style={{ fontWeight: 'bold' }}>
                                 Recuperar contraseña
