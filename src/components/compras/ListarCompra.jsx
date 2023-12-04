@@ -9,14 +9,19 @@ import Paginador from '../chared/Paginador';
 import BotonNegro from '../chared/BotonNegro';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import { useEffect, useState } from 'react';
-import { registrosPorPagina, resolucionCards } from '../../constantes/constantes';
+import {
+    registrosPorPagina,
+    resolucionCards,
+} from '../../constantes/constantes';
 import useCompras from '../../hooks/useCompras';
-import  {DetalleCompras}  from './DetallesCompras';
+import { DetalleCompras } from './DetallesCompras';
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
+import AgregarCompra from '../compras/AgregarCompra';
+
 const ListarCompra = () => {
-    const { compras } = useCompras();
+    const { compras, editarEstado } = useCompras();
 
     /// Estado de la barra de busqueda y para lastar en la tabla la información
     const [comprasFiltrar, setComprasFiltrar] = useState([]);
@@ -28,7 +33,6 @@ const ListarCompra = () => {
         setComprasFiltrar(
             compras.slice(0, registrosPorPagina, registrosPorPagina)
         );
-        console.log(comprasFiltrar);
     }, [compras]);
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
@@ -50,14 +54,7 @@ const ListarCompra = () => {
                             <div
                                 className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                             >
-                                <button
-                                    type='button'
-                                    className='btn-a'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#myModalAgregarComprar'
-                                >
-                                    Agregar Compra
-                                </button>
+                                <AgregarCompra />
                             </div>
 
                             {/* Boton para Buscar/filtrar */}
@@ -78,132 +75,144 @@ const ListarCompra = () => {
                             </div>
                         </div>
                     </div>
-                {anchoPantalla >= resolucionCards ? (
-                    <div className='tabla'>
-                        <table className='table caption-top '>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>ID</th>
-                                    <th scope='col'>Proveedor</th>
-                                    <th scope='col'>Total compra</th>
-                                    <th scope='col'>Fecha de compra</th>
-                                    <th scope='col'>Estado</th>
-                                    <th scope='col'>Detalles</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {comprasFiltrar.map((compra) => (
-                                    <tr key={compra.id_compra}>
-                                        <td>{compra.id_compra}</td>
-                                        <td>
-                                            {compra.proveedor
-                                                ? compra.proveedor.nombre
-                                                : 'N/A'}
-                                        </td>
-                                        <td>{compra.total_de_compra}</td>
-                                        <td>{compra.fecha}</td>
-                                        <td>
-                                            <BotonCambioEstado
-                                                id={compra.id_compra}
-                                                isChecked={compra.estado}
-                                                nombreRegistro={'compra'}
-                                                ruta={`/compra/estado/${compra.id_compra}`}
-                                            />
-                                        </td>
-                                        <td>
-                                            <BotonNegro
-                                                text='Ver'
-                                                modalToOpen={
-                                                    '#modalDetalleCompra'
-                                                }
-                                                onClick={() => {
-                                                    setDetallesCompra(compra);
-                                                }}
-                                            />
-                                        </td>
+                    {anchoPantalla >= resolucionCards ? (
+                        <div className='tabla'>
+                            <table className='table caption-top '>
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>ID</th>
+                                        <th scope='col'>Proveedor</th>
+                                        <th scope='col'>Total compra</th>
+                                        <th scope='col'>Fecha de compra</th>
+                                        <th scope='col'>Estado</th>
+                                        <th scope='col'>Detalles</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ):(
-                    <div className={`row pt-4 justify-content-center`}>
-                        {comprasFiltrar.map((compra) => (
-                            <div
-                                className={`col-md-4 col-sm-6 col-xs-12`}
-                                key={compra.id_compra}
-                            >
+                                </thead>
+                                <tbody>
+                                    {comprasFiltrar.map((compra) => (
+                                        <tr key={compra.id_compra}>
+                                            <td>{compra.id_compra}</td>
+                                            <td>
+                                                {compra.proveedor
+                                                    ? compra.proveedor.nombre
+                                                    : 'N/A'}
+                                            </td>
+                                            <td>{compra.total_de_compra}</td>
+                                            <td>{compra.fecha}</td>
+                                            <td>
+                                                <BotonCambioEstado
+                                                    id={compra.id_compra}
+                                                    isChecked={compra.estado}
+                                                    nombreRegistro={'compra'}
+                                                    ruta={`/compras/estado/${compra.id_compra}`}
+                                                    editarEstado={editarEstado}
+                                                />
+                                            </td>
+                                            <td>
+                                                <BotonNegro
+                                                    text='Ver'
+                                                    modalToOpen={
+                                                        '#modalDetalleCompra'
+                                                    }
+                                                    onClick={() => {
+                                                        setDetallesCompra(
+                                                            compra
+                                                        );
+                                                    }}
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className={`row pt-4 justify-content-center`}>
+                            {comprasFiltrar.map((compra) => (
                                 <div
-                                    className={`card mb-4 ${styles.contenedor_card}`}
+                                    className={`col-md-4 col-sm-6 col-xs-12`}
+                                    key={compra.id_compra}
                                 >
-                                    <div className='card-body'>
-                                        <p className={styles.text}>
-                                            Id:{' '}
-                                            <span>{compra.id_compra}</span>
-                                        </p>
-                                        <p className={styles.text}>
-                                            Proveedor:{' '}
-                                            <span>{compra.proveedor
-                                                ? compra.proveedor.nombre
-                                                : 'N/A'}</span>
-                                        </p>
-                                        <p className={styles.text}>
-                                            Total de Compra:{' '}
-                                            <span>{compra.total_de_compra}</span>
-                                        </p>
-                                        <p className={styles.text}>
-                                            Fecha:{' '}
-                                            <span>{compra.fecha}</span>
-                                        </p>
+                                    <div
+                                        className={`card mb-4 ${styles.contenedor_card}`}
+                                    >
+                                        <div className='card-body'>
+                                            <p className={styles.text}>
+                                                Id:{' '}
+                                                <span>{compra.id_compra}</span>
+                                            </p>
+                                            <p className={styles.text}>
+                                                Proveedor:{' '}
+                                                <span>
+                                                    {compra.proveedor
+                                                        ? compra.proveedor
+                                                              .nombre
+                                                        : 'N/A'}
+                                                </span>
+                                            </p>
+                                            <p className={styles.text}>
+                                                Total de Compra:{' '}
+                                                <span>
+                                                    {compra.total_de_compra}
+                                                </span>
+                                            </p>
+                                            <p className={styles.text}>
+                                                Fecha:{' '}
+                                                <span>{compra.fecha}</span>
+                                            </p>
 
-                                        <div className='row pt-3'>
-                                            <div className='col justify-content-center align-items-center '>
-                                                <div className='text-center'>
-                                                    <strong
-                                                        className={`${styles.textoEstado}`}
-                                                    >
-                                                        {' '}
-                                                        Estado{' '}
-                                                    </strong>
+                                            <div className='row pt-3'>
+                                                <div className='col justify-content-center align-items-center '>
+                                                    <div className='text-center'>
+                                                        <strong
+                                                            className={`${styles.textoEstado}`}
+                                                        >
+                                                            {' '}
+                                                            Estado{' '}
+                                                        </strong>
+                                                    </div>
+                                                    <div className='text-center'>
+                                                        <BotonCambioEstado
+                                                            id={
+                                                                compra.id_compra
+                                                            }
+                                                            isChecked={
+                                                                compra.estado
+                                                            }
+                                                            nombreRegistro={
+                                                                'compra'
+                                                            }
+                                                            ruta={`/compras/estado/${compra.id_compra}`}
+                                                            editarEstado={
+                                                                editarEstado
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                                <div className='text-center'>
-                                                    <BotonCambioEstado
-                                                        id={compra.id_compra}
-                                                        isChecked={
-                                                            compra.estado
+                                            </div>
+                                        </div>
+                                        <div className='card-footer'>
+                                            <div className='row'>
+                                                <div
+                                                    className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
+                                                >
+                                                    <BotonNegro
+                                                        text='Ver'
+                                                        modalToOpen='#modalDetalleCompra'
+                                                        onClick={() =>
+                                                            setDetallesCompra(
+                                                                compra
+                                                            )
                                                         }
-                                                        nombreRegistro={
-                                                            'compra'
-                                                        }
-                                                        ruta={`/compra/estado/${compra.id_compra}`}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='card-footer'>
-                                        <div className='row'>
-                                            <div
-                                                className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
-                                            >
-                                                <BotonNegro
-                                                    text='Ver'
-                                                    modalToOpen= '#modalDetalleCompra'
-                                                    onClick={() =>
-                                                        setDetallesCompra(
-                                                            compra
-                                                        )
-                                                    }
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <div className='seccion4'>

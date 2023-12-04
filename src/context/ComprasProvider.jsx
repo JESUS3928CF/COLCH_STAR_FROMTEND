@@ -29,7 +29,7 @@ const ComprasProviders = ({ children }) => {
         consultarCompras();
     }, [auth]);
 
-    const agregarCompra = async (data) => {
+    const agregarCompra = async (data, reset, handleClose) => {
         const { fecha, fk_proveedor } = data;
 
         //todo: hacer de esto un estado
@@ -47,15 +47,22 @@ const ComprasProviders = ({ children }) => {
         ];
 
         //todo: Hacer de esto un estado
-        const total = detallesCompras.reduce( (total, producto) => total + (producto.cantidad * producto.precio), 0);
+        const total = detallesCompras.reduce(
+            (total, producto) => total + producto.cantidad * producto.precio,
+            0
+        );
 
         try {
-            const newCompra = await clienteAxios.post('/compra', {
-                total_de_compra: total,
-                fecha: fecha,
-                fk_proveedor: fk_proveedor,
-                DetallesCompras: detallesCompras,
-            });
+            const newCompra = await clienteAxios.post(
+                '/compras',
+                {
+                    total_de_compra: total,
+                    fecha: fecha,
+                    fk_proveedor: fk_proveedor,
+                    DetallesCompras: detallesCompras,
+                },
+                config
+            );
 
             console.log(newCompra);
 
@@ -63,20 +70,37 @@ const ComprasProviders = ({ children }) => {
                 title: 'Compra Agregada',
                 text: newCompra.data.message,
                 icon: 'success',
-            }).then(location.reload());
+            }).then(() => {
+                reset();
+                consultarCompras();
+                handleClose();
+            });
         } catch (error) {
             console.log(error);
             Swal.fire({
                 title: 'Error',
-                text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
+                text: 'Hubo un error. Vuelva a intentarlo.',
+                icon: 'error',
             });
         }
+    };
+
+
+    const editarEstado = (id) => {
+        let compraEditada = compras.find((compra) => compra.id_compra === id);
+        compraEditada.estado = !compraEditada.estado;
+
+        const compraActualizada = compras.map((compra) =>
+            compra.id_compra == id ? compraEditada : compra
+        );
+
+        setCompras(compraActualizada);
     };
 
     const contextValue = {
         compras,
         agregarCompra,
+        editarEstado
     };
 
     return (

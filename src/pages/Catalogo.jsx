@@ -9,10 +9,6 @@ import logo2 from '../imgNavbar/designious1.jpg';
 import logo3 from '../imgNavbar/designious3.jpg';
 import logo4 from '../imgNavbar/camisaBasica.png';
 import logo5 from '../imgNavbar/039.png';
-import logo6 from '../imgNavbar/cBlanca.png';
-import logo7 from '../imgNavbar/buzo.png';
-import logo8 from '../imgNavbar/057.png';
-import logo9 from '../imgNavbar/117.png';
 import logoW from '../imgNavbar/whatsapp.svg'
 import logo10 from '../imgNavbar/LogoPNG.png'
 import { useDisenosContext } from '../context/disenosProvider';
@@ -85,7 +81,7 @@ const Catalogo = () => {
 
                 <div className={style.profile}>
                     {auth?.usuario?.id_usuario ? (
-                        <Link to={'/administracion'}> Iniciar sección </Link>
+                        <Link to={'/administracion'}> Entrar </Link>
                     ) : (
                         <Link to={'/login'}> Iniciar sección </Link>
                     )}
