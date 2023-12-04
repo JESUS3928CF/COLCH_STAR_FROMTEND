@@ -94,8 +94,6 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
 
     if (updatePrendas) {
      
-
-      console.log('colores',colors)
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/prendas/${
@@ -110,7 +108,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             imagen: imagen[0],
             publicado: publicado,
             tallas: tallas,
-            colores: JSON.stringify(colors== [] ? coloresEnviar: colors),
+            colores: JSON.stringify(colors== '' ? coloresEnviar: colors),
           },
           {
             headers: {
