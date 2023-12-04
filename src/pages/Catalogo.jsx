@@ -362,26 +362,9 @@ const Catalogo = () => {
                 <img className={style.img} src={logo10} alt='' />
                 <div className={style.abouttext}>
                     <span>Nosotros</span>
-<<<<<<< HEAD
                     <p>En Colch Star, nos dedicamos apasionadamente a plasmar diseños únicos en prendas de vestir. Desde nuestra fundación en 2022, nos hemos destacado en la industria de los estampados de ropa, brindando soluciones creativas y de alta calidad a nuestros clientes</p>
                     <p>Bienvenidos a Colch Star, donde transformamos prendas en obras de arte y convertimos tus ideas en realidad.</p>
                     {/* <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a> */}
-=======
-                    <p>
-                        En Colch Star, nos dedicamos apasionadamente a plasmar
-                        diseños únicos en prendas de vestir. Desde nuestra
-                        fundación en 2022, nos hemos destacado en la industria
-                        de los estampados de ropa, brindando soluciones
-                        creativas y de alta calidad a nuestros clientes
-                    </p>
-                    <p>
-                        Bienvenidos a Colch Star, donde transformamos prendas en
-                        obras de arte y convertimos tus ideas en realidad.
-                    </p>
-                    <a href='#' className={style.btn}>
-                        Leer más <i className='bx bx-right-arrow-alt'></i>
-                    </a>
->>>>>>> d6d460eee11ef0a234a26bca03863fcb284bc9a0
                 </div>
             </section>
         </div>
