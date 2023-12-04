@@ -43,7 +43,7 @@ const PrecioDiseno = () => {
     const { precios, actualizarPrecioDB } = useDisenosContext();
 
     const actualizarPrecio = handleSubmit(async (data) => {
-        actualizarPrecioDB(data,reset, handleClose);
+        actualizarPrecioDB(data, reset, handleClose);
     });
 
     return (
@@ -67,6 +67,7 @@ const PrecioDiseno = () => {
                     <div className='modal-body'>
                         {/* formulario para agregar un cliente  */}
                         <form
+                            className='row g-3 needs-validation'
                             action=''
                             id='formularioModificar'
                             onSubmit={actualizarPrecio}
