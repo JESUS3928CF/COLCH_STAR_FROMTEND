@@ -34,8 +34,8 @@ const MyRoutes = () => {
                         <ColorsProvider>
                             <PrendasProvider>
                                 <ClientesProvider>
-                                    <RolesProvider>
-                                        <UsuariosProvider>
+                                    <UsuariosProvider>
+                                        <RolesProvider>
                                             <ProveedoresProvider>
                                                 <ProductosProvider>
                                                     <ComprasProviders>
@@ -134,8 +134,8 @@ const MyRoutes = () => {
                                                     </ComprasProviders>
                                                 </ProductosProvider>
                                             </ProveedoresProvider>
-                                        </UsuariosProvider>
-                                    </RolesProvider>
+                                        </RolesProvider>
+                                    </UsuariosProvider>
                                 </ClientesProvider>
                             </PrendasProvider>
                         </ColorsProvider>

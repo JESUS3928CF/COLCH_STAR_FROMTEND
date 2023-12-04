@@ -3,10 +3,13 @@ import rolAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useUsuario from '../hooks/useUsuario';
 const rolesContext = createContext();
 
 const RolesProvider = ({ children }) => {
     const { config, auth } = useAuth();
+
+    const { consultarUsuarios } = useUsuario();
 
     // primer state
     const [roles, setRoles] = useState([]);
@@ -92,6 +95,7 @@ const RolesProvider = ({ children }) => {
                         text: response.data.message,
                         icon: 'success',
                     }).then(() => {
+                        consultarUsuarios();
                         consultarRoles();
                         handleClose();
                     });
