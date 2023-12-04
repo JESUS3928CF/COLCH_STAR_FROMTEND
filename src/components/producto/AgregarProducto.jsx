@@ -26,8 +26,14 @@ import BotonVerde from '../chared/BotonVerde';
 import useProducto from '../../hooks/useProducto.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 
+
 //Componente
 const AgregarProducto = () => {
+
+
+    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
+
+
     // función que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
@@ -88,7 +94,8 @@ const AgregarProducto = () => {
             },
 
             reset,
-            handleClose
+            handleClose,
+            setDisenos([])
         );
     };
     return (
