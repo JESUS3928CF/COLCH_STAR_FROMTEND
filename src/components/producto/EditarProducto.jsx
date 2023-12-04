@@ -28,6 +28,8 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
 
     const { config } = useAuth();
 
+   
+
 
     const {
         register, //regitra o identifica cada elemento o cada input

@@ -14,6 +14,8 @@ import { Modal } from 'react-bootstrap';
 //Componente
 const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
+    
+
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -23,6 +25,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
     //funciones y  propiedades que nos traemos de Diseño contex
     const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
+
 
 
 
@@ -199,11 +202,14 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
                         <div className='modal-footer'>
                             {/* Botón para cancelar*/}
-
                             <BotonNegro
                                 text={'Regresar'}
                                 modalClouse={'modal'}
-                                onClick={handleClosee}
+                                onClick={() => {
+                                    // setSelectedDisenoNombre([]);
+                                    // setDisenos([]);
+                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                }}
                             />
 
                             {/* Botón para guardar*/}
