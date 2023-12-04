@@ -1,0 +1,36 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #000;
+    color: #fff;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+/* carousel-styles.css */
+
+/* Ajusta la posición vertical de las flechas del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+    top: 3%; /* Puedes ajustar este valor según tus preferencias */
+}
+
+/* Estilos adicionales si es necesario */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #000;
+    color: #fff;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+/* carousel-styles.css */
+
+/* Oculta los indicadores (guiones) del carrusel */
+.carousel-indicators {
+    display: none;
+}

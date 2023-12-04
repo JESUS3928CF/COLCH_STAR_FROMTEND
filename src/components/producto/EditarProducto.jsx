@@ -22,7 +22,7 @@ import useAuth from '../../hooks/useAuth';
 
 
 
-const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
+const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handleShoww, showw, handleClosex }) => {
 
     const { editarProductos } = useProducto();
 
@@ -287,7 +287,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
                                     <BotonNegro
                                         text='Agregar Diseño'
                                         modalToOpen='#myModalDisenoE'
-                                        onClick={handleClose}
+                                        onClick={handleShoww}
                                     />
                                 </div>
 
@@ -304,9 +304,12 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleShow }) => {
             </Modal>
 
             <EditarDisenoModal
-                handleClose={handleClose}
-                handleShow={handleShow}
+                // funcion para cerrar, abrir modal de EditarDiseñosModal
                 editarProducto= {editarProducto}
+                handleClosee={handleClosee}
+                    handleShoww={handleShoww}
+                    showw={showw}
+                    handleClosex={handleClosex}
             />
         </div>
     );

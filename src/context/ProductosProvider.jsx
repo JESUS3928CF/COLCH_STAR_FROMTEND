@@ -12,6 +12,8 @@ const productosContext = createContext();
 const ProductosProvider = ({ children }) => {
     const {  auth, token } = useAuth();
 
+    const { setDisenos } = useDisenosContext();
+
     // primer state
     const [productos, setProductos] = useState([]);
 
@@ -19,8 +21,8 @@ const ProductosProvider = ({ children }) => {
 
     const consultarProductos = async () => {
         try {
-            const token = localStorage.getItem('token');
-            if (!token) return;
+            // const token = localStorage.getItem('token');
+            // if (!token) return;
 
             const { data } = await productoAxios.get("/productos");
 
@@ -65,6 +67,9 @@ const ProductosProvider = ({ children }) => {
                 handleClose();
             });
 
+        } finally {
+            console.log("Hola")
+            console.log(setDisenos([]));
         }
     };
 
