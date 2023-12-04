@@ -207,8 +207,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                                 text={'Regresar'}
                                 modalClouse={'modal'}
                                 onClick={() => {
-                                    setSelectedDisenoNombre([]);
-                                    setDisenos([]);
                                     handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                             />
@@ -219,7 +217,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                     </form>
                 </div>
             </div>
-            <AgregarProducto  set = {setSelectedDisenoNombre}/>
         </Modal>
     );
 };
