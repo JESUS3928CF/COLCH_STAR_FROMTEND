@@ -6,10 +6,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .background {
-    /* background: url(atras.jpg) no-repeat; */
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -31,6 +31,18 @@
     overflow: hidden;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1275px) {
+    .container {
+        width: 70%;
+    }
+
+    .login_section .form_box {
+        width: 10%;
+        height: 100%;
+
+    }
 }
 
 
