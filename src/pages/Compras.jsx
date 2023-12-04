@@ -1,5 +1,4 @@
 import { Navigate } from 'react-router-dom';
-import AgregarCompra from '../components/compras/AgregarCompra';
 import ListarCompra from '../components/compras/ListarCompra';
 import useAuth from '../hooks/useAuth';
 
@@ -12,7 +11,6 @@ const Compras = () => {
     return auth.usuario.permisos.includes('compra') ? (
         <div>
             <ListarCompra />
-            <AgregarCompra />
         </div>
     ) : (
         <Navigate to={'/administracion'} />

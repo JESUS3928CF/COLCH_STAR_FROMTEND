@@ -289,7 +289,7 @@ const AgregarProducto = () => {
                                         },
 
                                         validate: (value) => {
-                                            validarImagen(value[0])
+                                            validarImagen(value[0]);
                                         },
                                     })}
                                 />

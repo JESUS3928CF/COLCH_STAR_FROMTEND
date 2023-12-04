@@ -366,7 +366,7 @@ const AgregarUsuario = () => {
                                         </option>
                                         {roles.map((rol) => {
                                             if (
-                                                rol.nombre !== 'Administrador'
+                                                rol.nombre !== 'Administrador' && rol.estado
                                             ) {
                                                 return (
                                                     <option
