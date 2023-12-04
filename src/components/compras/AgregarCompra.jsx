@@ -104,7 +104,7 @@ const AgregarCompras = () => {
                                                 Seleccionar Proveedor
                                             </option>
 
-                                            {proveedores.map((proveedor) => {
+                                            {proveedores.filter(proveedor => proveedor.estado ).map((proveedor) => {
                                                 return (
                                                     <option
                                                         key={
@@ -203,7 +203,7 @@ const AgregarCompras = () => {
                                         <option value='d'>
                                             Impresión de estampados
                                         </option>
-                                        {Prendas.map((prenda) => {
+                                        {Prendas.filter( prenda => prenda.estado).map((prenda) => {
                                             return (
                                                 <option
                                                     key={prenda.id_prenda}
