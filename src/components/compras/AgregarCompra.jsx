@@ -33,6 +33,7 @@ const AgregarCompras = () => {
     const handleClose = () => {
         setTotalCompra(0);
         setDetallesCompra([]);
+        reset();
         setShow(false);
     };
     const handleShow = () => setShow(true);
