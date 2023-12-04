@@ -11,24 +11,28 @@ import AlertaError from '../chared/AlertaError';
 import { validarFecha } from '../../Validations/validations';
 import HeaderModals from '../chared/HeaderModals';
 import useProveedor from '../../hooks/useProveedor';
-import AgregarDetallesCompra from './AgregarDetallesCompra';
 import useCompras from '../../hooks/useCompras';
 import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
-import BotonNegro from '../chared/BotonNegro';
-import usePrendas from '../../hooks/usePrendas';
+import { AgregarDetallesCompra } from './AgregarDetallesCompra';
+import Swal from 'sweetalert2';
 
 const AgregarCompras = () => {
-    
-    const { agregarCompra } = useCompras();
+    const {
+        agregarCompra,
+        detallesCompra,
+        setDetallesCompra,
+        totalCompra,
+        setTotalCompra,
+    } = useCompras();
 
     const { proveedores } = useProveedor();
-    
-    const { Prendas } = usePrendas();
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
     const handleClose = () => {
+        setTotalCompra(0);
+        setDetallesCompra([]);
         setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -47,8 +51,16 @@ const AgregarCompras = () => {
     const onSubmit = async (data) => {
         console.log(data);
 
-        agregarCompra(data, reset, handleClose);
-
+        if (detallesCompra.length === 0) {
+            Swal.fire({
+                title: 'Espera!!',
+                text: 'Agrega los detalles de esta compra',
+                icon: 'warning',
+            });
+        } else {
+            console.log(detallesCompra);
+            agregarCompra(data, reset, handleClose);
+        }
     };
 
     return (
@@ -58,6 +70,8 @@ const AgregarCompras = () => {
             <Modal
                 show={show}
                 onHide={() => {
+                    setTotalCompra(0);
+                    setDetallesCompra([]);
                     reset();
                     handleClose();
                 }}
@@ -74,11 +88,7 @@ const AgregarCompras = () => {
                     />
                     <div>
                         <div className='modal-body'>
-                            <form
-                                action=''
-                                id='formularioagregarCompra'
-                                onSubmit={handleSubmit(onSubmit)}
-                            >
+                            <form action='' id='formularioagregarCompra'>
                                 <div className='row'>
                                     {' '}
                                     <div className='col-md-6'>
@@ -104,20 +114,25 @@ const AgregarCompras = () => {
                                                 Seleccionar Proveedor
                                             </option>
 
-                                            {proveedores.filter(proveedor => proveedor.estado ).map((proveedor) => {
-                                                return (
-                                                    <option
-                                                        key={
-                                                            proveedor.id_proveedor
-                                                        }
-                                                        value={
-                                                            proveedor.id_proveedor
-                                                        }
-                                                    >
-                                                        {proveedor.nombre}
-                                                    </option>
-                                                );
-                                            })}
+                                            {proveedores
+                                                .filter(
+                                                    (proveedor) =>
+                                                        proveedor.estado
+                                                )
+                                                .map((proveedor) => {
+                                                    return (
+                                                        <option
+                                                            key={
+                                                                proveedor.id_proveedor
+                                                            }
+                                                            value={
+                                                                proveedor.id_proveedor
+                                                            }
+                                                        >
+                                                            {proveedor.nombre}
+                                                        </option>
+                                                    );
+                                                })}
                                         </select>
 
                                         {errors.fk_proveedor && (
@@ -170,156 +185,16 @@ const AgregarCompras = () => {
                                 </div>
 
                                 <div className='col-md-4 my-3'>
-                                    <p>Precio total = 15000</p>
-                                </div>
-
-                                <p className='text-center'>
-                                    {' '}
-                                    Agregar los detalles de compras{' '}
-                                </p>
-
-                                <div className='col-md-12 '>
-                                    <label
-                                        htmlFor='rol'
-                                        className='col-form-label'
-                                    >
-                                        Producto: *
-                                    </label>
-
-                                    <select
-                                        name='fk_prenda'
-                                        className='form-control'
-                                        {...register('fk_prenda', {
-                                            required: {
-                                                value: true,
-                                                message:
-                                                    'El producto es obligatorio',
-                                            },
-                                        })}
-                                    >
-                                        <option value=''>
-                                            Seleccione el producto comprado
-                                        </option>
-                                        <option value='d'>
-                                            Impresión de estampados
-                                        </option>
-                                        {Prendas.filter( prenda => prenda.estado).map((prenda) => {
-                                            return (
-                                                <option
-                                                    key={prenda.id_prenda}
-                                                    value={prenda.id_prenda}
-                                                >
-                                                    {prenda.nombre}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-
-                                    {errors.fk_prenda && (
-                                        <AlertaError
-                                            message={errors.fk_prenda.message}
-                                        />
-                                    )}
-                                </div>
-
-                                <div className='row'>
-                                    <div className='col-md-6'>
-                                        <label
-                                            htmlFor='nombreCompraAgregar'
-                                            className='col-form-label'
-                                        >
-                                            Cantidad
-                                        </label>
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            id='nombreCompraAgregar'
-                                            name='nombreCompraAgregar'
-                                            placeholder='. . .'
-                                            {...register('cantidad', {
-                                                required: {
-                                                    value: true,
-                                                    message:
-                                                        'La cantidad es obligatoria',
-                                                },
-                                                pattern: {
-                                                    value: /^\d+$/,
-                                                    message:
-                                                        'No se permiten letras ni caracteres especiales',
-                                                },
-                                            })}
-                                            onChange={(e) => {
-                                                setValue(
-                                                    'cantidad',
-                                                    e.target.value
-                                                );
-                                                trigger('cantidad');
-                                            }}
-                                        />
-
-                                        {errors.cantidad && (
-                                            <AlertaError
-                                                message={
-                                                    errors.cantidad.message
-                                                }
-                                            />
-                                        )}
-                                    </div>
-
-                                    <div className='col-md-6'>
-                                        <label
-                                            htmlFor='totalCompraAgregar'
-                                            className='col-form-label'
-                                        >
-                                            Precio unitario
-                                        </label>
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            id='totalCompraAgregar'
-                                            placeholder='. . .'
-                                            {...register('precio', {
-                                                required: {
-                                                    value: true,
-                                                    message:
-                                                        'El precio es obligatorio',
-                                                },
-                                                pattern: {
-                                                    value: /^\d+$/,
-                                                    message:
-                                                        'No se permiten letras ni caracteres espaciales',
-                                                },
-                                            })}
-                                            onChange={(e) => {
-                                                setValue(
-                                                    'precio',
-                                                    e.target.value
-                                                );
-                                                trigger('precio');
-                                            }}
-                                        />
-                                        {errors.precio && (
-                                            <AlertaError
-                                                message={errors.precio.message}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className='row py-3 text-center'>
-                                    <div className='col-md-6 pl-1 '>
-                                        <BotonNegro text={'Ver Detalles'} />
-                                    </div>
-                                    <div className='col-md-6 pr-1'>
-                                        <GuardarModal text='Agregar Detalle' />
-                                    </div>
-                                </div>
-
-                                <div className='modal-footer'>
-                                    <CancelarModal handleClose={handleClose} />
-                                    <GuardarModal />
+                                    <p>Precio total = {totalCompra}</p>
                                 </div>
                             </form>
+                            <AgregarDetallesCompra />
+                            <div className='modal-footer'>
+                                <CancelarModal handleClose={handleClose} />
+                                <GuardarModal
+                                    onSubmit={handleSubmit(onSubmit)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

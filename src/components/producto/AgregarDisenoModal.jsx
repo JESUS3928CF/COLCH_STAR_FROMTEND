@@ -10,7 +10,10 @@ import BotonNegro from '../chared/BotonNegro';
 import logo from '../../imgNavbar/cruz.png';
 import { Modal } from 'react-bootstrap';
 
+
+//Componente
 const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
+
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -18,8 +21,10 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         reset,
     } = useForm();
 
-    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } =
-        useDisenosContext();
+    //funciones y  propiedades que nos traemos de Diseño contex
+    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
+
+
 
     const eliminarDiseno01 = (index) => {
         // Crea una copia del array original
@@ -32,8 +37,10 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         eliminarDiseno(index);
     };
 
+
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
+    //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
         console.log(data);
         agregarDiseno(data);
@@ -47,6 +54,8 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
 
+
+    //estado para traerel tanmaño y el precio de diseños
     const [Precio, setPrecio] = useState([]);
     // console.log(Precio)
 
@@ -59,6 +68,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });
     }, []);
+
 
     return (
         <Modal

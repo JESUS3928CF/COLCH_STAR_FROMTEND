@@ -11,9 +11,8 @@ import logo from '../../imgNavbar/cruz.png'
 import { Modal } from 'react-bootstrap';
 
 
-
-
-const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
+//Componente
+const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -21,11 +20,20 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
         reset
     } = useForm();
 
-    const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
+    //trae alguna funciones de disenos provider
+    const { agregarDiseno, eliminarDiseno,  setDisenos } = useDisenosContext();
+
+    //muestra los disenos existentes
+    // console.log(disenosDB)
+
+    // muestra los disenos seleccionados en el agregar
+    // console.log(disenos)
+
 
     const eliminarDiseno01 = (index) => {
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
+
         // Elimina el elemento en el índice especificado
         nuevosDisenos.splice(index, 1);
         // Actualiza el estado con la nueva array sin el elemento eliminado
@@ -38,7 +46,7 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
     const agregarNuevoDiseno = (data) => {
-        console.log(data);
+        // console.log(data);
         agregarDiseno(data);
 
         console.log(selectedDisenoNombre);
@@ -47,14 +55,16 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
         );
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+
+
+
     };
-
-
+   
 
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
-    // console.log( detalle_diseno)
+    //  console.log( detalle_diseno)
 
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
@@ -76,12 +86,6 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
     }, []);
 
 
-
-
-
-
-
-
     return (
         <Modal
             show={showw}
@@ -98,7 +102,7 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
                 <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
                     reset();
                     handleClosex();
-
+                    //al darle lcick al salir manda estos datos vacios
                     setSelectedDisenoNombre([])
                     setDisenos([])
                 }} />
@@ -131,14 +135,16 @@ const EditarDisenoModal = ({showw, handleClosex, handleClosee }) => {
                                     <option value='' disabled>
                                         Seleccionar diseño
                                     </option>
-                                    {detalle_diseno.map((diseno) => (
-                                        <option
-                                            key={diseno.id_diseno}
-                                            value={diseno.id_diseno}
-                                        >
-                                            {diseno.nombre}
-                                        </option>
-                                    ))}
+                                    {detalle_diseno
+                                        .filter((diseno) => diseno.estado)
+                                        .map((diseno) => (
+                                            <option
+                                                key={diseno.id_diseno}
+                                                value={diseno.id_diseno}
+                                            >
+                                                {diseno.nombre}
+                                            </option>
+                                        ))}
                                 </select>
 
                                 {errors.diseno && (

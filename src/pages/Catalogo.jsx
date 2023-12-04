@@ -14,6 +14,7 @@ import logo10 from '../imgNavbar/LogoPNG.png'
 import { useDisenosContext } from '../context/disenosProvider';
 import useProducto from '../hooks/useProducto';
 import usePrendas from '../hooks/usePrendas';
+import { redirigirWhatsApp } from '../constantes/funciones.js';
 
 
 
@@ -25,7 +26,8 @@ const Catalogo = () => {
     //traemos toda la informacion de prendas guardada
     const { Prendas } = usePrendas();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadPrendas = Prendas ? Prendas.length : 0;
+    const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
+
     // console.log(Prendas)
 
 
@@ -37,7 +39,7 @@ const Catalogo = () => {
     //traemos toda la informacion de diseños guardada
     const { disenosDB } = useDisenosContext();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadDisenos = disenosDB ? disenosDB.length : 0;
+    const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;;
     // console.log(disenosDB)
 
 
@@ -48,6 +50,7 @@ const Catalogo = () => {
     if (loading == true) return 'Cargando...';
 
 
+    
 
     return (
         <div className={style.contenedorCatalogo}>
@@ -88,8 +91,6 @@ const Catalogo = () => {
                 </div>
             </header>
 
-
-            
             {/* <section
                 className={`${style.home} ${style.swiper} ${style.section}`}
                 id='home'
@@ -158,7 +159,6 @@ const Catalogo = () => {
                 <div className='swiper-button-prev'></div>
             </section> */}
 
-                   
             <section
                 className={style.categories + ' ' + style.section}
                 id='categories'
@@ -168,166 +168,222 @@ const Catalogo = () => {
                         Explore nuestros productos <br />
                         <span>Categorias</span>
                     </h1>
-                    <a href='#' className={style.btn}>
+                    {/* <a href='#' className={style.btn}>
                         Ver todo <i className={`bx bx-right-arrow-alt`}></i>
-                    </a>
+                    </a> */}
                 </div>
 
                 {/* Contenedor de contenido */}
                 <div className={style['categories-container']}>
-                    
                     {/* Box 1 */}
                     <div className={`${style.box} ${style.box1}`}>
                         <img className={style.img} src={logo4} alt='' />
                         <h2>Prendas</h2>
-                        <span><p> {cantidadPrendas} Articulos </p></span>
-                        <a href='#products'><i className={`bx bx-right-arrow-alt`}></i></a>
+                        <span>
+                            <p> {cantidadPrendas} Artículos </p>
+                        </span>
+                        <a href='#products'>
+                            <i className={`bx bx-right-arrow-alt`}></i>
+                        </a>
                     </div>
 
                     {/* Box 2 */}
                     <div className={`${style.box} ${style.box2}`}>
                         <img className={style.img} src={logo5} alt='' />
                         <h2>Diseños</h2>
-                        <span><p> {cantidadDisenos} Articulos </p></span>
-                        <a href='#diseños'><i className={`bx bx-right-arrow-alt`}></i></a>
-
+                        <span>
+                            <p> {cantidadDisenos} Artículos </p>
+                        </span>
+                        <a href='#diseños'>
+                            <i className={`bx bx-right-arrow-alt`}></i>
+                        </a>
                     </div>
-
                 </div>
             </section>
 
-
-
             {/* //prendas */}
-            <section className={style.products + ' ' + style.section} id="products" >
+            <section
+                className={style.products + ' ' + style.section}
+                id='products'
+            >
                 <div className={style.heading}>
-                    <h1>Nuestras Prendas  <br /> <span>Populares</span></h1>
-                    <a href="#" className={style.btn}>Comprar <i className="bx bx-right-arrow-alt"></i></a>
+                    <h1>
+                        Nuestras Prendas <br /> <span>Populares</span>
+                    </h1>
+                    <a onClick={redirigirWhatsApp} className={style.btn}>
+                        Comprar <i className='bx bx-right-arrow-alt'></i>
+                    </a>
                 </div>
 
                 <div className={style.productsconatiner}>
-
-                    {Prendas
-                        .filter((Prendas) => Prendas.publicado) // Filter only published designs
+                    {Prendas.filter((Prendas) => Prendas.publicado) // Filter only published designs
                         .map((Prendas) => (
                             <div className={style.box} key={Prendas.id_diseno}>
                                 <img
-                                    className={style.imagenProducto + " " + style.img}
+                                    className={
+                                        style.imagenProducto + ' ' + style.img
+                                    }
                                     src={
                                         Prendas.imagen
-                                            ? `${import.meta.env.VITE_BACKEND_URL}/${Prendas.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${Prendas.imagen}`
                                             : ''
                                     }
-                                    alt=""
+                                    alt=''
                                 />
-                                <div className={style.informacionProducto}>
-                                </div>
+                                <div
+                                    className={style.informacionProducto}
+                                ></div>
                                 <span className={style.discount}>
-                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}{Prendas.nombre}
+                                    {Prendas.nombre}
                                 </span>
-                                <img className={style.iconoWhatapp + " " + style.img} src={logoW} alt="" />
+                                <img
+                                    onClick={redirigirWhatsApp}
+                                    className={
+                                        style.iconoWhatapp + ' ' + style.img
+                                    }
+                                    src={logoW}
+                                    alt=''
+                                />
                             </div>
                         ))}
                 </div>
             </section>
 
-
-
-
-
-
             {/* //productoss */}
-            <section className={style.products + ' ' + style.section} id="" >
+            <section className={style.products + ' ' + style.section} id=''>
                 <div className={style.heading}>
-                    <h1>Nuestros Productos  <br /> <span>Populares</span></h1>
-                    <a href="#" className={style.btn}>Comprar <i className="bx bx-right-arrow-alt"></i></a>
+                    <h1>
+                        Nuestros Productos <br /> <span>Populares</span>
+                    </h1>
+                    <a href='#' className={style.btn}>
+                        Comprar <i className='bx bx-right-arrow-alt'></i>
+                    </a>
                 </div>
 
                 <div className={style.productsconatiner}>
-
                     {productos
                         .filter((productos) => productos.publicado) // Filter only published designs
                         .map((productos) => (
-                            <div className={style.box} key={productos.id_diseno}>
+                            <div
+                                className={style.box}
+                                key={productos.id_diseno}
+                            >
                                 <img
-                                    className={style.imagenProducto + " " + style.img}
+                                    className={
+                                        style.imagenProducto + ' ' + style.img
+                                    }
                                     src={
                                         productos.imagen
-                                            ? `${import.meta.env.VITE_BACKEND_URL}/${productos.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${productos.imagen}`
                                             : ''
                                     }
-                                    alt=""
+                                    alt=''
                                 />
-                                <div className={style.informacionProducto}>
-                                </div>
+                                <div
+                                    className={style.informacionProducto}
+                                ></div>
                                 <span className={style.discount}>
-                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}{productos.nombre}
+                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}
+                                    {productos.nombre}
                                 </span>
-                                <img className={style.iconoWhatapp + " " + style.img} src={logoW} alt="" />
+                                <img
+                                    onClick={redirigirWhatsApp}
+                                    className={
+                                        style.iconoWhatapp + ' ' + style.img
+                                    }
+                                    src={logoW}
+                                    alt=''
+                                />
                             </div>
                         ))}
                 </div>
             </section>
 
-
-
-
-                    {/* //diseñossss */}
-            <section className={style.products + ' ' + style.section} id="diseños" >
+            {/* //diseñossss */}
+            <section
+                className={style.products + ' ' + style.section}
+                id='diseños'
+            >
                 <div className={style.heading}>
-                    <h1>Nuestros Diseños <br /> <span>Populares</span></h1>
-                    <a href="#" className={style.btn}>Comprar <i className="bx bx-right-arrow-alt"></i></a>
+                    <h1>
+                        Nuestros Diseños <br /> <span>Populares</span>
+                    </h1>
+                    <a href='#' className={style.btn}>
+                        Comprar <i className='bx bx-right-arrow-alt'></i>
+                    </a>
                 </div>
 
                 <div className={style.productsconatiner}>
-
                     {disenosDB
                         .filter((diseno) => diseno.publicado) // Filter only published designs
                         .map((diseno) => (
                             <div className={style.box} key={diseno.id_diseno}>
                                 <img
-                                    className={style.imagenProducto + " " + style.img}
+                                    className={
+                                        style.imagenProducto + ' ' + style.img
+                                    }
                                     src={
                                         diseno.imagen
-                                            ? `${import.meta.env.VITE_BACKEND_URL}/${diseno.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${diseno.imagen}`
                                             : ''
                                     }
-                                    alt=""
+                                    alt=''
                                 />
-                                <div className={style.informacionProducto}>
-                                </div>
+                                <div
+                                    className={style.informacionProducto}
+                                ></div>
                                 <span className={style.discount}>
-                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}{diseno.nombre}
+                                    {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}
+                                    {diseno.nombre}
                                 </span>
-                                <img className={style.iconoWhatapp + " " + style.img} src={logoW} alt="" />
+                                <img
+                                    onClick={redirigirWhatsApp}
+                                    className={
+                                        style.iconoWhatapp + ' ' + style.img
+                                    }
+                                    src={logoW}
+                                    alt=''
+                                />
                             </div>
                         ))}
                 </div>
             </section>
 
-
-
-
-
-            <section className={style.about + ' ' + style.section} id="about" >
-                <img className={style.img} src={logo10} alt="" />
+            <section className={style.about + ' ' + style.section} id='about'>
+                <img className={style.img} src={logo10} alt='' />
                 <div className={style.abouttext}>
                     <span>Nosotros</span>
+<<<<<<< HEAD
                     <p>En Colch Star, nos dedicamos apasionadamente a plasmar diseños únicos en prendas de vestir. Desde nuestra fundación en 2022, nos hemos destacado en la industria de los estampados de ropa, brindando soluciones creativas y de alta calidad a nuestros clientes</p>
                     <p>Bienvenidos a Colch Star, donde transformamos prendas en obras de arte y convertimos tus ideas en realidad.</p>
-                    <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a>
+                    {/* <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a> */}
+=======
+                    <p>
+                        En Colch Star, nos dedicamos apasionadamente a plasmar
+                        diseños únicos en prendas de vestir. Desde nuestra
+                        fundación en 2022, nos hemos destacado en la industria
+                        de los estampados de ropa, brindando soluciones
+                        creativas y de alta calidad a nuestros clientes
+                    </p>
+                    <p>
+                        Bienvenidos a Colch Star, donde transformamos prendas en
+                        obras de arte y convertimos tus ideas en realidad.
+                    </p>
+                    <a href='#' className={style.btn}>
+                        Leer más <i className='bx bx-right-arrow-alt'></i>
+                    </a>
+>>>>>>> d6d460eee11ef0a234a26bca03863fcb284bc9a0
                 </div>
             </section>
-
-
-
-
-
-
-
-
-
-
         </div>
     );
 };
