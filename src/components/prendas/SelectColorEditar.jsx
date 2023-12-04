@@ -10,7 +10,7 @@ import useColors from "../../hooks/useColors";
 
 
 
-const SeleccionarColorsEditar = ({handleClose, handleShow}) => {
+const SeleccionarColorsEditar = ({handleClose, handleShow,detallesPrendas}) => {
 
   const {
     register,

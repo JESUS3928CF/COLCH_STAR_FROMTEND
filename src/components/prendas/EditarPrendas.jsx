@@ -367,15 +367,14 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
               </div>
 
               <div className="modal-footer">
-                  <div className={styles.bottonDiseno}>
+                  
                     <BotonNegro
                       text="Editar color"
                       modalToOpen={"#crearColorEditar"}
                       modalClouse={"modal"}
                       onClick={handleClose}
                     />
-                  </div>
-
+                  
                   <CancelarModal  handleClose={handleClose}  />
                   <GuardarModal />
                 </div>
