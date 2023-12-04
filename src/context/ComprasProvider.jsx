@@ -9,6 +9,8 @@ const ComprasProviders = ({ children }) => {
     /// Respaldo de las compras
     const [compras, setCompras] = useState([]);
 
+    const [detalles, setDetalles] = useState([]);
+
     const { config, auth } = useAuth();
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -85,7 +87,6 @@ const ComprasProviders = ({ children }) => {
         }
     };
 
-
     const editarEstado = (id) => {
         let compraEditada = compras.find((compra) => compra.id_compra === id);
         compraEditada.estado = !compraEditada.estado;
@@ -100,7 +101,7 @@ const ComprasProviders = ({ children }) => {
     const contextValue = {
         compras,
         agregarCompra,
-        editarEstado
+        editarEstado,
     };
 
     return (

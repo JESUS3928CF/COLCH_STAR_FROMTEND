@@ -14,50 +14,54 @@ export const AgregarDetallesCompra = () => {
         setValue,
         trigger,
         reset, //Resetea el formulario
+        watch,
     } = useForm({
         mode: 'onChange',
     });
 
     return (
-        <div action='' className='formDetallesCompras'>
-            <form
-                action=''
-                className='row g-3 needs-validation'
-                onSubmit={handleSubmit()}
-            >
-                <label htmlFor=' '>Agregale los detalles de compras</label>
+        <form action='' className='' onSubmit={handleSubmit()}>
+            <p className='text-center'> Agregar los detalles de compras </p>
 
-                <div className='col-md-5 '>
-                    <label htmlFor='rol' className='col-form-label'>
-                        Productos: *
-                    </label>
+            <div className='col-md-12 '>
+                <label htmlFor='rol' className='col-form-label'>
+                    Producto: *
+                </label>
 
-                    <select
-                        name='fk_prenda'
-                        className='form-control'
-                        {...register('fk_prenda', {})}
-                    >
-                        <option value=''>Diseños</option>
-                        {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
-                        esto se guarda en name = fk_prenda
-                        {Prendas.map((prenda) => {
-                            return (
-                                <option
-                                    key={prenda.id_prenda}
-                                    value={prenda.id_prenda}
-                                >
-                                    {prenda.nombre}
-                                </option>
-                            );
-                        })}
-                    </select>
+                <select
+                    name='fk_prenda'
+                    className='form-control'
+                    {...register('fk_prenda', {
+                        required: {
+                            value:
+                                watch('precio') || watch('cantidad')
+                                    ? true
+                                    : false,
+                            message: 'El producto es obligatorio',
+                        },
+                    })}
+                >
+                    <option value=''>Seleccione el producto comprado</option>
+                    <option value='d'>Impresión de estampados</option>
+                    {Prendas.filter((prenda) => prenda.estado).map((prenda) => {
+                        return (
+                            <option
+                                key={prenda.id_prenda}
+                                value={prenda.id_prenda}
+                            >
+                                {prenda.nombre}
+                            </option>
+                        );
+                    })}
+                </select>
 
-                    {errors.fk_prenda && (
-                        <AlertaError message={errors.fk_prenda.message} />
-                    )}
-                </div>
+                {errors.fk_prenda && (
+                    <AlertaError message={errors.fk_prenda.message} />
+                )}
+            </div>
 
-                <div className='col-md-4'>
+            <div className='row'>
+                <div className='col-md-6'>
                     <label
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
@@ -72,18 +76,21 @@ export const AgregarDetallesCompra = () => {
                         placeholder='. . .'
                         {...register('cantidad', {
                             required: {
-                                value: true,
+                                value:
+                                    watch('precio') || watch('prenda')
+                                        ? true
+                                        : false,
                                 message: 'La cantidad es obligatoria',
                             },
                             pattern: {
                                 value: /^\d+$/,
                                 message:
-                                    'No se peremiten letras ni caracteres especiales',
+                                    'No se permiten letras ni caracteres especiales',
                             },
                         })}
                         onChange={(e) => {
-                            setValue('cantidad', e.target.value),
-                                trigger('cantidad');
+                            setValue('cantidad', e.target.value);
+                            trigger('cantidad');
                         }}
                     />
 
@@ -92,7 +99,7 @@ export const AgregarDetallesCompra = () => {
                     )}
                 </div>
 
-                <div className='col-md-4'>
+                <div className='col-md-6'>
                     <label
                         htmlFor='totalCompraAgregar'
                         className='col-form-label'
@@ -106,7 +113,10 @@ export const AgregarDetallesCompra = () => {
                         placeholder='. . .'
                         {...register('precio', {
                             required: {
-                                value: true,
+                                value:
+                                    watch('cantidad') || watch('prenda')
+                                        ? true
+                                        : false,
                                 message: 'El precio es obligatorio',
                             },
                             pattern: {
@@ -116,20 +126,24 @@ export const AgregarDetallesCompra = () => {
                             },
                         })}
                         onChange={(e) => {
-                            setValue('precio', e.target.value),
-                                trigger('precio');
+                            setValue('precio', e.target.value);
+                            trigger('precio');
                         }}
                     />
                     {errors.precio && (
                         <AlertaError message={errors.precio.message} />
                     )}
                 </div>
+            </div>
 
-                <div className='botonGuardarDetalles'>
-                    <BotonNegro text={'Agregar Detalles'} />
-                    <GuardarModal />
+            <div className='row py-3 text-center'>
+                <div className='col-md-6 pl-1 '>
+                    <BotonNegro text={'Ver Detalles'} />
                 </div>
-            </form>
-        </div>
+                <div className='col-md-6 pr-1'>
+                    <GuardarModal text='Agregar Detalle' />
+                </div>
+            </div>
+        </form>
     );
 };
