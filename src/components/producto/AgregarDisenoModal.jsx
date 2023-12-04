@@ -73,6 +73,16 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
             });
     }, []);
 
+    useEffect(() => {
+        console.log(selectedDisenoNombre)
+        console.log(selectedDisenoNombre.length === 0)
+        if(selectedDisenoNombre.length === 0){
+            console.log("Entrando")
+            reset()
+        }
+    },[selectedDisenoNombre])
+
+
 
     return (
         <Modal
