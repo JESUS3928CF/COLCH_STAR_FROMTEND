@@ -65,10 +65,6 @@ const ListarDisenos = () => {
                         <AgregarDiseno />
                     </div>
                     <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
-                        <BotonVerde
-                            text='Modificar precio'
-                            modalToOpen='#myModalPrecio'
-                        />
 
                         {/* modal de precio de los diseños  */}
                         <PrecioDiseno />
