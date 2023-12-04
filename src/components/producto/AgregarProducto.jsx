@@ -36,7 +36,7 @@ const AgregarProducto = () => {
 
 
     /// Estado para capturar la imagen del producto y evitar que se pierda y estado para saber que se cerro el modal de producto
-    const [ imagen, setImagen ] = useState([])
+    // const [ imagen, setImagen ] = useState([])
 
     const handleClose = () => {
         setShow(false);
@@ -73,9 +73,6 @@ const AgregarProducto = () => {
     const {Prendas} = usePrendas()
 
 
-    useEffect(() => {
-        setValue('imagen', imagen);
-    }, [handleShow]);
 
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     
@@ -294,13 +291,6 @@ const AgregarProducto = () => {
                                     className={`form-control `}
                                     name='imagen'
                                     title='Ingrese la imagen de la prenda'
-                                    onChange={(e) => {
-                                        const selectedFiles = e.target.files;
-                                        setImagen(selectedFiles); // o setImagen(selectedFiles[0]) si esperas un solo archivo
-                                        setValue('imagen', selectedFiles);
-                                        console.log(imagen);
-
-                                    }}
                                     {...register('imagen', {
                                         required: {
                                             value: true,

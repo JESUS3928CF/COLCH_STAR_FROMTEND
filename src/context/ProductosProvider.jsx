@@ -12,6 +12,8 @@ const productosContext = createContext();
 const ProductosProvider = ({ children }) => {
     const {  auth, token } = useAuth();
 
+    const { setDisenos } = useDisenosContext();
+
     // primer state
     const [productos, setProductos] = useState([]);
 
@@ -65,6 +67,9 @@ const ProductosProvider = ({ children }) => {
                 handleClose();
             });
 
+        } finally {
+            console.log("Hola")
+            console.log(setDisenos([]));
         }
     };
 
