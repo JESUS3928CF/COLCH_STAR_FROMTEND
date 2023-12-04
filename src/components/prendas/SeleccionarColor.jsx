@@ -8,12 +8,11 @@ import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
-import { useColorsContex } from "../../context/ColorsProvider";
-import logo from '../../imgNavbar/cruz.png'
-import style from '../../pages/Productos.module.css';
+import logo from "../../imgNavbar/cruz.png";
+import style from "../../pages/Productos.module.css";
+import useColors from "../../hooks/useColors";
 
-
-const SeleccionarColors = ({handleClose,handleShow}) => {
+const SeleccionarColors = ({ handleClose, handleShow }) => {
   const {
     register,
     handleSubmit,
@@ -21,9 +20,8 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
     formState: { errors },
   } = useForm();
 
-  const { agregarColors, eliminarColors, setColores } = useColorsContex();
+  const { agregarColors, eliminarColors, setColores } = useColors();
   const [selectColorsName, setSelectColorsName] = useState([]);
-
 
   const eliminarColors01 = (index) => {
     const newColors = [...selectColorsName];
@@ -32,28 +30,39 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
     eliminarColors(index);
   };
 
-
-
   const agregarNuevoColor = (data) => {
-    console.log(data)
+
+
+      // Validar si el color ya está seleccionado
+      if (selectColorsName.some((color) => color.id_color === data.id_color)) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Este color ya ha sido seleccionado.",
+        });
+        return; // Detener la función si el color ya está seleccionado
+      }
+    console.log(data);
     agregarColors(data);
+
+
+
 
     const newColor = colorss.find(
       (colores) => colores.id_color == data.id_color
     );
     setSelectColorsName([...selectColorsName, newColor]);
+
+    console.log(selectColorsName)
   };
 
   const [colorss, setColors] = useState([]);
-
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/colors").then((res) => {
       setColors(res.data);
     });
   }, []);
-
-
 
   return (
     <>
@@ -68,9 +77,11 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
             <HeaderModals
               title="Agregar colores"
               handleClose={() => {
-                reset(), handleClose();
+                reset();
+                handleClose();
                 setSelectColorsName([]);
                 setColores([]);
+                reset();
               }}
             />
             <div className="modal-body">
@@ -92,9 +103,7 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
                       },
                     })}
                   >
-                    <option value="" disabled>
-                      Seleccionar colors
-                    </option>
+                    <option value="">Seleccionar colores</option>
                     {colorss.map((F) => (
                       <option key={F.id_color} value={F.id_color}>
                         {F.color}
@@ -102,24 +111,23 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
                     ))}
                   </select>
 
+                  {errors.id_color && (
+                    <AlertaError message={errors.id_color.message} />
+                  )}
+
                   <div className="col-md-5 ml-6 mt-3">
+                    <p>Colores seleccionados</p>
 
-                    {selectColorsName.map((color, index) => (
+                    {selectColorsName.map((colores, index) => (
+                      <div key={index}>
+                        <p>
+                          <span>-{colores.color}</span>
 
-                    <div key={index}>
-                      <p>
-
-                        <span> 
-                          -{color.color}
-                        </span>
-
-                        <span onClick={()=> eliminarColors01(index)} >
-                        <img src={logo} alt="" className={style.logoimg} />
-                          
-                        </span>
-                      </p>
+                          <span onClick={() => eliminarColors01(index)}>
+                            <img src={logo} alt="" className={style.logoimg} />
+                          </span>
+                        </p>
                       </div>
-                     
                     ))}
                   </div>
                 </div>
@@ -130,14 +138,13 @@ const SeleccionarColors = ({handleClose,handleShow}) => {
                       text="Crear color"
                       modalToOpen={"#myModalColors"}
                       modalClouse={"modal"}
+                      onClick={handleClose}
                     />
                   </div>
                   <BotonNegro
                     text={"Regresar"}
-                    modalClouse={"modal"}
                     onClick={handleShow}
-
-
+                    modalClouse={"modal"}
                   />
                   <GuardarModal />
                 </div>

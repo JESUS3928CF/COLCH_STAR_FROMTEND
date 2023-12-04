@@ -4,9 +4,9 @@ import GuardarModal from "../chared/GuardarModal";
 import HeaderModals from "../chared/HeaderModals";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
-import { useColorsContex } from "../../context/ColorsProvider";
 import logo from '../../imgNavbar/cruz.png'
 import style from '../../pages/Productos.module.css'
+import useColors from "../../hooks/useColors";
 
 
 
@@ -19,7 +19,7 @@ const SeleccionarColorsEditar = ({handleClose, handleShow}) => {
     reset
   } = useForm();
 
-  const { agregarColors, eliminarColors, setColores } = useColorsContex();
+  const { agregarColors, eliminarColors, setColores } = useColors();
   const [selectColorsName, setSelectColorsName] = useState([]);
 
   const eliminarColors01= (index) =>{
@@ -90,8 +90,8 @@ setSelectColorsName([...selectColorsName,newColors])
                       },
                     })}
                   >
-                    <option value="" disabled>
-                      Seleccionar colors
+                    <option value="" >
+                      Seleccionar colores
                     </option>
                     {colorss.map((F) => (
                       <option key={F.id_color} value={F.id_color}>

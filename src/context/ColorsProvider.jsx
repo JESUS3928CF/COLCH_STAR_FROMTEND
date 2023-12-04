@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const  ColorsContex = createContext();
 
 
-export const ColorsProvider=({children})=>{
+const ColorsProvider=({children})=>{
     const {token,auth} = useAuth()
     const [colors, setColores]= useState([]);
     const [colorsDb, setColorsDb]= useState([])
@@ -35,7 +35,7 @@ export const ColorsProvider=({children})=>{
 
     const agregarColorsDb = async (formData, handleClose, reset)=>{
         try{
-            const res = await clienteAxios.post ('colors', formData,{
+            const res = await clienteAxios.post('/colors', formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
@@ -86,6 +86,6 @@ export const ColorsProvider=({children})=>{
 };
 
 
-export const useColorsContex =()=> {
-    return useContext(ColorsContex);
-};
+export {ColorsProvider}
+
+export default ColorsContex

@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import useAuth from "../hooks/useAuth";
 import clienteAxios from "../config/axios";
-import { useColorsContex } from "../context/ColorsProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useColors from "../hooks/useColors"
 
 const prendasContex = createContext();
 
@@ -60,9 +60,8 @@ const PrendasProvider = ({ children }) => {
     }
   };
 
-const {colors,setColores} = useColorsContex()
+const {colors,setColores} = useColors()
 
-console.log(colors)
 
 
 
@@ -97,7 +96,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             detallesPrendas.id_prenda
           }`,
           {
-            nombre: 'Jesus',
+            nombre: nombre,
             cantidad: cantidad,
             precio: precio,
             tipo_de_tela: tipo_de_tela.trim(),
@@ -143,7 +142,8 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
     let prendaUpdate = Prendas.find((prenda)=> prenda.id_prenda == id)
     prendaUpdate.estado = !prendaUpdate.estado
 
-    const prendaActualizada = Prendas.map((prenda)=> prenda.id_prenda==id ? prendaUpdate : prenda)
+    const prendaActualizada = Prendas.map((prenda)=> 
+    prenda.id_prenda==id ? prendaUpdate : prenda)
 
     setPrendas(prendaActualizada)
     

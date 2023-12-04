@@ -16,10 +16,10 @@ import axios from "axios";
 import BotonNegro from "../chared/BotonNegro";
 import styles from "../../pages/Productos.module.css";
 import SeleccionarColorsEditar from "./SelectColorEditar";
-import { useColorsContex } from "../../context/ColorsProvider";
 import usePrendas from '../../hooks/usePrendas.jsx'
 import useAuth from "../../hooks/useAuth";
 import { Modal } from "react-bootstrap";
+import useColors from "../../hooks/useColors.jsx";
 
 const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
 
@@ -43,7 +43,7 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
   });
 
   const [Colors, setColors] = useState([]);
-  const {colors}= useColorsContex()
+  const {colors}= useColors()
   const [Tallas, setTalla] = useState([]);
 
 
@@ -266,7 +266,7 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
 
               <div className="col-md-6">
                 <label htmlFor="genero" className="col-from-label">
-                  Genero
+                  Género
                 </label>
 
                 <select
@@ -372,6 +372,7 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
                       text="Editar color"
                       modalToOpen={"#crearColorEditar"}
                       modalClouse={"modal"}
+                      onClick={handleClose}
                     />
                   </div>
 

@@ -7,15 +7,22 @@ import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import SeleccionarColors from "./SeleccionarColor";
+import { useState } from "react";
+
 
 
 
 const AgregarColors = () => {
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({mode: 'onChange'});
+
+    const [show, setShow]= useState(false)
+    const handleClose = ()=> setShow(false)
+    const handleShow = ()=> setShow(true)
 
 
 
@@ -31,13 +38,18 @@ const AgregarColors = () => {
                 text: res.data.message,
                 icon: 'success',
 
-            }).then(location.reload());
+            }).then(()=>{
+                reset()
+                handleClose()
+            });
         } catch (error) {
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error',
                 icon: 'Vuelva a intentarlo',
-            }).then(location.reload());
+            }).then(()=>{
+                handleClose()
+            });
         }
 
     })
@@ -139,7 +151,7 @@ const AgregarColors = () => {
                     </div>
                 </div>
             </div>
-            <SeleccionarColors/>
+            {/* <SeleccionarColors  handleClose={handleClose} handleShow={handleShow}/> */}
 
 
         </>
