@@ -124,11 +124,17 @@ const UsuariosProvider = ({ children }) => {
   };
 
   return (
-    <usuariosContext.Provider
-      value={{ usuarios, editarEstado, agregarUsuario,editarUsuarios}}
-    >
-      {children}
-    </usuariosContext.Provider>
+      <usuariosContext.Provider
+          value={{
+              usuarios,
+              editarEstado,
+              agregarUsuario,
+              editarUsuarios,
+              consultarUsuarios,
+          }}
+      >
+          {children}
+      </usuariosContext.Provider>
   );
 };
 

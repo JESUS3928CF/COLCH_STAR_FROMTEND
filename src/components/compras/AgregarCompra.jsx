@@ -14,17 +14,13 @@ import useProveedor from '../../hooks/useProveedor';
 import useCompras from '../../hooks/useCompras';
 import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
-import BotonNegro from '../chared/BotonNegro';
-import usePrendas from '../../hooks/usePrendas';
-import { AgregarDetallesCompra } from './AgregarDetallesCompra.1';
+import { AgregarDetallesCompra } from './AgregarDetallesCompra';
+import Swal from 'sweetalert2';
 
 const AgregarCompras = () => {
-    
-    const { agregarCompra } = useCompras();
+    const { agregarCompra, detallesCompra, totalCompra } = useCompras();
 
     const { proveedores } = useProveedor();
-    
-    const { Prendas } = usePrendas();
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
@@ -47,8 +43,16 @@ const AgregarCompras = () => {
     const onSubmit = async (data) => {
         console.log(data);
 
-        agregarCompra(data, reset, handleClose);
-
+        if (detallesCompra.length === 0) {
+            Swal.fire({
+                title: 'Espera!!',
+                text: 'Agrega los detalles de esta compra',
+                icon: 'warning',
+            });
+        } else {
+            console.log(detallesCompra)
+            agregarCompra(data, reset, handleClose);
+        }
     };
 
     return (
@@ -74,11 +78,7 @@ const AgregarCompras = () => {
                     />
                     <div>
                         <div className='modal-body'>
-                            <form
-                                action=''
-                                id='formularioagregarCompra'
-                                onSubmit={handleSubmit(onSubmit)}
-                            >
+                            <form action='' id='formularioagregarCompra'>
                                 <div className='row'>
                                     {' '}
                                     <div className='col-md-6'>
@@ -175,13 +175,15 @@ const AgregarCompras = () => {
                                 </div>
 
                                 <div className='col-md-4 my-3'>
-                                    <p>Precio total = 15000</p>
+                                    <p>Precio total = {totalCompra}</p>
                                 </div>
                             </form>
                             <AgregarDetallesCompra />
                             <div className='modal-footer'>
                                 <CancelarModal handleClose={handleClose} />
-                                <GuardarModal />
+                                <GuardarModal
+                                    onSubmit={handleSubmit(onSubmit)}
+                                />
                             </div>
                         </div>
                     </div>
