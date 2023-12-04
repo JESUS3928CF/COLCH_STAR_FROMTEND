@@ -3,18 +3,22 @@ import HeaderModals from '../chared/HeaderModals';
 import { Carousel } from 'react-bootstrap';
 import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
+import useCompras from '../../hooks/useCompras';
 
-export const ModalVerDetallesCompra = ({ detallesCompra }) => {
+export const ModalVerDetallesCompra = () => {
+
+    const { detallesCompra} = useCompras();
     console.log('Detalles de Compra:', detallesCompra);
 
     return (
         <div>
-            <div className='modal' id='modalDetalleCompra'>
+            <div className='modal' id='modalDetalleAgregarCompra'>
                 <div className='modal-dialog modal-dialog-centered '>
                     <div className='modal-content'>
-                        <HeaderModals title={'Detalles compra'} />
+                        <HeaderModals title={'Detalles Agregados Compra'} />
                         <div>
                             <div className='modal-body '>
+                            <p>fdf</p>
                                 {detallesCompra ? (
                                     <form
                                         action=''
@@ -41,12 +45,12 @@ export const ModalVerDetallesCompra = ({ detallesCompra }) => {
                                                                 <input
                                                                     type='text'
                                                                     className='form-control'
-                                                                    value="{
+                                                                    value={
                                                                         detalle.fk_prenda ==
                                                                         ''
                                                                             ? detalle.fk_prenda
                                                                             : 'Impresión de estampados'
-                                                                    }"
+                                                                    }
                                                                     readOnly
                                                                 />
                                                             </div>
@@ -61,7 +65,7 @@ export const ModalVerDetallesCompra = ({ detallesCompra }) => {
                                                                     type='text'
                                                                     className='form-control'
                                                                     value={
-                                                                        'detalle.cantidad'
+                                                                        detalle.cantidad
                                                                     }
                                                                     readOnly
                                                                 />
@@ -77,7 +81,7 @@ export const ModalVerDetallesCompra = ({ detallesCompra }) => {
                                                                     type='text'
                                                                     className='form-control'
                                                                     value={
-                                                                        'detalle.precio'
+                                                                        detalle.precio
                                                                     }
                                                                     readOnly
                                                                 />
