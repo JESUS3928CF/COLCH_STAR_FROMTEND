@@ -16,9 +16,9 @@ const ProductosProvider = ({ children }) => {
 
     // primer state
     const [productos, setProductos] = useState([]);
+    
 
     // función para obtener los clientes solo cuando se carge el componente
-
     const consultarProductos = async () => {
         try {
             // const token = localStorage.getItem('token');

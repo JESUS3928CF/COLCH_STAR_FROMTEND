@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const DisenosContext = createContext();
 
 // Proveedor del contexto, que proporciona el estado y las funciones de actualización
-export const DisenosProvider = ({ children }) => {
+export const DisenosProvider = ({ children }) => { 
     const { token, auth } = useAuth();
 
     const [disenos, setDisenos] = useState([]);

@@ -19,11 +19,10 @@ import useProducto from '../../hooks/useProducto.jsx';
 import useAuth from '../../hooks/useAuth';
 
 
-
-
-
+//componente
 const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handleShoww, showw, handleClosex }) => {
 
+    //traigo la funciona para eidtar un producto
     const { editarProductos } = useProducto();
 
 
@@ -40,6 +39,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
     } = useForm({
         mode: "onChange",
     });
+
 
     //estado pa las prendas 
     const [Prendas, setPrendas] = useState([]);
@@ -66,9 +66,6 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
 
         }
     }, [editarProducto, show]);
-
-
-
 
 
     //funcion que se ejecuta cuando alguien intenta enviar el formulario

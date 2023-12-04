@@ -34,13 +34,7 @@ const AgregarProducto = () => {
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
-
-    /// Estado para capturar la imagen del producto y evitar que se pierda y estado para saber que se cerro el modal de producto
-    // const [ imagen, setImagen ] = useState([])
-
-    const handleClose = () => {
-        setShow(false);
-    };
+    const handleClose = () => { setShow(false) };
     const handleShow = () => setShow(true);
 
     // funcion para cerrar modal de AgregarDiseñosModal
@@ -56,6 +50,7 @@ const AgregarProducto = () => {
         setShoww(false);
     };
 
+    //nos traemos los diseños que hemos seleccionado en AgregarDiseñoModal
     const { disenos } = useDisenosContext();
 
     const {
@@ -72,10 +67,6 @@ const AgregarProducto = () => {
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const {Prendas} = usePrendas()
 
-
-
-    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
-    
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
