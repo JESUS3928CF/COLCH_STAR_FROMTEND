@@ -9,10 +9,13 @@ import style from '../../pages/Productos.module.css'
 import BotonNegro from '../chared/BotonNegro';
 import logo from '../../imgNavbar/cruz.png'
 import { Modal } from 'react-bootstrap';
+import useProducto from '../../hooks/useProducto';
 
 
 //Componente
 const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }) => {
+
+    const {editarDisenosProducto} = useProducto()
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -20,8 +23,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         reset
     } = useForm();
 
-    console.log(editarProducto.disenos)
-    const disenos = editarProducto.disenos;
+    console.log(editarProducto)
 
     //trae alguna funciones de disenos provider
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
@@ -31,6 +33,8 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
     // muestra los disenos seleccionados en el agregar
     // console.log(disenos)
+
+    
 
 
     const eliminarDiseno01 = (index) => {
@@ -42,6 +46,8 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
+        editarDisenosProducto();
+        
         eliminarDiseno(index)
     };
 
@@ -49,6 +55,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
     const agregarNuevoDiseno = (data) => {
+        
         // console.log(data);
         agregarDiseno(data);
 
@@ -58,8 +65,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         );
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
-
-
 
     };
 

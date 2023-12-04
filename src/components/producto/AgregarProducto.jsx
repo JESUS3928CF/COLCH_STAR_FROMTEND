@@ -35,7 +35,7 @@ const AgregarProducto = () => {
 
 
     // función que llega del provider que tiene todas las rutas
-    const { agregarProducto } = useProducto();
+    const {agregarProducto} = useProducto();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -95,7 +95,7 @@ const AgregarProducto = () => {
 
             reset,
             handleClose,
-            setDisenos([])
+            setDisenos([]),
         );
     };
     return (

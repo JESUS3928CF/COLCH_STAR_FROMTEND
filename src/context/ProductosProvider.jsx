@@ -16,6 +16,8 @@ const ProductosProvider = ({ children }) => {
 
     // primer state
     const [productos, setProductos] = useState([]);
+
+    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
     
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -70,6 +72,7 @@ const ProductosProvider = ({ children }) => {
         } finally {
             console.log("Hola")
             console.log(setDisenos([]));
+            setSelectedDisenoNombre([])
         }
     };
 
@@ -148,9 +151,13 @@ const ProductosProvider = ({ children }) => {
         setProductos(productoActualizado);
     };
 
+    const editarDisenosProducto = (diseno) => {
+        console.log(productos)
+    }
+
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion }}
+            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion, editarDisenosProducto, selectedDisenoNombre ,setSelectedDisenoNombre}}
         >
             {children}
         </productosContext.Provider>

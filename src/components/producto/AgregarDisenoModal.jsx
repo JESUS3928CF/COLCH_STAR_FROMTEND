@@ -9,6 +9,7 @@ import style from '../../pages/Productos.module.css';
 import BotonNegro from '../chared/BotonNegro';
 import logo from '../../imgNavbar/cruz.png';
 import { Modal } from 'react-bootstrap';
+import useProducto from '../../hooks/useProducto';
 
 
 //Componente
@@ -41,7 +42,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     };
 
 
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
     //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
@@ -71,6 +72,15 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });
     }, []);
+
+    useEffect(() => {
+        console.log(selectedDisenoNombre)
+        console.log(selectedDisenoNombre.length === 0)
+        if(selectedDisenoNombre.length === 0){
+            console.log("Entrando")
+            reset()
+        }
+    },[selectedDisenoNombre])
 
 
     return (
