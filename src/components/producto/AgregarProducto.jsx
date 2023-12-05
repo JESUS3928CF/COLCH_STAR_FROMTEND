@@ -79,19 +79,34 @@ const AgregarProducto = () => {
     const onSubmit = async (data) => {
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data;
 
+
+        const pasar = {
+
+            // Campos en los que realiza el cambio
+            nombre: nombre.trim(),
+            cantidad: cantidad.trim(),
+            // precio: precio.trim(),
+            fk_prenda: fk_prenda.trim(),
+            publicado: publicado,
+            imagen: imagen[0],
+            disenos: JSON.stringify(disenos),
+
+
+        }
+
         //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
         //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven
         //y los mandan por la ruta a la base de datos
         agregarProducto(
             {
-                // Campos en los que realiza el cambio
-                nombre: nombre.trim(),
-                cantidad: cantidad.trim(),
-                // precio: precio.trim(),
-                fk_prenda: fk_prenda.trim(),
-                publicado: publicado,
-                imagen: imagen[0],
-                disenos: JSON.stringify(disenos),
+                // // Campos en los que realiza el cambio
+                // nombre: nombre.trim(),
+                // cantidad: cantidad.trim(),
+                // // precio: precio.trim(),
+                // fk_prenda: fk_prenda.trim(),
+                // publicado: publicado,
+                // imagen: imagen[0],
+                // disenos: JSON.stringify(disenos),
             },
 
             reset,
@@ -119,6 +134,7 @@ const AgregarProducto = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
+                            setSelectedDisenoNombre([])
                         }}
                     />
 

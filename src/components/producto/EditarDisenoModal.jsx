@@ -23,7 +23,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         reset
     } = useForm();
 
-    console.log(editarProducto)
+    // console.log(editarProducto)
 
     //trae alguna funciones de disenos provider
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();

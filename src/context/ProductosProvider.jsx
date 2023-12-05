@@ -19,6 +19,8 @@ const ProductosProvider = ({ children }) => {
     const [productos, setProductos] = useState([]);
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+
+
     
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -72,8 +74,8 @@ const ProductosProvider = ({ children }) => {
             });
 
         } finally {
-            console.log("Hola")
-            console.log(setDisenos([]));
+            // console.log("Hola")
+            // console.log(setDisenos([]));
             setSelectedDisenoNombre([])
         }
     };

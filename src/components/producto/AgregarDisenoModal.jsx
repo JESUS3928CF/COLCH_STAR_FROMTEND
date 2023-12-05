@@ -25,7 +25,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     } = useForm();
 
     //funciones y  propiedades que nos traemos de Diseño contex
-    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno,  disenosDB } = useDisenosContext();
 
 
 
@@ -78,7 +78,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         // console.log(selectedDisenoNombre)
         // console.log(selectedDisenoNombre.length === 0)
         if(selectedDisenoNombre.length === 0){
-            console.log("Entrando")
+            // console.log("Entrando")
             reset()
         }
     },[selectedDisenoNombre])
@@ -94,16 +94,18 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
             className='modal d-flex align-items-center justify-content-center '
             id='myModalDiseno'
         >
+
             <div className='modal-content'>
                 {/* Cabecero del modal */}
+                
                 <HeaderModals
                     title='Diseno y  Tamaño'
                     handleClose={() => {
                         reset();
-                        handleClosex();
+                        handleClosee();
                         //para que se restablesca el modal cuando se cierre el modal
-                        setSelectedDisenoNombre([]);
-                        setDisenos([]);
+                        // setSelectedDisenoNombre([]);
+                        // setDisenos([]);
                     }}
                 />
 
