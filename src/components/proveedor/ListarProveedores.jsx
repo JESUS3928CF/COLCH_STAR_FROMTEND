@@ -78,7 +78,7 @@ const ListarProveedores = () => {
         <div>
             <div className='contenedor'>
                 {/* titulo */}
-                <Header titulo='Gestionar Proveedores' />
+                <Header titulo='Gestión de Proveedores' />
 
                 {/* botón agregar */}
                 <div className='container-fluid '>

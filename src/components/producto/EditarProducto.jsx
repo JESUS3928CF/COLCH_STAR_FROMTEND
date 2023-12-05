@@ -203,7 +203,9 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     <option value=''>Seleccionar prenda</option>
                                     {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
                                     {/* esto se guarda en name = fk_prenda */}
-                                    {Prendas.map((prenda) => {
+                                    {Prendas
+                                    .filter(prenda => prenda.estado)
+                                    .map((prenda) => {
                                         return (
                                             <option
                                                 key={prenda.id_prenda}

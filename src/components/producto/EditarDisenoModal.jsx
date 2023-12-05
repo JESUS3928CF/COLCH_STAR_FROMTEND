@@ -151,9 +151,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     })}
 
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar diseño
-                                    </option>
+                                    <option value=''>Seleccionar diseño</option>
                                     {detalle_diseno
                                         .filter((diseno) => diseno.estado)
                                         .map((diseno) => (
@@ -186,9 +184,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         },
                                     })}
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar tamaño
-                                    </option>
+                                    <option value=''>Seleccionar Precio</option>
                                     {Precio.map((precio) => (
                                         <option
                                             key={precio.id_precio_diseno}

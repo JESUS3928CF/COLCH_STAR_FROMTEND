@@ -86,7 +86,7 @@ const ListarProducto = () => {
         <div>
             <div className='contenedor'>
                 {/* titulo */}
-                <Header titulo='Gestiónar Productos' />
+                <Header titulo='Gestión de Productos' />
 
                 {/* boton de agregar */}
                 <div className='container-fluid '>
