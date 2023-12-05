@@ -18,7 +18,6 @@ export const ModalVerDetallesCompra = () => {
                         <HeaderModals title={'Detalles Agregados Compra'} />
                         <div>
                             <div className='modal-body '>
-                            <p>fdf</p>
                                 {detallesCompra ? (
                                     <form
                                         action=''
