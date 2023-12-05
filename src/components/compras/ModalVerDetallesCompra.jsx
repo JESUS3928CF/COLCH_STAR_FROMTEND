@@ -6,8 +6,7 @@ import '../compras/Css/carousel-styles.css';
 import useCompras from '../../hooks/useCompras';
 
 export const ModalVerDetallesCompra = () => {
-
-    const { detallesCompra} = useCompras();
+    const { detallesCompra } = useCompras();
     console.log('Detalles de Compra:', detallesCompra);
 
     return (
@@ -47,8 +46,8 @@ export const ModalVerDetallesCompra = () => {
                                                                     value={
                                                                         detalle.fk_prenda ==
                                                                         ''
-                                                                            ? detalle.fk_prenda
-                                                                            : 'Impresión de estampados'
+                                                                            ? 'Impresión de estampados'
+                                                                            : detalle.fk_prenda
                                                                     }
                                                                     readOnly
                                                                 />
