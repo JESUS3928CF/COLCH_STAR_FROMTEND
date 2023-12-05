@@ -121,8 +121,8 @@ const ListarProducto = () => {
                                     <th scope='col'>Cantidad</th>
                                     <th scope='col'>Precio</th>
                                     <th scope='col'>Publicado</th>
-                                    <th scope='col'>Inhabilitar</th>
-                                    <th scope='col'>Ver Imagen</th>
+                                    <th scope='col'>Estado</th>
+                                    <th scope='col'>Imagen</th>
                                     <th scope='col'>Editar</th>
                                 </tr>
                             </thead>

@@ -118,7 +118,7 @@ const ListarProveedores = () => {
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Teléfono</th>
                                     <th scope='col'>Dirección</th>
-                                    <th scope='col'>Inhabilitar</th>
+                                    <th scope='col'>Estado</th>
                                     <th scope='col'>Editar</th>
                                 </tr>
                             </thead>
