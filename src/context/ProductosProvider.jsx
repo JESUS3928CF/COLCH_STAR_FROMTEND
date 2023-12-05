@@ -10,6 +10,7 @@ const productosContext = createContext();
 
 
 const ProductosProvider = ({ children }) => {
+
     const {  auth, token } = useAuth();
 
     const { setDisenos } = useDisenosContext();
@@ -36,6 +37,7 @@ const ProductosProvider = ({ children }) => {
     useEffect(() => {
         consultarProductos();
     }, [auth]);
+
 
     const agregarProducto = async (producto, reset, handleClose) => {
         // console.log(producto)
@@ -75,6 +77,8 @@ const ProductosProvider = ({ children }) => {
             setSelectedDisenoNombre([])
         }
     };
+
+
 
     const { disenos } = useDisenosContext();
 
@@ -127,6 +131,8 @@ const ProductosProvider = ({ children }) => {
         }
     };
 
+
+
     const editarEstado = (id) => {
         let productoEditado = productos.find((producto) => producto.id_producto === id);
         productoEditado.estado = !productoEditado.estado;
@@ -137,6 +143,8 @@ const ProductosProvider = ({ children }) => {
 
         setProductos(productoActualizado);
     };
+
+
 
     const editarPublicacion = (id) => {
         let productoEditado = productos.find(
@@ -151,18 +159,19 @@ const ProductosProvider = ({ children }) => {
         setProductos(productoActualizado);
     };
 
-    const editarDisenosProducto = (diseno) => {
-        console.log(productos)
-    }
+
+
 
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion, editarDisenosProducto, selectedDisenoNombre ,setSelectedDisenoNombre}}
+            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion,  selectedDisenoNombre ,setSelectedDisenoNombre}}
         >
             {children}
         </productosContext.Provider>
     );
 };
+
+
 
 export { ProductosProvider };
 export default productosContext;

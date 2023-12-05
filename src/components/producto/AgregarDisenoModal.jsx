@@ -46,10 +46,10 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
     //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
-        console.log(data);
+        // console.log(data);
         agregarDiseno(data);
 
-        console.log(selectedDisenoNombre);
+        // console.log(selectedDisenoNombre);
         const nuevoDiseno = disenosDB.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
@@ -59,6 +59,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     };
 
 
+    
     //estado para traerel tanmaño y el precio de diseños
     const [Precio, setPrecio] = useState([]);
     // console.log(Precio)
@@ -74,8 +75,8 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     }, []);
 
     useEffect(() => {
-        console.log(selectedDisenoNombre)
-        console.log(selectedDisenoNombre.length === 0)
+        // console.log(selectedDisenoNombre)
+        // console.log(selectedDisenoNombre.length === 0)
         if(selectedDisenoNombre.length === 0){
             console.log("Entrando")
             reset()
