@@ -31,6 +31,7 @@ import usePrendas from '../../hooks/usePrendas.jsx';
 const AgregarProducto = () => {
 
 
+    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
 
 
     // función que llega del provider que tiene todas las rutas
