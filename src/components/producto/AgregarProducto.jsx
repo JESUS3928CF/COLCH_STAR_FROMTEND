@@ -27,7 +27,7 @@ import useProducto from '../../hooks/useProducto.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 
 
-//Componente
+//Componenteee
 const AgregarProducto = () => {
 
     const { setSelectedDisenoNombre } = useProducto();
