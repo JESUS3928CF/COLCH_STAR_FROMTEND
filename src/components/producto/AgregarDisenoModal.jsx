@@ -49,7 +49,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         // console.log(data);
         agregarDiseno(data);
 
-        // console.log(selectedDisenoNombre);
+        //para mostrar los diseños al
         const nuevoDiseno = disenosDB.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
