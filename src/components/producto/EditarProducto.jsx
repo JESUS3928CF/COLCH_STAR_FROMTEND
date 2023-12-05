@@ -285,7 +285,10 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     <BotonNegro
                                         text='Agregar Diseño'
                                         modalToOpen='#myModalDisenoE'
-                                        onClick={handleShoww}
+                                        onClick={ () => { 
+                                            console.log(editarProducto.disenos)
+                                            setSelectedDisenoNombre(editarProducto.disenos)
+                                            handleShoww()}}
                                     />
                                 </div>
 

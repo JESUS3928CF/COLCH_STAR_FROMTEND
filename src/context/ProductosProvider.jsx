@@ -127,10 +127,10 @@ const ProductosProvider = ({ children }) => {
                         icon: "error",
                     });
                 })
-                // .finally(() => {
-                //     // This block will always execute, whether the request succeeds or fails
-                //     setSelectedDisenoNombre([]);
-                // });
+                .finally(() => {
+                    // This block will always execute, whether the request succeeds or fails
+                    setSelectedDisenoNombre([]);
+                });
         } else {
             console.error("No se pudo obtener el ID del usuario");
         }

@@ -46,7 +46,10 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
-        editarDisenosProducto();
+        console.log(nuevosDisenos)
+
+
+        // editarDisenosProducto();
         
         eliminarDiseno(index)
     };
@@ -63,6 +66,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
+
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
 
@@ -95,14 +99,11 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
 
     useEffect(() => {
-        // console.log(selectedDisenoNombre)
-        // console.log(selectedDisenoNombre.length === 0)
-        if(selectedDisenoNombre.length === 0){
-            // console.log("Entrando")
-            reset()
+        // Verificar que editarProducto.disenos esté definido antes de asignarlo a setSelectedDisenoNombre
+        if (editarProducto && editarProducto.disenos) {
+            setSelectedDisenoNombre(editarProducto.disenos);
         }
-    },[selectedDisenoNombre])
-
+    }, [editarProducto.disenos]);
 
     return (
         <Modal
@@ -209,7 +210,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                 <p className={style.diseñosModalTitle}>
                                     Diseños seleccionados:
                                 </p>
-
                                 {selectedDisenoNombre.map(
                                     (diseno, index) => (
                                         <div key={index} className={style.disenocontainer}>
@@ -223,16 +223,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         </div>
                                     )
                                 )}
-                                {editarProducto.disenos && editarProducto.disenos.map((diseno, index) => (
-                                    <div key={index} className={style.disenocontainer}>
-                                        <p>
-                                            <span className={style.disenonombre}>- {diseno.nombre}</span>
-                                            <span onClick={() => eliminarDiseno01(index)}>
-                                                <img src={logo} alt="" className={style.logoimg} />
-                                            </span>
-                                        </p>
-                                    </div>
-                                ))}
+
+                               
+                               
 
 
                             </div>
