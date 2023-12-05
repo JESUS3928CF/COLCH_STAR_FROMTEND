@@ -52,7 +52,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     };
 
 
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
     const agregarNuevoDiseno = (data) => {
         
@@ -94,6 +94,16 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     }, []);
 
 
+    useEffect(() => {
+        // console.log(selectedDisenoNombre)
+        // console.log(selectedDisenoNombre.length === 0)
+        if(selectedDisenoNombre.length === 0){
+            // console.log("Entrando")
+            reset()
+        }
+    },[selectedDisenoNombre])
+
+
     return (
         <Modal
             show={showw}
@@ -109,10 +119,10 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                 {/* Cabecero del modal */}
                 <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
                     reset();
-                    handleClosex();
+                    handleClosee();
                     //al darle lcick al salir manda estos datos vacios
-                    setSelectedDisenoNombre([])
-                    setDisenos([])
+                    // setSelectedDisenoNombre([])
+                    // setDisenos([])
                 }} />
 
                 <div className='modal-body'>
@@ -237,7 +247,11 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
                             <BotonNegro text={'Regresar'}
                                 modalClouse={"modal"}
-                                onClick={handleClosee} />
+                                onClick={() => {
+                                    // setSelectedDisenoNombre([]);
+                                    // setDisenos([]);
+                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                }} />
 
                             {/* Botón para guardar*/}
                             <GuardarModal />
