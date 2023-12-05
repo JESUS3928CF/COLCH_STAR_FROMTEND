@@ -10,14 +10,17 @@ const productosContext = createContext();
 
 
 const ProductosProvider = ({ children }) => {
+
     const {  auth, token } = useAuth();
 
-    const { setDisenos } = useDisenosContext();
+    // const { setDisenos } = useDisenosContext();
 
     // primer state
     const [productos, setProductos] = useState([]);
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+
+
     
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -36,6 +39,7 @@ const ProductosProvider = ({ children }) => {
     useEffect(() => {
         consultarProductos();
     }, [auth]);
+
 
     const agregarProducto = async (producto, reset, handleClose) => {
         // console.log(producto)
@@ -70,36 +74,38 @@ const ProductosProvider = ({ children }) => {
             });
 
         } finally {
-            console.log("Hola")
-            console.log(setDisenos([]));
+            // console.log("Hola")
+            // console.log(setDisenos([]));
             setSelectedDisenoNombre([])
         }
     };
 
+
+
     const { disenos } = useDisenosContext();
 
     const editarProductos = (data, editarProducto, handleClose) => {
-        //se guardan los datos  a cambiar al data
-        const { nombre, cantidad, fk_prenda, publicado, imagen } = data
-
+        // Se guardan los datos a cambiar en el objeto data
+        const { nombre, cantidad, fk_prenda, publicado, imagen } = data;
+    
         if (editarProducto.id_producto) {
             axios
                 .patch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${editarProducto.id_producto
-                    }`,
+                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${editarProducto.id_producto}`,
                     {
                         nombre: nombre.trim(),
                         cantidad: cantidad,
-                        // precio: precio,
                         fk_prenda: fk_prenda,
                         publicado: publicado,
                         imagen: imagen[0],
                         disenos: JSON.stringify(disenos)
                     },
-                    {headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${token}`,
-                    },}
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
                 )
                 .then((response) => {
                     console.log("Producto Actualizado:", response.data);
@@ -114,18 +120,23 @@ const ProductosProvider = ({ children }) => {
                 })
                 .catch((error) => {
                     console.error("Error al actualizar el usuario", error);
-
+    
                     Swal.fire({
                         title: "Error",
                         text: "Hubo un error",
                         icon: "error",
-                    })
-
+                    });
+                })
+                .finally(() => {
+                    // This block will always execute, whether the request succeeds or fails
+                    setSelectedDisenoNombre([]);
                 });
         } else {
             console.error("No se pudo obtener el ID del usuario");
         }
     };
+
+
 
     const editarEstado = (id) => {
         let productoEditado = productos.find((producto) => producto.id_producto === id);
@@ -137,6 +148,8 @@ const ProductosProvider = ({ children }) => {
 
         setProductos(productoActualizado);
     };
+
+
 
     const editarPublicacion = (id) => {
         let productoEditado = productos.find(
@@ -151,18 +164,19 @@ const ProductosProvider = ({ children }) => {
         setProductos(productoActualizado);
     };
 
-    const editarDisenosProducto = (diseno) => {
-        console.log(productos)
-    }
+
+
 
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion, editarDisenosProducto, selectedDisenoNombre ,setSelectedDisenoNombre}}
+            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion,  selectedDisenoNombre ,setSelectedDisenoNombre}}
         >
             {children}
         </productosContext.Provider>
     );
 };
+
+
 
 export { ProductosProvider };
 export default productosContext;

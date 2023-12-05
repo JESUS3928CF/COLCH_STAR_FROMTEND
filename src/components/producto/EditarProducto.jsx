@@ -23,7 +23,7 @@ import useAuth from '../../hooks/useAuth';
 const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handleShoww, showw, handleClosex }) => {
 
     //traigo la funciona para eidtar un producto
-    const { editarProductos } = useProducto();
+    const { editarProductos,setSelectedDisenoNombre } = useProducto();
 
 
     const { config } = useAuth();
@@ -97,6 +97,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                         handleClose={() => {
                             reset();
                             handleClose();
+                            setSelectedDisenoNombre([])
                         }}
                     />
 
@@ -284,13 +285,17 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     <BotonNegro
                                         text='Agregar Diseño'
                                         modalToOpen='#myModalDisenoE'
-                                        onClick={handleShoww}
+                                        onClick={ () => { 
+                                            console.log(editarProducto.disenos)
+                                            setSelectedDisenoNombre(editarProducto.disenos)
+                                            handleShoww()}}
                                     />
                                 </div>
 
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
+                                    setSelectedDisenoNombre={setSelectedDisenoNombre}
                                 />
 
                                 <GuardarModal />

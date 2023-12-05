@@ -7,11 +7,18 @@ const CancelarModal = ({
     reset,
     name = 'Cancelar',
     handleClose,
+    setSelectedDisenoNombre, 
 }) => {
     //función que cuando le de click en cancelar se refresque la pagina y se restablezca la informacion que estaba en el formulario
     const onClick = () => {
         if (reset) reset();
         handleClose();
+        
+        // si es existe algo en setSelectDiseno resetea el set
+        if (setSelectedDisenoNombre) {
+            // Llama a setSelectedDisenoNombre con los parámetros adecuados
+            setSelectedDisenoNombre([]);
+        }
     };
 
     return (

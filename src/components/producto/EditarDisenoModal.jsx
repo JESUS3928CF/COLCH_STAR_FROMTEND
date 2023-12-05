@@ -23,7 +23,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         reset
     } = useForm();
 
-    console.log(editarProducto)
+    // console.log(editarProducto)
 
     //trae alguna funciones de disenos provider
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
@@ -46,13 +46,16 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
-        editarDisenosProducto();
+        console.log(nuevosDisenos)
+
+
+        // editarDisenosProducto();
         
         eliminarDiseno(index)
     };
 
 
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
     const agregarNuevoDiseno = (data) => {
         
@@ -63,6 +66,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
+
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
 
@@ -94,6 +98,13 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     }, []);
 
 
+    useEffect(() => {
+        // Verificar que editarProducto.disenos esté definido antes de asignarlo a setSelectedDisenoNombre
+        if (editarProducto && editarProducto.disenos) {
+            setSelectedDisenoNombre(editarProducto.disenos);
+        }
+    }, [editarProducto.disenos]);
+
     return (
         <Modal
             show={showw}
@@ -109,10 +120,10 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                 {/* Cabecero del modal */}
                 <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
                     reset();
-                    handleClosex();
+                    handleClosee();
                     //al darle lcick al salir manda estos datos vacios
-                    setSelectedDisenoNombre([])
-                    setDisenos([])
+                    // setSelectedDisenoNombre([])
+                    // setDisenos([])
                 }} />
 
                 <div className='modal-body'>
@@ -199,7 +210,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                 <p className={style.diseñosModalTitle}>
                                     Diseños seleccionados:
                                 </p>
-
                                 {selectedDisenoNombre.map(
                                     (diseno, index) => (
                                         <div key={index} className={style.disenocontainer}>
@@ -213,16 +223,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         </div>
                                     )
                                 )}
-                                {editarProducto.disenos && editarProducto.disenos.map((diseno, index) => (
-                                    <div key={index} className={style.disenocontainer}>
-                                        <p>
-                                            <span className={style.disenonombre}>- {diseno.nombre}</span>
-                                            <span onClick={() => eliminarDiseno01(index)}>
-                                                <img src={logo} alt="" className={style.logoimg} />
-                                            </span>
-                                        </p>
-                                    </div>
-                                ))}
+
+                               
+                               
 
 
                             </div>
@@ -237,7 +240,11 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
                             <BotonNegro text={'Regresar'}
                                 modalClouse={"modal"}
-                                onClick={handleClosee} />
+                                onClick={() => {
+                                    // setSelectedDisenoNombre([]);
+                                    // setDisenos([]);
+                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                }} />
 
                             {/* Botón para guardar*/}
                             <GuardarModal />
