@@ -267,7 +267,7 @@ const AgregarProveedor = () => {
                                                 telefonoSinEspacios.length >
                                                 11
                                             ) {
-                                                return 'El telefono debe tener minimo 7 digitos y maximo 10';
+                                                return 'El telefono debe tener minimo 7 digitos y maximo 11';
                                             }
                                             return true;
                                         },
