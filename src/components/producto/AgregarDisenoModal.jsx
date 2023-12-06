@@ -144,9 +144,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                     }
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_diseno.message}
                                     />
                                 )}
 
@@ -174,9 +174,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                     ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_precio_diseno.message}
                                     />
                                 )}
                             </div>

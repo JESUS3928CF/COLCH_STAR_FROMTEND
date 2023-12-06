@@ -164,9 +164,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_diseno.message}
                                     />
                                 )}
 
@@ -195,9 +195,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_precio_diseno.message}
                                     />
                                 )}
 
