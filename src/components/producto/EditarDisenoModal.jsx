@@ -41,8 +41,12 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
 
+        console.log(nuevosDisenos)
+
         // Elimina el elemento en el índice especificado
         nuevosDisenos.splice(index, 1);
+
+        console.log(nuevosDisenos)
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
@@ -62,7 +66,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
          console.log(data);
         agregarDiseno(data);
 
-        console.log(selectedDisenoNombre);
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
