@@ -59,16 +59,19 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
     const agregarNuevoDiseno = (data) => {
         
-        // console.log(data);
+         console.log(data);
         agregarDiseno(data);
 
         console.log(selectedDisenoNombre);
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
+        console.log(nuevoDiseno)
+       
 
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+        console.log(setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]))
 
     };
 
