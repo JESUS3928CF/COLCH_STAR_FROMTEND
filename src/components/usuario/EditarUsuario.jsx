@@ -135,9 +135,18 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                           message:
                                               'El nombre no puede contener números ni caracteres especiales',
                                       },
+                                      minLength:{
+                                        value : 3,
+                                        message: "El nombre debe tener mínimo 3 caracteres sin"
+                                    },
+                                    maxLength: {
+                                        value: 20,
+                                        message: "El nombre debe tener máximo 20 caracteres"
+                                    },
                                   })}
                                   onChange={(e) => {
-                                      setValue('nombre', e.target.value);
+                                    const inputValue = e.target.value.slice(0,21)
+                                      setValue('nombre', inputValue);
                                       trigger('nombre');
                                   }}
                               />
@@ -173,9 +182,18 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                           message:
                                               'El apellido no puede contener números ni caracteres especiales',
                                       },
+                                      minLength:{
+                                        value : 3,
+                                        message: "El apellido debe tener mínimo 3 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 20,
+                                        message: "El apellido debe tener máximo 20 caracteres"
+                                    },
                                   })}
                                   onChange={(e) => {
-                                      setValue('apellido', e.target.value);
+                                    const inputValue = e.target.value.slice(0,21)
+                                      setValue('apellido', inputValue);
                                       trigger('apellido');
                                   }}
                               />
@@ -221,7 +239,8 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                       },
                                   })}
                                   onChange={(e) => {
-                                      setValue('telefono', e.target.value);
+                                    const inputValue = e.target.value.slice(0,11)
+                                      setValue('telefono', inputValue);
                                       trigger('telefono');
                                   }}
                               />

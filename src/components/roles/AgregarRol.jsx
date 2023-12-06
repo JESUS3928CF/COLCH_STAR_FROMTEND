@@ -133,11 +133,20 @@ function AgregarRol() {
                                                   message:
                                                       'El nombre no puede contener números ni caracteres especiales',
                                               },
+                                              minLength:{
+                                                value : 3,
+                                                message: "El nombre debe tener mínimo 3 caracteres"
+                                            },
+                                            maxLength: {
+                                                value: 20,
+                                                message: "El nombre debe tener máximo 20 caracteres"
+                                            },
                                           })}
                                           onChange={(e) => {
+                                    const inputValue = e.target.value.slice(0,21)
                                               setValue(
                                                   'nombre',
-                                                  e.target.value
+                                                  inputValue
                                               );
                                               trigger('nombre');
                                           }}
