@@ -2,14 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import useAuth from "../hooks/useAuth";
 import clienteAxios from "../config/axios";
-import { useColorsContex } from "../context/ColorsProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useColors from "../hooks/useColors"
 
 const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
   const { auth, token } = useAuth();
+  const {colors,setColores} = useColors()
 
   const [Prendas, setPrendas] = useState([]);
 
@@ -57,18 +58,18 @@ const PrendasProvider = ({ children }) => {
       }).then(() => {
         handleClose();
       });
+    }finally{
+      console.log("setColores",setColores([]))
     }
   };
 
-const {colors,setColores} = useColorsContex()
 
-// console.log(colors)
+
 
 
 
 
   const updatePrendas = (data, detallesPrendas, handleClose) => {
-    setColores(detallesPrendas.color)
 
     const {
       nombre,
@@ -88,16 +89,18 @@ console.log(data.nombre)
 
 const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
 
+
 // console.log(nombre)
 
     if (updatePrendas) {
+     
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/prendas/${
             detallesPrendas.id_prenda
           }`,
           {
-            nombre: 'Jesus',
+            nombre: nombre,
             cantidad: cantidad,
             precio: precio,
             tipo_de_tela: tipo_de_tela.trim(),
@@ -105,7 +108,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             imagen: imagen[0],
             publicado: publicado,
             tallas: tallas,
-            colores: JSON.stringify(colors== '' ? detallesPrendas.color: colors),
+            colores: JSON.stringify(colors== '' ? coloresEnviar: colors),
           },
           {
             headers: {
@@ -143,7 +146,8 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
     let prendaUpdate = Prendas.find((prenda)=> prenda.id_prenda == id)
     prendaUpdate.estado = !prendaUpdate.estado
 
-    const prendaActualizada = Prendas.map((prenda)=> prenda.id_prenda==id ? prendaUpdate : prenda)
+    const prendaActualizada = Prendas.map((prenda)=> 
+    prenda.id_prenda==id ? prendaUpdate : prenda)
 
     setPrendas(prendaActualizada)
     

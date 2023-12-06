@@ -136,7 +136,7 @@ export const ListarPrendas = () => {
 
                   <td>
                     <BotonCambioEstado
-                      id={1}
+                      id={Prendas.id_prenda}
                       isChecked={Prendas.publicado}
                       nombreRegistro={'Prenda en el catalogo'}
                       ruta={`/prendas/publicado/${Prendas.id_prenda}`}
@@ -147,14 +147,16 @@ export const ListarPrendas = () => {
 
                       }
                       }
+                      editarEstado={updatePublicado}
                     />
                   </td>
                   <td>
                     <BotonCambioEstado
-                      id={2}
+                      id={Prendas.id_prenda}
                       isChecked={Prendas.estado}
                       nombreRegistro={'Prenda en el estado '}
                       ruta={`/prendas/estado/${Prendas.id_prenda}`}
+                      editarEstado={updateEstado}
 
                     />
                   </td>
@@ -224,6 +226,7 @@ export const ListarPrendas = () => {
                             estado: Prendas.estado,
                             paraPublicacion: true,
                           }}
+                          editarEstado={updatePublicado}
                         />
                       </div>
                     </div>
@@ -240,6 +243,7 @@ export const ListarPrendas = () => {
                           isChecked={Prendas.estado}
                           nombreRegistro='Prendas'
                           ruta={`/prendas/estado/${Prendas.id_prenda}`}
+                          editarEstado={updateEstado}
                         />
                       </div>
                     </div>

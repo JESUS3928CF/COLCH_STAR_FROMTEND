@@ -18,13 +18,22 @@ import { AgregarDetallesCompra } from './AgregarDetallesCompra';
 import Swal from 'sweetalert2';
 
 const AgregarCompras = () => {
-    const { agregarCompra, detallesCompra, totalCompra } = useCompras();
+    const {
+        agregarCompra,
+        detallesCompra,
+        setDetallesCompra,
+        totalCompra,
+        setTotalCompra,
+    } = useCompras();
 
     const { proveedores } = useProveedor();
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
 
     const handleClose = () => {
+        setTotalCompra(0);
+        setDetallesCompra([]);
+        reset();
         setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -50,7 +59,7 @@ const AgregarCompras = () => {
                 icon: 'warning',
             });
         } else {
-            console.log(detallesCompra)
+            console.log(detallesCompra);
             agregarCompra(data, reset, handleClose);
         }
     };
@@ -62,6 +71,8 @@ const AgregarCompras = () => {
             <Modal
                 show={show}
                 onHide={() => {
+                    setTotalCompra(0);
+                    setDetallesCompra([]);
                     reset();
                     handleClose();
                 }}

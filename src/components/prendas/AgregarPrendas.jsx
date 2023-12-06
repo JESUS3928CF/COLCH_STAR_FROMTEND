@@ -6,9 +6,7 @@
 
 import CancelarModal from "../chared/CancelarModal";
 import GuardarModal from "../chared/GuardarModal";
-import clienteAxios from "../../config/axios";
 import { useForm } from "react-hook-form";
-import style from "../../pages/proveedores.module.css";
 
 import {
   validarEspaciosVacios,
@@ -20,13 +18,12 @@ import { useEffect, useState } from "react";
 import axios, { formToJSON } from "axios";
 import AgregarColors from "./AgregarColors";
 import HeaderModals from "../chared/HeaderModals";
-import styles from "../../pages/Productos.module.css";
 import BotonNegro from "../chared/BotonNegro";
-import { useColorsContex } from "../../context/ColorsProvider";
 import SeleccionarColors from "./SeleccionarColor";
 import {Modal} from "react-bootstrap";
 import usePrendas from "../../hooks/usePrendas";
 import BotonVerde from "../chared/BotonVerde";
+import useColors from "../../hooks/useColors";
 
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
@@ -34,10 +31,11 @@ const AgregarPrendas = () => {
 
 
 
-  const { colors } = useColorsContex();
+  const { colors } = useColors();
   const {agregarPrendas, Prendas} = usePrendas()
-  const [show, setShow]= useState(false)
 
+
+  const [show, setShow]= useState(false)
   const handleClose = ()=> setShow(false)
   const handleShow = ()=> setShow(true)
   
@@ -90,6 +88,8 @@ const AgregarPrendas = () => {
 
     }else{
 
+      console.log(data)
+
       agregarPrendas({
         nombre: nombre.trim(),
         cantidad: cantidad.trim(),
@@ -134,13 +134,13 @@ const AgregarPrendas = () => {
               >
                 <div className="col-md-6" name="nombre">
                   <label htmlFor="nombre" className="col-form-label">
-                    Nombre:
+                    Nombre:  *
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     name="nombre"
-                    placeholder="Nombre de la prenda"
+                    placeholder=". . ."
                     title="Ingresa el nombre de la prenda"
                     {...register("nombre", {
                       required: {
@@ -169,13 +169,13 @@ const AgregarPrendas = () => {
 
                 <div className="col-md-6 ms-auto">
                   <label htmlFor="cantidad" className="col-form-label">
-                    Cantidad:
+                    Cantidad:  *
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     name="cantidad"
-                    placeholder="Cantidad"
+                    placeholder=". . ."
                     title="Ingresa la cantidad"
                     {...register("cantidad", {
                       required: {
@@ -203,13 +203,13 @@ const AgregarPrendas = () => {
 
                 <div className="col-md-6 mt-2" name="precio">
                   <label htmlFor="precio" className="col-form-label">
-                    Precio:
+                    Precio:  *
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     name="precio"
-                    placeholder="Precio"
+                    placeholder=". . ."
                     title="Ingresa el precio"
                     {...register("precio", {
                       required: {
@@ -237,13 +237,13 @@ const AgregarPrendas = () => {
                 </div>
 
                 <div className="col-md-6 mt-4">
-                  <label htmlFor="searchInput">Tipo de tela:</label>
+                  <label htmlFor="searchInput">Tipo de tela:  *</label>
                   <input
                     type="text "
                     name="Telasss"
                     id="searchInput"
                     list="Telasss"
-                    placeholder="Ingrese el tipo de tela"
+                    placeholder=". . ."
                     className="form-control"
                     {...register("tipo_de_tela", {
                       required: {
@@ -283,7 +283,7 @@ const AgregarPrendas = () => {
 
                 <div className="col-md-6">
                   <label htmlFor="genero" className="col-from-label">
-                    Genero
+                    Género:  *
                   </label>
 
                   <select
@@ -305,10 +305,11 @@ const AgregarPrendas = () => {
                   >
                     <option value="" disabled={false}>
                       {" "}
-                      Selecciona una opción
+                      Selecciona una opción 
                     </option>
                     <option value="Mujer">Mujer</option>
                     <option value="Hombre">Hombre</option>
+                    <option value='UniSexo'>Unisexo</option>
                   </select>
 
                   {errors.genero && (
@@ -318,7 +319,7 @@ const AgregarPrendas = () => {
 
                 <div className="col-md-6" name="Publicado">
                   <label htmlFor="Publicar" className="col-form-control">
-                    ¿Deseas publicarlo?
+                    ¿Deseas publicarlo?  *
                   </label>
 
                   <select
@@ -334,7 +335,7 @@ const AgregarPrendas = () => {
                     })}
       
                   >
-                    <option value="">Selecciona una opcion</option>
+                    <option value="">Selecciona una opción</option>
                     <option value="true">Si</option>
                     <option value="false">No</option>
                   </select>
@@ -346,7 +347,7 @@ const AgregarPrendas = () => {
 
                 <div className="col-md-6" name="Publicado">
                   <label htmlFor="Publicar" className="col-form-control">
-                    Talla
+                    Talla:  *
                   </label>
 
                   <select
@@ -361,7 +362,7 @@ const AgregarPrendas = () => {
                       },
                     })}
                   >
-                    <option value="">Selecciona una opcion</option>
+                    <option value="">Selecciona una opción</option>
 
                     <option value={(Tallas.tallas = "S")}> S </option>
                     <option value={(Tallas.tallas = "M")}> M </option>
@@ -376,13 +377,12 @@ const AgregarPrendas = () => {
                 </div>
                 <div className="col-md-6" name="Archivo">
                   <label htmlFor="Archivo" className="col-from-label">
-                    Imagen de la prenda:
+                    Imagen de la prenda:  *
                   </label>
                   <input
                     type="file"
                     className="form-control"
                     name="imagen"
-                    placeholder="PNG o JPG"
                     title="Ingrese la imagen de la prenda"
                     {...register("imagen", {
                       required: {

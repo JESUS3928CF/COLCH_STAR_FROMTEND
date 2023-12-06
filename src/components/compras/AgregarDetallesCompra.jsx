@@ -153,12 +153,12 @@ export const AgregarDetallesCompra = () => {
                 </div>
 
                 <div className='row py-3 text-center'>
-                    <div className='col-md-6 pl-1 '>
+                    {/*<div className='col-md-6 pl-1 '>
                         <BotonNegro
                             text={'Ver Detalles'}
                             modalToOpen={'#modalDetalleCompra'}
                         />
-                    </div>
+                        </div>*/}
 
                     <div className='col-md-6 pr-1'>
                         <GuardarModal text='Agregar Detalle' />
@@ -166,7 +166,7 @@ export const AgregarDetallesCompra = () => {
                 </div>
             </form>
 
-            <ModalVerDetallesCompra  detallesCompra={detallesCompra}/>
+            {/*<ModalVerDetallesCompra  detallesCompra={detallesCompra}/>*/}
         </>
     );
 };

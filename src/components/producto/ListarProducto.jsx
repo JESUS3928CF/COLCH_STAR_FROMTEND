@@ -41,7 +41,7 @@ const ListarProducto = () => {
     const [showw, setShoww] = useState(false);
 
     const handleClosee = () => { setShoww(false), handleShow() }
-    const handleShoww = () => { setShoww(true), handleClose() }
+    const handleShoww = () => { setShoww(true), handleClose()  }
     const handleClosex = () => setShoww(false);
 
     //estado de la barra buscador

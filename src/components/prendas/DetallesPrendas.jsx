@@ -83,7 +83,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                           </h3>
                           <h3 htmlFor="genero" className="card-title">
                             {" "}
-                            <b>Genero:</b> {detallesPrendas.genero}
+                            <b>Género:</b> {detallesPrendas.genero}
                           </h3>
 
                           <h3 htmlFor="Colores" className="card-title">

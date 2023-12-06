@@ -7,15 +7,20 @@ import AlertaError from "../chared/AlertaError";
 import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import SeleccionarColors from "./SeleccionarColor";
+import { useState } from "react";
 
 
 
-const AgregarColors = () => {
+
+const AgregarColors = ({handleShow, handleClose}) => {
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({mode: 'onChange'});
+
+   
 
 
 
@@ -31,13 +36,18 @@ const AgregarColors = () => {
                 text: res.data.message,
                 icon: 'success',
 
-            }).then(location.reload());
+            }).then(()=>{
+                reset()
+                handleClose()
+            });
         } catch (error) {
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error',
                 icon: 'Vuelva a intentarlo',
-            }).then(location.reload());
+            }).then(()=>{
+                handleClose()
+            });
         }
 
     })
@@ -51,7 +61,13 @@ const AgregarColors = () => {
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
 
-                        <HeaderModals title={'Agregar color'} />
+                        <HeaderModals title={'Agregar color'}
+                        handleClose={()=>{
+                            reset()
+                            handleClose()
+                        }}
+                        
+                        />
 
                         <div className="modal-body">
                             <form onSubmit={
@@ -130,7 +146,13 @@ const AgregarColors = () => {
 
                                 <div className='modal-footer'>
                                   
-                                    <BotonNegro text={'Regresar'} modalToOpen={'#crearColor'} modalClouse={'modal'} />
+                                    <BotonNegro text={'Regresar'}
+
+                                     modalToOpen={'#crearColor'} 
+                                     modalClouse={'modal'}
+                                     
+                                     />
+                                     
                                     <GuardarModal />
 
                                 </div>
@@ -139,7 +161,6 @@ const AgregarColors = () => {
                     </div>
                 </div>
             </div>
-            <SeleccionarColors/>
 
 
         </>

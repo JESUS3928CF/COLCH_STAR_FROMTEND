@@ -26,8 +26,15 @@ import BotonVerde from '../chared/BotonVerde';
 import useProducto from '../../hooks/useProducto.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 
+
 //Componente
 const AgregarProducto = () => {
+
+    const { setSelectedDisenoNombre } = useProducto();
+
+
+
+
     // función que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
@@ -65,12 +72,13 @@ const AgregarProducto = () => {
     });
 
     //estado de las prendas para resivir la informacion que lleg de la base de datos
-    const {Prendas} = usePrendas()
+    const { Prendas } = usePrendas()
 
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data;
+
 
         //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
         //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven
@@ -88,7 +96,8 @@ const AgregarProducto = () => {
             },
 
             reset,
-            handleClose
+            handleClose,
+
         );
     };
     return (
@@ -111,6 +120,7 @@ const AgregarProducto = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
+                            setSelectedDisenoNombre([])
                         }}
                     />
 
@@ -312,9 +322,9 @@ const AgregarProducto = () => {
                                     />
                                 </div>
                                 <CancelarModal
-                                    // modalToCancel='myModal'
                                     reset={reset}
                                     handleClose={handleClose}
+                                    setSelectedDisenoNombre={setSelectedDisenoNombre}
                                 />
                                 <GuardarModal />
                             </div>

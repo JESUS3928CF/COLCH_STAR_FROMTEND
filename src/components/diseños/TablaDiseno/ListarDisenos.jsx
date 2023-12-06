@@ -1,7 +1,7 @@
 // ------------------JESÚS ANTONIO COCHERO FLORIÁN
 //-------------------26 de septiembre 2023
-// Nos permitira Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
-// existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
+// Nos permitirá Listar todos los diseños de la base de datos y que agreguemos por medio del agregar diseño,
+// existirá una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo que este en esta tabla
 import { useEffect, useState } from 'react';
 import { DetalleDiseno } from '../DetalleDiseno';
 import EditarDiseno from '../EditarDiseno';
@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import TablaDisenos from './TablaDisenos';
 import { useDisenosContext } from '../../../context/disenosProvider';
 import AgregarDiseno from '../AgregarDiseno';
-import BotonVerde from '../../chared/BotonVerde';
 import PrecioDiseno from '../PrecioDiseno';
 
 const ListarDisenos = () => {
@@ -65,10 +64,6 @@ const ListarDisenos = () => {
                         <AgregarDiseno />
                     </div>
                     <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
-                        <BotonVerde
-                            text='Modificar precio'
-                            modalToOpen='#myModalPrecio'
-                        />
 
                         {/* modal de precio de los diseños  */}
                         <PrecioDiseno />

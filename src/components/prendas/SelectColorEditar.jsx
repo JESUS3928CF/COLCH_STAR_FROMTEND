@@ -4,35 +4,41 @@ import GuardarModal from "../chared/GuardarModal";
 import HeaderModals from "../chared/HeaderModals";
 import BotonNegro from "../chared/BotonNegro";
 import { useEffect, useState } from "react";
-import { useColorsContex } from "../../context/ColorsProvider";
+import logo from '../../imgNavbar/cruz.png'
+import style from '../../pages/Productos.module.css'
+import useColors from "../../hooks/useColors";
 
-const SeleccionarColorsEditar = () => {
+
+
+const SeleccionarColorsEditar = ({handleClose, handleShow,detallesPrendas}) => {
 
   const {
     register,
     handleSubmit,
+    formState: {error},
+    reset
   } = useForm();
 
-  const { agregarColors, colors } = useColorsContex();
-  const [selectColorsName, setSelectColorsName] = useState("");
+  const { agregarColors, eliminarColors, setColores } = useColors();
+  const [selectColorsName, setSelectColorsName] = useState([]);
+
+  const eliminarColors01= (index) =>{
+    const NewColors = [...selectColorsName]
+    NewColors.splice(index, 1)
+    setSelectColorsName(NewColors)
+
+    eliminarColors(index)
+
+
+  }
 
 
   const agregarNewColors = (data) => {
     agregarColors(data);
 
-    let selectColors = [];
+const newColors = colorss.find ((colors)=> colors.id_color == data.id_color)
 
-    console.log(colors)
-
-    for (let i = 0; i < colors.length; i++) {
-      const matchingColors = colorss.find(
-        (Colors) => Colors.id_color == colors[i].id_color
-      );
-      if (matchingColors) {
-        selectColors.push(matchingColors.color);
-      }
-    }
-    setSelectColorsName(selectColors);
+setSelectColorsName([...selectColorsName,newColors])
   };
 
 
@@ -59,7 +65,12 @@ const SeleccionarColorsEditar = () => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <HeaderModals title={"Editar color"} />
+            <HeaderModals title={"Editar color"} handleClose={()=>{
+              reset()
+              handleClose()
+              setSelectColorsName([])
+              setColores([])
+            }} />
             <div className="modal-body">
               <form
                 onSubmit={handleSubmit(agregarNewColors)}
@@ -79,8 +90,8 @@ const SeleccionarColorsEditar = () => {
                       },
                     })}
                   >
-                    <option value="" disabled>
-                      Seleccionar colors
+                    <option value="" >
+                      Seleccionar colores
                     </option>
                     {colorss.map((F) => (
                       <option key={F.id_color} value={F.id_color}>
@@ -90,13 +101,30 @@ const SeleccionarColorsEditar = () => {
                   </select>
 
                   <div className="col-md-5 ml-6 mt-3">
-                    {selectColorsName && (
-                      <div>
-                        <br />
-                        <div>{selectColorsName}</div>
-                        <br />
+                    <p>
+                      Colores seleccionados
+                    </p>
+
+                    {selectColorsName.map((colores, index)=>(
+                      <div key={index}>
+                      <p>
+
+                        <span>
+                          -{colores.color}
+                        </span>
+
+                        <span onClick={()=> eliminarColors01(index)}>
+
+                          <img src={logo} alt=""  className={style.logoimg} />
+
+                        </span>
+                        
+                        </p> 
+
+
                       </div>
-                    )}
+                    ))}
+                    
                   </div>
                 </div>
 
@@ -105,7 +133,7 @@ const SeleccionarColorsEditar = () => {
                   </div>
                   <BotonNegro
                     text={"Regresar"}
-                    modalToOpen={"#modalEditarPrenda"}
+                    onClick={handleShow}
                     modalClouse={"modal"}
                   />
                   <GuardarModal />

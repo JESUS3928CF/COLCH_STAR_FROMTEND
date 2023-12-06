@@ -6,10 +6,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .background {
-    /* background: url(atras.jpg) no-repeat; */
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -24,7 +24,6 @@
     transform: translate(-50%, -50%);
     width: 75%;
     height: 550px;
-    margin-top: 20px;
     background: url("../imgNavbar/login.jpg") no-repeat;
     background-position: center;
     background-size: cover;
@@ -32,6 +31,8 @@
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 .item {
@@ -59,6 +60,7 @@
     line-height: 1;
 }
 
+
 .container .login_section {
     position: absolute;
     top: 0;
@@ -80,7 +82,7 @@
 }
 
 .login_section .form_box.register {
-    transform: translateX(430px);
+    transform: translateX(730px);
     transition: transform .6s ease;
     transition-delay: 0s;
 }
@@ -97,7 +99,7 @@
 }
 
 .login_section.active .form_box.login {
-    transform: translateX(430px);
+    transform: translateX(730px);
     transition-delay: 0s;
 }
 
@@ -112,7 +114,7 @@
     width: 340px;
     height: 50px;
     border-bottom: 2px solid#000000;
-    margin: 30px 0;
+    margin: 30px 0px 30px 0px;
     position: relative;
 }
 
@@ -158,7 +160,6 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background: #412df7;
     font-size: 16px;
     color: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.4);
@@ -191,6 +192,44 @@
 .create_account p a:hover {
     text-decoration: underline;
 }
+
+
+@media (max-width: 1200px) {
+    .container {
+        width: 70%;
+
+    }
+
+    .container .login_section {
+        width: calc(100%);
+        height: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 85%;
+
+    }
+}
+
+@media (max-width: 450px) {
+
+    .form_box .input_box {
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 220px;
+    }
+
+    .btn {
+        margin-left: 14px;
+        margin-right: 14px;
+        width: 90%;
+    }
+
+}
+
+
 
 
 /*- Animación del fondo  */
