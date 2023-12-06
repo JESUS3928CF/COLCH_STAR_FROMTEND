@@ -74,7 +74,8 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
         editarProductos(
             data,
             editarProducto,
-            handleClose
+            handleClose,
+            // reset,
         )
     };
 
