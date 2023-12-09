@@ -41,8 +41,12 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
 
+        console.log(nuevosDisenos)
+
         // Elimina el elemento en el índice especificado
         nuevosDisenos.splice(index, 1);
+
+        console.log(nuevosDisenos)
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
@@ -59,16 +63,18 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
     const agregarNuevoDiseno = (data) => {
         
-        // console.log(data);
+         console.log(data);
         agregarDiseno(data);
 
-        console.log(selectedDisenoNombre);
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
+        console.log(nuevoDiseno)
+       
 
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+        console.log(setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]))
 
     };
 
@@ -102,6 +108,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Verificar que editarProducto.disenos esté definido antes de asignarlo a setSelectedDisenoNombre
         if (editarProducto && editarProducto.disenos) {
             setSelectedDisenoNombre(editarProducto.disenos);
+            setDisenos(editarProducto.disenos)
         }
     }, [editarProducto.disenos]);
 
@@ -151,9 +158,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     })}
 
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar diseño
-                                    </option>
+                                    <option value=''>Seleccionar diseño</option>
                                     {detalle_diseno
                                         .filter((diseno) => diseno.estado)
                                         .map((diseno) => (
@@ -166,9 +171,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_diseno.message}
                                     />
                                 )}
 
@@ -186,9 +191,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         },
                                     })}
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar tamaño
-                                    </option>
+                                    <option value=''>Seleccionar Precio</option>
                                     {Precio.map((precio) => (
                                         <option
                                             key={precio.id_precio_diseno}
@@ -199,9 +202,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_precio_diseno.message}
                                     />
                                 )}
 

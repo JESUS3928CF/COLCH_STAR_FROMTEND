@@ -13,7 +13,7 @@ export const Diseno = () => {
     return auth.usuario.permisos.includes('producto') ? (
         <div>
             <div>
-                <Header titulo='Gestionar Diseños' />
+                <Header titulo='Gestión de Diseños' />
 
                 
                 {/* Tabla para listar diseños */}

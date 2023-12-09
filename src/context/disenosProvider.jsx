@@ -24,6 +24,7 @@ export const DisenosProvider = ({ children }) => {
 
     const agregarDiseno = (data) => {
         const nuevoDisenos = [...disenos, data];
+        console.log(nuevoDisenos);
         setDisenos(nuevoDisenos);
     };
 
