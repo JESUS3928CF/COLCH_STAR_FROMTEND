@@ -46,7 +46,6 @@ const AgregarCompras = () => {
                 icon: 'warning',
             });
         } else {
-            console.log(detallesCompra);
             agregarCompra(data, reset, handleClose);
         }
     };
