@@ -87,7 +87,8 @@ const ProductosProvider = ({ children }) => {
     const editarProductos = (data, editarProducto, handleClose) => {
         // Se guardan los datos a cambiar en el objeto data
         const { nombre, cantidad, fk_prenda, publicado, imagen } = data;
-    
+
+        console.log(disenos)
         if (editarProducto.id_producto) {
             axios
                 .patch(

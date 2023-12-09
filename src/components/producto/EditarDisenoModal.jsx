@@ -108,6 +108,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Verificar que editarProducto.disenos esté definido antes de asignarlo a setSelectedDisenoNombre
         if (editarProducto && editarProducto.disenos) {
             setSelectedDisenoNombre(editarProducto.disenos);
+            setDisenos(editarProducto.disenos)
         }
     }, [editarProducto.disenos]);
 
