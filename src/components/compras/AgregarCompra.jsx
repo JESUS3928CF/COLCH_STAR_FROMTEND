@@ -1,9 +1,3 @@
-import '../../css-general/cssgeneral.css';
-import '../../css-general/tailwind.min.css';
-import '../../css-general/inicio_style.css';
-import '../../css-general/table.min.css';
-import './Css/style.css';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
@@ -16,6 +10,7 @@ import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
 import { AgregarDetallesCompra } from './AgregarDetallesCompra';
 import Swal from 'sweetalert2';
+import { ModalVerDetallesCompra } from './ModalVerDetallesCompra';
 
 const AgregarCompras = () => {
     const {
@@ -24,19 +19,12 @@ const AgregarCompras = () => {
         setDetallesCompra,
         totalCompra,
         setTotalCompra,
+        show,
+        handleClose,
+        handleShow,
     } = useCompras();
 
     const { proveedores } = useProveedor();
-    /// Funcionalidad para cerra el modal
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => {
-        setTotalCompra(0);
-        setDetallesCompra([]);
-        reset();
-        setShow(false);
-    };
-    const handleShow = () => setShow(true);
 
     const {
         register, //Registra o identifica cada elemento o cada input
@@ -50,7 +38,6 @@ const AgregarCompras = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
 
         if (detallesCompra.length === 0) {
             Swal.fire({
@@ -66,15 +53,14 @@ const AgregarCompras = () => {
 
     return (
         <div>
-            {/* modal agregar venta */}
+            {/* modal agregar venta*/}
             <BotonVerde text={'Agregar Compra'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
                     setTotalCompra(0);
                     setDetallesCompra([]);
-                    reset();
-                    handleClose();
+                    handleClose(reset);
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModalAgregarComprar'
@@ -84,7 +70,7 @@ const AgregarCompras = () => {
                         title={'Agregar Compra'}
                         handleClose={() => {
                             reset();
-                            handleClose();
+                            handleClose(reset);
                         }}
                     />
                     <div>
@@ -200,6 +186,7 @@ const AgregarCompras = () => {
                     </div>
                 </div>
             </Modal>
+            <ModalVerDetallesCompra />
         </div>
     );
 };
