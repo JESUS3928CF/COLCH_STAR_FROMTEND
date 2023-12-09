@@ -59,8 +59,6 @@ const ComprasProviders = ({ children }) => {
                 config
             );
 
-            console.log(newCompra);
-
             Swal.fire({
                 title: 'Compra Agregada',
                 text: newCompra.data.message,

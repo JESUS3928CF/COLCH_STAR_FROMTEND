@@ -150,11 +150,7 @@ export const ModalVerDetallesCompra = () => {
                                     {/* Resto del formulario... */}
                                 </form>
                             ) : (
-                                <p>
-                                    <p>
-                                        No hay detalles de compra disponibles.
-                                    </p>
-                                </p>
+                                <p>No hay detalles de compra disponibles.</p>
                             )}
                         </div>
                     </div>

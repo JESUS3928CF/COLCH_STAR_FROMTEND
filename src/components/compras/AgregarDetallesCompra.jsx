@@ -34,7 +34,6 @@ export const AgregarDetallesCompra = () => {
             data.fk_prenda = '';
             data.producto = "Impresión de estampados"
         }else {
-            console.log(Prendas)
             const prendaEncontrada = Prendas.find(
                 (prenda) => prenda.id_prenda == data.fk_prenda
             );
