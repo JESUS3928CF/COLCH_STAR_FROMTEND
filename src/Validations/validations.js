@@ -27,15 +27,25 @@ export const validarBooleanos = (value) => {
 }
 
 
-//Valida las Fecha
 export const validarFecha = (value) => {
     const fechaIngresada = new Date(value);
     const fechaActual = new Date();
   
+    // Verificar si la fecha es futura
     if (fechaIngresada >= fechaActual) {
       return 'La fecha no puede ser futura';
     }
   
-    return true; 
+    // Calcular la fecha mínima permitida, un año desde la fecha actual
+    const fechaMinimaPermitida = new Date();
+    fechaMinimaPermitida.setFullYear(fechaMinimaPermitida.getFullYear() - 1);
+  
+    // Verificar si la fecha es menor a un año desde la fecha actual
+    if (fechaIngresada < fechaMinimaPermitida) {
+      return 'La fecha no puede ser menor a un año desde la fecha actual';
+    }
+  
+    return true;
   };
+  
   

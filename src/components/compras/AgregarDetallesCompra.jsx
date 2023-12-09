@@ -94,7 +94,7 @@ export const AgregarDetallesCompra = () => {
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
                     >
-                        Cantidad
+                        Cantidad: *
                     </label>
                     <input
                         type='text'
@@ -132,7 +132,7 @@ export const AgregarDetallesCompra = () => {
                         htmlFor='totalCompraAgregar'
                         className='col-form-label'
                     >
-                        Precio unitario
+                        Precio unitario: *
                     </label>
                     <input
                         type='text'

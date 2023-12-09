@@ -134,7 +134,7 @@ const AgregarCompras = () => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha
+                                            Fecha de la Compra: *
                                         </label>
                                         <input
                                             type='date'
@@ -144,7 +144,7 @@ const AgregarCompras = () => {
                                                 required: {
                                                     value: true,
                                                     message:
-                                                        'la fecha es obligatorio',
+                                                        'La fecha es obligatorio',
                                                 },
                                                 pattern: {
                                                     value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',
@@ -176,7 +176,11 @@ const AgregarCompras = () => {
                             </form>
                             <AgregarDetallesCompra />
                             <div className='modal-footer'>
-                                <CancelarModal handleClose={handleClose} />
+                            <CancelarModal
+                                        modalToCancel='myModalAgregarComprar'
+                                        reset={reset}
+                                        handleClose={handleClose}
+                                    />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}
                                 />
