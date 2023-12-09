@@ -11,18 +11,20 @@ const ComprasProviders = ({ children }) => {
 
     const [detallesCompra, setDetallesCompra] = useState([]);
 
-    const [totalCompra, setTotalCompra] = useState(0)
+    const [totalCompra, setTotalCompra] = useState(0);
 
     const { config, auth } = useAuth();
 
-
     /// Calcular el total de la compra
     useEffect(() => {
-        setTotalCompra(detallesCompra.reduce(
-            (total, producto) => total + producto.cantidad * producto.precio,
-            0
-        ))
-    },[detallesCompra])
+        setTotalCompra(
+            detallesCompra.reduce(
+                (total, producto) =>
+                    total + producto.cantidad * producto.precio,
+                0
+            )
+        );
+    }, [detallesCompra]);
 
     // función para obtener los clientes solo cuando se carge el componente
 
@@ -64,11 +66,10 @@ const ComprasProviders = ({ children }) => {
                 text: newCompra.data.message,
                 icon: 'success',
             }).then(() => {
-                reset();
                 consultarCompras();
-                handleClose();
-                setTotalCompra(0)
-                setDetallesCompra([])
+                handleClose(reset);
+                setTotalCompra(0);
+                setDetallesCompra([]);
             });
         } catch (error) {
             console.log(error);
@@ -91,14 +92,46 @@ const ComprasProviders = ({ children }) => {
         setCompras(compraActualizada);
     };
 
+    /// La funcionalidad para manipular los modales la voy a declarar desde aca
+
+    //* Funcionalidad para cerra el modal de agregar
+    const [show, setShow] = useState(false);
+
+    const handleClose = (reset) => {
+        
+        setShow(false);
+        
+        if(!reset) return;
+        setTotalCompra(0);
+        setDetallesCompra([]);
+        reset();
+    };
+    const handleShow = () => setShow(true);
+
+    //* Funcionalidad para cerra el modal de detalles
+    const [showDetalles, setShowDetalles] = useState(false);
+
+    const handleCloseDetalles = () => {
+        setShowDetalles(false);
+    };
+    const handleShowDetalles = () => setShowDetalles(true);
+
     const contextValue = {
         compras,
         agregarCompra,
         editarEstado,
-        detallesCompra,
-        setDetallesCompra,
         totalCompra,
         setTotalCompra,
+        /// Modal agregar
+        show,
+        handleClose,
+        handleShow,
+        /// Detalles compra
+        detallesCompra,
+        setDetallesCompra,
+        showDetalles,
+        handleCloseDetalles,
+        handleShowDetalles,
     };
 
     return (
