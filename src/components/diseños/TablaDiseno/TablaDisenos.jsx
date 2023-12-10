@@ -175,9 +175,6 @@ const TablaDisenos = ({
                                 >
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={
-                                            diseno.estado ? '#modalDiseño' : ''
-                                        }
                                         onClick={() =>
                                             LlenarInformacionModalEditar(diseno)
                                         }
