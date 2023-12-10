@@ -62,7 +62,6 @@ const AgregarCompras = () => {
                     handleClose(reset);
                 }}
                 className='modal d-flex align-items-center justify-content-center '
-                id='myModalAgregarComprar'
             >
                 <div className='modal-content'>
                     <HeaderModals
@@ -74,7 +73,7 @@ const AgregarCompras = () => {
                     />
                     <div>
                         <div className='modal-body'>
-                            <form action='' id='formularioagregarCompra'>
+                            <form action=''>
                                 <div className='row'>
                                     {' '}
                                     <div className='col-md-6'>

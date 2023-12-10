@@ -80,8 +80,8 @@ const AgregarProducto = () => {
         const { nombre, cantidad, fk_prenda, imagen, publicado } = data;
 
 
-        //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una funcion
-        //que esta en el provider la cual resive como parametros los datos, y reset, y handelclsoent, en el provider los resiven
+        //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una función
+        //que esta en el provider la cual resive como parámetros los datos, y reset, y handelclsoent, en el provider los resiven
         //y los mandan por la ruta a la base de datos
         agregarProducto(
             {

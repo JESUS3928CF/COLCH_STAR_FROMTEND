@@ -36,6 +36,7 @@ BotonNegro.propTypes = {
     quieresAbrirRuta: PropTypes.bool,
     modalToOpen: PropTypes.string,
     onClick: PropTypes.func,
+    modalClouse: PropTypes.string,
 };
 
 export default BotonNegro;
