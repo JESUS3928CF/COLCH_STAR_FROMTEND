@@ -1,9 +1,3 @@
-import '../../css-general/cssgeneral.css';
-import '../../css-general/tailwind.min.css';
-import '../../css-general/inicio_style.css';
-import '../../css-general/table.min.css';
-import './Css/style.css';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
@@ -16,6 +10,7 @@ import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
 import { AgregarDetallesCompra } from './AgregarDetallesCompra';
 import Swal from 'sweetalert2';
+import { ModalVerDetallesCompra } from './ModalVerDetallesCompra';
 
 const AgregarCompras = () => {
     const {
@@ -24,19 +19,12 @@ const AgregarCompras = () => {
         setDetallesCompra,
         totalCompra,
         setTotalCompra,
+        show,
+        handleClose,
+        handleShow,
     } = useCompras();
 
     const { proveedores } = useProveedor();
-    /// Funcionalidad para cerra el modal
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => {
-        setTotalCompra(0);
-        setDetallesCompra([]);
-        reset();
-        setShow(false);
-    };
-    const handleShow = () => setShow(true);
 
     const {
         register, //Registra o identifica cada elemento o cada input
@@ -50,7 +38,6 @@ const AgregarCompras = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
 
         if (detallesCompra.length === 0) {
             Swal.fire({
@@ -59,37 +46,34 @@ const AgregarCompras = () => {
                 icon: 'warning',
             });
         } else {
-            console.log(detallesCompra);
             agregarCompra(data, reset, handleClose);
         }
     };
 
     return (
         <div>
-            {/* modal agregar venta */}
+            {/* modal agregar venta*/}
             <BotonVerde text={'Agregar Compra'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
                     setTotalCompra(0);
                     setDetallesCompra([]);
-                    reset();
-                    handleClose();
+                    handleClose(reset);
                 }}
                 className='modal d-flex align-items-center justify-content-center '
-                id='myModalAgregarComprar'
             >
                 <div className='modal-content'>
                     <HeaderModals
                         title={'Agregar Compra'}
                         handleClose={() => {
                             reset();
-                            handleClose();
+                            handleClose(reset);
                         }}
                     />
                     <div>
                         <div className='modal-body'>
-                            <form action='' id='formularioagregarCompra'>
+                            <form action=''>
                                 <div className='row'>
                                     {' '}
                                     <div className='col-md-6'>
@@ -149,7 +133,7 @@ const AgregarCompras = () => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha
+                                            Fecha de la Compra: *
                                         </label>
                                         <input
                                             type='date'
@@ -159,7 +143,7 @@ const AgregarCompras = () => {
                                                 required: {
                                                     value: true,
                                                     message:
-                                                        'la fecha es obligatorio',
+                                                        'La fecha es obligatorio',
                                                 },
                                                 pattern: {
                                                     value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',
@@ -191,7 +175,11 @@ const AgregarCompras = () => {
                             </form>
                             <AgregarDetallesCompra />
                             <div className='modal-footer'>
-                                <CancelarModal handleClose={handleClose} />
+                            <CancelarModal
+                                        modalToCancel='myModalAgregarComprar'
+                                        reset={reset}
+                                        handleClose={handleClose}
+                                    />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}
                                 />
@@ -200,6 +188,7 @@ const AgregarCompras = () => {
                     </div>
                 </div>
             </Modal>
+            <ModalVerDetallesCompra />
         </div>
     );
 };

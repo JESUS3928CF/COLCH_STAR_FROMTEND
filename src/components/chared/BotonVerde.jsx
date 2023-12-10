@@ -2,18 +2,28 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
 const BotonVerde = ({ text, modalToOpen, onClick }) => {
-    return (
-        <Button
-            type='button'
-            className='btn btn-success'
-            data-bs-toggle='modal'
-            data-bs-target={modalToOpen}
-            style={{ backgroundColor: '#47684e' }}
-            onClick={onClick}
-        >
-            {text}
-        </Button>
-    );
+    // Crear un objeto de propiedades dinámicas
+    let buttonProps = {};
+
+    if (modalToOpen) {
+        buttonProps = {
+            type: 'button',
+            className: 'btn btn-success',
+            'data-bs-toggle': 'modal',
+            'data-bs-target': modalToOpen,
+            style: { backgroundColor: '#47684e' },
+            onClick: onClick,
+        };
+    } else {
+        buttonProps = {
+            type: 'button',
+            className: 'btn btn-success',
+            style: { backgroundColor: '#47684e' },
+            onClick: onClick,
+        };
+    }
+
+    return <Button {...buttonProps}>{text}</Button>;
 };
 
 BotonVerde.propTypes = {

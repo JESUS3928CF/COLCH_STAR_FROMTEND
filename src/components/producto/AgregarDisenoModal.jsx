@@ -13,9 +13,9 @@ import useProducto from '../../hooks/useProducto';
 
 
 //Componente
-const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
+const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
-    
+
 
     const {
         register, //registra o identifica cada elemento o cada input
@@ -25,7 +25,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
     } = useForm();
 
     //funciones y  propiedades que nos traemos de Diseño contex
-    const { agregarDiseno, eliminarDiseno, setDisenos, disenosDB } = useDisenosContext();
+    const { agregarDiseno, eliminarDiseno, disenosDB } = useDisenosContext();
 
 
 
@@ -42,14 +42,14 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
     };
 
 
-    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
+    const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
     //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
-        console.log(data);
+        // console.log(data);
         agregarDiseno(data);
 
-        console.log(selectedDisenoNombre);
+        //para mostrar los diseños al
         const nuevoDiseno = disenosDB.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
@@ -57,6 +57,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
+
 
 
     //estado para traerel tanmaño y el precio de diseños
@@ -74,13 +75,13 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
     }, []);
 
     useEffect(() => {
-        console.log(selectedDisenoNombre)
-        console.log(selectedDisenoNombre.length === 0)
-        if(selectedDisenoNombre.length === 0){
-            console.log("Entrando")
+        // console.log(selectedDisenoNombre)
+        // console.log(selectedDisenoNombre.length === 0)
+        if (selectedDisenoNombre.length === 0) {
+            // console.log("Entrando")
             reset()
         }
-    },[selectedDisenoNombre])
+    }, [selectedDisenoNombre])
 
 
     return (
@@ -93,16 +94,18 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
             className='modal d-flex align-items-center justify-content-center '
             id='myModalDiseno'
         >
+
             <div className='modal-content'>
                 {/* Cabecero del modal */}
+
                 <HeaderModals
                     title='Diseno y  Tamaño'
                     handleClose={() => {
                         reset();
-                        handleClosex();
+                        handleClosee();
                         //para que se restablesca el modal cuando se cierre el modal
-                        setSelectedDisenoNombre([]);
-                        setDisenos([]);
+                        // setSelectedDisenoNombre([]);
+                        // setDisenos([]);
                     }}
                 />
 
@@ -128,19 +131,22 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                                     })}
                                 >
                                     <option value=''>Seleccionar diseño</option>
-                                    {disenosDB.map((diseno) => (
-                                        <option
-                                            key={diseno.id_diseno}
-                                            value={diseno.id_diseno}
-                                        >
-                                            {diseno.nombre}
-                                        </option>
-                                    ))}
+                                    {disenosDB
+                                        .filter(diseno => diseno.estado) // Filtrar solo los elementos habilitados
+                                        .map(diseno => (
+                                            <option
+                                                key={diseno.id_diseno}
+                                                value={diseno.id_diseno}
+                                            >
+                                                {diseno.nombre}
+                                            </option>
+                                        ))
+                                    }
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_diseno.message}
                                     />
                                 )}
 
@@ -168,9 +174,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                                     ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_precio_diseno.message}
                                     />
                                 )}
                             </div>
@@ -216,8 +222,8 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                                 text={'Regresar'}
                                 modalClouse={'modal'}
                                 onClick={() => {
-                                    setSelectedDisenoNombre([]);
-                                    setDisenos([]);
+                                    // setSelectedDisenoNombre([]);
+                                    // setDisenos([]);
                                     handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                             />
@@ -228,7 +234,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex,  }) => {
                     </form>
                 </div>
             </div>
-            <AgregarProducto  set = {setSelectedDisenoNombre}/>
         </Modal>
     );
 };

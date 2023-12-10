@@ -28,6 +28,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
         formState: { errors },
         reset,
         setValue,
+        trigger
     } = useForm({
         mode: 'onChange',
     });
@@ -91,7 +92,20 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                                     },
                                     validate: (value) =>
                                         validarEspaciosVacios(value),
+                                    maxLength: {
+                                        value: 50,
+                                        message:
+                                            'El nombre debe tener máximo 50 caracteres',
+                                    },
                                 })}
+                                onChange={(e) => {
+                                    const inputValue = e.target.value.slice(
+                                        0,
+                                        51
+                                    );
+                                    setValue('nombre', inputValue);
+                                    trigger('nombre');
+                                }}
                             />
                             {/* en esta etiqueta va salir el error de validación  */}
                             {errors.nombre && (

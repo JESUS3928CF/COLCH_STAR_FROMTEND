@@ -31,9 +31,9 @@ const TablaDisenos = ({
                         <tr>
                             <th scope='col'>Id</th>
                             <th scope='col'>Nombre</th>
-                            <th scope='col'>Ver imagen</th>
+                            <th scope='col'>Imagen</th>
                             <th scope='col'>Publicado</th>
-                            <th scope='col'>Inhabilitar</th>
+                            <th scope='col'>Estado</th>
                             <th scope='col'>Editar</th>
                         </tr>
                     </thead>
@@ -77,9 +77,6 @@ const TablaDisenos = ({
                                     {/* con el ternario determinamos si abrir o no el modal*/}
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={
-                                            diseno.estado ? '#modalDiseño' : ''
-                                        }
                                         onClick={() =>
                                             LlenarInformacionModalEditar(diseno)
                                         }
@@ -175,9 +172,6 @@ const TablaDisenos = ({
                                 >
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={
-                                            diseno.estado ? '#modalDiseño' : ''
-                                        }
                                         onClick={() =>
                                             LlenarInformacionModalEditar(diseno)
                                         }

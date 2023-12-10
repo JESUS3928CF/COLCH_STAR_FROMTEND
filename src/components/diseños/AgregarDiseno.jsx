@@ -94,9 +94,18 @@ const AgregarDiseno = () => {
                                         },
                                         validate: (value) =>
                                             validarEspaciosVacios(value),
+                                        maxLength: {
+                                            value: 50,
+                                            message:
+                                                'El nombre debe tener máximo 50 caracteres',
+                                        },
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value);
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            51
+                                        );
+                                        setValue('nombre', inputValue)
                                         trigger('nombre');
                                     }}
                                 />

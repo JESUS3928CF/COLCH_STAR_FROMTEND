@@ -143,18 +143,19 @@ const AgregarCliente = () => {
                                                     },
                                                     validate: (value) => {
                                                         if (
-                                                            value.length < 6 ||
-                                                            value.length > 11
+                                                            value.length < 7 ||
+                                                            value.length > 10
                                                         ) {
-                                                            return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                            return 'La Identificación debe tener entre 7 y 10 dígitos';
                                                         }
                                                         return true;
                                                     },
                                                 })}
                                                 onChange={(e) => {
+                                            const inputValue = e.target.value.slice(0,11)
                                                     setValue(
                                                         'identificacion',
-                                                        e.target.value
+                                                        inputValue
                                                     );
                                                     trigger('identificacion');
                                                 }}
@@ -201,9 +202,18 @@ const AgregarCliente = () => {
                                                 message:
                                                     'El nombre no puede contener números ni caracteres especiales',
                                             },
+                                            minLength:{
+                                                value : 3,
+                                                message: "El nombre debe tener mínimo 3 caracteres"
+                                            },
+                                            maxLength: {
+                                                value: 20,
+                                                message: "El nombre debe tener máximo 20 caracteres"
+                                            },
                                         })}
                                         onChange={(e) => {
-                                            setValue('nombre', e.target.value);
+                                            const inputValue = e.target.value.slice(0,21)
+                                            setValue('nombre', inputValue);
                                             trigger('nombre');
                                         }}
                                     />
@@ -243,11 +253,20 @@ const AgregarCliente = () => {
                                                 message:
                                                     'El apellido no puede contener números ni caracteres especiales',
                                             },
+                                            minLength:{
+                                                value : 3,
+                                                message: "El apellido debe tener mínimo 3 caracteres"
+                                            },
+                                            maxLength: {
+                                                value: 20,
+                                                message: "El apellido debe tener máximo 20 caracteres"
+                                            },
                                         })}
                                         onChange={(e) => {
+                                            const inputValue = e.target.value.slice(0,21)
                                             setValue(
                                                 'apellido',
-                                                e.target.value
+                                                inputValue
                                             );
                                             trigger('apellido');
                                         }}
@@ -297,9 +316,10 @@ const AgregarCliente = () => {
                                             },
                                         })}
                                         onChange={(e) => {
+                                            const inputValue = e.target.value.slice(0,11)
                                             setValue(
                                                 'telefono',
-                                                e.target.value
+                                                inputValue
                                             );
                                             trigger('telefono');
                                         }}

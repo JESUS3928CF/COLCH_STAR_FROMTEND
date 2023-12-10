@@ -164,10 +164,8 @@ const AgregarProveedor = () => {
                                                 },
                                             })}
                                             onChange={(e) => {
-                                                setValue(
-                                                    'identificador',
-                                                    e.target.value
-                                                );
+                                                const inputValue = e.target.value.slice(0, 12); // Limitar la longitud máxima
+                                                setValue('identificador', inputValue);
                                                 trigger('identificador');
                                             }}
                                         />
@@ -214,9 +212,18 @@ const AgregarProveedor = () => {
                                             message:
                                                 'No puede contener números ni caracteres especiales',
                                         },
+                                        minLength:{
+                                            value: 3,
+                                            message: 'Nombre no valido, minimo 3 Caracteres'
+                                        },
+                                        maxLength:{
+                                            value: 20,
+                                            message: 'Nombre no valido, maximo 20 Caracteres'
+                                        }
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value);
+                                        const inputValue = e.target.value.slice(0, 21); // Limitar la longitud máxima
+                                        setValue('nombre', inputValue);
                                         trigger('nombre');
                                     }}
                                 />
@@ -260,16 +267,14 @@ const AgregarProveedor = () => {
                                                 telefonoSinEspacios.length >
                                                 11
                                             ) {
-                                                return 'El telefono debe tener minimo 7 digitos y maximo 12';
+                                                return 'El telefono debe tener minimo 7 digitos y maximo 11';
                                             }
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue(
-                                            'telefono',
-                                            e.target.value
-                                        );
+                                        const inputValue = e.target.value.slice(0, 12); // Limitar la longitud máxima
+                                        setValue('telefono', inputValue);
                                         trigger('telefono');
                                     }}
                                 />

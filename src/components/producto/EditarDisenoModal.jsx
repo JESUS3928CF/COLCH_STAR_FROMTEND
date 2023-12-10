@@ -23,7 +23,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         reset
     } = useForm();
 
-    console.log(editarProducto)
+    // console.log(editarProducto)
 
     //trae alguna funciones de disenos provider
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
@@ -41,30 +41,40 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
 
+        console.log(nuevosDisenos)
+
         // Elimina el elemento en el índice especificado
         nuevosDisenos.splice(index, 1);
+
+        console.log(nuevosDisenos)
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
-        editarDisenosProducto();
+        console.log(nuevosDisenos)
+
+
+        // editarDisenosProducto();
         
         eliminarDiseno(index)
     };
 
 
-    const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
     const agregarNuevoDiseno = (data) => {
         
-        // console.log(data);
+         console.log(data);
         agregarDiseno(data);
 
-        console.log(selectedDisenoNombre);
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
+        console.log(nuevoDiseno)
+       
+
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+        console.log(setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]))
 
     };
 
@@ -94,6 +104,14 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     }, []);
 
 
+    useEffect(() => {
+        // Verificar que editarProducto.disenos esté definido antes de asignarlo a setSelectedDisenoNombre
+        if (editarProducto && editarProducto.disenos) {
+            setSelectedDisenoNombre(editarProducto.disenos);
+            setDisenos(editarProducto.disenos)
+        }
+    }, [editarProducto.disenos]);
+
     return (
         <Modal
             show={showw}
@@ -109,10 +127,10 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                 {/* Cabecero del modal */}
                 <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
                     reset();
-                    handleClosex();
+                    handleClosee();
                     //al darle lcick al salir manda estos datos vacios
-                    setSelectedDisenoNombre([])
-                    setDisenos([])
+                    // setSelectedDisenoNombre([])
+                    // setDisenos([])
                 }} />
 
                 <div className='modal-body'>
@@ -140,9 +158,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     })}
 
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar diseño
-                                    </option>
+                                    <option value=''>Seleccionar diseño</option>
                                     {detalle_diseno
                                         .filter((diseno) => diseno.estado)
                                         .map((diseno) => (
@@ -155,9 +171,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_diseno.message}
                                     />
                                 )}
 
@@ -175,9 +191,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         },
                                     })}
                                 >
-                                    <option value='' disabled>
-                                        Seleccionar tamaño
-                                    </option>
+                                    <option value=''>Seleccionar Precio</option>
                                     {Precio.map((precio) => (
                                         <option
                                             key={precio.id_precio_diseno}
@@ -188,9 +202,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                     ))}
                                 </select>
 
-                                {errors.diseno && (
+                                {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.diseno.message}
+                                        message={errors.id_precio_diseno.message}
                                     />
                                 )}
 
@@ -199,7 +213,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                 <p className={style.diseñosModalTitle}>
                                     Diseños seleccionados:
                                 </p>
-
                                 {selectedDisenoNombre.map(
                                     (diseno, index) => (
                                         <div key={index} className={style.disenocontainer}>
@@ -213,16 +226,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         </div>
                                     )
                                 )}
-                                {editarProducto.disenos && editarProducto.disenos.map((diseno, index) => (
-                                    <div key={index} className={style.disenocontainer}>
-                                        <p>
-                                            <span className={style.disenonombre}>- {diseno.nombre}</span>
-                                            <span onClick={() => eliminarDiseno01(index)}>
-                                                <img src={logo} alt="" className={style.logoimg} />
-                                            </span>
-                                        </p>
-                                    </div>
-                                ))}
+
+                               
+                               
 
 
                             </div>
@@ -237,7 +243,11 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
                             <BotonNegro text={'Regresar'}
                                 modalClouse={"modal"}
-                                onClick={handleClosee} />
+                                onClick={() => {
+                                    // setSelectedDisenoNombre([]);
+                                    // setDisenos([]);
+                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                }} />
 
                             {/* Botón para guardar*/}
                             <GuardarModal />
