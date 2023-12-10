@@ -77,9 +77,6 @@ const TablaDisenos = ({
                                     {/* con el ternario determinamos si abrir o no el modal*/}
                                     <BotonNegro
                                         text='Editar'
-                                        modalToOpen={
-                                            diseno.estado ? '#modalDiseño' : ''
-                                        }
                                         onClick={() =>
                                             LlenarInformacionModalEditar(diseno)
                                         }
