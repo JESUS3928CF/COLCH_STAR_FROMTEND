@@ -32,12 +32,26 @@ const AgregarPrendas = () => {
 
 
   const { colors } = useColors();
-  const {agregarPrendas, Prendas} = usePrendas()
+  const {agregarPrendas, Prendas,setSelectColorsNombre,selectColorsNombre} = usePrendas()
 
 
-  const [show, setShow]= useState(false)
-  const handleClose = ()=> setShow(false)
-  const handleShow = ()=> setShow(true)
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => { setShow(false) };
+  const handleShow = () => setShow(true);
+
+  // funcion para cerrar modal de AgregarDiseñosModal
+  const [showw, setShoww] = useState(false);
+
+  const handleClosee = () => {
+      setShoww(false), handleShow();
+  };
+  const handleShoww = () => {
+      setShoww(true), handleClose();
+  };
+  const handleClosex = () => {
+      setShoww(false);
+  };
   
 
   const {
@@ -79,7 +93,13 @@ const AgregarPrendas = () => {
       tallas,
     } = data;
 
-    if (colors==''){
+    // console.log(setSelectColorsNombre)
+
+    console.log(selectColorsNombre)
+
+    console.log('colors',colors)
+
+    if (selectColorsNombre==''){
       Swal.fire({
         title: "Error",
         text: "Seleccione los colores",
@@ -125,6 +145,7 @@ const AgregarPrendas = () => {
             <HeaderModals title={"Agregar Prenda"} handleClose={()=>{
               reset()
               handleClose()
+              setSelectColorsNombre([])
             }} />
 
             <div className="modal-body ">
@@ -405,21 +426,33 @@ const AgregarPrendas = () => {
                     <BotonNegro
                       text="Agregrar color"
                       modalToOpen={"#crearColor"}
-                      onClick={handleClose}
-                    />
+                      onClick={handleShoww}
+                      />
                   </div>
 
                                   
 
-                  <CancelarModal reset={reset} handleClose={handleClose} />
+                  <CancelarModal
+                   reset={reset} handleClose={handleClose}
+                   setSelectColorsNombre={setSelectColorsNombre} />
                   <GuardarModal />
                 </div>
               </form>
             </div>
           </div>
           </Modal>
-      <AgregarColors />
-      <SeleccionarColors handleClose={handleClose} handleShow={handleShow} />
+      <AgregarColors  
+
+handleClosee={handleClosee}
+handleShoww={handleShoww}
+showw={showw}
+handleClosex={handleClosex}
+      
+      />
+      <SeleccionarColors  handleClosee={handleClosee}
+                handleShoww={handleShoww}
+                showw={showw}
+                handleClosex={handleClosex} />
     
       
     </>
