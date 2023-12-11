@@ -146,7 +146,7 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
                 </div>
 
                 <div className="modal-footer">
-                  <div style={{ marginRight: 129 }}>
+                  {/* <div style={{ marginRight: 129 }}>
                     <BotonNegro
                       text="Crear color"
                       modalToOpen={"#myModalColors"}
@@ -154,7 +154,7 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
                       onClick={handleShoww}
 
                     />
-                  </div>
+                  </div> */}
                   <BotonNegro
                     text={"Regresar"}
                     onClick={()=>{

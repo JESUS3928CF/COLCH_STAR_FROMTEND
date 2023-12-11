@@ -425,7 +425,6 @@ const AgregarPrendas = () => {
                   <div>
                     <BotonNegro
                       text="Agregrar color"
-                      modalToOpen={"#crearColor"}
                       onClick={handleShoww}
                       />
                   </div>
