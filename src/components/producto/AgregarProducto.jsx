@@ -319,7 +319,6 @@ const AgregarProducto = () => {
                                     <BotonNegro
                                         // modalClouse= "myModal"
                                         text='Agregar Diseño'
-                                        modalToOpen='#myModalDiseno'
                                         onClick={handleShoww}
                                     />
                                 </div>
