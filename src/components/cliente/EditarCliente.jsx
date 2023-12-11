@@ -129,9 +129,10 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 },
                                             })}
                                             onChange={(e) => {
+                                            const inputValue = e.target.value.slice(0,11)
                                                 setValue(
                                                     'identificacion',
-                                                    e.target.value
+                                                    inputValue
                                                 );
                                                 trigger('identificacion');
                                             }}

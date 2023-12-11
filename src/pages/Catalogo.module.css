@@ -231,6 +231,7 @@
     max-width: 968px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -60px;
 }
 
 /* estilo de las cajas box  */
@@ -571,3 +572,48 @@
         gap: 1.5rem;
     }
 }
+
+
+
+.oe {
+    width: 28%; /* o cualquier otro valor adecuado */
+    margin-left: 53%; /* o cualquier otro valor adecuado */
+    margin-top: 6%; /* o cualquier otro valor adecuado */
+}
+
+/* Puedes agregar reglas de medios para tamaños de pantalla específicos si es necesario */
+@media screen and (max-width: 600px) {
+    .oe {
+        width: 100%; /* Ajusta el ancho para pantallas más pequeñas */
+        margin-left: 0; /* Elimina el margen izquierdo para evitar superposiciones */
+    }
+}
+.todo {
+    height: 87vh; /* en lugar de 560px */
+    background-color: rgb(14 55 54 / 15%);
+    padding: 0px;
+}
+
+.szs {
+    margin-top: 5%; /* en lugar de 50px */
+}
+
+
+
+/* .oe{
+    width: 350px;
+    margin-left: 720px;
+    /* border: 1px solid rgb(167, 167, 167); */
+    /* margin-top: 90px;
+} */
+
+
+/* .todo{
+    background-color: rgb(14 55 54 / 15%);
+    height: 560px;
+    padding: 0px;
+}
+
+.szs{
+    margin-top: 50px;
+    /* margin-left: 300px; */

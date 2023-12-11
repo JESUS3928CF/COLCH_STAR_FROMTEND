@@ -4,9 +4,6 @@ import useAuth from '../hooks/useAuth';
 import logo from '../imgNavbar/LogoNegro.png';
 import style from './Catalogo.module.css';
 import { Link } from 'react-router-dom';
-import logo1 from '../imgNavbar/designious2.jpg';
-import logo2 from '../imgNavbar/designious1.jpg';
-import logo3 from '../imgNavbar/designious3.jpg';
 import logo4 from '../imgNavbar/camisaBasica.png';
 import logo5 from '../imgNavbar/039.png';
 import logoW from '../imgNavbar/whatsapp.svg'
@@ -50,7 +47,7 @@ const Catalogo = () => {
     if (loading == true) return 'Cargando...';
 
 
-    
+
 
     return (
         <div className={style.contenedorCatalogo}>
@@ -63,11 +60,11 @@ const Catalogo = () => {
                 {/* <div className={`${style.bx} ${style['bx-menu']}`} id="menuicon"></div> */}
 
                 <ul className={style.navbar}>
-                    {/* <li>
+                    <li>
                         <a href='#home' className={style.home_active}>
                             Home
                         </a>
-                    </li> */}
+                    </li>
                     <li>
                         <a href='#categories'>Categorias</a>
                     </li>
@@ -91,73 +88,43 @@ const Catalogo = () => {
                 </div>
             </header>
 
-            {/* <section
-                className={`${style.home} ${style.swiper} ${style.section}`}
-                id='home'
-            >
-                <div className={style['swiper-wrapper']}>
-                    <div
-                        className={`${style['swiper-slide']} ${style.container}`}
-                    >
-                        <div className={style['home-text']}>
-                            <span>Nosotros somos colch star</span>
-                            <h1>
-                                ¡Renueva tu estilo <br /> con nuestra colección{' '}
-                                <br /> de prendas de vestir <br /> de alta
-                                calidad!
-                            </h1>
-                            <a href='#' className={style.btn}>
-                                Comprar ahora{' '}
-                                <i
-                                    className={`${style.bx} ${style['bx-right-arrow-alt']}`}
-                                ></i>
-                            </a>
-                        </div>
-                        <img className={style.img} src={logo1} alt='' />
-                    </div>
-                    <div
-                        className={`${style['swiper-slide']} ${style.container}`}
-                    >
-                        <div className={style['home-text']}>
-                            <span>Nosotros somos colch star</span>
-                            <h1>
-                                ¡Renueva tu estilo <br /> con nuestra colección{' '}
-                                <br /> de prendas de vestir <br /> de alta
-                                calidad!
-                            </h1>
-                            <a href='#' className={style.btn}>
-                                Comprar ahora{' '}
-                                <i
-                                    className={`${style.bx} ${style['bx-right-arrow-alt']}`}
-                                ></i>
-                            </a>
-                        </div>
-                        <img src={logo2} alt='' />
-                    </div>
+            <section className={`${style.home} ${style.swiper} ${style.section}`} id='home' >
 
-                    <div
-                        className={`${style['swiper-slide']} ${style.container}`}
-                    >
-                        <div className={style['home-text']}>
-                            <span>Nosotros somos colch star</span>
-                            <h1>
-                                ¡Renueva tu estilo <br /> con nuestra colección{' '}
-                                <br /> de prendas de vestir <br /> de alta
-                                calidad!
-                            </h1>
-                            <a href='#' className={style.btn}>
-                                Comprar ahora{' '}
-                                <i
-                                    className={`${style.bx} ${style['bx-right-arrow-alt']}`}
-                                ></i>
-                            </a>
-                        </div>
-                        <img className={style.img} src={logo3} alt='' />
+                <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                    <div className={`carousel-inner ${style.todo}`}>
+                        {productos
+                            .filter((producto) => producto.publicado)
+                            .map((producto, index) => (
+                                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index} >
+                                    <div className={style['home-text']}>
+                                        <span>Nosotros somos colch star</span>
+                                        <h1>¡Renueva tu estilo <br /> con nuestra colección <br /> de prendas de vestir <br /> de alta calidad!
+                                        </h1>
+                                    </div>
+                                    <div className={style.oe}>
+                                        <img
+                                            key={index}
+                                            src={producto.imagen
+                                                ? `${import.meta.env.VITE_BACKEND_URL}/${producto.imagen}`
+                                                : ''
+                                            }
+                                            className={`d-block w-100 ${style.img} ${style.otro}`}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+                            ))}
                     </div>
+                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        {/* <span className="carousel-control-prev-icon" aria-hidden="true"></span> */}
+                        <span className="swiper-button-prev"></span>
+                    </button>
+                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        {/* <span className="carousel-control-next-icon" aria-hidden="true"></span> */}
+                        <span className="swiper-button-next"></span>
+                    </button>
                 </div>
-                <div className='swiper-button-next'></div>
-                <div className='swiper-button-prev'></div>
-            </section> */}
+            </section>
 
             <section
                 className={style.categories + ' ' + style.section}
@@ -217,18 +184,17 @@ const Catalogo = () => {
 
                 <div className={style.productsconatiner}>
                     {Prendas.filter((Prendas) => Prendas.publicado) // Filter only published designs
-                        .map((Prendas) => (
-                            <div className={style.box} key={Prendas.id_diseno}>
+                        .map((Prendas, index) => (
+                            <div className={style.box} key={index}  >
                                 <img
                                     className={
                                         style.imagenProducto + ' ' + style.img
                                     }
                                     src={
                                         Prendas.imagen
-                                            ? `${
-                                                  import.meta.env
-                                                      .VITE_BACKEND_URL
-                                              }/${Prendas.imagen}`
+                                            ? `${import.meta.env
+                                                .VITE_BACKEND_URL
+                                            }/${Prendas.imagen}`
                                             : ''
                                     }
                                     alt=''
@@ -266,10 +232,10 @@ const Catalogo = () => {
                 <div className={style.productsconatiner}>
                     {productos
                         .filter((productos) => productos.publicado) // Filter only published designs
-                        .map((productos) => (
+                        .map((productos, index) => (
                             <div
                                 className={style.box}
-                                key={productos.id_diseno}
+                                key={index}
                             >
                                 <img
                                     className={
@@ -277,10 +243,9 @@ const Catalogo = () => {
                                     }
                                     src={
                                         productos.imagen
-                                            ? `${
-                                                  import.meta.env
-                                                      .VITE_BACKEND_URL
-                                              }/${productos.imagen}`
+                                            ? `${import.meta.env
+                                                .VITE_BACKEND_URL
+                                            }/${productos.imagen}`
                                             : ''
                                     }
                                     alt=''
@@ -330,10 +295,9 @@ const Catalogo = () => {
                                     }
                                     src={
                                         diseno.imagen
-                                            ? `${
-                                                  import.meta.env
-                                                      .VITE_BACKEND_URL
-                                              }/${diseno.imagen}`
+                                            ? `${import.meta.env
+                                                .VITE_BACKEND_URL
+                                            }/${diseno.imagen}`
                                             : ''
                                     }
                                     alt=''
