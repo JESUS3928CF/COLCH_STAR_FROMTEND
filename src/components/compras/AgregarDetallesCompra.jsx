@@ -165,7 +165,6 @@ export const AgregarDetallesCompra = () => {
                 <div className='col-md-6 pl-1 '>
                     <BotonNegro
                         text={'Ver Detalles'}
-                        modalToOpen={'#modalDetalleAgregarCompra'}
                         onClick={() => {
                             handleClose();
                             handleShowDetalles();
