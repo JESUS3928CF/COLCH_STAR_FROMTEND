@@ -4,9 +4,6 @@ import useAuth from '../hooks/useAuth';
 import logo from '../imgNavbar/LogoNegro.png';
 import style from './Catalogo.module.css';
 import { Link } from 'react-router-dom';
-import logo1 from '../imgNavbar/designious2.jpg';
-import logo2 from '../imgNavbar/designious1.jpg';
-import logo3 from '../imgNavbar/designious3.jpg';
 import logo4 from '../imgNavbar/camisaBasica.png';
 import logo5 from '../imgNavbar/039.png';
 import logoW from '../imgNavbar/whatsapp.svg'
@@ -98,7 +95,7 @@ const Catalogo = () => {
                         {productos
                             .filter((producto) => producto.publicado)
                             .map((producto, index) => (
-                                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index} >
                                     <div className={style['home-text']}>
                                         <span>Nosotros somos colch star</span>
                                         <h1>¡Renueva tu estilo <br /> con nuestra colección <br /> de prendas de vestir <br /> de alta calidad!
@@ -187,8 +184,8 @@ const Catalogo = () => {
 
                 <div className={style.productsconatiner}>
                     {Prendas.filter((Prendas) => Prendas.publicado) // Filter only published designs
-                        .map((Prendas) => (
-                            <div className={style.box} key={Prendas.id_diseno}>
+                        .map((Prendas, index) => (
+                            <div className={style.box} key={index}  >
                                 <img
                                     className={
                                         style.imagenProducto + ' ' + style.img
@@ -235,10 +232,10 @@ const Catalogo = () => {
                 <div className={style.productsconatiner}>
                     {productos
                         .filter((productos) => productos.publicado) // Filter only published designs
-                        .map((productos) => (
+                        .map((productos, index) => (
                             <div
                                 className={style.box}
-                                key={productos.id_diseno}
+                                key={index}
                             >
                                 <img
                                     className={
