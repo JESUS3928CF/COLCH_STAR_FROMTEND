@@ -17,6 +17,8 @@ const ProveedoresProvider = ({ children }) => {
 
     const consultarProveedores = async () => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
             const { data } = await proveedorAxios.get('/proveedores', config);
 
             setProveedores(data);
