@@ -3,6 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import clienteAxios from '../config/axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AuthContext = createContext();
 
@@ -57,10 +58,25 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     /// Función para cerrar sección
     const singOff = () => {
-        localStorage.removeItem('token');
-        setAuth({});
 
-        navigate('/login');
+         Swal.fire({
+             title: `¿Deseas cerrar la sesión?`,
+             // text: "Este ",
+             icon: 'question',
+             iconColor: '#fa0000',
+             showCancelButton: true,
+             confirmButtonColor: '#3E5743',
+             cancelButtonColor: '#252432',
+             confirmButtonText: `si, ciérrala`,
+             cancelButtonText: 'Cancelar',
+         }).then( result => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                setAuth({});
+
+                navigate('/login');
+            }
+         });
     };
 
     /// Funcionalidad para cerrar y abrir el menú lateral

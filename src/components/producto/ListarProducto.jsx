@@ -169,11 +169,6 @@ const ListarProducto = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                modalToOpen={
-                                                    producto.estado
-                                                        ? '#modalEditar'
-                                                        : ''
-                                                }
                                                 onClick={() =>
                                                     handleEditClick(producto)
                                                 }
@@ -287,11 +282,6 @@ const ListarProducto = () => {
                                             >
                                                 <BotonNegro
                                                     text='Editar'
-                                                    modalToOpen={
-                                                        producto.estado
-                                                            ? '#modalEditar'
-                                                            : ''
-                                                    }
                                                     onClick={() =>
                                                         handleEditClick(producto)
                                                     }

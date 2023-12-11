@@ -231,11 +231,6 @@ const ListarProveedores = () => {
                                             >
                                                 <BotonNegro
                                                     text='Editar'
-                                                    modalToOpen={
-                                                        proveedor.estado
-                                                            ? '#modalEditar'
-                                                            : ''
-                                                    }
                                                     onClick={() =>
                                                         handleEditClick(
                                                             proveedor
