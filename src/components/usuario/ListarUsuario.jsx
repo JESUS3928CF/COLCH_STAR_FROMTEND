@@ -148,11 +148,6 @@ const ListarUsuario = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                modalToOpen={
-                                                    usuario.estado
-                                                        ? '#modalEditar'
-                                                        : ''
-                                                }
                                                 onClick={() =>
                                                     handleEditClick(usuario)
                                                 }
@@ -253,11 +248,6 @@ const ListarUsuario = () => {
                                             >
                                                 <BotonNegro
                                                     text='Editar'
-                                                    modalToOpen={
-                                                        usuario.estado
-                                                            ? '#modalEditar'
-                                                            : ''
-                                                    }
                                                     onClick={() =>
                                                         handleEditClick(usuario)
                                                     }

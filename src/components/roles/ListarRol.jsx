@@ -158,11 +158,6 @@ const ListarRol = () => {
                                             ) : (
                                                 <BotonNegro
                                                     text='Editar'
-                                                    modalToOpen={
-                                                        rol.estado
-                                                            ? '#modalEditar'
-                                                            : ''
-                                                    }
                                                     onClick={() =>
                                                         handleEditClick(rol)
                                                     }
@@ -258,11 +253,6 @@ const ListarRol = () => {
                                                 ) : (
                                                     <BotonNegro
                                                         text='Editar'
-                                                        modalToOpen={
-                                                            rol.estado
-                                                                ? '#modalEditar'
-                                                                : ''
-                                                        }
                                                         onClick={() =>
                                                             handleEditClick(rol)
                                                         }
