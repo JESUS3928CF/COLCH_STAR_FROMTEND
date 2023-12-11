@@ -301,7 +301,7 @@ const AgregarProducto = () => {
                                         },
 
                                         validate: (value) => {
-                                            validarImagen(value[0]);
+                                            return validarImagen(value[0]);
                                         },
                                     })}
                                 />
