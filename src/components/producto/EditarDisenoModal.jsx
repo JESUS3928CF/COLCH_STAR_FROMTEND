@@ -112,6 +112,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         }
     }, [editarProducto.disenos]);
 
+    console.log(editarProducto.disenos)
+
+
     return (
         <Modal
             show={showw}

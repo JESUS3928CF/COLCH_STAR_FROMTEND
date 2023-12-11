@@ -21,11 +21,10 @@ import useAuth from "../../hooks/useAuth";
 import { Modal } from "react-bootstrap";
 import useColors from "../../hooks/useColors.jsx";
 
-const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
+const EditarPrendas = ({ detallesPrendas,handleClose,show,handleClosee,handleShoww,showw,handleClosex}) => {
 
-  const {updatePrendas,Prendas} = usePrendas()
+  const {updatePrendas,Prendas,setSelectColorsNombre} = usePrendas()
 
-  const {config} = useAuth()
 
 
 
@@ -43,7 +42,7 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
   });
 
   const [Colors, setColors] = useState([]);
-  const {colors}= useColors()
+  const {colors,setColores}= useColors()
   const [Tallas, setTalla] = useState([]);
 
 
@@ -115,6 +114,7 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
           handleClose={()=>{
             reset()
             handleClose()
+            setSelectColorsNombre([])
           }}
           
           
@@ -372,10 +372,15 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
                       text="Editar color"
                       modalToOpen={"#crearColorEditar"}
                       modalClouse={"modal"}
-                      onClick={handleClose}
+                      onClick={ () => { 
+                        setSelectColorsNombre(detallesPrendas.color)
+                        handleShoww()
+                        }}
                     />
                   
-                  <CancelarModal  handleClose={handleClose}  />
+                  <CancelarModal  reset={reset}
+                                    handleClose={handleClose}
+                                    setSelectColorsNombre={setSelectColorsNombre}  />
                   <GuardarModal />
                 </div>
             </form>
@@ -384,9 +389,11 @@ const EditarPrendas = ({ detallesPrendas,show,handleClose,handleShow}) => {
     </Modal>
     <SeleccionarColorsEditar
 
-    handleClose={handleClose}
-    handleShow={handleShow}
-    detallesPrendas= {detallesPrendas}
+detallesPrendas= {detallesPrendas}
+handleClosee={handleClosee}
+    handleShoww={handleShoww}
+    showw={showw}
+    handleClosex={handleClosex}
     
     />
     </>
