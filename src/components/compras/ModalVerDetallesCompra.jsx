@@ -129,6 +129,22 @@ export const ModalVerDetallesCompra = () => {
                                                                 readOnly
                                                             />
                                                         </div>
+                                                        <div className='col-md-12 '>
+                                                            <label
+                                                                htmlFor='nombre'
+                                                                className='col-form-label'
+                                                            >
+                                                                Total Del Detalle:
+                                                            </label>
+                                                            <input
+                                                                type='text'
+                                                                className='form-control'
+                                                                value={
+                                                                    detalle.precio * detalle.cantidad
+                                                                }
+                                                                readOnly
+                                                            />
+                                                        </div>
                                                     </div>
                                                     <div className='col-md-12 pl-1 pt-3 text-center'>
                                                         <BotonNegro

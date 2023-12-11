@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import logo from '../../imgNavbar/cruz.png'
 import style from '../../pages/Productos.module.css'
 import useColors from "../../hooks/useColors";
+import usePrendas from "../../hooks/usePrendas";
 
 
 
-const SeleccionarColorsEditar = ({handleClose, handleShow,detallesPrendas}) => {
+
+const SeleccionarColorsEditar = ({showw,handleClosee,detallesPrendas}) => {
 
   const {
     register,
@@ -20,26 +22,35 @@ const SeleccionarColorsEditar = ({handleClose, handleShow,detallesPrendas}) => {
   } = useForm();
 
   const { agregarColors, eliminarColors, setColores } = useColors();
-  const [selectColorsName, setSelectColorsName] = useState([]);
+
 
   const eliminarColors01= (index) =>{
-    const NewColors = [...selectColorsName]
+    const NewColors = [...selectColorsNombre]
     NewColors.splice(index, 1)
-    setSelectColorsName(NewColors)
+    setSelectColorsNombre(NewColors)
 
     eliminarColors(index)
 
 
   }
+  const {selectColorsNombre, setSelectColorsNombre} = usePrendas()
+
 
 
   const agregarNewColors = (data) => {
-    agregarColors(data);
+     console.log(data)
 
-const newColors = colorss.find ((colors)=> colors.id_color == data.id_color)
+     agregarColors(data);
+     
+     const newColors = colorss.find ((colors)=> colors.id_color == data.id_color)
 
-setSelectColorsName([...selectColorsName,newColors])
+     console.log(newColors)
+     
+     setSelectColorsNombre([...selectColorsNombre,newColors])
+     console.log(setSelectColorsNombre([...selectColorsNombre, newColors]))
   };
+
+
 
 
   const [colorss, setColors] = useState([]);
@@ -50,6 +61,16 @@ setSelectColorsName([...selectColorsName,newColors])
     });
 
   }, []);
+
+
+  useEffect(()=>{
+    if(detallesPrendas && detallesPrendas.color){
+      setSelectColorsNombre(detallesPrendas.color)
+      setColores(detallesPrendas.color)
+    }
+  },[detallesPrendas.color])
+
+  console.log(detallesPrendas.color)
 
 
  
@@ -67,9 +88,8 @@ setSelectColorsName([...selectColorsName,newColors])
           <div className="modal-content">
             <HeaderModals title={"Editar color"} handleClose={()=>{
               reset()
-              handleClose()
-              setSelectColorsName([])
-              setColores([])
+              handleClosee()
+      
             }} />
             <div className="modal-body">
               <form
@@ -105,7 +125,7 @@ setSelectColorsName([...selectColorsName,newColors])
                       Colores seleccionados
                     </p>
 
-                    {selectColorsName.map((colores, index)=>(
+                    {selectColorsNombre.map((colores, index)=>(
                       <div key={index}>
                       <p>
 
@@ -133,7 +153,10 @@ setSelectColorsName([...selectColorsName,newColors])
                   </div>
                   <BotonNegro
                     text={"Regresar"}
-                    onClick={handleShow}
+                    onClick={() => {
+                      
+                      handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                  }}
                     modalClouse={"modal"}
                   />
                   <GuardarModal />

@@ -4,21 +4,19 @@ import useAuth from "../hooks/useAuth";
 import clienteAxios from "../config/axios";
 import axios from "axios";
 import Swal from "sweetalert2";
-import useColors from "../hooks/useColors"
+import useColors from "../hooks/useColors";
 
 const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
   const { auth, token } = useAuth();
-  const {colors,setColores} = useColors()
+  const { colors, setColores } = useColors();
 
   const [Prendas, setPrendas] = useState([]);
+  const [selectColorsNombre, setSelectColorsNombre] = useState([]);
 
   const consultPrendas = async () => {
     try {
-      // const token = localStorage.getItem("token");
-      // if (!token) return;
-
       const { data } = await clienteAxios.get("/prendas");
 
       setPrendas(data);
@@ -32,7 +30,6 @@ const PrendasProvider = ({ children }) => {
   }, [auth]);
 
   const agregarPrendas = async (prenda, reset, handleClose) => {
-
     try {
       const res = await clienteAxios.post("/prendas", prenda, {
         headers: {
@@ -58,19 +55,12 @@ const PrendasProvider = ({ children }) => {
       }).then(() => {
         handleClose();
       });
-    }finally{
-      console.log("setColores",setColores([]))
+    } finally {
+      setSelectColorsNombre([]);
     }
   };
 
-
-
-
-
-
-
   const updatePrendas = (data, detallesPrendas, handleClose) => {
-
     const {
       nombre,
       cantidad,
@@ -83,17 +73,7 @@ const PrendasProvider = ({ children }) => {
     } = data;
 
 
-console.log(colors)
-
-console.log(data.nombre)
-
-const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
-
-
-// console.log(nombre)
-
-    if (updatePrendas) {
-     
+    if (detallesPrendas.id_prenda) {
       axios
         .put(
           `${import.meta.env.VITE_BACKEND_URL}/api/prendas/${
@@ -108,7 +88,7 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             imagen: imagen[0],
             publicado: publicado,
             tallas: tallas,
-            colores: JSON.stringify(colors== '' ? coloresEnviar: colors),
+            colores: JSON.stringify(colors),
           },
           {
             headers: {
@@ -126,50 +106,54 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
             consultPrendas();
             handleClose();
           });
-        }) .catch((error)=>{
-
+        })
+        .catch((error) => {
           Swal.fire({
             title: "Error",
             text: "Hubo un error",
             icon: "error",
+          });
         })
-
-        })
-    } else{
-      alert('No se encotro el Id')
+        .finally(() => {
+          setSelectColorsNombre([]);
+        });
+        
+    } else {
+      alert("No se encotro el Id");
     }
   };
 
+  const updateEstado = (id) => {
+    let prendaUpdate = Prendas.find((prenda) => prenda.id_prenda == id);
+    prendaUpdate.estado = !prendaUpdate.estado;
 
+    const prendaActualizada = Prendas.map((prenda) =>
+      prenda.id_prenda == id ? prendaUpdate : prenda
+    );
 
-  const updateEstado = (id)=>{
-    let prendaUpdate = Prendas.find((prenda)=> prenda.id_prenda == id)
-    prendaUpdate.estado = !prendaUpdate.estado
+    setPrendas(prendaActualizada);
+  };
 
-    const prendaActualizada = Prendas.map((prenda)=> 
-    prenda.id_prenda==id ? prendaUpdate : prenda)
+  const updatePublicado = (id) => {
+    let prendaUpdate = Prendas.find((prenda) => prenda.id_prenda == id);
+    prendaUpdate.publicado = !prendaUpdate.publicado;
 
-    setPrendas(prendaActualizada)
-    
-  }
+    const prendaActualizada = Prendas.map((prenda) =>
+      prenda.id_prenda == id ? prendaUpdate : prenda
+    );
 
-
-  const updatePublicado = (id)=>{
-    let prendaUpdate = Prendas.find((prenda)=> prenda.id_prenda == id)
-    prendaUpdate.publicado = !prendaUpdate.publicado
-
-    const prendaActualizada = Prendas.map((prenda)=>prenda.id_prenda ==id ? prendaUpdate: prenda)
-
-    setPrendas(prendaActualizada)
-  }
+    setPrendas(prendaActualizada);
+  };
 
   const contextValue = {
     Prendas,
+    selectColorsNombre,
     agregarPrendas,
     consultPrendas,
     updatePrendas,
     updateEstado,
-    updatePublicado
+    updatePublicado,
+    setSelectColorsNombre
   };
 
   return (
@@ -179,6 +163,5 @@ const coloresEnviar = [{id_color: detallesPrendas.color[0].id_color}]
   );
 };
 
-
-export  {  PrendasProvider }
-export default prendasContex
+export { PrendasProvider };
+export default prendasContex;

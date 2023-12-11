@@ -209,14 +209,18 @@ const Login = () => {
                     <div className={`${styles.form_box} ${styles.login}`}>
                         <LoginForm setIsActivate={setIsActivate} />
                     </div>
-                    <div
-                        className={`${styles.form_box} ${styles.register}`}
-                    >
+                    <div className={`${styles.form_box} ${styles.register}`}>
                         <form onSubmit={validarEmail}>
                             <h2 style={{ fontWeight: 'bold' }}>
                                 Recuperar contraseña
                             </h2>
-                            <p>Ingrese su correo electrónico de recuperación</p>
+                            <div className='col-12 text-center pl-sm-3'>
+                                {' '}
+                                <p>
+                                    Ingrese su correo electrónico de
+                                    recuperación
+                                </p>
+                            </div>
                             <br />
                             <div className={styles.input_box}>
                                 <span className={styles.icon}>
