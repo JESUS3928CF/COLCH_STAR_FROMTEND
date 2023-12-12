@@ -224,7 +224,7 @@ const Catalogo = () => {
                     <h1>
                         Nuestros Productos <br /> <span>Populares</span>
                     </h1>
-                    <a href='#' className={style.btn}>
+                    <a onClick={redirigirWhatsApp}  className={style.btn}>
                         Comprar <i className='bx bx-right-arrow-alt'></i>
                     </a>
                 </div>
@@ -279,7 +279,7 @@ const Catalogo = () => {
                     <h1>
                         Nuestros Diseños <br /> <span>Populares</span>
                     </h1>
-                    <a href='#' className={style.btn}>
+                    <a onClick={redirigirWhatsApp}  className={style.btn}>
                         Comprar <i className='bx bx-right-arrow-alt'></i>
                     </a>
                 </div>
