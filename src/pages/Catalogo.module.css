@@ -599,21 +599,13 @@
 }
 
 
-
-/* .oe{
-    width: 350px;
-    margin-left: 720px;
-    /* border: 1px solid rgb(167, 167, 167); */
-    /* margin-top: 90px;
-} */
-
-
-/* .todo{
-    background-color: rgb(14 55 54 / 15%);
-    height: 560px;
-    padding: 0px;
+.color{
+    background-color: rgba(182, 187, 186, 0.15);
 }
 
-.szs{
-    margin-top: 50px;
-    /* margin-left: 300px; */
+.copyright{
+    margin-left: 32%;
+    margin-top: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
