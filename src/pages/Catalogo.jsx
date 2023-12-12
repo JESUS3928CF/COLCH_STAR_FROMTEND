@@ -93,7 +93,7 @@ const Catalogo = () => {
                 <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
                     <div className={`carousel-inner ${style.todo}`}>
                         {productos
-                            .filter((producto) => producto.publicado)
+                            .filter((producto) => producto.publicado && producto.estado !== false )
                             .map((producto, index) => (
                                 <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index} >
                                     <div className={style['home-text']}>
@@ -179,7 +179,7 @@ const Catalogo = () => {
                 </div>
 
                 <div className={style.productsconatiner}>
-                    {Prendas.filter((Prendas) => Prendas.publicado) // Filter only published designs
+                    {Prendas.filter((Prendas) => Prendas.publicado && Prendas.estado !== false) // Filter only published designs
                         .map((Prendas, index) => (
                             <div className={style.box} key={index}  >
                                 <img
@@ -228,7 +228,7 @@ const Catalogo = () => {
 
                     <div className={style.productsconatiner}>
                         {productos
-                            .filter((productos) => productos.publicado) // Filter only published designs
+                            .filter((productos) => productos.publicado && productos.estado !== false) // Filter only published designs
                             .map((productos, index) => (
                                 <div
                                     className={style.box}
@@ -284,7 +284,7 @@ const Catalogo = () => {
 
                 <div className={style.productsconatiner}>
                     {disenosDB
-                        .filter((diseno) => diseno.publicado) // Filter only published designs
+                        .filter((diseno) => diseno.publicado && diseno.estado !== false ) // Filter only published designs
                         .map((diseno) => (
                             <div className={style.box} key={diseno.id_diseno}>
                                 <img
