@@ -44,6 +44,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
     const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
+    console.log(selectedDisenoNombre)
+    
+
     //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
         // console.log(data);
