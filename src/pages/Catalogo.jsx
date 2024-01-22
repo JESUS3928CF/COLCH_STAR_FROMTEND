@@ -83,7 +83,7 @@ const Catalogo = () => {
                     {auth?.usuario?.id_usuario ? (
                         <Link to={'/administracion'}> Entrar </Link>
                     ) : (
-                        <Link to={'/login'}> Iniciar sección </Link>
+                        <Link to={'/login'}> Iniciar sesión </Link>
                     )}
                 </div>
             </header>
