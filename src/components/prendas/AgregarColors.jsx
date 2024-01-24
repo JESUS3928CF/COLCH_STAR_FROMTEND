@@ -8,58 +8,80 @@ import Swal from "sweetalert2";
 import BotonNegro from "../chared/BotonNegro";
 import SeleccionarColors from "./SeleccionarColor";
 import { useState } from "react";
+import BotonVerde from "../chared/BotonVerde";
+import { Modal } from "react-bootstrap";
+import CancelarModal from "../chared/CancelarModal";
+import useColors from "../../hooks/useColors";
+import useAuth from "../../hooks/useAuth";
 
 
 
 
-const AgregarColors = ({handleShow, handleClose}) => {
+const AgregarColors = () => {
+
+    const {addcolors}= useColors()
+
+    const [show, setShow]= useState(false)
+    const handleClose=()=> setShow(false)
+    const handleShow= ()=> setShow(true)
+
+    // const [showw, setShoww]= useState(false)
+
+    // const handleClosee=()=>{
+    //     setShoww(false), handleShow()
+    // }
+
+    // const handleShoww=()=>{
+    //     setShoww(true), handleClose()
+    // }
+    // const handleClosex = () =>{
+    //     setShoww(false)
+    // }
+
+
     const {
         register,
-        reset,
         handleSubmit,
-        formState: { errors },
+        formState:{ errors },
+        setValue,
+        trigger,
+        reset,
+        getValues
+        
     } = useForm({mode: 'onChange'});
 
-   
 
 
-
-    const onSubmit = (async (data) => {
+    const onSubmit = async (data) => {
         const { color, codigo } = data
-        try {
-            const res = await axios.post("http://localhost:3000/api/colors", {
-                color: color.trim(),
-                codigo: codigo.trim()
-            })
-            Swal.fire({
-                title: 'Color agregado',
-                text: res.data.message,
-                icon: 'success',
 
-            }).then(()=>{
-                reset()
-                handleClose()
-            });
-        } catch (error) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
-            }).then(()=>{
-                handleClose()
-            });
-        }
-
-    })
+        addcolors({
+            color: color.trim(),
+            codigo: codigo.trim()
+        },
+        reset,
+        handleClose
+        )}
 
 
 
     return (
         <>
 
-            <div className="modal fade" id="myModalColors" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
+
+
+<BotonVerde text={'Crear color'} onClick={handleShow}/>
+
+
+<Modal show={show}
+onHide={()=>{
+    reset()
+    handleClose()
+}}
+
+id="#myModalColors">
+
+            <div className='modal-lg'>
 
                         <HeaderModals title={'Agregar color'}
                         handleClose={()=>{
@@ -145,22 +167,17 @@ const AgregarColors = ({handleShow, handleClose}) => {
                                 </div>
 
                                 <div className='modal-footer'>
-                                  
-                                    <BotonNegro text={'Regresar'}
 
-                                     modalToOpen={'#crearColor'} 
-                                     modalClouse={'modal'}
-                                     
-                                     />
-                                     
+                                    <CancelarModal reset={reset} handleClose={handleClose}/>
                                     <GuardarModal />
 
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </div>
+                   
             </div>
+        </Modal>
+
 
 
         </>

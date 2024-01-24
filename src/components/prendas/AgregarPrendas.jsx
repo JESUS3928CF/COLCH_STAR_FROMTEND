@@ -440,14 +440,8 @@ const AgregarPrendas = () => {
             </div>
           </div>
           </Modal>
-      <AgregarColors  
 
-handleClosee={handleClosee}
-handleShoww={handleShoww}
-showw={showw}
-handleClosex={handleClosex}
-      
-      />
+
       <SeleccionarColors  handleClosee={handleClosee}
                 handleShoww={handleShoww}
                 showw={showw}

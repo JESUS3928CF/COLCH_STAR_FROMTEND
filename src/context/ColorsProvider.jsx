@@ -8,9 +8,10 @@ const  ColorsContex = createContext();
 
 
 const ColorsProvider=({children})=>{
-    const {token,auth} = useAuth()
+    const {token,auth,config} = useAuth()
     const [colors, setColores]= useState([]);
     const [colorsDb, setColorsDb]= useState([])
+
 
     const agregarColors= (data)=>{
         const  newColors = [...colors,data];
@@ -27,11 +28,62 @@ const ColorsProvider=({children})=>{
     const consultColors = async ()=>{
         const res = await clienteAxios.get('/colors')
         setColorsDb(res.data)
+        setColores(res.data)
     }
 
     useEffect(()=>{
         consultColors()
     },[auth])
+
+    const addcolors = async (colors,reset,handleClose)=>{
+
+        try{
+            const res= await clienteAxios.post("/colors",colors,config)
+            Swal.fire({
+                title: "Color agregado",
+                text: res.data.message,
+                icon: "success",
+              }).then(() => {
+                reset();
+                consultColors();
+                handleClose();
+              });
+            } catch (err) {
+              if (err.response && err.response.status === 403) {
+                Swal.fire({
+                  title: "Error",
+                  text: err.response.data.message,
+                  icon: "error",
+                });
+              } else {
+                // En caso de otros errores, muestra una alerta genérica de error
+                Swal.fire({
+                  title: "Error",
+                  text: "Hubo un error",
+                  icon: "error",
+                }).then(() => {
+                  handleClose();
+                });
+              }
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const agregarColorsDb = async (formData, handleClose, reset)=>{
         try{
@@ -50,6 +102,7 @@ const ColorsProvider=({children})=>{
             }).then(() => {
                 reset();
                 setColorsDb([...colorsDb, res.data.newColors]);
+                consultColors()
                 handleClose();
             });
         }catch (error) {
@@ -70,6 +123,7 @@ const ColorsProvider=({children})=>{
         colors,
         agregarColors,
         colorsDb,
+        addcolors,
         setColorsDb,
         agregarColorsDb,
         eliminarColors,
