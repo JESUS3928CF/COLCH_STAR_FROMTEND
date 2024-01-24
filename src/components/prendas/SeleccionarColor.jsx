@@ -23,8 +23,7 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
     formState: { errors },
   } = useForm();
 
-  const { agregarColors, eliminarColors } = useColors();
-  
+  const { agregarColors, eliminarColors, colors, colorsDb } = useColors();
 
   const eliminarColors01 = (index) => {
     const newColors = [...selectColorsNombre];
@@ -33,13 +32,10 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
     eliminarColors(index);
   };
 
-  const {selectColorsNombre, setSelectColorsNombre} = usePrendas()
-
+  const { selectColorsNombre, setSelectColorsNombre } = usePrendas();
 
   const agregarNuevoColor = (data) => {
-
-
-      // Validar si el color ya está seleccionado
+    // Validar si el color ya está seleccionado
     //   if (selectColorsNombre.some((color) => color.id_color === data.id_color)) {
     //     Swal.fire({
     //       icon: "error",
@@ -52,101 +48,92 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
 
     agregarColors(data);
 
-
-
-
-    const newColor = colorss.find(
+    const newColor = colorsDb.find(
       (colores) => colores.id_color == data.id_color
     );
     setSelectColorsNombre([...selectColorsNombre, newColor]);
 
-    console.log(selectColorsNombre)
+    console.log(selectColorsNombre);
   };
 
-  const [colorss, setColors] = useState([]);
+  // const [colors, setColors] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/api/colors").then((res) => {
-      setColors(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:3000/api/colors").then((res) => {
+  //     setColors(res.data);
+  //   });
+  // }, []);
 
   return (
     <>
-    <Modal
+      <Modal
+        show={showw}
+        onHide={() => {
+          reset();
+          handleClosee();
+        }}
+        // className="modal fade"
+        className="modal d-flex align-items-center justify-content-center "
+        id="crearColor"
+      >
+        <div className="modal-content">
+          <HeaderModals
+            title="Agregar colores"
+            handleClose={() => {
+              reset();
+              handleClosee();
+            }}
+          />
+          <div className="modal-body">
+            <form
+              onSubmit={handleSubmit(agregarNuevoColor)}
+              className="row g-3 needs-validation"
+            >
+              <div className="col-md-6">
+                <label htmlFor="rol" className="col-form-label">
+                  {" "}
+                  Colores
+                </label>
+                <select
+                  className="form-control" // Allow multiple selections
+                  {...register("id_color", {
+                    required: {
+                      value: true,
+                      message: "Debe seleccionar al menos un color",
+                    },
+                  })}
+                >
+                  <option value="Seleccionar colores" disabled={true}></option>
+                  {colorsDb.map((F) => (
+                    <option key={F.id_color} value={F.id_color}>
+                      {F.color}
+                    </option>
+                  ))}
+                </select>
 
-    show={showw}
-    onHide={()=>{
-      reset()
-      handleClosee()
-    }}
+                {errors.id_color && (
+                  <AlertaError message={errors.id_color.message} />
+                )}
 
-    // className="modal fade"
-    className='modal d-flex align-items-center justify-content-center '
-    id="crearColor"
+                <div className="col-md-5 ml-6 mt-3">
+                  <p>Colores seleccionados</p>
 
-    
-    
-    >
-                <div className="modal-content">
-            <HeaderModals
-              title="Agregar colores"
-              handleClose={() => {
-                reset();
-                handleClosee();
-                
-              }}
-            />
-            <div className="modal-body">
-              <form
-                onSubmit={handleSubmit(agregarNuevoColor)}
-                className="row g-3 needs-validation"
-              >
-                <div className="col-md-6">
-                  <label htmlFor="rol" className="col-form-label">
-                    {" "}
-                    Colores
-                  </label>
-                  <select
-                    className="form-control" // Allow multiple selections
-                    {...register("id_color", {
-                      required: {
-                        value: true,
-                        message: "Debe seleccionar al menos un color",
-                      },
-                    })}
-                  >
-                    <option value="">Seleccionar colores</option>
-                    {colorss.map((F) => (
-                      <option key={F.id_color} value={F.id_color}>
-                        {F.color}
-                      </option>
-                    ))}
-                  </select>
+                  {selectColorsNombre.map((colores, index) => (
+                    <div key={index}>
+                      <p>
+                        <span>-{colores.color}</span>
 
-                  {errors.id_color && (
-                    <AlertaError message={errors.id_color.message} />
-                  )}
-
-                  <div className="col-md-5 ml-6 mt-3">
-                    <p>Colores seleccionados</p>
-
-                    {selectColorsNombre.map((colores, index) => (
-                      <div key={index}>
-                        <p>
-                          <span>-{colores.color}</span>
-
-                          <span onClick={() => eliminarColors01(index)}>
-                            <img src={logo} alt="" className={style.logoimg} />
-                          </span>
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                        <span onClick={() => eliminarColors01(index)}>
+                          <img src={logo} alt="" className={style.logoimg} />
+                        </span>
+                      </p>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                <div className="modal-footer">
-                  {/* <div style={{ marginRight: 129 }}>
+              <div className="modal-footer">
+                {/* <div style={{ marginRight: 129 }}>
                     <BotonNegro
                       text="Crear color"
                       modalToOpen={"#myModalColors"}
@@ -155,20 +142,19 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
 
                     />
                   </div> */}
-                  <BotonNegro
-                    text={"Regresar"}
-                    onClick={()=>{
-                      handleClosee()
-                    }}
-                    modalClouse={"modal"}
-                  />
-                  <GuardarModal />
-                </div>
-              </form>
-            </div>
+                <BotonNegro
+                  text={"Regresar"}
+                  onClick={() => {
+                    handleClosee();
+                  }}
+                  modalClouse={"modal"}
+                />
+                <GuardarModal />
+              </div>
+            </form>
           </div>
+        </div>
       </Modal>
-      <AgregarColors />
     </>
   );
 };
