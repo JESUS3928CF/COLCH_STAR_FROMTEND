@@ -108,7 +108,7 @@ const ListarOrdenes = () => {
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
                                 {OrdenesFiltrar.map((orden) => (
                                     <tr key={orden.id_orden}>
-                                        <td>{orden.id_proveedor}</td>
+                                        <td>{orden.id_orden}</td>
                                         <td>{orden.cliente.nombre}</td>
                                         <td>{orden.precio_total}</td>
                                         <td>{orden.precio_total}</td>
