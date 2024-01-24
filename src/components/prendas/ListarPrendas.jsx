@@ -30,6 +30,7 @@ import {
 import SeleccionarColorsEditar from "./SelectColorEditar.jsx";
 import usePrendas from "../../hooks/usePrendas.jsx";
 import AgregarPrendas from "./AgregarPrendas.jsx";
+import AgregarColors from "./AgregarColors.jsx";
 
 export const ListarPrendas = () => {
   // conexión para traer todos los datos de la base de datos
@@ -79,27 +80,25 @@ export const ListarPrendas = () => {
       <div>
         <Header titulo="Gestión de Prendas" />
 
-        <div className="container-fluid">
-          <div className="row">
-            <div
-              className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
-            >
-              <AgregarPrendas />
-            </div>
+        <div className='container-fluid'>
+                <div className='row pl-4'>
+                    <div className='col-md-3 col-sm-12  pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
+                        <AgregarPrendas />
+                    </div>
+                    <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
 
-            {/* Boton para Buscar/filtrar */}
-            <div
-              className={`${style.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
-            >
-              {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-              <Buscador
+                        {/* modal de precio de los diseños  */}
+                        <AgregarColors/>
+                    </div>
+                    <div className='col-md-6 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center p-0'>
+                        {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                        <Buscador
                 setDatosFiltrar={setprendasFiltrar}
                 datos={Prendas}
-                camposFiltrar={["id_prenda", "nombre", "cantidad", "precio"]}
-              />
+                camposFiltrar={["id_prenda", "nombre", "cantidad", "precio"]}/>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
         {/* tabla de prendas */}
         {anchoPantalla >= resolucionCards ? (
@@ -154,6 +153,7 @@ export const ListarPrendas = () => {
                     <td>
                       <BotonNegro
                         text="Ver"
+                        modalToOpen="#modalDetallePrendas"
                         onClick={() => setDetallesPrendas(Prendas)}
                       />
                     </td>
