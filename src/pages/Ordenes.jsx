@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import ListarOrdenes from '../components/ordenes/ListarOrdenes';
 import useAuth from "../hooks/useAuth";
 
 const Ordenes = () => {
@@ -10,7 +11,8 @@ const Ordenes = () => {
     return auth.usuario.permisos.includes('orden') ? (
         <div>
             <div>
-                <h1>Ordenes</h1>
+            <ListarOrdenes />
+
             </div>
         </div>
     ) : (

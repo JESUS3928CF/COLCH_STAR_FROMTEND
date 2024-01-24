@@ -1,5 +1,4 @@
 import { Navigate } from 'react-router-dom';
-import AgregarProveedor from '../components/proveedor/AgregarProveedor';
 import ListarProveedores from '../components/proveedor/ListarProveedores';
 import useAuth from '../hooks/useAuth';
 
@@ -14,7 +13,6 @@ const Proveedores = () => {
     return auth.usuario.permisos.includes('proveedor') ? (
         <div>
             <ListarProveedores />
-            {/* <AgregarProveedor /> */}
         </div>
     ) : (
         <Navigate to={'/administracion'} />
