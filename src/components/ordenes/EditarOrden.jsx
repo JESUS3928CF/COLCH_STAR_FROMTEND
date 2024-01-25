@@ -15,8 +15,8 @@ import AlertaError from '../chared/AlertaError'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react';
 import { validarEspaciosVacios } from '../../Validations/validations'
-import useProveedor from '../../hooks/useProveedor.jsx'
 import HeaderModals from '../chared/HeaderModals';
+import useOrden from '../../hooks/useOrden.jsx'
 import { Modal } from 'react-bootstrap';
 
 

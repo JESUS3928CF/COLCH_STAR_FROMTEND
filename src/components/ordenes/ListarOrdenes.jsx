@@ -9,6 +9,8 @@ import BotonNegro from '../chared/BotonNegro';
 import Header from '../chared/header/Header'
 import Buscador from '../chared/Buscador';
 import AgregarProveedor from '../proveedor/AgregarProveedor.jsx';
+import AgregarOrden from '../ordenes/AgregarOrden.jsx';
+
 import EditarOrden from './EditarOrden.jsx';
 import style from '../../pages/proveedores.module.css';
 import useOrden from '../../hooks/useOrden.jsx'
@@ -18,7 +20,6 @@ import { registrosPorPagina, resolucionCards } from "../../constantes/constantes
 import styles from "../../css-general/CardStyleGenerar.module.css";
 
 import Swal from 'sweetalert2';
-
 
 
 //Componente
@@ -91,7 +92,7 @@ const ListarOrdenes = () => {
                         <div
                             className={`${style.ap} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                         >
-                            <AgregarProveedor />
+                            <AgregarOrden />
                         </div>
 
                         {/* botón de buscar */}
