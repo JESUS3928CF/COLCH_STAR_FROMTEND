@@ -92,7 +92,12 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                   </div>
                                               </div>
                                               <div className='row'>
-                                                  <p className='text-center mt-4'>
+                                                  <p className='text-center mt-4' style={{
+                                                        fontStyle: 'italic',
+                                                        fontSize: 17,  // Añado estilo al texto (puedes cambiarlo según tus preferencias)
+                                                        color: 'blue'
+
+                                                    }}>
                                                       Detalle #{index + 1}
                                                   </p>
                                                   <div className='col-md-12 '>
