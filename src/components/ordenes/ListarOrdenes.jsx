@@ -9,7 +9,7 @@ import BotonNegro from '../chared/BotonNegro';
 import Header from '../chared/header/Header'
 import Buscador from '../chared/Buscador';
 import AgregarProveedor from '../proveedor/AgregarProveedor.jsx';
-
+import EditarOrden from './EditarOrden.jsx';
 import style from '../../pages/proveedores.module.css';
 import useOrden from '../../hooks/useOrden.jsx'
 import { useEffect, useState } from 'react';
@@ -35,14 +35,38 @@ const ListarOrdenes = () => {
 
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
 
+
+
+    //Estado para editar
+    const [editarOrden, setEditarOrden] = useState("");
+
+
+    const handleEditClick = (orden) => {
+
+        if (orden.estado_de_orden === 'Entregado') {
+            return Swal.fire(
+                'Acción inválida!',
+                'Esta Orden a sido entregada, No se puede editar',
+                'error'
+            );
+        }
+        setEditarOrden(orden);
+        handleShow();
+    };
+
+
+
+
+
+
+
+
+
+
     // solicitud  a la url
     useEffect(() => {
         setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina))
     }, [ordenes]);
-
-
-
-
 
 
     // ancho de la pantalla para el resposive
@@ -78,10 +102,9 @@ const ListarOrdenes = () => {
                                 setDatosFiltrar={setOrdenesFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={ordenes} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
                                 camposFiltrar={[
-                                    'nombre',
-                                    'telefono',
-                                    'direccion',
-                                    'identificador',
+                                    'precio_total',
+                                    'fecha_entrega',
+                                    'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
                             />
                         </div>
@@ -109,9 +132,37 @@ const ListarOrdenes = () => {
                                 {OrdenesFiltrar.map((orden) => (
                                     <tr key={orden.id_orden}>
                                         <td>{orden.id_orden}</td>
-                                        <td>{orden.cliente.nombre}</td>
+                                        <td>{orden.cliente.nombre}{' '}
+                                            {orden.cliente.apellido}
+                                        </td>
                                         <td>{orden.precio_total}</td>
-                                        <td>{orden.precio_total}</td>
+                                        <td>{orden.cliente.direccion}</td>
+                                        <td>{orden.fecha_entrega}</td>
+                                        <td>
+                                            <BotonNegro
+                                                text='Ver'
+                                                modalToOpen='#modalDetalles'
+                                                onClick={() =>
+                                                    setDetallesProductos(producto)
+                                                }
+                                            />
+                                        </td>
+                                        <td>{orden.estado_de_orden}</td>
+                                        <td>
+                                            <BotonNegro
+                                                text='Editar'
+                                                modalToOpen={
+                                                    orden.estado_de_orden
+                                                        ? '#modalEditar'
+                                                        : ''
+                                                }
+                                                onClick={() =>
+                                                    handleEditClick(orden)
+                                                }
+                                            />
+                                        </td>
+
+
                                     </tr>
                                 ))}
                             </tbody>
@@ -122,7 +173,7 @@ const ListarOrdenes = () => {
                         {OrdenesFiltrar.map((orden) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
-                                key={proveedor.id_proveedor}
+                                key={orden.id_orden}
                             >
                                 <div
                                     className={`card mb-4 ${styles.contenedor_card}`}
@@ -131,55 +182,53 @@ const ListarOrdenes = () => {
                                         <p className={styles.text}>
                                             Id:{' '}
                                             <span>
-                                                {proveedor.id_proveedor}
+                                                {orden.id_orden}
                                             </span>
                                         </p>
                                         <p className={styles.text}>
-                                            Nombre:{' '}
-                                            <span>{proveedor.nombre}</span>
+                                            Nombre::{' '}
+                                            {orden.cliente.nombre}{' '}
+                                            {orden.cliente.apellido}
                                         </p>
                                         <p className={styles.text}>
-                                            Teléfono:{' '}
-                                            <span>{proveedor.telefono}</span>
+                                            Precio Total:{' '}
+                                            <span>{orden.precio_total}</span>
                                         </p>
                                         <p className={styles.text}>
-                                            Identificación:{' '}
+                                            Dirección:{' '}
                                             <span>
-                                                {proveedor.tipoIdentificacion}{' '}
-                                                {proveedor.identificador}
+                                                {orden.cliente.direccion}
+                                            </span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Fecha Entrega:{' '}
+                                            <span>
+                                                {orden.fecha_entrega}
+                                            </span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Estado de Orden:{' '}
+                                            <span>
+                                                {orden.estado_de_orden}
                                             </span>
                                         </p>
 
-                                        <div className='row pt-3'>
-                                            <div className='col justify-content-center align-items-center '>
-                                                <div className='text-center'>
-                                                    <strong
-                                                        className={`${styles.textoEstado}`}
-                                                    >
-                                                        {' '}
-                                                        Estado{' '}
-                                                    </strong>
-                                                </div>
-                                                <div className='text-center'>
-                                                    <BotonCambioEstado
-                                                        id={
-                                                            proveedor.id_proveedor
-                                                        }
-                                                        isChecked={
-                                                            proveedor.estado
-                                                        }
-                                                        nombreRegistro={
-                                                            'proveedor'
-                                                        }
-                                                        ruta={`/proveedores/estado/${proveedor.id_proveedor}`}
-                                                        editarEstado={editarEstado}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
+
                                     <div className='card-footer'>
                                         <div className='row'>
+                                            <div
+                                                className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
+                                            >
+                                                <BotonNegro
+                                                    text='Ver'
+                                                    modalToOpen='#modalDetalles'
+                                                    onClick={() =>
+                                                        setDetallesProductos(producto)
+                                                    }
+                                                />
+                                            </div>
+
                                             <div
                                                 className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
                                             >
@@ -187,7 +236,7 @@ const ListarOrdenes = () => {
                                                     text='Editar'
                                                     onClick={() =>
                                                         handleEditClick(
-                                                            proveedor
+                                                            orden
                                                         )
                                                     }
                                                 />
@@ -206,22 +255,30 @@ const ListarOrdenes = () => {
 
 
 
-
-
-
             </div>
 
 
 
 
+            <EditarOrden editarOrden={editarOrden}
+
+            />
 
 
-
-
-
+            <div className='seccion4'>
+                {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
+                <Paginador
+                    setDatosFiltrar={setOrdenesFiltrar}
+                    datos={ordenes}
+                />
+            </div>
 
 
         </div>
+
+
+
+
     )
 
 
