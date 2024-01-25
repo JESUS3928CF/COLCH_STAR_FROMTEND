@@ -310,7 +310,10 @@ const ListarProducto = () => {
                 />
 
                 <DetallesProducto detallesProductos={detallesProductos} />
+
             </div>
+
+
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
@@ -318,6 +321,8 @@ const ListarProducto = () => {
                     datos={productos}
                 />
             </div>
+
+
         </div>
     );
 }
