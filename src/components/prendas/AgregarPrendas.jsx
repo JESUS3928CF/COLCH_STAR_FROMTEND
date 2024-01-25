@@ -27,7 +27,6 @@ import useColors from "../../hooks/useColors";
 
 const AgregarPrendas = () => {
   const [Tallas, setTalla] = useState([]);
-  const [Colors, setColors] = useState([]);
 
 
 
@@ -65,11 +64,7 @@ const AgregarPrendas = () => {
     mode: 'onChange',
   });
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/api/colors").then((res) => {
-      setColors(res.data);
-    });
-  }, []);
+
 
 
 
@@ -95,9 +90,7 @@ const AgregarPrendas = () => {
 
     // console.log(setSelectColorsNombre)
 
-    console.log(selectColorsNombre)
 
-    console.log('colors',colors)
 
     if (selectColorsNombre==''){
       Swal.fire({
