@@ -8,9 +8,8 @@ import Paginador from '../chared/Paginador'
 import BotonNegro from '../chared/BotonNegro';
 import Header from '../chared/header/Header'
 import Buscador from '../chared/Buscador';
-import AgregarProveedor from '../proveedor/AgregarProveedor.jsx';
 import AgregarOrden from '../ordenes/AgregarOrden.jsx';
-
+import DetallesOrden from './DetallesOrden.jsx';
 import EditarOrden from './EditarOrden.jsx';
 import style from '../../pages/proveedores.module.css';
 import useOrden from '../../hooks/useOrden.jsx'
@@ -35,6 +34,9 @@ const ListarOrdenes = () => {
 
 
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
+
+     //detallesProductos
+     const [detallesOrdenes, setDetallesOrdenes] = useState({});
 
 
 
@@ -144,7 +146,7 @@ const ListarOrdenes = () => {
                                                 text='Ver'
                                                 modalToOpen='#modalDetalles'
                                                 onClick={() =>
-                                                    setDetallesProductos(producto)
+                                                    setDetallesOrdenes(orden)
                                                 }
                                             />
                                         </td>
@@ -264,6 +266,9 @@ const ListarOrdenes = () => {
             <EditarOrden editarOrden={editarOrden}
 
             />
+            <DetallesOrden detallesOrdenes={detallesOrdenes}
+
+/>
 
 
             <div className='seccion4'>
