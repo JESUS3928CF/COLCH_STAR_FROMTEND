@@ -4,6 +4,7 @@ import BotonNegro from '../chared/BotonNegro';
 import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
+import { number } from 'prop-types';
 
 
 
@@ -31,12 +32,15 @@ export const AgregarDetallesOrden = () => {
         mode: 'onChange',
     });
 
-
     const guardarDetalle = (data) => {
         
         setDetallesOrden([...detallesOrden, data]);
-        reset();
+
+
+
     };
+
+
 
 
 
@@ -120,6 +124,33 @@ export const AgregarDetallesOrden = () => {
                         name='nombreCompraAgregar'
                         placeholder='. . .'
                         {...register('color', {
+                            required: {
+                                value: true,
+                                message: 'El color es obligatoria',
+                            }
+
+                        })}
+                    />
+
+                    {errors.color && (
+                        <AlertaError message={errors.color.message} />
+                    )}
+                </div>
+
+                <div className='col-md-6'>
+                    <label
+                        htmlFor='nombreCompraAgregar'
+                        className='col-form-label'
+                    >
+                        subtotal: *
+                    </label>
+                    <input
+                        type='number'
+                        className='form-control'
+                        id='nombreCompraAgregar'
+                        name='nombreCompraAgregar'
+                        placeholder='. . .'
+                        {...register('subtotal', {
                             required: {
                                 value: true,
                                 message: 'El color es obligatoria',

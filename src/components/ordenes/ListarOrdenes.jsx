@@ -227,7 +227,7 @@ const ListarOrdenes = () => {
                                                     text='Ver'
                                                     modalToOpen='#modalDetalles'
                                                     onClick={() =>
-                                                        setDetallesProductos(producto)
+                                                        setDetallesOrdenes(orden)
                                                     }
                                                 />
                                             </div>
