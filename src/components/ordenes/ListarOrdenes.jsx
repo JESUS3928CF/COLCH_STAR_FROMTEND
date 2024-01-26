@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 //Componente
 const ListarOrdenes = () => {
 
+    //ordenes tiene la consulta de todos las ordenes de la base de datos
     const { ordenes } = useOrden();
 
     /// Funcionalidad para cerra el modal
@@ -35,6 +36,7 @@ const ListarOrdenes = () => {
 
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
 
+
      //detallesProductos
      const [detallesOrdenes, setDetallesOrdenes] = useState({});
 
@@ -44,6 +46,7 @@ const ListarOrdenes = () => {
     const [editarOrden, setEditarOrden] = useState("");
 
 
+    //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
 
         if (orden.estado_de_orden === 'Entregado') {
@@ -56,13 +59,6 @@ const ListarOrdenes = () => {
         setEditarOrden(orden);
         handleShow();
     };
-
-
-
-
-
-
-
 
 
 
