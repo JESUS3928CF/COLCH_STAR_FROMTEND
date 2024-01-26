@@ -3,11 +3,19 @@ import AlertaError from '../chared/AlertaError';
 import BotonNegro from '../chared/BotonNegro';
 import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
+import useOrden from '../../hooks/useOrden';
 
 
 
 export const AgregarDetallesOrden = () => {
     const { productos } = useProducto();
+
+
+    const {
+        detallesOrden,
+        setDetallesOrden
+        
+    } = useOrden();
 
 
 
@@ -26,7 +34,7 @@ export const AgregarDetallesOrden = () => {
 
     const guardarDetalle = (data) => {
         
-        setDetallesCompra([...detallesCompra, data]);
+        setDetallesOrden([...detallesOrden, data]);
         reset();
     };
 

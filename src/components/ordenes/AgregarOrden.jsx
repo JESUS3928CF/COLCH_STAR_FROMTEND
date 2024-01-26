@@ -45,25 +45,16 @@ const AgregarOrden = () => {
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const { clientes } = useClientes()
 
+    // función que llega del provider que tiene todas las rutas
+    const { agregarOrden } = useOrden();
+
 
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
-        const { fecha_entrega, precio_total, estado_de_orden, fk_cliente, } = data;
+    
 
-
-        //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una función
-        //que esta en el provider la cual resive como parámetros los datos, y reset, y handelclsoent, en el provider los resiven
-        //y los mandan por la ruta a la base de datos
         agregarOrden(
-            {
-                // Campos en los que realiza el cambio
-                fecha_entrega: fecha_entrega.trim(),
-                precio_total: precio_total.trim(),
-                estado_de_orden: estado_de_orden.trim(),
-                fk_cliente: fk_cliente,
-
-            },
-
+            data,
             reset,
             handleClose,
 
@@ -166,20 +157,8 @@ const AgregarOrden = () => {
                                                     message:
                                                         'La fecha es obligatorio',
                                                 },
-                                                pattern: {
-                                                    value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',
-                                                    message: 'Error',
-                                                },
-                                                validate: (value) =>
-                                                    validarFecha(value),
                                             })}
-                                            onChange={(e) => {
-                                                setValue(
-                                                    'fecha',
-                                                    e.target.value
-                                                );
-                                                trigger('fecha');
-                                            }}
+                                            
                                         />
 
                                         {errors.fecha && (
