@@ -52,7 +52,7 @@ const OrdenesProvider = ({ children }) => {
 
     const agregarOrden = async (data, reset, handleClose) => {
 
-        const { fecha_entrega, fk_cliente } = data;
+        const { fecha_entrega, fk_cliente, estado_de_orden } = data;
 
 
         try {
@@ -63,6 +63,7 @@ const OrdenesProvider = ({ children }) => {
                     fecha_entrega: fecha_entrega,
                     fk_cliente: fk_cliente,
                     detallesOrdenes: detallesOrden,
+                    estado_de_orden: estado_de_orden || 'Creada',
                 },
                 config
             );
