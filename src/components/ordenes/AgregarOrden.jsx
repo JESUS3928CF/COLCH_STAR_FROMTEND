@@ -8,6 +8,7 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import { validarEspaciosVacios } from '../../Validations/validations'
+import { validarFecha } from '../../Validations/validations';
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
 import useOrden from '../../hooks/useOrden.jsx'
@@ -16,6 +17,8 @@ import BotonVerde from '../chared/BotonVerde';
 import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import useClientes from '../../hooks/useCliente.jsx'
+import Swal from 'sweetalert2';
+
 
 
 
@@ -46,19 +49,22 @@ const AgregarOrden = () => {
     const { clientes } = useClientes()
 
     // función que llega del provider que tiene todas las rutas
-    const { agregarOrden } = useOrden();
+    const { agregarOrden,detallesOrden } = useOrden();
 
 
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
     
 
-        agregarOrden(
-            data,
-            reset,
-            handleClose,
-
-        );
+        if (detallesOrden.length === 0) {
+            Swal.fire({
+                title: 'Espera!!',
+                text: 'Agrega los detalles de esta orden',
+                icon: 'warning',
+            });
+        } else {
+            agregarOrden(data, reset, handleClose);
+        }
     };
 
 
@@ -145,7 +151,7 @@ const AgregarOrden = () => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha de la Orden: *
+                                            Fecha de Entrega: *
                                         </label>
                                         <input
                                             type='date'
@@ -158,12 +164,11 @@ const AgregarOrden = () => {
                                                         'La fecha es obligatorio',
                                                 },
                                             })}
-                                            
                                         />
 
-                                        {errors.fecha && (
+                                        {errors.fecha_entrega && (
                                             <AlertaError
-                                                message={errors.fecha.message}
+                                                message={errors.fecha_entrega.message}
                                             />
                                         )}
                                     </div>
