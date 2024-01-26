@@ -14,7 +14,6 @@ const OrdenesProvider = ({ children }) => {
 
     const [totalCompra, setTotalCompra] = useState(0);
 
-    console.log(detallesOrden)
 
 
     /// Calcular el total de la compra

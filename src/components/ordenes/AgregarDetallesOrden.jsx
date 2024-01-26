@@ -36,6 +36,7 @@ export const AgregarDetallesOrden = () => {
         
         setDetallesOrden([...detallesOrden, data]);
 
+        reset()
 
 
     };
@@ -43,10 +44,15 @@ export const AgregarDetallesOrden = () => {
 
 
 
-
     return ( 
         <form action='' className='' onSubmit={handleSubmit(guardarDetalle)} >
-            <p className='text-center'> Agregar el Producto a la  Ordenes </p>
+            <p className='text-center'style={{
+                textAlign: 'center',
+                fontStyle: 'italic',
+                fontWeight:700,
+                marginTop:10
+
+            }}> Agregar el Producto a la  Ordenes </p>
 
             <div className='col-md-12 '>
                 <label htmlFor='rol' className='col-form-label'>
@@ -54,7 +60,7 @@ export const AgregarDetallesOrden = () => {
                 </label>
 
                 <select
-                    name='fk_prenda'
+                    name='fk_producto'
                     className='form-control'
                     {...register('fk_producto', {
                         required: {
@@ -63,8 +69,8 @@ export const AgregarDetallesOrden = () => {
                         },
                     })}
                 >
-                    <option value=''>Seleccione el producto comprado</option>
-                    <option value='d'>Impresión de estampados</option>
+                    <option value=''>Seleccione el producto a comprar</option>
+
                     {productos.filter((producto) => producto.estado).map((producto) => {
                         return (
                             <option
@@ -136,6 +142,32 @@ export const AgregarDetallesOrden = () => {
                         <AlertaError message={errors.color.message} />
                     )}
                 </div>
+                <div className='col-md-6'>
+                    <label
+                        htmlFor='nombreCompraAgregar'
+                        className='col-form-label'
+                    >
+                        Cantidad: *
+                    </label>
+                    <input
+                        type='number'
+                        className='form-control'
+                        id='nombreCompraAgregar'
+                        name='nombreCompraAgregar'
+                        placeholder='. . .'
+                        {...register('cantidad', {
+                            required: {
+                                value: true,
+                                message: 'La cantidad es obligatoria',
+                            }
+
+                        })}
+                    />
+
+                    {errors.cantidad && (
+                        <AlertaError message={errors.cantidad.message} />
+                    )}
+                </div>
 
                 <div className='col-md-6'>
                     <label
@@ -159,8 +191,8 @@ export const AgregarDetallesOrden = () => {
                         })}
                     />
 
-                    {errors.color && (
-                        <AlertaError message={errors.color.message} />
+                    {errors.subtotal && (
+                        <AlertaError message={errors.subtotal.message} />
                     )}
                 </div>
 
@@ -176,7 +208,7 @@ export const AgregarDetallesOrden = () => {
                         className='form-control custom-input-style' // Puedes cambiar 'custom-input-style' por el nombre de la clase que prefieras
                         style={{
                             textAlign: 'center',
-                            height: 90
+                            height: 70
                         }}
                         {...register('descripcion', {
                             required: {
