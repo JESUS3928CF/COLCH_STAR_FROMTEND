@@ -46,7 +46,7 @@ const OrdenesProvider = ({ children }) => {
         }
     };
     useEffect(() => {
-        consultarOrdenes ();
+        consultarOrdenes();
     }, [auth]);
 
 
@@ -59,7 +59,7 @@ const OrdenesProvider = ({ children }) => {
             const newOrden = await ordenAxios.post(
                 '/ordenes',
                 {
-                    total_de_compra:totalCompra ,
+                    total_de_compra: totalCompra,
                     fecha_entrega: fecha_entrega,
                     fk_cliente: fk_cliente,
                     detallesOrdenes: detallesOrden,
@@ -86,6 +86,107 @@ const OrdenesProvider = ({ children }) => {
         }
     };
 
+    const cambiarEstadoDeOrden = (estado, id) => {
+        console.log(estado, " estado nuevo", id);
+
+        Swal.fire({
+            title: `¿Deseas cambiar el estado de la venta a ${estado
+                }?`,
+            // text: "Este ",
+            icon: 'question',
+            iconColor: '#fa0000',
+            showCancelButton: true,
+            confirmButtonColor: '#3E5743',
+            cancelButtonColor: '#252432',
+            confirmButtonText: `Si, Canbialo`,
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+
+
+            if (result.isConfirmed) {
+
+                try {
+
+                    //  Realiza la petición PATCH
+                    const response = await clienteAxios.patch(
+                        `/ordenenes/estado/${id}`,
+                        { estado: isChecked },
+                        config
+                    );
+
+
+                    if (response.status === 200) {
+                        Swal.fire(
+                            'Cambio de estado exitoso',
+                        ).then(() => {
+                            // todo: actualizar estado
+                            location.reload();
+                        });
+
+                        // setEstado(!isChecked);
+                    } else {
+                        Swal.fire(
+                            'Error',
+                            'Hubo un problema al cambiar el estado',
+                            'error'
+                        );
+                    }
+
+
+                } catch (error) {
+                    console.error('Error al realizar la petición:', error);
+                    Swal.fire(
+                        'Error',
+                        'Hubo un problema al cambiar el estado',
+                        'error'
+                    );
+                }
+
+            }
+
+
+            // if (result.isConfirmed) {
+            //     try {
+            //         // Realiza la petición PATCH
+            //         const response = await clienteAxios.patch(
+            //             "/ordenenes/estado",
+            //             { estado: isChecked },
+            //             config
+            //         );
+
+            //         if (response.status === 200) {
+            //             Swal.fire(
+            //                 `${isChecked ? 'Inhabilitado' : 'Habilitado'}`,
+            //                 'Cambio de estado exitoso',
+            //                 'success'
+            //             ).then(() => {
+            //                 // todo: actualizar estado
+            //                 if (editarEstado) editarEstado(id);
+            //                 else {
+            //                     location.reload();
+            //                 }
+            //             });
+
+            //             // setEstado(!isChecked);
+            //         } else {
+            //             Swal.fire(
+            //                 'Error',
+            //                 'Hubo un problema al cambiar el estado',
+            //                 'error'
+            //             );
+            //         }
+            //     } catch (error) {
+            //         console.error('Error al realizar la petición:', error);
+            //         Swal.fire(
+            //             'Error',
+            //             'Hubo un problema al cambiar el estado',
+            //             'error'
+            //         );
+            //     }
+            // }
+        });
+    }
+
     const editarEstado = (id) => {
         let compraEditada = compras.find((compra) => compra.id_compra === id);
         compraEditada.estado = !compraEditada.estado;
@@ -97,25 +198,15 @@ const OrdenesProvider = ({ children }) => {
         setCompras(compraActualizada);
     };
 
-
-
-    
-
-
-
-
-
-
-
     return (
         <ordenesContext.Provider
-            value={{ ordenes,agregarOrden, setDetallesOrden, detallesOrden }}
+            value={{ ordenes, agregarOrden, setDetallesOrden, detallesOrden, cambiarEstadoDeOrden }}
         >
             {children}
         </ordenesContext.Provider>
     );
 
-    
+
 };
 
 export { OrdenesProvider };

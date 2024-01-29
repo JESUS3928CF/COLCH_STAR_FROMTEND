@@ -308,15 +308,14 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                           setSelectedRol(e.target.value)
                                       }
                                   >
-                                      <option value=''>Seleccionar rol</option>
                                       {roles.map((rol) => {
-                                          if (rol.nombre !== 'Administrador' && rol.estado) {
+                                          if (rol.nombre !== 'Administrador') {
                                               return (
                                                   <option
                                                       key={rol.id_rol}
                                                       value={rol.id_rol}
                                                   >
-                                                      {rol.nombre}
+                                                      {!rol.estado? "Seleccionar rol" : rol.nombre} 
                                                   </option>
                                               );
                                           }
