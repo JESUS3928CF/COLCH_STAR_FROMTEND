@@ -146,7 +146,7 @@ const ListarOrdenes = () => {
                                                 }
                                             />
                                         </td>
-                                        <select name="estado_de_orden" defaultValue={orden.estado_de_orden} onChange={(e) => cambiarEstadoDeOrden(e.target.value, orden.id_orden)}>
+                                        <select name="estado_de_orden" value={orden.estado_de_orden} onChange={(e) => cambiarEstadoDeOrden(e.target.value, orden.id_orden)}>
                                             <option value='Creada'>
                                                 Creada
                                             </option>

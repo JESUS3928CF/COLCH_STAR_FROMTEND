@@ -3,18 +3,16 @@ import ordenAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import clienteAxios from '../config/axios';
 
 const ordenesContext = createContext();
 
 const OrdenesProvider = ({ children }) => {
     const { config, auth } = useAuth();
 
-
     const [detallesOrden, setDetallesOrden] = useState([]);
 
     const [totalCompra, setTotalCompra] = useState(0);
-
-
 
     /// Calcular el total de la compra
     useEffect(() => {
@@ -27,10 +25,8 @@ const OrdenesProvider = ({ children }) => {
         );
     }, [detallesOrden]);
 
-
     // primer state
     const [ordenes, setOrdenes] = useState([]);
-
 
     // función para obtener los clientes solo cuando se carge el componente
 
@@ -49,11 +45,8 @@ const OrdenesProvider = ({ children }) => {
         consultarOrdenes();
     }, [auth]);
 
-
     const agregarOrden = async (data, reset, handleClose) => {
-
         const { fecha_entrega, fk_cliente, estado_de_orden } = data;
-
 
         try {
             const newOrden = await ordenAxios.post(
@@ -87,43 +80,28 @@ const OrdenesProvider = ({ children }) => {
     };
 
     const cambiarEstadoDeOrden = (estado, id) => {
-        console.log(estado, " estado nuevo", id);
-
         Swal.fire({
-            title: `¿Deseas cambiar el estado de la venta a ${estado
-                }?`,
+            title: `¿Deseas cambiar el estado de la venta a ${estado}?`,
             // text: "Este ",
             icon: 'question',
             iconColor: '#fa0000',
             showCancelButton: true,
             confirmButtonColor: '#3E5743',
             cancelButtonColor: '#252432',
-            confirmButtonText: `Si, Canbialo`,
+            confirmButtonText: `Si, Cámbialo`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
-
-
             if (result.isConfirmed) {
-
                 try {
-
                     //  Realiza la petición PATCH
                     const response = await clienteAxios.patch(
-                        `/ordenenes/estado/${id}`,
-                        { estado: isChecked },
+                        `/ordenes/estado/${id}`,
+                        { estado: estado },
                         config
                     );
 
-
                     if (response.status === 200) {
-                        Swal.fire(
-                            'Cambio de estado exitoso',
-                        ).then(() => {
-                            // todo: actualizar estado
-                            location.reload();
-                        });
-
-                        // setEstado(!isChecked);
+                        Swal.fire('Cambio de estado exitoso');
                     } else {
                         Swal.fire(
                             'Error',
@@ -131,8 +109,6 @@ const OrdenesProvider = ({ children }) => {
                             'error'
                         );
                     }
-
-
                 } catch (error) {
                     console.error('Error al realizar la petición:', error);
                     Swal.fire(
@@ -141,72 +117,25 @@ const OrdenesProvider = ({ children }) => {
                         'error'
                     );
                 }
-
             }
 
-
-            // if (result.isConfirmed) {
-            //     try {
-            //         // Realiza la petición PATCH
-            //         const response = await clienteAxios.patch(
-            //             "/ordenenes/estado",
-            //             { estado: isChecked },
-            //             config
-            //         );
-
-            //         if (response.status === 200) {
-            //             Swal.fire(
-            //                 `${isChecked ? 'Inhabilitado' : 'Habilitado'}`,
-            //                 'Cambio de estado exitoso',
-            //                 'success'
-            //             ).then(() => {
-            //                 // todo: actualizar estado
-            //                 if (editarEstado) editarEstado(id);
-            //                 else {
-            //                     location.reload();
-            //                 }
-            //             });
-
-            //             // setEstado(!isChecked);
-            //         } else {
-            //             Swal.fire(
-            //                 'Error',
-            //                 'Hubo un problema al cambiar el estado',
-            //                 'error'
-            //             );
-            //         }
-            //     } catch (error) {
-            //         console.error('Error al realizar la petición:', error);
-            //         Swal.fire(
-            //             'Error',
-            //             'Hubo un problema al cambiar el estado',
-            //             'error'
-            //         );
-            //     }
-            // }
+            consultarOrdenes();
         });
-    }
-
-    const editarEstado = (id) => {
-        let compraEditada = compras.find((compra) => compra.id_compra === id);
-        compraEditada.estado = !compraEditada.estado;
-
-        const compraActualizada = compras.map((compra) =>
-            compra.id_compra == id ? compraEditada : compra
-        );
-
-        setCompras(compraActualizada);
     };
 
     return (
         <ordenesContext.Provider
-            value={{ ordenes, agregarOrden, setDetallesOrden, detallesOrden, cambiarEstadoDeOrden }}
+            value={{
+                ordenes,
+                agregarOrden,
+                setDetallesOrden,
+                detallesOrden,
+                cambiarEstadoDeOrden,
+            }}
         >
             {children}
         </ordenesContext.Provider>
     );
-
-
 };
 
 export { OrdenesProvider };
