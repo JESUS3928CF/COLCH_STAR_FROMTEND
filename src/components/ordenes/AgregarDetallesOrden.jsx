@@ -94,7 +94,7 @@ export const AgregarDetallesOrden = () => {
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
                     >
-                        talla: *
+                        Talla: *
                     </label>
                     <input
                         type='text'
@@ -132,7 +132,7 @@ export const AgregarDetallesOrden = () => {
                         {...register('color', {
                             required: {
                                 value: true,
-                                message: 'El color es obligatoria',
+                                message: 'El color es obligatorio',
                             }
 
                         })}
@@ -185,7 +185,7 @@ export const AgregarDetallesOrden = () => {
                         {...register('subtotal', {
                             required: {
                                 value: true,
-                                message: 'El color es obligatoria',
+                                message: 'El color es obligatorio',
                             }
 
                         })}
@@ -200,7 +200,7 @@ export const AgregarDetallesOrden = () => {
                             textAlign: 'center',
                         }}>
                     <label htmlFor='rol' className='col-form-label' >
-                        Descripcion: *
+                        Descripcion:
                     </label>
 
                     <textarea
@@ -210,13 +210,6 @@ export const AgregarDetallesOrden = () => {
                             textAlign: 'center',
                             height: 70
                         }}
-                        {...register('descripcion', {
-                            required: {
-                                value: true,
-                                message: 'la descripcion es obligatoria',
-                            }
-
-                        })}
                         
                     />
 
