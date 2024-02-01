@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useMovimientos from '../hooks/useMovimientos';
 
 const comprasContext = createContext();
 
@@ -14,6 +15,8 @@ const ComprasProviders = ({ children }) => {
     const [totalCompra, setTotalCompra] = useState(0);
 
     const { config, auth } = useAuth();
+
+    const {consultarMovimientos}=useMovimientos()
 
     /// Calcular el total de la compra
     useEffect(() => {
@@ -65,6 +68,7 @@ const ComprasProviders = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarCompras();
+                consultarMovimientos()
                 handleClose(reset);
                 setTotalCompra(0);
                 setDetallesCompra([]);
@@ -88,6 +92,8 @@ const ComprasProviders = ({ children }) => {
         );
 
         setCompras(compraActualizada);
+        consultarMovimientos()
+
     };
 
     /// La funcionalidad para manipular los modales la voy a declarar desde aca

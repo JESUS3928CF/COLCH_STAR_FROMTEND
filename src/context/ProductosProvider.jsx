@@ -4,6 +4,8 @@ import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useDisenosContext } from "./disenosProvider";
+import useMovimientos from '../hooks/useMovimientos';
+
 
 
 const productosContext = createContext();
@@ -12,6 +14,9 @@ const productosContext = createContext();
 const ProductosProvider = ({ children }) => {
 
     const {  auth, token } = useAuth();
+    const {consultarMovimientos}=useMovimientos()
+
+
 
     // const { setDisenos } = useDisenosContext();
 
@@ -60,6 +65,7 @@ const ProductosProvider = ({ children }) => {
                 reset();
                 // setProductos([...productos, res.data.nuevoProducto]);
                 consultarProductos()
+                consultarMovimientos()
                 handleClose();
             });
         } catch (err) {
@@ -116,6 +122,7 @@ const ProductosProvider = ({ children }) => {
                         icon: "success",
                     }).then(() => {
                         consultarProductos();
+                        consultarMovimientos()
                         handleClose();
                     });
                 })
@@ -148,6 +155,8 @@ const ProductosProvider = ({ children }) => {
         );
 
         setProductos(productoActualizado);
+        consultarMovimientos()
+
     };
 
 
@@ -163,6 +172,8 @@ const ProductosProvider = ({ children }) => {
         );
 
         setProductos(productoActualizado);
+        consultarMovimientos()
+
     };
 
 

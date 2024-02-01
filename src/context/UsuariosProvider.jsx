@@ -4,9 +4,13 @@ import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 const usuariosContext = createContext();
 import axios from "axios";
+import useMovimientos from '../hooks/useMovimientos';
+
 
 const UsuariosProvider = ({ children }) => {
   const { config, auth } = useAuth();
+  const {consultarMovimientos}=useMovimientos()
+
 
   // primer state
   const [usuarios, setUsuarios] = useState([]);
@@ -40,6 +44,7 @@ const UsuariosProvider = ({ children }) => {
       }).then(() => {
         reset();
         consultarUsuarios();
+        consultarMovimientos()
         handleClose();
       });
     } catch (err) {
@@ -88,6 +93,7 @@ const UsuariosProvider = ({ children }) => {
             icon: "success",
           }).then(() => {
             consultarUsuarios();
+            consultarMovimientos()
             handleClose();
           });
         })
@@ -121,6 +127,8 @@ const UsuariosProvider = ({ children }) => {
     );
 
     setUsuarios(usuarioActualizado);
+    consultarMovimientos()
+
   };
 
   return (

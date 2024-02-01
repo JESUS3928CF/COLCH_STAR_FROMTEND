@@ -5,12 +5,16 @@ import clienteAxios from "../config/axios";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useColors from "../hooks/useColors";
+import useMovimientos from '../hooks/useMovimientos';
+
 
 const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
   const { auth, token } = useAuth();
   const { colors, setColores } = useColors();
+  const {consultarMovimientos}=useMovimientos()
+
 
   const [Prendas, setPrendas] = useState([]);
   const [selectColorsNombre, setSelectColorsNombre] = useState([]);
@@ -45,6 +49,7 @@ const PrendasProvider = ({ children }) => {
       }).then(() => {
         reset();
         consultPrendas();
+        consultarMovimientos()
         handleClose();
       });
     } catch (error) {
@@ -104,6 +109,7 @@ const PrendasProvider = ({ children }) => {
             icon: "success",
           }).then(() => {
             consultPrendas();
+            consultarMovimientos()
             handleClose();
           });
         })
@@ -132,6 +138,8 @@ const PrendasProvider = ({ children }) => {
     );
 
     setPrendas(prendaActualizada);
+    consultarMovimientos()
+
   };
 
   const updatePublicado = (id) => {
@@ -143,6 +151,8 @@ const PrendasProvider = ({ children }) => {
     );
 
     setPrendas(prendaActualizada);
+    consultarMovimientos()
+
   };
 
   const contextValue = {

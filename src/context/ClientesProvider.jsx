@@ -3,11 +3,13 @@ import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useMovimientos from '../hooks/useMovimientos';
 
 const clientesContext = createContext();
 
 const ClientesProvider = ({ children }) => {
     const { config, auth } = useAuth();
+    const {consultarMovimientos}= useMovimientos()
 
     // primer state
     const [clientes, setClientes] = useState([]);
@@ -44,6 +46,7 @@ const ClientesProvider = ({ children }) => {
                 reset();
                 setClientes([...clientes, res.data.nuevoCliente]);
                 handleClose();
+                consultarMovimientos();
             });
         } catch (err) {
             if (err.response && err.response.status === 403) {
@@ -100,7 +103,11 @@ const ClientesProvider = ({ children }) => {
                         title: 'Cliente actualizado',
                         text: response.data.message,
                         icon: 'success',
-                    }).then(() => {
+                    }  
+
+
+                    
+                    ).then(() => {
                         const clienteActualizado = clientes.map((cliente) =>
                             cliente.id_cliente ===
                             response.data.cliente.id_cliente
@@ -109,6 +116,7 @@ const ClientesProvider = ({ children }) => {
                         );
                         setClientes(clienteActualizado);
                         handleClose();
+                        consultarMovimientos();
                         reset()
                     });
                 })
@@ -142,8 +150,10 @@ const ClientesProvider = ({ children }) => {
         const clienteActualizado = clientes.map((cliente) =>
             cliente.id_cliente == id ? clienteEditado : cliente
         );
-
+        
         setClientes(clienteActualizado);
+        consultarMovimientos()
+
     };
 
     return (

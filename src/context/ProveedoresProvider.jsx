@@ -3,6 +3,8 @@ import proveedorAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useMovimientos from '../hooks/useMovimientos';
+
 
 const proveedoresContext = createContext();
 
@@ -11,6 +13,8 @@ const ProveedoresProvider = ({ children }) => {
 
     // primer state
     const [proveedores, setProveedores] = useState([]);
+    const {consultarMovimientos}=useMovimientos()
+
 
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -42,6 +46,7 @@ const ProveedoresProvider = ({ children }) => {
             }).then(() => {
                 reset();
                 setProveedores([...proveedores, res.data.nuevoProveedor]);
+                consultarMovimientos()
                 handleClose();
             });
         } catch (err) {
@@ -97,6 +102,7 @@ const ProveedoresProvider = ({ children }) => {
                         );
                         setProveedores(proveedorActualizado);
                         handleClose();
+                        consultarMovimientos()
                         reset()
                     });
                 })
@@ -132,6 +138,8 @@ const ProveedoresProvider = ({ children }) => {
         );
 
         setProveedores(proveedorActualizado);
+        consultarMovimientos()
+
     };
 
     return (

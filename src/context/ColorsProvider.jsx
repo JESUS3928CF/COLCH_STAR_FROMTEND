@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useMovimientos from "../hooks/useMovimientos";
 
 
 const  ColorsContex = createContext();
@@ -11,6 +12,7 @@ const ColorsProvider=({children})=>{
     const {token,auth,config} = useAuth()
     const [colors, setColores]= useState([]);
     const [colorsDb, setColorsDb]= useState([])
+    const {consultarMovimientos}=useMovimientos()
 
 
     const agregarColors= (data)=>{
@@ -46,6 +48,7 @@ const ColorsProvider=({children})=>{
               }).then(() => {
                 reset();
                 consultColors();
+                consultarMovimientos()
                 handleClose();
               });
             } catch (err) {
@@ -103,6 +106,7 @@ const ColorsProvider=({children})=>{
                 reset();
                 setColorsDb([...colorsDb, res.data.newColors]);
                 consultColors()
+                consultarMovimientos()
                 handleClose();
             });
         }catch (error) {
