@@ -111,6 +111,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                             message: 'La talla es obligatoria',
                                         },
                                     })}
+                                    value={detalle.talla}
                                 />
 
                                 {errors.talla && (
@@ -139,6 +140,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                             message: 'El color es obligatorio',
                                         },
                                     })}
+                                    value={detalle.color}
                                 />
 
                                 {errors.color && (
@@ -167,6 +169,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                                 'La cantidad es obligatoria',
                                         },
                                     })}
+                                    value={detalle.cantidad}
                                 />
 
                                 {errors.cantidad && (
@@ -195,6 +198,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                             message: 'El color es obligatorio',
                                         },
                                     })}
+                                    value={detalle.subtotal}
                                 />
 
                                 {errors.subtotal && (
