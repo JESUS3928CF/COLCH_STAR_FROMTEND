@@ -15,10 +15,11 @@ import { AgregarDetallesOrden } from './AgregarDetallesOrden.jsx';
 import { Modal } from 'react-bootstrap';
 import useClientes from '../../hooks/useCliente.jsx';
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
+import { EditarDetallesOrden } from './EditarDetallesOrden.jsx';
 
 //COMPONENTE
-const EditarOrden = ({orden ,handleClose, show}) => {
-
+const EditarOrden = ({ orden, handleClose, show }) => {
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -30,23 +31,21 @@ const EditarOrden = ({orden ,handleClose, show}) => {
         mode: 'onChange',
     });
 
+    // Cuando editarCliente cambia, actualiza los valores del formulario
+    useEffect(() => {
+        console.log(orden);
+        if (orden) {
+            setValue('fk_cliente', orden.fk_cliente);
+            setValue('fecha_entrega', orden.fecha_entrega);
+        }
+    }, [orden, show]);
+
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const { clientes } = useClientes();
 
-    // función que llega del provider que tiene todas las rutas
-    const { agregarOrden, detallesOrden } = useOrden();
-
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
-        if (detallesOrden.length === 0) {
-            Swal.fire({
-                title: 'Espera!!',
-                text: 'Agrega los detalles de esta orden',
-                icon: 'warning',
-            });
-        } else {
-            agregarOrden(data, reset, handleClose);
-        }
+        console.log(data);
     };
 
     return (
@@ -89,29 +88,30 @@ const EditarOrden = ({orden ,handleClose, show}) => {
                                                         'Debe seleccionar un cliente',
                                                 },
                                             })}
+                                            onChange={(e) => {
+                                                const inputValue =
+                                                    e.target.value;
+                                                setValue(
+                                                    'fk_cliente',
+                                                    inputValue
+                                                );
+                                                trigger('fk_cliente');
+                                            }}
                                         >
-                                            <option value=''>
-                                                Seleccionar Cliente
-                                            </option>
-
-                                            {clientes
-                                                .filter(
-                                                    (cliente) => cliente.estado
-                                                )
-                                                .map((cliente) => {
-                                                    return (
-                                                        <option
-                                                            key={
-                                                                cliente.id_cliente
-                                                            }
-                                                            value={
-                                                                cliente.id_cliente
-                                                            }
-                                                        >
-                                                            {cliente.nombre}
-                                                        </option>
-                                                    );
-                                                })}
+                                            {clientes.map((cliente) => {
+                                                return (
+                                                    <option
+                                                        key={cliente.id_cliente}
+                                                        value={
+                                                            cliente.id_cliente
+                                                        }
+                                                    >
+                                                        {!cliente.estado
+                                                            ? 'Seleccionar cliente'
+                                                            : cliente.nombre}
+                                                    </option>
+                                                );
+                                            })}
                                         </select>
 
                                         {errors.fk_cliente && (
@@ -165,7 +165,10 @@ const EditarOrden = ({orden ,handleClose, show}) => {
                                     </div>
                                 </div>
                             </form>
-                            <AgregarDetallesOrden />
+
+                            <EditarDetallesOrden
+                                detallesOrden={orden.detalles}
+                            />
 
                             <div className='modal-footer'>
                                 <CancelarModal

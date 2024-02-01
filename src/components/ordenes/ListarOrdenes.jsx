@@ -40,7 +40,7 @@ const ListarOrdenes = () => {
 
 
     //Estado para editar
-    const [editarOrden, setEditarOrden] = useState("");
+    const [editarOrden, setEditarOrden] = useState({});
 
 
     //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
@@ -59,6 +59,8 @@ const ListarOrdenes = () => {
                 'error'
             );
         }
+
+
         setEditarOrden(orden);
         handleShow();
     };
@@ -286,7 +288,7 @@ const ListarOrdenes = () => {
                 )}
             </div>
             <EditarOrden
-                editarOrden={editarOrden}
+                orden={editarOrden}
                 handleClose={handleClose}
                 show={show}
             />
