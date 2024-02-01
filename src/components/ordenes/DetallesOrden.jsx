@@ -7,7 +7,7 @@ import { Carousel } from "react-bootstrap";
 
 const DetallesOrden = ({ detallesOrdenes }) => {
 
-
+    //traemos toda la informa ion desde el listar por medio de detallesordenes y la pasamos a setDetalles y con detalles hacemos el mapeo
     const [detalles, setDetalles] = useState([]);
 
     useEffect(() => {
@@ -15,9 +15,8 @@ const DetallesOrden = ({ detallesOrdenes }) => {
     }, [detallesOrdenes]);
 
 
-
+    
     return (
-
         <div>
             <div className='modal' id='modalDetalles'>
                 <div className='modal-dialog modal-dialog-centered '>
@@ -35,6 +34,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                             <Carousel.Item
                                                 key={detalle.id_detalle_orden}
                                             >
+
                                                 <div className='col-md-12 mb-3' style={{
                                                     textAlign: 'center',
 
@@ -68,6 +68,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                         readOnly
                                                     />
                                                 </div>
+
                                                 <div className='row'>
                                                     <div className='col-md-6 mb-3' style={{
                                                         textAlign: 'center',
@@ -95,6 +96,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
+
                                                     <div className='col-md-6 mb-3' style={{
                                                         textAlign: 'center',
 
@@ -121,6 +123,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
+
                                                     <div className='col-md-10 mb-3 ml-4' style={{
                                                         textAlign: 'center',
                                                         marginLeft: 40
@@ -154,6 +157,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
+
                                                     <div className='col-md-6 mb-3' style={{
                                                         textAlign: 'center',
 
@@ -180,6 +184,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
+
                                                     <div className='col-md-6 mb-3' style={{
                                                         textAlign: 'center',
 
@@ -206,8 +211,9 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
+
                                                     <div className='col-md-12 mb-3' style={{
-                                                        textAlign:'center',
+                                                        textAlign: 'center',
                                                         fontStyle: 'italic',
                                                         fontSize: 17,  // Añado estilo al texto (puedes cambiarlo según tus preferencias)
                                                         color: 'blue'
@@ -226,36 +232,21 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             readOnly
                                                         />
                                                     </div>
-                                                </div>
 
+                                                </div>
                                             </Carousel.Item>
                                         ))}
                                     </Carousel>
 
-                                    {/* Resto del formulario... */}
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     )
 
-
-
-
-
 }
-
 
 export default DetallesOrden

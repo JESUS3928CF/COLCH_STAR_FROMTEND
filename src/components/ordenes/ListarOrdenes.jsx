@@ -24,7 +24,8 @@ import Swal from 'sweetalert2';
 //Componente
 const ListarOrdenes = () => {
 
-    const { ordenes } = useOrden();
+    //ordenes tiene la consulta de todos las ordenes de la base de datos
+    const { ordenes,cambiarEstadoDeOrden } = useOrden();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -35,8 +36,9 @@ const ListarOrdenes = () => {
 
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
 
-     //detallesProductos
-     const [detallesOrdenes, setDetallesOrdenes] = useState({});
+
+    //detallesProductos
+    const [detallesOrdenes, setDetallesOrdenes] = useState({});
 
 
 
@@ -44,6 +46,7 @@ const ListarOrdenes = () => {
     const [editarOrden, setEditarOrden] = useState("");
 
 
+    //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
 
         if (orden.estado_de_orden === 'Entregado') {
@@ -56,13 +59,6 @@ const ListarOrdenes = () => {
         setEditarOrden(orden);
         handleShow();
     };
-
-
-
-
-
-
-
 
 
 
@@ -123,7 +119,7 @@ const ListarOrdenes = () => {
                                     <th scope='col'>Cliente</th>
                                     <th scope='col'>Precio Total</th>
                                     <th scope='col'>Direccion</th>
-                                    <th scope='col'>Fecha</th>
+                                    <th scope='col'>Fecha Entrega</th>
                                     <th scope='col'>Detalles</th>
                                     <th scope='col'>Estado orden</th>
                                     <th scope='col'>Editar</th>
@@ -150,7 +146,20 @@ const ListarOrdenes = () => {
                                                 }
                                             />
                                         </td>
-                                        <td>{orden.estado_de_orden}</td>
+                                        <select name="estado_de_orden" value={orden.estado_de_orden} onChange={(e) => cambiarEstadoDeOrden(e.target.value, orden.id_orden)}>
+                                            <option value='Creada'>
+                                                Creada
+                                            </option>
+                                            <option value='En Proceso'>
+                                                En Proceso
+                                            </option>
+                                            <option value='Finalizada'>
+                                                Finalizada
+                                            </option>
+                                            <option value='Entregada'>
+                                                Entregada
+                                            </option>
+                                        </select>
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
@@ -211,11 +220,24 @@ const ListarOrdenes = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Estado de Orden:{' '}
-                                            <span>
-                                                {orden.estado_de_orden}
-                                            </span>
+                                            <select name="estado_de_orden" onClick={(e) => cambiarEstadoDeOrden(e.target.value)}>
+                                            <option value='Creada'>
+                                                Creada
+                                            </option>
+                                            <option value='En Proceso'>
+                                                En Proceso
+                                            </option>
+                                            <option value='Finalizada'>
+                                                Finalizada
+                                            </option>
+                                            <option value='Entregada'>
+                                                Entregada
+                                            </option>
+                                        </select>
+
                                         </p>
 
+                                        
                                     </div>
 
                                     <div className='card-footer'>
@@ -227,7 +249,7 @@ const ListarOrdenes = () => {
                                                     text='Ver'
                                                     modalToOpen='#modalDetalles'
                                                     onClick={() =>
-                                                        setDetallesProductos(producto)
+                                                        setDetallesOrdenes(orden)
                                                     }
                                                 />
                                             </div>
@@ -251,24 +273,10 @@ const ListarOrdenes = () => {
                         ))}
                     </div>
                 )}
-
-
-
-
-
-
-
             </div>
-
-
-
-
-            <EditarOrden editarOrden={editarOrden}
-
-            />
+            <EditarOrden editarOrden={editarOrden} />
             <DetallesOrden detallesOrdenes={detallesOrdenes}
-
-/>
+            />
 
 
             <div className='seccion4'>
