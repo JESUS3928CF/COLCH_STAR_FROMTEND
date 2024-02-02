@@ -13,6 +13,7 @@ const ProveedoresProvider = ({ children }) => {
 
     // primer state
     const [proveedores, setProveedores] = useState([]);
+    
     const {consultarMovimientos}=useMovimientos()
 
 
