@@ -123,6 +123,29 @@ const OrdenesProvider = ({ children }) => {
         });
     };
 
+    //* Funcionalidad para cerra el modal de agregar
+    const [show, setShow] = useState(false);
+
+    const handleClose = (reset) => {
+        
+        setShow(false);
+        
+        if(!reset) return;
+        setDetallesOrden([]);
+        reset();
+    };
+    const handleShow = () => setShow(true);
+
+
+    //* Funcionalidad para cerra el modal de detalles
+    const [showDetalles, setShowDetalles] = useState(false);
+
+    const handleCloseDetalles = () => {
+        setShowDetalles(false);
+    };
+
+    const handleShowDetalles = () => setShowDetalles(true);
+
     return (
         <ordenesContext.Provider
             value={{
@@ -131,6 +154,12 @@ const OrdenesProvider = ({ children }) => {
                 setDetallesOrden,
                 detallesOrden,
                 cambiarEstadoDeOrden,
+                handleShowDetalles,
+                handleCloseDetalles,
+                showDetalles, 
+                handleClose,
+                handleShow
+                
             }}
         >
             {children}

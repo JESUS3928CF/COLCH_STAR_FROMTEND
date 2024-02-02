@@ -14,7 +14,9 @@ export const AgregarDetallesOrden = () => {
 
     const {
         detallesOrden,
-        setDetallesOrden
+        setDetallesOrden,
+        handleShowDetalles,
+        handleClose
         
     } = useOrden();
 
