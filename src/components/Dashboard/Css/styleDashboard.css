@@ -160,7 +160,10 @@
     margin-top: -50px;
     background: white;
     border-radius: 7px;
-    padding: 20px
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
 }
 
 .textH{
@@ -173,8 +176,124 @@
 
 }
  
-.GraficaOne{
+.containerHeaderGrafica{
+    margin-top: -50px;
     background: white;
+    border-radius: 7px;
+    
 }
 
+.iconsCarrusel{
+    font-size: 25px;
+    position: relative;
+    top: -110px;
+}
+
+.iconsCarruselD{
+    margin-left: 900px ;
+    position: relative;
+    top: -110px;
+    font-size: 25px;
+    left: 35px;
+}
+
+.iconsE{
+
+    font-size: 35px;
+    color:#47684e;
+    position:relative;
+    left: 150px;
+    top: 35px;
+    text-align: center;
+
+}
+
+.NombreStar{
+    
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: 9px;
+
+}
+
+.star{
+    font-size: 35px;
+    color:#47684e;
+    position:relative;
+    right: 5px;
+    top: 35px;
+    text-align: center;
+}
+
+.textCompras{
+
+    text-align: center;
+    font-weight: bold;
+    margin-top: -9px;
+    
+}
+
+.textBotonC{
+
+    margin-right: 16px;
+    color: white;
+
+}
+
+.botonInfoC{
+    font-size: 14px;
+    background-color: #000000;
+    transition: background-color 0.3s;
+    position: relative;
+    top: 15px;
+    margin-left: 150px;
+}
+
+.botonInfoC:hover{
+    background-color: #47684E;
+}
+
+.botonInfoF{
+    font-size: 14px;
+    background-color: #000000;
+    transition: background-color 0.3s;
+    position: relative;
+    top: 15px;
+    margin-left: 80px;
+}
+
+.botonInfoF:hover{
+    background-color: #47684E;
+
+}
+
+.textGeneralMas{
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: -9px;
+    position: absolute;
+    left: 110px;
+}
+
+.customChartContainer {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    
+  }
+
+  .grafica{
+
+    width: 60px;
+    height: 30px;
+    
+  }
+  
+  
+  
+  
+
+  
 

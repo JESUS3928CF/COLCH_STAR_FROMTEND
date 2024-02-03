@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-const Paginador = ({ setDatosFiltrar, datos }) => {
-    const registrosPorPagina = 10;
+const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas=10 }) => {
+    const registrosPorPagina = registroPorPaginas;
     const totalPaginas = Math.ceil(datos.length / registrosPorPagina);
     let paginaActual;
 
