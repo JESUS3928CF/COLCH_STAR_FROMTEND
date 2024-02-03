@@ -7,7 +7,7 @@ import '../../css-general/inicio_style.css'
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
-import { validarEspaciosVacios } from '../../Validations/validations'
+import { validarEspaciosVacios, validarFechaOrden } from '../../Validations/validations'
 import { validarFecha } from '../../Validations/validations';
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
@@ -161,11 +161,23 @@ const AgregarOrden = () => {
                                                 required: {
                                                     value: true,
                                                     message:
-                                                        'La fecha es obligatorio',
+                                                        'La fecha es obligatoria',
                                                 },
+                                                pattern: {
+                                                    value: '^(?:\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$',
+                                                    message: 'Error',
+                                                },
+                                                validate: (value) =>
+                                                    validarFechaOrden(value),
                                             })}
+                                            onChange={(e) => {
+                                                setValue(
+                                                    'fecha_entrega',
+                                                    e.target.value
+                                                );
+                                                trigger('fecha_entrega');
+                                            }}
                                         />
-
                                         {errors.fecha_entrega && (
                                             <AlertaError
                                                 message={errors.fecha_entrega.message}

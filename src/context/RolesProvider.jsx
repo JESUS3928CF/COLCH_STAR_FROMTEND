@@ -4,10 +4,14 @@ import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import useUsuario from '../hooks/useUsuario';
+import useMovimientos from '../hooks/useMovimientos';
+
 const rolesContext = createContext();
 
 const RolesProvider = ({ children }) => {
     const { config, auth } = useAuth();
+    const {consultarMovimientos}=useMovimientos()
+
 
     const { consultarUsuarios } = useUsuario();
 
@@ -43,6 +47,7 @@ const RolesProvider = ({ children }) => {
             }).then(() => {
                 reset();
                 consultarRoles();
+                consultarMovimientos()
                 handleClose();
             });
         } catch (err) {
@@ -97,6 +102,7 @@ const RolesProvider = ({ children }) => {
                     }).then(() => {
                         consultarUsuarios();
                         consultarRoles();
+                        consultarMovimientos()
                         handleClose();
                     });
                 })
@@ -131,6 +137,8 @@ const RolesProvider = ({ children }) => {
         );
 
         setRoles(rolActualizado);
+        consultarMovimientos()
+
     };
 
 

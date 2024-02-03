@@ -25,6 +25,7 @@ import RecuperarPassword from '../pages/ResuperarPassword';
 import { PrendasProvider } from '../context/PrendasProvider';
 import { ComprasProviders } from '../context/ComprasProvider';
 import { OrdenesProvider } from '../context/OrdenesProvider';
+import { MovimientosProvider } from '../context/MovimientosProvider';
 
 
 const MyRoutes = () => {
@@ -32,6 +33,7 @@ const MyRoutes = () => {
         <BrowserRouter>
             <AuthProvider>
                 <GeneralProvider>
+                <MovimientosProvider>
                     <DisenosProvider>
                         <ColorsProvider>
                             <PrendasProvider>
@@ -135,6 +137,7 @@ const MyRoutes = () => {
                                                                     ></Route>
                                                                 </Route>
                                                             </Routes>
+
                                                         </OrdenesProvider>
 
                                                     </ComprasProviders>
@@ -146,6 +149,8 @@ const MyRoutes = () => {
                             </PrendasProvider>
                         </ColorsProvider>
                     </DisenosProvider>
+                    </MovimientosProvider>
+
                 </GeneralProvider>
             </AuthProvider>
         </BrowserRouter>

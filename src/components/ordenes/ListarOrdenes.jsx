@@ -33,29 +33,34 @@ const ListarOrdenes = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
-
-
     //detallesProductos
     const [detallesOrdenes, setDetallesOrdenes] = useState({});
 
 
 
     //Estado para editar
-    const [editarOrden, setEditarOrden] = useState("");
+    const [editarOrden, setEditarOrden] = useState({});
 
 
     //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
 
-        if (orden.estado_de_orden === 'Entregado') {
+        if (
+            orden.estado_de_orden === 'Entregada' ||
+            orden.estado_de_orden === 'Finalizada'
+        ) {
             return Swal.fire(
                 'Acción inválida!',
-                'Esta Orden a sido entregada, No se puede editar',
+                `Esta Orden ha sido ${
+                    orden.estado_de_orden ===
+                    "Finalizada" ? 'Finalizada' : 'Entregada'
+                } , No se puede editar`,
                 'error'
             );
         }
+
+
         setEditarOrden(orden);
         handleShow();
     };
@@ -170,11 +175,6 @@ const ListarOrdenes = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                modalToOpen={
-                                                    orden.estado_de_orden
-                                                        ? '#modalEditar'
-                                                        : ''
-                                                }
                                                 onClick={() =>
                                                     handleEditClick(orden)
                                                 }
@@ -266,6 +266,14 @@ const ListarOrdenes = () => {
                                             >
                                                 <BotonNegro
                                                     text='Editar'
+                                                    modalToOpen={
+                                                        !orden.estado_de_orden ===
+                                                            'Finalizada' ||
+                                                        !orden.estado_de_orden ===
+                                                            'Entregada'
+                                                            ? '#modalEditar'
+                                                            : ''
+                                                    }
                                                     onClick={() =>
                                                         handleEditClick(orden)
                                                     }
@@ -279,7 +287,11 @@ const ListarOrdenes = () => {
                     </div>
                 )}
             </div>
-            <EditarOrden editarOrden={editarOrden} />
+            <EditarOrden
+                orden={editarOrden}
+                handleClose={handleClose}
+                show={show}
+            />
             <DetallesOrden detallesOrdenes={detallesOrdenes} />
 
             <div className='seccion4'>

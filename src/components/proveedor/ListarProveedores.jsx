@@ -26,6 +26,7 @@ import AgregarProveedor from './AgregarProveedor.jsx';
 //Componente
 const ListarProveedores = () => {
 
+    //proveedores que viene de useproveedor tiene todo los proveedores de la base de datos
     const { proveedores, editarEstado } = useProveedor();
 
     /// Funcionalidad para cerra el modal
@@ -48,7 +49,9 @@ const ListarProveedores = () => {
     //Estado para editar
     const [editarProveedor, setEditarProveedor] = useState("");
 
-    //Si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar
+    //Si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar, 
+    //de lo contrario lo deja entrar a editar y mostrar la informacion
+    
     const handleEditClick = (proveedor) => {
 
         if (!proveedor.estado) {

@@ -47,5 +47,27 @@ export const validarFecha = (value) => {
   
     return true;
   };
+
+  export const validarFechaOrden = (value) => {
+    const fechaIngresada = new Date(value);
+    const fechaActual = new Date();
+
+    // Calcular la fecha máxima permitida, 15 días desde la fecha actual
+    const fechaMaximaPermitida = new Date();
+    fechaMaximaPermitida.setDate(fechaMaximaPermitida.getDate() + 15);
+
+    // Verificar si la fecha es anterior a la actual
+    if (fechaIngresada < fechaActual) {
+        return 'La fecha no puede ser anterior a la actual';
+    }
+
+    // Verificar si la fecha es futura a más de 15 días
+    if (fechaIngresada > fechaMaximaPermitida) {
+        return 'La fecha no puede ser futura a más de 15 días';
+    }
+
+    return true;
+};
+
   
   

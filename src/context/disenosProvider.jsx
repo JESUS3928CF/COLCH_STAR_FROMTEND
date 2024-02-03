@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useMovimientos from '../hooks/useMovimientos';
 
 // Crear el contexto
 const DisenosContext = createContext();
@@ -12,6 +13,8 @@ export const DisenosProvider = ({ children }) => {
 
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
+    const {consultarMovimientos}=useMovimientos()
+
 
 
     const [precios, setPrecios] = useState([]);
@@ -67,6 +70,7 @@ export const DisenosProvider = ({ children }) => {
             }).then(() => {
                 reset();
                 setDisenosDB([...disenosDB, res.data.nuevoDiseno]);
+                consultarMovimientos()
                 handleClose();
             });
         } catch (error) {
@@ -101,6 +105,7 @@ export const DisenosProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarDisenos()
+                consultarMovimientos()
                 handleClose()
             });
         } catch (error) {
@@ -125,6 +130,8 @@ export const DisenosProvider = ({ children }) => {
         );
 
         setDisenosDB(clienteActualizado);
+        consultarMovimientos()
+
     };
 
      const editarPublicacion = (id) => {
@@ -138,6 +145,8 @@ export const DisenosProvider = ({ children }) => {
          );
 
          setDisenosDB(clienteActualizado);
+         consultarMovimientos()
+
      };
 
 
