@@ -1,9 +1,59 @@
-.tamanoIcon{
+.tamanoIcon {
     font-size: 45px;
-    margin-left: 50px;
 }
 
-.position{
+.colors-div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 20px;
+
+}
+
+.tallas-div {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    row-gap: 20px;
+
+}
+
+.color-div {
+    height: 40px;
+    width: 40px;
+    border: 2px solid black;
+    margin: 2%;
+
+    flex: 0 0 40px;
+    /* Establece el tamaño fijo */
+}
+
+
+@media screen and (max-width: 700px) {
+
+    /* code*/
+    .colors-div {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    /* code*/
+    .colors-div {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .color-div {
+        height: 20px;
+        width: 20px;
+        border: 2px solid black;
+        margin: 2%;
+    }
+
+}
+
+
+
+.position {
     font-size: 45px;
     margin-left: 210px;
 }

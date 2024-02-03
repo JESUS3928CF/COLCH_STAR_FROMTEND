@@ -10,7 +10,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
   const { setValue } = useForm();
 
   useEffect(() => {
-    // console.log(detallesPrendas);
+    console.log(detallesPrendas, "esto");
     if (detallesPrendas) {
       // console.log('Detalles:',detallesPrendas);
       setValue("publicado", detallesPrendas.publicado);
@@ -31,100 +31,188 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
   };
 
   return (
-    <div className="modal" id="modalDetallePrendas">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <HeaderModals title="Detalle prendas" />
+      <div className='modal' id='modalDetallePrendas'>
+          <div className='modal-dialog modal-dialog-centered'>
+              <div className='modal-content'>
+                  <HeaderModals title='Detalle prendas' />
 
-          <div className="formulario">
-            <div className="modal-body">
-              <div className="container">
-                <div className="col">
-                  <div className="row">
-                    <div className="row gx-0">
-                      <div className="col-md-6">
-                        <a
-                          href={`${import.meta.env.VITE_BACKEND_URL}/${
-                            detallesPrendas.imagen
-                          }`}
-                          className={styles.contenedor_imagen}
-                        >
-                          {" "}
-                          <img
-                            src={
-                              detallesPrendas.imagen
-                                ? `${import.meta.env.VITE_BACKEND_URL}/${
-                                    detallesPrendas.imagen
-                                  }`
-                                : ""
-                            }
-                            alt={detallesPrendas.imagen}
-                            title="Ver imagen completa"
-                          />
-                        </a>
-                      </div>
-                      <div className="col-md-5 ml-6 mt-3">
-                        <div className="card-body">
-                          <h2 htmlFor="nombre" className="card-title">
-                            {" "}
-                            <b>Nombre:</b> {detallesPrendas.nombre}
-                          </h2>
-                          <h3 htmlFor="cantidad" className="card-title">
-                            {" "}
-                            <b>Cantidad:</b> {detallesPrendas.cantidad}
-                          </h3>
-                          <h3 htmlFor="precio" className="card-title">
-                            {" "}
-                            <b>Precio:</b> {detallesPrendas.precio}
-                          </h3>
-                          <h3 htmlFor="Tela" className="card-title">
-                            {" "}
-                            <b>Tipo de tela:</b> {detallesPrendas.tipo_de_tela}
-                          </h3>
-                          <h3 htmlFor="genero" className="card-title">
-                            {" "}
-                            <b>Género:</b> {detallesPrendas.genero}
-                          </h3>
+                  <div className='formulario'>
+                      <div className='modal-body'>
+                          <div className='container'>
+                              <div className='col'>
+                                  <div className='row'>
+                                      <div className='row gx-0'>
+                                          <div className='col-md-6'>
+                                              <a
+                                                  href={`${
+                                                      import.meta.env
+                                                          .VITE_BACKEND_URL
+                                                  }/${detallesPrendas.imagen}`}
+                                                  className={
+                                                      styles.contenedor_imagen
+                                                  }
+                                              >
+                                                  {' '}
+                                                  <img
+                                                      src={
+                                                          detallesPrendas.imagen
+                                                              ? `${
+                                                                    import.meta
+                                                                        .env
+                                                                        .VITE_BACKEND_URL
+                                                                }/${
+                                                                    detallesPrendas.imagen
+                                                                }`
+                                                              : ''
+                                                      }
+                                                      alt={
+                                                          detallesPrendas.imagen
+                                                      }
+                                                      title='Ver imagen completa'
+                                                  />
+                                              </a>
+                                          </div>
+                                          <div className='col-md-5 ml-6 mt-3'>
+                                              <div className='card-body'>
+                                                  <h2
+                                                      htmlFor='nombre'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Nombre:</b>{' '}
+                                                      {detallesPrendas.nombre}
+                                                  </h2>
+                                                  <h3
+                                                      htmlFor='cantidad'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Cantidad:</b>{' '}
+                                                      {detallesPrendas.cantidad}
+                                                  </h3>
+                                                  <h3
+                                                      htmlFor='precio'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Precio:</b>{' '}
+                                                      {detallesPrendas.precio}
+                                                  </h3>
+                                                  <h3
+                                                      htmlFor='Tela'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Tipo de tela:</b>{' '}
+                                                      {
+                                                          detallesPrendas.tipo_de_tela
+                                                      }
+                                                  </h3>
+                                                  <h3
+                                                      htmlFor='genero'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Género:</b>{' '}
+                                                      {detallesPrendas.genero}
+                                                  </h3>
+                                              </div>
+                                          </div>
+                                          <div className='col-12'>
+                                              <div className='col '>
+                                                  <h3
+                                                      htmlFor='Colores'
+                                                      className='card-title'
+                                                  >
+                                                      <b>Colores:</b>
 
-                          <h3 htmlFor="Colores" className="card-title">
-                            <b>Colores:</b>
-                           
-                            {detallesPrendas.color && detallesPrendas.color.map((color, index) => (
-                              <div key={`${color.id_color}_${index}`}>
-                                <span style={{ color: color.color }}>
-                                  {color.color}
-                                </span>
+                                                      <div className=' colors-div'>
+                                                          {detallesPrendas.color &&
+                                                              detallesPrendas.color.map(
+                                                                  (
+                                                                      color,
+                                                                      index
+                                                                  ) => (
+                                                                      <div
+                                                                          key={`${color.id_color}_${index}`}
+                                                                          className='text-center d-flex justify-content-center align-items-center'
+                                                                      >
+                                                                          <span
+                                                                              style={{
+                                                                                  color: color.color,
+                                                                              }}
+                                                                          >
+                                                                              {
+                                                                                  color.color
+                                                                              }
+                                                                          </span>
+                                                                          <div
+                                                                              className='color-div'
+                                                                              style={{
+                                                                                  backgroundColor: `${color.codigo}`,
+                                                                              }}
+                                                                          ></div>
+                                                                      </div>
+                                                                  )
+                                                              )}
+                                                      </div>
+                                                  </h3>
+                                              </div>
+                                              <div className='col'>
+                                                  <h3
+                                                      htmlFor='tallas'
+                                                      className='card-title'
+                                                  >
+                                                      {''}
+                                                      <b>Tallas:</b>
+                                                  </h3>
+
+                                                  <div className="tallas-div text-center">
+                                                      {detallesPrendas.Talla &&
+                                                      Array.isArray(
+                                                          detallesPrendas.Talla
+                                                      )
+                                                          ? detallesPrendas.Talla.map(
+                                                                (
+                                                                    talla,
+                                                                    index
+                                                                ) => (
+                                                                    <p
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        {talla}
+                                                                    </p>
+                                                                )
+                                                            )
+                                                          : null}
+                                                  </div>
+                                              </div>
+                                              <div className='text-center mt-4'>
+                                                  <h3
+                                                      htmlFor='publicado'
+                                                      className='card-title'
+                                                  >
+                                                      {' '}
+                                                      <b>Publicado </b>
+                                                  </h3>
+                                                  <div className='tamanoIcon d-flex justify-content-center align-items-center'>
+                                                      {informacion(
+                                                          detallesPrendas
+                                                      )}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
                               </div>
-                            ))}
-
-                          </h3>
-
-                          <h3 htmlFor="tallas" className="card-title">
-                            {""}
-                            <b>Talla:</b>
-                            {detallesPrendas.Talla}
-                          </h3>
-
-                          <div className="text-center mt-4">
-                            <h3 htmlFor="publicado" className="card-title">
-                              {" "}
-                              <b>Publicado </b>
-                            </h3>
-                            <div className="tamanoIcon">
-                              {informacion(detallesPrendas)}
-                            </div>
                           </div>
-                        </div>
                       </div>
-                    </div>
                   </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
   );
 };
 

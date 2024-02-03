@@ -4,8 +4,6 @@ import useAuth from '../hooks/useAuth';
 import logo from '../imgNavbar/LogoNegro.png';
 import style from './Catalogo.module.css';
 import { Link } from 'react-router-dom';
-import logo4 from '../imgNavbar/camisaBasica.png';
-import logo5 from '../imgNavbar/039.png';
 import logoW from '../imgNavbar/whatsapp.svg'
 import logo10 from '../imgNavbar/LogoPNG.png'
 import { useDisenosContext } from '../context/disenosProvider';
@@ -23,7 +21,7 @@ const Catalogo = () => {
     //traemos toda la informacion de prendas guardada
     const { Prendas } = usePrendas();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
+    // const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
 
     // console.log(Prendas)
 
@@ -36,7 +34,7 @@ const Catalogo = () => {
     //traemos toda la informacion de diseños guardada
     const { disenosDB } = useDisenosContext();
     //hacemos el conteno de cuanrto diseños hay guardadoa
-    const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;;
+    // const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;
     // console.log(disenosDB)
 
 
@@ -88,40 +86,72 @@ const Catalogo = () => {
                 </div>
             </header>
 
-            <section className={`${style.home} ${style.swiper} ${style.section}`} id='home' >
-
-                <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+            <section
+                className={`${style.home} ${style.swiper} ${style.section}`}
+                id='home'
+            >
+                <div
+                    id='carouselExampleControls'
+                    className='carousel slide'
+                    data-bs-ride='carousel'
+                >
                     <div className={`carousel-inner ${style.todo}`}>
                         {productos
-                            .filter((producto) => producto.publicado && producto.estado !== false )
+                            .filter(
+                                (producto) =>
+                                    producto.publicado &&
+                                    producto.estado !== false
+                            )
                             .map((producto, index) => (
-                                <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index} >
+                                <div
+                                    className={`carousel-item ${
+                                        index === 0 ? 'active' : ''
+                                    }`}
+                                    key={index}
+                                >
                                     <div className={style['home-text']}>
                                         <span>Nosotros somos colch star</span>
-                                        <h1>¡Renueva tu estilo <br /> con nuestra colección <br /> de prendas de vestir <br /> de alta calidad!
+                                        <h1>
+                                            ¡Renueva tu estilo <br /> con
+                                            nuestra colección <br /> de prendas
+                                            de vestir <br /> de alta calidad!
                                         </h1>
                                     </div>
                                     <div className={style.oe}>
                                         <img
                                             key={index}
-                                            src={producto.imagen
-                                                ? `${import.meta.env.VITE_BACKEND_URL}/${producto.imagen}`
-                                                : ''
+                                            src={
+                                                producto.imagen
+                                                    ? `${
+                                                          import.meta.env
+                                                              .VITE_BACKEND_URL
+                                                      }/${producto.imagen}`
+                                                    : ''
                                             }
                                             className={`d-block w-100 ${style.img} ${style.otro}`}
-                                            alt=""
+                                            alt=''
                                         />
                                     </div>
                                 </div>
                             ))}
                     </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <button
+                        className='carousel-control-prev'
+                        type='button'
+                        data-bs-target='#carouselExampleControls'
+                        data-bs-slide='prev'
+                    >
                         {/* <span className="carousel-control-prev-icon" aria-hidden="true"></span> */}
-                        <span className="swiper-button-prev"></span>
+                        <span className='swiper-button-prev'></span>
                     </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <button
+                        className='carousel-control-next'
+                        type='button'
+                        data-bs-target='#carouselExampleControls'
+                        data-bs-slide='next'
+                    >
                         {/* <span className="carousel-control-next-icon" aria-hidden="true"></span> */}
-                        <span className="swiper-button-next"></span>
+                        <span className='swiper-button-next'></span>
                     </button>
                 </div>
             </section>
@@ -179,18 +209,22 @@ const Catalogo = () => {
                 </div>
 
                 <div className={style.productsconatiner}>
-                    {Prendas.filter((Prendas) => Prendas.publicado && Prendas.estado !== false) // Filter only published designs
+                    {Prendas.filter(
+                        (Prendas) =>
+                            Prendas.publicado && Prendas.estado !== false
+                    ) // Filter only published designs
                         .map((Prendas, index) => (
-                            <div className={style.box} key={index}  >
+                            <div className={style.box} key={index}>
                                 <img
                                     className={
                                         style.imagenProducto + ' ' + style.img
                                     }
                                     src={
                                         Prendas.imagen
-                                            ? `${import.meta.env
-                                                .VITE_BACKEND_URL
-                                            }/${Prendas.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${Prendas.imagen}`
                                             : ''
                                     }
                                     alt=''
@@ -228,21 +262,25 @@ const Catalogo = () => {
 
                     <div className={style.productsconatiner}>
                         {productos
-                            .filter((productos) => productos.publicado && productos.estado !== false) // Filter only published designs
+                            .filter(
+                                (productos) =>
+                                    productos.publicado &&
+                                    productos.estado !== false
+                            ) // Filter only published designs
                             .map((productos, index) => (
-                                <div
-                                    className={style.box}
-                                    key={index}
-                                >
+                                <div className={style.box} key={index}>
                                     <img
                                         className={
-                                            style.imagenProducto + ' ' + style.img
+                                            style.imagenProducto +
+                                            ' ' +
+                                            style.img
                                         }
                                         src={
                                             productos.imagen
-                                                ? `${import.meta.env
-                                                    .VITE_BACKEND_URL
-                                                }/${productos.imagen}`
+                                                ? `${
+                                                      import.meta.env
+                                                          .VITE_BACKEND_URL
+                                                  }/${productos.imagen}`
                                                 : ''
                                         }
                                         alt=''
@@ -284,7 +322,10 @@ const Catalogo = () => {
 
                 <div className={style.productsconatiner}>
                     {disenosDB
-                        .filter((diseno) => diseno.publicado && diseno.estado !== false ) // Filter only published designs
+                        .filter(
+                            (diseno) =>
+                                diseno.publicado && diseno.estado !== false
+                        ) // Filter only published designs
                         .map((diseno) => (
                             <div className={style.box} key={diseno.id_diseno}>
                                 <img
@@ -293,9 +334,10 @@ const Catalogo = () => {
                                     }
                                     src={
                                         diseno.imagen
-                                            ? `${import.meta.env
-                                                .VITE_BACKEND_URL
-                                            }/${diseno.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${diseno.imagen}`
                                             : ''
                                     }
                                     alt=''
@@ -321,19 +363,33 @@ const Catalogo = () => {
             </section>
 
             <div className={style.color}>
-                
-                <section className={style.about + ' ' + style.section} id='about'>
+                <section
+                    className={style.about + ' ' + style.section}
+                    id='about'
+                >
                     <img className={style.img} src={logo10} alt='' />
                     <div className={style.abouttext}>
                         <span>Nosotros</span>
-                        <p>En Colch Star, nos dedicamos apasionadamente a plasmar diseños únicos en prendas de vestir. Desde nuestra fundación en 2022, nos hemos destacado en la industria de los estampados de ropa, brindando soluciones creativas y de alta calidad a nuestros clientes.</p>
-                        <p>Bienvenidos a Colch Star, donde transformamos prendas en obras de arte y convertimos tus ideas en realidad.</p>
+                        <p>
+                            En Colch Star, nos dedicamos apasionadamente a
+                            plasmar diseños únicos en prendas de vestir. Desde
+                            nuestra fundación en 2022, nos hemos destacado en la
+                            industria de los estampados de ropa, brindando
+                            soluciones creativas y de alta calidad a nuestros
+                            clientes.
+                        </p>
+                        <p>
+                            Bienvenidos a Colch Star, donde transformamos
+                            prendas en obras de arte y convertimos tus ideas en
+                            realidad.
+                        </p>
                         {/* <a href="#" className={style.btn}>Leer más <i className="bx bx-right-arrow-alt"></i></a> */}
                     </div>
                 </section>
 
                 <div className={style.copyright}>
-                    Copyright &copy; 2023 Colch Star. Todos los derechos reservados.
+                    Copyright &copy; 2023 Colch Star. Todos los derechos
+                    reservados.
                 </div>
             </div>
         </div>
