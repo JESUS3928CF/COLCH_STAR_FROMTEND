@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useDisenosContext } from "./disenosProvider";
 import useMovimientos from '../hooks/useMovimientos';
+import clienteAxios from "../config/axios";
 
 
 
@@ -13,7 +14,7 @@ const productosContext = createContext();
 
 const ProductosProvider = ({ children }) => {
 
-    const {  auth, token } = useAuth();
+    const {  auth, token, config} = useAuth();
     const {consultarMovimientos}=useMovimientos()
 
 
@@ -22,6 +23,7 @@ const ProductosProvider = ({ children }) => {
 
     // primer state
     const [productos, setProductos] = useState([]);
+    const [detailsDiseno,setDetailsDisenos]= useState([])
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
 
@@ -41,8 +43,26 @@ const ProductosProvider = ({ children }) => {
             console.log(error);
         }
     };
+
+    const consultDetailsDiseno = async()=>{
+        try{
+
+              const token = localStorage.getItem('token');
+            if (!token) return;
+            const {data}=await clienteAxios.get('/detalle_diseno',config)
+            setDetailsDisenos(data)
+
+        }catch (error){
+            console.log('Error al buscar los detalles de Disenos ')
+        }
+    }
+
+
+
+
     useEffect(() => {
         consultarProductos();
+        consultDetailsDiseno();
     }, [auth]);
 
 
@@ -181,7 +201,7 @@ const ProductosProvider = ({ children }) => {
 
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion,  selectedDisenoNombre ,setSelectedDisenoNombre}}
+            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion,  selectedDisenoNombre ,setSelectedDisenoNombre,consultDetailsDiseno,detailsDiseno}}
         >
             {children}
         </productosContext.Provider>
