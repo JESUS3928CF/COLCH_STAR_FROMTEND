@@ -212,6 +212,13 @@ export const AgregarDetallesOrden = () => {
                             textAlign: 'center',
                             height: 70
                         }}
+                        {...register('descripcion', {
+                            required: {
+                                value: true,
+                                message: 'la descripcion es obligatoria',
+                            }
+
+                        })}
                         
                     />
 
