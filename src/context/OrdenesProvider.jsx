@@ -14,6 +14,12 @@ const OrdenesProvider = ({ children }) => {
 
     const [totalCompra, setTotalCompra] = useState(0);
 
+    const [detailsOrden, setDetailsOrden]=useState([])
+
+
+
+
+
     /// Calcular el total de la compra
     useEffect(() => {
         setTotalCompra(
@@ -28,6 +34,7 @@ const OrdenesProvider = ({ children }) => {
     // primer state
     const [ordenes, setOrdenes] = useState([]);
 
+
     // función para obtener los clientes solo cuando se carge el componente
 
     const consultarOrdenes = async () => {
@@ -37,12 +44,30 @@ const OrdenesProvider = ({ children }) => {
             const { data } = await ordenAxios.get('/ordenes', config);
 
             setOrdenes(data);
+
         } catch (error) {
             console.log(error);
         }
     };
+
+    const consultarDetailsOrden = async ()=>{
+        try {
+            const token = localStorage.getItem('token')
+            if(!token) return;
+            const {data} = await clienteAxios.get('/DetalleOrden', config)
+            setDetailsOrden(data)
+
+        }catch (error){
+            console.log('error')
+        }
+    }
+
+
+
+
     useEffect(() => {
         consultarOrdenes();
+        consultarDetailsOrden()
     }, [auth]);
 
     const agregarOrden = async (data, reset, handleClose) => {
@@ -131,6 +156,8 @@ const OrdenesProvider = ({ children }) => {
                 setDetallesOrden,
                 detallesOrden,
                 cambiarEstadoDeOrden,
+                detailsOrden,
+                consultarDetailsOrden
             }}
         >
             {children}
