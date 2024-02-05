@@ -82,7 +82,7 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
                         onSubmit={handleSubmit(agregarNuevoColor)}
                         className='row g-3 needs-validation'
                     >
-                        <div className='col-md-6'>
+                        <div className='col-md-12'>
                             <label htmlFor='rol' className='col-form-label'>
                                 {' '}
                                 Colores
@@ -101,6 +101,7 @@ const SeleccionarColors = ({ handleClosee, showw, handleShoww }) => {
                                     value='Seleccionar colores'
                                     disabled={true}
                                 ></option>
+                                <option value=''>Seleccionar colores</option>
                                 {colorsDb.map((F) => (
                                     <option key={F.id_color} value={F.id_color}>
                                         {F.color}
