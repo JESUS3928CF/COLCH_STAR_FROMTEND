@@ -1,8 +1,8 @@
 //----------------TOMAS SANTIAGO VANEGAS SANCHEZ
 //--------------------14 de noviembre 203
 
-// Permitirar agregar una prenda, color mediante un formulario
-//y se mostarra en la tabla de prendas
+// Permitirá agregar una prenda, color mediante un formulario
+//y se mostrara en la tabla de prendas
 
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
@@ -15,8 +15,7 @@ import {
 import Swal from 'sweetalert2';
 import AlertaError from '../chared/AlertaError';
 import { useEffect, useState } from 'react';
-import axios, { formToJSON } from 'axios';
-import AgregarColors from './AgregarColors';
+import axios from 'axios';
 import HeaderModals from '../chared/HeaderModals';
 import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColors from './SeleccionarColor';
@@ -42,6 +41,19 @@ const AgregarPrendas = () => {
         setShow(false);
     };
     const handleShow = () => setShow(true);
+
+
+   //* Esto es para seleccionar todos los check list
+   const [selectAll, setSelectAll] = useState(false);
+
+   const handleSelectAll = () => {
+       // Toggle the selectAll state and update the checked state of all checkboxes
+       setSelectAll(!selectAll);
+       const checkboxes = document.querySelectorAll('input[name="tallas"]');
+       checkboxes.forEach((checkbox) => {
+           checkbox.checked = !selectAll;
+       });
+   }; 
 
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
@@ -74,6 +86,9 @@ const AgregarPrendas = () => {
     }, []);
 
     const onSubmit = async (data) => {
+
+            console.log(data);
+
         const {
             nombre,
             cantidad,
@@ -89,12 +104,12 @@ const AgregarPrendas = () => {
 
         if (selectColorsNombre == '') {
             Swal.fire({
-                title: 'Error',
-                text: 'Seleccione los colores',
-                icon: 'error',
+                title: 'Espera!',
+                text: 'Seleccione los colores disponibles para esta prenda',
+                icon: 'warning',
             });
         } else {
-            console.log(data);
+
 
             agregarPrendas(
                 {
@@ -112,6 +127,8 @@ const AgregarPrendas = () => {
                 reset,
                 handleClose
             );
+
+            setSelectAll(false);
         }
     };
 
@@ -330,12 +347,12 @@ const AgregarPrendas = () => {
                                     {...register('genero', {
                                         required: {
                                             value: true,
-                                            message: 'El genero es obligatoria',
+                                            message: 'El genero es obligatorio',
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('genero', e.target.value),
-                                            trigger('genero');
+                                        setValue('genero', e.target.value);
+                                        trigger('genero');
                                     }}
                                 >
                                     <option value='' disabled={false}>
@@ -344,7 +361,7 @@ const AgregarPrendas = () => {
                                     </option>
                                     <option value='Mujer'>Mujer</option>
                                     <option value='Hombre'>Hombre</option>
-                                    <option value='UniSexo'>Unisexo</option>
+                                    <option value='Unisex'>Unisex</option>
                                 </select>
 
                                 {errors.genero && (
@@ -366,7 +383,7 @@ const AgregarPrendas = () => {
                                     name='publicado'
                                     id=''
                                     className='form-control'
-                                    title='Seleccione una opcion'
+                                    title='Seleccione una opción'
                                     {...register('publicado', {
                                         required: {
                                             value: true,
@@ -419,8 +436,20 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
                             <div className='col-12'>
-                                <label>Tallas:</label>
+                                <p>Tallas:</p>
                                 <div className='row'>
+                                    <div className='col-3'>
+                                        <input
+                                            type='checkbox'
+                                            id='selectAll'
+                                            name='selectAll'
+                                            checked={selectAll}
+                                            onChange={handleSelectAll}
+                                        />
+                                        <label htmlFor='selectAll'>
+                                            Todas 
+                                        </label>
+                                    </div>
                                     <div className='col-3'>
                                         <input
                                             type='checkbox'
@@ -532,7 +561,7 @@ const AgregarPrendas = () => {
                                         <label htmlFor='Única'>Única</label>
                                     </div>{' '}
                                 </div>
-                                {errors.opciones && (
+                                {errors.tallas && (
                                     <p>Error: Selecciona al menos una talla</p>
                                 )}
                             </div>
@@ -540,7 +569,7 @@ const AgregarPrendas = () => {
                             <div className='modal-footer'>
                                 <div>
                                     <BotonNegro
-                                        text='Agregrar color'
+                                        text='Agregar color'
                                         onClick={handleShoww}
                                     />
                                 </div>

@@ -53,7 +53,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                     <Carousel.Item key={detalle.id_detalle_orden}>
                         <div className='col-md-12 '>
                             <label htmlFor='rol' className='col-form-label'>
-                                Producto: *
+                                Producto: * {detalle.talla}
                             </label>
 
                             <select
@@ -97,7 +97,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                     htmlFor='nombreCompraAgregar'
                                     className='col-form-label'
                                 >
-                                    Talla: *
+                                    Talla: * {detalle.talla}
                                 </label>
                                 <input
                                     type='text'
@@ -126,7 +126,7 @@ export const EditarDetallesOrden = ({ detallesOrden }) => {
                                     htmlFor='nombreCompraAgregar'
                                     className='col-form-label'
                                 >
-                                    color: *
+                                    color: * {detalle.color}
                                 </label>
                                 <input
                                     type='text'
