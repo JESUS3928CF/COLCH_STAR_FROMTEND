@@ -18,6 +18,7 @@ import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import useClientes from '../../hooks/useCliente.jsx'
 import Swal from 'sweetalert2';
+import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
 
 
 
@@ -28,10 +29,16 @@ const AgregarOrden = () => {
 
 
     /// Funcionalidad para cerra el modal
-    const [show, setShow] = useState(false);
+    // const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => { setShow(true); }
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => { setShow(true); }
+
+    const {
+        handleClose,
+        handleShow,
+        show
+    } = useOrden();
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -209,7 +216,7 @@ const AgregarOrden = () => {
 
 
 
-
+            <ModalVerDetallesOrden/>
         </div>
     )
 }

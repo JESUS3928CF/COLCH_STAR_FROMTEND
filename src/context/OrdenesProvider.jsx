@@ -73,6 +73,8 @@ const OrdenesProvider = ({ children }) => {
     const agregarOrden = async (data, reset, handleClose) => {
         const { fecha_entrega, fk_cliente, estado_de_orden } = data;
 
+        console.log(detailsOrden)
+
         try {
             const newOrden = await ordenAxios.post(
                 '/ordenes',
@@ -184,6 +186,7 @@ const OrdenesProvider = ({ children }) => {
                 showDetalles, 
                 handleClose,
                 handleShow,
+                show,
                 
                 detailsOrden,
                 consultarDetailsOrden

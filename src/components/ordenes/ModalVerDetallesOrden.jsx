@@ -5,7 +5,7 @@ import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useOrden from '../../hooks/useOrden';
 import BotonNegro from '../chared/BotonNegro';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const ModalVerDetallesOrden = () => {
     const {
@@ -16,6 +16,10 @@ export const ModalVerDetallesOrden = () => {
         handleShow,
 
     } = useOrden();
+
+    useEffect(() => {
+        console.log(detallesOrden)
+    },[detallesOrden])
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -63,7 +67,7 @@ export const ModalVerDetallesOrden = () => {
                     />
                     <div>
                         <div className='modal-body '>
-                            {detallesCompra.length !== 0 ? (
+                            {detallesOrden.length !== 0 ? (
                                 <form
                                     action=''
                                     className='row g-3 needs-validation'
@@ -93,7 +97,7 @@ export const ModalVerDetallesOrden = () => {
                                                                 type='text'
                                                                 className='form-control'
                                                                 value={
-                                                                    detalle.producto
+                                                                    detalle.fk_producto
                                                                 }
                                                                 readOnly
                                                             />
@@ -119,13 +123,13 @@ export const ModalVerDetallesOrden = () => {
                                                                 htmlFor='nombre'
                                                                 className='col-form-label'
                                                             >
-                                                                Precio:
+                                                                Subtotal:
                                                             </label>
                                                             <input
                                                                 type='text'
                                                                 className='form-control'
                                                                 value={
-                                                                    detalle.precio
+                                                                    detalle.subtotal
                                                                 }
                                                                 readOnly
                                                             />
@@ -135,13 +139,13 @@ export const ModalVerDetallesOrden = () => {
                                                                 htmlFor='nombre'
                                                                 className='col-form-label'
                                                             >
-                                                                Total Del Detalle:
+                                                                Descripción:
                                                             </label>
                                                             <input
                                                                 type='text'
                                                                 className='form-control'
                                                                 value={
-                                                                    detalle.precio * detalle.cantidad
+                                                                    detalle.descripcion
                                                                 }
                                                                 readOnly
                                                             />
