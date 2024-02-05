@@ -25,8 +25,6 @@ import BotonVerde from '../chared/BotonVerde';
 import useColors from '../../hooks/useColors';
 
 const AgregarPrendas = () => {
-    const [Tallas, setTalla] = useState([]);
-
     const { colors } = useColors();
     const {
         agregarPrendas,
@@ -42,20 +40,19 @@ const AgregarPrendas = () => {
     };
     const handleShow = () => setShow(true);
 
+    //* Esto es para seleccionar todos los check list
+    //    const [selectAll, setSelectAll] = useState(false);
 
-   //* Esto es para seleccionar todos los check list
-   const [selectAll, setSelectAll] = useState(false);
+    //    const handleSelectAll = () => {
+    //        // Toggle the selectAll state and update the checked state of all checkboxes
+    //        setSelectAll(!selectAll);
+    //        const checkboxes = document.querySelectorAll('input[name="tallas"]');
+    //        checkboxes.forEach((checkbox) => {
+    //            checkbox.checked = !selectAll;
+    //        });
+    //    };
 
-   const handleSelectAll = () => {
-       // Toggle the selectAll state and update the checked state of all checkboxes
-       setSelectAll(!selectAll);
-       const checkboxes = document.querySelectorAll('input[name="tallas"]');
-       checkboxes.forEach((checkbox) => {
-           checkbox.checked = !selectAll;
-       });
-   }; 
-
-    // funcion para cerrar modal de AgregarDiseñosModal
+    // función para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
 
     const handleClosee = () => {
@@ -79,15 +76,8 @@ const AgregarPrendas = () => {
         mode: 'onChange',
     });
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/tallas').then((response) => {
-            setTalla(response.data);
-        });
-    }, []);
-
     const onSubmit = async (data) => {
-
-            console.log(data);
+        console.log(data);
 
         const {
             nombre,
@@ -100,7 +90,8 @@ const AgregarPrendas = () => {
             tallas,
         } = data;
 
-        // console.log(setSelectColorsNombre)
+        console.log(selectColorsNombre, ' colors del provider');
+        console.log(colors, ' algo');
 
         if (selectColorsNombre == '') {
             Swal.fire({
@@ -109,8 +100,6 @@ const AgregarPrendas = () => {
                 icon: 'warning',
             });
         } else {
-
-
             agregarPrendas(
                 {
                     nombre: nombre.trim(),
@@ -121,14 +110,12 @@ const AgregarPrendas = () => {
                     imagen: imagen[0],
                     publicado: publicado,
                     tallas: tallas,
-                    colores: JSON.stringify(colors),
+                    colores: JSON.stringify(selectColorsNombre),
                 },
 
                 reset,
                 handleClose
             );
-
-            setSelectAll(false);
         }
     };
 
@@ -406,7 +393,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6' name='Archivo'>
+                            <div className='col-md-12' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'
@@ -438,6 +425,7 @@ const AgregarPrendas = () => {
                             <div className='col-12'>
                                 <p>Tallas:</p>
                                 <div className='row'>
+                                    {/*
                                     <div className='col-3'>
                                         <input
                                             type='checkbox'
@@ -450,6 +438,7 @@ const AgregarPrendas = () => {
                                             Todas 
                                         </label>
                                     </div>
+                                    */}
                                     <div className='col-3'>
                                         <input
                                             type='checkbox'
