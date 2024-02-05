@@ -128,7 +128,12 @@ const OrdenesProvider = ({ children }) => {
                     );
 
                     if (response.status === 200) {
-                        Swal.fire('Cambio de estado exitoso');
+                        Swal.fire({
+                            title: `Cambio de estado exitoso`,
+                            // text: "Este ",
+                            icon: 'success',
+                            
+                        });
                     } else {
                         Swal.fire(
                             'Error',
