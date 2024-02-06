@@ -16,8 +16,9 @@ export const AgregarDetallesOrden = () => {
         detallesOrden,
         setDetallesOrden,
         handleShowDetalles,
-        handleClose
-        
+        handleClose,
+        detailsOrden
+
     } = useOrden();
 
 
@@ -35,7 +36,7 @@ export const AgregarDetallesOrden = () => {
     });
 
     const guardarDetalle = (data) => {
-        
+
         setDetallesOrden([...detallesOrden, data]);
 
         reset()
@@ -46,13 +47,13 @@ export const AgregarDetallesOrden = () => {
 
 
 
-    return ( 
+    return (
         <form action='' className='' onSubmit={handleSubmit(guardarDetalle)} >
-            <p className='text-center'style={{
+            <p className='text-center' style={{
                 textAlign: 'center',
                 fontStyle: 'italic',
-                fontWeight:700,
-                marginTop:10
+                fontWeight: 700,
+                marginTop: 10
 
             }}> Agregar el Producto a la  Ordenes </p>
 
@@ -93,16 +94,18 @@ export const AgregarDetallesOrden = () => {
             <div className='row'>
                 <div className='col-md-6'>
                     <label
-                        htmlFor='nombreCompraAgregar'
+                        htmlFor="searchInput"
                         className='col-form-label'
                     >
                         Talla: *
                     </label>
                     <input
                         type='text'
+                        name="Tallasss"
+                        id="searchInput"
+                        list="Tallasss"
                         className='form-control'
-                        id='nombreCompraAgregar'
-                        name='nombreCompraAgregar'
+
                         placeholder='. . .'
                         {...register('talla', {
                             required: {
@@ -116,20 +119,31 @@ export const AgregarDetallesOrden = () => {
                     {errors.talla && (
                         <AlertaError message={errors.talla.message} />
                     )}
+
+                    <datalist id="Tallasss">
+                        {Array.from(
+                            new Set(detailsOrden.map((details) => details.talla))
+                        ).map((tipo, index) => (
+                            <option key={index} value={tipo}>
+                                {tipo}
+                            </option>
+                        ))}
+                    </datalist>
                 </div>
 
                 <div className='col-md-6'>
                     <label
-                        htmlFor='nombreCompraAgregar'
+                        htmlFor="searchInput"
                         className='col-form-label'
                     >
                         color: *
                     </label>
                     <input
                         type='text'
+                        name="Colorrr"
+                        id="searchInput"
+                        list="Colorrr"
                         className='form-control'
-                        id='nombreCompraAgregar'
-                        name='nombreCompraAgregar'
                         placeholder='. . .'
                         {...register('color', {
                             required: {
@@ -143,7 +157,19 @@ export const AgregarDetallesOrden = () => {
                     {errors.color && (
                         <AlertaError message={errors.color.message} />
                     )}
+
+                    <datalist id="Colorrr">
+                    {Array.from(
+                      new Set(detailsOrden.map((details) => details.color))
+                    ).map((tipo, index) => (
+                      <option key={index} value={tipo}>
+                        {tipo}
+                      </option>
+                    ))}
+                  </datalist>
+
                 </div>
+
                 <div className='col-md-6'>
                     <label
                         htmlFor='nombreCompraAgregar'
@@ -199,8 +225,8 @@ export const AgregarDetallesOrden = () => {
                 </div>
 
                 <div className='col-md-12 ' style={{
-                            textAlign: 'center',
-                        }}>
+                    textAlign: 'center',
+                }}>
                     <label htmlFor='rol' className='col-form-label' >
                         Descripcion:
                     </label>
@@ -212,7 +238,14 @@ export const AgregarDetallesOrden = () => {
                             textAlign: 'center',
                             height: 70
                         }}
-                        
+                        {...register('descripcion', {
+                            required: {
+                                value: true,
+                                message: 'la descripcion es obligatoria',
+                            }
+
+                        })}
+
                     />
 
                     {errors.descripcion && (

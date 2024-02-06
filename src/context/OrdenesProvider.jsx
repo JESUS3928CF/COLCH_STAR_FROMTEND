@@ -14,6 +14,12 @@ const OrdenesProvider = ({ children }) => {
 
     const [totalCompra, setTotalCompra] = useState(0);
 
+    const [detailsOrden, setDetailsOrden]=useState([])
+
+
+
+
+
     /// Calcular el total de la compra
     useEffect(() => {
         setTotalCompra(
@@ -28,6 +34,7 @@ const OrdenesProvider = ({ children }) => {
     // primer state
     const [ordenes, setOrdenes] = useState([]);
 
+
     // función para obtener los clientes solo cuando se carge el componente
 
     const consultarOrdenes = async () => {
@@ -37,16 +44,36 @@ const OrdenesProvider = ({ children }) => {
             const { data } = await ordenAxios.get('/ordenes', config);
 
             setOrdenes(data);
+
         } catch (error) {
             console.log(error);
         }
     };
+
+    const consultarDetailsOrden = async ()=>{
+        try {
+            const token = localStorage.getItem('token')
+            if(!token) return;
+            const {data} = await clienteAxios.get('/DetalleOrden', config)
+            setDetailsOrden(data)
+
+        }catch (error){
+            console.log('error')
+        }
+    }
+
+
+
+
     useEffect(() => {
         consultarOrdenes();
+        consultarDetailsOrden()
     }, [auth]);
 
     const agregarOrden = async (data, reset, handleClose) => {
         const { fecha_entrega, fk_cliente, estado_de_orden } = data;
+
+        console.log(detailsOrden)
 
         try {
             const newOrden = await ordenAxios.post(
@@ -101,7 +128,12 @@ const OrdenesProvider = ({ children }) => {
                     );
 
                     if (response.status === 200) {
-                        Swal.fire('Cambio de estado exitoso');
+                        Swal.fire({
+                            title: `Cambio de estado exitoso`,
+                            // text: "Este ",
+                            icon: 'success',
+                            
+                        });
                     } else {
                         Swal.fire(
                             'Error',
@@ -158,8 +190,11 @@ const OrdenesProvider = ({ children }) => {
                 handleCloseDetalles,
                 showDetalles, 
                 handleClose,
-                handleShow
+                handleShow,
+                show,
                 
+                detailsOrden,
+                consultarDetailsOrden
             }}
         >
             {children}
