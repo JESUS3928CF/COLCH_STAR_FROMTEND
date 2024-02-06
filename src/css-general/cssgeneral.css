@@ -6,6 +6,23 @@ button.swal2-confirm.swal2-styled {
     background-color: #151515;
 }
 
+
+/*/ Estilo para la alerta emergente */
+.small-alert-popup {
+    width: 350px;
+}
+
+.small-alert-content {
+    font-size: 14px;
+}
+
+/* Estilo para hacer más pequeño el icono */
+.small-icon::before {
+    font-size: 16px;
+}
+
+
+/* OTROS ESTILOS  */
 .buttom.btn-close {
     color: white;
 }
@@ -321,4 +338,3 @@ btn-AgregarP:hover {
 .r {
     font-weight: 600;
 }
-

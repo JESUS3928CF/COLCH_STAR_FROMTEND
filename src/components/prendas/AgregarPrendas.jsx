@@ -25,6 +25,10 @@ import BotonVerde from '../chared/BotonVerde';
 import useColors from '../../hooks/useColors';
 
 const AgregarPrendas = () => {
+
+    useEffect(() => {
+        setSelectColorsNombre([])
+    },[])
     const { colors } = useColors();
     const {
         agregarPrendas,

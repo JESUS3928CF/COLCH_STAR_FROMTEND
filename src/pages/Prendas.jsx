@@ -12,9 +12,7 @@ const Prendas =()=>{
     if (loading === true) return 'Cargando...';
     
     return auth.usuario.permisos.includes('producto') ? (
-        <>
             <ListarPrendas />
-        </>
     ) : (
         <Navigate to={'/administracion'} />
     );

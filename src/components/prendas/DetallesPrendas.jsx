@@ -126,7 +126,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                   >
                                                       <b>Colores:</b>
 
-                                                      <div className=' colors-div'>
+                                                      <div className='colors-div'>
                                                           {detallesPrendas.color &&
                                                               detallesPrendas.color.map(
                                                                   (
@@ -135,15 +135,13 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                   ) => (
                                                                       <div
                                                                           key={`${color.id_color}_${index}`}
-                                                                          className='text-center d-flex justify-content-center align-items-center'
+                                                                          className='color-block'
                                                                       >
                                                                           <span
-                                                                              style={{
-                                                                                  color: color.color,
-                                                                              }}
+                                                                              className='color-name'
                                                                           >
                                                                               {
-                                                                                  color.color
+                                                                                index !== detallesPrendas.color.length - 1? color.color + ",": color.color
                                                                               }
                                                                           </span>
                                                                           <div
@@ -167,7 +165,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                       <b>Tallas:</b>
                                                   </h3>
 
-                                                  <div className="tallas-div text-center">
+                                                  <div className='tallas-div text-center'>
                                                       {detallesPrendas.Talla &&
                                                       Array.isArray(
                                                           detallesPrendas.Talla

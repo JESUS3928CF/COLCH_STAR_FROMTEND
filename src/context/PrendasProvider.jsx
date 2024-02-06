@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import useAuth from '../hooks/useAuth';
 import clienteAxios from '../config/axios';
@@ -58,8 +58,6 @@ const PrendasProvider = ({ children }) => {
             }).then(() => {
                 handleClose();
             });
-        } finally {
-            setSelectColorsNombre([]);
         }
 
         setSelectColorsNombre([]);

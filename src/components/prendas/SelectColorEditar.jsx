@@ -1,15 +1,16 @@
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
 import BotonNegro from '../chared/BotonNegro';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import logo from '../../imgNavbar/cruz.png';
 import style from '../../pages/Productos.module.css';
 import useColors from '../../hooks/useColors';
 import usePrendas from '../../hooks/usePrendas';
 import { Modal } from 'react-bootstrap';
 import AlertaError from '../chared/AlertaError';
+import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 
 const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
     const {
@@ -36,7 +37,27 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
     const { selectColorsNombre, setSelectColorsNombre } = usePrendas();
 
     const agregarNewColors = (data) => {
-        console.log(data);
+
+        // Validar si el color ya está seleccionado
+        if (
+            selectColorsNombre.some((color) => color.id_color == data.id_color)
+        ) {
+            Swal.fire({
+                icon: 'warning',
+                //   title: "No es necesario",
+                text: 'Este color ya ha sido seleccionado.',
+                customClass: {
+                    popup: 'small-alert-popup', // Clase CSS para personalizar el tamaño
+                    content: 'small-alert-content', // Clase CSS para personalizar el tamaño
+                },
+                heightAuto: false, // Desactiva el ajuste automático de altura
+                timer: 3000, // Tiempo en milisegundos antes de cerrar automáticamente (en este caso, 2 segundos)
+                showConfirmButton: false, // No mostrar el botón de confirmación
+                position: 'top-end', // Posiciona la alerta en la esquina superior derecha
+                html: '<i class="small-icon"></i> Este color ya ha sido seleccionado.', // Usar la opción html para personalizar el contenido y el icono
+            });
+            return; // Detener la función si el color ya está seleccionado
+        }
 
         agregarColors(data);
 
@@ -44,20 +65,8 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
             (colorss) => colorss.id_color == data.id_color
         );
 
-        console.log(newColors);
-
         setSelectColorsNombre([...selectColorsNombre, newColors]);
-        console.log(setSelectColorsNombre([...selectColorsNombre, newColors]));
     };
-
-    // const [colorss, setColors] = useState([]);
-
-    // useEffect(() => {
-    //   axios.get("http://localhost:3000/api/colors").then((res) => {
-    //     setColors(res.data);
-    //   });
-
-    // }, []);
 
     useEffect(() => {
         if (detallesPrendas && detallesPrendas.color) {
@@ -121,12 +130,19 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
 
                             <div className='col-12 ml-6 mt-3'>
                                 <p>Colores seleccionados</p>
-
-                                {selectColorsNombre.map((colores, index) => (
-                                    <div key={index}>
-                                        <p>
-                                            <span>-{colores.color}</span>
-
+                                {selectColorsNombre.map((color, index) => (
+                                    <div
+                                        key={index}
+                                        className='selected-color-container'
+                                    >
+                                        <div
+                                            className='color-div-agregar'
+                                            style={{
+                                                backgroundColor: `${color.codigo}`,
+                                            }}
+                                        ></div>
+                                        <p className='ml-1'>
+                                            <span>-{color.color}</span>
                                             <span
                                                 onClick={() =>
                                                     eliminarColors01(index)
@@ -161,5 +177,13 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
         </Modal>
     );
 };
+
+// Definir las propTypes para validar los tipos de las props
+SeleccionarColorsEditar.propTypes = {
+  showw: PropTypes.bool.isRequired, // showw debe ser un booleano requerido
+  handleClosee: PropTypes.func.isRequired, // handleClosee debe ser una función requerida
+  detallesPrendas: PropTypes.array.isRequired, // detallesPrendas debe ser un objeto requerido
+};
+
 
 export default SeleccionarColorsEditar;

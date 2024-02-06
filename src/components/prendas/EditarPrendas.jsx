@@ -15,7 +15,6 @@ import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColorsEditar from './SelectColorEditar';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import { Modal } from 'react-bootstrap';
-import useColors from '../../hooks/useColors.jsx';
 
 const EditarPrendas = ({
     detallesPrendas,
@@ -40,18 +39,10 @@ const EditarPrendas = ({
     });
 
     const [Colors, setColors] = useState([]);
-    const { colors, setColores } = useColors();
-    const [Tallas, setTalla] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/colors').then((res) => {
             setColors(res.data);
-        });
-    }, []);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/tallas').then((response) => {
-            setTalla(response.data);
         });
     }, []);
 
@@ -82,6 +73,7 @@ const EditarPrendas = ({
                 onHide={() => {
                     reset();
                     handleClose();
+                    setSelectColorsNombre([]);
                 }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditarPrenda'
@@ -126,12 +118,12 @@ const EditarPrendas = ({
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'No puede ingresar numeros',
+                                                'No puede ingresar números',
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value),
-                                            trigger('nombre');
+                                        setValue('nombre', e.target.value);
+                                        trigger('nombre');
                                     }}
                                 />
 
@@ -211,8 +203,8 @@ const EditarPrendas = ({
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('precio', e.target.value),
-                                            trigger('precio');
+                                        setValue('precio', e.target.value);
+                                        trigger('precio');
                                     }}
                                 />
                                 {errors.precio && (
@@ -245,15 +237,15 @@ const EditarPrendas = ({
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'Error no se puede numeros ni caracteres especiales en el tipo de tela',
+                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
                                         },
                                     })}
                                     onChange={(e) => {
                                         setValue(
                                             'tipo_de_tela',
                                             e.target.value
-                                        ),
-                                            trigger('tipo_de_tela');
+                                        );
+                                        trigger('tipo_de_tela');
                                     }}
                                 />
 
@@ -511,7 +503,10 @@ const EditarPrendas = ({
 
                                 <CancelarModal
                                     reset={reset}
-                                    handleClose={handleClose}
+                                    handleClose={() => {
+                                        handleClose();
+                                        setSelectColorsNombre([]);
+                                    }}
                                     setSelectColorsNombre={
                                         setSelectColorsNombre
                                     }
