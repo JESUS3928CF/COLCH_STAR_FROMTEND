@@ -56,12 +56,12 @@ const AgregarOrden = () => {
     const { clientes } = useClientes()
 
     // función que llega del provider que tiene todas las rutas
-    const { agregarOrden,detallesOrden } = useOrden();
+    const { agregarOrden, detallesOrden } = useOrden();
 
 
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
-    
+
 
         if (detallesOrden.length === 0) {
             Swal.fire({
@@ -191,6 +191,37 @@ const AgregarOrden = () => {
                                             />
                                         )}
                                     </div>
+
+
+                                    <div className='col-md-12' style={{textAlign:'center', fontWeight:600}} >
+                                        <label
+                                            htmlFor='nombreCompraAgregar'
+                                            className='col-form-label'
+                                            
+                                        >
+                                            Precio Total: *
+                                        </label>
+                                        <input
+                                            type='number'
+                                            className='form-control'
+                                            id='nombreCompraAgregar'
+                                            name='nombreCompraAgregar'
+                                            placeholder='. . .'
+                                            {...register('precio_total', {
+                                                required: {
+                                                    value: true,
+                                                    message: 'El color es obligatorio',
+                                                }
+
+                                            })}
+                                        />
+
+                                        {errors.subtotal && (
+                                            <AlertaError message={errors.subtotal.message} />
+                                        )}
+                                    </div>
+
+
                                 </div>
 
                             </form>
@@ -216,7 +247,7 @@ const AgregarOrden = () => {
 
 
 
-            <ModalVerDetallesOrden/>
+            <ModalVerDetallesOrden />
         </div>
     )
 }
