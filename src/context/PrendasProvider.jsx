@@ -49,18 +49,27 @@ const PrendasProvider = ({ children }) => {
                 consultPrendas();
                 consultarMovimientos();
                 handleClose();
+                setSelectColorsNombre([]);
             });
-        } catch (error) {
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un error',
-                icon: 'error',
-            }).then(() => {
-                handleClose();
-            });
+        } catch (err) {
+            if (err.response && err.response.status === 403) {
+                Swal.fire({
+                    title: 'Espera!!',
+                    text: err.response.data.message,
+                    icon: 'warning',
+                });
+            } else {
+                // En caso de otros errores, muestra una alerta genérica de error
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error',
+                    icon: 'error',
+                }).then(() => {
+                    handleClose();
+                    setSelectColorsNombre([]);
+                });
+            }
         }
-
-        setSelectColorsNombre([]);
     };
 
     const updatePrendas = (data, detallesPrendas, handleClose) => {
@@ -108,21 +117,31 @@ const PrendasProvider = ({ children }) => {
                         consultPrendas();
                         consultarMovimientos();
                         handleClose();
+                        setSelectColorsNombre([]);
                     });
                 })
-                .catch((error) => {
-                  
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Hubo un error',
-                        icon: 'error',
-                    });
+                .catch((err) => {
+                    if (err.response && err.response.status === 403) {
+                        Swal.fire({
+                            title: 'Espera!!',
+                            text: err.response.data.message,
+                            icon: 'warning',
+                        });
+                    } else {
+                        // En caso de otros errores, muestra una alerta genérica de error
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Hubo un error',
+                            icon: 'error',
+                        }).then(() => {
+                            handleClose();
+                            setSelectColorsNombre([]);
+                        });
+                    }
                 });
         } else {
             alert('No se encontró el Id');
         }
-
-        setSelectColorsNombre([]);
     };
 
     const updateEstado = (id) => {

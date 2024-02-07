@@ -15,11 +15,9 @@ const ColorsProvider = ({ children }) => {
     const agregarColors = (data) => {
         const newColors = [...colors, data];
         setColores(newColors);
-        console.log(newColors, ' RESPALDO DE COLORES');
     };
 
     const eliminarColors = (index) => {
-        console.log(index);
         const newColors = [...colors];
         newColors.splice(index, 1);
         setColores(newColors);

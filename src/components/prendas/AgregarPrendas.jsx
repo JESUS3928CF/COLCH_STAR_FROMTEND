@@ -81,7 +81,6 @@ const AgregarPrendas = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
 
         const {
             nombre,
@@ -93,9 +92,6 @@ const AgregarPrendas = () => {
             publicado,
             tallas,
         } = data;
-
-        console.log(selectColorsNombre, ' colors del provider');
-        console.log(colors, ' algo');
 
         if (selectColorsNombre == '') {
             Swal.fire({
@@ -212,12 +208,12 @@ const AgregarPrendas = () => {
                                         },
                                         pattern: {
                                             value: /^\d+$/,
-                                            message: 'No se peremiten letras',
+                                            message: 'No se permiten letras',
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('cantidad', e.target.value),
-                                            trigger('cantidad');
+                                        setValue('cantidad', e.target.value);
+                                        trigger('cantidad');
                                     }}
                                 />
                                 {errors.cantidad && (
@@ -254,8 +250,8 @@ const AgregarPrendas = () => {
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('precio', e.target.value),
-                                            trigger('precio');
+                                        setValue('precio', e.target.value);
+                                        trigger('precio');
                                     }}
                                 />
 
@@ -296,8 +292,8 @@ const AgregarPrendas = () => {
                                         setValue(
                                             'tipo_de_tela',
                                             e.target.value
-                                        ),
-                                            trigger('tipo_de_tela');
+                                        );
+                                        trigger('tipo_de_tela');
                                     }}
                                 />
 

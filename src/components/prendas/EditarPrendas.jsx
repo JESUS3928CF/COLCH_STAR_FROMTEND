@@ -15,6 +15,7 @@ import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColorsEditar from './SelectColorEditar';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 const EditarPrendas = ({
     detallesPrendas,
@@ -25,7 +26,12 @@ const EditarPrendas = ({
     showw,
     handleClosex,
 }) => {
-    const { updatePrendas, Prendas, setSelectColorsNombre } = usePrendas();
+    const {
+        updatePrendas,
+        Prendas,
+        setSelectColorsNombre,
+        selectColorsNombre,
+    } = usePrendas();
 
     const {
         register,
@@ -61,7 +67,15 @@ const EditarPrendas = ({
     }, [detallesPrendas, show]);
 
     const onSubmitt = async (data) => {
-        updatePrendas(data, detallesPrendas, handleClose);
+        if (selectColorsNombre == '') {
+            Swal.fire({
+                title: 'Espera!',
+                text: 'Seleccione los colores disponibles para esta prenda',
+                icon: 'warning',
+            });
+        } else {
+            updatePrendas(data, detallesPrendas, handleClose);
+        }
     };
 
     return (
@@ -320,10 +334,6 @@ const EditarPrendas = ({
                                             validarBooleanos(value),
                                     })}
                                 >
-                                    <option
-                                        value='Seleccione una opción'
-                                        disabled={true}
-                                    ></option>
                                     <option value='true'>Si</option>
                                     <option value='false'>No</option>
                                 </select>
