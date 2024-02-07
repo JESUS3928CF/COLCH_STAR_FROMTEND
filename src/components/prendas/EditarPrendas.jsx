@@ -61,8 +61,6 @@ const EditarPrendas = ({
     }, [detallesPrendas, show]);
 
     const onSubmitt = async (data) => {
-        console.log(data);
-
         updatePrendas(data, detallesPrendas, handleClose);
     };
 
@@ -494,9 +492,6 @@ const EditarPrendas = ({
                                     modalToOpen={'#crearColorEditar'}
                                     modalClouse={'modal'}
                                     onClick={() => {
-                                        setSelectColorsNombre(
-                                            detallesPrendas.color
-                                        );
                                         handleShoww();
                                     }}
                                 />
