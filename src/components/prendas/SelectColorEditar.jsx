@@ -75,7 +75,6 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
         }
     }, [detallesPrendas.color]);
 
-    console.log(detallesPrendas.color);
 
     return (
         <Modal
