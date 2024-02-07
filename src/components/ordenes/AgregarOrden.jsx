@@ -193,7 +193,7 @@ const AgregarOrden = () => {
                                     </div>
 
 
-                                    <div className='col-md-12' style={{textAlign:'center', fontWeight:600}} >
+                                    <div className='col-md-8' style={{textAlign:'center', fontWeight:600}} >
                                         <label
                                             htmlFor='nombreCompraAgregar'
                                             className='col-form-label'
@@ -206,7 +206,6 @@ const AgregarOrden = () => {
                                             className='form-control'
                                             id='nombreCompraAgregar'
                                             name='nombreCompraAgregar'
-                                            placeholder='. . .'
                                             {...register('precio_total', {
                                                 required: {
                                                     value: true,
