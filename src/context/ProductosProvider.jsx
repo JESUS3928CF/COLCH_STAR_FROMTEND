@@ -90,14 +90,22 @@ const ProductosProvider = ({ children }) => {
             });
         } catch (err) {
 
-            // En caso de otros errores, muestra una alerta genérica de error
-            Swal.fire({
-                title: "Error",
-                text: "Hubo un error",
-                icon: "error",
-            }).then(() => {
-                handleClose();
-            });
+            if (err.response && err.response.status === 403) {
+                Swal.fire({
+                    title: 'Espera!',
+                    text: err.response.data.message,
+                    icon: 'warning',
+                });
+            } else {
+                // En caso de otros errores, muestra una alerta genérica de error
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error',
+                    icon: 'error',
+                }).then(() => {
+                    handleClose();
+                });
+            }
 
         } finally {
             // console.log("Hola")
