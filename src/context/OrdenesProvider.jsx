@@ -12,9 +12,11 @@ const OrdenesProvider = ({ children }) => {
 
     const [detallesOrden, setDetallesOrden] = useState([]);
 
-    const [totalCompra, setTotalCompra] = useState(0);
 
     const [detailsOrden, setDetailsOrden]=useState([])
+
+    const [totalOrden, setTotalOrden] = useState(0);
+
 
 
 
@@ -22,10 +24,10 @@ const OrdenesProvider = ({ children }) => {
 
     /// Calcular el total de la compra
     useEffect(() => {
-        setTotalCompra(
+        setTotalOrden(
             detallesOrden.reduce(
                 (total, producto) =>
-                    total + producto.cantidad * producto.precio,
+                    total + producto.cantidad * producto.subtotal,
                 0
             )
         );
