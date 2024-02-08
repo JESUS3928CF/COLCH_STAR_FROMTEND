@@ -44,8 +44,7 @@ const EditarPrendas = ({
         mode: 'onChange',
     });
 
-    
-  const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
+    const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     useEffect(() => {
         if (detallesPrendas) {
@@ -80,7 +79,6 @@ const EditarPrendas = ({
             updatePrendas(data, detallesPrendas, handleClose);
         }
 
-        
         setErrorMensajeTallas(null);
     };
 
@@ -232,7 +230,7 @@ const EditarPrendas = ({
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-4'>
+                            <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
                                     Tipo de tela:
                                 </label>
@@ -308,10 +306,6 @@ const EditarPrendas = ({
                                         },
                                     })}
                                 >
-                                    <option
-                                        value='Seleccione una opción'
-                                        disabled={true}
-                                    ></option>
                                     <option value='Mujer'>Mujer</option>
                                     <option value='Hombre'>Hombre</option>
                                     <option value='Unisex'>Unisex</option>
