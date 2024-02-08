@@ -44,13 +44,8 @@ const EditarPrendas = ({
         mode: 'onChange',
     });
 
-    const [Colors, setColors] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/colors').then((res) => {
-            setColors(res.data);
-        });
-    }, []);
+    
+  const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     useEffect(() => {
         if (detallesPrendas) {
@@ -67,6 +62,14 @@ const EditarPrendas = ({
     }, [detallesPrendas, show]);
 
     const onSubmitt = async (data) => {
+        // Validación que manda un alerta que al menos se debe seleccionar un permiso
+        if (data.tallas.length === 0 || data.tallas === false) {
+            setErrorMensajeTallas(
+                'Debes seleccionar al menos una talla disponible para esta prenda'
+            );
+            return;
+        }
+
         if (selectColorsNombre == '') {
             Swal.fire({
                 title: 'Espera!',
@@ -76,6 +79,9 @@ const EditarPrendas = ({
         } else {
             updatePrendas(data, detallesPrendas, handleClose);
         }
+
+        
+        setErrorMensajeTallas(null);
     };
 
     return (
@@ -491,8 +497,8 @@ const EditarPrendas = ({
                                         <label htmlFor='Única'>Única</label>
                                     </div>{' '}
                                 </div>
-                                {errors.tallas && (
-                                    <p>Error: Selecciona al menos una talla</p>
+                                {errorMensajeTallas && (
+                                    <AlertaError message={errorMensajeTallas} />
                                 )}
                             </div>
 

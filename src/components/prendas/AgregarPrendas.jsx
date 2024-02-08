@@ -14,22 +14,15 @@ import {
 } from '../../Validations/validations';
 import Swal from 'sweetalert2';
 import AlertaError from '../chared/AlertaError';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import HeaderModals from '../chared/HeaderModals';
 import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColors from './SeleccionarColor';
 import { Modal } from 'react-bootstrap';
 import usePrendas from '../../hooks/usePrendas';
 import BotonVerde from '../chared/BotonVerde';
-import useColors from '../../hooks/useColors';
 
 const AgregarPrendas = () => {
-
-    useEffect(() => {
-        setSelectColorsNombre([])
-    },[])
-    const { colors } = useColors();
     const {
         agregarPrendas,
         Prendas,
@@ -43,6 +36,9 @@ const AgregarPrendas = () => {
         setShow(false);
     };
     const handleShow = () => setShow(true);
+
+    
+  const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     //* Esto es para seleccionar todos los check list
     //    const [selectAll, setSelectAll] = useState(false);
@@ -81,7 +77,6 @@ const AgregarPrendas = () => {
     });
 
     const onSubmit = async (data) => {
-
         const {
             nombre,
             cantidad,
@@ -92,6 +87,13 @@ const AgregarPrendas = () => {
             publicado,
             tallas,
         } = data;
+
+
+        // Validación que manda un alerta que al menos se debe seleccionar un permiso
+        if (tallas.length === 0 || tallas === false) {
+            setErrorMensajeTallas('Debes seleccionar al menos una talla disponible para esta prenda');
+            return;
+        }
 
         if (selectColorsNombre == '') {
             Swal.fire({
@@ -117,11 +119,19 @@ const AgregarPrendas = () => {
                 handleClose
             );
         }
+
+        setErrorMensajeTallas(null);
     };
 
     return (
         <>
-            <BotonVerde text={'Agregar Prendas'} onClick={handleShow} />
+            <BotonVerde
+                text={'Agregar Prendas'}
+                onClick={() => {
+                    handleShow();
+                    setSelectColorsNombre([]);
+                }}
+            />
             <Modal
                 show={show}
                 onHide={() => {
@@ -550,8 +560,8 @@ const AgregarPrendas = () => {
                                         <label htmlFor='Única'>Única</label>
                                     </div>{' '}
                                 </div>
-                                {errors.tallas && (
-                                    <p>Error: Selecciona al menos una talla</p>
+                                {errorMensajeTallas && (
+                                    <AlertaError message={errorMensajeTallas} />
                                 )}
                             </div>
 
