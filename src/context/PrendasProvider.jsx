@@ -11,7 +11,6 @@ const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
     const { auth, token } = useAuth();
-    const { colors, setColores } = useColors();
     const { consultarMovimientos } = useMovimientos();
 
     const [Prendas, setPrendas] = useState([]);
@@ -83,6 +82,9 @@ const PrendasProvider = ({ children }) => {
             publicado,
             tallas,
         } = data;
+
+        console.log(nombre);
+
 
         if (detallesPrendas.id_prenda) {
             axios

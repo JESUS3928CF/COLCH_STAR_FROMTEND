@@ -37,8 +37,7 @@ const AgregarPrendas = () => {
     };
     const handleShow = () => setShow(true);
 
-    
-  const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
+    const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     //* Esto es para seleccionar todos los check list
     //    const [selectAll, setSelectAll] = useState(false);
@@ -88,10 +87,11 @@ const AgregarPrendas = () => {
             tallas,
         } = data;
 
-
         // Validación que manda un alerta que al menos se debe seleccionar un permiso
         if (tallas.length === 0 || tallas === false) {
-            setErrorMensajeTallas('Debes seleccionar al menos una talla disponible para esta prenda');
+            setErrorMensajeTallas(
+                'Debes seleccionar al menos una talla disponible para esta prenda'
+            );
             return;
         }
 
@@ -140,7 +140,7 @@ const AgregarPrendas = () => {
                 }}
                 id='myModal'
             >
-                <div className='modal-lg '>
+                <div className='modal-content'>
                     <HeaderModals
                         title={'Agregar Prenda'}
                         handleClose={() => {
@@ -179,7 +179,7 @@ const AgregarPrendas = () => {
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'Error no se puede numeros ni caracteres especiales en el nombre',
+                                                'Error no se puede números ni caracteres especiales en el nombre',
                                         },
                                     })}
                                     onChange={(e) => {
@@ -194,7 +194,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 ms-auto'>
+                            <div className='col-md-6'>
                                 <label
                                     htmlFor='cantidad'
                                     className='col-form-label'
@@ -233,7 +233,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-2' name='precio'>
+                            <div className='col-md-6' name='precio'>
                                 <label
                                     htmlFor='precio'
                                     className='col-form-label'
@@ -272,7 +272,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-4'>
+                            <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
                                     Tipo de tela: *
                                 </label>
@@ -295,7 +295,7 @@ const AgregarPrendas = () => {
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'Error no se puede numeros ni caracteres especiales en el tipo de tela',
+                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
                                         },
                                     })}
                                     onChange={(e) => {
