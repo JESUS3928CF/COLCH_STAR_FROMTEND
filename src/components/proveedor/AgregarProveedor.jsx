@@ -149,23 +149,24 @@ const AgregarProveedor = () => {
                                                     message:
                                                         'La Identificación es obligatoria', // es un mensaje que se mostrará si la validación falla.
                                                 },
-                                                pattern: {
-                                                    value: /^\d+$/, //expreción regular para prohibir letras y espacios en blamco
-                                                    message:
-                                                        'No puede contener Letras ni  espacios en blanco',
-                                                },
                                                 validate: (value) => {
-                                                    if (
-                                                        value.length < 6 ||
-                                                        value.length > 11
-                                                    ) {
-                                                        return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                    if (value.includes(" ")) {
+                                                        return 'No se permiten espacios en blanco';
                                                     }
-                                                    return true; // La validación pasa si cumple ambas condiciones
+                                                    if (isNaN(value)) {
+                                                        return 'La identificación solo puede contener números';
+                                                    }
+                                                    if (value.startsWith("0")) {
+                                                        return 'La identificación no puede iniciar con 0';
+                                                    }
+                                                    if (value.length < 6 || value.length > 10) {
+                                                        return 'La Identificación debe tener entre 6 y 10 dígitos';
+                                                    }
+                                                    return true;
                                                 },
                                             })}
                                             onChange={(e) => {
-                                                const inputValue = e.target.value.slice(0, 12); // Limitar la longitud máxima
+                                                const inputValue = e.target.value.slice(0, 11); // Limitar la longitud máxima
                                                 setValue('identificador', inputValue);
                                                 trigger('identificador');
                                             }}
@@ -204,23 +205,18 @@ const AgregarProveedor = () => {
                                                 'El Nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(
-                                                value
-                                            );
+                                            const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
+                                            if (value.length < 3 || value.length > 20) {
+                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            if (!regex.test(value)) {
+                                                return 'Solo se permiten letras';
+                                            }
+                                            return true;
                                         },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'No puede contener números ni caracteres especiales',
-                                        },
-                                        minLength:{
-                                            value: 3,
-                                            message: 'Nombre no valido, minimo 3 Caracteres'
-                                        },
-                                        maxLength:{
-                                            value: 20,
-                                            message: 'Nombre no valido, maximo 20 Caracteres'
-                                        }
                                     })}
                                     onChange={(e) => {
                                         const inputValue = e.target.value.slice(0, 21); // Limitar la longitud máxima
@@ -254,27 +250,24 @@ const AgregarProveedor = () => {
                                             message:
                                                 'El teléfono es obligatorio',
                                         },
-                                        pattern: {
-                                            value: /^\d+$/,
-                                            message:
-                                                'No puede contener Letras ni espacios en blanco',
-                                        },
                                         validate: (value) => {
-                                            const telefonoSinEspacios =
-                                                value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                            if (
-                                                telefonoSinEspacios.length <
-                                                7 ||
-                                                telefonoSinEspacios.length >
-                                                11
-                                            ) {
-                                                return 'El telefono debe tener minimo 7 digitos y maximo 11';
+                                            if (value.includes(" ")) {
+                                                return 'No se permiten espacios en blanco';
+                                            }
+                                            if (isNaN(value)) {
+                                                return 'El teléfono solo puede contener números';
+                                            }
+                                            if (value.startsWith("0")) {
+                                                return 'El teléfono no puede iniciar con 0';
+                                            }
+                                            if (value.length < 7 || value.length > 10) {
+                                                return 'El teléfono debe tener entre 7 y 10 dígitos';
                                             }
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 12); // Limitar la longitud máxima
+                                        const inputValue = e.target.value.slice(0, 11); // Limitar la longitud máxima
                                         setValue('telefono', inputValue);
                                         trigger('telefono');
                                     }}
@@ -307,16 +300,18 @@ const AgregarProveedor = () => {
                                                 'La Dirección es obligatoria',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(
-                                                value
-                                            );
+                                            if (value.length < 4 || value.length > 40) {
+                                                return 'La dirección debe tener entre 4 y 40 caracteres';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue(
-                                            'direccion',
-                                            e.target.value
-                                        );
+                                        const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                                        setValue('direccion', inputValue);
                                         trigger('direccion');
                                     }}
                                 />
