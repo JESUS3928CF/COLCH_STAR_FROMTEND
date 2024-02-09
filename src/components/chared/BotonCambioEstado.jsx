@@ -11,20 +11,27 @@ const BotonCambioEstado = ({
     ruta,
     editarEstado,
     cambiarPublicacion = { estado: true, paraPublicacion: false },
+    bloquearCambioDeEstado = false,
+    mensajeError = 'Este ' +
+        nombreRegistro +
+        ' no se le puede cambiar el estado de publicación porque está Inhabilitado',
+    detalle = [],
 }) => {
+    const { config } = useAuth();
+
     const alertaError = () => {
-        return Swal.fire(
-            'Acción inválida!',
-            `Este  ${nombreRegistro} no se le puede cambiar el estado de publicación porque está Inhabilitado`,
-            'error'
-        );
+        return Swal.fire('Acción inválida!', `${mensajeError}`, 'error');
     };
 
     /// Aca definimos si le podemos cambiar el estado de publicación de un registro
     const validarElCambioDeEstado = new Promise((resolve) => {
         let sePuedeCambiar = true;
 
-        if (cambiarPublicacion.paraPublicacion && !cambiarPublicacion.estado)
+        if (
+            (cambiarPublicacion.paraPublicacion &&
+                !cambiarPublicacion.estado) ||
+            (bloquearCambioDeEstado && isChecked == false)
+        )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
             nombreRegistro = nombreRegistro + ' en el catalogo';
@@ -35,8 +42,6 @@ const BotonCambioEstado = ({
             resolve(alertaError);
         }
     });
-
-    const { config } = useAuth();
 
     // const [isChecked, setEstado] = useState(isChecked);
     /// Cambiar Estado del registro en la base de datos
@@ -51,7 +56,9 @@ const BotonCambioEstado = ({
             showCancelButton: true,
             confirmButtonColor: '#3E5743',
             cancelButtonColor: '#252432',
-            confirmButtonText: `Si, ${isChecked ? 'Inhabilítalo' : 'Habilítalo'}`,
+            confirmButtonText: `Si, ${
+                isChecked ? 'Inhabilítalo' : 'Habilítalo'
+            }`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -59,7 +66,7 @@ const BotonCambioEstado = ({
                     // Realiza la petición PATCH
                     const response = await clienteAxios.patch(
                         ruta,
-                        { estado: isChecked },
+                        { estado: isChecked, detalle: detalle },
                         config
                     );
 
@@ -85,12 +92,19 @@ const BotonCambioEstado = ({
                         );
                     }
                 } catch (error) {
-                    console.error('Error al realizar la petición:', error);
-                    Swal.fire(
-                        'Error',
-                        'Hubo un problema al cambiar el estado',
-                        'error'
-                    );
+                    if (error.response.status === 403) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: error.response.data.message,
+                            icon: 'error',
+                        });
+                    } else {
+                        Swal.fire(
+                            'Error',
+                            'Hubo un problema al cambiar el estado',
+                            'error'
+                        );
+                    }
                 }
             }
         });
@@ -137,6 +151,9 @@ BotonCambioEstado.propTypes = {
         paraPublicacion: PropTypes.bool.isRequired,
     }),
     editarEstado: PropTypes.func,
+    bloquearCambioDeEstado: PropTypes.bool,
+    mensajeError: PropTypes.string,
+    detalle: PropTypes.array,
 };
 
 export default BotonCambioEstado;
