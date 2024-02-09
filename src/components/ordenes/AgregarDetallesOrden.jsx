@@ -55,7 +55,7 @@ export const AgregarDetallesOrden = () => {
                 fontWeight: 700,
                 marginTop: 10
 
-            }}> Agregar el Producto a la  Ordenes </p>
+            }}> Agregar el producto a la  ordenes </p>
 
             <div className='col-md-12 '>
                 <label htmlFor='rol' className='col-form-label'>
@@ -136,7 +136,7 @@ export const AgregarDetallesOrden = () => {
                         htmlFor="searchInput"
                         className='col-form-label'
                     >
-                        color: *
+                        Color: *
                     </label>
                     <input
                         type='text'
@@ -202,7 +202,7 @@ export const AgregarDetallesOrden = () => {
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
                     >
-                        subtotal: *
+                        Subtotal: *
                     </label>
                     <input
                         type='number'
@@ -228,7 +228,7 @@ export const AgregarDetallesOrden = () => {
                     textAlign: 'center',
                 }}>
                     <label htmlFor='rol' className='col-form-label' >
-                        Descripcion:
+                        Descripción:
                     </label>
 
                     <textarea
@@ -241,7 +241,7 @@ export const AgregarDetallesOrden = () => {
                         {...register('descripcion', {
                             required: {
                                 value: true,
-                                message: 'la descripcion es obligatoria',
+                                message: 'La descripción es obligatoria',
                             }
 
                         })}
@@ -257,7 +257,7 @@ export const AgregarDetallesOrden = () => {
             <div className='row py-3 text-center'>
                 <div className='col-md-6 pl-1 '>
                     <BotonNegro
-                        text={'Ver Detalles'}
+                        text={'Ver detalles'}
                         onClick={() => {
                             handleClose();
                             handleShowDetalles();
@@ -266,7 +266,7 @@ export const AgregarDetallesOrden = () => {
                 </div>
 
                 <div className='col-md-6 pr-1'>
-                    <GuardarModal text='Agregar Detalle' />
+                    <GuardarModal text='Agregar detalle' />
                 </div>
             </div>
         </form>

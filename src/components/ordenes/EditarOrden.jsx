@@ -128,7 +128,7 @@ const EditarOrden = ({ orden, handleClose, show }) => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha de Entrega: *
+                                            Fecha de entrega: *
                                         </label>
                                         <input
                                             type='date'

@@ -164,7 +164,7 @@ export const AgregarDetallesCompra = () => {
             <div className='row py-3 text-center'>
                 <div className='col-md-6 pl-1 '>
                     <BotonNegro
-                        text={'Ver Detalles'}
+                        text={'Ver detalles'}
                         onClick={() => {
                             handleClose();
                             handleShowDetalles();
@@ -173,7 +173,7 @@ export const AgregarDetallesCompra = () => {
                 </div>
 
                 <div className='col-md-6 pr-1'>
-                    <GuardarModal text='Agregar Detalle' />
+                    <GuardarModal text='Agregar detalle' />
                 </div>
             </div>
         </form>

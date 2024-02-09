@@ -53,7 +53,7 @@ const AgregarCompras = () => {
     return (
         <div>
             {/* modal agregar venta*/}
-            <BotonVerde text={'Agregar Compra'} onClick={handleShow} />
+            <BotonVerde text={'Agregar compra'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
@@ -65,7 +65,7 @@ const AgregarCompras = () => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Agregar Compra'}
+                        title={'Agregar compra'}
                         handleClose={() => {
                             reset();
                             handleClose(reset);
@@ -133,7 +133,7 @@ const AgregarCompras = () => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha de la Compra: *
+                                            Fecha de compra: *
                                         </label>
                                         <input
                                             type='date'

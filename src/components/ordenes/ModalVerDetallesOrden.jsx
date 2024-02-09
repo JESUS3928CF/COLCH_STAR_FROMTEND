@@ -59,7 +59,7 @@ export const ModalVerDetallesOrden = () => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Detalles Agregados Compra'}
+                        title={'Detalles agregados de las ordenes'}
                         handleClose={() => {
                             handleCloseDetalles();
                             handleShow();
@@ -91,7 +91,7 @@ export const ModalVerDetallesOrden = () => {
                                                                 className='col-form-label'
                                                             >
                                                                 Producto
-                                                                Comprado:
+                                                                comprado:
                                                             </label>
                                                             <input
                                                                 type='text'
@@ -154,7 +154,7 @@ export const ModalVerDetallesOrden = () => {
                                                     <div className='col-md-12 pl-1 pt-3 text-center'>
                                                         <BotonNegro
                                                             text={
-                                                                'Eliminar Detalle'
+                                                                'Eliminar detalle'
                                                             }
                                                             onClick={() =>
                                                                 eliminarDetalle(

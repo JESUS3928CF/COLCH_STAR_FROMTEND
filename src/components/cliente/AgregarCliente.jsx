@@ -65,7 +65,7 @@ const AgregarCliente = () => {
         <div>
             {/* modal agregar proveedor */}
 
-            <BotonVerde text={'Agregar Cliente'} onClick={handleShow} />
+            <BotonVerde text={'Agregar cliente'} onClick={handleShow} />
 
             <Modal
                 show={show}
@@ -77,7 +77,7 @@ const AgregarCliente = () => {
                 id='myModal'
             >
                 <div className='modal-content'>
-                    <HeaderModals title={'Agregar Cliente'} 
+                    <HeaderModals title={'Agregar cliente'} 
                      handleClose={() => {
                         reset();
                         handleClose();

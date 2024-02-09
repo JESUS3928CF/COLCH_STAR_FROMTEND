@@ -78,7 +78,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             htmlFor='cantidad'
                                                             className='col-form-label'
                                                         >
-                                                            cantidad
+                                                            Cantidad
                                                         </label>
                                                         <input
                                                             type='text'

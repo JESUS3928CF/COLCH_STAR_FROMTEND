@@ -67,7 +67,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Editar Cliente'}
+                        title={'Editar cliente'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -85,7 +85,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='identificacionEditar'
                                     className='col-form-label'
                                 >
-                                    Identificación:
+                                    Identificación: *
                                 </label>
                                 <br />
 
@@ -153,7 +153,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='nombreEditar'
                                     className='col-form-label'
                                 >
-                                    Nombres:
+                                    Nombres: *
                                 </label>
                                 <input
                                     type='text'
@@ -200,7 +200,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='apellidoEditar'
                                     className='col-form-label'
                                 >
-                                    Apellidos:
+                                    Apellidos: *
                                 </label>
                                 <input
                                     type='text'
@@ -248,7 +248,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='telefonoEditar'
                                     className='col-form-label'
                                 >
-                                    Teléfono:
+                                    Teléfono: *
                                 </label>
                                 <input
                                     type='text'
@@ -297,7 +297,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='direccionEditar'
                                     className='col-form-label'
                                 >
-                                    Dirección:
+                                    Dirección: *
                                 </label>
                                 <input
                                     type='text'
@@ -331,7 +331,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='emailEditar'
                                     className='col-form-label'
                                 >
-                                    Email:
+                                    Email: *
                                 </label>
                                 <input
                                     type='text'

@@ -80,7 +80,7 @@ const AgregarOrden = () => {
     return (
         <div>
 
-            <BotonVerde text={'Agregar Orden'} onClick={handleShow} />
+            <BotonVerde text={'Agregar orden'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
@@ -125,7 +125,7 @@ const AgregarOrden = () => {
                                             })}
                                         >
                                             <option value=''>
-                                                Seleccionar Cliente
+                                                Seleccionar cliente
                                             </option>
 
                                             {clientes
@@ -158,7 +158,7 @@ const AgregarOrden = () => {
                                             htmlFor='totalCompraAgregar'
                                             className='col-form-label'
                                         >
-                                            Fecha de Entrega: *
+                                            Fecha de entrega: *
                                         </label>
                                         <input
                                             type='date'
@@ -199,7 +199,7 @@ const AgregarOrden = () => {
                                             className='col-form-label'
                                             
                                         >
-                                            Precio Total: *
+                                            Precio total: *
                                         </label>
                                         <input
                                             type='number'

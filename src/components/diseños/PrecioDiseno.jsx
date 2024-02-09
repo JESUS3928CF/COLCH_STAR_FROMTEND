@@ -108,7 +108,7 @@ const PrecioDiseno = () => {
                                     htmlFor='precioGuardar'
                                     className='col-form-label'
                                 >
-                                    Precio:
+                                    Precio: * 
                                 </label>
                                 <input
                                     type='text'

@@ -120,9 +120,9 @@ const ListarOrdenes = () => {
                                 <tr>
                                     <th scope='col'>ID</th>
                                     <th scope='col'>Cliente</th>
-                                    <th scope='col'>Precio Total</th>
-                                    <th scope='col'>Direccion</th>
-                                    <th scope='col'>Fecha Entrega</th>
+                                    <th scope='col'>Precio total</th>
+                                    <th scope='col'>Dirección</th>
+                                    <th scope='col'>Fecha entrega</th>
                                     <th scope='col'>Detalles</th>
                                     <th scope='col'>Estado orden</th>
                                     <th scope='col'>Editar</th>

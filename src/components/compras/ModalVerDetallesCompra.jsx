@@ -54,7 +54,7 @@ export const ModalVerDetallesCompra = () => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Detalles Agregados Compra'}
+                        title={'Detalles agregados de compras'}
                         handleClose={() => {
                             handleCloseDetalles();
                             handleShow();
@@ -86,7 +86,7 @@ export const ModalVerDetallesCompra = () => {
                                                                 className='col-form-label'
                                                             >
                                                                 Producto
-                                                                Comprado:
+                                                                comprado:
                                                             </label>
                                                             <input
                                                                 type='text'
@@ -134,7 +134,7 @@ export const ModalVerDetallesCompra = () => {
                                                                 htmlFor='nombre'
                                                                 className='col-form-label'
                                                             >
-                                                                Total Del Detalle:
+                                                                Total del detalle:
                                                             </label>
                                                             <input
                                                                 type='text'
@@ -149,7 +149,7 @@ export const ModalVerDetallesCompra = () => {
                                                     <div className='col-md-12 pl-1 pt-3 text-center'>
                                                         <BotonNegro
                                                             text={
-                                                                'Eliminar Detalle'
+                                                                'Eliminar detalle'
                                                             }
                                                             onClick={() =>
                                                                 eliminarDetalle(

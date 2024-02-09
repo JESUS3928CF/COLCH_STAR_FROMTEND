@@ -80,7 +80,7 @@ const AgregarDiseno = () => {
                                     htmlFor='nombre'
                                     className='col-form-label'
                                 >
-                                    Nombre:
+                                    Nombre: *
                                 </label>
                                 <input
                                     name='nombre'
@@ -118,7 +118,7 @@ const AgregarDiseno = () => {
                             </div>
                             <div className='mb-3'>
                                 <label htmlFor='imagen' className='form-label'>
-                                    Subir imagen
+                                    Subir imagen: *
                                 </label>
                                 <input
                                     className='form-control'
@@ -146,7 +146,7 @@ const AgregarDiseno = () => {
                                     htmlFor='rolGuardar'
                                     className='col-form-label'
                                 >
-                                    ¿Deseas publicarlo?
+                                    ¿Deseas publicarlo?: *
                                 </label>
                                 <select
                                     className='form-control'

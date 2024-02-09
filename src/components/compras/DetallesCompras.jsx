@@ -105,7 +105,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                           htmlFor='producto'
                                                           className='col-form-label'
                                                       >
-                                                          Producto Comprado:
+                                                          Producto comprado:
                                                       </label>
                                                       <input
                                                           type='text'
@@ -153,7 +153,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                           htmlFor='nombre'
                                                           className='col-form-label'
                                                       >
-                                                          Total Del Detalle:
+                                                          Total del detalle:
                                                       </label>
                                                       <input
                                                           type='text'

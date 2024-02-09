@@ -63,7 +63,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
         >
             <div className='modal-content'>
                 <HeaderModals
-                    title='Editar Diseño'
+                    title='Editar diseño'
                     handleClose={() => {
                         reset();
                         handleClose();
@@ -78,7 +78,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                     >
                         <div className='mb-3'>
                             <label htmlFor='nombre' className='col-form-label'>
-                                Nombre:
+                                Nombre: *
                             </label>
                             <input
                                 name='nombre'
@@ -114,7 +114,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                         </div>
                         <div className='mb-3'>
                             <label htmlFor='imagen' className='form-label'>
-                                Subir imagen
+                                Subir imagen: *
                             </label>
                             <input
                                 className='form-control'
@@ -136,7 +136,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                                 htmlFor='rolGuardar'
                                 className='col-form-label'
                             >
-                                ¿Deseas publicarlo?
+                                ¿Deseas publicarlo?: *
                             </label>
                             <select
                                 className='form-control'
@@ -146,9 +146,6 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                                         validarBooleanos(value),
                                 })}
                             >
-                                <option value='' disabled>
-                                    Selecciona una opción
-                                </option>
                                 <option value='true'>Si</option>
                                 <option value='false'>No</option>
                             </select>
