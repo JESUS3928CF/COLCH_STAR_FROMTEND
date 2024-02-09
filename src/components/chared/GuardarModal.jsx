@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 const GuardarModal = ({ text = 'Guardar', onSubmit }) => {
     // Crear un objeto de propiedades dinámicas
 
-    let buttonProps = {
-        
-    };
+    let buttonProps = {};
 
     const handleClick = () => {
     // Llama a la función onSubmit cuando se hace clic en el botón.
