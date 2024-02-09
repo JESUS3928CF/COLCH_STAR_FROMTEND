@@ -4,7 +4,7 @@
 //mas relevantes de este proveedor y luego mostrarlo en la tabla listar 
 import '../../css-general/cssgeneral.css'
 import '../../css-general/inicio_style.css'
-
+import Swal from 'sweetalert2';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
@@ -41,11 +41,13 @@ const AgregarProveedor = () => {
     } = useForm({
         mode: "onChange",
     });
-    
+
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
 
         const { identificador, nombre, telefono, direccion, tipoIdentificacion } = data
+
+
 
 
         // la ruta por donde voya mandar el objeto o el registro nuevo data
@@ -153,7 +155,8 @@ const AgregarProveedor = () => {
                                                     if (value.includes(" ")) {
                                                         return 'No se permiten espacios en blanco';
                                                     }
-                                                    if (isNaN(value)) {
+                                                    if (/^\d+$/.test(value) || isNaN(value)) {
+                                                    } else {
                                                         return 'La identificación solo puede contener números';
                                                     }
                                                     if (value.startsWith("0")) {
