@@ -77,12 +77,13 @@ const AgregarCliente = () => {
                 id='myModal'
             >
                 <div className='modal-content'>
-                    <HeaderModals title={'Agregar cliente'} 
-                     handleClose={() => {
-                        reset();
-                        handleClose();
-                    }}
-                />
+                    <HeaderModals
+                        title={'Agregar cliente'}
+                        handleClose={() => {
+                            reset();
+                            handleClose();
+                        }}
+                    />
                     <div>
                         <div className='modal-body'>
                             {/* <!-- formulario para agregar un usuario --> */}
@@ -134,25 +135,42 @@ const AgregarCliente = () => {
                                                 name='identificacion'
                                                 placeholder='. . .'
                                                 {...register('identificacion', {
-                                                    required:
-                                                        'La Identificación es obligatoria',
-                                                    pattern: {
-                                                        value: /^\d+$/, // Expresión regular para prohibir letras y espacios en blanco
+                                                    required: {
+                                                        value: true, // Expresión regular para prohibir letras y espacios en blanco
                                                         message:
-                                                            'No puede contener letras ni espacios en blanco',
+                                                            'La Identificación es obligatoria',
                                                     },
                                                     validate: (value) => {
                                                         if (
-                                                            value.length < 7 ||
+                                                            value.includes(' ')
+                                                        ) {
+                                                            return 'No se permiten espacios en blanco';
+                                                        }
+                                                        if (isNaN(value)) {
+                                                            return 'La identificación solo puede contener números';
+                                                        }
+                                                        if (
+                                                            value.startsWith(
+                                                                '0'
+                                                            )
+                                                        ) {
+                                                            return 'La identificación no puede iniciar con 0';
+                                                        }
+                                                        if (
+                                                            value.length < 6 ||
                                                             value.length > 10
                                                         ) {
-                                                            return 'La Identificación debe tener entre 7 y 10 dígitos';
+                                                            return 'La Identificación debe tener entre 6 y 10 dígitos';
                                                         }
                                                         return true;
                                                     },
                                                 })}
                                                 onChange={(e) => {
-                                            const inputValue = e.target.value.slice(0,11)
+                                                    const inputValue =
+                                                        e.target.value.slice(
+                                                            0,
+                                                            11
+                                                        );
                                                     setValue(
                                                         'identificacion',
                                                         inputValue
@@ -192,27 +210,28 @@ const AgregarCliente = () => {
                                                     'El nombre es obligatorio',
                                             },
                                             validate: (value) => {
-                                                // Valida espacios
-                                                return validarEspaciosVacios(
-                                                    value
-                                                );
-                                            },
-                                            pattern: {
-                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                                message:
-                                                    'El nombre no puede contener números ni caracteres especiales',
-                                            },
-                                            minLength:{
-                                                value : 3,
-                                                message: "El nombre debe tener mínimo 3 caracteres"
-                                            },
-                                            maxLength: {
-                                                value: 20,
-                                                message: "El nombre debe tener máximo 20 caracteres"
+                                                const regex =
+                                                    /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
+                                                if (
+                                                    value.length < 3 ||
+                                                    value.length > 20
+                                                ) {
+                                                    return 'El nombre debe tener entre 3 y 20 caracteres';
+                                                }
+                                                if (value.includes(' ')) {
+                                                    return validarEspaciosVacios(
+                                                        value
+                                                    );
+                                                }
+                                                if (!regex.test(value)) {
+                                                    return 'Solo se permiten letras';
+                                                }
+                                                return true;
                                             },
                                         })}
                                         onChange={(e) => {
-                                            const inputValue = e.target.value.slice(0,21)
+                                            const inputValue =
+                                                e.target.value.slice(0, 21);
                                             setValue('nombre', inputValue);
                                             trigger('nombre');
                                         }}
@@ -243,31 +262,29 @@ const AgregarCliente = () => {
                                                     'El apellido es obligatorio',
                                             },
                                             validate: (value) => {
-                                                // Valida espacios
-                                                return validarEspaciosVacios(
-                                                    value
-                                                );
-                                            },
-                                            pattern: {
-                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                                message:
-                                                    'El apellido no puede contener números ni caracteres especiales',
-                                            },
-                                            minLength:{
-                                                value : 3,
-                                                message: "El apellido debe tener mínimo 3 caracteres"
-                                            },
-                                            maxLength: {
-                                                value: 20,
-                                                message: "El apellido debe tener máximo 20 caracteres"
+                                                const regex =
+                                                    /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
+                                                if (
+                                                    value.length < 3 ||
+                                                    value.length > 20
+                                                ) {
+                                                    return 'El apellido debe tener entre 3 y 20 caracteres';
+                                                }
+                                                if (value.includes(' ')) {
+                                                    return validarEspaciosVacios(
+                                                        value
+                                                    );
+                                                }
+                                                if (!regex.test(value)) {
+                                                    return 'Solo se permiten letras';
+                                                }
+                                                return true;
                                             },
                                         })}
                                         onChange={(e) => {
-                                            const inputValue = e.target.value.slice(0,21)
-                                            setValue(
-                                                'apellido',
-                                                inputValue
-                                            );
+                                            const inputValue =
+                                                e.target.value.slice(0, 21);
+                                            setValue('apellido', inputValue);
                                             trigger('apellido');
                                         }}
                                     />
@@ -296,31 +313,29 @@ const AgregarCliente = () => {
                                                 message:
                                                     'El teléfono es obligatorio',
                                             },
-                                            pattern: {
-                                                value: /^\d+$/,
-                                                message:
-                                                    'No se permiten letras ni espacios en blanco',
-                                            },
                                             validate: (value) => {
-                                                const telefonoSinEspacios =
-                                                    value.replace(/\s/g, ''); // Eliminar espacios en blanco
+                                                if (value.includes(' ')) {
+                                                    return 'No se permiten espacios en blanco';
+                                                }
+                                                if (isNaN(value)) {
+                                                    return 'El teléfono solo puede contener números';
+                                                }
+                                                if (value.startsWith('0')) {
+                                                    return 'El teléfono no puede iniciar con 0';
+                                                }
                                                 if (
-                                                    telefonoSinEspacios.length <
-                                                        7 ||
-                                                    telefonoSinEspacios.length >
-                                                        10
+                                                    value.length < 7 ||
+                                                    value.length > 10
                                                 ) {
-                                                    return 'El teléfono debe tener mínimo 7 dígitos y máximo 10';
+                                                    return 'El teléfono debe tener entre 7 y 10 dígitos';
                                                 }
                                                 return true;
                                             },
                                         })}
                                         onChange={(e) => {
-                                            const inputValue = e.target.value.slice(0,11)
-                                            setValue(
-                                                'telefono',
-                                                inputValue
-                                            );
+                                            const inputValue =
+                                                e.target.value.slice(0, 11);
+                                            setValue('telefono', inputValue);
                                             trigger('telefono');
                                         }}
                                     />
@@ -350,9 +365,18 @@ const AgregarCliente = () => {
                                                     'La dirección es obligatoria',
                                             },
                                             validate: (value) => {
-                                                return validarEspaciosVacios(
-                                                    value
-                                                );
+                                                if (
+                                                    value.length < 4 ||
+                                                    value.length > 40
+                                                ) {
+                                                    return 'La dirección debe tener entre 4 y 40 caracteres';
+                                                }
+                                                if (value.includes(' ')) {
+                                                    return validarEspaciosVacios(
+                                                        value
+                                                    );
+                                                }
+                                                return true;
                                             },
                                         })}
                                         onChange={(e) => {
