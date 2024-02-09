@@ -106,6 +106,13 @@ const ListarCompra = () => {
                                                     nombreRegistro={'compra'}
                                                     ruta={`/compras/estado/${compra.id_compra}`}
                                                     editarEstado={editarEstado}
+                                                    bloquearCambioDeEstado={
+                                                        true
+                                                    }
+                                                    mensajeError={
+                                                        'Esta compra no se puede habilitar porque fue cancelada'
+                                                    }
+                                                    detalle={compra.detalles}
                                                 />
                                             </td>
                                             <td>
@@ -185,6 +192,15 @@ const ListarCompra = () => {
                                                             ruta={`/compras/estado/${compra.id_compra}`}
                                                             editarEstado={
                                                                 editarEstado
+                                                            }
+                                                            bloquearCambioDeEstado={
+                                                                true
+                                                            }
+                                                            mensajeError={
+                                                                'Esta compra no se puede habilitar porque fue cancelada'
+                                                            }
+                                                            detalle={
+                                                                compra.detalles
                                                             }
                                                         />
                                                     </div>

@@ -3,10 +3,14 @@ import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useMovimientos from '../hooks/useMovimientos';
+import usePrendas from '../hooks/usePrendas';
 
 const comprasContext = createContext();
 
 const ComprasProviders = ({ children }) => {
+    // Prendas para actualizar sus cantidades
+    const { Prendas } = usePrendas();
+
     /// Respaldo de las compras
     const [compras, setCompras] = useState([]);
 
@@ -16,7 +20,7 @@ const ComprasProviders = ({ children }) => {
 
     const { config, auth } = useAuth();
 
-    const {consultarMovimientos}=useMovimientos()
+    const { consultarMovimientos } = useMovimientos();
 
     /// Calcular el total de la compra
     useEffect(() => {
@@ -67,8 +71,18 @@ const ComprasProviders = ({ children }) => {
                 text: newCompra.data.message,
                 icon: 'success',
             }).then(() => {
+                //* Actualizar las cantidades de las prendas
+                for (const producto of detallesCompra) {
+                    if (producto.fk_prenda) {
+                        const prenda = Prendas.find(
+                            (prenda) => prenda.id_prenda == producto.fk_prenda
+                        );
+                        prenda.cantidad =
+                            Number(prenda.cantidad) + Number(producto.cantidad);
+                    }
+                }
                 consultarCompras();
-                consultarMovimientos()
+                consultarMovimientos();
                 handleClose(reset);
                 setTotalCompra(0);
                 setDetallesCompra([]);
@@ -92,8 +106,7 @@ const ComprasProviders = ({ children }) => {
         );
 
         setCompras(compraActualizada);
-        consultarMovimientos()
-
+        consultarMovimientos();
     };
 
     /// La funcionalidad para manipular los modales la voy a declarar desde aca
@@ -102,10 +115,9 @@ const ComprasProviders = ({ children }) => {
     const [show, setShow] = useState(false);
 
     const handleClose = (reset) => {
-        
         setShow(false);
-        
-        if(!reset) return;
+
+        if (!reset) return;
         setTotalCompra(0);
         setDetallesCompra([]);
         reset();

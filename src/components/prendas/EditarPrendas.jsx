@@ -15,6 +15,7 @@ import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColorsEditar from './SelectColorEditar';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 const EditarPrendas = ({
     detallesPrendas,
@@ -25,7 +26,12 @@ const EditarPrendas = ({
     showw,
     handleClosex,
 }) => {
-    const { updatePrendas, Prendas, setSelectColorsNombre } = usePrendas();
+    const {
+        updatePrendas,
+        Prendas,
+        setSelectColorsNombre,
+        selectColorsNombre,
+    } = usePrendas();
 
     const {
         register,
@@ -38,13 +44,7 @@ const EditarPrendas = ({
         mode: 'onChange',
     });
 
-    const [Colors, setColors] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/colors').then((res) => {
-            setColors(res.data);
-        });
-    }, []);
+    const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     useEffect(() => {
         if (detallesPrendas) {
@@ -61,7 +61,25 @@ const EditarPrendas = ({
     }, [detallesPrendas, show]);
 
     const onSubmitt = async (data) => {
-        updatePrendas(data, detallesPrendas, handleClose);
+        // Validación que manda un alerta que al menos se debe seleccionar un permiso
+        if (data.tallas.length === 0 || data.tallas === false) {
+            setErrorMensajeTallas(
+                'Debes seleccionar al menos una talla disponible para esta prenda'
+            );
+            return;
+        }
+
+        if (selectColorsNombre == '') {
+            Swal.fire({
+                title: 'Espera!',
+                text: 'Seleccione los colores disponibles para esta prenda',
+                icon: 'warning',
+            });
+        } else {
+            updatePrendas(data, detallesPrendas, handleClose);
+        }
+
+        setErrorMensajeTallas(null);
     };
 
     return (
@@ -212,7 +230,7 @@ const EditarPrendas = ({
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-4'>
+                            <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
                                     Tipo de tela:
                                 </label>
@@ -288,10 +306,6 @@ const EditarPrendas = ({
                                         },
                                     })}
                                 >
-                                    <option
-                                        value='Seleccione una opción'
-                                        disabled={true}
-                                    ></option>
                                     <option value='Mujer'>Mujer</option>
                                     <option value='Hombre'>Hombre</option>
                                     <option value='Unisex'>Unisex</option>
@@ -320,10 +334,6 @@ const EditarPrendas = ({
                                             validarBooleanos(value),
                                     })}
                                 >
-                                    <option
-                                        value='Seleccione una opción'
-                                        disabled={true}
-                                    ></option>
                                     <option value='true'>Si</option>
                                     <option value='false'>No</option>
                                 </select>
@@ -481,8 +491,8 @@ const EditarPrendas = ({
                                         <label htmlFor='Única'>Única</label>
                                     </div>{' '}
                                 </div>
-                                {errors.tallas && (
-                                    <p>Error: Selecciona al menos una talla</p>
+                                {errorMensajeTallas && (
+                                    <AlertaError message={errorMensajeTallas} />
                                 )}
                             </div>
 

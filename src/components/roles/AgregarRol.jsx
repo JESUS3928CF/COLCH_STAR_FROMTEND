@@ -115,7 +115,7 @@ function AgregarRol() {
                                           type='text'
                                           className='form-control'
                                           placeholder='. . .'
-                                          //Register es una funcion, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
+                                          //Register es una función, nos devuelve propiedades para asignar esas propiedades al input se pone . . .
                                           {...register('nombre', {
                                               required: {
                                                   // Es una propiedad que indica que el campo es obligatorio.

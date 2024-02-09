@@ -14,22 +14,15 @@ import {
 } from '../../Validations/validations';
 import Swal from 'sweetalert2';
 import AlertaError from '../chared/AlertaError';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import HeaderModals from '../chared/HeaderModals';
 import BotonNegro from '../chared/BotonNegro';
 import SeleccionarColors from './SeleccionarColor';
 import { Modal } from 'react-bootstrap';
 import usePrendas from '../../hooks/usePrendas';
 import BotonVerde from '../chared/BotonVerde';
-import useColors from '../../hooks/useColors';
 
 const AgregarPrendas = () => {
-
-    useEffect(() => {
-        setSelectColorsNombre([])
-    },[])
-    const { colors } = useColors();
     const {
         agregarPrendas,
         Prendas,
@@ -43,6 +36,8 @@ const AgregarPrendas = () => {
         setShow(false);
     };
     const handleShow = () => setShow(true);
+
+    const [errorMensajeTallas, setErrorMensajeTallas] = useState(null);
 
     //* Esto es para seleccionar todos los check list
     //    const [selectAll, setSelectAll] = useState(false);
@@ -81,8 +76,6 @@ const AgregarPrendas = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
-
         const {
             nombre,
             cantidad,
@@ -94,8 +87,13 @@ const AgregarPrendas = () => {
             tallas,
         } = data;
 
-        console.log(selectColorsNombre, ' colors del provider');
-        console.log(colors, ' algo');
+        // Validación que manda un alerta que al menos se debe seleccionar un permiso
+        if (tallas.length === 0 || tallas === false) {
+            setErrorMensajeTallas(
+                'Debes seleccionar al menos una talla disponible para esta prenda'
+            );
+            return;
+        }
 
         if (selectColorsNombre == '') {
             Swal.fire({
@@ -121,11 +119,19 @@ const AgregarPrendas = () => {
                 handleClose
             );
         }
+
+        setErrorMensajeTallas(null);
     };
 
     return (
         <>
-            <BotonVerde text={'Agregar Prendas'} onClick={handleShow} />
+            <BotonVerde
+                text={'Agregar Prendas'}
+                onClick={() => {
+                    handleShow();
+                    setSelectColorsNombre([]);
+                }}
+            />
             <Modal
                 show={show}
                 onHide={() => {
@@ -134,7 +140,7 @@ const AgregarPrendas = () => {
                 }}
                 id='myModal'
             >
-                <div className='modal-lg '>
+                <div className='modal-content'>
                     <HeaderModals
                         title={'Agregar Prenda'}
                         handleClose={() => {
@@ -173,7 +179,7 @@ const AgregarPrendas = () => {
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'Error no se puede numeros ni caracteres especiales en el nombre',
+                                                'Error no se puede números ni caracteres especiales en el nombre',
                                         },
                                     })}
                                     onChange={(e) => {
@@ -188,7 +194,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 ms-auto'>
+                            <div className='col-md-6'>
                                 <label
                                     htmlFor='cantidad'
                                     className='col-form-label'
@@ -212,12 +218,12 @@ const AgregarPrendas = () => {
                                         },
                                         pattern: {
                                             value: /^\d+$/,
-                                            message: 'No se peremiten letras',
+                                            message: 'No se permiten letras',
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('cantidad', e.target.value),
-                                            trigger('cantidad');
+                                        setValue('cantidad', e.target.value);
+                                        trigger('cantidad');
                                     }}
                                 />
                                 {errors.cantidad && (
@@ -227,7 +233,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-2' name='precio'>
+                            <div className='col-md-6' name='precio'>
                                 <label
                                     htmlFor='precio'
                                     className='col-form-label'
@@ -254,8 +260,8 @@ const AgregarPrendas = () => {
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('precio', e.target.value),
-                                            trigger('precio');
+                                        setValue('precio', e.target.value);
+                                        trigger('precio');
                                     }}
                                 />
 
@@ -266,7 +272,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6 mt-4'>
+                            <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
                                     Tipo de tela: *
                                 </label>
@@ -289,15 +295,15 @@ const AgregarPrendas = () => {
                                         pattern: {
                                             value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
                                             message:
-                                                'Error no se puede numeros ni caracteres especiales en el tipo de tela',
+                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
                                         },
                                     })}
                                     onChange={(e) => {
                                         setValue(
                                             'tipo_de_tela',
                                             e.target.value
-                                        ),
-                                            trigger('tipo_de_tela');
+                                        );
+                                        trigger('tipo_de_tela');
                                     }}
                                 />
 
@@ -554,8 +560,8 @@ const AgregarPrendas = () => {
                                         <label htmlFor='Única'>Única</label>
                                     </div>{' '}
                                 </div>
-                                {errors.tallas && (
-                                    <p>Error: Selecciona al menos una talla</p>
+                                {errorMensajeTallas && (
+                                    <AlertaError message={errorMensajeTallas} />
                                 )}
                             </div>
 

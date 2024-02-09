@@ -20,12 +20,7 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
         reset,
     } = useForm();
 
-    const {
-        agregarColors,
-        eliminarColors,
-        setColores,
-        colorsDb,
-    } = useColors();
+    const { agregarColors, eliminarColors, setColores, colorsDb } = useColors();
 
     const eliminarColors01 = (index) => {
         const NewColors = [...selectColorsNombre];
@@ -37,7 +32,6 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
     const { selectColorsNombre, setSelectColorsNombre } = usePrendas();
 
     const agregarNewColors = (data) => {
-
         // Validar si el color ya está seleccionado
         if (
             selectColorsNombre.some((color) => color.id_color == data.id_color)
@@ -74,7 +68,6 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
             setColores(detallesPrendas.color);
         }
     }, [detallesPrendas.color]);
-
 
     return (
         <Modal
@@ -164,11 +157,12 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
                             <BotonNegro
                                 text={'Regresar'}
                                 onClick={() => {
+                                    reset();
                                     handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                                 modalClouse={'modal'}
                             />
-                            <GuardarModal />
+                            <GuardarModal text={"Agregar color"}/>
                         </div>
                     </form>
                 </div>
@@ -179,10 +173,9 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
 
 // Definir las propTypes para validar los tipos de las props
 SeleccionarColorsEditar.propTypes = {
-  showw: PropTypes.bool.isRequired, // showw debe ser un booleano requerido
-  handleClosee: PropTypes.func.isRequired, // handleClosee debe ser una función requerida
-  detallesPrendas: PropTypes.array.isRequired, // detallesPrendas debe ser un objeto requerido
+    showw: PropTypes.bool.isRequired, // showw debe ser un booleano requerido
+    handleClosee: PropTypes.func.isRequired, // handleClosee debe ser una función requerida
+    detallesPrendas: PropTypes.array.isRequired, // detallesPrendas debe ser un objeto requerido
 };
-
 
 export default SeleccionarColorsEditar;

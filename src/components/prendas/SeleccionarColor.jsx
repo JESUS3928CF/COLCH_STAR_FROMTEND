@@ -11,7 +11,6 @@ import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
-
 const SeleccionarColors = ({ handleClosee, showw }) => {
     const {
         register,
@@ -33,7 +32,9 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
 
     const agregarNuevoColor = (data) => {
         // Validar si el color ya está seleccionado
-          if (selectColorsNombre.some((color) => color.id_color == data.id_color)) {
+        if (
+            selectColorsNombre.some((color) => color.id_color == data.id_color)
+        ) {
             Swal.fire({
                 icon: 'warning',
                 //   title: "No es necesario",
@@ -49,7 +50,7 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
                 html: '<i class="small-icon"></i> Este color ya ha sido seleccionado.', // Usar la opción html para personalizar el contenido y el icono
             });
             return; // Detener la función si el color ya está seleccionado
-          }
+        }
         agregarColors(data);
 
         const newColor = colorsDb.find(
@@ -168,6 +169,7 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
                             <BotonNegro
                                 text={'Regresar'}
                                 onClick={() => {
+                                    reset();
                                     handleClosee();
                                 }}
                                 modalClouse={'modal'}
@@ -183,8 +185,8 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
 
 // Definir las propTypes para validar los tipos de las props
 GuardarModal.propTypes = {
-  text: PropTypes.string, // text es una cadena opcional
-  onSubmit: PropTypes.func.isRequired, // onSubmit debe ser una función requerida
+    text: PropTypes.string, // text es una cadena opcional
+    onSubmit: PropTypes.func.isRequired, // onSubmit debe ser una función requerida
 };
 
 export default SeleccionarColors;
