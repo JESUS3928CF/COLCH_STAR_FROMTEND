@@ -38,14 +38,18 @@ const AgregarProducto = () => {
     // función que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
+
+
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
+
+
+    // funcion para cerrar modal de AgregarDiseñosModal
+    const [showw, setShoww] = useState(false);
 
     const handleClose = () => { setShow(false) };
     const handleShow = () => setShow(true);
 
-    // funcion para cerrar modal de AgregarDiseñosModal
-    const [showw, setShoww] = useState(false);
 
     const handleClosee = () => {
         setShoww(false), handleShow();
