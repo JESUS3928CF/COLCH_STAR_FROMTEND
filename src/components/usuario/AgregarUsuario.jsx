@@ -72,7 +72,7 @@ const AgregarUsuario = () => {
 
     return (
         <div>
-            <BotonVerde text={'Agregar Usuario'} onClick={handleShow} />
+            <BotonVerde text={'Agregar usuario'} onClick={handleShow} />
 
             <Modal
                 show={show}
@@ -84,7 +84,7 @@ const AgregarUsuario = () => {
                 id='myModal'
             >
                     <div className='modal-content'>
-                        <HeaderModals title={'Agregar Usuario'} handleClose={() => {
+                        <HeaderModals title={'Agregar usuario'} handleClose={() => {
                         reset();
                         handleClose();
                     }}
@@ -383,7 +383,7 @@ const AgregarUsuario = () => {
                                         })}
                                     >
                                         <option value=''>
-                                            Seleccionar Rol
+                                            Seleccionar rol
                                         </option>
                                         {roles.map((rol) => {
                                             if (

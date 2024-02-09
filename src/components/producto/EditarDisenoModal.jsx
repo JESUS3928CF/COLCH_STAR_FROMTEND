@@ -128,7 +128,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         >
             <div className='modal-content'>
                 {/* Cabecero del modal */}
-                <HeaderModals title='Diseno y  Tamaño' handleClose={() => {
+                <HeaderModals title='Diseño y  tamaño' handleClose={() => {
                     reset();
                     handleClosee();
                     //al darle lcick al salir manda estos datos vacios
@@ -148,7 +148,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
 
                                 <label htmlFor='rol' className='col-form-label'>
-                                    Diseños:
+                                    Diseños: *  
                                 </label>
                                 <select
                                     className='form-control' // Allow multiple selections
@@ -182,7 +182,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
 
                                 <label htmlFor='rol' className='col-form-label'>
-                                    Tamaño:
+                                    Tamaño: *
                                 </label>
                                 <select
                                     className='form-control' // Allow multiple selections

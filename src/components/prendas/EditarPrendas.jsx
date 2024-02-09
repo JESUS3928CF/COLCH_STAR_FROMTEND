@@ -96,7 +96,7 @@ const EditarPrendas = ({
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Editar Prendas'}
+                        title={'Editar prendas'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -113,7 +113,7 @@ const EditarPrendas = ({
                                     htmlFor='nombre'
                                     className='col-from-label'
                                 >
-                                    Nombre
+                                    Nombre: *
                                 </label>
                                 <input
                                     type='text'
@@ -155,7 +155,7 @@ const EditarPrendas = ({
                                     htmlFor='cantidad'
                                     className='col-from-label'
                                 >
-                                    Cantidad
+                                    Cantidad: *
                                 </label>
                                 <input
                                     type='text'
@@ -196,7 +196,7 @@ const EditarPrendas = ({
                                     htmlFor='precio'
                                     className='col-from-label'
                                 >
-                                    Precio
+                                    Precio: *
                                 </label>
                                 <input
                                     type='text'
@@ -232,7 +232,7 @@ const EditarPrendas = ({
 
                             <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
-                                    Tipo de tela:
+                                    Tipo de tela: *
                                 </label>
                                 <input
                                     type='text '
@@ -291,7 +291,7 @@ const EditarPrendas = ({
                                     htmlFor='genero'
                                     className='col-from-label'
                                 >
-                                    Género
+                                    Género: *
                                 </label>
 
                                 <select
@@ -322,7 +322,7 @@ const EditarPrendas = ({
                                     htmlFor='publicado'
                                     className='col-from-label'
                                 >
-                                    ¿Deseas publicarlo?
+                                    ¿Deseas publicarlo?: *
                                 </label>
                                 <select
                                     id='publicado'
@@ -349,7 +349,7 @@ const EditarPrendas = ({
                                     htmlFor='imagen'
                                     className='col-from-label'
                                 >
-                                    Subir imagen
+                                    Subir imagen: *
                                 </label>
                                 <input
                                     type='file'
@@ -364,7 +364,7 @@ const EditarPrendas = ({
                                 />
                             </div>
                             <div className='col-12'>
-                                <p>Tallas:</p>
+                                <p>Tallas: *</p>
                                 <div className='row'>
                                     {/*
                                     <div className='col-3'>

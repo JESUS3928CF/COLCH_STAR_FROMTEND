@@ -78,7 +78,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Editar Proveedor'}
+                        title={'Editar proveedor'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -94,7 +94,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                     htmlFor='identificacionEditar'
                                     className='col-form-label'
                                 >
-                                    Identificacion: *
+                                    Identificación: *
                                 </label>
                                 <br />
 
