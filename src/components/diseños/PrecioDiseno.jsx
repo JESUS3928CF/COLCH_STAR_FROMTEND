@@ -48,7 +48,7 @@ const PrecioDiseno = () => {
 
     return (
         <Fragment>
-            <BotonVerde text={'Modificar Precios'} onClick={handleShow} />
+            <BotonVerde text={'Modificar precios'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
