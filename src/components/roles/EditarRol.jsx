@@ -80,7 +80,7 @@ function EditarRol({ editarRol, handleClose, show }) {
           >
               <div className='modal-content'>
                   <HeaderModals
-                      title={'Editar Rol'}
+                      title={'Editar rol'}
                       handleClose={() => {
                           reset();
                           handleClose();
@@ -98,7 +98,7 @@ function EditarRol({ editarRol, handleClose, show }) {
                                   htmlFor='nombreEditar'
                                   className='col-form-label'
                               >
-                                  Nombre del rol:
+                                  Nombre del rol: *
                               </label>
                               <input
                                   type='text'

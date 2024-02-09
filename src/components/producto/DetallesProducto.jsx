@@ -122,7 +122,7 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                         className='card-title'
                                                     >
                                                         {' '}
-                                                        <b>Genero:</b>{' '}
+                                                        <b>Género:</b>{' '}
                                                         {detallesProductos.prenda && detallesProductos.prenda.genero}
                                                     </h2>
                                                     <h2

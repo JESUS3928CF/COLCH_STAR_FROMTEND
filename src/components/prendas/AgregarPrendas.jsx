@@ -126,7 +126,7 @@ const AgregarPrendas = () => {
     return (
         <>
             <BotonVerde
-                text={'Agregar Prendas'}
+                text={'Agregar prenda'}
                 onClick={() => {
                     handleShow();
                     setSelectColorsNombre([]);
@@ -142,7 +142,7 @@ const AgregarPrendas = () => {
             >
                 <div className='modal-content'>
                     <HeaderModals
-                        title={'Agregar Prenda'}
+                        title={'Agregar prenda'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -433,7 +433,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
                             <div className='col-12'>
-                                <p>Tallas:</p>
+                                <p>Tallas: *</p>
                                 <div className='row'>
                                     {/*
                                     <div className='col-3'>

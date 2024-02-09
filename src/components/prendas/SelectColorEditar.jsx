@@ -95,7 +95,7 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
                         <div className='col-md-12'>
                             <label htmlFor='rol' className='col-form-label'>
                                 {' '}
-                                Colores
+                                Colores: *
                             </label>
                             <select
                                 className='form-control' // Allow multiple selections
@@ -121,7 +121,7 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
                             )}
 
                             <div className='col-12 ml-6 mt-3'>
-                                <p>Colores seleccionados</p>
+                                <p>Colores seleccionados:</p>
                                 {selectColorsNombre.map((color, index) => (
                                     <div
                                         key={index}

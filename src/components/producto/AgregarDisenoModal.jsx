@@ -102,7 +102,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                 {/* Cabecero del modal */}
 
                 <HeaderModals
-                    title='Diseno y  Tamaño'
+                    title='Diseño y  tamaño'
                     handleClose={() => {
                         reset();
                         handleClosee();
@@ -121,7 +121,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                         <div className='row '>
                             <div className='col-md-6'>
                                 <label htmlFor='rol' className='col-form-label'>
-                                    Diseños:
+                                    Diseños: *
                                 </label>
                                 <select
                                     className='form-control' // Allow multiple selections
@@ -154,7 +154,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                 )}
 
                                 <label htmlFor='rol' className='col-form-label'>
-                                    Tamaño:
+                                    Tamaño: *
                                 </label>
                                 <select
                                     className='form-control' // Allow multiple selections

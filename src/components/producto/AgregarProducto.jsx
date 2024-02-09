@@ -103,7 +103,7 @@ const AgregarProducto = () => {
     return (
         <div>
             {/* modal agregar producto */}
-            <BotonVerde text={'Agregar Producto'} onClick={handleShow} />
+            <BotonVerde text={'Agregar producto'} onClick={handleShow} />
 
             <Modal
                 show={show}
@@ -116,7 +116,7 @@ const AgregarProducto = () => {
             >
                 <div className={`modal-content `}>
                     <HeaderModals
-                        title={'Agregar Producto'}
+                        title={'Agregar producto'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -252,13 +252,13 @@ const AgregarProducto = () => {
                                     htmlFor='Publicar'
                                     className='col-form-control'
                                 >
-                                    ¿Deseas publicarlo?
+                                    ¿Deseas publicarlo?: *
                                 </label>
 
                                 <select
                                     name='publicado'
                                     className={`form-control ${style.customerr}`}
-                                    title='Seleccione una opcion'
+                                    title='Seleccione una opción'
                                     {...register('publicado', {
                                         required: {
                                             value: true,
@@ -286,7 +286,7 @@ const AgregarProducto = () => {
                                     htmlFor='Archivo'
                                     className='col-from-label'
                                 >
-                                    Producto Final: *
+                                    Producto final: *
                                 </label>
 
                                 <input
@@ -318,7 +318,7 @@ const AgregarProducto = () => {
                                 <div className='pr-5'>
                                     <BotonNegro
                                         // modalClouse= "myModal"
-                                        text='Agregar Diseño'
+                                        text='Agregar diseño'
                                         onClick={handleShoww}
                                     />
                                 </div>

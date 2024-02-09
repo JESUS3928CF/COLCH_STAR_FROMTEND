@@ -102,7 +102,7 @@ id="#myModalColors">
                                         htmlFor='color'
                                         className='col-form-label'
                                     >
-                                        Color:
+                                        Color: *
                                     </label>
                                     <input
                                         type='text'
@@ -138,7 +138,7 @@ id="#myModalColors">
                                         htmlFor='codigo'
                                         className='col-form-label'
                                     >
-                                        Codigo:
+                                        Código: *
                                     </label>
                                     <input
                                         type='color'

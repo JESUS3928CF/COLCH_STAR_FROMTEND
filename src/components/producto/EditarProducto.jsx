@@ -94,7 +94,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
             >
                 <div className={`modal-content`}>
                     <HeaderModals
-                        title={'Editar Producto'}
+                        title={'Editar producto'}
                         handleClose={() => {
                             reset();
                             handleClose();
@@ -230,7 +230,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     htmlFor='Publicar'
                                     className='col-form-control'
                                 >
-                                    ¿Deseas publicarlo?
+                                    ¿Deseas publicarlo?: *
                                 </label>
 
                                 <select
@@ -242,9 +242,6 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                             validarBooleanos(value),
                                     })}
                                 >
-                                    <option value='' disabled>
-                                        Selecciona una opción
-                                    </option>
                                     <option value='true'>Si</option>
                                     <option value='false'>No</option>
                                 </select>
@@ -261,7 +258,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     htmlFor='Archivo'
                                     className='col-from-label'
                                 >
-                                    Imagen de la Producto Final: *
+                                    Imagen del producto final: *
                                 </label>
 
                                 <input
@@ -286,7 +283,7 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                             <div className='modal-footer '>
                                 <div className='pr-5'>
                                     <BotonNegro
-                                        text='Agregar Diseño'
+                                        text='Editar diseño'
                                         onClick={ () => { 
                                             console.log(editarProducto.disenos)
                                             setSelectedDisenoNombre(editarProducto.disenos)

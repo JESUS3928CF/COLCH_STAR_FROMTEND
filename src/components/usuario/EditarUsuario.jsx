@@ -94,7 +94,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
           >
               <div className='modal-content'>
                   <HeaderModals
-                      title={'Editar Usuario'}
+                      title={'Editar usuario'}
                       handleClose={() => {
                           reset();
                           handleClose();
@@ -111,7 +111,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                   htmlFor='nombreEditar'
                                   className='col-form-label'
                               >
-                                  Nombre:
+                                  Nombre: *
                               </label>
                               <input
                                   type='text'
@@ -161,7 +161,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                   htmlFor='apellidoEditar'
                                   className='col-form-label'
                               >
-                                  Apellido:
+                                  Apellido: *
                               </label>
                               <input
                                   type='text'
@@ -208,7 +208,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                   htmlFor='telefonoEditar'
                                   className='col-form-label'
                               >
-                                  Teléfono:
+                                  Teléfono: *
                               </label>
                               <input
                                   type='text'
@@ -255,7 +255,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                   htmlFor='emailEditar'
                                   className='col-form-label'
                               >
-                                  Email:
+                                  Email: *
                               </label>
                               <input
                                   type='text'
@@ -292,7 +292,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                                       htmlFor='rol'
                                       className='col-form-label'
                                   >
-                                      Rol:
+                                      Rol: *
                                   </label>
                                   <select
                                       name='rol'

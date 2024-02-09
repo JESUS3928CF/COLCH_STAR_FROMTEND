@@ -81,7 +81,7 @@ function AgregarRol() {
 
   return (
       <div>
-            <BotonVerde text={'Agregar Rol'} onClick={handleShow} />
+            <BotonVerde text={'Agregar rol'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
@@ -108,7 +108,7 @@ function AgregarRol() {
                                           htmlFor='nombreGuardar'
                                           className='col-form-label'
                                       >
-                                          Nombre del Rol: *
+                                          Nombre del rol: *
                                       </label>
                                       <input
                                           name='nombre'
