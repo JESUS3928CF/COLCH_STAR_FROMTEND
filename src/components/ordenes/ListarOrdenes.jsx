@@ -1,51 +1,47 @@
-
-
-import '../../css-general/cssgeneral.css'
-import '../../css-general/tailwind.min.css'
-import '../../css-general/inicio_style.css'
-import '../../css-general/table.min.css'
-import Paginador from '../chared/Paginador'
+import '../../css-general/cssgeneral.css';
+import '../../css-general/tailwind.min.css';
+import '../../css-general/inicio_style.css';
+import '../../css-general/table.min.css';
+import Paginador from '../chared/Paginador';
 import BotonNegro from '../chared/BotonNegro';
-import Header from '../chared/header/Header'
+import Header from '../chared/header/Header';
 import Buscador from '../chared/Buscador';
 import AgregarOrden from '../ordenes/AgregarOrden.jsx';
 import DetallesOrden from './DetallesOrden.jsx';
 import EditarOrden from './EditarOrden.jsx';
 import style from '../../pages/proveedores.module.css';
-import useOrden from '../../hooks/useOrden.jsx'
+import useOrden from '../../hooks/useOrden.jsx';
 import { useEffect, useState } from 'react';
-import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
-import styles from "../../css-general/CardStyleGenerar.module.css";
+import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
+import {
+    registrosPorPagina,
+    resolucionCards,
+} from '../../constantes/constantes.js';
+import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
 
-
 //Componente
 const ListarOrdenes = () => {
-
     //ordenes tiene la consulta de todos las ordenes de la base de datos
-    const { ordenes,cambiarEstadoDeOrden } = useOrden();
+    const {
+        ordenes,
+        cambiarEstadoDeOrden,
+        handleShowEditar,
+        showEditar,
+        handleCloseEditar,
+    } = useOrden();
 
-    /// Funcionalidad para cerra el modal
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    /// Datos para listar
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
     //detallesProductos
     const [detallesOrdenes, setDetallesOrdenes] = useState({});
 
-
-
     //Estado para editar
     const [editarOrden, setEditarOrden] = useState({});
 
-
     //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
-
         if (
             orden.estado_de_orden === 'Entregada' ||
             orden.estado_de_orden === 'Finalizada'
@@ -53,36 +49,30 @@ const ListarOrdenes = () => {
             return Swal.fire(
                 'Acción inválida!',
                 `Esta Orden ha sido ${
-                    orden.estado_de_orden ===
-                    "Finalizada" ? 'Finalizada' : 'Entregada'
+                    orden.estado_de_orden === 'Finalizada'
+                        ? 'Finalizada'
+                        : 'Entregada'
                 } , No se puede editar`,
                 'error'
             );
         }
 
-
         setEditarOrden(orden);
-        handleShow();
+        handleShowEditar();
     };
-
-
 
     // solicitud  a la url
     useEffect(() => {
-        setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina))
+        setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
     }, [ordenes]);
-
 
     // ancho de la pantalla para el resposive
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
-
 
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
-
-
 
     return (
         <div>
@@ -289,8 +279,8 @@ const ListarOrdenes = () => {
             </div>
             <EditarOrden
                 orden={editarOrden}
-                handleClose={handleClose}
-                show={show}
+                handleCloseEditar={handleCloseEditar}
+                showEditar={showEditar}
             />
             <DetallesOrden detallesOrdenes={detallesOrdenes} />
 
@@ -303,23 +293,6 @@ const ListarOrdenes = () => {
             </div>
         </div>
     );
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-export default ListarOrdenes
+export default ListarOrdenes;

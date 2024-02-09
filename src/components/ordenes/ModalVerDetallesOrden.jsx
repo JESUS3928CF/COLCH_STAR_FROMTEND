@@ -5,21 +5,18 @@ import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useOrden from '../../hooks/useOrden';
 import BotonNegro from '../chared/BotonNegro';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export const ModalVerDetallesOrden = () => {
+export const ModalVerDetallesOrden = ({editar = false}) => {
     const {
         detallesOrden,
         setDetallesOrden,
         showDetalles,
         handleCloseDetalles,
         handleShow,
+        handleShowEditar
 
     } = useOrden();
-
-    useEffect(() => {
-        console.log(detallesOrden)
-    },[detallesOrden])
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -53,7 +50,7 @@ export const ModalVerDetallesOrden = () => {
                 show={showDetalles}
                 onHide={() => {
                     handleCloseDetalles();
-                    handleShow();
+                    editar? handleShowEditar() : handleShow();
                 }}
                 className='modal d-flex align-items-center justify-content-center '
             >
@@ -62,7 +59,7 @@ export const ModalVerDetallesOrden = () => {
                         title={'Detalles agregados de las ordenes'}
                         handleClose={() => {
                             handleCloseDetalles();
-                            handleShow();
+                            editar ? handleShowEditar() : handleShow();
                         }}
                     />
                     <div>

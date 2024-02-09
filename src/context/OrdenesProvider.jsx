@@ -12,15 +12,9 @@ const OrdenesProvider = ({ children }) => {
 
     const [detallesOrden, setDetallesOrden] = useState([]);
 
-
-    const [detailsOrden, setDetailsOrden]=useState([])
+    const [detailsOrden, setDetailsOrden] = useState([]);
 
     const [totalOrden, setTotalOrden] = useState(0);
-
-
-
-
-
 
     /// Calcular el total de la compra
     useEffect(() => {
@@ -36,7 +30,6 @@ const OrdenesProvider = ({ children }) => {
     // primer state
     const [ordenes, setOrdenes] = useState([]);
 
-
     // función para obtener los clientes solo cuando se carge el componente
 
     const consultarOrdenes = async () => {
@@ -46,42 +39,35 @@ const OrdenesProvider = ({ children }) => {
             const { data } = await ordenAxios.get('/ordenes', config);
 
             setOrdenes(data);
-
         } catch (error) {
             console.log(error);
         }
     };
 
-    const consultarDetailsOrden = async ()=>{
+    const consultarDetailsOrden = async () => {
         try {
-            const token = localStorage.getItem('token')
-            if(!token) return;
-            const {data} = await clienteAxios.get('/DetalleOrden', config)
-            setDetailsOrden(data)
-
-        }catch (error){
-            console.log('error')
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const { data } = await clienteAxios.get('/DetalleOrden', config);
+            setDetailsOrden(data);
+        } catch (error) {
+            console.log('error');
         }
-    }
-
-
-
+    };
 
     useEffect(() => {
         consultarOrdenes();
-        consultarDetailsOrden()
+        consultarDetailsOrden();
     }, [auth]);
 
     const agregarOrden = async (data, reset, handleClose) => {
         const { fecha_entrega, fk_cliente, estado_de_orden } = data;
 
-        console.log(detailsOrden)
-
         try {
             const newOrden = await ordenAxios.post(
                 '/ordenes',
                 {
-                    total_de_compra: totalCompra,
+                    total_de_compra: totalOrden,
                     fecha_entrega: fecha_entrega,
                     fk_cliente: fk_cliente,
                     detallesOrdenes: detallesOrden,
@@ -134,7 +120,6 @@ const OrdenesProvider = ({ children }) => {
                             title: `Cambio de estado exitoso`,
                             // text: "Este ",
                             icon: 'success',
-                            
                         });
                     } else {
                         Swal.fire(
@@ -161,15 +146,13 @@ const OrdenesProvider = ({ children }) => {
     const [show, setShow] = useState(false);
 
     const handleClose = (reset) => {
-        
         setShow(false);
-        
-        if(!reset) return;
+
+        if (!reset) return;
         setDetallesOrden([]);
         reset();
     };
     const handleShow = () => setShow(true);
-
 
     //* Funcionalidad para cerra el modal de detalles
     const [showDetalles, setShowDetalles] = useState(false);
@@ -179,6 +162,12 @@ const OrdenesProvider = ({ children }) => {
     };
 
     const handleShowDetalles = () => setShowDetalles(true);
+
+    /// Funcionalidad para cerra el modal Editar
+    const [showEditar, setShowEditar] = useState(false);
+
+    const handleCloseEditar = () => setShowEditar(false);
+    const handleShowEditar = () => setShowEditar(true);
 
     return (
         <ordenesContext.Provider
@@ -190,13 +179,15 @@ const OrdenesProvider = ({ children }) => {
                 cambiarEstadoDeOrden,
                 handleShowDetalles,
                 handleCloseDetalles,
-                showDetalles, 
+                showDetalles,
                 handleClose,
                 handleShow,
                 show,
-                
+                handleShowEditar,
                 detailsOrden,
-                consultarDetailsOrden
+                consultarDetailsOrden,
+                handleCloseEditar,
+                showEditar,
             }}
         >
             {children}

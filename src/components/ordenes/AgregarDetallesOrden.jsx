@@ -4,21 +4,19 @@ import BotonNegro from '../chared/BotonNegro';
 import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
-import { number } from 'prop-types';
 
 
 
-export const AgregarDetallesOrden = () => {
+export const AgregarDetallesOrden = ({editar = false}) => {
     const { productos } = useProducto();
-
 
     const {
         detallesOrden,
         setDetallesOrden,
         handleShowDetalles,
         handleClose,
-        detailsOrden
-
+        handleCloseEditar,
+        detailsOrden,
     } = useOrden();
 
 
@@ -27,10 +25,7 @@ export const AgregarDetallesOrden = () => {
         register, //Registra o identifica cada elemento o cada input
         handleSubmit, //Para manejar el envió del formulario
         formState: { errors }, //Ver errores que tiene el formulario
-        setValue,
-        trigger,
         reset, //Resetea el formulario
-        watch,
     } = useForm({
         mode: 'onChange',
     });
@@ -259,7 +254,7 @@ export const AgregarDetallesOrden = () => {
                     <BotonNegro
                         text={'Ver detalles'}
                         onClick={() => {
-                            handleClose();
+                            editar? handleCloseEditar() : handleClose();
                             handleShowDetalles();
                         }}
                     />

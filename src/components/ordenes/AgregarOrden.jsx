@@ -1,44 +1,28 @@
-
-
-
-
-import '../../css-general/cssgeneral.css'
-import '../../css-general/inicio_style.css'
+import '../../css-general/cssgeneral.css';
+import '../../css-general/inicio_style.css';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
-import { validarEspaciosVacios, validarFechaOrden } from '../../Validations/validations'
-import { validarFecha } from '../../Validations/validations';
+import { validarFechaOrden } from '../../Validations/validations';
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
-import useOrden from '../../hooks/useOrden.jsx'
+import useOrden from '../../hooks/useOrden.jsx';
 import { AgregarDetallesOrden } from './AgregarDetallesOrden.jsx';
 import BotonVerde from '../chared/BotonVerde';
 import { Modal } from 'react-bootstrap';
-import { useState } from 'react';
-import useClientes from '../../hooks/useCliente.jsx'
+import useClientes from '../../hooks/useCliente.jsx';
 import Swal from 'sweetalert2';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
 
-
-
-
-
 //COMPONENTE
 const AgregarOrden = () => {
-
-
     /// Funcionalidad para cerra el modal
     // const [show, setShow] = useState(false);
 
     // const handleClose = () => setShow(false);
     // const handleShow = () => { setShow(true); }
 
-    const {
-        handleClose,
-        handleShow,
-        show
-    } = useOrden();
+    const { handleClose, handleShow, show } = useOrden();
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -48,21 +32,17 @@ const AgregarOrden = () => {
         trigger,
         reset, //resetea el formulario
     } = useForm({
-        mode: "onChange",
+        mode: 'onChange',
     });
 
-
     //estado de las prendas para resivir la informacion que lleg de la base de datos
-    const { clientes } = useClientes()
+    const { clientes } = useClientes();
 
     // función que llega del provider que tiene todas las rutas
     const { agregarOrden, detallesOrden } = useOrden();
 
-
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
-
-
         if (detallesOrden.length === 0) {
             Swal.fire({
                 title: 'Espera!!',
@@ -74,21 +54,15 @@ const AgregarOrden = () => {
         }
     };
 
-
-
-
     return (
         <div>
-
             <BotonVerde text={'Agregar orden'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {
                     reset();
                     handleClose();
-
                 }}
-                className='modal d-flex align-items-center justify-content-center '
             >
                 <div className='modal-content'>
                     <HeaderModals
@@ -96,15 +70,12 @@ const AgregarOrden = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
-
                         }}
                     />
                     <div>
                         <div className='modal-body'>
                             <form action='' onSubmit={handleSubmit(onSubmit)}>
                                 <div className='row'>
-
-
                                     <div className='col-md-6'>
                                         <label
                                             htmlFor='rol'
@@ -129,12 +100,18 @@ const AgregarOrden = () => {
                                             </option>
 
                                             {clientes
-                                                .filter(cliente => cliente.estado)
+                                                .filter(
+                                                    (cliente) => cliente.estado
+                                                )
                                                 .map((cliente) => {
                                                     return (
                                                         <option
-                                                            key={cliente.id_cliente}
-                                                            value={cliente.id_cliente}
+                                                            key={
+                                                                cliente.id_cliente
+                                                            }
+                                                            value={
+                                                                cliente.id_cliente
+                                                            }
                                                         >
                                                             {cliente.nombre}
                                                         </option>
@@ -150,8 +127,6 @@ const AgregarOrden = () => {
                                             />
                                         )}
                                     </div>
-
-
 
                                     <div className='col-md-6'>
                                         <label
@@ -171,7 +146,7 @@ const AgregarOrden = () => {
                                                         'La fecha es obligatoria',
                                                 },
                                                 pattern: {
-                                                    value: '^(?:\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)\d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$',
+                                                    value: '^(?:d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|(?!0000-00-00)d{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$',
                                                     message: 'Error',
                                                 },
                                                 validate: (value) =>
@@ -187,17 +162,23 @@ const AgregarOrden = () => {
                                         />
                                         {errors.fecha_entrega && (
                                             <AlertaError
-                                                message={errors.fecha_entrega.message}
+                                                message={
+                                                    errors.fecha_entrega.message
+                                                }
                                             />
                                         )}
                                     </div>
 
-
-                                    <div className='col-md-8' style={{textAlign:'center', fontWeight:600}} >
+                                    <div
+                                        className='col-md-8'
+                                        style={{
+                                            textAlign: 'center',
+                                            fontWeight: 600,
+                                        }}
+                                    >
                                         <label
                                             htmlFor='nombreCompraAgregar'
                                             className='col-form-label'
-                                            
                                         >
                                             Precio total: *
                                         </label>
@@ -209,20 +190,21 @@ const AgregarOrden = () => {
                                             {...register('precio_total', {
                                                 required: {
                                                     value: true,
-                                                    message: 'El color es obligatorio',
-                                                }
-
+                                                    message:
+                                                        'El color es obligatorio',
+                                                },
                                             })}
                                         />
 
                                         {errors.subtotal && (
-                                            <AlertaError message={errors.subtotal.message} />
+                                            <AlertaError
+                                                message={
+                                                    errors.subtotal.message
+                                                }
+                                            />
                                         )}
                                     </div>
-
-
                                 </div>
-
                             </form>
                             <AgregarDetallesOrden />
 
@@ -240,15 +222,9 @@ const AgregarOrden = () => {
                 </div>
             </Modal>
 
-
-
-
-
-
-
             <ModalVerDetallesOrden />
         </div>
-    )
-}
+    );
+};
 
-export default AgregarOrden
+export default AgregarOrden;

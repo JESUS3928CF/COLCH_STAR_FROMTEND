@@ -4,22 +4,22 @@ import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
 import {
-    validarEspaciosVacios,
     validarFechaOrden,
 } from '../../Validations/validations';
-import { validarFecha } from '../../Validations/validations';
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
-import useOrden from '../../hooks/useOrden.jsx';
 import { AgregarDetallesOrden } from './AgregarDetallesOrden.jsx';
 import { Modal } from 'react-bootstrap';
 import useClientes from '../../hooks/useCliente.jsx';
-import Swal from 'sweetalert2';
 import { useEffect } from 'react';
-import { EditarDetallesOrden } from './EditarDetallesOrden.jsx';
+import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
 
 //COMPONENTE
-const EditarOrden = ({ orden, handleClose, show }) => {
+const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
+
+
+
+
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -33,12 +33,11 @@ const EditarOrden = ({ orden, handleClose, show }) => {
 
     // Cuando editarCliente cambia, actualiza los valores del formulario
     useEffect(() => {
-        console.log(orden);
         if (orden) {
             setValue('fk_cliente', orden.fk_cliente);
             setValue('fecha_entrega', orden.fecha_entrega);
         }
-    }, [orden, show]);
+    }, [orden, showEditar]);
 
     //estado de las prendas para resivir la informacion que lleg de la base de datos
     const { clientes } = useClientes();
@@ -51,19 +50,18 @@ const EditarOrden = ({ orden, handleClose, show }) => {
     return (
         <div>
             <Modal
-                show={show}
+                show={showEditar}
                 onHide={() => {
                     reset();
-                    handleClose();
+                    handleCloseEditar();
                 }}
-                className='modal d-flex align-items-center justify-content-center '
             >
                 <div className='modal-content'>
                     <HeaderModals
                         title={'Editar orden'}
                         handleClose={() => {
                             reset();
-                            handleClose();
+                            handleCloseEditar();
                         }}
                     />
                     <div>
@@ -166,14 +164,12 @@ const EditarOrden = ({ orden, handleClose, show }) => {
                                 </div>
                             </form>
 
-                            <EditarDetallesOrden
-                                detallesOrden={orden.detalles}
-                            />
+                            <AgregarDetallesOrden editar={true} />
 
                             <div className='modal-footer'>
                                 <CancelarModal
                                     reset={reset}
-                                    handleClose={handleClose}
+                                    handleClose={handleCloseEditar}
                                 />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}
@@ -183,6 +179,8 @@ const EditarOrden = ({ orden, handleClose, show }) => {
                     </div>
                 </div>
             </Modal>
+
+            <ModalVerDetallesOrden editar={true} />
         </div>
     );
 };
