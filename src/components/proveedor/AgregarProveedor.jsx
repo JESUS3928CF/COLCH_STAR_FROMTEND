@@ -186,7 +186,7 @@ const AgregarProveedor = () => {
                                     htmlFor='nombre'
                                     className='col-form-label'
                                 >
-                                    Nombres: *
+                                    Nombre: *
                                 </label>
 
                                 <input

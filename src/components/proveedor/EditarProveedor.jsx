@@ -168,7 +168,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                     htmlFor='nombreEditar'
                                     className='col-form-label'
                                 >
-                                    Nombres: *
+                                    Nombre: *
                                 </label>
 
                                 <input
