@@ -3,6 +3,7 @@ import clienteAxios from '../../config/axios';
 import './BotonCambioEstado.css';
 import PropTypes from 'prop-types';
 import useAuth from '../../hooks/useAuth';
+import usePrendas from '../../hooks/usePrendas';
 
 const BotonCambioEstado = ({
     id,
@@ -18,6 +19,8 @@ const BotonCambioEstado = ({
     detalle = [],
 }) => {
     const { config } = useAuth();
+
+    const { consultPrendas } = usePrendas();
 
     const alertaError = () => {
         return Swal.fire('Acción inválida!', `${mensajeError}`, 'error');
@@ -81,6 +84,10 @@ const BotonCambioEstado = ({
                             else {
                                 location.reload();
                             }
+
+                            if (detalle != []) {
+                                consultPrendas();
+                            }
                         });
 
                         // setEstado(!isChecked);
@@ -98,6 +105,8 @@ const BotonCambioEstado = ({
                             text: error.response.data.message,
                             icon: 'error',
                         });
+
+                        
                     } else {
                         Swal.fire(
                             'Error',

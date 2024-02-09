@@ -56,7 +56,7 @@ const AgregarDiseno = () => {
 
     return (
         <Fragment>
-            <BotonVerde text={'Agregar Diseño'} onClick={handleShow} />
+            <BotonVerde text={'Agregar diseño'} onClick={handleShow} />
             <Modal
                 show={show}
                 onHide={() => {

@@ -29,7 +29,7 @@ const TablaDisenos = ({
                 <table className='table caption-top'>
                     <thead>
                         <tr>
-                            <th scope='col'>Id</th>
+                            <th scope='col'>ID</th>
                             <th scope='col'>Nombre</th>
                             <th scope='col'>Imagen</th>
                             <th scope='col'>Publicado</th>
@@ -40,7 +40,7 @@ const TablaDisenos = ({
                     <tbody>
                         {disenosFiltrar.map((diseno) => (
                             <tr key={diseno.id_diseno}>
-                                <th scope='row'>{diseno.id_diseno}</th>
+                                <td>{diseno.id_diseno}</td>
                                 <td>{diseno.nombre}</td>
                                 <td>
                                     <BotonNegro
