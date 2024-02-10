@@ -44,6 +44,7 @@ const ListarOrdenes = () => {
 
     //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
+        setEditar(true);
         if (
             orden.estado_de_orden === 'Entregada' ||
             orden.estado_de_orden === 'Finalizada'
@@ -195,7 +196,7 @@ const ListarOrdenes = () => {
                                             Id: <span>{orden.id_orden}</span>
                                         </p>
                                         <p className={styles.text}>
-                                            Nombre:: {orden.cliente.nombre}{' '}
+                                            Nombre: {orden.cliente.nombre}{' '}
                                             {orden.cliente.apellido}
                                         </p>
                                         <p className={styles.text}>
@@ -270,7 +271,6 @@ const ListarOrdenes = () => {
                                                             : ''
                                                     }
                                                     onClick={() => {
-                                                        setEditar(true);
                                                         handleEditClick(orden);
                                                     }}
                                                 />
