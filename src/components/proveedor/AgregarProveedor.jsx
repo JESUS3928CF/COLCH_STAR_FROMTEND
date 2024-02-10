@@ -211,7 +211,7 @@ const AgregarProveedor = () => {
                                                 'El Nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                         },
                                         validate: (value) => {
-                                            if (value.length < 3 || value.length > 20) {
+                                            if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
                                             if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -306,7 +306,7 @@ const AgregarProveedor = () => {
                                                 'La Dirección es obligatoria',
                                         },
                                         validate: (value) => {
-                                            if (value.length < 4 || value.length > 50) {
+                                            if (value.trim().length < 4 || value.length > 50) {
                                                 return 'La dirección debe tener entre 4 y 50 caracteres';
                                             }
                                             if (value.includes(" ")) {
