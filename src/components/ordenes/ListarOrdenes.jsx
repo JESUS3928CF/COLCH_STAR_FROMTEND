@@ -30,12 +30,14 @@ const ListarOrdenes = () => {
         handleShowEditar,
         showEditar,
         handleCloseEditar,
+        setEditar,
+        setDetallesOrden,
     } = useOrden();
 
     /// Datos para listar
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
     //detallesProductos
-    const [detallesOrdenes, setDetallesOrdenes] = useState({});
+    const [detallesOrdenActual, setDetallesOrdenActual] = useState({});
 
     //Estado para editar
     const [editarOrden, setEditarOrden] = useState({});
@@ -56,6 +58,7 @@ const ListarOrdenes = () => {
                 'error'
             );
         }
+        setDetallesOrden(orden.detalles);
 
         setEditarOrden(orden);
         handleShowEditar();
@@ -135,7 +138,9 @@ const ListarOrdenes = () => {
                                                 text='Ver'
                                                 modalToOpen='#modalDetalles'
                                                 onClick={() =>
-                                                    setDetallesOrdenes(orden)
+                                                    setDetallesOrdenActual(
+                                                        orden
+                                                    )
                                                 }
                                             />
                                         </td>
@@ -165,9 +170,9 @@ const ListarOrdenes = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                onClick={() =>
-                                                    handleEditClick(orden)
-                                                }
+                                                onClick={() => {
+                                                    handleEditClick(orden);
+                                                }}
                                             />
                                         </td>
                                     </tr>
@@ -244,7 +249,7 @@ const ListarOrdenes = () => {
                                                     text='Ver'
                                                     modalToOpen='#modalDetalles'
                                                     onClick={() =>
-                                                        setDetallesOrdenes(
+                                                        setDetallesOrdenActual(
                                                             orden
                                                         )
                                                     }
@@ -264,9 +269,10 @@ const ListarOrdenes = () => {
                                                             ? '#modalEditar'
                                                             : ''
                                                     }
-                                                    onClick={() =>
-                                                        handleEditClick(orden)
-                                                    }
+                                                    onClick={() => {
+                                                        setEditar(true);
+                                                        handleEditClick(orden);
+                                                    }}
                                                 />
                                             </div>
                                         </div>
@@ -282,7 +288,7 @@ const ListarOrdenes = () => {
                 handleCloseEditar={handleCloseEditar}
                 showEditar={showEditar}
             />
-            <DetallesOrden detallesOrdenes={detallesOrdenes} />
+            <DetallesOrden detallesOrdenes={detallesOrdenActual} />
 
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}

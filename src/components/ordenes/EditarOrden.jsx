@@ -13,6 +13,7 @@ import { Modal } from 'react-bootstrap';
 import useClientes from '../../hooks/useCliente.jsx';
 import { useEffect } from 'react';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
+import useOrden from '../../hooks/useOrden.jsx';
 
 //COMPONENTE
 const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
@@ -31,6 +32,8 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
         mode: 'onChange',
     });
 
+    const {totalOrden,actualizarOrden} = useOrden();
+
     // Cuando editarCliente cambia, actualiza los valores del formulario
     useEffect(() => {
         if (orden) {
@@ -45,6 +48,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
         console.log(data);
+        actualizarOrden(orden.id_orden, data, reset, handleCloseEditar);
     };
 
     return (
@@ -160,6 +164,9 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                                                 }
                                             />
                                         )}
+                                    </div>
+                                    <div className='col-md-8 mt-3'>
+                                        <p> Precio total: ${totalOrden}</p>
                                     </div>
                                 </div>
                             </form>
