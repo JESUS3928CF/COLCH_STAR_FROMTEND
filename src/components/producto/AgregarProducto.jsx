@@ -202,16 +202,12 @@ const AgregarProducto = () => {
                                                 'El cantidad es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.includes(" ")) {
-                                                return 'No se permiten espacios en blanco';
-                                            }
+
                                             // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                             if (!/^\d+$/.test(value)) {
                                                 return 'La cantidad solo puede contener números';
                                             }
-                                            if (value.startsWith("0")) {
-                                                return 'La cantidad no puede iniciar con 0';
-                                            }
+
                                             return true;
                                         },
                                     })}
