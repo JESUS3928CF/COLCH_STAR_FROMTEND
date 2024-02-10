@@ -208,16 +208,16 @@ const AgregarProveedor = () => {
                                                 'El Nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                         },
                                         validate: (value) => {
-                                            const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
                                             if (value.length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                                                return 'El nombre solo puede contener letras';
                                             }
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
                                             }
-                                            if (!regex.test(value)) {
-                                                return 'El nombre solo puede contener letras';
-                                            }
+                                            
                                             return true;
                                         },
                                     })}
