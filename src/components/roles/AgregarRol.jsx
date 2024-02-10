@@ -124,22 +124,17 @@ function AgregarRol() {
                                                       'El nombre es obligatorio',
                                               },
                                               validate: (value) => {
-                                                  return validarEspaciosVacios(
-                                                      value
-                                                  );
-                                              },
-                                              pattern: {
-                                                  value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                                  message:
-                                                      'El nombre no puede contener números ni caracteres especiales',
-                                              },
-                                              minLength:{
-                                                value : 3,
-                                                message: "El nombre debe tener mínimo 3 caracteres"
-                                            },
-                                            maxLength: {
-                                                value: 20,
-                                                message: "El nombre debe tener máximo 20 caracteres"
+                                                if (value.length < 3 || value.length > 20) {
+                                                    return 'El rol debe tener entre 3 y 20 caracteres';
+                                                }
+                                                if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                    return 'El rol solo puede contener letras';
+                                                }
+                                                if (value.includes(" ")) {
+                                                    return validarEspaciosVacios(value);
+                                                }
+                                                
+                                                return true;
                                             },
                                           })}
                                           onChange={(e) => {
