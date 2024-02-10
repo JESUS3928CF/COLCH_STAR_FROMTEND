@@ -257,8 +257,8 @@ const AgregarProveedor = () => {
                                             if (value.includes(" ")) {
                                                 return 'No se permiten espacios en blanco';
                                             }
-                                            if (isNaN(value)) {
-                                                return 'El teléfono solo puede contener números';
+                                            if (!/^\d+$/.test(value)) {
+                                                return 'La identificación solo puede contener números';
                                             }
                                             if (value.startsWith("0")) {
                                                 return 'El teléfono no puede iniciar con 0';
