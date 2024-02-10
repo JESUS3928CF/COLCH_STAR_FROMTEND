@@ -155,8 +155,8 @@ const AgregarProveedor = () => {
                                                     if (value.includes(" ")) {
                                                         return 'No se permiten espacios en blanco';
                                                     }
-                                                    if (/^\d+$/.test(value) || isNaN(value)) {
-                                                    } else {
+                                                    // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                                    if (!/^\d+$/.test(value)) {
                                                         return 'La identificación solo puede contener números';
                                                     }
                                                     if (value.startsWith("0")) {
