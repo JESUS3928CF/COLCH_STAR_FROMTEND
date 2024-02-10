@@ -165,6 +165,9 @@ const AgregarProveedor = () => {
                                                     if (value.length < 6 || value.length > 10) {
                                                         return 'La Identificación debe tener entre 6 y 10 dígitos';
                                                     }
+                                                    if (value.length === 6 && document.getElementById('tipoIdentificacion').value !== 'C.E. ') {
+                                                        return 'No se puede agregar una identificación de 6 dígitos si el tipo de identificación no es C.E.';
+                                                    }
                                                     return true;
                                                 },
                                             })}
@@ -217,7 +220,7 @@ const AgregarProveedor = () => {
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
                                             }
-                                            
+
                                             return true;
                                         },
                                     })}
