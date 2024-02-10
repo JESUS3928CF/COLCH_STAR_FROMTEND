@@ -20,10 +20,10 @@ import useAuth from '../../hooks/useAuth';
 
 
 //componente
-const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handleShoww, showw, handleClosex }) => {
+const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handleShoww, showw, handleClosex }) => {
 
     //traigo la funciona para eidtar un producto
-    const { editarProductos,setSelectedDisenoNombre } = useProducto();
+    const { editarProductos, setSelectedDisenoNombre } = useProducto();
 
 
     const { config } = useAuth();
@@ -127,11 +127,22 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
+                                            if (value.trim().length < 3 || value.length > 20) {
+                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            // if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                            //     return 'El nombre solo puede contener letras';
+                                            // }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value);
+                                        const inputValue = e.target.value.slice(0, 21); // Limitar la longitud máxima
+                                        setValue('nombre', inputValue);
                                         trigger('nombre');
                                     }}
                                 />
@@ -163,17 +174,23 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                             message:
                                                 'El cantidad es obligatorio',
                                         },
-                                        pattern: {
-                                            value: /^\d+$/,
-                                            message:
-                                                'No puede contener Letras ni espacios en blanco',
-                                        },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
+                                            if (value.includes(" ")) {
+                                                return 'No se permiten espacios en blanco';
+                                            }
+                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                            if (!/^\d+$/.test(value)) {
+                                                return 'La cantidad solo puede contener números';
+                                            }
+                                            if (value.startsWith("0")) {
+                                                return 'La cantidad no puede iniciar con 0';
+                                            }
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('cantidad', e.target.value);
+                                        const inputValue = e.target.value.slice(0, 11); // Limitar la longitud máxima
+                                        setValue('cantidad', inputValue);
                                         trigger('cantidad');
                                     }}
                                 />
@@ -205,17 +222,17 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                     {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
                                     {/* esto se guarda en name = fk_prenda */}
                                     {Prendas
-                                    .filter(prenda => prenda.estado)
-                                    .map((prenda) => {
-                                        return (
-                                            <option
-                                                key={prenda.id_prenda}
-                                                value={prenda.id_prenda}
-                                            >
-                                                {prenda.nombre}
-                                            </option>
-                                        );
-                                    })}
+                                        .filter(prenda => prenda.estado)
+                                        .map((prenda) => {
+                                            return (
+                                                <option
+                                                    key={prenda.id_prenda}
+                                                    value={prenda.id_prenda}
+                                                >
+                                                    {prenda.nombre}
+                                                </option>
+                                            );
+                                        })}
                                 </select>
 
                                 {errors.fk_prenda && (
@@ -284,10 +301,11 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
                                 <div className='pr-5'>
                                     <BotonNegro
                                         text='Editar diseño'
-                                        onClick={ () => { 
+                                        onClick={() => {
                                             console.log(editarProducto.disenos)
                                             setSelectedDisenoNombre(editarProducto.disenos)
-                                            handleShoww()}}
+                                            handleShoww()
+                                        }}
                                     />
                                 </div>
 
@@ -306,11 +324,11 @@ const EditarProducto = ({ editarProducto, handleClose, show,  handleClosee,handl
 
             <EditarDisenoModal
                 // funcion para cerrar, abrir modal de EditarDiseñosModal
-                editarProducto= {editarProducto}
+                editarProducto={editarProducto}
                 handleClosee={handleClosee}
-                    handleShoww={handleShoww}
-                    showw={showw}
-                    handleClosex={handleClosex}
+                handleShoww={handleShoww}
+                showw={showw}
+                handleClosex={handleClosex}
             />
         </div>
     );
