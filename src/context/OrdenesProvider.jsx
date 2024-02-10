@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 import ordenAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import clienteAxios from '../config/axios';
 
 const ordenesContext = createContext();
@@ -14,14 +13,16 @@ const OrdenesProvider = ({ children }) => {
 
     const [detailsOrden, setDetailsOrden] = useState([]);
 
+    const [editar, setEditar] = useState(false);
+
     const [totalOrden, setTotalOrden] = useState(0);
 
-    /// Calcular el total de la compra
+    /// Calcular el total de la orden
     useEffect(() => {
         setTotalOrden(
             detallesOrden.reduce(
                 (total, producto) =>
-                    total + producto.cantidad * producto.subtotal,
+                    total + producto.cantidad * producto.producto.precio,
                 0
             )
         );
@@ -67,7 +68,7 @@ const OrdenesProvider = ({ children }) => {
             const newOrden = await ordenAxios.post(
                 '/ordenes',
                 {
-                    total_de_compra: totalOrden,
+                    precio_total: totalOrden,
                     fecha_entrega: fecha_entrega,
                     fk_cliente: fk_cliente,
                     detallesOrdenes: detallesOrden,
@@ -79,6 +80,41 @@ const OrdenesProvider = ({ children }) => {
             Swal.fire({
                 title: 'Compra Agregada',
                 text: newOrden.data.message,
+                icon: 'success',
+            }).then(() => {
+                consultarOrdenes();
+                handleClose(reset);
+            });
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error. Vuelva a intentarlo.',
+                icon: 'error',
+            });
+        }
+    };
+
+    const actualizarOrden = async (id_orden, data, reset, handleClose) => {
+        const { fecha_entrega, fk_cliente } = data;
+
+        console.log(detallesOrden);
+
+        try {
+            const actulizarOrden = await ordenAxios.patch(
+                `/ordenes/${id_orden}`,
+                {
+                    precio_total: totalOrden,
+                    fecha_entrega: fecha_entrega,
+                    fk_cliente: fk_cliente,
+                    detalles: detallesOrden,
+                },
+                config
+            );
+
+            Swal.fire({
+                title: 'Compra Agregada',
+                text: actulizarOrden.data.message,
                 icon: 'success',
             }).then(() => {
                 consultarOrdenes();
@@ -188,6 +224,10 @@ const OrdenesProvider = ({ children }) => {
                 consultarDetailsOrden,
                 handleCloseEditar,
                 showEditar,
+                totalOrden,
+                setEditar,
+                editar,
+                actualizarOrden,
             }}
         >
             {children}

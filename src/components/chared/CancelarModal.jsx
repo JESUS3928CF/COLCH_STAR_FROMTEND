@@ -7,12 +7,14 @@ const CancelarModal = ({
     reset,
     name = 'Cancelar',
     handleClose,
+    setDetallesOrden,
     setSelectedDisenoNombre, 
 }) => {
     //función que cuando le de click en cancelar se refresque la pagina y se restablezca la informacion que estaba en el formulario
     const onClick = () => {
         if (reset) reset();
         handleClose();
+        setDetallesOrden([]);
         
         // si es existe algo en setSelectDiseno resetea el set
         if (setSelectedDisenoNombre) {
@@ -42,7 +44,9 @@ CancelarModal.propTypes = {
     modalToCancel: PropTypes.string,
     name: PropTypes.string,
     reset: PropTypes.func,
-    handleClose : PropTypes.func
+    handleClose: PropTypes.func,
+    setSelectedDisenoNombre: PropTypes.func,
+    setDetallesOrden: PropTypes.func,
 };
 
 export default CancelarModal;
