@@ -174,7 +174,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             if (value.length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
-                                            if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
                                                 return 'El nombre solo puede contener letras';
                                             }
                                             if (value.includes(" ")) {
@@ -219,7 +219,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             if (value.length < 3 || value.length > 20) {
                                                 return 'El apellido debe tener entre 3 y 20 caracteres';
                                             }
-                                            if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
                                                 return 'El apellido solo puede contener letras';
                                             }
                                             if (value.includes(" ")) {

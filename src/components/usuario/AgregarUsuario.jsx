@@ -113,20 +113,18 @@ const AgregarUsuario = () => {
                                                 message:
                                                     'El nombre es obligatorio',
                                             },
-                                            validate: (value) =>
-                                                validarEspaciosVacios(value),
-                                            pattern: {
-                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                                message:
-                                                    'El nombre no puede tener números ni caracteres especiales',
-                                            },
-                                            minLength:{
-                                                value : 3,
-                                                message: "El nombre debe tener mínimo 3 caracteres"
-                                            },
-                                            maxLength: {
-                                                value: 20,
-                                                message: "El nombre debe tener máximo 20 caracteres"
+                                            validate: (value) => {
+                                                if (value.length < 3 || value.length > 20) {
+                                                    return 'El nombre debe tener entre 3 y 20 caracteres';
+                                                }
+                                                if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                    return 'El nombre solo puede contener letras';
+                                                }
+                                                if (value.includes(" ")) {
+                                                    return validarEspaciosVacios(value);
+                                                }
+                                                
+                                                return true;
                                             },
 
                                         })}
@@ -160,20 +158,18 @@ const AgregarUsuario = () => {
                                                 message:
                                                     'El apellido es obligatorio',
                                             },
-                                            validate: (value) =>
-                                                validarEspaciosVacios(value),
-                                            pattern: {
-                                                value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                                message:
-                                                    'El apellido no puede contener números ni caracteres especiales',
-                                            },
-                                            minLength:{
-                                                value : 3,
-                                                message: "El apellido debe tener mínimo 3 caracteres"
-                                            },
-                                            maxLength: {
-                                                value: 20,
-                                                message: "El apellido debe tener máximo 20 caracteres"
+                                            validate: (value) => {
+                                                if (value.length < 3 || value.length > 20) {
+                                                    return 'El apellido debe tener entre 3 y 20 caracteres';
+                                                }
+                                                if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                    return 'El apellido solo puede contener letras';
+                                                }
+                                                if (value.includes(" ")) {
+                                                    return validarEspaciosVacios(value);
+                                                }
+                                                
+                                                return true;
                                             },
                                         })}
                                         onChange={(e) => {
@@ -210,21 +206,18 @@ const AgregarUsuario = () => {
                                                 message:
                                                     'El teléfono es obligatorio',
                                             },
-                                            pattern: {
-                                                value: /^\d+$/,
-                                                message:
-                                                    'No se permiten letras ni espacios en blanco',
-                                            },
                                             validate: (value) => {
-                                                const telefonoSinEspacios =
-                                                    value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                                if (
-                                                    telefonoSinEspacios.length <
-                                                        7 ||
-                                                    telefonoSinEspacios.length >
-                                                        10
-                                                ) {
-                                                    return 'El telefono debe tener mínimo 7 dígitos y máximo 10';
+                                                if (value.includes(" ")) {
+                                                    return 'No se permiten espacios en blanco';
+                                                }
+                                                if (!/^\d+$/.test(value)) {
+                                                    return 'El télefono solo puede contener números';
+                                                }
+                                                if (value.startsWith("0")) {
+                                                    return 'El teléfono no puede iniciar con 0';
+                                                }
+                                                if (value.length < 7 || value.length > 10) {
+                                                    return 'El teléfono debe tener entre 7 y 10 dígitos';
                                                 }
                                                 return true;
                                             },
@@ -268,7 +261,7 @@ const AgregarUsuario = () => {
                                             pattern: {
                                                 value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                                 message:
-                                                    'El Email no tiene un formato válido',
+                                                    'El email no tiene un formato válido',
                                             },
                                         })}
                                         onChange={(e) => {
