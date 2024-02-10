@@ -47,7 +47,7 @@ const AgregarProducto = () => {
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
 
-    const handleClose = () => { setShow(false) };
+    const handleClose = () => { setShow(false), setSelectedDisenoNombre([])  };
     const handleShow = () => setShow(true);
 
 
@@ -114,6 +114,7 @@ const AgregarProducto = () => {
                 onHide={() => {
                     reset();
                     handleClose();
+                    setSelectedDisenoNombre([])
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModal'
@@ -330,6 +331,8 @@ const AgregarProducto = () => {
                                     reset={reset}
                                     handleClose={handleClose}
                                     setSelectedDisenoNombre={setSelectedDisenoNombre}
+                                    
+                                    
                                 />
                                 <GuardarModal />
                             </div>
