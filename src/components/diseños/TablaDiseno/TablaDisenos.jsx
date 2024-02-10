@@ -105,7 +105,7 @@ const TablaDisenos = ({
                         ></img>
                         <div className='card-body'>
                             <p className={styles.text}>
-                                Id diseño: <span>{diseno.id_diseno}</span>
+                                ID: <span>{diseno.id_diseno}</span>
                             </p>
                             <p className={styles.text}>
                                 Nombre: <span>{diseno.nombre}</span>

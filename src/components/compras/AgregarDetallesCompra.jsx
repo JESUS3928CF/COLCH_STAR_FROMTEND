@@ -107,13 +107,18 @@ export const AgregarDetallesCompra = () => {
                                 value: true,
                                 message: 'La cantidad es obligatoria',
                             },
-                            pattern: {
-                                value:
-                                    watch('fk_prenda') === 'd'
-                                        ? /^\d+(\.\d{1,2})?$/
-                                        : /^\d+$/,
-                                message:
-                                    'No se permiten letras ni caracteres especiales',
+                            validate: (value) => {
+                                if (value.includes(" ")) {
+                                    return 'No se permiten espacios en blanco';
+                                }
+                                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                if (!/^\d+$/.test(value)) {
+                                    return 'La cantidad solo puede contener números';
+                                }
+                                if (value.startsWith("0")) {
+                                    return 'La cantidad no puede iniciar con 0';
+                                }
+                                return true;
                             },
                         })}
                         onChange={(e) => {
@@ -144,10 +149,18 @@ export const AgregarDetallesCompra = () => {
                                 value: true,
                                 message: 'El precio es obligatorio',
                             },
-                            pattern: {
-                                value: /^\d+(\.\d{1,2})?$/,
-                                message:
-                                    'No se permiten letras ni caracteres espaciales',
+                            validate: (value) => {
+                                if (value.includes(" ")) {
+                                    return 'No se permiten espacios en blanco';
+                                }
+                                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                if (!/^\d+$/.test(value)) {
+                                    return 'El precio unitario solo puede contener números';
+                                }
+                                if (value.startsWith("0")) {
+                                    return 'El precio unitario no puede iniciar con 0';
+                                }
+                                return true;
                             },
                         })}
                         onChange={(e) => {

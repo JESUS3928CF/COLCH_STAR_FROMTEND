@@ -145,7 +145,7 @@ const ListarCompra = () => {
                                     >
                                         <div className='card-body'>
                                             <p className={styles.text}>
-                                                Id:{' '}
+                                                ID:{' '}
                                                 <span>{compra.id_compra}</span>
                                             </p>
                                             <p className={styles.text}>
@@ -158,13 +158,13 @@ const ListarCompra = () => {
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
-                                                Total de Compra:{' '}
+                                                Total compra:{' '}
                                                 <span>
                                                     {compra.total_de_compra}
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
-                                                Fecha:{' '}
+                                                Fecha de compra:{' '}
                                                 <span>{compra.fecha}</span>
                                             </p>
 

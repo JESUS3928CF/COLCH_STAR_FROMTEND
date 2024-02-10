@@ -91,7 +91,7 @@ const AgregarCompras = () => {
                                                 required: {
                                                     value: true,
                                                     message:
-                                                        'Debe seleccionar una proveedor',
+                                                        'Debe seleccionar un proveedor',
                                                 },
                                             })}
                                         >
@@ -143,7 +143,7 @@ const AgregarCompras = () => {
                                                 required: {
                                                     value: true,
                                                     message:
-                                                        'La fecha es obligatorio',
+                                                        'La fecha es obligatoria',
                                                 },
                                                 pattern: {
                                                     value: '^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$',

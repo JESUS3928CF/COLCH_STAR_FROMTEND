@@ -170,7 +170,7 @@ const ListarUsuario = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            Id:{' '}
+                                            ID:{' '}
                                             <span>{usuario.id_usuario}</span>
                                         </p>
                                         <p className={styles.text}>

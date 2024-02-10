@@ -177,7 +177,7 @@ const AgregarCliente = () => {
                         message: "El nombre es obligatorio",
                       },
                       validate: (value) => {
-                        if (value.length < 3 || value.length > 20) {
+                        if (value.trim().length < 3 || value.length > 20) {
                             return 'El nombre debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -216,7 +216,7 @@ const AgregarCliente = () => {
                         message: "El apellido es obligatorio",
                       },
                       validate: (value) => {
-                        if (value.length < 3 || value.length > 20) {
+                        if (value.trim().length < 3 || value.length > 20) {
                             return 'El apellido debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -296,8 +296,8 @@ const AgregarCliente = () => {
                         message: "La dirección es obligatoria",
                       },
                       validate: (value) => {
-                        if (value.length < 4 || value.length > 40) {
-                            return 'La dirección debe tener entre 4 y 40 caracteres';
+                        if (value.trim().length < 4 || value.length > 50) {
+                            return 'La dirección debe tener entre 4 y 50 caracteres';
                         }
                         if (value.includes(" ")) {
                             return validarEspaciosVacios(value);
@@ -306,7 +306,7 @@ const AgregarCliente = () => {
                     },
                 })}
                 onChange={(e) => {
-                    const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                    const inputValue = e.target.value.slice(0, 51); // Limitar la longitud máxima
                     setValue('direccion', inputValue);
                     trigger('direccion');
                 }}

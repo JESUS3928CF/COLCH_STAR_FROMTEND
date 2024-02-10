@@ -108,14 +108,14 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
             >
               <div className="col-md-6" name="divNombre">
                 <label htmlFor="nombreEditar" className="col-form-label">
-                  Nombre: *
+                  Nombres: *
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   id="nombreEditar"
                   name="nombre"
-                  placeholder=""
+                  placeholder=". . ."
                   //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                   //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                   {...register("nombre", {
@@ -125,7 +125,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                       message: "El nombre es obligatorio", // es un mensaje que se mostrará si la validación falla.
                     },
                     validate: (value) => {
-                      if (value.length < 3 || value.length > 20) {
+                      if (value.trim().length < 3 || value.length > 20) {
                         return "El nombre debe tener entre 3 y 20 caracteres";
                       }
                       if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -150,21 +150,21 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
               </div>
               <div className="col-md-6" name="divApellido">
                 <label htmlFor="apellidoEditar" className="col-form-label">
-                  Apellido: *
+                  Apellidos: *
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   id="apellidoEditar"
                   name="apellido"
-                  placeholder=""
+                  placeholder=". . ."
                   {...register("apellido", {
                     required: {
                       value: true,
                       message: "El apellido es obligatorio",
                     },
                     validate: (value) => {
-                        if (value.length < 3 || value.length > 20) {
+                        if (value.trim().length < 3 || value.length > 20) {
                             return 'El apellido debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -196,7 +196,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                   className="form-control"
                   id="telefonoEditar"
                   name="telefono"
-                  placeholder=""
+                  placeholder=". . ."
                   {...register("telefono", {
                     required: {
                       value: true,
@@ -237,7 +237,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                   className="form-control"
                   id="emailEditar"
                   name="email"
-                  placeholder=""
+                  placeholder=". . ."
                   {...register("email", {
                     required: {
                       value: true,

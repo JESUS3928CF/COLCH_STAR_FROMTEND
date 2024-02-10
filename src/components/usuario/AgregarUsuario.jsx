@@ -114,7 +114,7 @@ const AgregarUsuario = () => {
                                                     'El nombre es obligatorio',
                                             },
                                             validate: (value) => {
-                                                if (value.length < 3 || value.length > 20) {
+                                                if (value.trim().length < 3 || value.length > 20) {
                                                     return 'El nombre debe tener entre 3 y 20 caracteres';
                                                 }
                                                 if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -159,7 +159,7 @@ const AgregarUsuario = () => {
                                                     'El apellido es obligatorio',
                                             },
                                             validate: (value) => {
-                                                if (value.length < 3 || value.length > 20) {
+                                                if (value.trim().length < 3 || value.length > 20) {
                                                     return 'El apellido debe tener entre 3 y 20 caracteres';
                                                 }
                                                 if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -300,10 +300,8 @@ const AgregarUsuario = () => {
                                             },
                                         })}
                                         onChange={(e) => {
-                                            setValue(
-                                                'contrasena',
-                                                e.target.value
-                                            );
+                                            const inputValue = e.target.value.slice(0,16)
+                                            setValue('contrasena', inputValue);
                                             trigger('contrasena');
                                         }}
                                     />
@@ -341,10 +339,8 @@ const AgregarUsuario = () => {
                                             },
                                         })}
                                         onChange={(e) => {
-                                            setValue(
-                                                'contrasenaConfirmar',
-                                                e.target.value
-                                            );
+                                            const inputValue = e.target.value.slice(0,16)
+                                            setValue('contrasenaConfirmar', inputValue);
                                             trigger('contrasenaConfirmar');
                                         }}
                                     />
