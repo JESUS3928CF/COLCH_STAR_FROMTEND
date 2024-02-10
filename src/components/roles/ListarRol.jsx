@@ -181,7 +181,7 @@ const ListarRol = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            Id: <span>{rol.id_rol}</span>
+                                            ID: <span>{rol.id_rol}</span>
                                         </p>
                                         <p className={styles.text}>
                                             Roles: <span>{rol.nombre}</span>
@@ -199,7 +199,7 @@ const ListarRol = () => {
                                             </span>
                                         </p>
                                         <p className={styles.text}>
-                                            Fecha Creación:{' '}
+                                            Fecha de creación:{' '}
                                             <span>{rol.fecha_creacion}</span>
                                         </p>
 

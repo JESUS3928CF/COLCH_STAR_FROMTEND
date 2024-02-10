@@ -92,7 +92,7 @@ function AgregarRol() {
                 id='myModal'
             >
                   <div className='modal-content'>
-                      <HeaderModals title={'Agregar Rol'} handleClose={() => {
+                      <HeaderModals title={'Agregar rol'} handleClose={() => {
                         reset();
                         handleClose();
                     }}
@@ -124,7 +124,7 @@ function AgregarRol() {
                                                       'El nombre es obligatorio',
                                               },
                                               validate: (value) => {
-                                                if (value.length < 3 || value.length > 20) {
+                                                if (value.trim().length < 3 || value.length > 20) {
                                                     return 'El rol debe tener entre 3 y 20 caracteres';
                                                 }
                                                 if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {

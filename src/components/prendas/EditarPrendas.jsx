@@ -120,7 +120,7 @@ const EditarPrendas = ({
                                     id='nombre'
                                     name='nombre'
                                     className='form-control'
-                                    placeholder='Nombre'
+                                    placeholder='. . .'
                                     title='¿Deseas editar el nombre?'
                                     {...register('nombre', {
                                         required: {
@@ -129,18 +129,24 @@ const EditarPrendas = ({
                                                 'El nombres es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'No puede ingresar números',
+                                            if (value.trim().length < 3 || value.length > 20) {
+                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El nombre solo puede contener letras';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value);
-                                        trigger('nombre');
-                                    }}
+                                        const inputValue = e.target.value.slice(0, 21);
+                                        setValue("nombre", inputValue);
+                                        trigger("nombre");
+                                      }}
                                 />
 
                                 {errors.nombre && (
@@ -162,7 +168,7 @@ const EditarPrendas = ({
                                     id='cantidad'
                                     name='cantidad'
                                     className='form-control'
-                                    placeholder='Cantidad'
+                                    placeholder='. . .'
                                     title='¿Deseas editar la cantidad?'
                                     {...register('cantidad', {
                                         required: {
@@ -175,7 +181,7 @@ const EditarPrendas = ({
                                         },
                                         pattern: {
                                             value: /^\d+$/,
-                                            message: 'No se permiten letras',
+                                            message: 'No se permiten letras, solo numeros',
                                         },
                                     })}
                                     onChange={(e) => {
@@ -203,7 +209,7 @@ const EditarPrendas = ({
                                     id='precio'
                                     name='precio'
                                     className='form-control'
-                                    placeholder='Precio'
+                                    placeholder='. . .'
                                     title='¿Deseas editar el precio?'
                                     {...register('precio', {
                                         required: {
@@ -239,7 +245,7 @@ const EditarPrendas = ({
                                     name='Telasss'
                                     id='searchInput'
                                     list='Telasss'
-                                    placeholder='Ingrese el tipo de tela'
+                                    placeholder='. . .'
                                     className='form-control'
                                     {...register('tipo_de_tela', {
                                         required: {

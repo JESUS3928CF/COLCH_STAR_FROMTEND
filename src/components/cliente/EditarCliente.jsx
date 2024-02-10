@@ -164,14 +164,14 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     className='form-control'
                                     id='nombreEditar'
                                     name='nombre'
-                                    placeholder=''
+                                    placeholder='. . .'
                                     {...register('nombre', {
                                         required: {
                                             value: true,
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.length < 3 || value.length > 20) {
+                                           if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
                                             if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -208,7 +208,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     className='form-control'
                                     id='apellidoEditar'
                                     name='apellido'
-                                    placeholder=''
+                                    placeholder='. . .'
                                     {...register('apellido', {
                                         required: {
                                             value: true,
@@ -216,7 +216,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 'El apellido es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.length < 3 || value.length > 20) {
+                                            if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El apellido debe tener entre 3 y 20 caracteres';
                                             }
                                             if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
@@ -253,7 +253,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     className='form-control'
                                     id='telefonoEditar'
                                     name='telefono'
-                                    placeholder=''
+                                    placeholder='. . .'
                                     {...register('telefono', {
                                         required: {
                                             value: true,
@@ -305,7 +305,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     className='form-control'
                                     id='direccionEditar'
                                     name='direccion'
-                                    placeholder=''
+                                    placeholder='. . .'
                                     {...register('direccion', {
                                         required: {
                                             value: true,
@@ -313,8 +313,8 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 'La dirección es obligatoria',
                                         },
                                         validate: (value) => {
-                                            if (value.length < 4 || value.length > 40) {
-                                                return 'La dirección debe tener entre 4 y 40 caracteres';
+                                           if (value.trim().length < 4 || value.length > 50) {
+                                                return 'La dirección debe tener entre 4 y 50 caracteres';
                                             }
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
@@ -323,7 +323,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                                        const inputValue = e.target.value.slice(0, 51); // Limitar la longitud máxima
                                         setValue('direccion', inputValue);
                                         trigger('direccion');
                                     }}
@@ -346,7 +346,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     className='form-control'
                                     id='emailEditar'
                                     name='email'
-                                    placeholder=''
+                                    placeholder='. . .'
                                     {...register('email', {
                                         required: {
                                             value: true,

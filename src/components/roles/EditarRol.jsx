@@ -104,7 +104,7 @@ function EditarRol({ editarRol, handleClose, show }) {
                                   type='text'
                                   name='nombre'
                                   className='form-control'
-                                  placeholder=''
+                                  placeholder='. . .'
                                   //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                   //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                   {...register('nombre', {
@@ -114,7 +114,7 @@ function EditarRol({ editarRol, handleClose, show }) {
                                           message: 'El nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                       },
                                       validate: (value) => {
-                                        if (value.length < 3 || value.length > 20) {
+                                        if (value.trim().length < 3 || value.length > 20) {
                                             return 'El rol debe tener entre 3 y 20 caracteres';
                                         }
                                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {

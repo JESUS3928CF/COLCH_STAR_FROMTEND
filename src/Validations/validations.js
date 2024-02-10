@@ -28,8 +28,14 @@ export const validarBooleanos = (value) => {
 
 
 export const validarFecha = (value) => {
+    // Obtener la fecha ingresada en formato UTC
     const fechaIngresada = new Date(value);
+
+    // Obtener la fecha actual en formato UTC
     const fechaActual = new Date();
+  
+    // Aplicar el desplazamiento horario para Colombia (UTC-5)
+    fechaActual.setHours(fechaActual.getHours() - 5);
   
     // Verificar si la fecha es futura
     if (fechaIngresada >= fechaActual) {
@@ -40,13 +46,17 @@ export const validarFecha = (value) => {
     const fechaMinimaPermitida = new Date();
     fechaMinimaPermitida.setFullYear(fechaMinimaPermitida.getFullYear() - 1);
   
+    // Aplicar el desplazamiento horario para Colombia (UTC-5)
+    fechaMinimaPermitida.setHours(fechaMinimaPermitida.getHours() - 5);
+
     // Verificar si la fecha es menor a un año desde la fecha actual
     if (fechaIngresada < fechaMinimaPermitida) {
       return 'La fecha no puede ser menor a un año desde la fecha actual';
     }
   
     return true;
-  };
+};
+
 
   export const validarFechaOrden = (value) => {
     const fechaIngresada = new Date(value);

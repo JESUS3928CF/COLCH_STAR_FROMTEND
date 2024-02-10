@@ -174,18 +174,24 @@ const AgregarPrendas = () => {
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'Error no se puede números ni caracteres especiales en el nombre',
+                                            if (value.trim().length < 3 || value.length > 20) {
+                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El nombre solo puede contener letras';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('nombre', e.target.value),
-                                            trigger('nombre');
-                                    }}
+                                        const inputValue = e.target.value.slice(0, 21);
+                                        setValue("nombre", inputValue);
+                                        trigger("nombre");
+                                      }}
                                 />
                                 {errors.nombre && (
                                     <AlertaError
@@ -214,11 +220,17 @@ const AgregarPrendas = () => {
                                                 'La cantidad es obligatoria',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^\d+$/,
-                                            message: 'No se permiten letras',
+                                            if (value.includes(" ")) {
+                                                return 'No se permiten espacios en blanco';
+                                            }
+                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                            if (!/^\d+$/.test(value)) {
+                                                return 'La cantidad solo puede contener números';
+                                            }
+                                            if (value.startsWith("0")) {
+                                                return 'La cantidad no puede iniciar con 0';
+                                            }
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
@@ -249,14 +261,20 @@ const AgregarPrendas = () => {
                                     {...register('precio', {
                                         required: {
                                             value: true,
-                                            message: 'El precio es obligatoria',
+                                            message: 'El precio es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^\d+(\.\d{1,2})?$/,
-                                            message: 'No se permiten letras',
+                                            if (value.includes(" ")) {
+                                                return 'No se permiten espacios en blanco';
+                                            }
+                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                            if (!/^\d+$/.test(value)) {
+                                                return 'El precio solo puede contener números';
+                                            }
+                                            if (value.startsWith("0")) {
+                                                return 'El precio no puede iniciar con 0';
+                                            }
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
@@ -290,21 +308,24 @@ const AgregarPrendas = () => {
                                                 'El tipo de tela  es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
+                                            if (value.trim().length < 3 || value.length > 20) {
+                                                return 'El tipo de tela debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El tipo de tela solo puede contener letras';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue(
-                                            'tipo_de_tela',
-                                            e.target.value
-                                        );
-                                        trigger('tipo_de_tela');
-                                    }}
+                                        const inputValue = e.target.value.slice(0, 21);
+                                        setValue("tipo_de_tela", inputValue);
+                                        trigger("tipo_de_tela");
+                                      }}
                                 />
 
                                 {errors.tipo_de_tela && (
@@ -344,7 +365,7 @@ const AgregarPrendas = () => {
                                     {...register('genero', {
                                         required: {
                                             value: true,
-                                            message: 'El genero es obligatorio',
+                                            message: 'El género es obligatorio',
                                         },
                                     })}
                                     onChange={(e) => {
@@ -418,7 +439,7 @@ const AgregarPrendas = () => {
                                     {...register('imagen', {
                                         required: {
                                             value: true,
-                                            message: 'La Imagen es obligatoria',
+                                            message: 'La imagen es obligatoria',
                                         },
                                         validate: (value) => {
                                             return validarImagen(value[0]);
