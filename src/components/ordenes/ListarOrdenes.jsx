@@ -30,18 +30,21 @@ const ListarOrdenes = () => {
         handleShowEditar,
         showEditar,
         handleCloseEditar,
+        setEditar,
+        setDetallesOrden,
     } = useOrden();
 
     /// Datos para listar
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
     //detallesProductos
-    const [detallesOrdenes, setDetallesOrdenes] = useState({});
+    const [detallesOrdenActual, setDetallesOrdenActual] = useState({});
 
     //Estado para editar
     const [editarOrden, setEditarOrden] = useState({});
 
     //codicion que se le asigna al boton editar que si el estado de la  orde de entrega esta en Entregado no te va permitir editar
     const handleEditClick = (orden) => {
+        setEditar(true);
         if (
             orden.estado_de_orden === 'Entregada' ||
             orden.estado_de_orden === 'Finalizada'
@@ -56,6 +59,7 @@ const ListarOrdenes = () => {
                 'error'
             );
         }
+        setDetallesOrden(orden.detalles);
 
         setEditarOrden(orden);
         handleShowEditar();
@@ -135,7 +139,9 @@ const ListarOrdenes = () => {
                                                 text='Ver'
                                                 modalToOpen='#modalDetalles'
                                                 onClick={() =>
-                                                    setDetallesOrdenes(orden)
+                                                    setDetallesOrdenActual(
+                                                        orden
+                                                    )
                                                 }
                                             />
                                         </td>
@@ -165,9 +171,9 @@ const ListarOrdenes = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                onClick={() =>
-                                                    handleEditClick(orden)
-                                                }
+                                                onClick={() => {
+                                                    handleEditClick(orden);
+                                                }}
                                             />
                                         </td>
                                     </tr>
@@ -190,7 +196,7 @@ const ListarOrdenes = () => {
                                             Id: <span>{orden.id_orden}</span>
                                         </p>
                                         <p className={styles.text}>
-                                            Nombre:: {orden.cliente.nombre}{' '}
+                                            Nombre: {orden.cliente.nombre}{' '}
                                             {orden.cliente.apellido}
                                         </p>
                                         <p className={styles.text}>
@@ -244,7 +250,7 @@ const ListarOrdenes = () => {
                                                     text='Ver'
                                                     modalToOpen='#modalDetalles'
                                                     onClick={() =>
-                                                        setDetallesOrdenes(
+                                                        setDetallesOrdenActual(
                                                             orden
                                                         )
                                                     }
@@ -264,9 +270,9 @@ const ListarOrdenes = () => {
                                                             ? '#modalEditar'
                                                             : ''
                                                     }
-                                                    onClick={() =>
-                                                        handleEditClick(orden)
-                                                    }
+                                                    onClick={() => {
+                                                        handleEditClick(orden);
+                                                    }}
                                                 />
                                             </div>
                                         </div>
@@ -282,7 +288,7 @@ const ListarOrdenes = () => {
                 handleCloseEditar={handleCloseEditar}
                 showEditar={showEditar}
             />
-            <DetallesOrden detallesOrdenes={detallesOrdenes} />
+            <DetallesOrden detallesOrdenes={detallesOrdenActual} />
 
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}

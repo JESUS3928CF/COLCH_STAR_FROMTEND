@@ -22,7 +22,7 @@ const AgregarOrden = () => {
     // const handleClose = () => setShow(false);
     // const handleShow = () => { setShow(true); }
 
-    const { handleClose, handleShow, show } = useOrden();
+    const { handleClose, handleShow, show, setEditar, setDetallesOrden } = useOrden();
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -39,7 +39,7 @@ const AgregarOrden = () => {
     const { clientes } = useClientes();
 
     // función que llega del provider que tiene todas las rutas
-    const { agregarOrden, detallesOrden } = useOrden();
+    const { agregarOrden, detallesOrden, totalOrden } = useOrden();
 
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
@@ -56,12 +56,20 @@ const AgregarOrden = () => {
 
     return (
         <div>
-            <BotonVerde text={'Agregar orden'} onClick={handleShow} />
+            <BotonVerde
+                text={'Agregar orden'}
+                onClick={() => {
+                    handleShow();
+                    setEditar(false);
+                    setDetallesOrden([])
+                }}
+            />
             <Modal
                 show={show}
                 onHide={() => {
                     reset();
                     handleClose();
+                    setDetallesOrden([]);
                 }}
             >
                 <div className='modal-content'>
@@ -70,6 +78,7 @@ const AgregarOrden = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
+                            setDetallesOrden([]);
                         }}
                     />
                     <div>
@@ -169,40 +178,8 @@ const AgregarOrden = () => {
                                         )}
                                     </div>
 
-                                    <div
-                                        className='col-md-8'
-                                        style={{
-                                            textAlign: 'center',
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        <label
-                                            htmlFor='nombreCompraAgregar'
-                                            className='col-form-label'
-                                        >
-                                            Precio total: *
-                                        </label>
-                                        <input
-                                            type='number'
-                                            className='form-control'
-                                            id='nombreCompraAgregar'
-                                            name='nombreCompraAgregar'
-                                            {...register('precio_total', {
-                                                required: {
-                                                    value: true,
-                                                    message:
-                                                        'El color es obligatorio',
-                                                },
-                                            })}
-                                        />
-
-                                        {errors.subtotal && (
-                                            <AlertaError
-                                                message={
-                                                    errors.subtotal.message
-                                                }
-                                            />
-                                        )}
+                                    <div className='col-md-8 mt-3'>
+                                        <p> Precio total: ${totalOrden}</p>
                                     </div>
                                 </div>
                             </form>
@@ -212,6 +189,7 @@ const AgregarOrden = () => {
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
+                                    setDetallesOrden={setDetallesOrden}
                                 />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}

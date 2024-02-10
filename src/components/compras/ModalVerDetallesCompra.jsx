@@ -5,7 +5,7 @@ import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useCompras from '../../hooks/useCompras';
 import BotonNegro from '../chared/BotonNegro';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const ModalVerDetallesCompra = () => {
     const {
@@ -17,6 +17,10 @@ export const ModalVerDetallesCompra = () => {
     } = useCompras();
 
     const [carouselIndex, setCarouselIndex] = useState(0);
+
+    useEffect(() => {
+        console.log(detallesCompra);
+    }, [detallesCompra]);
 
     const eliminarDetalle = (id) => {
         // Encuentra el índice del detalle con el id proporcionado
@@ -134,13 +138,15 @@ export const ModalVerDetallesCompra = () => {
                                                                 htmlFor='nombre'
                                                                 className='col-form-label'
                                                             >
-                                                                Total del detalle:
+                                                                Total del
+                                                                detalle:
                                                             </label>
                                                             <input
                                                                 type='text'
                                                                 className='form-control'
                                                                 value={
-                                                                    detalle.precio * detalle.cantidad
+                                                                    detalle.precio *
+                                                                    detalle.cantidad
                                                                 }
                                                                 readOnly
                                                             />

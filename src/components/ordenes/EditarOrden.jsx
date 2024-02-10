@@ -3,9 +3,7 @@ import '../../css-general/inicio_style.css';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import AlertaError from '../chared/AlertaError';
-import {
-    validarFechaOrden,
-} from '../../Validations/validations';
+import { validarFechaOrden } from '../../Validations/validations';
 import { useForm } from 'react-hook-form';
 import HeaderModals from '../chared/HeaderModals';
 import { AgregarDetallesOrden } from './AgregarDetallesOrden.jsx';
@@ -13,13 +11,11 @@ import { Modal } from 'react-bootstrap';
 import useClientes from '../../hooks/useCliente.jsx';
 import { useEffect } from 'react';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
+import useOrden from '../../hooks/useOrden.jsx';
+import Swal from 'sweetalert2';
 
 //COMPONENTE
 const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
-
-
-
-
     const {
         register, //regitra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envio del formulario
@@ -30,6 +26,8 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
     } = useForm({
         mode: 'onChange',
     });
+
+    const { totalOrden, actualizarOrden, detallesOrden } = useOrden();
 
     // Cuando editarCliente cambia, actualiza los valores del formulario
     useEffect(() => {
@@ -44,7 +42,15 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
 
     // Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
-        console.log(data);
+        if (detallesOrden.length == 0) {
+            Swal.fire({
+                title: 'Espera!!',
+                text: 'Agrega los detalles de esta orden',
+                icon: 'warning',
+            });
+        } else {
+            actualizarOrden(orden.id_orden, data, reset, handleCloseEditar);
+        }
     };
 
     return (
@@ -160,6 +166,9 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                                                 }
                                             />
                                         )}
+                                    </div>
+                                    <div className='col-md-8 mt-3'>
+                                        <p> Precio total: ${totalOrden}</p>
                                     </div>
                                 </div>
                             </form>
