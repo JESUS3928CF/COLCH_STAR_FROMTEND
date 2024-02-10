@@ -306,8 +306,8 @@ const AgregarProveedor = () => {
                                                 'La Dirección es obligatoria',
                                         },
                                         validate: (value) => {
-                                            if (value.length < 4 || value.length > 40) {
-                                                return 'La dirección debe tener entre 4 y 40 caracteres';
+                                            if (value.length < 4 || value.length > 50) {
+                                                return 'La dirección debe tener entre 4 y 50 caracteres';
                                             }
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
@@ -316,7 +316,7 @@ const AgregarProveedor = () => {
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                                        const inputValue = e.target.value.slice(0, 51); // Limitar la longitud máxima
                                         setValue('direccion', inputValue);
                                         trigger('direccion');
                                     }}
