@@ -178,7 +178,7 @@ const ListarProveedores = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            Id:{' '}
+                                            ID:{' '}
                                             <span>
                                                 {proveedor.id_proveedor}
                                             </span>
@@ -197,6 +197,10 @@ const ListarProveedores = () => {
                                                 {proveedor.tipoIdentificacion}{' '}
                                                 {proveedor.identificador}
                                             </span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Dirección:{' '}
+                                            <span>{proveedor.direccion}</span>
                                         </p>
 
                                         <div className='row pt-3'>
