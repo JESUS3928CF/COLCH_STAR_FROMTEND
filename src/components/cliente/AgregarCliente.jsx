@@ -177,18 +177,18 @@ const AgregarCliente = () => {
                         message: "El nombre es obligatorio",
                       },
                       validate: (value) => {
-                        const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
                         if (value.length < 3 || value.length > 20) {
-                          return "El nombre debe tener entre 3 y 20 caracteres";
+                            return 'El nombre debe tener entre 3 y 20 caracteres';
+                        }
+                        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                            return 'El nombre solo puede contener letras';
                         }
                         if (value.includes(" ")) {
-                          return validarEspaciosVacios(value);
+                            return validarEspaciosVacios(value);
                         }
-                        if (!regex.test(value)) {
-                          return "Solo se permiten letras";
-                        }
+                        
                         return true;
-                      },
+                    },
                     })}
                     onChange={(e) => {
                       const inputValue = e.target.value.slice(0, 21);
@@ -216,18 +216,18 @@ const AgregarCliente = () => {
                         message: "El apellido es obligatorio",
                       },
                       validate: (value) => {
-                        const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,20}$/;
                         if (value.length < 3 || value.length > 20) {
-                          return "El apellido debe tener entre 3 y 20 caracteres";
+                            return 'El apellido debe tener entre 3 y 20 caracteres';
+                        }
+                        if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                            return 'El apellido solo puede contener letras';
                         }
                         if (value.includes(" ")) {
-                          return validarEspaciosVacios(value);
+                            return validarEspaciosVacios(value);
                         }
-                        if (!regex.test(value)) {
-                          return "Solo se permiten letras";
-                        }
+                        
                         return true;
-                      },
+                    },
                     })}
                     onChange={(e) => {
                       const inputValue = e.target.value.slice(0, 21);
@@ -305,10 +305,11 @@ const AgregarCliente = () => {
                         return true;
                     },
                 })}
-                    onChange={(e) => {
-                      setValue("direccion", e.target.value);
-                      trigger("direccion");
-                    }}
+                onChange={(e) => {
+                    const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                    setValue('direccion', inputValue);
+                    trigger('direccion');
+                }}
                   />
                   {errors.direccion && (
                     <AlertaError message={errors.direccion.message} />

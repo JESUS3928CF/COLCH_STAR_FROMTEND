@@ -111,21 +111,25 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             //register es una funcion, nos devuelve propiedades, para asigar esas propiedades al input  se pone . . .
                                             //  identificador Es una cadena que se utiliza como identificador o nombre del campo de entrada del formulario.
                                             {...register('identificacion', {
-                                                required:
-                                                    'La Identificación es obligatoria',
-                                                pattern: {
-                                                    value: /^\d+$/, //expreción regular para prohibir letras y espacios en blamco
-                                                    message:
-                                                        'No puede contener letras ni  espacios en blanco',
-                                                },
+                                                required: {
+                                                    value: true, // Expresión regular para prohibir letras y espacios en blanco
+                                                    message: "La Identificación es obligatoria",
+                                                  },
                                                 validate: (value) => {
-                                                    if (
-                                                        value.length < 6 ||
-                                                        value.length > 11
-                                                    ) {
-                                                        return 'La Identificación debe tener entre 6 y 11 dígitos';
+                                                    if (value.includes(" ")) {
+                                                        return 'No se permiten espacios en blanco';
                                                     }
-                                                    return true; // La validación pasa si cumple ambas condiciones
+                                                    // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                                    if (!/^\d+$/.test(value)) {
+                                                        return 'La identificación solo puede contener números';
+                                                    }
+                                                    if (value.startsWith("0")) {
+                                                        return 'La identificación no puede iniciar con 0';
+                                                    }
+                                                    if (value.length < 6 || value.length > 10) {
+                                                        return 'La Identificación debe tener entre 6 y 10 dígitos';
+                                                    }
+                                                    return true;
                                                 },
                                             })}
                                             onChange={(e) => {
@@ -167,20 +171,17 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'El nombre no puede contener números ni caracteres especiales',
-                                        },
-                                        minLength:{
-                                            value : 3,
-                                            message: "El nombre debe tener mínimo 3 caracteres"
-                                        },
-                                        maxLength: {
-                                            value: 20,
-                                            message: "El nombre debe tener máximo 20 caracteres"
+                                            if (value.length < 3 || value.length > 20) {
+                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El nombre solo puede contener letras';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
@@ -215,20 +216,17 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 'El apellido es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'El apellido no puede contener números ni caracteres especiales',
-                                        },
-                                        minLength:{
-                                            value : 3,
-                                            message: "El apellido debe tener mínimo 3 caracteres"
-                                        },
-                                        maxLength: {
-                                            value: 20,
-                                            message: "El apellido debe tener máximo 20 caracteres"
+                                            if (value.length < 3 || value.length > 20) {
+                                                return 'El apellido debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (!/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El apellido solo puede contener letras';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
@@ -268,14 +266,17 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 'No se permiten letras ni espacios en blanco',
                                         },
                                         validate: (value) => {
-                                            const telefonoSinEspacios =
-                                                value.replace(/\s/g, ''); // Eliminar espacios en blanco
-                                            if (
-                                                telefonoSinEspacios.length <
-                                                    7 ||
-                                                telefonoSinEspacios.length > 10
-                                            ) {
-                                                return 'El teléfono debe tener minimo 7 digitos y maximo 10';
+                                            if (value.includes(" ")) {
+                                                return 'No se permiten espacios en blanco';
+                                            }
+                                            if (!/^\d+$/.test(value)) {
+                                                return 'El télefono solo puede contener números';
+                                            }
+                                            if (value.startsWith("0")) {
+                                                return 'El teléfono no puede iniciar con 0';
+                                            }
+                                            if (value.length < 7 || value.length > 10) {
+                                                return 'El teléfono debe tener entre 7 y 10 dígitos';
                                             }
                                             return true;
                                         },
@@ -312,11 +313,18 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                                 'La dirección es obligatoria',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
+                                            if (value.length < 4 || value.length > 40) {
+                                                return 'La dirección debe tener entre 4 y 40 caracteres';
+                                            }
+                                            if (value.includes(" ")) {
+                                                return validarEspaciosVacios(value);
+                                            }
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue('direccion', e.target.value);
+                                        const inputValue = e.target.value.slice(0, 41); // Limitar la longitud máxima
+                                        setValue('direccion', inputValue);
                                         trigger('direccion');
                                     }}
                                 />
