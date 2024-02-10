@@ -216,7 +216,7 @@ const AgregarProveedor = () => {
                                                 return validarEspaciosVacios(value);
                                             }
                                             if (!regex.test(value)) {
-                                                return 'Solo se permiten letras';
+                                                return 'El nombre solo puede contener letras';
                                             }
                                             return true;
                                         },
