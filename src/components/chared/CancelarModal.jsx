@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const CancelarModal = ({
     modalToCancel,
     reset,
-    name = 'Cancelar',
+    name='Cancelar' || name,
     handleClose,
     setDetallesOrden,
     setSelectedDisenoNombre, 

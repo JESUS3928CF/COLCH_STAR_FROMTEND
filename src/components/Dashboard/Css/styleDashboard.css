@@ -151,6 +151,20 @@
 
 }
 
+.TabsC{
+
+    background-color: #47684E;
+    color: #ffffff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+}
+
+.TabsC:hover{
+    background-color: #000000;
+
+}
+
 .Tabs:hover{
  background-color: #000000;
 }
@@ -291,6 +305,60 @@
     
   }
   
+
+  .PDF{
+
+    font-size: 14px;
+    background-color: #000000;
+    transition: background-color 0.3s;
+    position: relative;
+    top: 15px;
+
+  }
+
+.iconsNotificacion{
+    position: absolute;
+    margin-left: 90%;
+    margin-top: -70px;
+    font-size: 30px;
+
+
+}
+
+.Notificacion{
+
+    position: relative;
+    margin-left: 90%;
+
+}
+ 
+
+.customChartContainerM{
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+
+}
+
+.containerHeaderGraficaM{
+    margin-top: 10px;
+    border-radius: 7px;
+    
+
+}
+
+.btnPDF{
+    margin-left: 50%;
+    font-size: 25px;
+}
+
+.btnPDF:hover{
+    color: #47684E;
+}
+
+ 
+
+
   
   
   
