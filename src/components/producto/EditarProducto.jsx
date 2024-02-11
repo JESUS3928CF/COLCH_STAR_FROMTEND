@@ -88,6 +88,8 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                 onHide={() => {
                     reset();
                     handleClose();
+                    setSelectedDisenoNombre([])
+
                 }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
@@ -180,7 +182,17 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                             if (!/^\d+$/.test(value)) {
                                                 return 'La cantidad solo puede contener números';
                                             }
-                                           
+                                            if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                                                return 'El nombre solo puede contener números y letras';
+                                            }
+                                            if (/^\d/.test(value)) {
+                                                return 'El nombre no puede empezar con números';
+                                            }
+                                            // Verificar si el número comienza con cero
+                                            if (value.startsWith('0')) {
+                                                return 'El número no puede iniciar en 0';
+                                            }
+
                                             return true;
                                         },
                                     })}
