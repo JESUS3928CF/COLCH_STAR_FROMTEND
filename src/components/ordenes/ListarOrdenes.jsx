@@ -74,7 +74,6 @@ const ListarOrdenes = () => {
 
     // solicitud  a la url
     useEffect(() => {
-       
 
         if (busqueda === '') {
              setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
@@ -87,12 +86,7 @@ const ListarOrdenes = () => {
 
 
     useEffect(() => {
-        if (busqueda === '') {
-            setOrdenesListar([...OrdenesFiltrar]);
-            return;
-        }
-
-        setOrdenesListar([...ordenesFiltrarBuscados]);
+        setOrdenesListar([...OrdenesFiltrar]);
     }, [ordenes, OrdenesFiltrar]);
 
     // ancho de la pantalla para el resposive
@@ -126,7 +120,6 @@ const ListarOrdenes = () => {
                                     'cliente',
                                     'precio_total',
                                     'fecha_entrega',
-                                    'direccion',
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
