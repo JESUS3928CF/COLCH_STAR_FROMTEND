@@ -56,10 +56,11 @@ const ListarProducto = () => {
     //estado de la barra buscador
     const [productosFiltrar, setProductosFiltrar] = useState([]);
 
-    const [productosFiltrarBuscados, setProductosFiltrarBuscados] = useState([]);
+    const [productosFiltrarBuscados, setProductosFiltrarBuscados] = useState(
+        []
+    );
 
     const [productosListar, setProductosListar] = useState([]);
-
 
     //detallesProductos
     const [detallesProductos, setDetallesProductos] = useState({});
@@ -70,16 +71,13 @@ const ListarProducto = () => {
             return;
         }
 
-        setProductosFiltrarBuscados(productosFiltrar.slice(0, registrosPorPagina));
+        setProductosFiltrarBuscados(
+            productosFiltrar.slice(0, registrosPorPagina)
+        );
     }, [productos, busqueda]);
 
     useEffect(() => {
-        if (busqueda === '') {
-            setProductosListar([...productosFiltrar]);
-            return;
-        }
-
-        setProductosListar([...productosFiltrarBuscados]);
+        setProductosListar([...productosFiltrar]);
     }, [productos, productosFiltrar]);
 
     //estado para editar
@@ -104,6 +102,7 @@ const ListarProducto = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (

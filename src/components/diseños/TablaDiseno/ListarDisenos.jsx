@@ -73,12 +73,7 @@ const ListarDisenos = () => {
     }, [disenosDB, busqueda]);
 
     useEffect(() => {
-        if (busqueda === '') {
-            setDisenosListar([...disenosFiltrar]);
-            return;
-        }
-
-        setDisenosListar([...disenosFiltrarBuscados]);
+        setDisenosListar([...disenosFiltrar]);
     }, [disenosDB, disenosFiltrar]);
 
     return (
@@ -113,6 +108,7 @@ const ListarDisenos = () => {
                 disenosFiltrar={disenosListar}
                 LlenarInformacionModal={llenarInformacionModal}
                 LlenarInformacionModalEditar={LlenarInformacionModalEditar}
+                setBusqueda={setBusqueda}
             />
 
             <div className='seccion4'>

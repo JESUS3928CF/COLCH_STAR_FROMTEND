@@ -44,21 +44,15 @@ const ListarCompra = () => {
     }, [compras, busqueda]);
 
     useEffect(() => {
-        if (busqueda === '') {
-            setComprasListar([...comprasFiltrar]);
-            return;
-        }
-
-        setComprasListar([...comprasFiltrarBuscados]);
+        setComprasListar([...comprasFiltrar]);
     }, [compras, comprasFiltrar]);
-
-    
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (
