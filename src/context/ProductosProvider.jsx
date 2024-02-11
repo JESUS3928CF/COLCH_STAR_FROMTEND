@@ -13,22 +13,19 @@ const productosContext = createContext();
 
 
 const ProductosProvider = ({ children }) => {
+    const { auth, token, config } = useAuth();
+    const { consultarMovimientos } = useMovimientos();
 
-    const {  auth, token, config} = useAuth();
-    const {consultarMovimientos}=useMovimientos()
-
-
+    // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
 
     // const { setDisenos } = useDisenosContext();
 
     // primer state
     const [productos, setProductos] = useState([]);
-    const [detailsDiseno,setDetailsDisenos]= useState([])
+    const [detailsDiseno, setDetailsDisenos] = useState([]);
 
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
-
-
-    
 
     // función para obtener los clientes solo cuando se carge el componente
     const consultarProductos = async () => {
@@ -36,40 +33,34 @@ const ProductosProvider = ({ children }) => {
             // const token = localStorage.getItem('token');
             // if (!token) return;
 
-            const { data } = await productoAxios.get("/productos");
+            const { data } = await productoAxios.get('/productos');
 
-            setProductos(data);
+            setProductos(data.reverse());
         } catch (error) {
             console.log(error);
         }
     };
 
-    const consultDetailsDiseno = async()=>{
-        try{
-
-              const token = localStorage.getItem('token');
+    const consultDetailsDiseno = async () => {
+        try {
+            const token = localStorage.getItem('token');
             if (!token) return;
-            const {data}=await clienteAxios.get('/detalle_diseno',config)
-            setDetailsDisenos(data)
-
-        }catch (error){
-            console.log('Error al buscar los detalles de Disenos ')
+            const { data } = await clienteAxios.get('/detalle_diseno', config);
+            setDetailsDisenos(data);
+        } catch (error) {
+            console.log('Error al buscar los detalles de Disenos ');
         }
-    }
-
-
-
+    };
 
     useEffect(() => {
         consultarProductos();
         consultDetailsDiseno();
     }, [auth]);
 
-
     const agregarProducto = async (producto, reset, handleClose) => {
         // console.log(producto)
         try {
-            const res = await productoAxios.post("/productos", producto, {
+            const res = await productoAxios.post('/productos', producto, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
@@ -78,18 +69,17 @@ const ProductosProvider = ({ children }) => {
 
             // Lanzar alerta del producto agregado
             Swal.fire({
-                title: "Producto agregado",
+                title: 'Producto agregado',
                 text: res.data.message,
-                icon: "success",
+                icon: 'success',
             }).then(() => {
                 reset();
                 // setProductos([...productos, res.data.nuevoProducto]);
-                consultarProductos()
-                consultarMovimientos()
+                consultarProductos();
+                consultarMovimientos();
                 handleClose();
             });
         } catch (err) {
-
             if (err.response && err.response.status === 403) {
                 Swal.fire({
                     title: 'Espera!',
@@ -106,15 +96,12 @@ const ProductosProvider = ({ children }) => {
                     handleClose();
                 });
             }
-
         } finally {
             // console.log("Hola")
             // console.log(setDisenos([]));
-            setSelectedDisenoNombre([])
+            setSelectedDisenoNombre([]);
         }
     };
-
-
 
     const { disenos } = useDisenosContext();
 
@@ -122,18 +109,20 @@ const ProductosProvider = ({ children }) => {
         // Se guardan los datos a cambiar en el objeto data
         const { nombre, cantidad, fk_prenda, publicado, imagen } = data;
 
-        console.log(disenos)
+        console.log(disenos);
         if (editarProducto.id_producto) {
             axios
                 .patch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${editarProducto.id_producto}`,
+                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${
+                        editarProducto.id_producto
+                    }`,
                     {
                         nombre: nombre.trim(),
                         cantidad: cantidad,
                         fk_prenda: fk_prenda,
                         publicado: publicado,
                         imagen: imagen[0],
-                        disenos: JSON.stringify(disenos)
+                        disenos: JSON.stringify(disenos),
                     },
                     {
                         headers: {
@@ -143,14 +132,14 @@ const ProductosProvider = ({ children }) => {
                     }
                 )
                 .then((response) => {
-                    console.log("Producto Actualizado:", response.data);
+                    console.log('Producto Actualizado:', response.data);
                     Swal.fire({
-                        title: "Producto Actualizado",
+                        title: 'Producto Actualizado',
                         text: response.data.message,
-                        icon: "success",
+                        icon: 'success',
                     }).then(() => {
                         consultarProductos();
-                        consultarMovimientos()
+                        consultarMovimientos();
                         handleClose();
                     });
                 })
@@ -177,14 +166,14 @@ const ProductosProvider = ({ children }) => {
                     setSelectedDisenoNombre([]);
                 });
         } else {
-            console.error("No se pudo obtener el ID del usuario");
+            console.error('No se pudo obtener el ID del usuario');
         }
     };
 
-
-
     const editarEstado = (id) => {
-        let productoEditado = productos.find((producto) => producto.id_producto === id);
+        let productoEditado = productos.find(
+            (producto) => producto.id_producto === id
+        );
         productoEditado.estado = !productoEditado.estado;
 
         const productoActualizado = productos.map((producto) =>
@@ -192,11 +181,8 @@ const ProductosProvider = ({ children }) => {
         );
 
         setProductos(productoActualizado);
-        consultarMovimientos()
-
+        consultarMovimientos();
     };
-
-
 
     const editarPublicacion = (id) => {
         let productoEditado = productos.find(
@@ -205,20 +191,29 @@ const ProductosProvider = ({ children }) => {
         productoEditado.publicado = !productoEditado.publicado;
 
         const productoActualizado = productos.map((producto) =>
-        producto.id_producto == id ? productoEditado : producto
+            producto.id_producto == id ? productoEditado : producto
         );
 
         setProductos(productoActualizado);
-        consultarMovimientos()
-
+        consultarMovimientos();
     };
-
-
-
 
     return (
         <productosContext.Provider
-            value={{ productos, editarEstado, agregarProducto, editarProductos, editarPublicacion,  selectedDisenoNombre ,setSelectedDisenoNombre,consultDetailsDiseno,detailsDiseno}}
+            value={{
+                productos,
+                editarEstado,
+                agregarProducto,
+                editarProductos,
+                editarPublicacion,
+                selectedDisenoNombre,
+                setSelectedDisenoNombre,
+                consultDetailsDiseno,
+                detailsDiseno,
+                // BUSQUEDA
+                busqueda,
+                setBusqueda,
+            }}
         >
             {children}
         </productosContext.Provider>

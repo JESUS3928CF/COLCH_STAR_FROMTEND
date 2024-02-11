@@ -12,11 +12,12 @@ import TablaDisenos from './TablaDisenos';
 import { useDisenosContext } from '../../../context/disenosProvider';
 import AgregarDiseno from '../AgregarDiseno';
 import PrecioDiseno from '../PrecioDiseno';
+import { registrosPorPagina } from '../../../constantes/constantes';
 
 const ListarDisenos = () => {
     // este estado es un respaldo de los diseños para cuando se filtren luego se puedan recuperar los que fueron eliminados del filtro
 
-    const { disenosDB } = useDisenosContext();
+    const { disenosDB, busqueda, setBusqueda } = useDisenosContext();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -26,8 +27,14 @@ const ListarDisenos = () => {
 
     // Este estado es para poder determinar que diseños concuerdan con la búsqueda y poder eliminar los que no
     const [disenosFiltrar, setDisenosFiltrar] = useState([]);
-    /// Para capturar el ancho de pantalla
+    
+   const [disenosFiltrarBuscados, setDisenosFiltrarBuscados] = useState([]);
 
+   const [disenosListar, setDisenosListar] = useState([]);
+
+
+
+    /// Para capturar el ancho de pantalla
     const [detalleDiseno, setDetalleDiseno] = useState({});
 
     /// Esta función es para paras los datos a los modales ya sea el de ver detalle o el de editar para usarlos desde allá
@@ -53,6 +60,27 @@ const ListarDisenos = () => {
         setDisenosFiltrar(disenosDB.slice(0, 10)); // Inicializa con los primeros 10 diseños
     }, [disenosDB]);
 
+
+    /// Filtrar los 10 primeras ventas a mostrar en la vista
+    useEffect(() => {
+        if (busqueda === '') {
+            setDisenosFiltrar(disenosDB.slice(0, registrosPorPagina));
+
+            return;
+        }
+
+        setDisenosFiltrarBuscados(disenosFiltrar.slice(0, registrosPorPagina));
+    }, [disenosDB, busqueda]);
+
+    useEffect(() => {
+        if (busqueda === '') {
+            setDisenosListar([...disenosFiltrar]);
+            return;
+        }
+
+        setDisenosListar([...disenosFiltrarBuscados]);
+    }, [disenosDB, disenosFiltrar]);
+
     return (
         <>
             {/* Sección de los Botones de diseños*/}
@@ -64,7 +92,6 @@ const ListarDisenos = () => {
                         <AgregarDiseno />
                     </div>
                     <div className='col-md-3 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center'>
-
                         {/* modal de precio de los diseños  */}
                         <PrecioDiseno />
                     </div>
@@ -74,6 +101,8 @@ const ListarDisenos = () => {
                             setDatosFiltrar={setDisenosFiltrar}
                             datos={disenosDB}
                             camposFiltrar={['nombre', 'publicacion']}
+                            busqueda={busqueda}
+                            setBusqueda={setBusqueda}
                         />
                     </div>
                 </div>
@@ -81,7 +110,7 @@ const ListarDisenos = () => {
 
             {/* este componente me permite listar los diseños mediante una tabla o una card dependiendo de la resolución actual des dispositivo */}
             <TablaDisenos
-                disenosFiltrar={disenosFiltrar}
+                disenosFiltrar={disenosListar}
                 LlenarInformacionModal={llenarInformacionModal}
                 LlenarInformacionModalEditar={LlenarInformacionModalEditar}
             />
@@ -89,8 +118,8 @@ const ListarDisenos = () => {
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
-                    setDatosFiltrar={setDisenosFiltrar}
-                    datos={disenosDB}
+                    setDatosFiltrar={setDisenosListar}
+                    datos={busqueda === '' ? disenosDB : disenosFiltrar}
                 />
             </div>
 

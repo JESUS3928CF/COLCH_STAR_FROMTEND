@@ -76,7 +76,7 @@ const ListarCompra = () => {
                                 <AgregarCompra />
                             </div>
 
-                            {/* Boton para Buscar/filtrar */}
+                            {/* Botón para Buscar/filtrar */}
                             <div
                                 className={`${style.buscador} col-md-6 col-ms-6 pb-md-0 pb-4 d-flex justify-content-center align-items-center`}
                             >
