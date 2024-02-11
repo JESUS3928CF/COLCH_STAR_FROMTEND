@@ -130,6 +130,7 @@ const AgregarPrendas = () => {
                 onClick={() => {
                     handleShow();
                     setSelectColorsNombre([]);
+                    setErrorMensajeTallas(null);
                 }}
             />
             <Modal

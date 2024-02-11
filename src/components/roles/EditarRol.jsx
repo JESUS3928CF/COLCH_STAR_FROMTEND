@@ -1,6 +1,6 @@
 // ------------------HERLYN NORBEY DAVID POSO
 //-------------------10 de octubre 2023
-//Nos permitira editar un rol, se podra editar el rol mediante un formulario con sus respectivas validaciones donde se ingresaran los datos a editar
+//Nos permitirá editar un rol, se podrá editar el rol mediante un formulario con sus respectivas validaciones donde se ingresaran los datos a editar
 //de este rol y luego se mostrara en la tabla listar roles los cambios realizados
 import "../../css-general/cssgeneral.css";
 import "../../css-general/inicio_style.css";
@@ -74,6 +74,7 @@ function EditarRol({ editarRol, handleClose, show }) {
               onHide={() => {
                   reset();
                   handleClose();
+                  setErrorPermisos(null);
               }}
               className='modal d-flex align-items-center justify-content-center'
               id='modalEditar'
@@ -84,6 +85,7 @@ function EditarRol({ editarRol, handleClose, show }) {
                       handleClose={() => {
                           reset();
                           handleClose();
+                           setErrorPermisos(null);
                       }}
                   />
 

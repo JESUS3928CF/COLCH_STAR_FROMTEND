@@ -90,6 +90,7 @@ const EditarPrendas = ({
                     reset();
                     handleClose();
                     setSelectColorsNombre([]);
+                    setErrorMensajeTallas(null);
                 }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditarPrenda'
@@ -101,6 +102,7 @@ const EditarPrendas = ({
                             reset();
                             handleClose();
                             setSelectColorsNombre([]);
+                            setErrorMensajeTallas(null);
                         }}
                     />
                     <div className='modal-body'>
