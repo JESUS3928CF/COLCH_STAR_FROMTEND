@@ -249,7 +249,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                 onClick={() => {
                                     // setSelectedDisenoNombre([]);
                                     // setDisenos([]);
-                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                    handleClosee();
+                                    reset()
+                                     // Asumiendo que handleClosee es una función que cierra el modal
                                 }} />
 
                             {/* Botón para guardar*/}

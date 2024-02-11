@@ -88,6 +88,8 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                 onHide={() => {
                     reset();
                     handleClose();
+                    setSelectedDisenoNombre([])
+
                 }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
