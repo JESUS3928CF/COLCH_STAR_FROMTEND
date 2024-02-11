@@ -50,12 +50,7 @@ const ListarUsuario = () => {
             }, [usuarios, busqueda]);
 
             useEffect(() => {
-                if (busqueda === '') {
-                    setUsuariosListar([...usuariosFiltrar]);
-                    return;
-                }
-        
-                setUsuariosListar([...usuariosFiltrarBuscados]);
+                setUsuariosListar([...usuariosFiltrar]);
             }, [usuarios, usuariosFiltrar]);
 
     //Estado para editar
@@ -79,6 +74,7 @@ const ListarUsuario = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (

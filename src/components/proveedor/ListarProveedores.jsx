@@ -56,12 +56,7 @@ const ListarProveedores = () => {
             }, [proveedores, busqueda]);
 
             useEffect(() => {
-                if (busqueda === '') {
-                    setProveedoresListar([...ProveedoresFiltrar]);
-                    return;
-                }
-        
-                setProveedoresListar([...proveedoresFiltrarBuscados]);
+                setProveedoresListar([...ProveedoresFiltrar]);
             }, [proveedores, ProveedoresFiltrar]);
     
 
@@ -94,6 +89,7 @@ const ListarProveedores = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
 

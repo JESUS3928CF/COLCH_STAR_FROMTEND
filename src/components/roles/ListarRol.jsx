@@ -52,13 +52,9 @@ const ListarRol = () => {
 
 
         useEffect(() => {
-            if (busqueda === '') {
-                setRolesListar([...rolesFiltrar]);
-                return;
-            }
-    
-            setRolesListar([...rolesFiltrarBuscados]);
+            setRolesListar([...rolesFiltrar]);
         }, [roles, rolesFiltrar]);
+
 
     // Estado para editar
     const [editarRol, setEditarRol] = useState('');
@@ -81,6 +77,7 @@ const ListarRol = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (
