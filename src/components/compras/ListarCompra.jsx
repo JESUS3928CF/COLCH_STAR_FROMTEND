@@ -35,28 +35,28 @@ const ListarCompra = () => {
     /// Filtrar los 10 primeras ventas a mostrar en la vista
     useEffect(() => {
         if (busqueda === '') {
-            setComprasFiltrar(
-                compras.slice(0, registrosPorPagina, registrosPorPagina)
-            );
-
+            setComprasFiltrar(compras.slice(0, registrosPorPagina));
 
             return;
         }
 
-         setComprasFiltrarBuscados(
-             comprasFiltrar.slice(0, registrosPorPagina, registrosPorPagina)
-         );
-
+        setComprasFiltrarBuscados(comprasFiltrar.slice(0, registrosPorPagina));
     }, [compras, busqueda]);
 
-     useEffect(()=> {
+    useEffect(() => {
+        console.log(comprasFiltrar, '  no se busca nada');
         if (busqueda === '') {
             setComprasListar([...comprasFiltrar]);
             return;
         }
 
+        console.log(comprasFiltrarBuscados, '  se busca algo');
         setComprasListar([...comprasFiltrarBuscados]);
-     },[compras, comprasFiltrar,])
+    }, [compras, comprasFiltrar]);
+
+    useEffect(() => {
+        console.log(comprasListar, ' listar');
+    }, [comprasListar]);
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -259,11 +259,7 @@ const ListarCompra = () => {
                 <div className='seccion4'>
                     {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                     <Paginador
-                        setDatosFiltrar={
-                            busqueda === ''
-                                ? setComprasFiltrar
-                                : setComprasFiltrarBuscados
-                        }
+                        setDatosFiltrar={setComprasListar}
                         datos={busqueda === '' ? compras : comprasFiltrar}
                     />
                 </div>
