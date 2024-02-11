@@ -4,7 +4,7 @@ import clienteAxios from "../../../config/axios";
 import useAuth from "../../../hooks/useAuth";
 import { parseISO, getMonth } from "date-fns";
 
-export const PDFCompras = () => {
+export const PDF = () => {
   const [compras, setCompras] = useState([]);
   const [mes, setMes]= useState([])
   //   const {config}=useAuth()

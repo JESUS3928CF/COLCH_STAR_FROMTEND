@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import {  startOfMonth, endOfMonth, format  } from 'date-fns';
+import { startOfMonth, endOfMonth, format } from 'date-fns';
 
 export const Grafica = ({ compras }) => {
   const monthChartContainer = useRef(null);
@@ -14,46 +14,57 @@ export const Grafica = ({ compras }) => {
     setMonthEndDate(endOfMonth(today));
   }, []);
 
-  
-
   useEffect(() => {
-    if (monthChartInstance.current) {
-      monthChartInstance.current.destroy();
-    }
-
-    if (monthStartDate && monthEndDate && compras) {
-      const daysInMonth = [];
-      const currentDate = monthStartDate;
-
-      while (currentDate <= monthEndDate) {
-        daysInMonth.push(format(currentDate, 'yyyy-MM-dd'));
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-
-      const monthData = obtenerDatosParaGrafico(daysInMonth, compras);
-
-      const ctx = monthChartContainer.current.getContext('2d');
-      monthChartInstance.current = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: daysInMonth,
-          datasets: [{
-            label: 'Total de compras por día (mes actual)',
-            data: monthData,
-            backgroundColor: 'rgba(192, 75, 192, 0.2)',
-            borderColor: 'rgba(192, 75, 192, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
+    const createChart = async () => {
+      try {
+        if (monthChartInstance.current) {
+          monthChartInstance.current.destroy();
         }
-      });
-    }
+
+        if (monthStartDate && monthEndDate && compras) {
+          const daysInMonth = [];
+          const currentDate = monthStartDate;
+
+          while (currentDate <= monthEndDate) {
+            daysInMonth.push(format(currentDate, 'yyyy-MM-dd'));
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+
+          const monthData = obtenerDatosParaGrafico(daysInMonth, compras);
+
+          const ctx = monthChartContainer.current.getContext('2d');
+          monthChartInstance.current = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: daysInMonth,
+              datasets: [{
+                label: 'Total de compras por día (mes actual)',
+                data: monthData,
+                backgroundColor: 'rgba(192, 75, 192, 0.2)',
+                borderColor: 'rgba(192, 75, 192, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              },
+              elements: {
+                line: {
+                  tension: 0 // Para que las líneas sean rectas
+                }
+              }
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error al crear la gráfica:', error);
+      }
+    };
+
+    createChart();
   }, [monthStartDate, monthEndDate, compras]);
 
   const obtenerDatosParaGrafico = (fechas, compras) => {
