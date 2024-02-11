@@ -157,9 +157,13 @@ const AgregarProducto = () => {
                                             if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
-                                            // if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                                            //     return 'El nombre solo puede contener letras';
-                                            // }
+                                            if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                                                return 'El nombre solo puede contener números y letras';
+                                            }
+                                            if (/^\d/.test(value)) {
+                                                return 'El nombre no puede empezar con números';
+                                            }
+                                            
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
                                             }
