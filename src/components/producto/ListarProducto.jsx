@@ -1,35 +1,40 @@
 // ------------------BRIAN PAREJA HERNANDEZ
 //-------------------26 de septiembre 2023
-//* Nos permitira Listar un producto, traer la informacion de los productos de la base de datos y representarla en una tabla 
-//* existira una barra buscar que nos permite buscar cualquier informacion mediante un filtro, la busqueda se realiza por cualquier campo
-//permiti el manejo del publicado donde dicidimos si publicar la prenda en el catalogo o no
+//* Nos permitirá Listar un producto, traer la información de los productos de la base de datos y representarla en una tabla
+//* existirá una barra buscar que nos permite buscar cualquier información mediante un filtro, la búsqueda se realiza por cualquier campo
+//permita el manejo del publicado donde decidimos si publicar la prenda en el catalogo o no
 
-
-import '../../css-general/cssgeneral.css'
-import '../../css-general/tailwind.min.css'
-import '../../css-general/inicio_style.css'
-import '../../css-general/table.min.css'
+import '../../css-general/cssgeneral.css';
+import '../../css-general/tailwind.min.css';
+import '../../css-general/inicio_style.css';
+import '../../css-general/table.min.css';
 import style from '../../pages/Productos.module.css';
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import Buscador from '../chared/Buscador';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Paginador from '../chared/Paginador'
+import Paginador from '../chared/Paginador';
 import BotonNegro from '../chared/BotonNegro';
 import Swal from 'sweetalert2';
 import EditarProducto from './EditarProducto';
-import Header from '../chared/header/Header'
+import Header from '../chared/header/Header';
 import DetallesProducto from './DetallesProducto';
-import { calcularAnchoDePantalla } from "../../helpers/calcularAnchoDePantalla";
-import { registrosPorPagina, resolucionCards } from "../../constantes/constantes.js";
-import styles from "../../css-general/CardStyleGenerar.module.css";
+import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
+import {
+    registrosPorPagina,
+    resolucionCards,
+} from '../../constantes/constantes.js';
+import styles from '../../css-general/CardStyleGenerar.module.css';
 import useProducto from '../../hooks/useProducto.jsx';
-import AgregarProducto from './AgregarProducto.jsx'
-
+import AgregarProducto from './AgregarProducto.jsx';
 
 const ListarProducto = () => {
-
-    const { productos, editarEstado, editarPublicacion } = useProducto();
+    const {
+        productos,
+        editarEstado,
+        editarPublicacion,
+        busqueda,
+        setBusqueda,
+    } = useProducto();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -37,31 +42,51 @@ const ListarProducto = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // funcion para cerrar, abrir modal de EditarDiseñosModal
+    // función para cerrar, abrir modal de EditarDiseñosModal
     const [showw, setShoww] = useState(false);
 
-    const handleClosee = () => { setShoww(false), handleShow() }
-    const handleShoww = () => { setShoww(true), handleClose()  }
+    const handleClosee = () => {
+        setShoww(false), handleShow();
+    };
+    const handleShoww = () => {
+        setShoww(true), handleClose();
+    };
     const handleClosex = () => setShoww(false);
 
     //estado de la barra buscador
-    const [ProductosFiltrar, setProductosFiltrar] = useState([]);
+    const [productosFiltrar, setProductosFiltrar] = useState([]);
+
+    const [productosFiltrarBuscados, setProductosFiltrarBuscados] = useState([]);
+
+    const [productosListar, setProductosListar] = useState([]);
+
 
     //detallesProductos
     const [detallesProductos, setDetallesProductos] = useState({});
 
+    useEffect(() => {
+        if (busqueda === '') {
+            setProductosFiltrar(productos.slice(0, 10, registrosPorPagina));
+            return;
+        }
 
+        setProductosFiltrarBuscados(productosFiltrar.slice(0, registrosPorPagina));
+    }, [productos, busqueda]);
 
     useEffect(() => {
-        setProductosFiltrar(productos.slice(0, 10, registrosPorPagina));
-    }, [productos]);
+        if (busqueda === '') {
+            setProductosListar([...productosFiltrar]);
+            return;
+        }
+
+        setProductosListar([...productosFiltrarBuscados]);
+    }, [productos, productosFiltrar]);
 
     //estado para editar
-    const [editarProducto, setEditarProducto] = useState("");
+    const [editarProducto, setEditarProducto] = useState('');
 
-    //si al darle click en editar el proveedor etsa inhabilitado no lo va dejar entrar a editar
+    //si al darle click en editar el proveedor esta inhabilitado no lo va dejar entrar a editar
     const handleEditClick = (producto) => {
-
         if (!producto.estado) {
             return Swal.fire(
                 'Acción inválida!',
@@ -72,7 +97,6 @@ const ListarProducto = () => {
         setEditarProducto(producto);
         handleShow();
     };
-
 
     //ancho de la pantalla para el Resposive
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
@@ -105,6 +129,8 @@ const ListarProducto = () => {
                                 setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
                                 camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -128,7 +154,7 @@ const ListarProducto = () => {
                             </thead>
                             <tbody>
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
-                                {ProductosFiltrar.map((producto) => (
+                                {productosListar.map((producto) => (
                                     <tr key={producto.id_producto}>
                                         <td>{producto.id_producto}</td>
                                         <td>{producto.nombre}</td>
@@ -161,7 +187,9 @@ const ListarProducto = () => {
                                                 text='Ver'
                                                 modalToOpen='#modalDetalles'
                                                 onClick={() =>
-                                                    setDetallesProductos(producto)
+                                                    setDetallesProductos(
+                                                        producto
+                                                    )
                                                 }
                                             />
                                         </td>
@@ -181,7 +209,7 @@ const ListarProducto = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {ProductosFiltrar.map((producto) => (
+                        {productosListar.map((producto) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={producto.id_producto}
@@ -195,14 +223,16 @@ const ListarProducto = () => {
                                             <span>{producto.id_producto}</span>
                                         </p>
                                         <p className={styles.text}>
-                                            Nombre: <span>{producto.nombre}</span>
+                                            Nombre:{' '}
+                                            <span>{producto.nombre}</span>
                                         </p>
                                         <p className={styles.text}>
                                             cantidad:{' '}
                                             <span>{producto.cantidad}</span>
                                         </p>
                                         <p className={styles.text}>
-                                            Precio: <span>{producto.precio}</span>
+                                            Precio:{' '}
+                                            <span>{producto.precio}</span>
                                         </p>
 
                                         <div className='row pt-3'>
@@ -217,7 +247,9 @@ const ListarProducto = () => {
                                                 </div>
                                                 <div className='text-center'>
                                                     <BotonCambioEstado
-                                                        id={producto.id_producto}
+                                                        id={
+                                                            producto.id_producto
+                                                        }
                                                         isChecked={
                                                             producto.publicado
                                                         }
@@ -246,7 +278,9 @@ const ListarProducto = () => {
                                                 </div>
                                                 <div className='text-center'>
                                                     <BotonCambioEstado
-                                                        id={producto.id_producto}
+                                                        id={
+                                                            producto.id_producto
+                                                        }
                                                         isChecked={
                                                             producto.estado
                                                         }
@@ -283,7 +317,9 @@ const ListarProducto = () => {
                                                 <BotonNegro
                                                     text='Editar'
                                                     onClick={() =>
-                                                        handleEditClick(producto)
+                                                        handleEditClick(
+                                                            producto
+                                                        )
                                                     }
                                                 />
                                             </div>
@@ -301,8 +337,7 @@ const ListarProducto = () => {
                     show={show}
                     handleClose={handleClose}
                     handleShow={handleShow}
-
-                    //// funcion para cerrar, abrir modal de EditarDiseñosModal
+                    //función para cerrar, abrir modal de EditarDiseñosModal
                     handleClosee={handleClosee}
                     handleShoww={handleShoww}
                     showw={showw}
@@ -310,21 +345,17 @@ const ListarProducto = () => {
                 />
 
                 <DetallesProducto detallesProductos={detallesProductos} />
-
             </div>
-
 
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
-                    setDatosFiltrar={setProductosFiltrar}
-                    datos={productos}
+                    setDatosFiltrar={setProductosListar}
+                    datos={busqueda === '' ? productos : productosFiltrar}
                 />
             </div>
-
-
         </div>
     );
-}
+};
 
-export default ListarProducto
+export default ListarProducto;

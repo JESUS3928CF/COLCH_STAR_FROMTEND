@@ -1,10 +1,10 @@
 //----------TOMAS SANTIAGO VANEGAS SANCHEZ---------------
 //---------- 26 de septiembre 2023
 
-//Permitira ver los datos que estan en la base de datos y la representara en una tabla y en un boton
-// ver detalles donde nos mostrara una informacion mas completa
+//Permitirá ver los datos que están en la base de datos y la representara en una tabla y en un botón
+// ver detalles donde nos mostrara una información mas completa
 
-//Tiene una barra de busquede que nos ayudara a buscar una prenda en la tabla
+//Tiene una barra de búsqueda que nos ayudara a buscar una prenda en la tabla
 
 import { useEffect, useState } from 'react';
 import '../../css-general/cssgeneral.css';
@@ -33,7 +33,8 @@ import AgregarColors from './AgregarColors.jsx';
 export const ListarPrendas = () => {
     // conexión para traer todos los datos de la base de datos
 
-    const { Prendas, updateEstado, updatePublicado } = usePrendas();
+    const { Prendas, updateEstado, updatePublicado, busqueda, setBusqueda } =
+        usePrendas();
 
     const [show, setShow] = useState(false);
 
@@ -52,11 +53,32 @@ export const ListarPrendas = () => {
     const handleClosex = () => setShoww(false);
 
     const [detallesPrendas, setDetallesPrendas] = useState({} || null);
-    const [prendasFiltrar, setprendasFiltrar] = useState([]);
+    const [prendasFiltrar, setPrendasFiltrar] = useState([]);
+
+    const [prendasFiltrarBuscados, setJPrendasFiltrarBuscados] = useState([]);
+
+    const [prendasListar, setPrendasListar] = useState([]);
 
     useEffect(() => {
-        setprendasFiltrar(Prendas.slice(0, 10, registrosPorPagina));
-    }, [Prendas]);
+
+         if (busqueda === '') {
+             setPrendasFiltrar(Prendas.slice(0, 10, registrosPorPagina));
+
+             return;
+         }
+
+         setJPrendasFiltrarBuscados(prendasFiltrar.slice(0, registrosPorPagina));
+    }, [Prendas, busqueda]);
+
+
+     useEffect(() => {
+         if (busqueda === '') {
+             setPrendasListar([...prendasFiltrar]);
+             return;
+         }
+
+         setPrendasListar([...prendasFiltrarBuscados]);
+     }, [Prendas, prendasFiltrar]);
 
     const { setSelectColorsNombre } = usePrendas();
 
@@ -94,7 +116,7 @@ export const ListarPrendas = () => {
                         <div className='col-md-6 col-sm-12 pb-md-0 pb-4  d-flex justify-content-around align-items-center p-0'>
                             {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                             <Buscador
-                                setDatosFiltrar={setprendasFiltrar}
+                                setDatosFiltrar={setPrendasFiltrar}
                                 datos={Prendas}
                                 camposFiltrar={[
                                     'id_prenda',
@@ -102,6 +124,8 @@ export const ListarPrendas = () => {
                                     'cantidad',
                                     'precio',
                                 ]}
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -127,7 +151,7 @@ export const ListarPrendas = () => {
                             <tbody>
                                 {/* {Datos traidos por el set prendas que realiza un mapeo} */}
 
-                                {prendasFiltrar.map((Prendas, index) => (
+                                {prendasListar.map((Prendas, index) => (
                                     <tr key={index}>
                                         <td>{Prendas.id_prenda}</td>
                                         <td>{Prendas.nombre}</td>
@@ -186,7 +210,7 @@ export const ListarPrendas = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {prendasFiltrar.map((Prendas) => (
+                        {prendasListar.map((Prendas) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={Prendas.id_prenda}
@@ -304,8 +328,8 @@ export const ListarPrendas = () => {
                 <div className='seccion4'>
                     {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                     <Paginador
-                        setDatosFiltrar={setprendasFiltrar}
-                        datos={Prendas}
+                        setDatosFiltrar={setPrendasListar}
+                        datos={busqueda === '' ? Prendas : prendasFiltrar}
                     />
                 </div>
             </div>

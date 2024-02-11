@@ -8,14 +8,15 @@ import useMovimientos from '../hooks/useMovimientos';
 const DisenosContext = createContext();
 
 // Proveedor del contexto, que proporciona el estado y las funciones de actualización
-export const DisenosProvider = ({ children }) => { 
+export const DisenosProvider = ({ children }) => {
     const { token, auth } = useAuth();
 
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
-    const {consultarMovimientos}=useMovimientos()
+    const { consultarMovimientos } = useMovimientos();
 
-
+    // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
 
     const [precios, setPrecios] = useState([]);
 
@@ -32,7 +33,7 @@ export const DisenosProvider = ({ children }) => {
     };
 
     const eliminarDiseno = (index) => {
-        console.log(index)
+        console.log(index);
         const nuevosDisenos = [...disenos];
         nuevosDisenos.splice(index, 1);
         setDisenos(nuevosDisenos);
@@ -70,10 +71,10 @@ export const DisenosProvider = ({ children }) => {
             }).then(() => {
                 reset();
 
-                const  respaldoDisenos = [...disenosDB];
+                const respaldoDisenos = [...disenosDB];
                 respaldoDisenos.unshift(res.data.nuevoDiseno);
                 setDisenosDB(respaldoDisenos);
-                consultarMovimientos()
+                consultarMovimientos();
                 handleClose();
             });
         } catch (error) {
@@ -107,9 +108,9 @@ export const DisenosProvider = ({ children }) => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
-                consultarDisenos()
-                consultarMovimientos()
-                handleClose()
+                consultarDisenos();
+                consultarMovimientos();
+                handleClose();
             });
         } catch (error) {
             console.log(error);
@@ -123,9 +124,7 @@ export const DisenosProvider = ({ children }) => {
     };
 
     const editarEstado = (id) => {
-        let disenoEditado = disenosDB.find(
-            (diseno) => diseno.id_diseno === id
-        );
+        let disenoEditado = disenosDB.find((diseno) => diseno.id_diseno === id);
         disenoEditado.estado = !disenoEditado.estado;
 
         const clienteActualizado = disenosDB.map((diseno) =>
@@ -133,32 +132,29 @@ export const DisenosProvider = ({ children }) => {
         );
 
         setDisenosDB(clienteActualizado);
-        consultarMovimientos()
-
+        consultarMovimientos();
     };
 
-     const editarPublicacion = (id) => {
-         let disenoEditado = disenosDB.find(
-             (diseno) => diseno.id_diseno === id
-         );
-         disenoEditado.publicado = !disenoEditado.publicado;
+    const editarPublicacion = (id) => {
+        let disenoEditado = disenosDB.find((diseno) => diseno.id_diseno === id);
+        disenoEditado.publicado = !disenoEditado.publicado;
 
-         const clienteActualizado = disenosDB.map((diseno) =>
-             diseno.id_diseno == id ? disenoEditado : diseno
-         );
+        const clienteActualizado = disenosDB.map((diseno) =>
+            diseno.id_diseno == id ? disenoEditado : diseno
+        );
 
-         setDisenosDB(clienteActualizado);
-         consultarMovimientos()
+        setDisenosDB(clienteActualizado);
+        consultarMovimientos();
+    };
 
-     };
-
-
-     const actualizarPrecioDB = async (data,reset,handleClose) => {
-
+    const actualizarPrecioDB = async (data, reset, handleClose) => {
         try {
-            const res = await clienteAxios.put("/precio_disenos/"+data?.id_precio, {
-                precio: data?.precio
-            });
+            const res = await clienteAxios.put(
+                '/precio_disenos/' + data?.id_precio,
+                {
+                    precio: data?.precio,
+                }
+            );
 
             // Lanzar alerta del producto agregado
             Swal.fire({
@@ -177,13 +173,12 @@ export const DisenosProvider = ({ children }) => {
                 title: 'Error',
                 text: 'Hubo un error',
                 icon: 'Vuelva a intentarlo',
-            }).then( () => {
-                reset()
-                handleClose()
+            }).then(() => {
+                reset();
+                handleClose();
             });
         }
-     };
-
+    };
 
     // Proporcionar el estado y las funciones de actualización a los componentes hijos
     const contextValue = {
@@ -199,6 +194,9 @@ export const DisenosProvider = ({ children }) => {
         setDisenos,
         precios,
         actualizarPrecioDB,
+        // BUSQUEDA
+        busqueda,
+        setBusqueda,
     };
 
     return (

@@ -123,8 +123,10 @@ const ListarOrdenes = () => {
                                 setDatosFiltrar={setOrdenesFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={ordenes} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
                                 camposFiltrar={[
+                                    'cliente',
                                     'precio_total',
                                     'fecha_entrega',
+                                    'direccion',
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
