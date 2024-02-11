@@ -47,6 +47,7 @@ import { PiShootingStarThin } from "react-icons/pi";
 import { registrosPorPagina } from "../../constantes/constantes.js";
 import { IoAccessibility } from "react-icons/io5";
 import { AiFillCrown } from "react-icons/ai";
+import { IoIosNotifications } from "react-icons/io";
 import Header from "../chared/header/Header";
 import styleDashboard from "../Dashboard/Css/styleDashboard.css";
 import useProveedor from "../../hooks/useProveedor";
@@ -57,9 +58,15 @@ import useProducto from "../../hooks/useProducto";
 import { Link } from "react-router-dom";
 import useMovimientos from "../../hooks/useMovimientos";
 import { useEffect, useState } from "react";
-import Paginador from "../chared/Paginador";
 import useCompras from "../../hooks/useCompras.jsx";
 import useOrden from "../../hooks/useOrden.jsx";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDFCompras from "./PDF/PDFCompras.jsx";
+import Notificacion from "./Notificacion.jsx";
+import { startOfWeek, subDays, format } from "date-fns";
+import GraficaSemanal from "./Graficas/GraficaSemanal.jsx";
+import GraficaMes from "./Graficas/GraficaMes.jsx";
+import GraficaMensual from "./Graficas/GraficaMensual.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
@@ -67,10 +74,8 @@ export const InicioDashboard = () => {
   const { Prendas } = usePrendas();
   const { disenosDB } = useDisenosContext();
   const { productos, detailsDiseno } = useProducto();
-  const { movimiento } = useMovimientos();
   const { compras } = useCompras();
   const { ordenes, detailsOrden } = useOrden();
-  const [movimientosFiltrar, setMovimientosFiltrar] = useState([]);
 
   const cantidadDeProveedores = proveedores.length;
   const cantidadDeClientes = clientes.length;
@@ -146,59 +151,42 @@ export const InicioDashboard = () => {
     }
   }
 
+  const [totalComprasUltimos7Dias, setTotalComprasUltimos7Dias] = useState(0);
+
   useEffect(() => {
-    setMovimientosFiltrar(movimiento.slice(0, registrosPorPagina - 5));
-  }, [movimiento]);
+    // Obtenemos la fecha de inicio de hace 7 días
+    const fechaInicio = subDays(new Date(), 7);
 
-  const datosAgrupados = compras.reduce((resultado, compra) => {
-    const fecha = compra.fecha;
+    // Filtramos las compras que ocurrieron en los últimos 7 días
+    const comprasUltimos7Dias = compras.filter(
+      (compra) => new Date(compra.fecha) > fechaInicio
+    );
 
-    if (!resultado[fecha]) {
-      resultado[fecha] = {
-        Total_de_compras: 0,
-        name: fecha,
-      };
-    }
+    // Sumamos el monto de esas compras
+    const total = comprasUltimos7Dias.reduce(
+      (accum, compra) => accum + compra.total_de_compra,
+      0
+    );
 
-    resultado[fecha].Total_de_compras += compra.total_de_compra;
-
-    return resultado;
-  }, {});
-
-  const datosGrafica = Object.values(datosAgrupados);
-
-  // const cities = [
-  //   {
-  //     name: "New York",
-  //     sales: 9800,
-  //   },
-  //   {
-  //     name: "London",
-  //     sales: 4567,
-  //   },
-  //   {
-  //     name: "Hong Kong",
-  //     sales: 3908,
-  //   },
-  //   {
-  //     name: "San Francisco",
-  //     sales: 2400,
-  //   },
-  //   {
-  //     name: "Singapore",
-  //     sales: 1908,
-  //   },
-  //   {
-  //     name: "Zurich",
-  //     sales: 1398,
-  //   },
-  // ];
+    // Actualizamos el estado con el total de compras de los últimos 7 días
+    setTotalComprasUltimos7Dias(total);
+    console.log(total);
+  }, [compras]);
 
   return (
     <>
       <div className="contenedor">
         <div className="separador">
           <Header titulo="Dashboard" />
+
+          <button
+            className="Notificacion"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            <IoIosNotifications className="iconsNotificacion" />
+          </button>
         </div>
 
         <div className="cards">
@@ -237,18 +225,37 @@ export const InicioDashboard = () => {
                       <Title className="textCompras">Total de compras</Title>
                       <MdOutlineMoneyOffCsred className="iconsE" />
                       <Text className="Cantidad">
-                        {cantidad >= 1000000 ? (
+                        {/* {cantidad >= 1000000 ? (
                           <p>{totoalRecortado} Ml </p>
                         ) : (
                           <p>{totoalRecortado}MP</p>
-                        )}
+                        )} */}
+
+                        <Text className="Cantidad">
+                          {totalComprasUltimos7Dias}
+                        </Text>
                       </Text>
-                      <Button className="botonInfoC">
-                        <Link to={"/administracion/proveedores"}>
-                          <span className="textBoton">Más Info</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
+
+                      <PDFDownloadLink
+                        document={<PDFCompras />}
+                        fileName="Compras.pdf"
+                      >
+                        {({ loading, url, error, blob }) =>
+                          loading ? (
+                            <Button className="botonInfoC">
+                              {" "}
+                              <span className="textBoton">Más Info</span>
+                              <FaArrowAltCircleRight className="btnIcons" />
+                            </Button>
+                          ) : (
+                            <Button className="botonInfoC">
+                              {" "}
+                              <span className="textBoton">Más Info</span>
+                              <FaArrowAltCircleRight className="btnIcons" />
+                            </Button>
+                          )
+                        }
+                      </PDFDownloadLink>
                     </Card>
 
                     <Card className="two">
@@ -351,9 +358,13 @@ export const InicioDashboard = () => {
 
                       {clientes.map((clienteElegido) => (
                         <Text className="NombreStar">
-                          {clienteElegido.id_cliente == ClienteStar
-                            ? clienteElegido.nombre
-                            : ""}
+                          {clienteElegido.id_cliente == ClienteStar ? (
+                            <p>
+                              {clienteElegido.nombre} {clienteElegido.apellido}{" "}
+                            </p>
+                          ) : (
+                            ""
+                          )}
                         </Text>
                       ))}
 
@@ -443,7 +454,7 @@ export const InicioDashboard = () => {
                         </center>
                       </Tab>
                       <Tab className="Tabs">
-                        <Text className="TexNav">Movimientos</Text>
+                        <Text className="TexNav">Registros</Text>
                       </Tab>
                     </TabList>
                   </div>
@@ -454,14 +465,16 @@ export const InicioDashboard = () => {
                     <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" />
 
                     <Card className="containerHeaderGrafica  customChartContainer">
-                    <BarChart className="grafica" width={600} height={300} data={datosGrafica}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar  dataKey="Total_de_compras" fill="#14131B" />
-                      </BarChart>
+                      <GraficaSemanal compras={compras} />
+                    </Card>
+
+                    <Card className="containerHeaderGraficaM  customChartContainerM">
+                      <GraficaMes compras={compras} />
+                    </Card>
+
+                    <Card className="containerHeaderGraficaM  customChartContainerM" >
+                      <GraficaMensual compras={compras}/>
+
                     </Card>
                   </TabPanel>
 
@@ -469,104 +482,23 @@ export const InicioDashboard = () => {
                     <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" />
 
                     <Card className="containerHeaderTable">
-                      <Table>
-                        <TableHead>
-                          <TableRow>
-                            <TableHeaderCell className="textH">
-                              ID
-                            </TableHeaderCell>
-                            <TableHeaderCell className="textH">
-                              Descripcion
-                            </TableHeaderCell>
-                            <TableHeaderCell className="textH">
-                              Fecha
-                            </TableHeaderCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {movimientosFiltrar.map((item) => (
-                            <TableRow key={item.name}>
-                              <TableCell className="textH">{item.ID}</TableCell>
-                              <TableCell className="textH">
-                                <Text>{item.descripcion}</Text>
-                              </TableCell>
-                              <TableCell className="textH">
-                                <Text>{item.fecha}</Text>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                      <div className="paginador">
-                        <Paginador
-                          setDatosFiltrar={setMovimientosFiltrar}
-                          datos={movimiento}
-                          registroPorPaginas={5}
-                        />
-                      </div>
+
+
+                      
+
+
+
+
+
                     </Card>
-
-                    {/* <div className="tabla">
-            <table className="table caption-top"> */}
-                    {/* lista de prendas */}
-                    {/* <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Descripcion</th>
-                  <th scope="col">Fecha</th>
-                </tr>
-              </thead>
-              <tbody> */}
-                    {/* {Datos traidos por el set prendas que realiza un mapeo} */}
-
-                    {/* {movimientoDb.map((Mover, index) => (
-                  <tr key={index}>
-                    <td>{Mover.ID}</td>
-                    <td>{Mover.descripcion}</td>
-                    <td>{Mover.fecha}</td>
-
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div> */}
                   </TabPanel>
                 </TabPanels>
               </div>
             </TabGroup>
           </Card>
         </div>
-
-        {/* <div className="cardD">
-            <div className="title">
-
-                <Card>
-                <Text className="text"> Datos generales</Text>
-                </Card>
-           
-            </div>
-          <Flex>
-
-          <Card
-              className="max-w-xs mx-auto"
-              decoration="top"
-              decorationColor="blue"
-            >
-              <Text>Sales</Text>
-              <Metric>$ 34,743</Metric>
-            </Card>
-            
-            <Card
-              className="max-w-xs mx-auto"
-              decoration="top"
-              decorationColor="red"
-            >
-              <Text>Sales</Text>
-              <Metric>$ 34,743</Metric>
-            </Card>
-          </Flex>
-        </div> */}
       </div>
+      <Notificacion />
     </>
   );
 };
