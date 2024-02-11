@@ -182,7 +182,11 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                             if (!/^\d+$/.test(value)) {
                                                 return 'La cantidad solo puede contener números';
                                             }
-                                           
+                                            // Verificar si el número comienza con cero
+                                            if (value.startsWith('0')) {
+                                                return 'El número no puede iniciar en 0';
+                                            }
+
                                             return true;
                                         },
                                     })}
