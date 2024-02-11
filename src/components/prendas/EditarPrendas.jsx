@@ -324,19 +324,34 @@ const EditarPrendas = ({
                                                 'El tipo de tela  es obligatorio',
                                         },
                                         validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
+                                            if (
+                                                value.trim().length < 3 ||
+                                                value.length > 20
+                                            ) {
+                                                return 'El tipo de tela debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (
+                                                !/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
+                                                return 'El tipo de tela solo puede contener letras';
+                                            }
+                                            if (value.includes(' ')) {
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
+                                            }
+
+                                            return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        setValue(
-                                            'tipo_de_tela',
-                                            e.target.value
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            21
                                         );
+                                        setValue('tipo_de_tela', inputValue);
                                         trigger('tipo_de_tela');
                                     }}
                                 />
