@@ -9,7 +9,6 @@ const Buscador = ({
     busqueda,
     setBusqueda,
 }) => {
-    // const [busqueda, setBusqueda] = useState('');
 
     const realizarBusqueda = () => {
         // Filtrar los datos si hay un término de búsqueda, de lo contrario, mostrar todos los datos

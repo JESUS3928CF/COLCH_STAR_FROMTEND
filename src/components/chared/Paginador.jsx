@@ -18,13 +18,10 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
         const datosFinales = registrosPorPagina * pagina;
         const datosIniciales = datosFinales - registrosPorPagina;
 
-        console.log(datos.slice(datosIniciales, datosFinales));
         setDatosFiltrar(datos.slice(datosIniciales, datosFinales));
     };
 
-    // useEffect(() => {
-    //     console.log(datos);
-    // }, [datos, setDatosFiltrar, filtrarDatos]);
+
 
     const imprimirPaginador = () => {
         paginaActual = crearPaginador(totalPaginas);

@@ -5,7 +5,7 @@ import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useCompras from '../../hooks/useCompras';
 import BotonNegro from '../chared/BotonNegro';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export const ModalVerDetallesCompra = () => {
     const {
@@ -18,9 +18,6 @@ export const ModalVerDetallesCompra = () => {
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
-    useEffect(() => {
-        console.log(detallesCompra);
-    }, [detallesCompra]);
 
     const eliminarDetalle = (id) => {
         // Encuentra el índice del detalle con el id proporcionado
