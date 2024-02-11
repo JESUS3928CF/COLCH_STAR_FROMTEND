@@ -20,7 +20,6 @@ import {
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
-import { OrdenesProvider } from '../../context/OrdenesProvider.jsx';
 
 //Componente
 const ListarOrdenes = () => {
@@ -39,6 +38,11 @@ const ListarOrdenes = () => {
 
     /// Datos para listar
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
+
+    const [ordenesFiltrarBuscados, setOrdenesFiltrarBuscados] = useState([]);
+
+    const [ordenesListar, setOrdenesListar] = useState([]);
+
     //detallesProductos
     const [detallesOrdenActual, setDetallesOrdenActual] = useState({});
 
@@ -70,7 +74,25 @@ const ListarOrdenes = () => {
 
     // solicitud  a la url
     useEffect(() => {
-        setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
+       
+
+        if (busqueda === '') {
+             setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
+
+            return;
+        }
+
+        setOrdenesFiltrarBuscados(OrdenesFiltrar.slice(0, registrosPorPagina));
+    }, [ordenes, busqueda]);
+
+
+    useEffect(() => {
+        if (busqueda === '') {
+            setOrdenesListar([...OrdenesFiltrar]);
+            return;
+        }
+
+        setOrdenesListar([...ordenesFiltrarBuscados]);
     }, [ordenes, OrdenesFiltrar]);
 
     // ancho de la pantalla para el resposive
@@ -106,7 +128,7 @@ const ListarOrdenes = () => {
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
-                                setBusqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -129,7 +151,7 @@ const ListarOrdenes = () => {
                             </thead>
                             <tbody>
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
-                                {OrdenesFiltrar.map((orden) => (
+                                {ordenesListar.map((orden) => (
                                     <tr key={orden.id_orden}>
                                         <td>{orden.id_orden}</td>
                                         <td>
@@ -188,7 +210,7 @@ const ListarOrdenes = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {OrdenesFiltrar.map((orden) => (
+                        {ordenesListar.map((orden) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={orden.id_orden}
@@ -298,7 +320,7 @@ const ListarOrdenes = () => {
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
-                    setDatosFiltrar={setOrdenesFiltrar}
+                    setDatosFiltrar={setOrdenesListar}
                     datos={busqueda === '' ? ordenes : OrdenesFiltrar}
                 />
             </div>

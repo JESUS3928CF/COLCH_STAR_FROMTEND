@@ -7,7 +7,6 @@
 //Tiene una barra de busquede que nos ayudara a buscar una prenda en la tabla
 
 import { useEffect, useState } from 'react';
-import style from '../../pages/proveedores.module.css';
 import '../../css-general/cssgeneral.css';
 import '../../css-general/tailwind.min.css';
 import '../../css-general/inicio_style.css';
