@@ -105,7 +105,6 @@ const AgregarPrendas = () => {
             agregarPrendas(
                 {
                     nombre: nombre.trim(),
-                    cantidad: cantidad.trim(),
                     precio: precio.trim(),
                     tipo_de_tela: tipo_de_tela.trim(),
                     genero: genero,
@@ -175,24 +174,36 @@ const AgregarPrendas = () => {
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.trim().length < 3 || value.length > 20) {
+                                            if (
+                                                value.trim().length < 3 ||
+                                                value.length > 20
+                                            ) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
-                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                            if (
+                                                !/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
                                                 return 'El nombre solo puede contener letras';
                                             }
-                                            if (value.includes(" ")) {
-                                                return validarEspaciosVacios(value);
+                                            if (value.includes(' ')) {
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
                                             }
-                                            
+
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 21);
-                                        setValue("nombre", inputValue);
-                                        trigger("nombre");
-                                      }}
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            21
+                                        );
+                                        setValue('nombre', inputValue);
+                                        trigger('nombre');
+                                    }}
                                 />
                                 {errors.nombre && (
                                     <AlertaError
@@ -201,7 +212,7 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-6'>
+                            {/*<div className='col-md-6'>
                                 <label
                                     htmlFor='cantidad'
                                     className='col-form-label'
@@ -244,7 +255,7 @@ const AgregarPrendas = () => {
                                         message={errors.cantidad.message}
                                     />
                                 )}
-                            </div>
+                                </div>*/}
 
                             <div className='col-md-6' name='precio'>
                                 <label
@@ -265,14 +276,14 @@ const AgregarPrendas = () => {
                                             message: 'El precio es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.includes(" ")) {
+                                            if (value.includes(' ')) {
                                                 return 'No se permiten espacios en blanco';
                                             }
                                             // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                             if (!/^\d+$/.test(value)) {
                                                 return 'El precio solo puede contener números';
                                             }
-                                            if (value.startsWith("0")) {
+                                            if (value.startsWith('0')) {
                                                 return 'El precio no puede iniciar con 0';
                                             }
                                             return true;
@@ -289,65 +300,6 @@ const AgregarPrendas = () => {
                                         message={errors.precio.message}
                                     />
                                 )}
-                            </div>
-
-                            <div className='col-md-6'>
-                                <label htmlFor='searchInput'>
-                                    Tipo de tela: *
-                                </label>
-                                <input
-                                    type='text '
-                                    name='Telasss'
-                                    id='searchInput'
-                                    list='Telasss'
-                                    placeholder='. . .'
-                                    className='form-control'
-                                    {...register('tipo_de_tela', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'El tipo de tela  es obligatorio',
-                                        },
-                                        validate: (value) => {
-                                            if (value.trim().length < 3 || value.length > 20) {
-                                                return 'El tipo de tela debe tener entre 3 y 20 caracteres';
-                                            }
-                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                                                return 'El tipo de tela solo puede contener letras';
-                                            }
-                                            if (value.includes(" ")) {
-                                                return validarEspaciosVacios(value);
-                                            }
-                                            
-                                            return true;
-                                        },
-                                    })}
-                                    onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 21);
-                                        setValue("tipo_de_tela", inputValue);
-                                        trigger("tipo_de_tela");
-                                      }}
-                                />
-
-                                {errors.tipo_de_tela && (
-                                    <AlertaError
-                                        message={errors.tipo_de_tela.message}
-                                    />
-                                )}
-
-                                <datalist id='Telasss'>
-                                    {Array.from(
-                                        new Set(
-                                            Prendas.map(
-                                                (prenda) => prenda.tipo_de_tela
-                                            )
-                                        )
-                                    ).map((tipo, index) => (
-                                        <option key={index} value={tipo}>
-                                            {tipo}
-                                        </option>
-                                    ))}
-                                </datalist>
                             </div>
 
                             <div className='col-md-6'>
@@ -389,7 +341,6 @@ const AgregarPrendas = () => {
                                     />
                                 )}
                             </div>
-
                             <div className='col-md-6' name='Publicado'>
                                 <label
                                     htmlFor='Publicar'
@@ -423,6 +374,76 @@ const AgregarPrendas = () => {
                                         message={errors.publicado.message}
                                     />
                                 )}
+                            </div>
+                            <div className='col-md-12'>
+                                <label htmlFor='searchInput'>
+                                    Tipo de tela: *
+                                </label>
+                                <input
+                                    type='text '
+                                    name='Telasss'
+                                    id='searchInput'
+                                    list='Telasss'
+                                    placeholder='. . .'
+                                    className='form-control'
+                                    {...register('tipo_de_tela', {
+                                        required: {
+                                            value: true,
+                                            message:
+                                                'El tipo de tela  es obligatorio',
+                                        },
+                                        validate: (value) => {
+                                            if (
+                                                value.trim().length < 3 ||
+                                                value.length > 20
+                                            ) {
+                                                return 'El tipo de tela debe tener entre 3 y 20 caracteres';
+                                            }
+                                            if (
+                                                !/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
+                                                return 'El tipo de tela solo puede contener letras';
+                                            }
+                                            if (value.includes(' ')) {
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
+                                            }
+
+                                            return true;
+                                        },
+                                    })}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            21
+                                        );
+                                        setValue('tipo_de_tela', inputValue);
+                                        trigger('tipo_de_tela');
+                                    }}
+                                />
+
+                                {errors.tipo_de_tela && (
+                                    <AlertaError
+                                        message={errors.tipo_de_tela.message}
+                                    />
+                                )}
+
+                                <datalist id='Telasss'>
+                                    {Array.from(
+                                        new Set(
+                                            Prendas.map(
+                                                (prenda) => prenda.tipo_de_tela
+                                            )
+                                        )
+                                    ).map((tipo, index) => (
+                                        <option key={index} value={tipo}>
+                                            {tipo}
+                                        </option>
+                                    ))}
+                                </datalist>
                             </div>
 
                             <div className='col-md-12' name='Archivo'>

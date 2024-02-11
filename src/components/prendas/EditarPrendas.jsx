@@ -50,7 +50,6 @@ const EditarPrendas = ({
         if (detallesPrendas) {
             setValue('id_prenda', detallesPrendas.id_prenda);
             setValue('nombre', detallesPrendas.nombre);
-            setValue('cantidad', detallesPrendas.cantidad);
             setValue('precio', detallesPrendas.precio);
             setValue('tipo_de_tela', detallesPrendas.tipo_de_tela);
             setValue('genero', detallesPrendas.genero);
@@ -131,24 +130,36 @@ const EditarPrendas = ({
                                                 'El nombres es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.trim().length < 3 || value.length > 20) {
+                                            if (
+                                                value.trim().length < 3 ||
+                                                value.length > 20
+                                            ) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
-                                            if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                            if (
+                                                !/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
                                                 return 'El nombre solo puede contener letras';
                                             }
-                                            if (value.includes(" ")) {
-                                                return validarEspaciosVacios(value);
+                                            if (value.includes(' ')) {
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
                                             }
-                                            
+
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 21);
-                                        setValue("nombre", inputValue);
-                                        trigger("nombre");
-                                      }}
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            21
+                                        );
+                                        setValue('nombre', inputValue);
+                                        trigger('nombre');
+                                    }}
                                 />
 
                                 {errors.nombre && (
@@ -158,7 +169,7 @@ const EditarPrendas = ({
                                 )}
                             </div>
 
-                            <div className='col-md-6'>
+                            {/*<div className='col-md-6'>
                                 <label
                                     htmlFor='cantidad'
                                     className='col-from-label'
@@ -197,7 +208,7 @@ const EditarPrendas = ({
                                         message={errors.cantidad.message}
                                     />
                                 )}
-                            </div>
+                                </div>*/}
 
                             <div className='col-md-6'>
                                 <label
@@ -236,62 +247,6 @@ const EditarPrendas = ({
                                         message={errors.precio.message}
                                     />
                                 )}
-                            </div>
-
-                            <div className='col-md-6'>
-                                <label htmlFor='searchInput'>
-                                    Tipo de tela: *
-                                </label>
-                                <input
-                                    type='text '
-                                    name='Telasss'
-                                    id='searchInput'
-                                    list='Telasss'
-                                    placeholder='. . .'
-                                    className='form-control'
-                                    {...register('tipo_de_tela', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'El tipo de tela  es obligatorio',
-                                        },
-                                        validate: (value) => {
-                                            return validarEspaciosVacios(value);
-                                        },
-                                        pattern: {
-                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
-                                            message:
-                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
-                                        },
-                                    })}
-                                    onChange={(e) => {
-                                        setValue(
-                                            'tipo_de_tela',
-                                            e.target.value
-                                        );
-                                        trigger('tipo_de_tela');
-                                    }}
-                                />
-
-                                {errors.tipo_de_tela && (
-                                    <AlertaError
-                                        message={errors.tipo_de_tela.message}
-                                    />
-                                )}
-
-                                <datalist id='Telasss'>
-                                    {Array.from(
-                                        new Set(
-                                            Prendas.map(
-                                                (prenda) => prenda.tipo_de_tela
-                                            )
-                                        )
-                                    ).map((tipo, index) => (
-                                        <option key={index} value={tipo}>
-                                            {tipo}
-                                        </option>
-                                    ))}
-                                </datalist>
                             </div>
 
                             <div className='col-md-6'>
@@ -350,6 +305,61 @@ const EditarPrendas = ({
                                         message={errors.publicado.message}
                                     />
                                 )}
+                            </div>
+                            <div className='col-md-12'>
+                                <label htmlFor='searchInput'>
+                                    Tipo de tela: *
+                                </label>
+                                <input
+                                    type='text '
+                                    name='Telasss'
+                                    id='searchInput'
+                                    list='Telasss'
+                                    placeholder='. . .'
+                                    className='form-control'
+                                    {...register('tipo_de_tela', {
+                                        required: {
+                                            value: true,
+                                            message:
+                                                'El tipo de tela  es obligatorio',
+                                        },
+                                        validate: (value) => {
+                                            return validarEspaciosVacios(value);
+                                        },
+                                        pattern: {
+                                            value: /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]+$/,
+                                            message:
+                                                'Error no se puede números ni caracteres especiales en el tipo de tela',
+                                        },
+                                    })}
+                                    onChange={(e) => {
+                                        setValue(
+                                            'tipo_de_tela',
+                                            e.target.value
+                                        );
+                                        trigger('tipo_de_tela');
+                                    }}
+                                />
+
+                                {errors.tipo_de_tela && (
+                                    <AlertaError
+                                        message={errors.tipo_de_tela.message}
+                                    />
+                                )}
+
+                                <datalist id='Telasss'>
+                                    {Array.from(
+                                        new Set(
+                                            Prendas.map(
+                                                (prenda) => prenda.tipo_de_tela
+                                            )
+                                        )
+                                    ).map((tipo, index) => (
+                                        <option key={index} value={tipo}>
+                                            {tipo}
+                                        </option>
+                                    ))}
+                                </datalist>
                             </div>
 
                             <div className='col-md-12'>

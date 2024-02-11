@@ -209,7 +209,7 @@ export const ListarPrendas = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{Prendas.telefono}</span>
+                                            <span>{Prendas.precio}</span>
                                         </p>
 
                                         <div className='row pt-3'>

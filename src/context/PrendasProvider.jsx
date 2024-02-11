@@ -74,7 +74,6 @@ const PrendasProvider = ({ children }) => {
     const updatePrendas = (data, detallesPrendas, handleClose) => {
         const {
             nombre,
-            cantidad,
             precio,
             genero,
             imagen,
@@ -94,7 +93,6 @@ const PrendasProvider = ({ children }) => {
                     }`,
                     {
                         nombre: nombre,
-                        cantidad: cantidad,
                         precio: precio,
                         tipo_de_tela: tipo_de_tela.trim(),
                         genero: genero,
