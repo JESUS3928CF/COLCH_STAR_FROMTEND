@@ -20,7 +20,7 @@ const PrendasProvider = ({ children }) => {
         try {
             const { data } = await clienteAxios.get('/prendas');
 
-            setPrendas(data);
+            setPrendas(data.reverse());
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +83,6 @@ const PrendasProvider = ({ children }) => {
         } = data;
 
         console.log(nombre);
-
 
         if (detallesPrendas.id_prenda) {
             axios

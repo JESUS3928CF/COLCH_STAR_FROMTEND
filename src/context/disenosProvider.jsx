@@ -43,7 +43,7 @@ export const DisenosProvider = ({ children }) => {
         // const token = localStorage.getItem('token');
         // if (!token) return;
         const respuesta = await clienteAxios.get('/disenos');
-        setDisenosDB(respuesta.data);
+        setDisenosDB(respuesta.data.reverse());
     };
 
     useEffect(() => {
@@ -69,7 +69,10 @@ export const DisenosProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 reset();
-                setDisenosDB([...disenosDB, res.data.nuevoDiseno]);
+
+                const  respaldoDisenos = [...disenosDB];
+                respaldoDisenos.unshift(res.data.nuevoDiseno);
+                setDisenosDB(respaldoDisenos);
                 consultarMovimientos()
                 handleClose();
             });

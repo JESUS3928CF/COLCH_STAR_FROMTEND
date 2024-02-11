@@ -39,7 +39,7 @@ const OrdenesProvider = ({ children }) => {
             if (!token) return;
             const { data } = await ordenAxios.get('/ordenes', config);
 
-            setOrdenes(data);
+            setOrdenes(data.reverse());
         } catch (error) {
             console.log(error);
         }

@@ -41,7 +41,7 @@ const ComprasProviders = ({ children }) => {
             if (!token) return;
             const { data } = await clienteAxios.get('/compras', config);
 
-            setCompras(data);
+            setCompras(data.reverse());
         } catch (error) {
             console.log(error);
         }

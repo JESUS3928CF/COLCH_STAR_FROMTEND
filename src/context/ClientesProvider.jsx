@@ -23,7 +23,7 @@ const ClientesProvider = ({ children }) => {
 
             const { data } = await clienteAxios.get('/clientes', config);
 
-            setClientes(data);
+            setClientes(data.reverse());
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +44,9 @@ const ClientesProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 reset();
-                setClientes([...clientes, res.data.nuevoCliente]);
+                const respaldoClientes = [...clientes];
+                respaldoClientes.unshift(res.data.nuevoCliente);
+                setClientes(respaldoClientes);
                 handleClose();
                 consultarMovimientos();
             });

@@ -375,7 +375,7 @@ const AgregarPrendas = () => {
                                     />
                                 )}
                             </div>
-                            <div className='col-md-12'>
+                            <div className='col-md-6'>
                                 <label htmlFor='searchInput'>
                                     Tipo de tela: *
                                 </label>
@@ -446,7 +446,7 @@ const AgregarPrendas = () => {
                                 </datalist>
                             </div>
 
-                            <div className='col-md-12' name='Archivo'>
+                            <div className='col-md-6' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'

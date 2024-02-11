@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import useMovimientos from '../hooks/useMovimientos';
 
-
 const proveedoresContext = createContext();
 
 const ProveedoresProvider = ({ children }) => {
@@ -13,10 +12,8 @@ const ProveedoresProvider = ({ children }) => {
 
     // primer state
     const [proveedores, setProveedores] = useState([]);
-    
-    const {consultarMovimientos}=useMovimientos()
 
-
+    const { consultarMovimientos } = useMovimientos();
 
     // función para obtener los clientes solo cuando se carge el componente
 
@@ -26,7 +23,7 @@ const ProveedoresProvider = ({ children }) => {
             if (!token) return;
             const { data } = await proveedorAxios.get('/proveedores', config);
 
-            setProveedores(data);
+            setProveedores(data.reverse());
         } catch (error) {
             console.log(error);
         }
@@ -37,7 +34,11 @@ const ProveedoresProvider = ({ children }) => {
 
     const agregarProveedor = async (proveedor, reset, handleClose) => {
         try {
-            const res = await proveedorAxios.post('/proveedores', proveedor, config);
+            const res = await proveedorAxios.post(
+                '/proveedores',
+                proveedor,
+                config
+            );
 
             // Lanzar alerta del producto agregado
             Swal.fire({
@@ -46,8 +47,11 @@ const ProveedoresProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 reset();
-                setProveedores([...proveedores, res.data.nuevoProveedor]);
-                consultarMovimientos()
+
+                const respaldoProveedores = [...proveedores];
+                respaldoProveedores.unshift(res.data.nuevoProveedor);
+                setProveedores(respaldoProveedores);
+                consultarMovimientos();
                 handleClose();
             });
         } catch (err) {
@@ -71,13 +75,19 @@ const ProveedoresProvider = ({ children }) => {
     };
 
     const editarProveedor = (proveedor, handleClose, reset) => {
-
-        const { tipoIdentificacion, identificador, nombre, telefono, direccion } = proveedor
+        const {
+            tipoIdentificacion,
+            identificador,
+            nombre,
+            telefono,
+            direccion,
+        } = proveedor;
 
         if (proveedor.id_proveedor) {
             axios
                 .patch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${proveedor.id_proveedor
+                    `${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${
+                        proveedor.id_proveedor
                     }`,
                     {
                         // campos en los que realiza el cambio
@@ -85,7 +95,7 @@ const ProveedoresProvider = ({ children }) => {
                         identificador: identificador.trim(),
                         nombre: nombre.trim(),
                         telefono: telefono.trim(),
-                        direccion: direccion.trim()
+                        direccion: direccion.trim(),
                     },
                     config
                 )
@@ -95,16 +105,17 @@ const ProveedoresProvider = ({ children }) => {
                         text: response.data.message,
                         icon: 'success',
                     }).then(() => {
-                        const proveedorActualizado = proveedores.map((proveedor) =>
-                        proveedor.id_proveedor ===
+                        const proveedorActualizado = proveedores.map(
+                            (proveedor) =>
+                                proveedor.id_proveedor ===
                                 response.data.proveedor.id_proveedor
-                                ? response.data.proveedor
-                                : proveedor
+                                    ? response.data.proveedor
+                                    : proveedor
                         );
                         setProveedores(proveedorActualizado);
                         handleClose();
-                        consultarMovimientos()
-                        reset()
+                        consultarMovimientos();
+                        reset();
                     });
                 })
                 .catch((error) => {
@@ -121,7 +132,7 @@ const ProveedoresProvider = ({ children }) => {
                             title: 'Error',
                             text: 'Hubo un error',
                             icon: 'error',
-                        }).then(() => { });
+                        }).then(() => {});
                     }
                 });
         } else {
@@ -130,22 +141,27 @@ const ProveedoresProvider = ({ children }) => {
     };
 
     const editarEstado = (id) => {
-
-        let proveedorEditado = proveedores.find(proveedor => proveedor.id_proveedor === id);
-        proveedorEditado.estado = !proveedorEditado.estado
+        let proveedorEditado = proveedores.find(
+            (proveedor) => proveedor.id_proveedor === id
+        );
+        proveedorEditado.estado = !proveedorEditado.estado;
 
         const proveedorActualizado = proveedores.map((proveedor) =>
-        proveedor.id_proveedor == id ? proveedorEditado : proveedor
+            proveedor.id_proveedor == id ? proveedorEditado : proveedor
         );
 
         setProveedores(proveedorActualizado);
-        consultarMovimientos()
-
+        consultarMovimientos();
     };
 
     return (
         <proveedoresContext.Provider
-            value={{ proveedores, agregarProveedor, editarProveedor, editarEstado }}
+            value={{
+                proveedores,
+                agregarProveedor,
+                editarProveedor,
+                editarEstado,
+            }}
         >
             {children}
         </proveedoresContext.Provider>

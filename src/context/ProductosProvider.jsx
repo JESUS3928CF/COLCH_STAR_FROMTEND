@@ -154,14 +154,23 @@ const ProductosProvider = ({ children }) => {
                         handleClose();
                     });
                 })
-                .catch((error) => {
-                    console.error("Error al actualizar el usuario", error);
-    
-                    Swal.fire({
-                        title: "Error",
-                        text: "Hubo un error",
-                        icon: "error",
-                    });
+                .catch((err) => {
+                    if (err.response && err.response.status === 403) {
+                        Swal.fire({
+                            title: 'Espera!!',
+                            text: err.response.data.message,
+                            icon: 'warning',
+                        });
+                    } else {
+                        // En caso de otros errores, muestra una alerta genérica de error
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Hubo un error',
+                            icon: 'error',
+                        }).then(() => {
+                            handleClose();
+                        });
+                    }
                 })
                 .finally(() => {
                     // This block will always execute, whether the request succeeds or fails
