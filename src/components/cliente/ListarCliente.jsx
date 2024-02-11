@@ -56,12 +56,7 @@ const ListarCliente = () => {
 
         
         useEffect(() => {
-            if (busqueda === '') {
-                setClientesListar([...clientesFiltrar]);
-                return;
-            }
-    
-            setClientesListar([...clientesFiltrarBuscados]);
+            setClientesListar([...clientesFiltrar]);
         }, [clientes, clientesFiltrar]);
 
 
@@ -86,6 +81,7 @@ const ListarCliente = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (
