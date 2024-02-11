@@ -41,7 +41,7 @@ import {
   Area,
 } from "recharts";
 
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { FaMoneyBillTrendUp, FaRegFilePdf } from "react-icons/fa6";
 import { MdOutlineMoneyOffCsred } from "react-icons/md";
 import { PiShootingStarThin } from "react-icons/pi";
 import { registrosPorPagina } from "../../constantes/constantes.js";
@@ -76,6 +76,7 @@ export const InicioDashboard = () => {
   const { productos, detailsDiseno } = useProducto();
   const { compras } = useCompras();
   const { ordenes, detailsOrden } = useOrden();
+  const { movimiento } = useMovimientos();
 
   const cantidadDeProveedores = proveedores.length;
   const cantidadDeClientes = clientes.length;
@@ -151,7 +152,8 @@ export const InicioDashboard = () => {
     }
   }
 
-  const [totalComprasUltimos7Dias, setTotalComprasUltimos7Dias] = useState(0);
+  const [totalComprasUltimosSieteDias, setTotalComprasUltimosSieteDias] =
+    useState(0);
 
   useEffect(() => {
     // Obtenemos la fecha de inicio de hace 7 días
@@ -169,7 +171,7 @@ export const InicioDashboard = () => {
     );
 
     // Actualizamos el estado con el total de compras de los últimos 7 días
-    setTotalComprasUltimos7Dias(total);
+    setTotalComprasUltimosSieteDias(total);
     console.log(total);
   }, [compras]);
 
@@ -225,14 +227,8 @@ export const InicioDashboard = () => {
                       <Title className="textCompras">Total de compras</Title>
                       <MdOutlineMoneyOffCsred className="iconsE" />
                       <Text className="Cantidad">
-                        {/* {cantidad >= 1000000 ? (
-                          <p>{totoalRecortado} Ml </p>
-                        ) : (
-                          <p>{totoalRecortado}MP</p>
-                        )} */}
-
                         <Text className="Cantidad">
-                          {totalComprasUltimos7Dias}
+                          {totalComprasUltimosSieteDias}
                         </Text>
                       </Text>
 
@@ -448,9 +444,14 @@ export const InicioDashboard = () => {
                 <Card className="CardPrincipalNavBar">
                   <div className="TabList">
                     <TabList>
+                      <Tab className="TabsC">
+                        <center>
+                          <Text>Graficas Compras</Text>
+                        </center>
+                      </Tab>
                       <Tab className="Tabs">
                         <center>
-                          <Text>Graficas</Text>
+                          <Text>Graficas Ventas</Text>
                         </center>
                       </Tab>
                       <Tab className="Tabs">
@@ -472,9 +473,8 @@ export const InicioDashboard = () => {
                       <GraficaMes compras={compras} />
                     </Card>
 
-                    <Card className="containerHeaderGraficaM  customChartContainerM" >
-                      <GraficaMensual compras={compras}/>
-
+                    <Card className="containerHeaderGraficaM  customChartContainerM">
+                      <GraficaMensual compras={compras} />
                     </Card>
                   </TabPanel>
 
@@ -482,15 +482,452 @@ export const InicioDashboard = () => {
                     <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" />
 
                     <Card className="containerHeaderTable">
-
-
-                      
-
-
-
-
-
+                     
                     </Card>
+                  </TabPanel>
+                  <TabPanel>
+
+                  <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" />
+
+<Card className="containerHeaderGrafica  customChartContainer">
+<Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableHeaderCell className="textH">
+                              Meses
+                            </TableHeaderCell>
+                            <TableHeaderCell className="textH">
+                              Compras
+                            </TableHeaderCell>
+                            <TableHeaderCell className="textH">
+                              Ventas
+                            </TableHeaderCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Enero</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasEnero.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasEnero.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Febrero</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasFebrero.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasFebrero.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Marzo</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasMarzo.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasMarzo.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Abril</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasAbril.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasAbril.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Mayo</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasMayo.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasMayo.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Junio</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasJunio.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasJunio.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Julio</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasJulio.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasJulio.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Agosto</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasAgosto.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasAgosto.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Septiembre</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasSeptiembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasSeptiembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Ocutubre</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasOcutubre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasOctubre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Noviembre</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasNoviembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasNoviembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+
+                          <TableRow>
+                            <TableCell className="textH">
+                              <Text>Diciembre</Text>
+                            </TableCell>
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="ComprasDiciembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+
+                            <TableCell className="textH">
+                              <PDFDownloadLink
+                                document={<PDFCompras />}
+                                fileName="VentasDiciembre.pdf"
+                              >
+                                {({ loading, url, error, blob }) =>
+                                  loading ? (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  ) : (
+                                    <FaRegFilePdf className="btnPDF" />
+                                  )
+                                }
+                              </PDFDownloadLink>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+
+  
+
+
+
+</Card>
+
                   </TabPanel>
                 </TabPanels>
               </div>

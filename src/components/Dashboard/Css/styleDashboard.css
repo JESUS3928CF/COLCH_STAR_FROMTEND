@@ -151,6 +151,20 @@
 
 }
 
+.TabsC{
+
+    background-color: #47684E;
+    color: #ffffff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+}
+
+.TabsC:hover{
+    background-color: #000000;
+
+}
+
 .Tabs:hover{
  background-color: #000000;
 }
@@ -331,6 +345,15 @@
     border-radius: 7px;
     
 
+}
+
+.btnPDF{
+    margin-left: 50%;
+    font-size: 25px;
+}
+
+.btnPDF:hover{
+    color: #47684E;
 }
 
  
