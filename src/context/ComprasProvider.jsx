@@ -14,6 +14,9 @@ const ComprasProviders = ({ children }) => {
     /// Respaldo de las compras
     const [compras, setCompras] = useState([]);
 
+    // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
+
     const [detallesCompra, setDetallesCompra] = useState([]);
 
     const [totalCompra, setTotalCompra] = useState(0);
@@ -148,6 +151,8 @@ const ComprasProviders = ({ children }) => {
         showDetalles,
         handleCloseDetalles,
         handleShowDetalles,
+        busqueda,
+        setBusqueda
     };
 
     return (

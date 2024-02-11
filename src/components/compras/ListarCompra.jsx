@@ -21,19 +21,42 @@ import styles from '../../css-general/CardStyleGenerar.module.css';
 import AgregarCompra from '../compras/AgregarCompra';
 
 const ListarCompra = () => {
-    const { compras, editarEstado } = useCompras();
+    const { compras, editarEstado, busqueda, setBusqueda } = useCompras();
 
     /// Estado de la barra de busqueda y para lastar en la tabla la información
     const [comprasFiltrar, setComprasFiltrar] = useState([]);
+
+    const [comprasFiltrarBuscados, setComprasFiltrarBuscados] = useState([]);
+
+    const [comprasListar, setComprasListar] = useState([]);
 
     const [detallesCompra, setDetallesCompra] = useState({});
 
     /// Filtrar los 10 primeras ventas a mostrar en la vista
     useEffect(() => {
-        setComprasFiltrar(
-            compras.slice(0, registrosPorPagina, registrosPorPagina)
-        );
-    }, [compras]);
+        if (busqueda === '') {
+            setComprasFiltrar(
+                compras.slice(0, registrosPorPagina, registrosPorPagina)
+            );
+
+
+            return;
+        }
+
+         setComprasFiltrarBuscados(
+             comprasFiltrar.slice(0, registrosPorPagina, registrosPorPagina)
+         );
+
+    }, [compras, busqueda]);
+
+     useEffect(()=> {
+        if (busqueda === '') {
+            setComprasListar([...comprasFiltrar]);
+            return;
+        }
+
+        setComprasListar([...comprasFiltrarBuscados]);
+     },[compras, comprasFiltrar,])
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 
@@ -71,6 +94,8 @@ const ListarCompra = () => {
                                         'proveedor',
                                         'prenda',
                                     ]}
+                                    busqueda={busqueda}
+                                    setBusqueda={setBusqueda}
                                 />
                             </div>
                         </div>
@@ -89,7 +114,7 @@ const ListarCompra = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {comprasFiltrar.map((compra) => (
+                                    {comprasListar.map((compra) => (
                                         <tr key={compra.id_compra}>
                                             <td>{compra.id_compra}</td>
                                             <td>
@@ -135,7 +160,7 @@ const ListarCompra = () => {
                         </div>
                     ) : (
                         <div className={`row pt-4 justify-content-center`}>
-                            {comprasFiltrar.map((compra) => (
+                            {comprasListar.map((compra) => (
                                 <div
                                     className={`col-md-4 col-sm-6 col-xs-12`}
                                     key={compra.id_compra}
@@ -234,8 +259,12 @@ const ListarCompra = () => {
                 <div className='seccion4'>
                     {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                     <Paginador
-                        setDatosFiltrar={setComprasFiltrar}
-                        datos={compras}
+                        setDatosFiltrar={
+                            busqueda === ''
+                                ? setComprasFiltrar
+                                : setComprasFiltrarBuscados
+                        }
+                        datos={busqueda === '' ? compras : comprasFiltrar}
                     />
                 </div>
             </div>

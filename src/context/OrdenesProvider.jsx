@@ -9,6 +9,9 @@ const ordenesContext = createContext();
 const OrdenesProvider = ({ children }) => {
     const { config, auth } = useAuth();
 
+    // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
+
     const [detallesOrden, setDetallesOrden] = useState([]);
 
     const [detailsOrden, setDetailsOrden] = useState([]);
@@ -228,6 +231,10 @@ const OrdenesProvider = ({ children }) => {
                 setEditar,
                 editar,
                 actualizarOrden,
+
+                // BUSQUEDA
+                busqueda,
+                setBusqueda
             }}
         >
             {children}

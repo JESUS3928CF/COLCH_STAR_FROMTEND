@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 //* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar
-const Buscador = ({ setDatosFiltrar, datos, camposFiltrar }) => {
-    const [busqueda, setBusqueda] = useState('');
+const Buscador = ({
+    setDatosFiltrar,
+    datos,
+    camposFiltrar,
+    busqueda,
+    setBusqueda,
+}) => {
+    // const [busqueda, setBusqueda] = useState('');
 
     const realizarBusqueda = () => {
         // Filtrar los datos si hay un término de búsqueda, de lo contrario, mostrar todos los datos

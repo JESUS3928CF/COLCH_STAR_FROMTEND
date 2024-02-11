@@ -20,6 +20,7 @@ import {
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
+import { OrdenesProvider } from '../../context/OrdenesProvider.jsx';
 
 //Componente
 const ListarOrdenes = () => {
@@ -32,6 +33,8 @@ const ListarOrdenes = () => {
         handleCloseEditar,
         setEditar,
         setDetallesOrden,
+        busqueda,
+        setBusqueda,
     } = useOrden();
 
     /// Datos para listar
@@ -68,7 +71,7 @@ const ListarOrdenes = () => {
     // solicitud  a la url
     useEffect(() => {
         setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
-    }, [ordenes]);
+    }, [ordenes, OrdenesFiltrar]);
 
     // ancho de la pantalla para el resposive
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
@@ -102,6 +105,8 @@ const ListarOrdenes = () => {
                                     'fecha_entrega',
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
+                                busqueda={busqueda}
+                                setBusqueda={busqueda}
                             />
                         </div>
                     </div>
@@ -294,7 +299,7 @@ const ListarOrdenes = () => {
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setOrdenesFiltrar}
-                    datos={ordenes}
+                    datos={busqueda === '' ? ordenes : OrdenesFiltrar}
                 />
             </div>
         </div>
