@@ -14,6 +14,7 @@ const UsuariosProvider = ({ children }) => {
 
   // primer state
   const [usuarios, setUsuarios] = useState([]);
+  const [busqueda, setBusqueda] = useState('');
 
   // función para obtener los clientes solo cuando se carge el componente
 
@@ -139,6 +140,8 @@ const UsuariosProvider = ({ children }) => {
               agregarUsuario,
               editarUsuarios,
               consultarUsuarios,
+              busqueda, 
+              setBusqueda
           }}
       >
           {children}

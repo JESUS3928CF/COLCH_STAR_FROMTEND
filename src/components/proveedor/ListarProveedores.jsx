@@ -27,7 +27,7 @@ import AgregarProveedor from './AgregarProveedor.jsx';
 const ListarProveedores = () => {
 
     //proveedores que viene de useproveedor tiene todo los proveedores de la base de datos
-    const { proveedores, editarEstado } = useProveedor();
+    const { proveedores, editarEstado, busqueda, setBusqueda } = useProveedor();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -39,11 +39,31 @@ const ListarProveedores = () => {
     const [ProveedoresFiltrar, setProveedoresFiltrar] = useState([]);
 
 
+    const [proveedoresFiltrarBuscados, setProveedoresFiltrarBuscados] = useState([]);
 
-    // solicitud  a la url
-    useEffect(() => {
-        setProveedoresFiltrar(proveedores.slice(0, registrosPorPagina))
-    }, [proveedores]);
+    const [proveedoresListar, setProveedoresListar] = useState([]);
+
+
+            /// Filtrar los 10 primeras ventas a mostrar en la vista
+            useEffect(() => {
+                if (busqueda === '') {
+                    setProveedoresFiltrar(proveedores.slice(0, registrosPorPagina));
+        
+                    return;
+                }
+        
+                setProveedoresFiltrarBuscados(ProveedoresFiltrar.slice(0, registrosPorPagina));
+            }, [proveedores, busqueda]);
+
+            useEffect(() => {
+                if (busqueda === '') {
+                    setProveedoresListar([...ProveedoresFiltrar]);
+                    return;
+                }
+        
+                setProveedoresListar([...proveedoresFiltrarBuscados]);
+            }, [proveedores, ProveedoresFiltrar]);
+    
 
 
     //Estado para editar
@@ -105,6 +125,8 @@ const ListarProveedores = () => {
                                     'direccion',
                                     'identificador',
                                 ]} //se le manda los campos por donde se puede filtrar
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -127,7 +149,7 @@ const ListarProveedores = () => {
                             </thead>
                             <tbody>
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
-                                {ProveedoresFiltrar.map((proveedor) => (
+                                {proveedoresListar.map((proveedor) => (
                                     <tr key={proveedor.id_proveedor}>
                                         <td>{proveedor.id_proveedor}</td>
                                         <td>
@@ -168,7 +190,7 @@ const ListarProveedores = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {ProveedoresFiltrar.map((proveedor) => (
+                        {proveedoresListar.map((proveedor) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={proveedor.id_proveedor}
@@ -263,7 +285,7 @@ const ListarProveedores = () => {
                 {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setProveedoresFiltrar}
-                    datos={proveedores}
+                    datos={busqueda === '' ? proveedores : setProveedoresFiltrar}
                 />
             </div>
         </div>

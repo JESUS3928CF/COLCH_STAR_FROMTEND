@@ -13,6 +13,8 @@ const ProveedoresProvider = ({ children }) => {
     // primer state
     const [proveedores, setProveedores] = useState([]);
 
+    const [busqueda, setBusqueda] = useState('');
+
     const { consultarMovimientos } = useMovimientos();
 
     // función para obtener los clientes solo cuando se carge el componente
@@ -161,6 +163,8 @@ const ProveedoresProvider = ({ children }) => {
                 agregarProveedor,
                 editarProveedor,
                 editarEstado,
+                busqueda,
+                setBusqueda
             }}
         >
             {children}

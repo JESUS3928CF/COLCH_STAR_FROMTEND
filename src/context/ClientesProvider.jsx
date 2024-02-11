@@ -14,6 +14,9 @@ const ClientesProvider = ({ children }) => {
     // primer state
     const [clientes, setClientes] = useState([]);
 
+    const [busqueda, setBusqueda] = useState('');
+
+
     // función para obtener los clientes solo cuando se carge el componente
 
     const consultarClientes = async () => {
@@ -160,7 +163,7 @@ const ClientesProvider = ({ children }) => {
 
     return (
         <clientesContext.Provider
-            value={{ clientes, agregarCliente, editarCliente, editarEstado }}
+            value={{ clientes, agregarCliente, editarCliente, editarEstado, busqueda, setBusqueda }}
         >
             {children}
         </clientesContext.Provider>

@@ -24,7 +24,7 @@ import useRol from '../../hooks/useRol.jsx';
 import AgregarRol from './AgregarRol.jsx';
 
 const ListarRol = () => {
-    const { roles, editarEstado } = useRol();
+    const { roles, editarEstado, busqueda, setBusqueda } = useRol();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -35,9 +35,30 @@ const ListarRol = () => {
     /// Estado de la barra de búsqueda
     const [rolesFiltrar, setRolesFiltrar] = useState([]);
 
-    useEffect(() => {
-        setRolesFiltrar(roles.slice(0, 10, registrosPorPagina));
-    }, [roles]);
+    const [rolesFiltrarBuscados, setRolesFiltrarBuscados] = useState([]);
+
+    const [rolesListar, setRolesListar] = useState([]);
+
+        /// Filtrar los 10 primeras ventas a mostrar en la vista
+        useEffect(() => {
+            if (busqueda === '') {
+                setRolesFiltrar(roles.slice(0, registrosPorPagina));
+    
+                return;
+            }
+    
+            setRolesFiltrarBuscados(rolesFiltrar.slice(0, registrosPorPagina));
+        }, [roles, busqueda]);
+
+
+        useEffect(() => {
+            if (busqueda === '') {
+                setRolesListar([...rolesFiltrar]);
+                return;
+            }
+    
+            setRolesListar([...rolesFiltrarBuscados]);
+        }, [roles, rolesFiltrar]);
 
     // Estado para editar
     const [editarRol, setEditarRol] = useState('');
@@ -88,6 +109,8 @@ const ListarRol = () => {
                                     'fecha_creacion',
                                     'permisos',
                                 ]}
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -110,7 +133,7 @@ const ListarRol = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {rolesFiltrar.map((rol) => (
+                                {rolesListar.map((rol) => (
                                     <tr key={rol.id_rol}>
                                         <td>{rol.id_rol}</td>
                                         <td>{rol.nombre}</td>
@@ -171,7 +194,7 @@ const ListarRol = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4`}>
-                        {rolesFiltrar.map((rol) => (
+                        {rolesListar.map((rol) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={rol.id_rol}
@@ -274,7 +297,8 @@ const ListarRol = () => {
             </div>
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                <Paginador setDatosFiltrar={setRolesFiltrar} datos={roles} />
+                <Paginador setDatosFiltrar={setRolesListar} 
+                datos={busqueda === ''? roles : rolesFiltrar} />
             </div>
         </div>
     );

@@ -17,6 +17,8 @@ const RolesProvider = ({ children }) => {
 
     // primer state
     const [roles, setRoles] = useState([]);
+        // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
 
     // función para obtener los clientes solo cuando se carge el componente
 
@@ -144,7 +146,7 @@ const RolesProvider = ({ children }) => {
 
     return (
         <rolesContext.Provider
-            value={{ roles, agregarRol, editarEstado, editarRoles}}
+            value={{ roles, agregarRol, editarEstado, editarRoles, busqueda, setBusqueda}}
         >
             {children}
         </rolesContext.Provider>

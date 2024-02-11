@@ -24,7 +24,7 @@ import AgregarCliente from './AgregarCliente.jsx';
 
 //Componente
 const ListarCliente = () => {
-    const { clientes, editarEstado } = useClientes();
+    const { clientes, editarEstado, busqueda, setBusqueda } = useClientes();
 
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
@@ -38,10 +38,32 @@ const ListarCliente = () => {
 
     const [detallesClientes, setDetallesClientes] = useState({});
 
-    // Solicitud a la url
-    useEffect(() => {
-        setClientesFiltrar(clientes.slice(0, registrosPorPagina));
-    }, [clientes]);
+    const [clientesFiltrarBuscados, setClientesFiltrarBuscados] = useState([]);
+
+    const [clientesListar, setClientesListar] = useState([]);
+
+   
+        /// Filtrar los 10 primeras ventas a mostrar en la vista
+        useEffect(() => {
+            if (busqueda === '') {
+                setClientesFiltrar(clientes.slice(0, registrosPorPagina));
+    
+                return;
+            }
+    
+            setClientesFiltrarBuscados(clientesFiltrar.slice(0, registrosPorPagina));
+        }, [clientes, busqueda]);
+
+        
+        useEffect(() => {
+            if (busqueda === '') {
+                setClientesListar([...clientesFiltrar]);
+                return;
+            }
+    
+            setClientesListar([...clientesFiltrarBuscados]);
+        }, [clientes, clientesFiltrar]);
+
 
     //Esatdo para editar
     const [editarCliente, setEditarCliente] = useState('');
@@ -96,6 +118,8 @@ const ListarCliente = () => {
                                     'email',
                                     'direccion',
                                 ]}
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -118,7 +142,7 @@ const ListarCliente = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {clientesFiltrar.map((cliente) => (
+                                {clientesListar.map((cliente) => (
                                     <tr key={cliente.id_cliente}>
                                         <td>{cliente.id_cliente}</td>
                                         <td>
@@ -161,7 +185,7 @@ const ListarCliente = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {clientesFiltrar.map((cliente) => (
+                        {clientesListar.map((cliente) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={cliente.id_cliente}
@@ -267,7 +291,7 @@ const ListarCliente = () => {
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setClientesFiltrar}
-                    datos={clientes}
+                    datos={busqueda === '' ? clientes: clientesFiltrar}
                 />
             </div>
         </div>

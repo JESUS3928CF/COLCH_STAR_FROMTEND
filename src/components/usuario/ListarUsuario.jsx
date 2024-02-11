@@ -23,7 +23,7 @@ import useUsuario from '../../hooks/useUsuario.jsx';
 import AgregarUsuario from './AgregarUsuario.jsx';
 
 const ListarUsuario = () => {
-    const { usuarios, editarEstado } = useUsuario();
+    const { usuarios, editarEstado, busqueda, setBusqueda } = useUsuario();
 
         /// Funcionalidad para cerra el modal
         const [show, setShow] = useState(false);
@@ -34,9 +34,29 @@ const ListarUsuario = () => {
     //Estado de la barra de busqueda
     const [usuariosFiltrar, setUsuariosFiltrar] = useState([]);
 
-    useEffect(() => {
-        setUsuariosFiltrar(usuarios.slice(0, 10, registrosPorPagina));
-    }, [usuarios]);
+    const [usuariosFiltrarBuscados, setUsuariosFiltrarBuscados] = useState([]);
+
+    const [usuariosListar, setUsuariosListar] = useState([]);
+
+            /// Filtrar los 10 primeras ventas a mostrar en la vista
+            useEffect(() => {
+                if (busqueda === '') {
+                    setUsuariosFiltrar(usuarios.slice(0, registrosPorPagina));
+        
+                    return;
+                }
+        
+                setUsuariosFiltrarBuscados(usuariosFiltrar.slice(0, registrosPorPagina));
+            }, [usuarios, busqueda]);
+
+            useEffect(() => {
+                if (busqueda === '') {
+                    setUsuariosListar([...usuariosFiltrar]);
+                    return;
+                }
+        
+                setUsuariosListar([...usuariosFiltrarBuscados]);
+            }, [usuarios, usuariosFiltrar]);
 
     //Estado para editar
     const [editarUsuario, setEditarUsuario] = useState('');
@@ -90,6 +110,8 @@ const ListarUsuario = () => {
                                     'email',
                                     'rol'
                                 ]}
+                                busqueda={busqueda}
+                                setBusqueda={setBusqueda}
                             />
                         </div>
                     </div>
@@ -111,7 +133,7 @@ const ListarUsuario = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {usuariosFiltrar.map((usuario) => (
+                                {usuariosListar.map((usuario) => (
                                     <tr key={usuario.id_usuario}>
                                         <td>{usuario.id_usuario}</td>
                                         <td>{usuario.nombre}</td>
@@ -160,7 +182,7 @@ const ListarUsuario = () => {
                     </div>
                 ) : (
                     <div className={`row pt-4 justify-content-center`}>
-                        {usuariosFiltrar.map((usuario) => (
+                        {usuariosListar.map((usuario) => (
                             <div
                                 className={`col-md-4 col-sm-6 col-xs-12`}
                                 key={usuario.id_usuario}
@@ -270,7 +292,7 @@ const ListarUsuario = () => {
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setUsuariosFiltrar}
-                    datos={usuarios}
+                    datos={busqueda === '' ? usuarios : usuariosFiltrar}
                 />
             </div>
         </div>
