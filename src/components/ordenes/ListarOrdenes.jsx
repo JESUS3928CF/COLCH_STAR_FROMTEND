@@ -74,6 +74,8 @@ const ListarOrdenes = () => {
 
     // solicitud  a la url
     useEffect(() => {
+
+        console.log(ordenes)
        
 
         if (busqueda === '') {
@@ -126,7 +128,6 @@ const ListarOrdenes = () => {
                                     'cliente',
                                     'precio_total',
                                     'fecha_entrega',
-                                    'direccion',
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
