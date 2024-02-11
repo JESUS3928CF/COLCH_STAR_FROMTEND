@@ -73,12 +73,7 @@ const ListarDisenos = () => {
     }, [disenosDB, busqueda]);
 
     useEffect(() => {
-        if (busqueda === '') {
-            setDisenosListar([...disenosFiltrar]);
-            return;
-        }
-
-        setDisenosListar([...disenosFiltrarBuscados]);
+        setDisenosListar([...disenosFiltrar]);
     }, [disenosDB, disenosFiltrar]);
 
     return (

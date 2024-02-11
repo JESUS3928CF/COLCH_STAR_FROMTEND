@@ -60,25 +60,18 @@ export const ListarPrendas = () => {
     const [prendasListar, setPrendasListar] = useState([]);
 
     useEffect(() => {
+        if (busqueda === '') {
+            setPrendasFiltrar(Prendas.slice(0, 10, registrosPorPagina));
 
-         if (busqueda === '') {
-             setPrendasFiltrar(Prendas.slice(0, 10, registrosPorPagina));
+            return;
+        }
 
-             return;
-         }
-
-         setJPrendasFiltrarBuscados(prendasFiltrar.slice(0, registrosPorPagina));
+        setJPrendasFiltrarBuscados(prendasFiltrar.slice(0, registrosPorPagina));
     }, [Prendas, busqueda]);
 
-
-     useEffect(() => {
-         if (busqueda === '') {
-             setPrendasListar([...prendasFiltrar]);
-             return;
-         }
-
-         setPrendasListar([...prendasFiltrarBuscados]);
-     }, [Prendas, prendasFiltrar]);
+    useEffect(() => {
+        setPrendasListar([...prendasFiltrar]);
+    }, [Prendas, prendasFiltrar]);
 
     const { setSelectColorsNombre } = usePrendas();
 

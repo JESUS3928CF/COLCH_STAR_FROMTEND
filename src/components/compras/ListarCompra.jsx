@@ -44,15 +44,8 @@ const ListarCompra = () => {
     }, [compras, busqueda]);
 
     useEffect(() => {
-        if (busqueda === '') {
-            setComprasListar([...comprasFiltrar]);
-            return;
-        }
-
-        setComprasListar([...comprasFiltrarBuscados]);
+        setComprasListar([...comprasFiltrar]);
     }, [compras, comprasFiltrar]);
-
-    
 
     const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
 

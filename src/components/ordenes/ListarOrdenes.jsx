@@ -75,9 +75,6 @@ const ListarOrdenes = () => {
     // solicitud  a la url
     useEffect(() => {
 
-        console.log(ordenes)
-       
-
         if (busqueda === '') {
              setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
 
@@ -89,12 +86,7 @@ const ListarOrdenes = () => {
 
 
     useEffect(() => {
-        if (busqueda === '') {
-            setOrdenesListar([...OrdenesFiltrar]);
-            return;
-        }
-
-        setOrdenesListar([...ordenesFiltrarBuscados]);
+        setOrdenesListar([...OrdenesFiltrar]);
     }, [ordenes, OrdenesFiltrar]);
 
     // ancho de la pantalla para el resposive

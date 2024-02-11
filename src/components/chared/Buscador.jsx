@@ -9,9 +9,9 @@ const Buscador = ({
     busqueda,
     setBusqueda,
 }) => {
-
     const realizarBusqueda = () => {
         // Filtrar los datos si hay un término de búsqueda, de lo contrario, mostrar todos los datos
+
         if (busqueda) {
             const resultados = datos.filter((dato) => {
                 for (const campo of camposFiltrar) {
@@ -27,6 +27,8 @@ const Buscador = ({
                 }
                 return false;
             });
+
+            console.log(resultados);
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
         } else {
@@ -57,6 +59,8 @@ Buscador.propTypes = {
     setDatosFiltrar: PropTypes.func.isRequired,
     datos: PropTypes.array.isRequired,
     camposFiltrar: PropTypes.arrayOf(PropTypes.string).isRequired,
+    busqueda: PropTypes.string.isRequired,
+    setBusqueda: PropTypes.func.isRequired,
 };
 
 export default Buscador;
