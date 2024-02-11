@@ -4,7 +4,6 @@ import useAuth from '../hooks/useAuth';
 import clienteAxios from '../config/axios';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import useColors from '../hooks/useColors';
 import useMovimientos from '../hooks/useMovimientos';
 
 const prendasContex = createContext();
@@ -12,6 +11,9 @@ const prendasContex = createContext();
 const PrendasProvider = ({ children }) => {
     const { auth, token } = useAuth();
     const { consultarMovimientos } = useMovimientos();
+
+    // Estado para el parámetro de búsqueda
+    const [busqueda, setBusqueda] = useState('');
 
     const [Prendas, setPrendas] = useState([]);
     const [selectColorsNombre, setSelectColorsNombre] = useState([]);
@@ -176,6 +178,9 @@ const PrendasProvider = ({ children }) => {
         updateEstado,
         updatePublicado,
         setSelectColorsNombre,
+        // BUSQUEDA
+        busqueda,
+        setBusqueda,
     };
 
     return (
