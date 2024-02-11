@@ -102,6 +102,7 @@ const ListarProducto = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (

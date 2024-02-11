@@ -12,6 +12,7 @@ const TablaDisenos = ({
     disenosFiltrar,
     LlenarInformacionModal,
     LlenarInformacionModalEditar,
+    setBusqueda
 }) => {
 
     const { editarEstado, editarPublicacion } = useDisenosContext();
@@ -20,6 +21,7 @@ const TablaDisenos = ({
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     
@@ -190,6 +192,7 @@ TablaDisenos.propTypes = {
     disenosFiltrar: PropTypes.array.isRequired,
     LlenarInformacionModal: PropTypes.func.isRequired,
     LlenarInformacionModalEditar: PropTypes.func.isRequired,
+    setBusqueda: PropTypes.func.isRequired
 };
 
 export default TablaDisenos;

@@ -74,16 +74,14 @@ const ListarOrdenes = () => {
 
     // solicitud  a la url
     useEffect(() => {
-
         if (busqueda === '') {
-             setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
+            setOrdenesFiltrar(ordenes.slice(0, registrosPorPagina));
 
             return;
         }
 
         setOrdenesFiltrarBuscados(OrdenesFiltrar.slice(0, registrosPorPagina));
     }, [ordenes, busqueda]);
-
 
     useEffect(() => {
         setOrdenesListar([...OrdenesFiltrar]);
@@ -95,6 +93,7 @@ const ListarOrdenes = () => {
     useEffect(() => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
+        setBusqueda('');
     }, []);
 
     return (

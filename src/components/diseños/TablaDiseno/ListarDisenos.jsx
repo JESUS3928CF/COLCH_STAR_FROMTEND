@@ -108,6 +108,7 @@ const ListarDisenos = () => {
                 disenosFiltrar={disenosListar}
                 LlenarInformacionModal={llenarInformacionModal}
                 LlenarInformacionModalEditar={LlenarInformacionModalEditar}
+                setBusqueda={setBusqueda}
             />
 
             <div className='seccion4'>
