@@ -1,12 +1,17 @@
 import { useForm } from 'react-hook-form';
 import AlertaError from '../chared/AlertaError';
-import BotonNegro from '../chared/BotonNegro';
-import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import GuardarModal from '../chared/GuardarModal';
+import BotonNegro from '../chared/BotonNegro';
 
-export const AgregarDetallesOrden = () => {
+export const EditarDetallesOrden = ({
+    detalle,
+    eliminarDetalle,
+    id,
+    editarDetalle,
+}) => {
     const { productos } = useProducto();
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null); // Estado para el producto seleccionado
@@ -15,55 +20,41 @@ export const AgregarDetallesOrden = () => {
     );
 
     // Función para manejar el cambio de producto seleccionado
-    const handleProductoChange = (event) => {
-        setProductoSeleccionado(event.target.value); // Actualizar el estado del producto seleccionado
+
+    const handleProductoChange = (id_producto) => {
+        setProductoSeleccionado(id_producto); // Actualizar el estado del producto seleccionado
         const productoEncontrado = productos.find(
-            (producto) => producto.id_producto == event.target.value
+            (producto) => producto.id_producto == id_producto
         );
         setInfoProductoSeleccionado(productoEncontrado);
     };
 
+    const { detallesOrden, setDetallesOrden } = useOrden();
 
-    const {
-        detallesOrden,
-        setDetallesOrden,
-        handleShowDetalles,
-        handleClose,
-        handleCloseEditar,
-        editar,
-    } = useOrden();
+    useEffect(() => {
+        handleProductoChange(detalle.fk_producto);
+        if (detalle) {
+            setValue('fk_producto', detalle.fk_producto);
+            setValue('talla', detalle.talla);
+            setValue('color', detalle.color);
+            setValue('cantidad', detalle.cantidad);
+            setValue('descripcion', detalle.descripcion);
+        }
+    }, [detalle]);
 
     const {
         register, //Registra o identifica cada elemento o cada input
         handleSubmit, //Para manejar el envió del formulario
         formState: { errors }, //Ver errores que tiene el formulario
         reset, //Resetea el formulario
+        setValue,
+        watch,
     } = useForm({
         mode: 'onChange',
     });
 
-    const guardarDetalle = (data) => {
-        const productoEncontrado = productos.find(
-            (producto) => producto.id_producto == data.fk_producto
-        );
-
-        if (productoEncontrado) {
-            data.producto = {
-                nombre: productoEncontrado.nombre,
-                precio: productoEncontrado.precio,
-            };
-            data.subtotal = data.cantidad * productoEncontrado.precio;
-        } else {
-            console.error('No se encontró la prenda con el ID proporcionado');
-        }
-
-        setDetallesOrden([...detallesOrden, data]);
-
-        reset();
-    };
-
     return (
-        <form action='' className='' onSubmit={handleSubmit(guardarDetalle)}>
+        <form action='' className=''>
             <p
                 className='text-center'
                 style={{
@@ -91,7 +82,7 @@ export const AgregarDetallesOrden = () => {
                             message: 'El producto es obligatorio',
                         },
                     })}
-                    onChange={handleProductoChange} // Manejar el cambio de producto seleccionado
+                    onChange={() => handleProductoChange(event.target.value)} // Manejar el cambio de producto seleccionado
                 >
                     <option value=''>Seleccione el producto a comprar</option>
 
@@ -128,7 +119,7 @@ export const AgregarDetallesOrden = () => {
                                 required: {
                                     value: true,
                                     message: 'La talla es obligatoria',
-                                }
+                                },
                             })}
                         >
                             <option value=''>Seleccione la talla</option>
@@ -159,15 +150,18 @@ export const AgregarDetallesOrden = () => {
                                 required: {
                                     value: true,
                                     message: 'El color es obligatoria',
-                                }
+                                },
                             })}
                         >
                             <option value=''>Seleccione el color</option>
 
                             {infoProductoSeleccionado.colores.map((color) => {
                                 return (
-                                    <option key={color.id_color} value={color.color}>
-                                        {color.color} 
+                                    <option
+                                        key={color.id_color}
+                                        value={color.color}
+                                    >
+                                        {color.color}
                                     </option>
                                 );
                             })}
@@ -181,7 +175,6 @@ export const AgregarDetallesOrden = () => {
             )}
 
             <div className='row'>
-
                 <div className='col-md-12'>
                     <label
                         htmlFor='nombreCompraAgregar'
@@ -236,21 +229,21 @@ export const AgregarDetallesOrden = () => {
                         <AlertaError message={errors.descripcion.message} />
                     )}
                 </div>
-            </div>
 
-            <div className='row py-3 text-center'>
-                <div className='col-md-6 pl-1 '>
+                <div className='col-md-6 pl-1 pt-3 text-center'>
                     <BotonNegro
-                        text={'Ver detalles'}
-                        onClick={() => {
-                            editar ? handleCloseEditar() : handleClose();
-                            handleShowDetalles();
-                        }}
+                        text={'Eliminar detalle'}
+                        onClick={() => eliminarDetalle(id)}
                     />
                 </div>
 
-                <div className='col-md-6 pr-1'>
-                    <GuardarModal text='Agregar detalle' />
+                <div className='col-md-6     pl-1 pt-3 text-center'>
+                    <GuardarModal
+                        text='Editar detalle'
+                        onSubmit={() => {
+                            editarDetalle(id, watch());
+                        }}
+                    />
                 </div>
             </div>
         </form>

@@ -1,19 +1,13 @@
-import axios from "axios"
 import { useForm } from "react-hook-form";
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from "../chared/HeaderModals";
 import { validarEspaciosVacios } from "../../Validations/validations";
 import AlertaError from "../chared/AlertaError";
-import Swal from "sweetalert2";
-import BotonNegro from "../chared/BotonNegro";
-import SeleccionarColors from "./SeleccionarColor";
 import { useState } from "react";
 import BotonVerde from "../chared/BotonVerde";
 import { Modal } from "react-bootstrap";
 import CancelarModal from "../chared/CancelarModal";
 import useColors from "../../hooks/useColors";
-import useAuth from "../../hooks/useAuth";
-
 
 
 
