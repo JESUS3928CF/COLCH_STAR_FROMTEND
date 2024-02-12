@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 import { startOfMonth, endOfMonth, format, subMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-const GraficaMensual = ({ compras }) => {
+const GraficaAnual = ({ compras }) => {
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
   const [monthlyData, setMonthlyData] = useState([]);
@@ -14,7 +14,7 @@ const GraficaMensual = ({ compras }) => {
     for (let i = 0; i < 12; i++) {
       const startDate = startOfMonth(subMonths(today, i));
       const endDate = endOfMonth(subMonths(today, i));
-      const monthLabel = format(startDate, 'MMMM', {locale: es});
+      const monthLabel = format(startDate, 'MMMM', { locale: es });
       const monthCompras = compras.filter(compra => {
         const fecha = new Date(compra.fecha);
         return fecha >= startDate && fecha <= endDate;
@@ -22,6 +22,14 @@ const GraficaMensual = ({ compras }) => {
       const totalCompras = monthCompras.reduce((total, compra) => total + compra.total_de_compra, 0);
       monthsData.unshift({ month: monthLabel, total: totalCompras });
     }
+    // Ordenar los datos mensuales por mes, asegurándonos de que en la gráfica comiencen en enero
+    monthsData.sort((a, b) => {
+      const monthOrder = {
+        enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6,
+        julio: 7, agosto: 8, septiembre: 9, octubre: 10, noviembre: 11, diciembre: 12
+      };
+      return monthOrder[a.month.toLowerCase()] - monthOrder[b.month.toLowerCase()];
+    });
     setMonthlyData(monthsData);
   }, [compras]);
 
@@ -38,8 +46,8 @@ const GraficaMensual = ({ compras }) => {
         datasets: [{
           label: 'Total de compras por mes',
           data: monthlyData.map(data => data.total),
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: '#b6e0bf',
+          borderColor: '#47684E',
           borderWidth: 1
         }]
       },
@@ -61,4 +69,4 @@ const GraficaMensual = ({ compras }) => {
   );
 }
 
-export default GraficaMensual;
+export default GraficaAnual;
