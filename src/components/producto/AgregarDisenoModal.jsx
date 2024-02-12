@@ -13,7 +13,7 @@ import useProducto from '../../hooks/useProducto';
 
 
 //Componente
-const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
+const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
 
 
@@ -27,9 +27,12 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     //funciones y  propiedades que nos traemos de Diseño contex
     const { agregarDiseno, eliminarDiseno, disenosDB } = useDisenosContext();
 
+    // estados para mostrar los disenos seleccionados
+    const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
 
-
+    
+    //funcion que se ejecuta aal dalr click en el diseno seleccionado se elimine
     const eliminarDiseno01 = (index) => {
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
@@ -42,15 +45,11 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     };
 
 
-    const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
-    console.log(selectedDisenoNombre)
-    
-
-    //funcion que se ejecuta al darle click en guardar
+    //funcion que se ejecuta aal dalr click en el diseno seleciconado para mostrar
     const agregarNuevoDiseno = (data) => {
         // console.log(data);
-        agregarDiseno(data);
+
 
         //para mostrar los diseños al
         const nuevoDiseno = disenosDB.find(
@@ -59,13 +58,15 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         console.log(nuevoDiseno);
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
+        
+        //se le manda los datos recibidos a agregar diseno
+        agregarDiseno(data);
+        
     };
-
 
 
     //estado para traerel tanmaño y el precio de diseños
     const [Precio, setPrecio] = useState([]);
-    // console.log(Precio)
 
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     useEffect(() => {
@@ -78,10 +79,8 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     }, []);
 
     useEffect(() => {
-        // console.log(selectedDisenoNombre)
-        // console.log(selectedDisenoNombre.length === 0)
+
         if (selectedDisenoNombre.length === 0) {
-            // console.log("Entrando")
             reset()
         }
     }, [selectedDisenoNombre])
@@ -91,7 +90,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         <Modal
             show={showw}
             onHide={() => {
-                // reset();
+                reset();
                 handleClosee();
             }}
             className='modal d-flex align-items-center justify-content-center '
@@ -104,7 +103,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                 <HeaderModals
                     title='Diseño y  tamaño'
                     handleClose={() => {
-                        // reset();
+                        reset();
                         handleClosee();
                         //para que se restablesca el modal cuando se cierre el modal
                         // setSelectedDisenoNombre([]);
@@ -227,6 +226,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                 onClick={() => {
                                     // setSelectedDisenoNombre([]);
                                     // setDisenos([]);
+                                    reset()
                                     handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                             />

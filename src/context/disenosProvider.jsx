@@ -25,8 +25,9 @@ export const DisenosProvider = ({ children }) => {
         const respuesta = await clienteAxios.get('/precio_disenos');
         setPrecios(respuesta.data);
     };
-    // console.log(disenosDB)
+    
 
+    //funciones para  guardar los disenos seleccionado en productos
     const agregarDiseno = (data) => {
         const nuevoDisenos = [...disenos, data];
         console.log(nuevoDisenos);

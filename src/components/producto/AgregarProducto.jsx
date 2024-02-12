@@ -30,8 +30,8 @@ import usePrendas from '../../hooks/usePrendas.jsx';
 //Componenteee
 const AgregarProducto = () => {
 
+    //llamamos esto para vaciar los disenos seleeccionado 
     const { setSelectedDisenoNombre } = useProducto();
-
 
 
 
@@ -46,13 +46,16 @@ const AgregarProducto = () => {
 
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
-                        // setSelectedDisenoNombre([])
+
+
+    //funciones de cerrar modal de agregar producto
     const handleClose = () => { setShow(false) };
-    const handleShow = () => setShow(true);
+    const handleShow = () => {setShow(true) };
 
 
+    //funcione de cerrsr y abir el de agregar diseños
     const handleClosee = () => {
-        setShoww(false), handleShow();
+        setShoww(false,), handleShow();
     };
     const handleShoww = () => {
         setShoww(true), handleClose();
@@ -61,8 +64,11 @@ const AgregarProducto = () => {
         setShoww(false);
     };
 
-    //nos traemos los diseños que hemos seleccionado en AgregarDiseñoModal
-    const { disenos } = useDisenosContext();
+
+    //nos traemos los diseños que hemos seleccionado en AgregarDiseñoModal,
+    // nos traemos setDisenos para vaciar los disenos que se seleccionaron al agregar un nuevoproducto
+    // disenos los guardamos
+    const { disenos, setDisenos } = useDisenosContext();
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -75,8 +81,8 @@ const AgregarProducto = () => {
         mode: 'onChange',
     });
 
-    //estado de las prendas para resivir la informacion que lleg de la base de datos
-    const { Prendas } = usePrendas()
+    //estado de las prendas para resivir la informacion que lleg de la base de datos,
+    const { Prendas,  } = usePrendas()
 
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
@@ -107,14 +113,23 @@ const AgregarProducto = () => {
     return (
         <div>
             {/* modal agregar producto */}
-            <BotonVerde text={'Agregar producto'} onClick={handleShow} />
+            <BotonVerde text={'Agregar producto'} onClick={() => {
+                handleShow();    
+                setSelectedDisenoNombre([])//se vacia la parte donde se muestra el diseño seleccionado
+                setDisenos([]) // se vacia los diseños guardados en el producto
+                
+
+                
+
+
+            }} />
 
             <Modal
                 show={show}
                 onHide={() => {
                     reset();
                     handleClose();
-                    setSelectedDisenoNombre([])
+                    // setSelectedDisenoNombre([])
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModal'
@@ -125,7 +140,7 @@ const AgregarProducto = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
-                            setSelectedDisenoNombre([])
+                            // setSelectedDisenoNombre([])
                         }}
                     />
 
@@ -160,7 +175,7 @@ const AgregarProducto = () => {
                                             if (/^\d/.test(value)) {
                                                 return 'El nombre no puede empezar con números';
                                             }
-                                            
+
                                             if (!/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
                                                 return 'El nombre solo puede contener números y letras';
                                             }
@@ -353,7 +368,7 @@ const AgregarProducto = () => {
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
-                                    setSelectedDisenoNombre={setSelectedDisenoNombre}
+                                    // setSelectedDisenoNombre={setSelectedDisenoNombre}
 
 
                                 />

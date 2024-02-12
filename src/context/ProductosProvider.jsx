@@ -11,7 +11,6 @@ import usePrendas from '../hooks/usePrendas';
 
 
 
-
 const productosContext = createContext();
 
 
@@ -29,7 +28,9 @@ const ProductosProvider = ({ children }) => {
     const [productos, setProductos] = useState([]);
     const [detailsDiseno, setDetailsDisenos] = useState([]);
 
+    //es state es para mostrar en el modal de agregardiseno los diseños seleccionado
     const [selectedDisenoNombre, setSelectedDisenoNombre] = useState([]);
+    
 
     // función para obtener los clientes solo cuando se carge el componente
     const consultarProductos = async () => {
