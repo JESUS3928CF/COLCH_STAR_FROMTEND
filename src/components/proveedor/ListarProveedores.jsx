@@ -281,7 +281,7 @@ const ListarProveedores = () => {
                 {/* Es)}ta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
                 <Paginador
                     setDatosFiltrar={setProveedoresFiltrar}
-                    datos={busqueda === '' ? proveedores : setProveedoresFiltrar}
+                    datos={busqueda === '' ? proveedores : ProveedoresFiltrar}
                 />
             </div>
         </div>

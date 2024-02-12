@@ -78,7 +78,6 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                         <form
                             className='row g-3 needs-validation'
                             action=''
-                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='mb-3' name='divIdentificacion'>
                                 <label
@@ -379,7 +378,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     reset={reset}
                                 />
 
-                                <GuardarModal />
+                                <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                             </div>
                         </form>
                     </div>

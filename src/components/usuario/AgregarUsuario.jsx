@@ -93,7 +93,6 @@ const AgregarUsuario = () => {
                         {/* <!-- formulario para agregar un usuario --> */}
                         <form
                             className='row g-3 needs-validation'
-                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='col-md-6'>
                                 <label
@@ -426,7 +425,7 @@ const AgregarUsuario = () => {
                                     reset={reset}
                                     handleClose={handleClose}
                                 />
-                                <GuardarModal />
+                                <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                             </div>
                         </form>
                     </div>

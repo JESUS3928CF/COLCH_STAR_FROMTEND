@@ -101,7 +101,6 @@ function AgregarRol() {
                           <div className='modal-body'>
                               <form
                                   className='row g-3 needs-validation'
-                                  onSubmit={handleSubmit(onSubmit)}
                               >
                                   <div className='mb-3' name='divNombre'>
                                       <label
@@ -265,7 +264,7 @@ function AgregarRol() {
                                         reset={reset}
                                         handleClose={handleClose}
                                     />
-                                    <GuardarModal />
+                                    <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                                 </div>
                               </form>
                           </div>

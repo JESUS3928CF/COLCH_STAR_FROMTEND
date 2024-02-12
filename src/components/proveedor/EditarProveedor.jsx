@@ -87,7 +87,6 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                     <div className='modal-body'>
                         <form
                             className='row g-1 needs-validation'
-                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='mb-3' name='divIdentificacion'>
                                 <label
@@ -314,7 +313,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                 />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal />
+                                <GuardarModal  onSubmit={handleSubmit(onSubmit)}/>
                             </div>
                         </form>
                     </div>
