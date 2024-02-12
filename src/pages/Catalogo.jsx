@@ -10,6 +10,10 @@ import { useDisenosContext } from '../context/disenosProvider';
 import useProducto from '../hooks/useProducto';
 import usePrendas from '../hooks/usePrendas';
 import { redirigirWhatsApp } from '../constantes/funciones.js';
+import { useState } from 'react';
+
+
+
 
 
 
@@ -18,8 +22,31 @@ import { redirigirWhatsApp } from '../constantes/funciones.js';
 const Catalogo = () => {
 
 
-    //traemos toda la informacion de prendas guardada
+    const [modalAbierto, setModalAbierto] = useState(false);
+
+
+    const [generoSeleccionado, setGeneroSeleccionado] = useState(null);
+
+    const [generoSeleccionadoo, setGeneroSeleccionadoo] = useState(null);
+
+    const [generoSeleccionadooo, setGeneroSeleccionadooo] = useState(null);
+
+ 
     const { Prendas } = usePrendas();
+
+
+
+    const abrirModal = () => {
+        setModalAbierto(true);
+    };
+
+    const cerrarModal = () => {
+        setModalAbierto(false);
+        console.log(Prendas)
+    };
+
+    //traemos toda la informacion de prendas guardada
+    
     //hacemos el conteno de cuanrto diseños hay guardadoa
     // const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
 
@@ -36,7 +63,6 @@ const Catalogo = () => {
     //hacemos el conteno de cuanrto diseños hay guardadoa
     // const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;
     // console.log(disenosDB)
-
 
 
 
@@ -104,9 +130,8 @@ const Catalogo = () => {
                             )
                             .map((producto, index) => (
                                 <div
-                                    className={`carousel-item ${
-                                        index === 0 ? 'active' : ''
-                                    }`}
+                                    className={`carousel-item ${index === 0 ? 'active' : ''
+                                        }`}
                                     key={index}
                                 >
                                     <div className={style['home-text']}>
@@ -122,10 +147,9 @@ const Catalogo = () => {
                                             key={index}
                                             src={
                                                 producto.imagen
-                                                    ? `${
-                                                          import.meta.env
-                                                              .VITE_BACKEND_URL
-                                                      }/${producto.imagen}`
+                                                    ? `${import.meta.env
+                                                        .VITE_BACKEND_URL
+                                                    }/${producto.imagen}`
                                                     : ''
                                             }
                                             className={`d-block w-100 ${style.img} ${style.otro}`}
@@ -195,10 +219,7 @@ const Catalogo = () => {
             </section> */}
 
             {/* //prendas */}
-            <section
-                className={style.products + ' ' + style.section}
-                id='products'
-            >
+            <section className={style.products + ' ' + style.section} id='products'>
                 <div className={style.heading}>
                     <h1>
                         Nuestras Prendas <br /> <span>Populares</span>
@@ -210,43 +231,58 @@ const Catalogo = () => {
 
                 <div className={style.productsconatiner}>
                     {Prendas.filter(
-                        (Prendas) =>
-                            Prendas.publicado && Prendas.estado !== false
-                    ) // Filter only published designs
-                        .map((Prendas, index) => (
-                            <div className={style.box} key={index}>
-                                <img
-                                    className={
-                                        style.imagenProducto + ' ' + style.img
-                                    }
-                                    src={
-                                        Prendas.imagen
-                                            ? `${
-                                                  import.meta.env
-                                                      .VITE_BACKEND_URL
-                                              }/${Prendas.imagen}`
-                                            : ''
-                                    }
-                                    alt=''
-                                />
-                                <div
-                                    className={style.informacionProducto}
-                                ></div>
-                                <span className={style.discount}>
-                                    {Prendas.nombre}
-                                </span>
-                                <img
-                                    onClick={redirigirWhatsApp}
-                                    className={
-                                        style.iconoWhatapp + ' ' + style.img
-                                    }
-                                    src={logoW}
-                                    alt=''
-                                />
-                            </div>
-                        ))}
+                        (Prenda) => Prenda.publicado && Prenda.estado !== false
+                    ).map((Prenda, index) => (
+                        <div className={style.box} key={index}>
+                            <img
+                                className={style.imagenProducto + ' ' + style.img}
+                                src={
+                                    Prenda.imagen
+                                        ? `${import.meta.env.VITE_BACKEND_URL}/${Prenda.imagen}`
+                                        : ''
+                                }
+                                alt=''
+                                onClick={() => {
+                                    abrirModal(Prenda.genero);
+                                    setGeneroSeleccionado(Prenda.genero); // Actualiza el género seleccionado
+                                    setGeneroSeleccionadoo(Prenda.tipo_de_tela); // Actualiza el género seleccionado
+                                    setGeneroSeleccionadooo(Prenda.precio); // Actualiza el género seleccionado
+
+
+
+                                }}
+                            />
+                            <div className={style.informacionProducto}></div>
+                            <span className={style.discount}>{Prenda.nombre}</span>
+                            <img
+                                onClick={redirigirWhatsApp}
+                                className={style.iconoWhatapp + ' ' + style.img}
+                                src={logoW}
+                                alt=''
+                            />
+                        </div>
+                    ))}
                 </div>
+
+                {/* Modal */}
+                {modalAbierto && (
+                    <div className={style.modalFondo} onClick={cerrarModal}>
+                        <div className={style.modal}>
+                            <span className={style.cerrarModal} onClick={cerrarModal}>
+                                &times;
+                            </span>
+                            <p><strong>Género:</strong> {generoSeleccionado}</p>
+                            <br />
+                            <p><strong>Tipo  de tela: </strong> {generoSeleccionadoo}</p>
+                            <br />
+                            <p><strong>Precio:  </strong> {generoSeleccionadooo}</p>
+
+                        </div>
+                    </div>
+                )}
             </section>
+
+
 
             {/* //productoss */}
             <div className={style.color}>
@@ -277,10 +313,9 @@ const Catalogo = () => {
                                         }
                                         src={
                                             productos.imagen
-                                                ? `${
-                                                      import.meta.env
-                                                          .VITE_BACKEND_URL
-                                                  }/${productos.imagen}`
+                                                ? `${import.meta.env
+                                                    .VITE_BACKEND_URL
+                                                }/${productos.imagen}`
                                                 : ''
                                         }
                                         alt=''
@@ -334,10 +369,9 @@ const Catalogo = () => {
                                     }
                                     src={
                                         diseno.imagen
-                                            ? `${
-                                                  import.meta.env
-                                                      .VITE_BACKEND_URL
-                                              }/${diseno.imagen}`
+                                            ? `${import.meta.env
+                                                .VITE_BACKEND_URL
+                                            }/${diseno.imagen}`
                                             : ''
                                     }
                                     alt=''
