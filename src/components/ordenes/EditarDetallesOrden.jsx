@@ -87,8 +87,6 @@ export const EditarDetallesOrden = ({
                     })}
                     onChange={() => handleProductoChange(event.target.value)} // Manejar el cambio de producto seleccionado
                 >
-                    <option value=''>Seleccione el producto a comprar</option>
-
                     {productos
                         .filter((producto) => producto.estado)
                         .map((producto) => {
