@@ -49,11 +49,10 @@ export const ModalVerDetallesOrden = () => {
         }
     };
 
-    const editarDetalle = (id, detalleEditado, data) => {
-        console.log(data);
+    const editarDetalle = (id, detalleEditado) => {
         if (
             !detalleEditado.cantidad ||
-            detalleEditado.color ||
+            !detalleEditado.color ||
             !detalleEditado.descripcion ||
             !detalleEditado.talla ||
             !detalleEditado.fk_producto

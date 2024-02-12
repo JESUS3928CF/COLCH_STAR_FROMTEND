@@ -12,7 +12,7 @@ import AlertaError from '../chared/AlertaError';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
-const SeleccionarColorsEditar = ({ showw = false, handleClosee, detallesPrendas }) => {
+const SeleccionarColorsEditar = ({ showw , handleClosee, detallesPrendas }) => {
     const {
         register,
         handleSubmit,
