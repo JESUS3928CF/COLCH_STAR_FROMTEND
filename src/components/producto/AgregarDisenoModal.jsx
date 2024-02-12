@@ -14,8 +14,6 @@ import useProducto from '../../hooks/useProducto';
 //Componente
 const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
-
-
     
         const {
             register, //registra o identifica cada elemento o cada input
