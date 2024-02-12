@@ -148,7 +148,7 @@ const AgregarOrden = () => {
 
                                     <div className='col-md-6'>
                                         <label
-                                            htmlFor='totalCompraAgregar'
+                                            htmlFor='totalordenAgregar'
                                             className='col-form-label'
                                         >
                                             Fecha de entrega: *
@@ -156,7 +156,7 @@ const AgregarOrden = () => {
                                         <input
                                             type='date'
                                             className='form-control'
-                                            id='totalCompraAgregar'
+                                            id='totalordenAgregar'
                                             {...register('fecha_entrega', {
                                                 required: {
                                                     value: true,
