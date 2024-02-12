@@ -6,6 +6,9 @@ import axios from "axios";
 import { useDisenosContext } from "./disenosProvider";
 import useMovimientos from '../hooks/useMovimientos';
 import clienteAxios from "../config/axios";
+import usePrendas from '../hooks/usePrendas';
+
+
 
 
 
@@ -19,7 +22,8 @@ const ProductosProvider = ({ children }) => {
     // Estado para el parámetro de búsqueda
     const [busqueda, setBusqueda] = useState('');
 
-    // const { setDisenos } = useDisenosContext();
+    const { consultPrendas } = usePrendas();
+    
 
     // primer state
     const [productos, setProductos] = useState([]);
@@ -73,7 +77,10 @@ const ProductosProvider = ({ children }) => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
+                
+                
                 reset();
+                consultPrendas()
                 // setProductos([...productos, res.data.nuevoProducto]);
                 consultarProductos();
                 consultarMovimientos();
