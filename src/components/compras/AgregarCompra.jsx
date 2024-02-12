@@ -38,7 +38,6 @@ const AgregarCompras = () => {
     });
 
     const onSubmit = async (data) => {
-
         if (detallesCompra.length === 0) {
             Swal.fire({
                 title: 'Espera!!',
@@ -53,7 +52,15 @@ const AgregarCompras = () => {
     return (
         <div>
             {/* modal agregar venta*/}
-            <BotonVerde text={'Agregar compra'} onClick={handleShow} />
+            <BotonVerde
+                text={'Agregar compra'}
+                onClick={() => {
+                    handleShow();
+
+                    setTotalCompra(0);
+                    setDetallesCompra([]);
+                }}
+            />
             <Modal
                 show={show}
                 onHide={() => {
@@ -175,11 +182,11 @@ const AgregarCompras = () => {
                             </form>
                             <AgregarDetallesCompra />
                             <div className='modal-footer'>
-                            <CancelarModal
-                                        modalToCancel='myModalAgregarComprar'
-                                        reset={reset}
-                                        handleClose={handleClose}
-                                    />
+                                <CancelarModal
+                                    modalToCancel='myModalAgregarComprar'
+                                    reset={reset}
+                                    handleClose={handleClose}
+                                />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}
                                 />
