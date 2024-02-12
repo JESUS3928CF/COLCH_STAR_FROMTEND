@@ -536,7 +536,6 @@ const EditarPrendas = ({
                             <div className='modal-footer'>
                                 <BotonNegro
                                     text='Editar color'
-                                    modalToOpen={'#crearColorEditar'}
                                     modalClouse={'modal'}
                                     onClick={() => {
                                         handleShoww();

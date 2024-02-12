@@ -341,6 +341,8 @@ export const ListarPrendas = () => {
             />
             <SeleccionarColorsEditar
                 detallesPrendas={detallesPrendas}
+                 handleClosee = {() => {}}
+                 showw = {false}
             />
         </>
     );
