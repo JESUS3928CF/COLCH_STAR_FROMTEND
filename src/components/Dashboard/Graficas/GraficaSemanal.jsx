@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import { subDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, format, parseISO } from 'date-fns';
+import { subDays, startOfWeek, format } from 'date-fns';
 
 export const GraficaSemanal = ({ compras }) => {
   const weekChartContainer = useRef(null);
@@ -8,8 +8,19 @@ export const GraficaSemanal = ({ compras }) => {
   const [weekStartDate, setWeekStartDate] = useState(null);
 
   useEffect(() => {
-    const today = new Date();
-    setWeekStartDate(startOfWeek(today));
+    const updateWeekStartDate = () => {
+      setWeekStartDate(startOfWeek(new Date()));
+    };
+
+    // Establecer la fecha de inicio de la semana al cargar el componente
+    updateWeekStartDate();
+
+    // Actualizar la fecha de inicio de la semana cada día
+    const interval = setInterval(updateWeekStartDate, 24 * 60 * 60 * 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
@@ -48,8 +59,6 @@ export const GraficaSemanal = ({ compras }) => {
     }
   }, [weekStartDate, compras]);
 
-  
-
   const obtenerDatosParaGrafico = (fechas, compras) => {
     const datosAgrupados = compras.reduce((resultado, compra) => {
       const fecha = compra.fecha;
@@ -74,13 +83,10 @@ export const GraficaSemanal = ({ compras }) => {
 
   return (
     <>
-
-    
       <div>
         <h2>Gráfico de los últimos 7 días de la semana:</h2>
         <canvas ref={weekChartContainer} width="400" height="200"></canvas>
       </div>
-  
     </>
   );
 }
