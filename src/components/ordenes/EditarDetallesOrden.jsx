@@ -270,9 +270,10 @@ export const EditarDetallesOrden = ({
 };
 
 EditarDetallesOrden.propTypes = {
-    detalle : PropTypes.array.isRequired,
-    eliminarDetalle : PropTypes.func.isRequired,
-    id : PropTypes.number.isRequired,
-    editarDetalle : PropTypes.func.isRequired,
+    detalle: PropTypes.array.isRequired,
+    eliminarDetalle: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    editarDetalle: PropTypes.func.isRequired,
+    idEditar: PropTypes.number.isRequired,
 };
 
