@@ -20,6 +20,7 @@ import {
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
+import useProducto from '../../hooks/useProducto.jsx';
 
 //Componente
 const ListarOrdenes = () => {
@@ -35,6 +36,8 @@ const ListarOrdenes = () => {
         busqueda,
         setBusqueda,
     } = useOrden();
+
+    const { consultarProductos } = useProducto();
 
     /// Datos para listar
     const [OrdenesFiltrar, setOrdenesFiltrar] = useState([]);
@@ -94,6 +97,7 @@ const ListarOrdenes = () => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
         setBusqueda('');
+        consultarProductos();
     }, []);
 
     return (

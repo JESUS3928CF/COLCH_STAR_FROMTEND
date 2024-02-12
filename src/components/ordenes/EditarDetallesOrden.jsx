@@ -26,6 +26,9 @@ export const EditarDetallesOrden = ({
         const productoEncontrado = productos.find(
             (producto) => producto.id_producto == id_producto
         );
+
+        if (!productoEncontrado) return;
+
         setInfoProductoSeleccionado(productoEncontrado);
     };
 
@@ -84,8 +87,6 @@ export const EditarDetallesOrden = ({
                     })}
                     onChange={() => handleProductoChange(event.target.value)} // Manejar el cambio de producto seleccionado
                 >
-                    <option value=''>Seleccione el producto a comprar</option>
-
                     {productos
                         .filter((producto) => producto.estado)
                         .map((producto) => {
