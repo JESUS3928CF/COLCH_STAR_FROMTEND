@@ -219,9 +219,9 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
                                     modalClouse={'modal'}
                                     onClick={() => {
                                         // setSelectedDisenoNombre([]);
-                                        // setDisenos([]);
-                                        reset()
+                                        // setDisenos([]);  
                                         handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                        reset()
                                     }}
                                 />
 
