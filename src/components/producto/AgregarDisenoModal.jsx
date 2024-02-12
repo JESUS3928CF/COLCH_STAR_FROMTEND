@@ -16,228 +16,229 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
 
 
-const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
-    const {
-        register, //registra o identifica cada elemento o cada input
-        handleSubmit, //para manejar el envió del formulario
-        formState: { errors },
-        reset,
-    } = useForm();
-
-    //funciones y  propiedades que nos traemos de Diseño contex
-    const { agregarDiseno, eliminarDiseno, disenosDB } = useDisenosContext();
-
-    // estados para mostrar los disenos seleccionados
-    const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
-
-
     
-    //funcion que se ejecuta aal dalr click en el diseno seleccionado se elimine
+        const {
+            register, //registra o identifica cada elemento o cada input
+            handleSubmit, //para manejar el envió del formulario
+            formState: { errors },
+            reset,
+        } = useForm();
 
-    const eliminarDiseno01 = (index) => {
-        // Crea una copia del array original
-        const nuevosDisenos = [...selectedDisenoNombre];
-        // Elimina el elemento en el índice especificado
-        nuevosDisenos.splice(index, 1);
-        // Actualiza el estado con la nueva array sin el elemento eliminado
-        setSelectedDisenoNombre(nuevosDisenos);
+        //funciones y  propiedades que nos traemos de Diseño contex
+        const { agregarDiseno, eliminarDiseno, disenosDB } = useDisenosContext();
 
-        eliminarDiseno(index);
-    };
-
-
-    //funcion que se ejecuta aal dalr click en el diseno seleciconado para mostrar
-    const agregarNuevoDiseno = (data) => {
-        // console.log(data);
+        // estados para mostrar los disenos seleccionados
+        const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
 
-        //para mostrar los diseños al
-        const nuevoDiseno = disenosDB.find(
-            (diseno) => diseno.id_diseno == data.id_diseno
-        );
-        setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
-        
-        //se le manda los datos recibidos a agregar diseno
-        agregarDiseno(data);
-        
-    };
+
+        //funcion que se ejecuta aal dalr click en el diseno seleccionado se elimine
+        const eliminarDiseno01 = (index) => {
+            // Crea una copia del array original
+            const nuevosDisenos = [...selectedDisenoNombre];
+            // Elimina el elemento en el índice especificado
+            nuevosDisenos.splice(index, 1);
+            // Actualiza el estado con la nueva array sin el elemento eliminado
+            setSelectedDisenoNombre(nuevosDisenos);
+
+            eliminarDiseno(index);
+        };
 
 
-    //estado para traerel tanmaño y el precio de diseños
-    const [Precio, setPrecio] = useState([]);
+        //funcion que se ejecuta aal dalr click en el diseno seleciconado para mostrar
+        const agregarNuevoDiseno = (data) => {
+            // console.log(data);
 
-    // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
-    useEffect(() => {
-        // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios
-            .get('http://localhost:3000/api/precio_disenos')
-            .then((response) => {
-                setPrecio(response.data); // Almacenar la lista de roles en el estado
-            });
-    }, []);
 
-    useEffect(() => {
+            //para mostrar los diseños al
+            const nuevoDiseno = disenosDB.find(
+                (diseno) => diseno.id_diseno == data.id_diseno
+            );
+            setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
 
-        if (selectedDisenoNombre.length === 0) {
-            reset()
-        }
-    }, [selectedDisenoNombre]);
+            //se le manda los datos recibidos a agregar diseno
+            agregarDiseno(data);
 
-    return (
-        <Modal
-            show={showw}
-            onHide={() => {
-                reset();
-                handleClosee();
-            }}
-            className='modal d-flex align-items-center justify-content-center '
-            id='myModalDiseno'
-        >
-            <div className='modal-content'>
-                {/* Cabecero del modal */}
+        };
 
-                <HeaderModals
-                    title='Diseño y  tamaño'
-                    handleClose={() => {
-                        reset();
-                        handleClosee();
-                        //para que se restablesca el modal cuando se cierre el modal
-                        // setSelectedDisenoNombre([]);
-                        // setDisenos([]);
-                    }}
-                />
 
-                <div className='modal-body'>
-                    <form
-                        action=''
-                        id='formularioModificar'
-                        onSubmit={handleSubmit(agregarNuevoDiseno)}
-                    >
-                        <div className='row '>
-                            <div className='col-md-6'>
-                                <label htmlFor='rol' className='col-form-label'>
-                                    Diseños: *
-                                </label>
-                                <select
-                                    className='form-control' // Allow multiple selections
-                                    {...register('id_diseno', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'Debe seleccionar al menos un diseño',
-                                        },
-                                    })}
-                                >
-                                    <option value=''>Seleccionar diseño</option>
-                                    {disenosDB
-                                        .filter((diseno) => diseno.estado) // Filtrar solo los elementos habilitados
-                                        .map((diseno) => (
+        //estado para traerel tanmaño y el precio de diseños
+        const [Precio, setPrecio] = useState([]);
+
+        // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
+        useEffect(() => {
+            // Realizar una solicitud para obtener la lista de roles desde el servidor
+            axios
+                .get('http://localhost:3000/api/precio_disenos')
+                .then((response) => {
+                    setPrecio(response.data); // Almacenar la lista de roles en el estado
+                });
+        }, []);
+
+        useEffect(() => {
+
+            if (selectedDisenoNombre.length === 0) {
+                reset()
+            }
+        }, [selectedDisenoNombre]);
+
+        return (
+            <Modal
+                show={showw}
+                onHide={() => {
+                    reset();
+                    handleClosee();
+                }}
+                className='modal d-flex align-items-center justify-content-center '
+                id='myModalDiseno'
+            >
+                <div className='modal-content'>
+                    {/* Cabecero del modal */}
+
+                    <HeaderModals
+                        title='Diseño y  tamaño'
+                        handleClose={() => {
+                            reset();
+                            handleClosee();
+                            //para que se restablesca el modal cuando se cierre el modal
+                            // setSelectedDisenoNombre([]);
+                            // setDisenos([]);
+                        }}
+                    />
+
+                    <div className='modal-body'>
+                        <form
+                            action=''
+                            id='formularioModificar'
+                            onSubmit={handleSubmit(agregarNuevoDiseno)}
+                        >
+                            <div className='row '>
+                                <div className='col-md-6'>
+                                    <label htmlFor='rol' className='col-form-label'>
+                                        Diseños: *
+                                    </label>
+                                    <select
+                                        className='form-control' // Allow multiple selections
+                                        {...register('id_diseno', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'Debe seleccionar al menos un diseño',
+                                            },
+                                        })}
+                                    >
+                                        <option value=''>Seleccionar diseño</option>
+                                        {disenosDB
+                                            .filter((diseno) => diseno.estado) // Filtrar solo los elementos habilitados
+                                            .map((diseno) => (
+                                                <option
+                                                    key={diseno.id_diseno}
+                                                    value={diseno.id_diseno}
+                                                >
+                                                    {diseno.nombre}
+                                                </option>
+                                            ))}
+                                    </select>
+
+                                    {errors.id_diseno && (
+                                        <AlertaError
+                                            message={errors.id_diseno.message}
+                                        />
+                                    )}
+
+                                    <label htmlFor='rol' className='col-form-label'>
+                                        Tamaño: *
+                                    </label>
+                                    <select
+                                        className='form-control' // Allow multiple selections
+                                        {...register('id_precio_diseno', {
+                                            required: {
+                                                value: true,
+                                                message:
+                                                    'Debe seleccionar al menos un tamaño',
+                                            },
+                                        })}
+                                    >
+                                        <option value=''>Seleccionar tamaño</option>
+                                        {Precio.map((precio) => (
                                             <option
-                                                key={diseno.id_diseno}
-                                                value={diseno.id_diseno}
+                                                key={precio.id_precio_diseno}
+                                                value={precio.id_precio_diseno}
                                             >
-                                                {diseno.nombre}
+                                                {precio.tamano}
                                             </option>
                                         ))}
-                                </select>
+                                    </select>
 
-                                {errors.id_diseno && (
-                                    <AlertaError
-                                        message={errors.id_diseno.message}
-                                    />
-                                )}
+                                    {errors.id_precio_diseno && (
+                                        <AlertaError
+                                            message={
+                                                errors.id_precio_diseno.message
+                                            }
+                                        />
+                                    )}
+                                </div>
+                                <div className='col-md-6'>
+                                    <p className={style.diseñosModalTitle}>
+                                        Diseños seleccionados:
+                                    </p>
 
-                                <label htmlFor='rol' className='col-form-label'>
-                                    Tamaño: *
-                                </label>
-                                <select
-                                    className='form-control' // Allow multiple selections
-                                    {...register('id_precio_diseno', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'Debe seleccionar al menos un tamaño',
-                                        },
-                                    })}
-                                >
-                                    <option value=''>Seleccionar tamaño</option>
-                                    {Precio.map((precio) => (
-                                        <option
-                                            key={precio.id_precio_diseno}
-                                            value={precio.id_precio_diseno}
+                                    {selectedDisenoNombre.map((diseno, index) => (
+                                        <div
+                                            key={index}
+                                            className={style.disenocontainer}
                                         >
-                                            {precio.tamano}
-                                        </option>
+                                            <p>
+                                                <span
+                                                    className={style.disenonombre}
+                                                >
+                                                    - {diseno.nombre}
+                                                    {diseno.tamano}
+                                                </span>
+
+                                                <span
+                                                    onClick={() =>
+                                                        eliminarDiseno01(index)
+                                                    }
+                                                >
+                                                    <img
+                                                        src={logo}
+                                                        alt=''
+                                                        className={style.logoimg}
+                                                    />
+                                                </span>
+                                            </p>
+                                        </div>
                                     ))}
-                                </select>
-
-                                {errors.id_precio_diseno && (
-                                    <AlertaError
-                                        message={
-                                            errors.id_precio_diseno.message
-                                        }
-                                    />
-                                )}
+                                </div>
                             </div>
-                            <div className='col-md-6'>
-                                <p className={style.diseñosModalTitle}>
-                                    Diseños seleccionados:
-                                </p>
+                            <br />
 
-                                {selectedDisenoNombre.map((diseno, index) => (
-                                    <div
-                                        key={index}
-                                        className={style.disenocontainer}
-                                    >
-                                        <p>
-                                            <span
-                                                className={style.disenonombre}
-                                            >
-                                                - {diseno.nombre}
-                                                {diseno.tamano}
-                                            </span>
+                            <div className='modal-footer'>
+                                {/* Botón para cancelar*/}
+                                <BotonNegro
+                                    text={'Regresar'}
+                                    modalClouse={'modal'}
+                                    onClick={() => {
+                                        // setSelectedDisenoNombre([]);
+                                        // setDisenos([]);
+                                        reset()
+                                        handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
+                                    }}
+                                />
 
-                                            <span
-                                                onClick={() =>
-                                                    eliminarDiseno01(index)
-                                                }
-                                            >
-                                                <img
-                                                    src={logo}
-                                                    alt=''
-                                                    className={style.logoimg}
-                                                />
-                                            </span>
-                                        </p>
-                                    </div>
-                                ))}
+                                {/* Botón para guardar*/}
+                                <GuardarModal
+                                    onSubmit={handleSubmit(agregarNuevoDiseno)}
+                                />
                             </div>
-                        </div>
-                        <br />
-
-                        <div className='modal-footer'>
-                            {/* Botón para cancelar*/}
-                            <BotonNegro
-                                text={'Regresar'}
-                                modalClouse={'modal'}
-                                onClick={() => {
-                                    // setSelectedDisenoNombre([]);
-                                    // setDisenos([]);
-                                    reset()
-                                    handleClosee(); // Asumiendo que handleClosee es una función que cierra el modal
-                                }}
-                            />
-
-                            {/* Botón para guardar*/}
-                            <GuardarModal
-                                onSubmit={handleSubmit(agregarNuevoDiseno)}
-                            />
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </Modal>
-    );
-};
+            </Modal>
+        );
+    };
+
+
 
 export default AgregarDisenoModal;
