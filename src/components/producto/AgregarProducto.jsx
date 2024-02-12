@@ -202,7 +202,7 @@ const AgregarProducto = () => {
                                         required: {
                                             value: true,
                                             message:
-                                                'El cantidad es obligatorio',
+                                                'La cantidad es obligatoria',
                                         },
                                         validate: (value) => {
 
@@ -215,7 +215,7 @@ const AgregarProducto = () => {
 
                                             // Verificar si el número comienza con cero
                                             if (valueAsString.startsWith('0')) {
-                                                return 'El número no puede iniciar en 0';
+                                                return 'El cantidad no puede iniciar en 0';
                                             }
 
                                             return true;
