@@ -120,11 +120,9 @@ const PrecioDiseno = () => {
                                             value: true,
                                             message: 'El precio es obligatorio',
                                         },
-
                                         pattern: {
-                                            value: /^[0-9]+([.,][0-9]+)?$/,
-                                            message:
-                                                'Este campo solo puede contener números',
+                                            value: /^(?!0)\d+(\.\d{1,2})?$/,
+                                            message: 'Solo se permiten números y que el primer numero no sea 0',
                                         },
                                     })}
                                     onChange={(e) => {

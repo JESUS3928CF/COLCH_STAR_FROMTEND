@@ -233,8 +233,8 @@ const EditarPrendas = ({
                                             return validarEspaciosVacios(value);
                                         },
                                         pattern: {
-                                            value: /^\d+(\.\d{1,2})?$/,
-                                            message: 'No se permiten letras',
+                                            value: /^(?!0)\d+(\.\d{1,2})?$/,
+                                            message: 'Solo se permiten números y que el primer numero no sea 0',
                                         },
                                     })}
                                     onChange={(e) => {
@@ -392,9 +392,14 @@ const EditarPrendas = ({
                                     title='Inserte un archivo PNG '
                                     {...register('imagen', {
                                         validate: (value) =>
-                                            validarImagen(value[0]),
+                                            validarImagen(value[0])
                                     })}
                                 />
+                                {errors.imagen && (
+                                    <AlertaError
+                                        message={errors.imagen.message}
+                                    />
+                                )}
                             </div>
                             <div className='col-12'>
                                 <p>Tallas: *</p>

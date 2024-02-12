@@ -231,7 +231,7 @@ const OrdenesProvider = ({ children }) => {
                 setEditar,
                 editar,
                 actualizarOrden,
-
+                consultarOrdenes,
                 // BUSQUEDA
                 busqueda,
                 setBusqueda

@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import AlertaError from '../chared/AlertaError';
 import useProducto from '../../hooks/useProducto';
-import useOrden from '../../hooks/useOrden';
 import { useEffect, useState } from 'react';
 import GuardarModal from '../chared/GuardarModal';
 import BotonNegro from '../chared/BotonNegro';
+import PropTypes from 'prop-types';
 
 export const EditarDetallesOrden = ({
     detalle,
@@ -32,8 +32,6 @@ export const EditarDetallesOrden = ({
         setInfoProductoSeleccionado(productoEncontrado);
     };
 
-    const { detallesOrden, setDetallesOrden } = useOrden();
-
     useEffect(() => {
         handleProductoChange(detalle.fk_producto);
         if (detalle) {
@@ -47,9 +45,7 @@ export const EditarDetallesOrden = ({
 
     const {
         register, //Registra o identifica cada elemento o cada input
-        handleSubmit, //Para manejar el envió del formulario
         formState: { errors }, //Ver errores que tiene el formulario
-        reset, //Resetea el formulario
         setValue,
         watch,
     } = useForm({
@@ -250,3 +246,11 @@ export const EditarDetallesOrden = ({
         </form>
     );
 };
+
+EditarDetallesOrden.propTypes = {
+    detalle : PropTypes.array.isRequired,
+    eliminarDetalle : PropTypes.func.isRequired,
+    id : PropTypes.number.isRequired,
+    editarDetalle : PropTypes.func.isRequired,
+};
+
