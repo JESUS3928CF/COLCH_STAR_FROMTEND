@@ -106,7 +106,6 @@ const EditarPrendas = ({
                     />
                     <div className='modal-body'>
                         <form
-                            onSubmit={handleSubmit(onSubmitt)}
                             className='row g-3 needs-validation'
                         >
                             <div className='col-md-6'>
@@ -554,7 +553,7 @@ const EditarPrendas = ({
                                         setSelectColorsNombre
                                     }
                                 />
-                                <GuardarModal />
+                                <GuardarModal onSubmit={handleSubmit(onSubmitt)}/>
                             </div>
                         </form>
                     </div>

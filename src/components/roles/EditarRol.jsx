@@ -93,7 +93,6 @@ function EditarRol({ editarRol, handleClose, show }) {
                       <form
                           className='row g-3 needs-validation'
                           action=''
-                          onSubmit={handleSubmit(onSubmit)}
                       >
                           <div className='mb-3' name='divNombre'>
                               <label
@@ -268,7 +267,7 @@ function EditarRol({ editarRol, handleClose, show }) {
                                   }}
                                   reset={reset}
                               />
-                              <GuardarModal />
+                              <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                           </div>
                       </form>
                   </div>

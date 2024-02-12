@@ -74,7 +74,7 @@ const AgregarDiseno = () => {
 
                     <div className='modal-body'>
                         {/* formulario para agregar un Diseño */}
-                        <form onSubmit={guardarDiseno}>
+                        <form >
                             <div className='mb-3'>
                                 <label
                                     htmlFor='nombre'
@@ -181,7 +181,7 @@ const AgregarDiseno = () => {
                                 />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal />
+                                <GuardarModal onSubmit={guardarDiseno}/>
                             </div>
                         </form>
                     </div>

@@ -152,7 +152,6 @@ const AgregarPrendas = () => {
                     <div className='modal-body '>
                         <form
                             className='row g-3 needs-validation'
-                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='col-md-6' name='nombre'>
                                 <label
@@ -622,7 +621,7 @@ const AgregarPrendas = () => {
                                         setSelectColorsNombre
                                     }
                                 />
-                                <GuardarModal />
+                                <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                             </div>
                         </form>
                     </div>

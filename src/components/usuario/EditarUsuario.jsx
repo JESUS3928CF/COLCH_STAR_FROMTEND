@@ -104,7 +104,6 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
             <form
               className="row g-3 needs-validation"
               action=""
-              onSubmit={handleSubmit(onSubmit)}
             >
               <div className="col-md-6" name="divNombre">
                 <label htmlFor="nombreEditar" className="col-form-label">
@@ -295,7 +294,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
 
               <div className="modal-footer">
                 <CancelarModal handleClose={handleClose} reset={reset} />
-                <GuardarModal />
+                <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
               </div>
             </form>
           </div>

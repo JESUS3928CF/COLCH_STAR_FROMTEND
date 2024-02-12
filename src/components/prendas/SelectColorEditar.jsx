@@ -12,7 +12,7 @@ import AlertaError from '../chared/AlertaError';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
-const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
+const SeleccionarColorsEditar = ({ showw = false, handleClosee, detallesPrendas }) => {
     const {
         register,
         handleSubmit,
@@ -89,7 +89,6 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
                 />
                 <div className='modal-body'>
                     <form
-                        onSubmit={handleSubmit(agregarNewColors)}
                         className='row g-3 needs-validation'
                     >
                         <div className='col-md-12'>
@@ -162,7 +161,7 @@ const SeleccionarColorsEditar = ({ showw, handleClosee, detallesPrendas }) => {
                                 }}
                                 modalClouse={'modal'}
                             />
-                            <GuardarModal text={"Agregar color"}/>
+                            <GuardarModal text={"Agregar color"} onSubmit={handleSubmit(agregarNewColors)}/>
                         </div>
                     </form>
                 </div>

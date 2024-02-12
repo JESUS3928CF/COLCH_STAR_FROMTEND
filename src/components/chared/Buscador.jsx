@@ -28,7 +28,6 @@ const Buscador = ({
                 return false;
             });
 
-            console.log(resultados);
             // Actualizar los datos con los resultados de la búsqueda
             setDatosFiltrar(resultados);
         } else {

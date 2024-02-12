@@ -88,7 +88,6 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
                 />
                 <div className='modal-body'>
                     <form
-                        onSubmit={handleSubmit(agregarNuevoColor)}
                         className='row g-3 needs-validation'
                     >
                         <div className='col-md-12'>
@@ -174,7 +173,7 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
                                 }}
                                 modalClouse={'modal'}
                             />
-                            <GuardarModal text='Agregar color' />
+                            <GuardarModal text='Agregar color' onSubmit={handleSubmit(agregarNuevoColor)} />
                         </div>
                     </form>
                 </div>
