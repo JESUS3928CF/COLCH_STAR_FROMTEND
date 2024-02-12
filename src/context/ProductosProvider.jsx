@@ -23,7 +23,7 @@ const ProductosProvider = ({ children }) => {
     const [busqueda, setBusqueda] = useState('');
 
     const { consultPrendas } = usePrendas();
-    
+
 
     // primer state
     const [productos, setProductos] = useState([]);
@@ -77,8 +77,8 @@ const ProductosProvider = ({ children }) => {
                 text: res.data.message,
                 icon: 'success',
             }).then(() => {
-                
-                
+
+
                 reset();
                 consultPrendas()
                 // setProductos([...productos, res.data.nuevoProducto]);
@@ -93,6 +93,14 @@ const ProductosProvider = ({ children }) => {
                     text: err.response.data.message,
                     icon: 'warning',
                 });
+            } else if (err.response && err.response.status === 404) {
+
+                Swal.fire({
+                    title: 'Espera!',
+                    text: err.response.data.message,
+                    icon: 'warning',
+                })
+
             } else {
                 // En caso de otros errores, muestra una alerta genérica de error
                 Swal.fire({
@@ -120,8 +128,7 @@ const ProductosProvider = ({ children }) => {
         if (editarProducto.id_producto) {
             axios
                 .patch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${
-                        editarProducto.id_producto
+                    `${import.meta.env.VITE_BACKEND_URL}/api/productos/${editarProducto.id_producto
                     }`,
                     {
                         nombre: nombre.trim(),
@@ -147,7 +154,7 @@ const ProductosProvider = ({ children }) => {
                     }).then(() => {
 
                         //actualiza las prendad
-                        consultPrendas() 
+                        consultPrendas()
                         consultarProductos();
                         consultarMovimientos();
                         handleClose();
@@ -160,6 +167,14 @@ const ProductosProvider = ({ children }) => {
                             text: err.response.data.message,
                             icon: 'warning',
                         });
+                    } else if (err.response && err.response.status === 404) {
+
+                        Swal.fire({
+                            title: 'Espera!',
+                            text: err.response.data.message,
+                            icon: 'warning',
+                        })
+
                     } else {
                         // En caso de otros errores, muestra una alerta genérica de error
                         Swal.fire({
