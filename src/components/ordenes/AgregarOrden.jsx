@@ -22,7 +22,14 @@ const AgregarOrden = () => {
     // const handleClose = () => setShow(false);
     // const handleShow = () => { setShow(true); }
 
-    const { handleClose, handleShow, show, setEditar, setDetallesOrden } = useOrden();
+    const {
+        handleClose,
+        handleShow,
+        show,
+        setEditar,
+        setDetallesOrden,
+        consultarOrdenes,
+    } = useOrden();
 
     const {
         register, //regitra o identifica cada elemento o cada input
@@ -61,7 +68,7 @@ const AgregarOrden = () => {
                 onClick={() => {
                     handleShow();
                     setEditar(false);
-                    setDetallesOrden([])
+                    setDetallesOrden([]);
                 }}
             />
             <Modal
@@ -70,6 +77,7 @@ const AgregarOrden = () => {
                     reset();
                     handleClose();
                     setDetallesOrden([]);
+                    consultarOrdenes();
                 }}
             >
                 <div className='modal-content'>
@@ -79,6 +87,7 @@ const AgregarOrden = () => {
                             reset();
                             handleClose();
                             setDetallesOrden([]);
+                            consultarOrdenes();
                         }}
                     />
                     <div>
@@ -188,7 +197,10 @@ const AgregarOrden = () => {
                             <div className='modal-footer'>
                                 <CancelarModal
                                     reset={reset}
-                                    handleClose={handleClose}
+                                    handleClose={() => {
+                                        handleClose();
+                                        consultarOrdenes();
+                                    }}
                                     setDetallesOrden={setDetallesOrden}
                                 />
                                 <GuardarModal

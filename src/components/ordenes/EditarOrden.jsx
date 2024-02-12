@@ -27,7 +27,8 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
         mode: 'onChange',
     });
 
-    const { totalOrden, actualizarOrden, detallesOrden } = useOrden();
+    const { totalOrden, actualizarOrden, detallesOrden, consultarOrdenes } =
+        useOrden();
 
     // Cuando editarCliente cambia, actualiza los valores del formulario
     useEffect(() => {
@@ -60,6 +61,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                 onHide={() => {
                     reset();
                     handleCloseEditar();
+                    consultarOrdenes();
                 }}
             >
                 <div className='modal-content'>
@@ -68,6 +70,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                         handleClose={() => {
                             reset();
                             handleCloseEditar();
+                            consultarOrdenes();
                         }}
                     />
                     <div>
@@ -178,7 +181,10 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                             <div className='modal-footer'>
                                 <CancelarModal
                                     reset={reset}
-                                    handleClose={handleCloseEditar}
+                                    handleClose={() => {
+                                        handleCloseEditar();
+                                        consultarOrdenes();
+                                    }}
                                 />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}

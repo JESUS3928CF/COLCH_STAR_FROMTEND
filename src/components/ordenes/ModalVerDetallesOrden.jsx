@@ -4,7 +4,6 @@ import { Carousel, Modal } from 'react-bootstrap';
 import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useOrden from '../../hooks/useOrden';
-import BotonNegro from '../chared/BotonNegro';
 import { useState } from 'react';
 import { EditarDetallesOrden } from './EditarDetallesOrden';
 import Swal from 'sweetalert2';
@@ -67,6 +66,8 @@ export const ModalVerDetallesOrden = () => {
         // Eliminar el elemento en la posición especificada
         const detalleAEditar = nuevosDetalles[indiceAEditar];
 
+        console.log(detalleAEditar);
+
         detalleAEditar.fk_producto = detalleEditado.fk_producto;
         detalleAEditar.cantidad = detalleEditado.cantidad;
         detalleAEditar.color = detalleEditado.color;
@@ -82,6 +83,15 @@ export const ModalVerDetallesOrden = () => {
             title: 'Bien',
             text: 'Este detalle fue editado',
             icon: 'success',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleCloseDetalles();
+                if (editar === true) {
+                    handleShowEditar();
+                } else {
+                    handleShow();
+                }
+            }
         });
     };
 
