@@ -26,6 +26,9 @@ export const EditarDetallesOrden = ({
         const productoEncontrado = productos.find(
             (producto) => producto.id_producto == id_producto
         );
+
+        if (!productoEncontrado) return;
+
         setInfoProductoSeleccionado(productoEncontrado);
     };
 

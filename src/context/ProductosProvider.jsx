@@ -213,6 +213,7 @@ const ProductosProvider = ({ children }) => {
                 // BUSQUEDA
                 busqueda,
                 setBusqueda,
+                consultarProductos,
             }}
         >
             {children}
