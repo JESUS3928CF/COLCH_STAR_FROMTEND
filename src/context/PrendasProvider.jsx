@@ -84,8 +84,6 @@ const PrendasProvider = ({ children }) => {
             tallas,
         } = data;
 
-        console.log(nombre);
-
         if (detallesPrendas.id_prenda) {
             axios
                 .put(
@@ -154,7 +152,6 @@ const PrendasProvider = ({ children }) => {
         );
 
         setPrendas(prendaActualizada);
-        consultarMovimientos();
     };
 
     const updatePublicado = (id) => {

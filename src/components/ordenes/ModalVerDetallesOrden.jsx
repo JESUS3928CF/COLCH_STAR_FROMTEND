@@ -52,7 +52,8 @@ export const ModalVerDetallesOrden = () => {
             !detalleEditado.cantidad ||
             detalleEditado.color == '' ||
             !detalleEditado.descripcion ||
-            !detalleEditado.talla
+            !detalleEditado.talla ||
+            !detalleEditado.fk_producto
         )
             return;
         // Encuentra el índice del detalle con el id proporcionado
@@ -66,6 +67,7 @@ export const ModalVerDetallesOrden = () => {
         // Eliminar el elemento en la posición especificada
         const detalleAEditar = nuevosDetalles[indiceAEditar];
 
+        detalleAEditar.fk_producto = detalleEditado.fk_producto;
         detalleAEditar.cantidad = detalleEditado.cantidad;
         detalleAEditar.color = detalleEditado.color;
         detalleAEditar.descripcion = detalleEditado.descripcion;
