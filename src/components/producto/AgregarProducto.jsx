@@ -46,8 +46,8 @@ const AgregarProducto = () => {
 
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
-
-    const handleClose = () => { setShow(false), setSelectedDisenoNombre([]) };
+                        // setSelectedDisenoNombre([])
+    const handleClose = () => { setShow(false) };
     const handleShow = () => setShow(true);
 
 
