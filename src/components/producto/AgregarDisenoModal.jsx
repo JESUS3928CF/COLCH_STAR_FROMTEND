@@ -91,7 +91,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         <Modal
             show={showw}
             onHide={() => {
-                reset();
+                // reset();
                 handleClosee();
             }}
             className='modal d-flex align-items-center justify-content-center '
@@ -104,7 +104,7 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                 <HeaderModals
                     title='Diseño y  tamaño'
                     handleClose={() => {
-                        reset();
+                        // reset();
                         handleClosee();
                         //para que se restablesca el modal cuando se cierre el modal
                         // setSelectedDisenoNombre([]);
