@@ -157,17 +157,16 @@ const AgregarProducto = () => {
                                             if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
-                                            if (!/^[a-zA-Z0-9]+$/.test(value)) {
-                                                return 'El nombre solo puede contener números y letras';
-                                            }
                                             if (/^\d/.test(value)) {
                                                 return 'El nombre no puede empezar con números';
                                             }
                                             
+                                            if (!/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                                return 'El nombre solo puede contener números y letras';
+                                            }
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
                                             }
-
                                             return true;
                                         },
                                     })}
@@ -211,8 +210,11 @@ const AgregarProducto = () => {
                                             if (!/^\d+$/.test(value)) {
                                                 return 'La cantidad solo puede contener números';
                                             }
+                                            // Convertir el número a cadena para realizar la validación de inicio con cero
+                                            const valueAsString = value.toString();
+
                                             // Verificar si el número comienza con cero
-                                            if (value.startsWith('0')) {
+                                            if (valueAsString.startsWith('0')) {
                                                 return 'El número no puede iniciar en 0';
                                             }
 
