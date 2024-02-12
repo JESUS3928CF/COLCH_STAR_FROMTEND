@@ -11,7 +11,6 @@ export const EditarDetallesOrden = ({
     eliminarDetalle,
     id,
     editarDetalle,
-    idEditar,
 }) => {
     const { productos } = useProducto();
 
@@ -213,6 +212,7 @@ export const EditarDetallesOrden = ({
                         name='nombreCompraAgregar'
                         placeholder='. . .'
                         {...register('subtotal')}
+                        readOnly
                     />
 
                     {errors.subtotal && (
@@ -260,7 +260,7 @@ export const EditarDetallesOrden = ({
                     <GuardarModal
                         text='Editar detalle'
                         onSubmit={() => {
-                            editarDetalle(idEditar, watch());
+                            editarDetalle(id, watch());
                         }}
                     />
                 </div>
@@ -270,10 +270,9 @@ export const EditarDetallesOrden = ({
 };
 
 EditarDetallesOrden.propTypes = {
-    detalle: PropTypes.array.isRequired,
+    detalle: PropTypes.object.isRequired,
     eliminarDetalle: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
     editarDetalle: PropTypes.func.isRequired,
-    idEditar: PropTypes.number.isRequired,
 };
 

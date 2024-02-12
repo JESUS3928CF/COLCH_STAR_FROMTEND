@@ -27,9 +27,7 @@ export const ModalVerDetallesOrden = () => {
 
     const eliminarDetalle = (id) => {
         // Encuentra el índice del detalle con el id proporcionado
-        const indiceAEliminar = detallesOrden.findIndex(
-            (detalle) => detalle.id === id
-        );
+        const indiceAEliminar = id
 
         if (indiceAEliminar !== -1) {
             // Copia del array original
@@ -124,10 +122,6 @@ export const ModalVerDetallesOrden = () => {
                     <div>
                         <div className='modal-body '>
                             {detallesOrden.length !== 0 ? (
-                                <form
-                                    action=''
-                                    className='row g-3 needs-validation'
-                                >
                                     <Carousel
                                         activeIndex={carouselIndex}
                                         onSelect={(selectedIndex) =>
@@ -135,7 +129,7 @@ export const ModalVerDetallesOrden = () => {
                                         }
                                     >
                                         {detallesOrden.map((detalle, index) => (
-                                            <Carousel.Item key={detalle.id}>
+                                            <Carousel.Item key={detalle.id + " " +index}>
                                                 <div className='row'>
                                                     <p className='text-center mt-4'>
                                                         Detalle #{index + 1}
@@ -147,9 +141,7 @@ export const ModalVerDetallesOrden = () => {
                                                     eliminarDetalle={
                                                         eliminarDetalle
                                                     }
-                                                    key={detalle.id}
-                                                    id={detalle.id}
-                                                    idEditar={index}
+                                                    id={index}
                                                     editarDetalle={
                                                         editarDetalle
                                                     }
@@ -157,9 +149,6 @@ export const ModalVerDetallesOrden = () => {
                                             </Carousel.Item>
                                         ))}
                                     </Carousel>
-
-                                    {/* Resto del formulario... */}
-                                </form>
                             ) : (
                                 <p>No hay detalles de compra disponibles.</p>
                             )}
