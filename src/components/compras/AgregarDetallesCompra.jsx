@@ -22,7 +22,6 @@ export const AgregarDetallesCompra = () => {
         setValue,
         trigger,
         reset, //Resetea el formulario
-        watch,
     } = useForm({
         mode: 'onChange',
     });
@@ -32,8 +31,8 @@ export const AgregarDetallesCompra = () => {
         data.id = Date.now();
         if (data.fk_prenda == 'd') {
             data.fk_prenda = '';
-            data.producto = "Impresión de estampados"
-        }else {
+            data.producto = 'Impresión de estampados';
+        } else {
             const prendaEncontrada = Prendas.find(
                 (prenda) => prenda.id_prenda == data.fk_prenda
             );
@@ -51,7 +50,7 @@ export const AgregarDetallesCompra = () => {
     };
 
     return (
-        <form action='' className='' onSubmit={handleSubmit(guardarDetalle)}>
+        <form action='' className=''>
             <p className='text-center'> Agregar los detalles de compras </p>
 
             <div className='col-md-12 '>
@@ -108,14 +107,14 @@ export const AgregarDetallesCompra = () => {
                                 message: 'La cantidad es obligatoria',
                             },
                             validate: (value) => {
-                                if (value.includes(" ")) {
+                                if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                 if (!/^\d+$/.test(value)) {
                                     return 'La cantidad solo puede contener números';
                                 }
-                                if (value.startsWith("0")) {
+                                if (value.startsWith('0')) {
                                     return 'La cantidad no puede iniciar con 0';
                                 }
                                 return true;
@@ -150,14 +149,14 @@ export const AgregarDetallesCompra = () => {
                                 message: 'El precio es obligatorio',
                             },
                             validate: (value) => {
-                                if (value.includes(" ")) {
+                                if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                 if (!/^\d+$/.test(value)) {
                                     return 'El precio unitario solo puede contener números';
                                 }
-                                if (value.startsWith("0")) {
+                                if (value.startsWith('0')) {
                                     return 'El precio unitario no puede iniciar con 0';
                                 }
                                 return true;
@@ -186,7 +185,10 @@ export const AgregarDetallesCompra = () => {
                 </div>
 
                 <div className='col-md-6 pr-1'>
-                    <GuardarModal text='Agregar detalle' />
+                    <GuardarModal
+                        text='Agregar detalle'
+                        onSubmit={handleSubmit(guardarDetalle)}
+                    />
                 </div>
             </div>
         </form>

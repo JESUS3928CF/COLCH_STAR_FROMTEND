@@ -139,6 +139,7 @@ export const ModalVerDetallesOrden = () => {
                                                     eliminarDetalle={
                                                         eliminarDetalle
                                                     }
+                                                    key={detalle.id}
                                                     id={detalle.id}
                                                     editarDetalle={
                                                         editarDetalle
