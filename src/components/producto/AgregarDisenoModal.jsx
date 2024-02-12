@@ -11,12 +11,12 @@ import logo from '../../imgNavbar/cruz.png';
 import { Modal } from 'react-bootstrap';
 import useProducto from '../../hooks/useProducto';
 
-
 //Componente
 const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
 
 
+const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -33,6 +33,7 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
     
     //funcion que se ejecuta aal dalr click en el diseno seleccionado se elimine
+
     const eliminarDiseno01 = (index) => {
         // Crea una copia del array original
         const nuevosDisenos = [...selectedDisenoNombre];
@@ -45,7 +46,6 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
     };
 
 
-
     //funcion que se ejecuta aal dalr click en el diseno seleciconado para mostrar
     const agregarNuevoDiseno = (data) => {
         // console.log(data);
@@ -55,8 +55,6 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
         const nuevoDiseno = disenosDB.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
-        console.log(nuevoDiseno);
-
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
         
         //se le manda los datos recibidos a agregar diseno
@@ -83,8 +81,7 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
         if (selectedDisenoNombre.length === 0) {
             reset()
         }
-    }, [selectedDisenoNombre])
-
+    }, [selectedDisenoNombre]);
 
     return (
         <Modal
@@ -96,7 +93,6 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
             className='modal d-flex align-items-center justify-content-center '
             id='myModalDiseno'
         >
-
             <div className='modal-content'>
                 {/* Cabecero del modal */}
 
@@ -134,16 +130,15 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
                                 >
                                     <option value=''>Seleccionar diseño</option>
                                     {disenosDB
-                                        .filter(diseno => diseno.estado) // Filtrar solo los elementos habilitados
-                                        .map(diseno => (
+                                        .filter((diseno) => diseno.estado) // Filtrar solo los elementos habilitados
+                                        .map((diseno) => (
                                             <option
                                                 key={diseno.id_diseno}
                                                 value={diseno.id_diseno}
                                             >
                                                 {diseno.nombre}
                                             </option>
-                                        ))
-                                    }
+                                        ))}
                                 </select>
 
                                 {errors.id_diseno && (
@@ -178,7 +173,9 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
                                 {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.id_precio_diseno.message}
+                                        message={
+                                            errors.id_precio_diseno.message
+                                        }
                                     />
                                 )}
                             </div>
@@ -232,7 +229,9 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
                             />
 
                             {/* Botón para guardar*/}
-                            <GuardarModal />
+                            <GuardarModal
+                                onSubmit={handleSubmit(agregarNuevoDiseno)}
+                            />
                         </div>
                     </form>
                 </div>

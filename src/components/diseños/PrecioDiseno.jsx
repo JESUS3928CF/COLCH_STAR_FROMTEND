@@ -70,7 +70,6 @@ const PrecioDiseno = () => {
                             className='row g-3 needs-validation'
                             action=''
                             id='formularioModificar'
-                            onSubmit={actualizarPrecio}
                         >
                             <select
                                 id='select'
@@ -144,7 +143,7 @@ const PrecioDiseno = () => {
                                 />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal />
+                                <GuardarModal onSubmit={actualizarPrecio}/>
                             </div>
                         </form>
                     </div>

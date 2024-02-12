@@ -29,7 +29,7 @@ const OrdenesProvider = ({ children }) => {
                 0
             )
         );
-    }, [detallesOrden]);
+    }, [detallesOrden, setDetailsOrden]);
 
     // primer state
     const [ordenes, setOrdenes] = useState([]);
@@ -100,9 +100,6 @@ const OrdenesProvider = ({ children }) => {
 
     const actualizarOrden = async (id_orden, data, reset, handleClose) => {
         const { fecha_entrega, fk_cliente } = data;
-
-        console.log(detallesOrden);
-
         try {
             const actulizarOrden = await ordenAxios.patch(
                 `/ordenes/${id_orden}`,
@@ -232,6 +229,7 @@ const OrdenesProvider = ({ children }) => {
                 editar,
                 actualizarOrden,
                 consultarOrdenes,
+                setTotalOrden,
                 // BUSQUEDA
                 busqueda,
                 setBusqueda

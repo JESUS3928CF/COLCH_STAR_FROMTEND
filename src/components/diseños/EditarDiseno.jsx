@@ -74,7 +74,6 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                     <form
                         action=''
                         id='formularioAgregarDiseño'
-                        onSubmit={editarDiseno}
                     >
                         <div className='mb-3'>
                             <label htmlFor='nombre' className='col-form-label'>
@@ -165,7 +164,7 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
                             />
 
                             {/* Botón para guardar*/}
-                            <GuardarModal />
+                            <GuardarModal onSubmit={editarDiseno}/>
                         </div>
                     </form>
                 </div>

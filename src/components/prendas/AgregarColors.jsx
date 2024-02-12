@@ -86,9 +86,7 @@ id="#myModalColors">
                         />
 
                         <div className="modal-body">
-                            <form onSubmit={
-                                handleSubmit(onSubmit)
-                            }
+                            <form
                                 className='row g-3 needs-validation'
                             >
                                 <div className='col-md-6' name='color'>
@@ -163,7 +161,9 @@ id="#myModalColors">
                                 <div className='modal-footer'>
 
                                     <CancelarModal reset={reset} handleClose={handleClose}/>
-                                    <GuardarModal />
+                                    <GuardarModal onSubmit={
+                                handleSubmit(onSubmit)
+                            }/>
 
                                 </div>
                             </form>

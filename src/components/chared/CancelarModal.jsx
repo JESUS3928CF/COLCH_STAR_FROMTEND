@@ -5,17 +5,17 @@ import PropTypes from 'prop-types';
 const CancelarModal = ({
     modalToCancel,
     reset,
-    name='Cancelar' || name,
+    name = 'Cancelar' || name,
     handleClose,
-    setDetallesOrden,
-    setSelectedDisenoNombre, 
+    setDetallesOrden = () => {},
+    setSelectedDisenoNombre,
 }) => {
     //función que cuando le de click en cancelar se refresque la pagina y se restablezca la informacion que estaba en el formulario
     const onClick = () => {
         if (reset) reset();
         handleClose();
         setDetallesOrden([]);
-        
+
         // si es existe algo en setSelectDiseno resetea el set
         if (setSelectedDisenoNombre) {
             // Llama a setSelectedDisenoNombre con los parámetros adecuados

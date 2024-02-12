@@ -32,7 +32,7 @@ const GuardarModal = ({ text = 'Guardar', onSubmit }) => {
 
 GuardarModal.protoTypes = {
     text: PropTypes.string,
-    onSubmit: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
 };
 
 export default GuardarModal;

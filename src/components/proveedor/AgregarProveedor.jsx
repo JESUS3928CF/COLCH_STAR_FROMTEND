@@ -92,7 +92,6 @@ const AgregarProveedor = () => {
                         {/* formulario para agregar proveedor */}
                         <form
                             className='row g-1 needs-validation'
-                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className='mb-3' name='divIdentificacion'>
                                 <label
@@ -337,7 +336,7 @@ const AgregarProveedor = () => {
                                 />
 
                                 {/* Botón para guardar*/}
-                                <GuardarModal />
+                                <GuardarModal onSubmit={handleSubmit(onSubmit)}/>
                             </div>
                         </form>
                     </div>

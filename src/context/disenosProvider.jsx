@@ -30,7 +30,6 @@ export const DisenosProvider = ({ children }) => {
     //funciones para  guardar los disenos seleccionado en productos
     const agregarDiseno = (data) => {
         const nuevoDisenos = [...disenos, data];
-        console.log(nuevoDisenos);
         setDisenos(nuevoDisenos);
     };
 

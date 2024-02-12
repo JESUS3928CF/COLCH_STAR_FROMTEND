@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import HeaderModals from '../chared/HeaderModals';
-import styles from '../../css-general/estilosReutilizables.module.css';
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 

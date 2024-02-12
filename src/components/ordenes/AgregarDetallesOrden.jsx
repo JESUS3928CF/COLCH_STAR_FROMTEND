@@ -23,7 +23,6 @@ export const AgregarDetallesOrden = () => {
         setInfoProductoSeleccionado(productoEncontrado);
     };
 
-
     const {
         detallesOrden,
         setDetallesOrden,
@@ -63,7 +62,7 @@ export const AgregarDetallesOrden = () => {
     };
 
     return (
-        <form action='' className='' onSubmit={handleSubmit(guardarDetalle)}>
+        <form action='' className=''>
             <p
                 className='text-center'
                 style={{
@@ -128,7 +127,7 @@ export const AgregarDetallesOrden = () => {
                                 required: {
                                     value: true,
                                     message: 'La talla es obligatoria',
-                                }
+                                },
                             })}
                         >
                             <option value=''>Seleccione la talla</option>
@@ -158,16 +157,19 @@ export const AgregarDetallesOrden = () => {
                             {...register('color', {
                                 required: {
                                     value: true,
-                                    message: 'El color es obligatoria',
-                                }
+                                    message: 'El color es obligatorio',
+                                },
                             })}
                         >
                             <option value=''>Seleccione el color</option>
 
                             {infoProductoSeleccionado.colores.map((color) => {
                                 return (
-                                    <option key={color.id_color} value={color.color}>
-                                        {color.color} 
+                                    <option
+                                        key={color.id_color}
+                                        value={color.color}
+                                    >
+                                        {color.color}
                                     </option>
                                 );
                             })}
@@ -181,7 +183,6 @@ export const AgregarDetallesOrden = () => {
             )}
 
             <div className='row'>
-
                 <div className='col-md-12'>
                     <label
                         htmlFor='nombreCompraAgregar'
@@ -199,6 +200,21 @@ export const AgregarDetallesOrden = () => {
                             required: {
                                 value: true,
                                 message: 'La cantidad es obligatoria',
+                            },
+                            validate: (value) => {
+                                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                if (!/^\d+$/.test(value)) {
+                                    return 'La cantidad solo puede contener números';
+                                }
+                                // Convertir el número a cadena para realizar la validación de inicio con cero
+                                const valueAsString = value.toString();
+
+                                // Verificar si el número comienza con cero
+                                if (valueAsString.startsWith('0')) {
+                                    return 'El cantidad no puede iniciar en 0';
+                                }
+
+                                return true;
                             },
                         })}
                     />
@@ -224,12 +240,7 @@ export const AgregarDetallesOrden = () => {
                             textAlign: 'center',
                             height: 70,
                         }}
-                        {...register('descripcion', {
-                            required: {
-                                value: true,
-                                message: 'La descripción es obligatoria',
-                            },
-                        })}
+                        {...register('descripcion')}
                     />
 
                     {errors.descripcion && (
@@ -250,7 +261,10 @@ export const AgregarDetallesOrden = () => {
                 </div>
 
                 <div className='col-md-6 pr-1'>
-                    <GuardarModal text='Agregar detalle' />
+                    <GuardarModal
+                        text='Agregar detalle'
+                        onSubmit={handleSubmit(guardarDetalle)}
+                    />
                 </div>
             </div>
         </form>

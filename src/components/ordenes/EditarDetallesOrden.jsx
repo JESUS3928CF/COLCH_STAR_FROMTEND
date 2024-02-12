@@ -40,6 +40,7 @@ export const EditarDetallesOrden = ({
             setValue('color', detalle.color);
             setValue('cantidad', detalle.cantidad);
             setValue('descripcion', detalle.descripcion);
+            setValue('subtotal', detalle.subtotal);
         }
     }, [detalle]);
 
@@ -172,7 +173,7 @@ export const EditarDetallesOrden = ({
             )}
 
             <div className='row'>
-                <div className='col-md-12'>
+                <div className='col-md-6'>
                     <label
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
@@ -195,6 +196,27 @@ export const EditarDetallesOrden = ({
 
                     {errors.cantidad && (
                         <AlertaError message={errors.cantidad.message} />
+                    )}
+                </div>
+                <div className='col-md-6'>
+                    <label
+                        htmlFor='nombreCompraAgregar'
+                        className='col-form-label'
+                    >
+                        Subtotal: *
+                    </label>
+                    <input
+                        type='number'
+                        className='form-control'
+                        id='nombreCompraAgregar'
+                        name='nombreCompraAgregar'
+                        placeholder='. . .'
+                        {...register('subtotal')}
+                        readOnly
+                    />
+
+                    {errors.subtotal && (
+                        <AlertaError message={errors.subtotal.message} />
                     )}
                 </div>
 
@@ -248,9 +270,9 @@ export const EditarDetallesOrden = ({
 };
 
 EditarDetallesOrden.propTypes = {
-    detalle : PropTypes.array.isRequired,
-    eliminarDetalle : PropTypes.func.isRequired,
-    id : PropTypes.number.isRequired,
-    editarDetalle : PropTypes.func.isRequired,
+    detalle: PropTypes.object.isRequired,
+    eliminarDetalle: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    editarDetalle: PropTypes.func.isRequired,
 };
 

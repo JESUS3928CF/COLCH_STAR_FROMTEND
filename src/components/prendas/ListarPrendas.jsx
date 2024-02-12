@@ -339,7 +339,9 @@ export const ListarPrendas = () => {
                 showw={showw}
                 handleClosex={handleClosex}
             />
-            <SeleccionarColorsEditar detallesPrendas={detallesPrendas} />
+            <SeleccionarColorsEditar
+                detallesPrendas={detallesPrendas}
+            />
         </>
     );
 };
