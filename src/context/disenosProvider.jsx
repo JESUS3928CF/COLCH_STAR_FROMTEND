@@ -9,7 +9,8 @@ const DisenosContext = createContext();
 
 // Proveedor del contexto, que proporciona el estado y las funciones de actualización
 export const DisenosProvider = ({ children }) => {
-    const { token, auth } = useAuth();
+    const { token, auth, config} = useAuth();
+
 
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
@@ -153,7 +154,8 @@ export const DisenosProvider = ({ children }) => {
                 '/precio_disenos/' + data?.id_precio,
                 {
                     precio: data?.precio,
-                }
+                },
+                config
             );
 
             // Lanzar alerta del producto agregado
