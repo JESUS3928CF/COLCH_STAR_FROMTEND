@@ -7,6 +7,7 @@ import useOrden from '../../hooks/useOrden';
 import { useState } from 'react';
 import { EditarDetallesOrden } from './EditarDetallesOrden';
 import Swal from 'sweetalert2';
+import useProducto from '../../hooks/useProducto';
 
 export const ModalVerDetallesOrden = () => {
     const {
@@ -17,7 +18,11 @@ export const ModalVerDetallesOrden = () => {
         handleShow,
         handleShowEditar,
         editar,
+        setTotalOrden,
     } = useOrden();
+
+
+    const {productos} =  useProducto()
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -46,7 +51,6 @@ export const ModalVerDetallesOrden = () => {
     };
 
     const editarDetalle = (id, detalleEditado) => {
-        console.log(detalleEditado);
         if (
             !detalleEditado.cantidad ||
             detalleEditado.color == '' ||
@@ -55,29 +59,34 @@ export const ModalVerDetallesOrden = () => {
             !detalleEditado.fk_producto
         )
             return;
-        // Encuentra el índice del detalle con el id proporcionado
-        const indiceAEditar = detallesOrden.findIndex(
-            (detalle) => detalle.id === id
+
+        const productoARemplazar = productos.find(
+            (producto) => producto.id_producto == detalleEditado.fk_producto
         );
 
+
+
         // Copia del array original
-        const nuevosDetalles = [...detallesOrden];
+        const editadosDetalles = [...detallesOrden];
 
         // Eliminar el elemento en la posición especificada
-        const detalleAEditar = nuevosDetalles[indiceAEditar];
+        const detalleAEditar = editadosDetalles[id];
 
-        console.log(detalleAEditar);
 
         detalleAEditar.fk_producto = detalleEditado.fk_producto;
         detalleAEditar.cantidad = detalleEditado.cantidad;
         detalleAEditar.color = detalleEditado.color;
         detalleAEditar.descripcion = detalleEditado.descripcion;
         detalleAEditar.talla = detalleEditado.talla;
+        detalleAEditar.subtotal =
+            productoARemplazar.precio * detalleEditado.cantidad;
+        detalleAEditar.producto.precio = productoARemplazar.precio;
 
-        nuevosDetalles[indiceAEditar] = detalleAEditar;
+
+        editadosDetalles[id] = detalleAEditar;
 
         // Actualizar el estado con el nuevo array
-        setDetallesOrden([...nuevosDetalles]);
+        setDetallesOrden([...editadosDetalles]);
 
         Swal.fire({
             title: 'Bien',
@@ -141,6 +150,7 @@ export const ModalVerDetallesOrden = () => {
                                                     }
                                                     key={detalle.id}
                                                     id={detalle.id}
+                                                    idEditar={index}
                                                     editarDetalle={
                                                         editarDetalle
                                                     }
