@@ -145,6 +145,9 @@ const ProductosProvider = ({ children }) => {
                         text: response.data.message,
                         icon: 'success',
                     }).then(() => {
+
+                        //actualiza las prendad
+                        consultPrendas() 
                         consultarProductos();
                         consultarMovimientos();
                         handleClose();
