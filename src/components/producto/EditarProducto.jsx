@@ -17,6 +17,8 @@ import EditarDisenoModal from './EditarDisenoModal'
 import { Modal } from 'react-bootstrap';
 import useProducto from '../../hooks/useProducto.jsx';
 import useAuth from '../../hooks/useAuth';
+import { useDisenosContext } from '../../context/disenosProvider';
+
 
 
 //componente
@@ -66,6 +68,9 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
 
         }
     }, [editarProducto, show]);
+
+
+    const { disenos, setDisenos } = useDisenosContext();
 
 
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
