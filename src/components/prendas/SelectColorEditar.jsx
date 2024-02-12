@@ -174,7 +174,7 @@ const SeleccionarColorsEditar = ({ showw , handleClosee, detallesPrendas }) => {
 SeleccionarColorsEditar.propTypes = {
     showw: PropTypes.bool.isRequired, // showw debe ser un booleano requerido
     handleClosee: PropTypes.func.isRequired, // handleClosee debe ser una función requerida
-    detallesPrendas: PropTypes.array.isRequired, // detallesPrendas debe ser un objeto requerido
+    detallesPrendas: PropTypes.object.isRequired, // detallesPrendas debe ser un objeto requerido
 };
 
 export default SeleccionarColorsEditar;
