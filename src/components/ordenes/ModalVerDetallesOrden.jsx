@@ -6,6 +6,8 @@ import '../compras/Css/carousel-styles.css';
 import useOrden from '../../hooks/useOrden';
 import BotonNegro from '../chared/BotonNegro';
 import { useState } from 'react';
+import { EditarDetallesOrden } from './EditarDetallesOrden';
+import Swal from 'sweetalert2';
 
 export const ModalVerDetallesOrden = () => {
     const {
@@ -42,6 +44,43 @@ export const ModalVerDetallesOrden = () => {
             // Actualizar el estado del índice del Carousel
             setCarouselIndex(nuevoIndice);
         }
+    };
+
+    const editarDetalle = (id, detalleEditado) => {
+        console.log(detalleEditado);
+        if (
+            !detalleEditado.cantidad ||
+            detalleEditado.color == '' ||
+            !detalleEditado.descripcion ||
+            !detalleEditado.talla
+        )
+            return;
+        // Encuentra el índice del detalle con el id proporcionado
+        const indiceAEditar = detallesOrden.findIndex(
+            (detalle) => detalle.id === id
+        );
+
+        // Copia del array original
+        const nuevosDetalles = [...detallesOrden];
+
+        // Eliminar el elemento en la posición especificada
+        const detalleAEditar = nuevosDetalles[indiceAEditar];
+
+        detalleAEditar.cantidad = detalleEditado.cantidad;
+        detalleAEditar.color = detalleEditado.color;
+        detalleAEditar.descripcion = detalleEditado.descripcion;
+        detalleAEditar.talla = detalleEditado.talla;
+
+        nuevosDetalles[indiceAEditar] = detalleAEditar;
+
+        // Actualizar el estado con el nuevo array
+        setDetallesOrden([...nuevosDetalles]);
+
+        Swal.fire({
+            title: 'Bien',
+            text: 'Este detalle fue editado',
+            icon: 'success',
+        });
     };
 
     return (
@@ -81,118 +120,18 @@ export const ModalVerDetallesOrden = () => {
                                                     <p className='text-center mt-4'>
                                                         Detalle #{index + 1}
                                                     </p>
-                                                    <div className='col-md-12 '>
-                                                        <label
-                                                            htmlFor='producto'
-                                                            className='col-form-label'
-                                                        >
-                                                            Producto comprado:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.producto
-                                                                    .nombre
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='color'
-                                                            className='col-form-label'
-                                                        >
-                                                            Color:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.color
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='talla'
-                                                            className='col-form-label'
-                                                        >
-                                                            Talla:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.talla
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='cantidad'
-                                                            className='col-form-label'
-                                                        >
-                                                            Cantidad:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.cantidad
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='nombre'
-                                                            className='col-form-label'
-                                                        >
-                                                            Subtotal:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.cantidad *
-                                                                detalle.producto
-                                                                    .precio
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-12 '>
-                                                        <label
-                                                            htmlFor='nombre'
-                                                            className='col-form-label'
-                                                        >
-                                                            Descripción:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.descripcion
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
                                                 </div>
-                                                <div className='col-md-12 pl-1 pt-3 text-center'>
-                                                    <BotonNegro
-                                                        text={
-                                                            'Eliminar detalle'
-                                                        }
-                                                        onClick={() =>
-                                                            eliminarDetalle(
-                                                                detalle.id
-                                                            )
-                                                        }
-                                                    />
-                                                </div>
+
+                                                <EditarDetallesOrden
+                                                    detalle={detalle}
+                                                    eliminarDetalle={
+                                                        eliminarDetalle
+                                                    }
+                                                    id={detalle.id}
+                                                    editarDetalle={
+                                                        editarDetalle
+                                                    }
+                                                />
                                             </Carousel.Item>
                                         ))}
                                     </Carousel>

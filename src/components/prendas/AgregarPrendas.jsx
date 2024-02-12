@@ -78,7 +78,6 @@ const AgregarPrendas = () => {
     const onSubmit = async (data) => {
         const {
             nombre,
-            cantidad,
             precio,
             genero,
             imagen,
