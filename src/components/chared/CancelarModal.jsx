@@ -6,7 +6,7 @@ const CancelarModal = ({
     modalToCancel,
     reset,
     name = 'Cancelar' || name,
-    handleClose,
+    handleClose = () => {},
     setDetallesOrden = () => {},
     setSelectedDisenoNombre,
 }) => {
