@@ -11,12 +11,8 @@ import logo from '../../imgNavbar/cruz.png';
 import { Modal } from 'react-bootstrap';
 import useProducto from '../../hooks/useProducto';
 
-
 //Componente
 const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
-
-
-
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
@@ -26,9 +22,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
     //funciones y  propiedades que nos traemos de Diseño contex
     const { agregarDiseno, eliminarDiseno, disenosDB } = useDisenosContext();
-
-
-
 
     const eliminarDiseno01 = (index) => {
         // Crea una copia del array original
@@ -41,11 +34,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         eliminarDiseno(index);
     };
 
-
     const { selectedDisenoNombre, setSelectedDisenoNombre } = useProducto();
 
-    console.log(selectedDisenoNombre)
-    
+    console.log(selectedDisenoNombre);
 
     //funcion que se ejecuta al darle click en guardar
     const agregarNuevoDiseno = (data) => {
@@ -60,8 +51,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
     };
-
-
 
     //estado para traerel tanmaño y el precio de diseños
     const [Precio, setPrecio] = useState([]);
@@ -82,10 +71,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
         // console.log(selectedDisenoNombre.length === 0)
         if (selectedDisenoNombre.length === 0) {
             // console.log("Entrando")
-            reset()
+            reset();
         }
-    }, [selectedDisenoNombre])
-
+    }, [selectedDisenoNombre]);
 
     return (
         <Modal
@@ -97,7 +85,6 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
             className='modal d-flex align-items-center justify-content-center '
             id='myModalDiseno'
         >
-
             <div className='modal-content'>
                 {/* Cabecero del modal */}
 
@@ -135,16 +122,15 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                                 >
                                     <option value=''>Seleccionar diseño</option>
                                     {disenosDB
-                                        .filter(diseno => diseno.estado) // Filtrar solo los elementos habilitados
-                                        .map(diseno => (
+                                        .filter((diseno) => diseno.estado) // Filtrar solo los elementos habilitados
+                                        .map((diseno) => (
                                             <option
                                                 key={diseno.id_diseno}
                                                 value={diseno.id_diseno}
                                             >
                                                 {diseno.nombre}
                                             </option>
-                                        ))
-                                    }
+                                        ))}
                                 </select>
 
                                 {errors.id_diseno && (
@@ -179,7 +165,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
 
                                 {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.id_precio_diseno.message}
+                                        message={
+                                            errors.id_precio_diseno.message
+                                        }
                                     />
                                 )}
                             </div>
@@ -232,7 +220,9 @@ const AgregarDisenoModal = ({ handleClosee, showw, handleClosex }) => {
                             />
 
                             {/* Botón para guardar*/}
-                            <GuardarModal />
+                            <GuardarModal
+                                onSubmit={handleSubmit(agregarNuevoDiseno)}
+                            />
                         </div>
                     </form>
                 </div>

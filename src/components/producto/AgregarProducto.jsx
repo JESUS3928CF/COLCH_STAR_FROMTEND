@@ -114,7 +114,7 @@ const AgregarProducto = () => {
                 onHide={() => {
                     reset();
                     handleClose();
-                    setSelectedDisenoNombre([])
+                    setSelectedDisenoNombre([]);
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModal'
@@ -125,15 +125,12 @@ const AgregarProducto = () => {
                         handleClose={() => {
                             reset();
                             handleClose();
-                            setSelectedDisenoNombre([])
+                            setSelectedDisenoNombre([]);
                         }}
                     />
 
                     <div className='modal-body'>
-                        <form
-                            className='row g-3 needs-validation'
-                            onSubmit={handleSubmit(onSubmit)}
-                        >
+                        <form className='row g-3 needs-validation'>
                             <div className='col-md-6'>
                                 <label
                                     htmlFor='productoGuardar'
@@ -154,24 +151,36 @@ const AgregarProducto = () => {
                                             message: 'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
-                                            if (value.trim().length < 3 || value.length > 20) {
+                                            if (
+                                                value.trim().length < 3 ||
+                                                value.length > 20
+                                            ) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
                                             if (/^\d/.test(value)) {
                                                 return 'El nombre no puede empezar con números';
                                             }
-                                            
-                                            if (!/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+
+                                            if (
+                                                !/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
                                                 return 'El nombre solo puede contener números y letras';
                                             }
-                                            if (value.includes(" ")) {
-                                                return validarEspaciosVacios(value);
+                                            if (value.includes(' ')) {
+                                                return validarEspaciosVacios(
+                                                    value
+                                                );
                                             }
                                             return true;
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 21); // Limitar la longitud máxima
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            21
+                                        ); // Limitar la longitud máxima
                                         setValue('nombre', inputValue);
                                         trigger('nombre');
                                     }}
@@ -205,13 +214,13 @@ const AgregarProducto = () => {
                                                 'La cantidad es obligatoria',
                                         },
                                         validate: (value) => {
-
                                             // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                             if (!/^\d+$/.test(value)) {
                                                 return 'La cantidad solo puede contener números';
                                             }
                                             // Convertir el número a cadena para realizar la validación de inicio con cero
-                                            const valueAsString = value.toString();
+                                            const valueAsString =
+                                                value.toString();
 
                                             // Verificar si el número comienza con cero
                                             if (valueAsString.startsWith('0')) {
@@ -222,7 +231,10 @@ const AgregarProducto = () => {
                                         },
                                     })}
                                     onChange={(e) => {
-                                        const inputValue = e.target.value.slice(0, 11); // Limitar la longitud máxima
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            11
+                                        ); // Limitar la longitud máxima
                                         setValue('cantidad', inputValue);
                                         trigger('cantidad');
                                     }}
@@ -254,18 +266,18 @@ const AgregarProducto = () => {
                                     <option value=''>Seleccionar prenda</option>
                                     {/* SE REALIZA un mapeo con la informacio traida de prendas y seleccionamos que queremos de ella */}
                                     esto se guarda en name = fk_prenda
-                                    {Prendas
-                                        .filter(prenda => prenda.estado)
-                                        .map((prenda) => {
-                                            return (
-                                                <option
-                                                    key={prenda.id_prenda}
-                                                    value={prenda.id_prenda}
-                                                >
-                                                    {prenda.nombre}
-                                                </option>
-                                            );
-                                        })}
+                                    {Prendas.filter(
+                                        (prenda) => prenda.estado
+                                    ).map((prenda) => {
+                                        return (
+                                            <option
+                                                key={prenda.id_prenda}
+                                                value={prenda.id_prenda}
+                                            >
+                                                {prenda.nombre}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
 
                                 {errors.fk_prenda && (
@@ -353,11 +365,13 @@ const AgregarProducto = () => {
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
-                                    setSelectedDisenoNombre={setSelectedDisenoNombre}
-
-
+                                    setSelectedDisenoNombre={
+                                        setSelectedDisenoNombre
+                                    }
                                 />
-                                <GuardarModal />
+                                <GuardarModal
+                                    onSubmit={handleSubmit(onSubmit)}
+                                />
                             </div>
                         </form>
                     </div>

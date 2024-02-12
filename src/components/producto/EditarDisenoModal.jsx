@@ -122,33 +122,28 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                 reset();
                 handleClosee();
             }}
-            className="modal d-flex align-items-center justify-content-center "
-
+            className='modal d-flex align-items-center justify-content-center '
             id='myModalDiseno'
         >
             <div className='modal-content'>
                 {/* Cabecero del modal */}
-                <HeaderModals title='Diseño y  tamaño' handleClose={() => {
-                    reset();
-                    handleClosee();
-                    //al darle lcick al salir manda estos datos vacios
-                    // setSelectedDisenoNombre([])
-                    // setDisenos([])
-                }} />
+                <HeaderModals
+                    title='Diseño y  tamaño'
+                    handleClose={() => {
+                        reset();
+                        handleClosee();
+                        //al darle lcick al salir manda estos datos vacios
+                        // setSelectedDisenoNombre([])
+                        // setDisenos([])
+                    }}
+                />
 
                 <div className='modal-body'>
-                    <form
-                        action=''
-                        id='formularioModificar'
-                        onSubmit={handleSubmit(agregarNuevoDiseno)}
-                    >
-                        <div className="row ">
-                            <div className="col-md-6">
-
-
-
+                    <form action='' id='formularioModificar'>
+                        <div className='row '>
+                            <div className='col-md-6'>
                                 <label htmlFor='rol' className='col-form-label'>
-                                    Diseños: *  
+                                    Diseños: *
                                 </label>
                                 <select
                                     className='form-control' // Allow multiple selections
@@ -159,7 +154,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                                 'Debe seleccionar al menos un diseño',
                                         },
                                     })}
-
                                 >
                                     <option value=''>Seleccionar diseño</option>
                                     {detalle_diseno
@@ -179,7 +173,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                         message={errors.id_diseno.message}
                                     />
                                 )}
-
 
                                 <label htmlFor='rol' className='col-form-label'>
                                     Tamaño: *
@@ -207,58 +200,63 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
                                 {errors.id_precio_diseno && (
                                     <AlertaError
-                                        message={errors.id_precio_diseno.message}
+                                        message={
+                                            errors.id_precio_diseno.message
+                                        }
                                     />
                                 )}
-
                             </div>
                             <div className='col-md-6'>
                                 <p className={style.diseñosModalTitle}>
                                     Diseños seleccionados:
                                 </p>
-                                {selectedDisenoNombre.map(
-                                    (diseno, index) => (
-                                        <div key={index} className={style.disenocontainer}>
-                                            <p>
-                                                <span className={style.disenonombre}>- {diseno.nombre}</span>
-                                                <span onClick={() => eliminarDiseno01(index)}>
-                                                    <img src={logo} alt="" className={style.logoimg} />
-                                                </span>
-
-                                            </p>
-                                        </div>
-                                    )
-                                )}
-
-                               
-                               
-
-
+                                {selectedDisenoNombre.map((diseno, index) => (
+                                    <div
+                                        key={index}
+                                        className={style.disenocontainer}
+                                    >
+                                        <p>
+                                            <span
+                                                className={style.disenonombre}
+                                            >
+                                                - {diseno.nombre}
+                                            </span>
+                                            <span
+                                                onClick={() =>
+                                                    eliminarDiseno01(index)
+                                                }
+                                            >
+                                                <img
+                                                    src={logo}
+                                                    alt=''
+                                                    className={style.logoimg}
+                                                />
+                                            </span>
+                                        </p>
+                                    </div>
+                                ))}
                             </div>
-
                         </div>
                         <br />
-
-
 
                         <div className='modal-footer'>
                             {/* Botón para cancelar*/}
 
-                            <BotonNegro text={'Regresar'}
-                                modalClouse={"modal"}
+                            <BotonNegro
+                                text={'Regresar'}
+                                modalClouse={'modal'}
                                 onClick={() => {
-                                    // setSelectedDisenoNombre([]);
-                                    // setDisenos([]);
                                     handleClosee();
-                                    reset()
-                                     // Asumiendo que handleClosee es una función que cierra el modal
-                                }} />
+                                    reset();
+                                    // Asumiendo que handleClosee es una función que cierra el modal
+                                }}
+                            />
 
                             {/* Botón para guardar*/}
-                            <GuardarModal />
+                            <GuardarModal
+                                onSubmit={handleSubmit(agregarNuevoDiseno)}
+                            />
                         </div>
-
-
                     </form>
                 </div>
             </div>
