@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { startOfMonth, endOfMonth, format } from 'date-fns';
 
-export const Grafica = ({ compras }) => {
+const GraficaMensualVentas = ({ ordenes }) => {
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
   const [monthStartDate, setMonthStartDate] = useState(null);
@@ -21,7 +21,7 @@ export const Grafica = ({ compras }) => {
           monthChartInstance.current.destroy();
         }
 
-        if (monthStartDate && monthEndDate && compras) {
+        if (monthStartDate && monthEndDate && ordenes) {
           const daysInMonth = [];
           const currentDate = monthStartDate;
 
@@ -30,7 +30,7 @@ export const Grafica = ({ compras }) => {
             currentDate.setDate(currentDate.getDate() + 1);
           }
 
-          const monthData = obtenerDatosParaGrafico(daysInMonth, compras);
+          const monthData = obtenerDatosParaGrafico(daysInMonth, ordenes);
 
           const ctx = monthChartContainer.current.getContext('2d');
           monthChartInstance.current = new Chart(ctx, {
@@ -38,10 +38,10 @@ export const Grafica = ({ compras }) => {
             data: {
               labels: daysInMonth,
               datasets: [{
-                label: 'Total de compras por día (mes actual)',
+                label: 'Ventas por día (mes actual)',
                 data: monthData,
                 backgroundColor: '#b6e0bf',
-                borderColor: '#47684E',
+            borderColor: '#47684E',
                 borderWidth: 1
               }]
             },
@@ -65,38 +65,46 @@ export const Grafica = ({ compras }) => {
     };
 
     createChart();
-  }, [monthStartDate, monthEndDate, compras]);
+  }, [monthStartDate, monthEndDate, ordenes]);
 
-  const obtenerDatosParaGrafico = (fechas, compras) => {
-    const datosAgrupados = compras.reduce((resultado, compra) => {
-      const fecha = compra.fecha;
+  // Función para determinar si ha comenzado un nuevo mes
+  const isNewMonth = () => {
+    const today = new Date();
+    return today > endOfMonth(monthStartDate);
+  };
 
-      if (!resultado[fecha]) {
-        resultado[fecha] = {
-          Total_de_compras: 0,
-          name: fecha,
-        };
-      }
+  // Actualizar la gráfica si ha comenzado un nuevo mes
+  useEffect(() => {
+    if (isNewMonth()) {
+      setMonthStartDate(startOfMonth(new Date()));
+      setMonthEndDate(endOfMonth(new Date()));
+    }
+  }, []);
 
-      resultado[fecha].Total_de_compras += compra.total_de_compra;
+  const obtenerDatosParaGrafico = (fechas, ordenes) => {
+    const datosAgrupados = fechas.reduce((resultado, fecha) => {
+      resultado[fecha] = 0;
+
+      ordenes.forEach(orden => {
+        if (format(new Date(orden.fecha_entrega), 'yyyy-MM-dd') === fecha && orden.estado_de_orden === 'Finalizada') {
+          resultado[fecha] += orden.precio_total;
+        }
+      });
 
       return resultado;
     }, {});
 
-    return fechas.map(fecha => {
-      const totalCompras = datosAgrupados[fecha] ? datosAgrupados[fecha].Total_de_compras : 0;
-      return totalCompras;
-    });
+    return fechas.map(fecha => datosAgrupados[fecha]);
   };
 
   return (
     <>    
       <div>
-        <h2>Gráfico del mes actual:</h2>
+        <h2>Gráfico de ventas del mes actual:</h2>
         <canvas ref={monthChartContainer} width="400" height="200"></canvas>
       </div>
     </>
   );
 }
 
-export default Grafica;
+export default GraficaMensualVentas;
