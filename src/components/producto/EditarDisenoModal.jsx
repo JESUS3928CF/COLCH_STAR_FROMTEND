@@ -58,8 +58,7 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
 
     const agregarNuevoDiseno = (data) => {
         
-         console.log(data);
-        agregarDiseno(data);
+        
 
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
@@ -67,9 +66,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         console.log(nuevoDiseno)
        
 
-
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
-        console.log(setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]))
+
+        agregarDiseno(data);
 
     };
 
@@ -240,8 +239,9 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
                                 text={'Regresar'}
                                 modalClouse={'modal'}
                                 onClick={() => {
-                                    handleClosee();
                                     reset();
+                                    handleClosee();
+                                    
                                     // Asumiendo que handleClosee es una función que cierra el modal
                                 }}
                             />

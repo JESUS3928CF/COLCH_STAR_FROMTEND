@@ -93,7 +93,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                 onHide={() => {
                     reset();
                     handleClose();
-                    setSelectedDisenoNombre([]);
+                    // setSelectedDisenoNombre([]);
                 }}
                 className='modal d-flex align-items-center justify-content-center'
                 id='modalEditar'
@@ -104,7 +104,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                         handleClose={() => {
                             reset();
                             handleClose();
-                            setSelectedDisenoNombre([]);
+                            // setSelectedDisenoNombre([]);
                         }}
                     />
 
@@ -326,10 +326,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                     <BotonNegro
                                         text='Editar diseño'
                                         onClick={() => {
-                                            console.log(editarProducto.disenos);
-                                            setSelectedDisenoNombre(
-                                                editarProducto.disenos
-                                            );
+                                           
                                             handleShoww();
                                         }}
                                     />
@@ -338,9 +335,9 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                 <CancelarModal
                                     reset={reset}
                                     handleClose={handleClose}
-                                    setSelectedDisenoNombre={
-                                        setSelectedDisenoNombre
-                                    }
+                                    // setSelectedDisenoNombre={
+                                    //     setSelectedDisenoNombre
+                                    // }
                                 />
 
                                 <GuardarModal

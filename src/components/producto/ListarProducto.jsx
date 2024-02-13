@@ -26,6 +26,8 @@ import {
 import styles from '../../css-general/CardStyleGenerar.module.css';
 import useProducto from '../../hooks/useProducto.jsx';
 import AgregarProducto from './AgregarProducto.jsx';
+import { useDisenosContext } from '../../context/disenosProvider';
+
 
 const ListarProducto = () => {
     const {
@@ -55,6 +57,12 @@ const ListarProducto = () => {
 
     //estado de la barra buscador
     const [productosFiltrar, setProductosFiltrar] = useState([]);
+
+    const { setSelectedDisenoNombre } = useProducto();
+
+    const { disenos, setDisenos } = useDisenosContext();
+
+
 
     const [productosFiltrarBuscados, setProductosFiltrarBuscados] = useState(
         []
@@ -196,9 +204,10 @@ const ListarProducto = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
-                                                onClick={() =>
+                                                onClick={() => {
                                                     handleEditClick(producto)
-                                                }
+                                                    handleShow();
+                                                }}
                                             />
                                         </td>
                                     </tr>
