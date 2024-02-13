@@ -15,7 +15,7 @@ import useProducto from '../../hooks/useProducto';
 //Componente
 const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }) => {
 
-    const {editarDisenosProducto} = useProducto()
+    // const {editarDisenosProducto} = useProducto()
     const {
         register, //registra o identifica cada elemento o cada input
         handleSubmit, //para manejar el envió del formulario
