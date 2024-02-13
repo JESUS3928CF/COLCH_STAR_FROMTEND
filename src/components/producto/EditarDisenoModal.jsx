@@ -23,18 +23,14 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
         reset
     } = useForm();
 
-    // console.log(editarProducto)
+    
 
     //trae alguna funciones de disenos provider
     const { agregarDiseno, eliminarDiseno, setDisenos } = useDisenosContext();
 
-    //muestra los disenos existentes
-    // console.log(disenosDB)
-
-    // muestra los disenos seleccionados en el agregar
-    // console.log(disenos)
-
     
+
+    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
 
     const eliminarDiseno01 = (index) => {
@@ -54,7 +50,6 @@ const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }
     };
 
 
-    const {selectedDisenoNombre, setSelectedDisenoNombre} = useProducto();
 
     const agregarNuevoDiseno = (data) => {
         
