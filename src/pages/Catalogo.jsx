@@ -31,7 +31,7 @@ const Catalogo = () => {
 
     const [generoSeleccionadooo, setGeneroSeleccionadooo] = useState(null);
 
- 
+
     const { Prendas } = usePrendas();
 
 
@@ -46,7 +46,7 @@ const Catalogo = () => {
     };
 
     //traemos toda la informacion de prendas guardada
-    
+
     //hacemos el conteno de cuanrto diseños hay guardadoa
     // const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
 
@@ -93,7 +93,10 @@ const Catalogo = () => {
                         <a href='#categories'>Categorias</a>
                     </li> */}
                     <li>
-                        <a href='#products'>Productos</a>
+                        <a href='#productos'>Productos</a>
+                    </li>
+                    <li>
+                        <a href='#prendas'>Prendas</a>
                     </li>
                     <li>
                         <a href='#diseños'>Diseños</a>
@@ -218,8 +221,66 @@ const Catalogo = () => {
                 </div>
             </section> */}
 
+
+            {/* //productoss */}
+            <div className={style.color}>
+                <section className={style.products + ' ' + style.section} id='productos'>
+                    <div className={style.heading}>
+                        <h1>
+                            Nuestros Productos <br /> <span>Populares</span>
+                        </h1>
+                        <a onClick={redirigirWhatsApp} className={style.btn}>
+                            Comprar <i className='bx bx-right-arrow-alt'></i>
+                        </a>
+                    </div>
+
+                    <div className={style.productsconatiner}>
+                        {productos
+                            .filter(
+                                (productos) =>
+                                    productos.publicado &&
+                                    productos.estado !== false
+                            ) // Filter only published designs
+                            .map((productos, index) => (
+                                <div className={style.box} key={index}>
+                                    <img
+                                        className={
+                                            style.imagenProducto +
+                                            ' ' +
+                                            style.img
+                                        }
+                                        src={
+                                            productos.imagen
+                                                ? `${import.meta.env
+                                                    .VITE_BACKEND_URL
+                                                }/${productos.imagen}`
+                                                : ''
+                                        }
+                                        alt=''
+                                    />
+                                    <div
+                                        className={style.informacionProducto}
+                                    ></div>
+                                    <span className={style.discount}>
+                                        {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}
+                                        {productos.nombre}
+                                    </span>
+                                    <img
+                                        onClick={redirigirWhatsApp}
+                                        className={
+                                            style.iconoWhatapp + ' ' + style.img
+                                        }
+                                        src={logoW}
+                                        alt=''
+                                    />
+                                </div>
+                            ))}
+                    </div>
+                </section>
+            </div>
+
             {/* //prendas */}
-            <section className={style.products + ' ' + style.section} id='products'>
+            <section className={style.products + ' ' + style.section} id='prendas'>
                 <div className={style.heading}>
                     <h1>
                         Nuestras Prendas <br /> <span>Populares</span>
@@ -282,65 +343,6 @@ const Catalogo = () => {
                 )}
             </section>
 
-
-
-            {/* //productoss */}
-            <div className={style.color}>
-                <section className={style.products + ' ' + style.section} id=''>
-                    <div className={style.heading}>
-                        <h1>
-                            Nuestros Productos <br /> <span>Populares</span>
-                        </h1>
-                        <a onClick={redirigirWhatsApp} className={style.btn}>
-                            Comprar <i className='bx bx-right-arrow-alt'></i>
-                        </a>
-                    </div>
-
-                    <div className={style.productsconatiner}>
-                        {productos
-                            .filter(
-                                (productos) =>
-                                    productos.publicado &&
-                                    productos.estado !== false
-                            ) // Filter only published designs
-                            .map((productos, index) => (
-                                <div className={style.box} key={index}>
-                                    <img
-                                        className={
-                                            style.imagenProducto +
-                                            ' ' +
-                                            style.img
-                                        }
-                                        src={
-                                            productos.imagen
-                                                ? `${import.meta.env
-                                                    .VITE_BACKEND_URL
-                                                }/${productos.imagen}`
-                                                : ''
-                                        }
-                                        alt=''
-                                    />
-                                    <div
-                                        className={style.informacionProducto}
-                                    ></div>
-                                    <span className={style.discount}>
-                                        {/* {diseno.publicado ? 'Publicado' : 'No publicado'} */}
-                                        {productos.nombre}
-                                    </span>
-                                    <img
-                                        onClick={redirigirWhatsApp}
-                                        className={
-                                            style.iconoWhatapp + ' ' + style.img
-                                        }
-                                        src={logoW}
-                                        alt=''
-                                    />
-                                </div>
-                            ))}
-                    </div>
-                </section>
-            </div>
-
             {/* //diseñossss */}
             <section
                 className={style.products + ' ' + style.section}
@@ -402,10 +404,10 @@ const Catalogo = () => {
                     id='about'
                 >
                     <img className={style.img} src={logo10} alt='' />
-                    <div className={style.abouttext}>
+                    <div className={style.abouttext} style={{textAlign: 'justify'}} >
                         <span>Nosotros</span>
                         <p>
-                            En Colch Star, nos dedicamos apasionadamente a
+                            En <strong>Colch Star</strong>, nos dedicamos apasionadamente a
                             plasmar diseños únicos en prendas de vestir. Desde
                             nuestra fundación en 2022, nos hemos destacado en la
                             industria de los estampados de ropa, brindando
