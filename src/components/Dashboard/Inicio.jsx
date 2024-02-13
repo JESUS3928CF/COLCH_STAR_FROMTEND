@@ -40,8 +40,10 @@ import {
     ComposedChart,
     Area,
 } from 'recharts';
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { FaRegFilePdf } from "react-icons/fa6";
 
-import { FaMoneyBillTrendUp, FaRegFilePdf } from 'react-icons/fa6';
+
 import { MdOutlineMoneyOffCsred } from 'react-icons/md';
 import { PiShootingStarThin } from 'react-icons/pi';
 import { registrosPorPagina } from '../../constantes/constantes.js';
@@ -61,43 +63,11 @@ import { useEffect, useState } from 'react';
 import useCompras from '../../hooks/useCompras.jsx';
 import useOrden from '../../hooks/useOrden.jsx';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-// import PDFCompras from './PDF/PDFCompras.jsx';
-// import Notificacion from './Notificacion.jsx';
-// import { startOfWeek, subDays, format } from 'date-fns';
-// import GraficaSemanal from './Graficas/GraficaSemanal.jsx';
-// import GraficaMes from './Graficas/GraficaMes.jsx';
-// import GraficaMensual from './Graficas/GraficaMensual.jsx';
-// import { BiBox } from "react-icons/bi";
-// import { FaMoneyBillTrendUp, FaRegFilePdf } from "react-icons/fa6";
-// import { MdOutlineMoneyOffCsred } from "react-icons/md";
-// import { PiShootingStarThin } from "react-icons/pi";
-// import { IoAccessibility } from "react-icons/io5";
-// import { AiFillCrown } from "react-icons/ai";
-// import { IoIosNotifications } from "react-icons/io";
-// import Header from "../chared/header/Header";
-// import styleDashboard from "../Dashboard/Css/styleDashboard.css";
-// import useProveedor from "../../hooks/useProveedor";
-// import useClientes from "../../hooks/useCliente";
-// import usePrendas from "../../hooks/usePrendas";
-// import { useDisenosContext } from "../../context/disenosProvider";
-// import useProducto from "../../hooks/useProducto";
-// import { Link } from "react-router-dom";
-// import useMovimientos from "../../hooks/useMovimientos";
-// import { useEffect, useState } from "react";
-// import useCompras from "../../hooks/useCompras.jsx";
-// import useOrden from "../../hooks/useOrden.jsx";
-// import { PDFDownloadLink } from "@react-pdf/renderer";
-// import Notificacion from "./Notificacion.jsx";
-// import { startOfWeek, subDays, format } from "date-fns";
-// import GraficaSemanal from "./Graficas/GraficaSemanal.jsx";
-// import GraficaMes from "./Graficas/GraficaMes.jsx";
-// import GraficaAnual from "./Graficas/GraficaAnual.jsx";
-// import PDFComprasMes from "./PDF/PDFComprasMes.jsx";
-// import PDFComprasSemana from "./PDF/PDFComprasSemana.jsx";
-// import GraficaMensualVentas from "./Graficas/GraficaMensualVentas.jsx";
-// import GraficaSemanalVentas from "./Graficas/GraficaSemanalVentas.jsx";
-// import GraficaAnualVentas from "./Graficas/GraficaAnualVentas.jsx";
-// import PDFVentasMes from "./PDF/PDFVentasMes.jsx";
+import Notificacion from './Notificacion.jsx';
+import { startOfWeek, subDays, format } from 'date-fns';
+import GraficaSemanal from './Graficas/GraficaSemanal.jsx';
+import GraficaMes from './Graficas/GraficaMes.jsx';
+import PDFVentasMes from './PDF/PDFVentasMes.jsx';
 
 export const InicioDashboard = () => {
     const { proveedores } = useProveedor();
@@ -274,7 +244,7 @@ export const InicioDashboard = () => {
                                             </Text>
 
                       <PDFDownloadLink
-                        document={<PDFCompras />}
+                        document={<PDFVentasMes />}
                         fileName="Compras.pdf"
                       >
                         {({ loading, url, error, blob }) =>
@@ -300,6 +270,9 @@ export const InicioDashboard = () => {
                                                 Total de ventas
                                             </Title>
                                             <FaMoneyBillTrendUp className='iconsE' />
+                                            <FaMoneyBillTrendUp>
+
+                                            </FaMoneyBillTrendUp>
 
                       <Text className="Cantidad">{cantidadDeProductos}</Text>
                       <Button className="botonInfoC">
@@ -607,7 +580,8 @@ export const InicioDashboard = () => {
                                         </Card>
 
                     <Card className="containerHeaderGraficaM  customChartContainerM">
-                      <GraficaMensual compras={compras} />
+                      <GraficaMes compras={compras} />
+                      
                     </Card>
                   </TabPanel>
 
@@ -644,7 +618,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasEnero.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -659,7 +633,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasEnero.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -678,7 +652,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasFebrero.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -693,7 +667,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasFebrero.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -712,7 +686,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasMarzo.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -727,7 +701,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasMarzo.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -746,7 +720,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasAbril.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -761,7 +735,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasAbril.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -781,7 +755,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasMayo.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -796,7 +770,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasMayo.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -815,7 +789,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasJunio.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -830,7 +804,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasJunio.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -850,7 +824,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasJulio.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -865,7 +839,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasJulio.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -885,7 +859,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasAgosto.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -900,7 +874,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasAgosto.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -920,7 +894,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasSeptiembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -935,7 +909,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasSeptiembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -955,7 +929,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasOcutubre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -969,7 +943,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasOctubre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -989,7 +963,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasNoviembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -1004,7 +978,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasNoviembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -1024,7 +998,7 @@ export const InicioDashboard = () => {
                             </TableCell>
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="ComprasDiciembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
@@ -1039,7 +1013,7 @@ export const InicioDashboard = () => {
 
                             <TableCell className="textH">
                               <PDFDownloadLink
-                                document={<PDFCompras />}
+                                document={<PDFVentasMes />}
                                 fileName="VentasDiciembre.pdf"
                               >
                                 {({ loading, url, error, blob }) =>
