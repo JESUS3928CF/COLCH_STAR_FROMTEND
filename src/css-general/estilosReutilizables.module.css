@@ -30,3 +30,19 @@
     background-color: rgb(223, 223, 223);
 }
 
+/* .carr{
+    border: 1px solid black;
+    
+}
+
+.carrr{
+    border: 1px solid black;
+   margin-right: 2;
+    
+} */
+
+
+
+.arrowButtons button {
+    margin-right: 20px; /* Ajusta el margen derecho según tus necesidades */
+}
