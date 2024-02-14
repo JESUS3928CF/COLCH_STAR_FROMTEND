@@ -143,7 +143,7 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                                 <div className='tallas-div text-center'>
                                                                     {/* Mapping sizes */}
                                                                     {detallesProductos.tallas && Array.isArray(detallesProductos.tallas) ? detallesProductos.tallas.map((tallas, index) => (
-                                                                        <p key={index}>{tallas}</p>
+                                                                        <p key={index}>{tallas},</p>
                                                                     )) : null}
                                                                 </div>
                                                             </h3>
