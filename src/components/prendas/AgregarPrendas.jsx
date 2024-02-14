@@ -174,9 +174,9 @@ const AgregarPrendas = () => {
                                         validate: (value) => {
                                             if (
                                                 value.trim().length < 3 ||
-                                                value.length > 20
+                                                value.length > 30
                                             ) {
-                                                return 'El nombre debe tener entre 3 y 20 caracteres';
+                                                return 'El nombre debe tener entre 3 y 30 caracteres';
                                             }
                                             if (
                                                 !/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(
@@ -197,7 +197,7 @@ const AgregarPrendas = () => {
                                     onChange={(e) => {
                                         const inputValue = e.target.value.slice(
                                             0,
-                                            21
+                                            31
                                         );
                                         setValue('nombre', inputValue);
                                         trigger('nombre');

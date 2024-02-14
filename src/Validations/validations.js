@@ -42,20 +42,21 @@ export const validarFecha = (value) => {
       return 'La fecha no puede ser futura';
     }
   
-    // Calcular la fecha mínima permitida, un año desde la fecha actual
+    // Calcular la fecha mínima permitida, 15 días antes de la fecha actual
     const fechaMinimaPermitida = new Date();
-    fechaMinimaPermitida.setFullYear(fechaMinimaPermitida.getFullYear() - 1);
+    fechaMinimaPermitida.setDate(fechaMinimaPermitida.getDate() - 15);
   
     // Aplicar el desplazamiento horario para Colombia (UTC-5)
     fechaMinimaPermitida.setHours(fechaMinimaPermitida.getHours() - 5);
 
-    // Verificar si la fecha es menor a un año desde la fecha actual
+    // Verificar si la fecha es menor a 15 días desde la fecha actual
     if (fechaIngresada < fechaMinimaPermitida) {
-      return 'La fecha no puede ser menor a un año desde la fecha actual';
+      return 'La fecha no puede ser menor a 15 días desde la fecha actual';
     }
   
     return true;
-};
+};  
+
 
 
   export const validarFechaOrden = (value) => {
