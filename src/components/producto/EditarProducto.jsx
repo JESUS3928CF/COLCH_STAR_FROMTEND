@@ -25,9 +25,9 @@ import { useDisenosContext } from '../../context/disenosProvider';
 const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handleShoww, showw, handleClosex }) => {
 
     //traigo la funciona para eidtar un producto
-    const { editarProductos, setSelectedDisenoNombre } = useProducto();
+    const { editarProductos} = useProducto();
 
-    const { disenos, setDisenos } = useDisenosContext();
+   
 
     //estado pa las prendas 
     const [Prendas, setPrendas] = useState([]);

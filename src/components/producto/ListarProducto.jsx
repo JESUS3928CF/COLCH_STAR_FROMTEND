@@ -38,7 +38,7 @@ const ListarProducto = () => {
         setBusqueda,
     } = useProducto();
 
-    /// Funcionalidad para cerra el modal
+    /// Funcionalidad para cerra el modal de editar
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
