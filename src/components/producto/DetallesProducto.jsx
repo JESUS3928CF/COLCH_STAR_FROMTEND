@@ -1,9 +1,27 @@
 import PropTypes from 'prop-types';
 import HeaderModals from '../chared/HeaderModals';
 import { FcApproval, FcCancel } from 'react-icons/fc';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import styles from '../../css-general/estilosReutilizables.module.css';
-
+import React, { useState } from 'react';
 const DetallesProducto = ({ detallesProductos }) => {
+
+
+    const [startIndex, setStartIndex] = useState(0);
+    const numVisibleColors = 2;
+
+    const handleNext = () => {
+        if (detallesProductos.colores && detallesProductos.colores.length > startIndex + numVisibleColors) {
+            setStartIndex(startIndex + 1);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (startIndex > 0) {
+            setStartIndex(startIndex - 1);
+        }
+    };
+
     return (
         <div>
             <div className='modal' id='modalDetalles'>
@@ -15,12 +33,15 @@ const DetallesProducto = ({ detallesProductos }) => {
                                 <div className='container'>
                                     <div className='col'>
                                         <div className='row'>
+                                            {/* Carousel */}
                                             <div className='row d-flex justify-content-center align-items-center'>
                                                 <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
                                                     <div className="carousel-inner">
+                                                        {/* Carousel Items */}
                                                         <div className={`carousel-item active ${styles.tamano}`}>
-                                                            <div className={styles.titu} >
-                                                                <h2 >Producto:</h2>
+                                                            {/* Product Image */}
+                                                            <div className={styles.titu}>
+                                                                <h2>Producto:</h2>
                                                             </div>
                                                             <img
                                                                 src={
@@ -33,9 +54,11 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                                 className={styles.contenedor_imagen}
                                                             />
                                                         </div>
+                                                        {/* Other Images */}
+                                                        {/* (Assuming detallesProductos.prenda.imagen and detallesProductos.disenos exist) */}
                                                         <div className={`carousel-item  ${styles.tamano}`}>
-                                                            <div className={styles.titu} >
-                                                                <h2 >Prenda</h2>
+                                                            <div className={styles.titu}>
+                                                                <h2>Prenda</h2>
                                                             </div>
                                                             <img
                                                                 src={
@@ -50,8 +73,8 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                         </div>
                                                         {detallesProductos.disenos && detallesProductos.disenos.map((diseno, index) => (
                                                             <div key={`${diseno.nombre}-${index}`} className={`carousel-item  ${styles.tamano}`}>
-                                                                <div className={styles.titu} >
-                                                                    <h2 >Diseños</h2>
+                                                                <div className={styles.titu}>
+                                                                    <h2>Diseños</h2>
                                                                 </div>
                                                                 <a href="" className={styles.contenedor_imagen}>
                                                                     <img
@@ -67,6 +90,7 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                             </div>
                                                         ))}
                                                     </div>
+                                                    {/* Carousel Controls */}
                                                     <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                                         <span className={` carousel-control-prev-icon ${styles.flecha}`} aria-hidden="true"></span>
                                                         <span className="visually-hidden">Previous</span>
@@ -76,53 +100,66 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                         <span className="visually-hidden">Next</span>
                                                     </button>
                                                 </div>
+                                                {/* Product Details */}
                                                 <div className={` card-body  ${styles.car}`}>
                                                     <div className="row">
-                                                        <div className="col-md-6">
+                                                        {/* Genero */}
+                                                        <div className={` col-md-6  ${styles.carr}`}>
                                                             <h2 htmlFor='nombre' className='card-title'>
                                                                 <b>Género:</b> {detallesProductos.prenda && detallesProductos.prenda.genero}
                                                             </h2>
-                                                        </div>
-                                                        <div className="col-md-5">
-                                                            <h2 htmlFor='nombre' className='card-title'>
-                                                                <b>Tela:</b> {detallesProductos.prenda && detallesProductos.prenda.tipo_de_tela}
-                                                            </h2>
-                                                        </div>
-                                                    </div>
-                                                    <h3 htmlFor='Colores' className='card-title'>
-                                                        <b>Colores:</b>
-                                                        <div className='colors-div'>
-                                                            {detallesProductos.colores &&
-                                                                detallesProductos.colores.map((color, index) => (
-                                                                    <div key={`${color.id_color}_${index}`} className='color-block'>
-                                                                        <span className='color-name'>
-                                                                            {index !== detallesProductos.colores.length - 1 ? color.color + ',' : color.color}
-                                                                        </span>
-                                                                        <div className='color-div' style={{ backgroundColor: `${color.codigo}`,  width: '40px', }}></div>
+                                                            {/* Colores */}
+                                                            <h3 htmlFor='Colores' className='card-title'>
+                                                                <b>Colores:</b>
+                                                                <div className='colors-div'>
+                                                                    {/* Mapping colors */}
+                                                                    {detallesProductos.colores && detallesProductos.colores.slice(startIndex, startIndex + numVisibleColors).map((color, index) => (
+                                                                        <div key={`${color.id_color}_${index}`} className='color-block'>
+                                                                            <span className='color-name'>
+                                                                                {index !== detallesProductos.colores.length - 1 ? color.color + ',' : color.color}
+                                                                            </span>
+                                                                            <div className='color-div' style={{ backgroundColor: `${color.codigo}`, width: '40px' }}></div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                                {/* Arrow Buttons for Colors */}
+                                                                {detallesProductos.colores && detallesProductos.colores.length > numVisibleColors && (
+                                                                    <div className={styles.arrowButtons}>
+                                                                        <button className="btn btn-link" onClick={handlePrevious}><BiChevronLeft /></button>
+                                                                        <button className="btn btn-link" onClick={handleNext}><BiChevronRight /></button>
                                                                     </div>
-                                                                ))}
+                                                                )}
+                                                            </h3>
                                                         </div>
-                                                    </h3>
-                                                    <div className='col'>
-                                                        <h3 htmlFor='tallas' className='card-title'>
-                                                            <b>Tallas:</b>
-                                                        </h3>
-                                                        <div className='tallas-div text-center'>
-                                                            {detallesProductos.tallas && Array.isArray(detallesProductos.tallas) ? detallesProductos.tallas.map((tallas, index) => (
-                                                                <p key={index}>{tallas}</p>
-                                                            )) : null}
+                                                        {/* Tela */}
+                                                        <div className={` col-md-6  ${styles.carrr}`}>
+                                                            <h2 htmlFor='nombre' className='card-title' style={{ marginBottom: '10%' }} >
+                                                                <b>Tela:</b>
+                                                                <div className='tallas-div text-center'><p> {detallesProductos.prenda && detallesProductos.prenda.tipo_de_tela}</p></div>
+                                                            </h2>
+                                                            {/* Tallas */}
+                                                            <h3 htmlFor='tallas' className='card-title'>
+                                                                <b>Tallas:</b>
+                                                                <div className='tallas-div text-center'>
+                                                                    {/* Mapping sizes */}
+                                                                    {detallesProductos.tallas && Array.isArray(detallesProductos.tallas) ? detallesProductos.tallas.map((tallas, index) => (
+                                                                        <p key={index}>{tallas},</p>
+                                                                    )) : null}
+                                                                </div>
+                                                            </h3>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='text-center mt-3 d-flex justify-content-center align-items-center' >
-                                                <h3 htmlFor='publicado' className='card-title' >
+                                            {/* Publicado */}
+                                            <div className='text-center mt-3 d-flex justify-content-center align-items-center'>
+                                                <h3 htmlFor='publicado' className='card-title'>
                                                     <b>Publicado </b>
                                                 </h3>
                                                 <div style={{ fontSize: '40px', paddingLeft: '10px', paddingBottom: '5px' }}>
                                                     {detallesProductos.publicado && detallesProductos.estado ? <FcApproval /> : <FcCancel />}
                                                 </div>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -132,6 +169,8 @@ const DetallesProducto = ({ detallesProductos }) => {
                 </div>
             </div>
         </div>
+
+
     );
 }
 

@@ -27,6 +27,8 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     //traigo la funciona para eidtar un producto
     const { editarProductos, setSelectedDisenoNombre } = useProducto();
 
+    const { disenos, setDisenos } = useDisenosContext();
+
 
     const { config } = useAuth();
 
@@ -70,7 +72,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     }, [editarProducto, show]);
 
 
-    const { disenos, setDisenos } = useDisenosContext();
+    
 
 
     //funcion que se ejecuta cuando alguien intenta enviar el formulario
@@ -107,6 +109,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                             // setSelectedDisenoNombre([]);
                         }}
                     />
+                    <p style={{color:'red', fontSize: 14}}>Recuerde tener la cantidad de prendas suficientes</p>
 
                     <div className='modal-body'>
                         <form className='row g-3 needs-validation'>
