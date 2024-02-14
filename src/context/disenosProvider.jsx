@@ -78,14 +78,24 @@ export const DisenosProvider = ({ children }) => {
                 consultarMovimientos();
                 handleClose();
             });
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
+            if (err.response && err.response.status === 403) {
             // Lanzar alerta de error
+            Swal.fire({
+                title: 'Espera!!',
+                text: err.response.data.message,
+                icon: 'warning',
+            });
+        }  else {
+            // En caso de otros errores, muestra una alerta genérica de error
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
-            }).then(handleClose());
+                icon: 'error',
+            }).then(() => {
+                handleClose();
+            });
+        }
         }
     };
 
@@ -113,14 +123,24 @@ export const DisenosProvider = ({ children }) => {
                 consultarMovimientos();
                 handleClose();
             });
-        } catch (error) {
-            console.log(error);
-            // Lanzar alerta de error
+        } catch (err) {
+        if (err.response && err.response.status === 403) {
+
+            Swal.fire({
+                title: 'Espera!!',
+                text: err.response.data.message,
+                icon: 'warning',
+            });
+        }  else {
+            // En caso de otros errores, muestra una alerta genérica de error
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error',
-                icon: 'Vuelva a intentarlo',
-            }).then(handleClose());
+                icon: 'error',
+            }).then(() => {
+                handleClose();
+            });
+        }
         }
     };
 

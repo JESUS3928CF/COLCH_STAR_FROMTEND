@@ -122,6 +122,7 @@ const ListarOrdenes = () => {
                                 camposFiltrar={[
                                     'cliente',
                                     'precio_total',
+                                    'fecha_creacion',
                                     'fecha_entrega',
                                     'estado_de_orden',
                                 ]} //se le manda los campos por donde se puede filtrar
@@ -139,8 +140,9 @@ const ListarOrdenes = () => {
                                 <tr>
                                     <th scope='col'>ID</th>
                                     <th scope='col'>Cliente</th>
-                                    <th scope='col'>Precio total</th>
+                                    <th scope='col'>Precio Total</th>
                                     <th scope='col'>Dirección</th>
+                                    <th scope='col'>Fecha creación</th>
                                     <th scope='col'>Fecha entrega</th>
                                     <th scope='col'>Detalles</th>
                                     <th scope='col'>Estado orden</th>
@@ -158,6 +160,7 @@ const ListarOrdenes = () => {
                                         </td>
                                         <td>{orden.precio_total}</td>
                                         <td>{orden.cliente.direccion}</td>
+                                        <td>{orden.fecha_creacion}</td>
                                         <td>{orden.fecha_entrega}</td>
                                         <td>
                                             <BotonNegro
@@ -235,7 +238,11 @@ const ListarOrdenes = () => {
                                             </span>
                                         </p>
                                         <p className={styles.text}>
-                                            Fecha Entrega:{' '}
+                                            Fecha creación:{' '}
+                                            <span>{orden.fecha_creacion}</span>
+                                        </p>
+                                        <p className={styles.text}>
+                                            Fecha de entrega:{' '}
                                             <span>{orden.fecha_entrega}</span>
                                         </p>
                                         <p className={styles.text}>
