@@ -100,6 +100,13 @@ const ListarProducto = () => {
                 'error'
             );
         }
+
+        if (producto && producto.disenos) {
+            setSelectedDisenoNombre(producto.disenos);
+            setDisenos(producto.disenos)
+        }
+
+        console.log(producto)
         setEditarProducto(producto);
         handleShow();
     };
