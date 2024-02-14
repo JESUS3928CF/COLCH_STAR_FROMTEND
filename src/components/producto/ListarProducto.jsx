@@ -61,7 +61,7 @@ const ListarProducto = () => {
 
     //estado de la barra buscador
     const [productosFiltrar, setProductosFiltrar] = useState([]);
-    
+
 
     const { setSelectedDisenoNombre } = useProducto();
 
@@ -124,6 +124,9 @@ const ListarProducto = () => {
         calcularAnchoDePantalla(setAnchoPantalla);
         setBusqueda('');
     }, []);
+
+
+    
 
     return (
         <div>
