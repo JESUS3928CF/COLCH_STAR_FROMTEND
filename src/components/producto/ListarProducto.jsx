@@ -96,6 +96,7 @@ const ListarProducto = () => {
     //estado para editar
     const [editarProducto, setEditarProducto] = useState('');
 
+
     //si al darle click en editar el proveedor esta inhabilitado no lo va dejar entrar a editar
     const handleEditClick = (producto) => {
         if (!producto.estado) {
@@ -111,7 +112,7 @@ const ListarProducto = () => {
             setDisenos(producto.disenos)
         }
 
-        console.log(producto)
+        // console.log(producto)
         setEditarProducto(producto);
         handleShow();
     };
