@@ -65,7 +65,7 @@ import useOrden from '../../hooks/useOrden.jsx';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import Notificacion from './Notificacion.jsx';
 import { startOfWeek, subDays, format } from 'date-fns';
-import GraficaSemanal from './Graficas/GraficaSemanal.jsx';
+import GraficaVentasCompras from './Graficas/GraficaVentasCompras.jsx';
 import GraficaMes from './Graficas/GraficaMes.jsx';
 import PDFVentasMes from './PDF/PDFVentasMes.jsx';
 
@@ -572,7 +572,7 @@ export const InicioDashboard = () => {
                                         />
 
                                         <Card className='containerHeaderGrafica  customChartContainer'>
-                                            <GraficaSemanal compras={compras} />
+                                            <GraficaVentasCompras ordenes={ordenes} compras={compras}  />
                                         </Card>
 
                                         <Card className='containerHeaderGraficaM  customChartContainerM'>
