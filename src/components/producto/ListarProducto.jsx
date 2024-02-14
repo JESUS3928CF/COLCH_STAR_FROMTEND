@@ -44,6 +44,7 @@ const ListarProducto = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+
     // función para cerrar, abrir modal de EditarDiseñosModal
     const [showw, setShoww] = useState(false);
 
@@ -55,8 +56,12 @@ const ListarProducto = () => {
     };
     const handleClosex = () => setShoww(false);
 
+
+
+
     //estado de la barra buscador
     const [productosFiltrar, setProductosFiltrar] = useState([]);
+    
 
     const { setSelectedDisenoNombre } = useProducto();
 

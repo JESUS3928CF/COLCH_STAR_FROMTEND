@@ -29,6 +29,9 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
 
     const { disenos, setDisenos } = useDisenosContext();
 
+    //estado pa las prendas 
+    const [Prendas, setPrendas] = useState([]);
+
 
     const { config } = useAuth();
 
@@ -45,8 +48,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     });
 
 
-    //estado pa las prendas 
-    const [Prendas, setPrendas] = useState([]);
+    
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     useEffect(() => {
 
