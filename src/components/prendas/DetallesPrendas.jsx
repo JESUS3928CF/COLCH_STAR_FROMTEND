@@ -5,9 +5,26 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import './IconCss/style.Icon.css';
 import styles from '../../css-general/estilosReutilizables.module.css';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 export const DetallesPrendas = ({ detallesPrendas }) => {
     const { setValue } = useForm();
+
+
+    const [startIndex, setStartIndex] = useState(0);
+    const numVisibleColors = 2;
+
+    const handleNext = () => {
+        if (detallesPrendas.color && detallesPrendas.color.length > startIndex + numVisibleColors) {
+            setStartIndex(startIndex + 1);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (startIndex > 0) {
+            setStartIndex(startIndex - 1);
+        }
+    };
 
     useEffect(() => {
         if (detallesPrendas) {
@@ -40,12 +57,10 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                         <div className='row gx-0'>
                                             <div className='col-md-6'>
                                                 <a
-                                                    href={`${
-                                                        import.meta.env
-                                                            .VITE_BACKEND_URL
-                                                    }/${
-                                                        detallesPrendas.imagen
-                                                    }`}
+                                                    href={`${import.meta.env
+                                                        .VITE_BACKEND_URL
+                                                        }/${detallesPrendas.imagen
+                                                        }`}
                                                     className={
                                                         styles.contenedor_imagen
                                                     }
@@ -54,13 +69,11 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                     <img
                                                         src={
                                                             detallesPrendas.imagen
-                                                                ? `${
-                                                                      import.meta
-                                                                          .env
-                                                                          .VITE_BACKEND_URL
-                                                                  }/${
-                                                                      detallesPrendas.imagen
-                                                                  }`
+                                                                ? `${import.meta
+                                                                    .env
+                                                                    .VITE_BACKEND_URL
+                                                                }/${detallesPrendas.imagen
+                                                                }`
                                                                 : ''
                                                         }
                                                         alt={
@@ -120,93 +133,85 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                     </h3>
                                                 </div>
                                             </div>
-                                            <div className='col-12'>
-                                                <div className='col '>
-                                                    <h3
-                                                        htmlFor='Colores'
-                                                        className='card-title'
-                                                    >
-                                                        <b>Colores:</b>
+                                            <div className='col-sm-12 col-md-6 pt-3'>
+                                                <h3
+                                                    htmlFor='tallas'
+                                                    className='card-title'
+                                                >
+                                                    {''}
+                                                    <b>Tallas:</b>
+                                                </h3>
 
-                                                        <div className='colors-div'>
-                                                            {detallesPrendas.color &&
-                                                                detallesPrendas.color.map(
-                                                                    (
-                                                                        color,
-                                                                        index
-                                                                    ) => (
-                                                                        <div
-                                                                            key={`${color.id_color}_${index}`}
-                                                                            className='color-block'
-                                                                        >
-                                                                            <span className='color-name'>
-                                                                                {index !==
-                                                                                detallesPrendas
-                                                                                    .color
-                                                                                    .length -
-                                                                                    1
-                                                                                    ? color.color +
-                                                                                      ','
-                                                                                    : color.color}
-                                                                            </span>
-                                                                            <div
-                                                                                className='color-div'
-                                                                                style={{
-                                                                                    backgroundColor: `${color.codigo}`,
-                                                                                }}
-                                                                            ></div>
-                                                                        </div>
-                                                                    )
-                                                                )}
-                                                        </div>
-                                                    </h3>
-                                                </div>
-                                                <div className='col'>
-                                                    <h3
-                                                        htmlFor='tallas'
-                                                        className='card-title'
-                                                    >
-                                                        {''}
-                                                        <b>Tallas:</b>
-                                                    </h3>
-
-                                                    <div className='tallas-div text-center'>
-                                                        {detallesPrendas.Talla &&
+                                                <div className='tallas-div text-center'>
+                                                    {detallesPrendas.Talla &&
                                                         Array.isArray(
                                                             detallesPrendas.Talla
                                                         )
-                                                            ? detallesPrendas.Talla.map(
-                                                                  (
-                                                                      talla,
-                                                                      index
-                                                                  ) => (
-                                                                      <p
-                                                                          key={
-                                                                              index
-                                                                          }
-                                                                      >
-                                                                          {
-                                                                              talla
-                                                                          }
-                                                                      </p>
-                                                                  )
-                                                              )
-                                                            : null}
-                                                    </div>
+                                                        ? detallesPrendas.Talla.map(
+                                                            (
+                                                                talla,
+                                                                index
+                                                            ) => (
+                                                                <p
+                                                                    key={
+                                                                        index
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        talla
+                                                                    }
+                                                                </p>
+                                                            )
+                                                        )
+                                                        : null}
                                                 </div>
-                                                <div className='text-center mt-4'>
-                                                    <h3
-                                                        htmlFor='publicado'
-                                                        className='card-title'
-                                                    >
-                                                        {' '}
-                                                        <b>Publicado </b>
-                                                    </h3>
-                                                    <div className='tamanoIcon d-flex justify-content-center align-items-center'>
-                                                        {informacion(
-                                                            detallesPrendas
-                                                        )}
+                                            </div>
+                                            <div className='col-sm-12 col-md-6 pt-3 '>
+                                                <h3
+                                                    htmlFor='Colores'
+                                                    className='card-title'
+                                                >
+
+                                                    <div className='coors-div'>
+
+                                                        {/* Colores */}
+                                                        <h3 htmlFor='Colores' className='card-title'>
+                                                            <b>Colores:</b>
+                                                            <div className='colors-div'>
+                                                                {/* Mapping colors */}
+                                                                {detallesPrendas.color && detallesPrendas.color.slice(startIndex, startIndex + numVisibleColors).map((color, index) => (
+                                                                    <div key={`${color.id_color}_${index}`} className='color-block'>
+                                                                        <span className='color-name'>
+                                                                            {index !== detallesPrendas.color.length - 1 ? color.color + ',' : color.color}
+                                                                        </span>
+                                                                        <div className='color-div' style={{ backgroundColor: `${color.codigo}`, width: '40px' }}></div>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            {/* Arrow Buttons for Colors */}
+                                                            {detallesPrendas.color && detallesPrendas.color.length > numVisibleColors && (
+                                                                <div className={styles.arrowButtons}>
+                                                                    <button className="btn btn-link" onClick={handlePrevious}><BiChevronLeft /></button>
+                                                                    <button className="btn btn-link" onClick={handleNext}><BiChevronRight /></button>
+                                                                </div>
+                                                            )}
+                                                        </h3>
                                                     </div>
+                                                </h3>
+                                            </div>
+
+                                            <div className='text-center mt-4'>
+                                                <h3
+                                                    htmlFor='publicado'
+                                                    className='card-title'
+                                                >
+                                                    {' '}
+                                                    <b>Publicado </b>
+                                                </h3>
+                                                <div className='tamanoIcon d-flex justify-content-center align-items-center'>
+                                                    {informacion(
+                                                        detallesPrendas
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
