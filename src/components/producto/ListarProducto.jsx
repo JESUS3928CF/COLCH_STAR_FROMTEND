@@ -151,7 +151,7 @@ const ListarProducto = () => {
                             <Buscador
                                 setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
-                                camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
+                                camposFiltrar={['id_producto', 'nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
                                 setBusqueda={setBusqueda}
                             />
