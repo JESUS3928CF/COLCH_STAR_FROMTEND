@@ -8,12 +8,12 @@ const Usuarios = () => {
     const { auth, loading } = useAuth();
     if (loading) return 'Cargando...';
 
-    return auth.usuario.permisos.includes('usuario') ? (
+    return auth.usuario.permisos.includes('usuarios') ? (
         <div>
             <ListarUsuario />
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

@@ -19,13 +19,13 @@ const Clientes = () => {
     
     
 
-    return auth.usuario.permisos.includes('cliente') ? (
+    return auth.usuario.permisos.includes('clientes') ? (
         <div>
             <ListarCliente />
             {/* <EditarCliente/> */}
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

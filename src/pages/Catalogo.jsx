@@ -97,7 +97,7 @@ const Catalogo = () => {
 
                 <div className={style.profile}>
                     {auth?.usuario?.id_usuario ? (
-                        <Link to={'/administracion'}> Entrar </Link>
+                        <Link to={`/administracion/${auth.usuario.permisos[0]}`}> Entrar </Link>
                     ) : (
                         <Link to={'/login'}> Iniciar sesión </Link>
                     )}

@@ -36,8 +36,8 @@ const LoginForm = ({ setIsActivate }) => {
 
             setAuth(respuesta.data);
 
-            navigate('/administracion');
-        } catch (error) {
+            navigate(`/administracion/${respuesta.data.usuario.permisos[0]}`);
+        } catch (error) {   
             return Swal.fire({
                 title: `${error.response.data.message}`,
                 icon: 'error',

@@ -39,21 +39,21 @@ const ListarRol = () => {
 
     const [rolesListar, setRolesListar] = useState([]);
 
-        /// Filtrar los 10 primeras ventas a mostrar en la vista
-        useEffect(() => {
-            if (busqueda === '') {
-                setRolesFiltrar(roles.slice(0, registrosPorPagina));
-    
-                return;
-            }
-    
-            setRolesFiltrarBuscados(rolesFiltrar.slice(0, registrosPorPagina));
-        }, [roles, busqueda]);
+    /// Filtrar los 10 primeras ventas a mostrar en la vista
+    useEffect(() => {
+        if (busqueda === '') {
+            setRolesFiltrar(roles.slice(0, registrosPorPagina));
+
+            return;
+        }
+
+        setRolesFiltrarBuscados(rolesFiltrar.slice(0, registrosPorPagina));
+    }, [roles, busqueda]);
 
 
-        useEffect(() => {
-            setRolesListar([...rolesFiltrar]);
-        }, [roles, rolesFiltrar]);
+    useEffect(() => {
+        setRolesListar([...rolesFiltrar]);
+    }, [roles, rolesFiltrar]);
 
 
     // Estado para editar
@@ -139,9 +139,9 @@ const ListarRol = () => {
                                             {rol.permisos.map(
                                                 (permiso, index) =>
                                                     index ===
-                                                    rol.permisos.length - 1
+                                                        rol.permisos.length - 1
                                                         ? permiso
-                                                        : permiso + ', '
+                                                        : permiso == "" ? "dashboard, " : permiso + ', '
                                             )}
                                         </td>
 
@@ -213,9 +213,9 @@ const ListarRol = () => {
                                                 {rol.permisos.map(
                                                     (permiso, index) =>
                                                         index ===
-                                                        rol.permisos.length - 1
+                                                            rol.permisos.length - 1
                                                             ? permiso
-                                                            : permiso + ', '
+                                                            : permiso == "" ? "dashboard, " : permiso + ', '
                                                 )}
                                             </span>
                                         </p>
@@ -236,7 +236,7 @@ const ListarRol = () => {
                                                 </div>
                                                 <div className=''>
                                                     {rol.nombre ===
-                                                    'Administrador' ? (
+                                                        'Administrador' ? (
                                                         <img
                                                             width='50px'
                                                             src={editar}
@@ -269,7 +269,7 @@ const ListarRol = () => {
                                                 className={`col-6 d-flex justify-content-center align-items-center ${styles.button}`}
                                             >
                                                 {rol.nombre ===
-                                                'Administrador' ? (
+                                                    'Administrador' ? (
                                                     ''
                                                 ) : (
                                                     <BotonNegro
@@ -295,8 +295,8 @@ const ListarRol = () => {
             </div>
             <div className='seccion4'>
                 {/* Esta función requiere el set de los datos a filtrar, los datos de respaldo, y los campos por los cuales se permite filtrar*/}
-                <Paginador setDatosFiltrar={setRolesListar} 
-                datos={busqueda === ''? roles : rolesFiltrar} />
+                <Paginador setDatosFiltrar={setRolesListar}
+                    datos={busqueda === '' ? roles : rolesFiltrar} />
             </div>
         </div>
     );

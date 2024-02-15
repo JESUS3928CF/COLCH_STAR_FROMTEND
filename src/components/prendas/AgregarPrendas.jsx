@@ -210,51 +210,6 @@ const AgregarPrendas = () => {
                                 )}
                             </div>
 
-                            {/*<div className='col-md-6'>
-                                <label
-                                    htmlFor='cantidad'
-                                    className='col-form-label'
-                                >
-                                    Cantidad: *
-                                </label>
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    name='cantidad'
-                                    placeholder='. . .'
-                                    title='Ingresa la cantidad'
-                                    {...register('cantidad', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'La cantidad es obligatoria',
-                                        },
-                                        validate: (value) => {
-                                            if (value.includes(" ")) {
-                                                return 'No se permiten espacios en blanco';
-                                            }
-                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                            if (!/^\d+$/.test(value)) {
-                                                return 'La cantidad solo puede contener números';
-                                            }
-                                            if (value.startsWith("0")) {
-                                                return 'La cantidad no puede iniciar con 0';
-                                            }
-                                            return true;
-                                        },
-                                    })}
-                                    onChange={(e) => {
-                                        setValue('cantidad', e.target.value);
-                                        trigger('cantidad');
-                                    }}
-                                />
-                                {errors.cantidad && (
-                                    <AlertaError
-                                        message={errors.cantidad.message}
-                                    />
-                                )}
-                                </div>*/}
-
                             <div className='col-md-6' name='precio'>
                                 <label
                                     htmlFor='precio'
@@ -519,6 +474,16 @@ const AgregarPrendas = () => {
                                             {...register('tallas')}
                                         />
                                         <label htmlFor='10'>10</label>
+                                    </div>
+                                    <div className='col-3'>
+                                        <input
+                                            type='checkbox'
+                                            id='12'
+                                            name='tallas'
+                                            value='12'
+                                            {...register('tallas')}
+                                        />
+                                        <label htmlFor='12'>12</label>
                                     </div>
                                     <div className='col-3'>
                                         <input

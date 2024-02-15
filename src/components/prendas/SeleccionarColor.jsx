@@ -59,14 +59,6 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
         setSelectColorsNombre([...selectColorsNombre, newColor]);
     };
 
-    // const [colors, setColors] = useState([]);
-
-    // useEffect(() => {
-    //   axios.get("http://localhost:3000/api/colors").then((res) => {
-    //     setColors(res.data);
-    //   });
-    // }, []);
-
     return (
         <Modal
             show={showw}
@@ -105,10 +97,6 @@ const SeleccionarColors = ({ handleClosee, showw }) => {
                                     },
                                 })}
                             >
-                                <option
-                                    value='Seleccionar colores'
-                                    disabled={true}
-                                ></option>
                                 <option value=''>Seleccionar colores</option>
                                 {colorsDb.map((F) => (
                                     <option key={F.id_color} value={F.id_color}>

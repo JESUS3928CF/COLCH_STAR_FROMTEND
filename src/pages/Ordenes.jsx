@@ -8,7 +8,7 @@ const Ordenes = () => {
     if (loading == true) return 'Cargando...';
 
 
-    return auth.usuario.permisos.includes('orden') ? (
+    return auth.usuario.permisos.includes('ordenes') ? (
         <div>
             <div>
             <ListarOrdenes />
@@ -16,7 +16,7 @@ const Ordenes = () => {
             </div>
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

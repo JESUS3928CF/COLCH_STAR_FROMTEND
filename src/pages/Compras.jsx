@@ -8,12 +8,12 @@ const Compras = () => {
     const { auth, loading } = useAuth();
     if (loading == true) return 'Cargando...';
 
-    return auth.usuario.permisos.includes('compra') ? (
+    return auth.usuario.permisos.includes('compras') ? (
         <div>
             <ListarCompra />
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 
