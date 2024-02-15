@@ -13,7 +13,7 @@ import useProducto from '../../hooks/useProducto';
 
 
 //Componente
-const EditarDisenoModal = ({ showw, handleClosex, handleClosee, editarProducto }) => {
+const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
 
     // const {editarDisenosProducto} = useProducto()
     const {

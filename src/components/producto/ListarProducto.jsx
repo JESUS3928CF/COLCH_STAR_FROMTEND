@@ -38,11 +38,12 @@ const ListarProducto = () => {
         setBusqueda,
     } = useProducto();
 
-    /// Funcionalidad para cerra el modal
+    /// Funcionalidad para cerra el modal de editar
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
 
     // función para cerrar, abrir modal de EditarDiseñosModal
     const [showw, setShoww] = useState(false);
@@ -55,8 +56,12 @@ const ListarProducto = () => {
     };
     const handleClosex = () => setShoww(false);
 
+
+
+
     //estado de la barra buscador
     const [productosFiltrar, setProductosFiltrar] = useState([]);
+
 
     const { setSelectedDisenoNombre } = useProducto();
 
@@ -91,6 +96,7 @@ const ListarProducto = () => {
     //estado para editar
     const [editarProducto, setEditarProducto] = useState('');
 
+
     //si al darle click en editar el proveedor esta inhabilitado no lo va dejar entrar a editar
     const handleEditClick = (producto) => {
         if (!producto.estado) {
@@ -100,6 +106,13 @@ const ListarProducto = () => {
                 'error'
             );
         }
+
+        if (producto && producto.disenos) {
+            setSelectedDisenoNombre(producto.disenos);
+            setDisenos(producto.disenos)
+        }
+
+        // console.log(producto)
         setEditarProducto(producto);
         handleShow();
     };
@@ -112,6 +125,9 @@ const ListarProducto = () => {
         calcularAnchoDePantalla(setAnchoPantalla);
         setBusqueda('');
     }, []);
+
+
+    
 
     return (
         <div>
@@ -135,7 +151,7 @@ const ListarProducto = () => {
                             <Buscador
                                 setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
-                                camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
+                                camposFiltrar={['id_producto', 'nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
                                 setBusqueda={setBusqueda}
                             />

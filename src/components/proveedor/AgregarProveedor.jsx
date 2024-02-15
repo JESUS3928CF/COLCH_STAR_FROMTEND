@@ -260,7 +260,7 @@ const AgregarProveedor = () => {
                                                 return 'No se permiten espacios en blanco';
                                             }
                                             if (!/^\d+$/.test(value)) {
-                                                return 'La identificación solo puede contener números';
+                                                return 'La teléfono solo puede contener números';
                                             }
                                             if (value.startsWith("0")) {
                                                 return 'El teléfono no puede iniciar con 0';

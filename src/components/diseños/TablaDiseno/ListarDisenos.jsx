@@ -95,7 +95,7 @@ const ListarDisenos = () => {
                         <Buscador
                             setDatosFiltrar={setDisenosFiltrar}
                             datos={disenosDB}
-                            camposFiltrar={['nombre', 'publicacion']}
+                            camposFiltrar={['id_diseno', 'nombre', 'publicacion']}
                             busqueda={busqueda}
                             setBusqueda={setBusqueda}
                         />
