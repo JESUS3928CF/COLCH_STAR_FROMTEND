@@ -111,7 +111,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                             // setSelectedDisenoNombre([]);
                         }}
                     />
-                    <p style={{color:'red', fontSize: 14}}>Recuerde tener la cantidad de prendas suficientes</p>
+                     <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
 
                     <div className='modal-body'>
                         <form className='row g-3 needs-validation'>

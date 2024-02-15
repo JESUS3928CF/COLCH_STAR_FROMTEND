@@ -143,7 +143,7 @@ const AgregarProducto = () => {
                             // setSelectedDisenoNombre([])
                         }}
                     />
-                    <p style={{color:'red', fontSize: 14}}>Recuerde tener la cantidad de prendas suficientes</p>
+                    <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
 
                     <div className='modal-body'>
                     

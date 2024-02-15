@@ -11,9 +11,7 @@ import useProducto from '../hooks/useProducto';
 import usePrendas from '../hooks/usePrendas';
 import { redirigirWhatsApp } from '../constantes/funciones.js';
 import { useState } from 'react';
-
-
-
+import DetalleCatalogoPrendas from './DetalleCatalogoPrendas.jsx';
 
 
 
@@ -22,28 +20,22 @@ import { useState } from 'react';
 const Catalogo = () => {
 
 
-    const [modalAbierto, setModalAbierto] = useState(false);
+     /// Funcionalidad para cerra el modal de editar
+     const [show, setShow] = useState(false);
+
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
+
+    const [DetallesPrendasCatalogo, setDetallesPrendasCatalogo] = useState({});
 
 
-    const [generoSeleccionado, setGeneroSeleccionado] = useState(null);
 
-    const [generoSeleccionadoo, setGeneroSeleccionadoo] = useState(null);
-
-    const [generoSeleccionadooo, setGeneroSeleccionadooo] = useState(null);
-
+   
 
     const { Prendas } = usePrendas();
 
 
 
-    const abrirModal = () => {
-        setModalAbierto(true);
-    };
-
-    const cerrarModal = () => {
-        setModalAbierto(false);
-        console.log(Prendas)
-    };
 
     //traemos toda la informacion de prendas guardada
 
@@ -304,10 +296,15 @@ const Catalogo = () => {
                                 }
                                 alt=''
                                 onClick={() => {
-                                    abrirModal(Prenda.genero);
-                                    setGeneroSeleccionado(Prenda.genero); // Actualiza el género seleccionado
-                                    setGeneroSeleccionadoo(Prenda.tipo_de_tela); // Actualiza el género seleccionado
-                                    setGeneroSeleccionadooo(Prenda.precio); // Actualiza el género seleccionado
+                                    handleShow()
+
+
+                                    setDetallesPrendasCatalogo(
+
+                                        Prendas.genero
+                                    )
+
+                                    
 
 
 
@@ -325,22 +322,7 @@ const Catalogo = () => {
                     ))}
                 </div>
 
-                {/* Modal */}
-                {modalAbierto && (
-                    <div className={style.modalFondo} onClick={cerrarModal}>
-                        <div className={style.modal}>
-                            <span className={style.cerrarModal} onClick={cerrarModal}>
-                                &times;
-                            </span>
-                            <p><strong>Género:</strong> {generoSeleccionado}</p>
-                            <br />
-                            <p><strong>Tipo  de tela: </strong> {generoSeleccionadoo}</p>
-                            <br />
-                            <p><strong>Precio:  </strong> {generoSeleccionadooo}</p>
-
-                        </div>
-                    </div>
-                )}
+            
             </section>
 
             {/* //diseñossss */}
@@ -427,6 +409,9 @@ const Catalogo = () => {
                     Copyright &copy; 2023 Colch Star. Todos los derechos
                     reservados.
                 </div>
+                <DetalleCatalogoPrendas DetallesPrendasCatalogo={DetallesPrendasCatalogo} show={show}
+                    handleClose={handleClose}
+                    handleShow={handleShow} />
             </div>
         </div>
     );
