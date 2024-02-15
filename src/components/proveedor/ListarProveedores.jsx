@@ -116,6 +116,7 @@ const ListarProveedores = () => {
                                 setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
                                 camposFiltrar={[
+                                    'id_proveedor',
                                     'nombre',
                                     'telefono',
                                     'direccion',

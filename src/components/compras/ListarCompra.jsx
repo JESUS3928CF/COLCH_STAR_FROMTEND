@@ -79,6 +79,7 @@ const ListarCompra = () => {
                                     setDatosFiltrar={setComprasFiltrar}
                                     datos={compras}
                                     camposFiltrar={[
+                                        'id_compra',
                                         'total_de_compra',
                                         'fecha',
                                         'proveedor',

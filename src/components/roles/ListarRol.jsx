@@ -102,6 +102,7 @@ const ListarRol = () => {
                                 setDatosFiltrar={setRolesFiltrar}
                                 datos={roles}
                                 camposFiltrar={[
+                                    'id_rol',
                                     'nombre',
                                     'fecha_creacion',
                                     'permisos',
