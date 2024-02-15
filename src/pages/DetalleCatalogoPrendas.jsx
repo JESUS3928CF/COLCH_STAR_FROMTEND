@@ -35,20 +35,23 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
                                     <form className="row g-3 needs-validation">
                                         <div className="mb-2" name="divIdentificacion">
                                             <label
+                                            
                                                 htmlFor="identificacionEditar"
                                                 className="col-form-label"
+                                                style={{fontWeight: 600}}
+                                                
                                             >
                                                 PRECIO:
                                             </label>
                                             <br />
 
                                             <div>
-
+                                                {/* Aquí agregamos clases para hacer el input más pequeño y centrado */}
                                                 <input
                                                     type="text"
-                                                    className="form-control"
+                                                    className="form-control text-center" // Agregamos la clase text-center
+                                                    style={{ width: '100%' }} // Definimos un ancho específico para hacerlo más pequeño
                                                     value={DetallesPrendasCatalogo.precio}
-
                                                     readOnly
                                                 />
                                             </div>
@@ -100,7 +103,6 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
                                             <input
                                                 type="text"
                                                 className="form-control"
-
                                                 readOnly
                                             />
                                         </div>
