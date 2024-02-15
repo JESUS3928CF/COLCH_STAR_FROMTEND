@@ -450,6 +450,16 @@ const EditarPrendas = ({
                                     <div className='col-3'>
                                         <input
                                             type='checkbox'
+                                            id='12'
+                                            name='tallas'
+                                            value='12'
+                                            {...register('tallas')}
+                                        />
+                                        <label htmlFor='12'>12</label>
+                                    </div>
+                                    <div className='col-3'>
+                                        <input
+                                            type='checkbox'
                                             id='14'
                                             name='tallas'
                                             value='14'

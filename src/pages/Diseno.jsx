@@ -10,7 +10,7 @@ export const Diseno = () => {
     if (loading) return 'Cargando...';
 
 
-    return auth.usuario.permisos.includes('producto') ? (
+    return auth.usuario.permisos.includes('productos') ? (
         <div>
             <div>
                 <Header titulo='Gestión de Diseños' />
@@ -21,7 +21,7 @@ export const Diseno = () => {
             </div>
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

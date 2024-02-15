@@ -10,12 +10,12 @@ const Proveedores = () => {
     if (loading == true) return 'Cargando...';
 
 
-    return auth.usuario.permisos.includes('proveedor') ? (
+    return auth.usuario.permisos.includes('proveedores') ? (
         <div>
             <ListarProveedores />
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

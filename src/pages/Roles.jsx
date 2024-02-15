@@ -9,12 +9,12 @@ const Roles = () => {
     if (loading == true) return 'Cargando...';
 
 
-    return auth.usuario.permisos.includes('rol') ? (
+    return auth.usuario.permisos.includes('roles') ? (
         <div>
             <ListarRol />
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

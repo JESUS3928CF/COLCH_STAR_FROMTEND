@@ -24,19 +24,19 @@ const MenuLateral = () => {
         /// Calcular el ancho de pantalla actual
         calcularAnchoDePantalla(setAnchoPantalla);
     }, []);
-    
+
     useEffect(() => {
         if (!loading && auth.usuario === undefined) return navigate('/login');
     }, [loading]);
 
     if (loading || !auth.usuario) return 'Cargando...';
 
+
     return (
         <>
             <div
-                className={`${styles.sidebar} ${
-                    anchoPantalla <= 1200 ? styles.close : ''
-                } `}
+                className={`${styles.sidebar} ${anchoPantalla <= 1200 ? styles.close : ''
+                    } `}
             >
                 <div className={`${styles.logo_details}`}>
                     <i>
@@ -50,24 +50,30 @@ const MenuLateral = () => {
                     <span className={styles.logo_name}>Colch Star</span>
                 </div>
                 <ul className={styles.nav_links}>
-                    <li>
-                        <Link to={'/administracion'}>
-                            <i className='bx bx-grid-alt'></i>
-                            <span className={styles.link_name}>Dashboard</span>
-                        </Link>
 
-                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
-                            <li>
-                                <Link
-                                    to={'/administracion'}
-                                    className={styles.link_name}
-                                >
-                                    Dashboard
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    {auth.usuario.permisos.includes('usuario') ? (
+                    {auth.usuario.permisos.includes('') ? (
+                        <li>
+                            <Link to={'/administracion'}>
+                                <i className='bx bx-grid-alt'></i>
+                                <span className={styles.link_name}>Dashboard</span>
+                            </Link>
+
+                            <ul className={`${styles.sub_menu} ${styles.blank}`}>
+                                <li>
+                                    <Link
+                                        to={'/administracion'}
+                                        className={styles.link_name}
+                                    >
+                                        Dashboard
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+
+                    ) : (
+                        ''
+                    )}
+                    {auth.usuario.permisos.includes('usuarios') ? (
                         <li>
                             <Link to={'/administracion/usuarios'}>
                                 <i className='bx bx-user'></i>
@@ -92,7 +98,7 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('rol') ? (
+                    {auth.usuario.permisos.includes('roles') ? (
                         <li>
                             <Link to={'/administracion/roles'}>
                                 <i className='bx bxs-user-detail'></i>
@@ -115,7 +121,7 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('proveedor') ? (
+                    {auth.usuario.permisos.includes('proveedores') ? (
                         <li>
                             <Link to={'/administracion/proveedores'}>
                                 <i className='bx bxs-phone'></i>
@@ -140,11 +146,10 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('producto') ? (
+                    {auth.usuario.permisos.includes('productos') ? (
                         <li
-                            className={`${
-                                isSubMenuOpen ? styles.showMenu : ''
-                            } `}
+                            className={`${isSubMenuOpen ? styles.showMenu : ''
+                                } `}
                         >
                             <div className={styles.iocn_link}>
                                 <Link to={'/administracion/productos'}>
@@ -183,7 +188,7 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('cliente') ? (
+                    {auth.usuario.permisos.includes('clientes') ? (
                         <li>
                             <Link to={'/administracion/clientes'}>
                                 <i className='bx bx-child'></i>
@@ -208,7 +213,7 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('compra') ? (
+                    {auth.usuario.permisos.includes('compras') ? (
                         <li>
                             <Link to={'/administracion/compras'}>
                                 <i className='bx bxs-cart-download'></i>
@@ -233,7 +238,7 @@ const MenuLateral = () => {
                         ''
                     )}
 
-                    {auth.usuario.permisos.includes('orden') ? (
+                    {auth.usuario.permisos.includes('ordenes') ? (
                         <li>
                             <Link to={'/administracion/ordenes'}>
                                 <i className='bx bx-credit-card-alt'></i>

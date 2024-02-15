@@ -17,13 +17,13 @@ const Productos = () => {
     if (loading == true) return 'Cargando...';
 
 
-    return auth.usuario.permisos.includes('producto') ? (
+    return auth.usuario.permisos.includes('productos') ? (
         <div>
             <ListarProducto />
             {/* <AgregarProducto /> */}
         </div>
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 };
 

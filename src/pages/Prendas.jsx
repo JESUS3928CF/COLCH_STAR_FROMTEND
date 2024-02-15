@@ -11,10 +11,10 @@ const Prendas =()=>{
     const { auth, loading } = useAuth();
     if (loading === true) return 'Cargando...';
     
-    return auth.usuario.permisos.includes('producto') ? (
+    return auth.usuario.permisos.includes('productos') ? (
             <ListarPrendas />
     ) : (
-        <Navigate to={'/administracion'} />
+        <Navigate to={'/'} />
     );
 }
 
