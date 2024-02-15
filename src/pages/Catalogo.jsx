@@ -29,9 +29,6 @@ const Catalogo = () => {
     const [DetallesPrendasCatalogo, setDetallesPrendasCatalogo] = useState({});
 
 
-
-   
-
     const { Prendas } = usePrendas();
 
 
@@ -300,8 +297,7 @@ const Catalogo = () => {
 
 
                                     setDetallesPrendasCatalogo(
-
-                                        Prendas.genero
+                                        Prenda
                                     )
 
                                     
