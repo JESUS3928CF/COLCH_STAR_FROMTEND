@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 
 
-const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, handleShow }) => {
+const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) => {
 
 
 
@@ -15,6 +15,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
                 show={show}
                 onHide={() => {
                     handleClose();
+                    // console.log(DetallesPrendasCatalogo)
                     // setSelectedDisenoNombre([])
                 }}
                 className='modal d-flex align-items-center justify-content-center '
@@ -22,7 +23,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
             >
                 <div className={`modal-content `}>
                     <HeaderModals
-                        title={'Detalle prendas'}
+                        title={'Detalle de la prenda '}
                         handleClose={() => {
                             handleClose();
                             // setSelectedDisenoNombre([])
@@ -35,11 +36,11 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
                                     <form className="row g-3 needs-validation">
                                         <div className="mb-2" name="divIdentificacion">
                                             <label
-                                            
+
                                                 htmlFor="identificacionEditar"
                                                 className="col-form-label"
-                                                style={{fontWeight: 600}}
-                                                
+                                                style={{ fontWeight: 600 }}
+
                                             >
                                                 PRECIO:
                                             </label>
@@ -57,52 +58,47 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose, ha
                                             </div>
                                         </div>
                                         <div className="col-md-6">
-                                            <label htmlFor="nombre" className="col-form-label">
-                                                Nombres:
+                                            <label htmlFor="nombre" className="col-form-label"
+                                                style={{ fontWeight: 600 }}>
+                                                TIPO DE TELA:
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                value={DetallesPrendasCatalogo.tipo_de_tela}
                                                 readOnly
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label htmlFor="apellido" className="col-form-label">
-                                                Apellidos:
+                                            <label htmlFor="apellido" className="col-form-label" style={{ fontWeight: 600 }}>
+                                                GENERO:
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                value={DetallesPrendasCatalogo.genero}
                                                 readOnly
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label htmlFor="telefono" className="col-form-label">
-                                                Teléfono:
+                                            <label htmlFor="telefono" className="col-form-label" style={{ fontWeight: 600 }}>
+                                                TALLAS:
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                value={DetallesPrendasCatalogo.Talla}
                                                 readOnly
                                             />
                                         </div>
                                         <div className="col-md-6">
-                                            <label htmlFor="direccion" className="col-form-label">
-                                                Dirección:
+                                            <label htmlFor="direccion" className="col-form-label" style={{ fontWeight: 600 }}>
+                                                COLORES:
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                readOnly
-                                            />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="email" className="col-form-label">
-                                                Email:
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
+                                                value={DetallesPrendasCatalogo.color ? DetallesPrendasCatalogo.color.map(color => color.color).join(', ') : ''}
                                                 readOnly
                                             />
                                         </div>
