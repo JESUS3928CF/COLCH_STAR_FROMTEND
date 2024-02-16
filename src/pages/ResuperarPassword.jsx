@@ -158,13 +158,16 @@ const RecuperarPassword = () => {
                                                 'La contraseña es obligatoria',
                                         },
                                         pattern: {
-                                            value: /^\S{6,}$/, // Expresión regular que verifica al menos 6 caracteres.
-                                            message:
-                                                'La contraseña debe tener al menos 6 caracteres sin espacios',
-                                        },
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])[^\s]{8,15}$/,
+                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial',
+                                        }
                                     })}
                                     onChange={(e) => {
-                                        setValue('contrasena', e.target.value);
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            16
+                                        );
+                                        setValue('contrasena', inputValue);
                                         trigger('contrasena');
                                     }}
                                 />
@@ -175,6 +178,7 @@ const RecuperarPassword = () => {
                                     />
                                 )}
                             </div>
+                            <br />
                             <div className={`${styles.input_box} mt-5`}>
                                 <span className={styles.icon}>
                                     <i
@@ -197,12 +201,7 @@ const RecuperarPassword = () => {
                                         required: {
                                             value: true,
                                             message:
-                                                'La contraseña es obligatoria',
-                                        },
-                                        pattern: {
-                                            value: /^\S{6,}$/, // Expresión regular que verifica al menos 6 caracteres.
-                                            message:
-                                                'La contraseña debe tener al menos 6 caracteres sin espacios',
+                                            'Confirmar la contraseña es obligatorio',
                                         },
                                         validate: (value) => {
                                             const password =
@@ -214,9 +213,13 @@ const RecuperarPassword = () => {
                                         },
                                     })}
                                     onChange={(e) => {
+                                        const inputValue = e.target.value.slice(
+                                            0,
+                                            16
+                                        );
                                         setValue(
                                             'confirmarContrasena',
-                                            e.target.value
+                                            inputValue
                                         );
                                         trigger('confirmarContrasena');
                                     }}
