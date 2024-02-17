@@ -149,9 +149,7 @@ const RecuperarPassword = () => {
                                 <input
                                     name='contrasena'
                                     type={isActivate ? 'text' : 'password'}
-                                    className='form-control'
-                                    placeholder='. . . '
-                                    {...register('contrasena', {
+                                        {...register('contrasena', {
                                         required: {
                                             value: true,
                                             message:
@@ -159,7 +157,7 @@ const RecuperarPassword = () => {
                                         },
                                         pattern: {
                                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])[^\s]{8,15}$/,
-                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial',
+                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial.',
                                         }
                                     })}
                                     onChange={(e) => {
@@ -171,7 +169,7 @@ const RecuperarPassword = () => {
                                         trigger('contrasena');
                                     }}
                                 />
-                                <label>Nueva Contraseña</label>
+                                <label>Nueva contraseña</label>
                                 {errors.contrasena && (
                                     <AlertaError
                                         message={errors.contrasena.message}
@@ -195,8 +193,6 @@ const RecuperarPassword = () => {
                                     type={
                                         isActivateConfirm ? 'text' : 'password'
                                     }
-                                    className='form-control'
-                                    placeholder='. . . '
                                     {...register('confirmarContrasena', {
                                         required: {
                                             value: true,
@@ -224,7 +220,7 @@ const RecuperarPassword = () => {
                                         trigger('confirmarContrasena');
                                     }}
                                 />
-                                <label>Confirmar Contraseña</label>
+                                <label>Confirmar contraseña</label>
                                 {errors.confirmarContrasena && (
                                     <AlertaError
                                         message={
