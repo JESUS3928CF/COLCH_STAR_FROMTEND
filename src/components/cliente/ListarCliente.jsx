@@ -107,6 +107,7 @@ const ListarCliente = () => {
                                 setDatosFiltrar={setClientesFiltrar}
                                 datos={clientes}
                                 camposFiltrar={[
+                                    'id_cliente',
                                     'nombre',
                                     'apellido',
                                     'identificacion',

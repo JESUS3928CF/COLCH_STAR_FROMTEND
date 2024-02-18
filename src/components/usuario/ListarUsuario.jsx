@@ -100,6 +100,7 @@ const ListarUsuario = () => {
                                 setDatosFiltrar={setUsuariosFiltrar}
                                 datos={usuarios}
                                 camposFiltrar={[
+                                    'id_usuario',
                                     'nombre',
                                     'apellido',
                                     'telefono',

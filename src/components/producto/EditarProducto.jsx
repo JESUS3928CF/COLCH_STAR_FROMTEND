@@ -25,9 +25,12 @@ import { useDisenosContext } from '../../context/disenosProvider';
 const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handleShoww, showw, handleClosex }) => {
 
     //traigo la funciona para eidtar un producto
-    const { editarProductos, setSelectedDisenoNombre } = useProducto();
+    const { editarProductos} = useProducto();
 
-    const { disenos, setDisenos } = useDisenosContext();
+   
+
+    //estado pa las prendas 
+    const [Prendas, setPrendas] = useState([]);
 
 
     const { config } = useAuth();
@@ -45,8 +48,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     });
 
 
-    //estado pa las prendas 
-    const [Prendas, setPrendas] = useState([]);
+    
     // traemos la informacion de las prendas y las guardamos en setPrendas y eso las manda a PrendAS
     useEffect(() => {
 
@@ -109,7 +111,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                             // setSelectedDisenoNombre([]);
                         }}
                     />
-                    <p style={{color:'red', fontSize: 14}}>Recuerde tener la cantidad de prendas suficientes</p>
+                     <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
 
                     <div className='modal-body'>
                         <form className='row g-3 needs-validation'>

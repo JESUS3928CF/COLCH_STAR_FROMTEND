@@ -313,9 +313,9 @@ const AgregarUsuario = () => {
                                                 'La contraseña es obligatoria',
                                         },
                                         pattern: {
-                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.])[^\s]{6,15}$/,
-                                            message: 'La contraseña debe tener entre 6 y 15 dígitos, debe tener una mayúscula, una minúscula y un carácter especial',
-                                        },
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])[^\s]{8,15}$/,
+                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial.',
+                                        }
                                     })}
                                     onChange={(e) => {
                                         const inputValue = e.target.value.slice(

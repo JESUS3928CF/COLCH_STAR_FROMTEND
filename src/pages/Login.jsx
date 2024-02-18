@@ -36,8 +36,8 @@ const LoginForm = ({ setIsActivate }) => {
 
             setAuth(respuesta.data);
 
-            navigate('/administracion');
-        } catch (error) {
+            navigate(`/administracion/${respuesta.data.usuario.permisos[0]}`);
+        } catch (error) {   
             return Swal.fire({
                 title: `${error.response.data.message}`,
                 icon: 'error',
@@ -66,7 +66,7 @@ const LoginForm = ({ setIsActivate }) => {
                         },
                     })}
                 />
-                <label>Email</label>
+                <label>Usuario</label>
                 {errors.email && <AlertaError message={errors.email.message} />}
             </div>
             <div className={styles.input_box}>
@@ -135,7 +135,7 @@ const Login = () => {
             });
 
             Swal.fire({
-                title: "Email enviado",
+                title: "Correo enviado",
                 text: res.data.message,
                 icon: 'success',
             }).then( () => {
@@ -242,7 +242,7 @@ const Login = () => {
                                         },
                                     })}
                                 />
-                                <label>Email</label>
+                                <label>Usuario</label>
                                 {errors.email && (
                                     <AlertaError
                                         message={errors.email.message}

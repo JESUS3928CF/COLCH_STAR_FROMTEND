@@ -159,7 +159,7 @@ function AgregarRol() {
                                   <div className='col-md-6'>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'usuario'}
+                                              text={'usuarios'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -167,13 +167,13 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'usuario'
+                                                  'usuarios'
                                               )}
                                           />
                                       </div>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'rol'}
+                                              text={'roles'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -181,13 +181,13 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'rol'
+                                                  'roles'
                                               )}
                                           />
                                       </div>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'proveedor'}
+                                              text={'proveedores'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -195,13 +195,13 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'proveedor'
+                                                  'proveedores'
                                               )}
                                           />
                                       </div>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'producto'}
+                                              text={'productos'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -209,7 +209,7 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'producto'
+                                                  'productos'
                                               )}
                                           />
                                       </div>
@@ -217,7 +217,7 @@ function AgregarRol() {
                                   <div className='col-md-6'>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'cliente'}
+                                              text={'clientes'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -225,13 +225,13 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'cliente'
+                                                  'clientes'
                                               )}
                                           />
                                       </div>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'compra'}
+                                              text={'compras'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -239,13 +239,13 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'compra'
+                                                  'compras'
                                               )}
                                           />
                                       </div>
                                       <div className='form-check form-switch'>
                                           <CheckBox
-                                              text={'orden'}
+                                              text={'ordenes'}
                                               onChange={(e) =>
                                                   handlePermisoChange(
                                                       e.target.value,
@@ -253,7 +253,7 @@ function AgregarRol() {
                                                   )
                                               }
                                               checked={seleccionarPermisos.includes(
-                                                  'orden'
+                                                  'ordenes'
                                               )}
                                           />
                                       </div>
