@@ -9,8 +9,9 @@ const  MovimientosProvider=({children})=>{
 
     const [movimiento,setMovimiento]= useState([])
     const [movimientoDb, setMovimientoDb]= useState([])
+    const [notificacion, setNotificacion]=useState()
 
-
+1
     const agregarMovimientos = (data)=>{
         const nuevoMovimientos=[...movimiento,data]
         setMovimiento(nuevoMovimientos)

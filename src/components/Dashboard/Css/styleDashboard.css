@@ -1,7 +1,7 @@
 
 .cards{
     padding: 30px;
-    margin-top: 5px;
+    margin-top: -30px;
 }
 
 .CardPrincipal{
@@ -139,17 +139,7 @@
     
 }
 
-.Tabs{
 
-    background-color: #47684E;
-    color: #ffffff;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    width: 100%;
-    margin-left: 110px;
- 
-
-}
 
 .TabsC{
 
@@ -157,17 +147,13 @@
     color: #ffffff;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    width: 100%;
+    padding: 1%;
+    font-size: 25px;
 }
 
-.TabsC:hover{
-    background-color: #000000;
 
-}
 
-.Tabs:hover{
- background-color: #000000;
-}
+
 
 .containerHeaderTable{
 

@@ -85,7 +85,7 @@ const GraficaVentasCompras = ({ ordenes, compras }) => {
         };
       }
 
-      resultado[fecha].total += tipo === 'ordenes' ? dato.precio_total : dato.total_de_compras;
+      resultado[fecha].total += tipo === '' ? dato.precio_total : dato.total_de_compras;
 
       return resultado;
     }, {});
