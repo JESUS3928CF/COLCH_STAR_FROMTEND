@@ -10,7 +10,7 @@ const prendasContex = createContext();
 
 const PrendasProvider = ({ children }) => {
     const { auth, token } = useAuth();
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     // Estado para el parámetro de búsqueda
     const [busqueda, setBusqueda] = useState('');
@@ -48,6 +48,7 @@ const PrendasProvider = ({ children }) => {
             }).then(() => {
                 reset();
                 consultPrendas();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
                 setSelectColorsNombre([]);
@@ -114,6 +115,7 @@ const PrendasProvider = ({ children }) => {
                         icon: 'success',
                     }).then(() => {
                         consultPrendas();
+                        notificaciones(notificacion+1)
                         consultarMovimientos();
                         handleClose();
                         setSelectColorsNombre([]);
@@ -151,7 +153,10 @@ const PrendasProvider = ({ children }) => {
             prenda.id_prenda == id ? prendaUpdate : prenda
         );
 
+        notificaciones(notificacion+1)
         setPrendas(prendaActualizada);
+        consultarMovimientos();
+
     };
 
     const updatePublicado = (id) => {
@@ -161,8 +166,8 @@ const PrendasProvider = ({ children }) => {
         const prendaActualizada = Prendas.map((prenda) =>
             prenda.id_prenda == id ? prendaUpdate : prenda
         );
-
         setPrendas(prendaActualizada);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 

@@ -10,7 +10,7 @@ const rolesContext = createContext();
 
 const RolesProvider = ({ children }) => {
     const { config, auth } = useAuth();
-    const {consultarMovimientos}=useMovimientos()
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
 
     const { consultarUsuarios } = useUsuario();
@@ -49,6 +49,7 @@ const RolesProvider = ({ children }) => {
             }).then(() => {
                 reset();
                 consultarRoles();
+                notificaciones(notificacion+1)
                 consultarMovimientos()
                 handleClose();
             });
@@ -104,6 +105,7 @@ const RolesProvider = ({ children }) => {
                     }).then(() => {
                         consultarUsuarios();
                         consultarRoles();
+                        notificaciones(notificacion+1)
                         consultarMovimientos()
                         handleClose();
                     });
@@ -139,6 +141,7 @@ const RolesProvider = ({ children }) => {
         );
 
         setRoles(rolActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos()
 
     };

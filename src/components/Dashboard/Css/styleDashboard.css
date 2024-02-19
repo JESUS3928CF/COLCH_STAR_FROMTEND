@@ -1,7 +1,7 @@
 
 .cards{
     padding: 30px;
-    margin-top: 5px;
+    margin-top: -30px;
 }
 
 .CardPrincipal{
@@ -17,7 +17,6 @@
 .textDatosGenerales{
   background-color: #47684E;
   color: #fff;
-  font-weight: bold;
   padding: 10px;
   margin-top: -6px;
   border-top-left-radius: 8px;
@@ -120,9 +119,6 @@
 
 
 
-.Fondo{
-    padding: 30px;
-}
 
 .cardsNavBar{
     margin-top: -25px;
@@ -132,71 +128,39 @@
 
 }
 
-.CardPrincipalNavBar{
-    border-radius: 7px;
-    margin-top: -6%;
-    
-    
+
+
+
+.textGrafica{
+    text-align: center;
+    font-size: 25px;
 }
 
-.Tabs{
 
-    background-color: #47684E;
-    color: #ffffff;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    width: 100%;
-    margin-left: 110px;
- 
 
-}
 
-.TabsC{
-
-    background-color: #47684E;
-    color: #ffffff;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    width: 100%;
-}
-
-.TabsC:hover{
-    background-color: #000000;
-
-}
-
-.Tabs:hover{
- background-color: #000000;
-}
 
 .containerHeaderTable{
 
-    margin-top: -50px;
     background: white;
-    border-radius: 7px;
     padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
     background-color: #f8f8f8;
+    margin-top: 4%;
+    border-radius: 7px; 
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0x;
+
+
+
+
+
+
+
+   
 }
 
-.textH{
-    text-align: center;
-}
 
-.paginador{
-
-    margin-left: 410px;
-
-}
  
-.containerHeaderGrafica{
-    margin-top: -50px;
-    background: white;
-    border-radius: 7px;
-    font-weight: bold;
-    
-}
 
 .iconsCarrusel{
     font-size: 25px;
@@ -291,23 +255,9 @@
     position: absolute;
     left: 110px;
 }
-
-.customChartContainer {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-    
-  }
-
-  .grafica{
-
-    width: 60px;
-    height: 30px;
-    
-  }
   
 
-  .PDF{
+  /* .PDF{
 
     font-size: 14px;
     background-color: #000000;
@@ -315,7 +265,7 @@
     position: relative;
     top: 15px;
 
-  }
+  } */
 
 .iconsNotificacion{
     position: absolute;
@@ -326,36 +276,34 @@
 
 }
 
+.cantidadNotificacion{
+    position: absolute;
+    margin-left: 89%;
+    margin-top: -75px;
+    font-size: 8px;
+    font-weight: bold;
+    background: #47684E;
+    padding: 5px;
+    border-radius: 100px;
+    color: #fff;
+
+}
+
+
 .Notificacion{
 
     position: relative;
     margin-left: 90%;
 
 }
+
+.graficaPrendas{
+    width: 100%;
+    max-width:600px ;
+    height: 300px;
+    margin-left: 15%;
+}
  
-
-.customChartContainerM{
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-
-}
-
-.containerHeaderGraficaM{
-    margin-top: 10px;
-    border-radius: 7px;
-    
-
-}
-
-.btnPDF{
-    margin-left: 50%;
-    font-size: 25px;
-}
-
-.btnPDF:hover{
-    color: #47684E;
-}
 
  
 

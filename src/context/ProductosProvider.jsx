@@ -16,7 +16,7 @@ const productosContext = createContext();
 
 const ProductosProvider = ({ children }) => {
     const { auth, token, config } = useAuth();
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     // Estado para el parámetro de búsqueda
     const [busqueda, setBusqueda] = useState('');
@@ -84,6 +84,7 @@ const ProductosProvider = ({ children }) => {
                 consultPrendas()
                 // setProductos([...productos, res.data.nuevoProducto]);
                 consultarProductos();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
             });
@@ -157,6 +158,7 @@ const ProductosProvider = ({ children }) => {
                         //actualiza las prendad
                         consultPrendas()
                         consultarProductos();
+                        notificaciones(notificacion+1)
                         consultarMovimientos();
                         handleClose();
                     });
@@ -207,6 +209,7 @@ const ProductosProvider = ({ children }) => {
         );
 
         setProductos(productoActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 
@@ -221,6 +224,7 @@ const ProductosProvider = ({ children }) => {
         );
 
         setProductos(productoActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 

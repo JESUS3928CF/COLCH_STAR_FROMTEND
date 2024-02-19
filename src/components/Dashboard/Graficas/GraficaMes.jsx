@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { startOfMonth, endOfMonth, format } from 'date-fns';
+import BtnPDF from '../BtnPDF';
+import PDFVentasMes from '../PDF/PDFVentasMes';
 
-export const Grafica = ({ compras }) => {
+export const Grafica = ({ ordenes, compras }) => {
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
   const [monthStartDate, setMonthStartDate] = useState(null);
@@ -21,7 +23,7 @@ export const Grafica = ({ compras }) => {
           monthChartInstance.current.destroy();
         }
 
-        if (monthStartDate && monthEndDate && compras) {
+        if (monthStartDate && monthEndDate && compras && ordenes) {
           const daysInMonth = [];
           const currentDate = monthStartDate;
 
@@ -30,18 +32,26 @@ export const Grafica = ({ compras }) => {
             currentDate.setDate(currentDate.getDate() + 1);
           }
 
-          const monthData = obtenerDatosParaGrafico(daysInMonth, compras);
+          const ventasData = obtenerDatosVentasParaGrafico(daysInMonth, ordenes);
+          const comprasData = obtenerDatosComprasParaGrafico(daysInMonth, compras);
 
           const ctx = monthChartContainer.current.getContext('2d');
           monthChartInstance.current = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
               labels: daysInMonth,
               datasets: [{
-                label: 'Total de compras por día (mes actual)',
-                data: monthData,
-                backgroundColor: '#b6e0bf',
+                label: 'Ventas',
+                data: ventasData,
+                backgroundColor: '#47684E',
                 borderColor: '#47684E',
+                borderWidth: 1
+              },
+              {
+                label: 'Compras',
+                data: comprasData,
+                backgroundColor: '#1D1B31',
+                borderColor: '#1D1B31',
                 borderWidth: 1
               }]
             },
@@ -49,11 +59,6 @@ export const Grafica = ({ compras }) => {
               scales: {
                 y: {
                   beginAtZero: true
-                }
-              },
-              elements: {
-                line: {
-                  tension: 0 // Para que las líneas sean rectas
                 }
               }
             }
@@ -65,26 +70,44 @@ export const Grafica = ({ compras }) => {
     };
 
     createChart();
-  }, [monthStartDate, monthEndDate, compras]);
+  }, [monthStartDate, monthEndDate, compras, ordenes]);
 
-  const obtenerDatosParaGrafico = (fechas, compras) => {
-    const datosAgrupados = compras.reduce((resultado, compra) => {
-      const fecha = compra.fecha;
+  const obtenerDatosVentasParaGrafico = (fechas, ordenes) => {
+    const datosAgrupados = ordenes.reduce((resultado, orden) => {
+      const fecha = orden.fecha_creacion;
 
       if (!resultado[fecha]) {
-        resultado[fecha] = {
-          Total_de_compras: 0,
-          name: fecha,
-        };
+        resultado[fecha] = 0;
       }
 
-      resultado[fecha].Total_de_compras += compra.total_de_compra;
+      if (orden.estado_de_orden === 'Creada') {
+        resultado[fecha] += orden.precio_total;
+      }
 
       return resultado;
     }, {});
 
     return fechas.map(fecha => {
-      const totalCompras = datosAgrupados[fecha] ? datosAgrupados[fecha].Total_de_compras : 0;
+      const totalVentas = datosAgrupados[fecha] || 0;
+      return totalVentas;
+    });
+  };
+
+  const obtenerDatosComprasParaGrafico = (fechas, compras) => {
+    const datosAgrupados = compras.reduce((resultado, compra) => {
+      const fecha = compra.fecha;
+
+      if (!resultado[fecha]) {
+        resultado[fecha] = 0;
+      }
+
+      resultado[fecha] += compra.total_de_compra;
+
+      return resultado;
+    }, {});
+
+    return fechas.map(fecha => {
+      const totalCompras = datosAgrupados[fecha] || 0;
       return totalCompras;
     });
   };
@@ -92,7 +115,7 @@ export const Grafica = ({ compras }) => {
   return (
     <>    
       <div>
-        <h2>Gráfico del mes actual:</h2>
+        <h2>Mes actual <BtnPDF namePDf={'mes.pdf'} componente={<PDFVentasMes/>}/></h2>
         <canvas ref={monthChartContainer} width="400" height="200"></canvas>
       </div>
     </>

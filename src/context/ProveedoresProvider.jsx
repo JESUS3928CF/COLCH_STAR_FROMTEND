@@ -15,7 +15,7 @@ const ProveedoresProvider = ({ children }) => {
 
     const [busqueda, setBusqueda] = useState('');
 
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     // función para obtener los clientes solo cuando se carge el componente
 
@@ -53,6 +53,7 @@ const ProveedoresProvider = ({ children }) => {
                 const respaldoProveedores = [...proveedores];
                 respaldoProveedores.unshift(res.data.nuevoProveedor);
                 setProveedores(respaldoProveedores);
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
             });
@@ -116,6 +117,7 @@ const ProveedoresProvider = ({ children }) => {
                         );
                         setProveedores(proveedorActualizado);
                         handleClose();
+                        notificaciones(notificacion+1)
                         consultarMovimientos();
                         reset();
                     });
@@ -153,6 +155,7 @@ const ProveedoresProvider = ({ children }) => {
         );
 
         setProveedores(proveedorActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 

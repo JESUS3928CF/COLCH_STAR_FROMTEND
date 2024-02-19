@@ -9,7 +9,7 @@ import useMovimientos from '../hooks/useMovimientos';
 
 const UsuariosProvider = ({ children }) => {
   const { config, auth } = useAuth();
-  const {consultarMovimientos}=useMovimientos()
+  const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
 
   // primer state
@@ -45,6 +45,7 @@ const UsuariosProvider = ({ children }) => {
       }).then(() => {
         reset();
         consultarUsuarios();
+        notificaciones(notificacion+1)
         consultarMovimientos()
         handleClose();
       });
@@ -94,6 +95,7 @@ const UsuariosProvider = ({ children }) => {
             icon: "success",
           }).then(() => {
             consultarUsuarios();
+            notificaciones(notificacion+1)
             consultarMovimientos()
             handleClose();
           });
@@ -128,6 +130,7 @@ const UsuariosProvider = ({ children }) => {
     );
 
     setUsuarios(usuarioActualizado);
+    notificaciones(notificacion+1)
     consultarMovimientos()
 
   };

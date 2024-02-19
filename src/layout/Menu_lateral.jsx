@@ -73,6 +73,29 @@ const MenuLateral = () => {
                     ) : (
                         ''
                     )}
+                    {auth.usuario.permisos.includes('roles') ? (
+                        <li>
+                            <Link to={'/administracion/roles'}>
+                                <i className='bx bxs-user-detail'></i>
+                                <span className={styles.link_name}>Roles</span>
+                            </Link>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
+                                <li>
+                                    <Link
+                                        to={'/administracion/roles'}
+                                        className={styles.link_name}
+                                    >
+                                        Roles
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    ) : (
+                        ''
+                    )}
+                    
                     {auth.usuario.permisos.includes('usuarios') ? (
                         <li>
                             <Link to={'/administracion/usuarios'}>
@@ -90,29 +113,6 @@ const MenuLateral = () => {
                                         className={styles.link_name}
                                     >
                                         Usuarios
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                    ) : (
-                        ''
-                    )}
-
-                    {auth.usuario.permisos.includes('roles') ? (
-                        <li>
-                            <Link to={'/administracion/roles'}>
-                                <i className='bx bxs-user-detail'></i>
-                                <span className={styles.link_name}>Roles</span>
-                            </Link>
-                            <ul
-                                className={`${styles.sub_menu} ${styles.blank}`}
-                            >
-                                <li>
-                                    <Link
-                                        to={'/administracion/roles'}
-                                        className={styles.link_name}
-                                    >
-                                        Roles
                                     </Link>
                                 </li>
                             </ul>
