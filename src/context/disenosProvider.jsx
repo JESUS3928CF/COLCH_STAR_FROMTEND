@@ -14,7 +14,7 @@ export const DisenosProvider = ({ children }) => {
 
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     // Estado para el parámetro de búsqueda
     const [busqueda, setBusqueda] = useState('');
@@ -75,6 +75,7 @@ export const DisenosProvider = ({ children }) => {
                 const respaldoDisenos = [...disenosDB];
                 respaldoDisenos.unshift(res.data.nuevoDiseno);
                 setDisenosDB(respaldoDisenos);
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
             });
@@ -120,6 +121,7 @@ export const DisenosProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarDisenos();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
             });
@@ -153,6 +155,7 @@ export const DisenosProvider = ({ children }) => {
         );
 
         setDisenosDB(clienteActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 
@@ -165,6 +168,7 @@ export const DisenosProvider = ({ children }) => {
         );
 
         setDisenosDB(clienteActualizado);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 

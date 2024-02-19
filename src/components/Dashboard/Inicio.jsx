@@ -45,6 +45,9 @@ import { Notificacion }from "./Notificacion.jsx";
 import { subDays } from "date-fns";
 import PDFVentasMes from "./PDF/PDFVentasMes.jsx";
 import BtnPDF from "./BtnPDF.jsx";
+import GraficaMes from './Graficas/GraficaMes.jsx'
+import GraficaPrendas from "./Graficas/GraficaPrendas.jsx";
+import ComprasPrendas from "./Graficas/ComprasPrendas.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
@@ -148,7 +151,6 @@ export const InicioDashboard = () => {
 
     // Actualizamos el estado con el total de compras de los últimos 7 días
     setTotalComprasUltimosSieteDias(total);
-    console.log(total);
   }, [compras]);
 
   return (
@@ -391,23 +393,42 @@ export const InicioDashboard = () => {
             </button>
           </div>
         </div>
+       
+<div className="cards">
 
-        <div className="Fondo">
+
           <Card className="cardsNavBar">
               <div>
-                <Card className="CardPrincipalNavBar">
-                      <div className="TabsC">
-                        <center>
-                          <Text>Graficas</Text>
-                        </center>
-                      </div>
-                  
-                </Card>
+                <Card className="textDatosGenerales">
+                  <Text className="textGrafica">Graficas</Text>
+                  </Card>
 
-                    <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" />
               </div>
           </Card>
-        </div>
+
+          <Card className="containerHeaderTable"> 
+                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
+                <GraficaMes ordenes={ordenes} compras={compras} />
+
+
+                </Card>
+
+                <Card className="containerHeaderTable"> 
+                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
+                <GraficaPrendas  Prendas={Prendas} />
+
+
+                </Card>
+
+                <Card className="containerHeaderTable"> 
+                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
+                <ComprasPrendas  compras={compras} Prendas={Prendas} />
+
+
+                </Card>
+        
+       
+      </div>
       </div>
     </>
   );

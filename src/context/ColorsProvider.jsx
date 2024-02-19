@@ -10,7 +10,7 @@ const ColorsProvider = ({ children }) => {
     const { token, auth, config } = useAuth();
     const [colors, setColores] = useState([]);
     const [colorsDb, setColorsDb] = useState([]);
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     const agregarColors = (data) => {
         const newColors = [...colors, data];
@@ -83,6 +83,7 @@ const ColorsProvider = ({ children }) => {
                 reset();
                 setColorsDb([...colorsDb, res.data.newColors]);
                 consultColors();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose();
             });

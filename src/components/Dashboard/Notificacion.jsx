@@ -3,31 +3,39 @@ import useMovimientos from "../../hooks/useMovimientos";
 import CancelarModal from "../chared/CancelarModal";
 import HeaderModals from "../chared/HeaderModals";
 import { IoIosNotifications } from 'react-icons/io';
+import './Css/styleDashboard.css'
 
 export const Notificacion = () => {
-  const { movimiento } = useMovimientos();
+  const { movimiento,notificaciones,notificacion } = useMovimientos();
   const [semanaFiltradas, setSemanaFiltradas] = useState([]);
 
-  useEffect(() => {
+  // Función para obtener el rango de fechas de la semana actual
+  const obtenerSemanaActual = () => {
     const hoy = new Date();
+    const diaSemana = hoy.getDay();
     const inicioSemana = new Date(hoy);
-    inicioSemana.setDate(inicioSemana.getDate() - hoy.getDay());
+    inicioSemana.setDate(hoy.getDate() - 1); // Restar los días necesarios para obtener el domingo
     inicioSemana.setHours(0, 0, 0, 0);
-    const finSemana = new Date(hoy);
-    finSemana.setDate(finSemana.getDate() + (6 - hoy.getDay()));
+    const finSemana = new Date(inicioSemana);
+    finSemana.setDate(inicioSemana.getDate() + 8); // Sumar 6 días para obtener el sábado de la semana
     finSemana.setHours(23, 59, 59, 999);
-    
+    return { inicioSemana, finSemana };
+  };
+
+  // Función para filtrar los movimientos de la semana actual
+  const filtrarMovimientosSemana = () => {
+    const { inicioSemana, finSemana } = obtenerSemanaActual();
     const semanaFiltradas = movimiento.filter(notificacion => {
       const fechaNotificacion = new Date(notificacion.fecha);
-      return fechaNotificacion >= inicioSemana && fechaNotificacion <= finSemana;
+      return fechaNotificacion >= inicioSemana && fechaNotificacion <= finSemana; 
     });
-
     setSemanaFiltradas(semanaFiltradas);
+  };
 
-
+  useEffect(() => {
+    filtrarMovimientosSemana();
   }, [movimiento]); 
 
-  
   return (
     <>
       <button
@@ -35,9 +43,13 @@ export const Notificacion = () => {
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
+        onClick={()=>{notificaciones(0)}}
       >
         <IoIosNotifications className="iconsNotificacion" />
-        {cantidadDeNotificacion}
+        <p>
+        {notificacion==0 ? <p className='condicion-falsa'></p> : <p className='cantidadNotificacion'>{notificacion}</p>} 
+        </p>
+       
       </button>
       
       <div
@@ -61,11 +73,11 @@ export const Notificacion = () => {
                     <br />
                     <div className='card text-center'>
                       <div className='card-header'>
-                        {Notificar.fecha}{' '}
+                        {Notificar.fecha}
                       </div>
                       <div className='card-body'>
                         <p className='card-text'>
-                          {Notificar.descripcion}{' '}
+                          {Notificar.descripcion}
                         </p>
                       </div>
                       <div className='card-footer text-muted'>

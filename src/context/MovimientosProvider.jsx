@@ -33,16 +33,23 @@ const  MovimientosProvider=({children})=>{
         
     }
 
+    const notificaciones = (notificacion=0) =>{
+        const cantidadDenotificaciones = notificacion
+        setNotificacion(cantidadDenotificaciones)
+    }
+
+
 
     useEffect(()=>{
         consultarMovimientos()
+        notificaciones()
     },[auth]);
  
 
 
 
 
-    return(<movimientosContext.Provider value={{consultarMovimientos,movimiento,agregarMovimientos,movimientoDb}}>
+    return(<movimientosContext.Provider value={{consultarMovimientos,movimiento,agregarMovimientos,movimientoDb,notificaciones,notificacion}}>
     {children}
     </movimientosContext.Provider>)
 }
