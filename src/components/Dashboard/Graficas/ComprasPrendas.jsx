@@ -51,9 +51,9 @@ export const ComprasPrendas = ({ compras, Prendas }) => {
           tooltip: {
             callbacks: {
               label: (context) => {
-                const label = context.dataset.label || 'FFF';
+                const label = context.dataset.label || '';
                 if (label) {
-                  return `${label}: ${context.parsed.y} RRR `;
+                  return `${label}: ${context.parsed.y}  `;
                 }
                 return null;
               }
