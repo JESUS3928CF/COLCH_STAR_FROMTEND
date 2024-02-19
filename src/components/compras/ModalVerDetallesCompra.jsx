@@ -79,7 +79,7 @@ export const ModalVerDetallesCompra = () => {
                                                 <Carousel.Item key={detalle.id}>
                                                     <div className='row'>
                                                         <p className='text-center mt-4'>
-                                                            Detalle #{index + 1}
+                                                            Detalle #{index + 1} -  {detallesCompra.length}
                                                         </p>
                                                         <div className='col-md-12 '>
                                                             <label

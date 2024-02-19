@@ -98,7 +98,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                         color: 'blue'
 
                                                     }}>
-                                                      Detalle #{index + 1}
+                                                      Detalle #{index + 1} - {detalles.length}
                                                   </p>
                                                   <div className='col-md-12 '>
                                                       <label
