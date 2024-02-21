@@ -13,6 +13,7 @@ import { Modal } from 'react-bootstrap';
 import useClientes from '../../hooks/useCliente.jsx';
 import Swal from 'sweetalert2';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
+import { formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 //COMPONENTE
 const AgregarOrden = () => {
@@ -188,7 +189,7 @@ const AgregarOrden = () => {
                                     </div>
 
                                     <div className='col-md-8 mt-3'>
-                                        <p> Precio total: ${totalOrden}</p>
+                                        <p> Precio total: ${formatMoney(totalOrden)}</p>
                                     </div>
                                 </div>
                             </form>

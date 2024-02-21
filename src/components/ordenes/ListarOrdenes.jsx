@@ -21,6 +21,7 @@ import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
 import useProducto from '../../hooks/useProducto.jsx';
+import { formatDate, formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 //Componente
 const ListarOrdenes = () => {
@@ -139,9 +140,8 @@ const ListarOrdenes = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Cliente</th>
-                                    <th scope='col'>Precio Total</th>
+                                    <th scope='col'>Precio total</th>
                                     <th scope='col'>Dirección</th>
                                     <th scope='col'>Fecha creación</th>
                                     <th scope='col'>Fecha entrega</th>
@@ -154,15 +154,14 @@ const ListarOrdenes = () => {
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
                                 {ordenesListar.map((orden) => (
                                     <tr key={orden.id_orden}>
-                                        <td>{orden.id_orden}</td>
                                         <td>
                                             {orden.cliente.nombre}{' '}
                                             {orden.cliente.apellido}
                                         </td>
-                                        <td>{orden.precio_total}</td>
+                                        <td>{formatMoney(orden.precio_total)}</td>
                                         <td>{orden.cliente.direccion}</td>
-                                        <td>{orden.fecha_creacion}</td>
-                                        <td>{orden.fecha_entrega}</td>
+                                        <td>{formatDate(orden.fecha_creacion)}</td>
+                                        <td>{formatDate(orden.fecha_entrega)}</td>
                                         <td>
                                             <BotonNegro
                                                 text='Ver'
@@ -222,15 +221,12 @@ const ListarOrdenes = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            Id: <span>{orden.id_orden}</span>
-                                        </p>
-                                        <p className={styles.text}>
                                             Nombre: {orden.cliente.nombre}{' '}
                                             {orden.cliente.apellido}
                                         </p>
                                         <p className={styles.text}>
-                                            Precio Total:{' '}
-                                            <span>{orden.precio_total}</span>
+                                            Precio total:{' '}
+                                            <span>{formatMoney(orden.precio_total)}</span>
                                         </p>
                                         <p className={styles.text}>
                                             Dirección:{' '}
@@ -240,11 +236,11 @@ const ListarOrdenes = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Fecha creación:{' '}
-                                            <span>{orden.fecha_creacion}</span>
+                                            <span>{formatDate(orden.fecha_creacion)}</span>
                                         </p>
                                         <p className={styles.text}>
                                             Fecha de entrega:{' '}
-                                            <span>{orden.fecha_entrega}</span>
+                                            <span>{formatDate(orden.fecha_entrega)}</span>
                                         </p>
                                         <p className={styles.text}>
                                             Estado de Orden:{' '}

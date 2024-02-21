@@ -22,6 +22,7 @@ import {
 } from '../../constantes/constantes.js';
 import useRol from '../../hooks/useRol.jsx';
 import AgregarRol from './AgregarRol.jsx';
+import { formatDate } from '../../helpers/formato_de_datos.jsx';
 
 const ListarRol = () => {
     const { roles, editarEstado, busqueda, setBusqueda } = useRol();
@@ -145,7 +146,7 @@ const ListarRol = () => {
                                             )}
                                         </td>
 
-                                        <td>{rol.fecha_creacion}</td>
+                                        <td>{formatDate(rol.fecha_creacion)}</td>
                                         <td>
                                             {rol.nombre === 'Administrador' ? (
                                                 <img
@@ -221,7 +222,7 @@ const ListarRol = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Fecha de creación:{' '}
-                                            <span>{rol.fecha_creacion}</span>
+                                            <span>{formatDate(rol.fecha_creacion)}</span>
                                         </p>
 
                                         <div className='row pt-3'>
