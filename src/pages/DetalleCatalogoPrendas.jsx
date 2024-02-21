@@ -73,7 +73,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                         </div>
                                         <div className="col-md-6">
                                             <label htmlFor="apellido" className="col-form-label" style={{ fontWeight: 600 }}>
-                                                GENERO:
+                                                GÉNERO:
                                             </label>
                                             <input
                                                 type="text"
@@ -89,7 +89,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.Talla}
+                                                value={DetallesPrendasCatalogo.Talla.join(', ')}
                                                 readOnly
                                             />
                                         </div>
