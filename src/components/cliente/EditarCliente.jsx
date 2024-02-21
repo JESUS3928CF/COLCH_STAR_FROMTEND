@@ -338,7 +338,7 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                     htmlFor='emailEditar'
                                     className='col-form-label'
                                 >
-                                    Email: *
+                                     Correo electrónico: *
                                 </label>
                                 <input
                                     type='text'

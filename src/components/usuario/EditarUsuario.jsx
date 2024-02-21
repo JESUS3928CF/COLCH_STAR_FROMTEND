@@ -229,7 +229,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
               </div>
               <div className="col-md-6">
                 <label htmlFor="emailEditar" className="col-form-label">
-                  Email: *
+                Correo electrónico: *
                 </label>
                 <input
                   type="text"

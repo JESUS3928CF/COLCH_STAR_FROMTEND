@@ -216,7 +216,7 @@ const Catalogo = () => {
                 <section className={style.products + ' ' + style.section} id='productos'>
                     <div className={style.heading}>
                         <h1>
-                            Nuestros Productos <br /> <span>Populares</span>
+                            Nuestros Productos <br />
                         </h1>
                         <a onClick={redirigirWhatsApp} className={style.btn}>
                             Comprar <i className='bx bx-right-arrow-alt'></i>
@@ -272,7 +272,7 @@ const Catalogo = () => {
             <section className={style.products + ' ' + style.section} id='prendas'>
                 <div className={style.heading}>
                     <h1>
-                        Nuestras Prendas <br /> <span>Populares</span>
+                        Nuestras Prendas <br />
                     </h1>
                     <a onClick={redirigirWhatsApp} className={style.btn}>
                         Comprar <i className='bx bx-right-arrow-alt'></i>
@@ -328,7 +328,7 @@ const Catalogo = () => {
             >
                 <div className={style.heading}>
                     <h1>
-                        Nuestros Diseños <br /> <span>Populares</span>
+                        Nuestros Diseños <br /> 
                     </h1>
                     <a onClick={redirigirWhatsApp} className={style.btn}>
                         Comprar <i className='bx bx-right-arrow-alt'></i>

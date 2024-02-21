@@ -9,7 +9,7 @@ const clientesContext = createContext();
 
 const ClientesProvider = ({ children }) => {
     const { config, auth } = useAuth();
-    const {consultarMovimientos}= useMovimientos()
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     // primer state
     const [clientes, setClientes] = useState([]);
@@ -51,6 +51,7 @@ const ClientesProvider = ({ children }) => {
                 respaldoClientes.unshift(res.data.nuevoCliente);
                 setClientes(respaldoClientes);
                 handleClose();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
             });
         } catch (err) {
@@ -121,6 +122,7 @@ const ClientesProvider = ({ children }) => {
                         );
                         setClientes(clienteActualizado);
                         handleClose();
+                        notificaciones(notificacion+1)
                         consultarMovimientos();
                         reset()
                     });
@@ -155,7 +157,7 @@ const ClientesProvider = ({ children }) => {
         const clienteActualizado = clientes.map((cliente) =>
             cliente.id_cliente == id ? clienteEditado : cliente
         );
-        
+        notificaciones(notificacion+1)
         setClientes(clienteActualizado);
         consultarMovimientos()
 
@@ -163,7 +165,7 @@ const ClientesProvider = ({ children }) => {
 
     return (
         <clientesContext.Provider
-            value={{ clientes, agregarCliente, editarCliente, editarEstado, busqueda, setBusqueda }}
+            value={{ clientes, agregarCliente, editarCliente, editarEstado, busqueda, setBusqueda ,consultarClientes }}
         >
             {children}
         </clientesContext.Provider>

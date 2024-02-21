@@ -4,8 +4,8 @@ import { format, subDays, startOfToday, parseISO } from "date-fns";
 import clienteAxios from "../../../config/axios";
 import logo from "../PDF/LogoPNGModificado.png";
 
-export const PDFComprasSemana = () => {
-  const [resumenCompras, setResumenCompras] = useState([]);
+export const PDFOrdenSemanal = () => {
+  const [resumenVentas, setResumenVentas] = useState([]);
   const [totalComprasUltimosSieteDias, setTotalComprasUltimosSieteDias] = useState(0);
 
   const token = localStorage.getItem("token");
@@ -20,37 +20,31 @@ export const PDFComprasSemana = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await clienteAxios.get("/compras", config);
+        const { data } = await clienteAxios.get("/ordenes", config);
 
-        // Obtener la fecha de hoy
         const fechaActual = startOfToday();
-
-        // Calcular la fecha de hace 7 días
         const fechaInicioSemanaActual = subDays(fechaActual, 7);
 
-        // Filtrar compras de los últimos 7 días
-        const comprasUltimos7Dias = data.filter((compra) => {
-          const fecha = parseISO(compra.fecha);
-          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
+        const VentasUltimosSieteDias = data.filter((orden) => {
+          const fecha = parseISO(orden.fecha_creacion);
+          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && orden.estado_de_orden === 'Finalizada';
         });
 
-        // Suma de todas las cantidades de las compras de los últimos 7 días
-        const totalCompras = comprasUltimos7Dias.reduce((total, compra) => total + compra.total_de_compra, 0);
-        setTotalComprasUltimosSieteDias(totalCompras);
+        const totalVentas = VentasUltimosSieteDias.reduce((total, orden) => total + orden.precio_total, 0);
+        setTotalComprasUltimosSieteDias(totalVentas);
 
-        // Agrupar compras por fecha y calcular el total de compras para cada fecha
         const resumen = {};
-        comprasUltimos7Dias.forEach((compra) => {
-          const fecha = format(parseISO(compra.fecha), "dd/MM/yyyy");
+        VentasUltimosSieteDias.forEach((orden) => {
+          const fecha = format(parseISO(orden.fecha_creacion), "dd/MM/yyyy");
           if (resumen[fecha]) {
-            resumen[fecha].total += compra.total_de_compra;
+            resumen[fecha].total += orden.precio_total;
           } else {
-            resumen[fecha] = { fecha: fecha, total: compra.total_de_compra };
+            resumen[fecha] = { fecha: fecha, total: orden.precio_total };
           }
         });
 
-        // Ordenar las fechas de menor a mayor
-        setResumenCompras(Object.values(resumen));
+        setResumenVentas(Object.values(resumen));
+        
       } catch (error) {
         console.log(error);
       }
@@ -64,15 +58,15 @@ export const PDFComprasSemana = () => {
       fontSize: 14,
       position: "relative",
       left: 130,
-      top: "25px",
-      height: "35px",
+      top: 25,
+      height: 35,
     },
-    TotalDeCompra: {
+    totalDeCompra: {
       fontSize: 14,
       position: "relative",
-      left: "265px",
-      top: "-10px",
-      height: "35px",
+      left: 265,
+      top: -10,
+      height: 35,
     },
     section: {
       padding: 50,
@@ -93,16 +87,16 @@ export const PDFComprasSemana = () => {
     borderD: {
       fontSize: 15,
       position: "absolute",
-      left: "365px",
-      top: "-1px",
+      left: 365,
+      top: -1,
     },
     borde: {
       borderBottomWidth: 1,
       borderBottomColor: "#47684E",
       width: "65%",
       position: "absolute",
-      top: "20px",
-      left: "115px",
+      top: 20,
+      left: 115,
     },
     logos: {
       position: "absolute",
@@ -112,9 +106,9 @@ export const PDFComprasSemana = () => {
     total:{
       fontSize: 14,
       position: "relative",
-      left: "25px",
-      top: "25px",
-      height: "35px",
+      left: 25,
+      top: 25,
+      height: 35,
     }
   });
 
@@ -123,27 +117,27 @@ export const PDFComprasSemana = () => {
       <Page>
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
-          <Text style={styles.titulo}>Compras de los ultimos 7 dias </Text>
+          <Text style={styles.titulo}>Ventas de los ultimos 7 dias</Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
-          <Text style={styles.borderD}>Total de compra</Text>
+          <Text style={styles.borderD}>Total de ventas</Text>
           <Text style={styles.borde}></Text>
         </View>
         <View>
-          {resumenCompras.map((compra, index) => (
+          {resumenVentas.map((orden, index) => (
             <View style={styles.fecha} key={index}>
-              <Text>{compra.fecha}</Text>
-              <Text style={styles.TotalDeCompra}>${compra.total}</Text>
+              <Text>{orden.fecha}</Text>
+              <Text style={styles.totalDeCompra}>${orden.total}</Text>
             </View>
           ))}
         </View>
         <View >
-          <Text style={styles.total}>Total de compras de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
+          <Text style={styles.total}>Total de ventas de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
         </View>
       </Page>
     </Document>
   );
 };
 
-export default PDFComprasSemana;
+export default PDFOrdenSemanal;

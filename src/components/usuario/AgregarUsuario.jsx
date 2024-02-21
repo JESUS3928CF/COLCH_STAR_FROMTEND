@@ -262,7 +262,7 @@ const AgregarUsuario = () => {
                                     htmlFor='email'
                                     className='col-form-label'
                                 >
-                                    Email: *
+                                    Correo electrónico: *
                                 </label>
                                 <input
                                     name='email'
@@ -314,7 +314,7 @@ const AgregarUsuario = () => {
                                         },
                                         pattern: {
                                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])[^\s]{8,15}$/,
-                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial',
+                                            message: 'La contraseña debe tener entre 8 y 15 dígitos, una mayúscula, una minúscula, un número y un carácter especial.',
                                         }
                                     })}
                                     onChange={(e) => {

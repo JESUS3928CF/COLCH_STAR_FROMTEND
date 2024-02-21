@@ -3,6 +3,7 @@ import ordenAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import clienteAxios from '../config/axios';
+import useMovimientos from '../hooks/useMovimientos';
 
 const ordenesContext = createContext();
 
@@ -19,6 +20,8 @@ const OrdenesProvider = ({ children }) => {
     const [editar, setEditar] = useState(false);
 
     const [totalOrden, setTotalOrden] = useState(0);
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
+
 
     /// Calcular el total de la orden
     useEffect(() => {
@@ -86,6 +89,8 @@ const OrdenesProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarOrdenes();
+                notificaciones(notificacion+1)
+                consultarMovimientos();
                 handleClose(reset);
             });
         } catch (error) {
@@ -118,6 +123,8 @@ const OrdenesProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarOrdenes();
+                notificaciones(notificacion+1)
+                consultarMovimientos();
                 handleClose(reset);
             });
         } catch (error) {
@@ -156,7 +163,9 @@ const OrdenesProvider = ({ children }) => {
                             title: `Cambio de estado exitoso`,
                             // text: "Este ",
                             icon: 'success',
-                        });
+                        },
+                        notificaciones(notificacion+1),
+                        consultarMovimientos());
                     } else {
                         Swal.fire(
                             'Error',

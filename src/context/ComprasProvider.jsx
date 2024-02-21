@@ -23,7 +23,7 @@ const ComprasProviders = ({ children }) => {
 
     const { config, auth } = useAuth();
 
-    const { consultarMovimientos } = useMovimientos();
+    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
 
     /// Calcular el total de la compra
     useEffect(() => {
@@ -85,6 +85,7 @@ const ComprasProviders = ({ children }) => {
                     }
                 }
                 consultarCompras();
+                notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose(reset);
                 setTotalCompra(0);
@@ -109,6 +110,7 @@ const ComprasProviders = ({ children }) => {
         );
 
         setCompras(compraActualizada);
+        notificaciones(notificacion+1)
         consultarMovimientos();
     };
 
