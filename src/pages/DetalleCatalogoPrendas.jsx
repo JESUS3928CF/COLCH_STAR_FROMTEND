@@ -3,6 +3,8 @@ import HeaderModals from '../components/chared/HeaderModals';
 
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { formatMoney } from '../helpers/formato_de_datos.jsx';
+
 
 
 const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) => {
@@ -52,7 +54,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                                     type="text"
                                                     className="form-control text-center" // Agregamos la clase text-center
                                                     style={{ width: '100%' }} // Definimos un ancho específico para hacerlo más pequeño
-                                                    value={DetallesPrendasCatalogo.precio}
+                                                    value={formatMoney(DetallesPrendasCatalogo.precio)}
                                                     readOnly
                                                 />
                                             </div>
