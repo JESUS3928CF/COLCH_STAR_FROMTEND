@@ -1,9 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import useCompras from '../../../hooks/useCompras';
+import usePrendas from '../../../hooks/usePrendas';
 
-export const ComprasPrendas = ({ compras, Prendas }) => {
+
+export const ComprasPrendas = () => {
   const chartContainer = useRef(null);
   const [chartInstance, setChartInstance] = useState(null);
+  const {compras, detallesCompra} = useCompras()
+  const {Prendas}= usePrendas()
+
+  const idDetalle= detallesCompra.map((detalle)=>detalle.id_detalle_compra)
+
+  console.log(detallesCompra)
+
+
 
   useEffect(() => {
     let newChartInstance = null;
@@ -31,7 +42,7 @@ export const ComprasPrendas = ({ compras, Prendas }) => {
       data: {
         labels: comprasSemanaPasada.map(compra => compra.fecha),
         datasets: [{
-          label: 'Cantidad de prendas compradas',
+          label: 'Cantidad de prendas compradas semanal ',
           data: comprasSemanaPasada.map(compra => {
             const prenda = Prendas.find(prenda => prenda.id === compra.prendaId);
             return prenda ? prenda.cantidad : 0;

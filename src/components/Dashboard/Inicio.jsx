@@ -1,16 +1,4 @@
-import {
-  Button,
-  Card,
-  Flex,
-  Grid,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Text,
-  Title
-} from "@tremor/react";
+import { Button, Card, Flex, Text, Title } from "@tremor/react";
 
 import {
   FaPhoneAlt,
@@ -28,7 +16,6 @@ import { MdOutlineMoneyOffCsred } from "react-icons/md";
 import { PiShootingStarThin } from "react-icons/pi";
 import { IoAccessibility } from "react-icons/io5";
 import { AiFillCrown } from "react-icons/ai";
-import { IoIosNotifications } from "react-icons/io";
 import Header from "../chared/header/Header";
 import "../Dashboard/Css/styleDashboard.css";
 import useProveedor from "../../hooks/useProveedor";
@@ -41,23 +28,31 @@ import useMovimientos from "../../hooks/useMovimientos";
 import { useEffect, useState } from "react";
 import useCompras from "../../hooks/useCompras.jsx";
 import useOrden from "../../hooks/useOrden.jsx";
-import { Notificacion }from "./Notificacion.jsx";
-import { subDays } from "date-fns";
-import PDFVentasMes from "./PDF/PDFVentasMes.jsx";
+import { Notificacion } from "./Notificacion.jsx";
+import PDFOrdenSemanal from "./PDF/PDFOrdenSemanal.jsx";
 import BtnPDF from "./BtnPDF.jsx";
-import GraficaMes from './Graficas/GraficaMes.jsx'
+import GraficaMes from "./Graficas/GraficaMes.jsx";
 import GraficaPrendas from "./Graficas/GraficaPrendas.jsx";
 import ComprasPrendas from "./Graficas/ComprasPrendas.jsx";
+import PDFComprasSemana from "./PDF/PDFComprasSemana.jsx";
+import { format, subDays, startOfToday, parseISO } from "date-fns";
+import DetallesProducto from "../producto/DetallesProducto.jsx";
+import { DetallesClientes } from "../cliente/DetallesClientes.jsx";
+import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
-  const { clientes } = useClientes();
+  const { clientes,consultarClientes } = useClientes();
   const { Prendas } = usePrendas();
   const { disenosDB } = useDisenosContext();
   const { productos, detailsDiseno } = useProducto();
-  const { compras } = useCompras();
+  const { compras, detallesCompra } = useCompras();
   const { ordenes, detailsOrden } = useOrden();
   const { movimiento } = useMovimientos();
+
+  const [detallesProductos, setDetallesProductos] = useState({});
+  const [detallesClientes, setDetallesClientes] = useState({});
+  const [detalleDiseno, setDetalleDiseno] = useState({});
 
   const cantidadDeProveedores = proveedores.length;
   const cantidadDeClientes = clientes.length;
@@ -72,7 +67,6 @@ export const InicioDashboard = () => {
     (starDiseno) => starDiseno.fk_diseno
   );
 
-
   const cantidadDeCompras = compras.map(
     (comprasEnTotal) => comprasEnTotal.total_de_compra
   );
@@ -81,8 +75,6 @@ export const InicioDashboard = () => {
   for (let i = 0; i < cantidadDeCompras.length; i++) {
     cantidad += cantidadDeCompras[i];
   }
-
-  const cantidadTotalDeCompras = cantidad.toLocaleString();
 
   const frecuenciaDeOrdenesEnLosClientes = {};
   let ClienteStar;
@@ -131,26 +123,58 @@ export const InicioDashboard = () => {
     }
   }
 
+  const modalDetalleProducto = productos.find(
+    (productsElegido) => productsElegido.id_producto == ProductoStar
+  );
+
+  const modalDetalleClientes = clientes.find(
+    (clienteElegido) => clienteElegido.id_cliente == ClienteStar
+  )
+
+  const modalDetalleDiseno = disenosDB.find(
+    (disenoElegido) => disenoElegido.id_diseno == DisenoStar
+  );
+
   const [totalComprasUltimosSieteDias, setTotalComprasUltimosSieteDias] =
     useState(0);
+  const [
+    totalComprasUltimosSieteDiasVentas,
+    SetTotalComprasUltimosSieteDiasVentas,
+  ] = useState(0);
 
   useEffect(() => {
-    // Obtenemos la fecha de inicio de hace 7 días
-    const fechaInicio = subDays(new Date(), 7);
+    // Obtener la fecha de hoy
+    const fechaActual = startOfToday();
 
-    // Filtramos las compras que ocurrieron en los últimos 7 días
-    const comprasUltimos7Dias = compras.filter(
-      (compra) => new Date(compra.fecha) > fechaInicio
-    );
+    // Calcular la fecha de hace 7 días
+    const fechaInicioSemanaActual = subDays(fechaActual, 7);
 
-    // Sumamos el monto de esas compras
-    const total = comprasUltimos7Dias.reduce(
-      (accum, compra) => accum + compra.total_de_compra,
+    // Filtrar compras de los últimos 7 días
+    const comprasUltimos7Dias = compras.filter((compra) => {
+      const fecha = parseISO(compra.fecha);
+      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
+    });
+
+    const VentasUltimosSieteDias = ordenes.filter((orden) => {
+      const fecha = parseISO(orden.fecha_creacion);
+      return (
+        fecha >= fechaInicioSemanaActual &&
+        fecha <= fechaActual &&
+        orden.estado_de_orden === "Finalizada"
+      );
+    });
+    const totalVentas = VentasUltimosSieteDias.reduce(
+      (total, orden) => total + orden.precio_total,
       0
     );
+    SetTotalComprasUltimosSieteDiasVentas(totalVentas);
 
-    // Actualizamos el estado con el total de compras de los últimos 7 días
-    setTotalComprasUltimosSieteDias(total);
+    // Suma de todas las cantidades de las compras de los últimos 7 días
+    const totalCompras = comprasUltimos7Dias.reduce(
+      (total, compra) => total + compra.total_de_compra,
+      0
+    );
+    setTotalComprasUltimosSieteDias(totalCompras);
   }, [compras]);
 
   return (
@@ -160,9 +184,6 @@ export const InicioDashboard = () => {
           <Header titulo="Dashboard" />
 
           <Notificacion />
-
-
-          
         </div>
 
         <div className="cards">
@@ -201,14 +222,12 @@ export const InicioDashboard = () => {
                       <Title className="textCompras">Total de compras</Title>
                       <MdOutlineMoneyOffCsred className="iconsE" />
                       <Text className="Cantidad">
-                        <Text className="Cantidad">
-                          {totalComprasUltimosSieteDias.toLocaleString( )}
-                        </Text>
+                        {totalComprasUltimosSieteDias.toLocaleString()}
                       </Text>
 
                       <BtnPDF
-                        namePDf={"ComorasSemanl.pdf"}
-                        componente={<PDFVentasMes />}
+                        namePDf={"ComprasSemanal.pdf"}
+                        componente={<PDFComprasSemana />}
                       />
                     </Card>
 
@@ -216,11 +235,13 @@ export const InicioDashboard = () => {
                       <Title className="textCompras">Total de ventas</Title>
                       <FaMoneyBillTrendUp className="iconsE" />
 
-                      <Text className="Cantidad">{cantidadDeProductos}</Text>
+                      <Text className="Cantidad">
+                        {totalComprasUltimosSieteDiasVentas.toLocaleString()}
+                      </Text>
 
                       <BtnPDF
-                        namePDf={"ventasSemanl.pdf"}
-                        componente={<PDFVentasMes />}
+                        namePDf={"ventasSemanal.pdf"}
+                        componente={<PDFOrdenSemanal />}
                       />
                     </Card>
                   </Flex>
@@ -321,11 +342,16 @@ export const InicioDashboard = () => {
                         </Text>
                       ))}
 
-                      <Button className="botonInfoF">
-                        <Link to={"/administracion/clientes"}>
-                          <span className="textBoton">Más Info</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
+                      <Button
+                        className="botonInfoF"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetalleCliente"
+                        onClick={() =>
+                          setDetallesClientes(modalDetalleClientes)
+                        }
+                      >
+                        <span className="textBoton">Más Info</span>
+                        <FaArrowAltCircleRight className="btnIcons" />
                       </Button>
                     </Card>
 
@@ -337,15 +363,20 @@ export const InicioDashboard = () => {
                         <Text className="NombreStar">
                           {productsElegido.id_producto == ProductoStar
                             ? productsElegido.nombre
-                            : ""}
+                            : " "}
                         </Text>
                       ))}
 
-                      <Button className="botonInfoF">
-                        <Link to={"/administracion/clientes"}>
-                          <span className="textBoton">Más Info</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
+                      <Button
+                        className="botonInfoF"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetallesProductos"
+                        onClick={() =>
+                          setDetallesProductos(modalDetalleProducto)
+                        }
+                      >
+                        <span className="textBoton">Más Info</span>
+                        <FaArrowAltCircleRight className="btnIcons" />
                       </Button>
                     </Card>
 
@@ -361,11 +392,14 @@ export const InicioDashboard = () => {
                         </Text>
                       ))}
 
-                      <Button className="botonInfoF">
-                        <Link to={"/administracion/disenos"}>
-                          <span className="textBoton">Más Info</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
+                      <Button
+                        className="botonInfoF"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetalles"
+                        onClick={() => setDetalleDiseno(modalDetalleDiseno)}
+                      >
+                        <span className="textBoton">Más Info</span>
+                        <FaArrowAltCircleRight className="btnIcons" />
                       </Button>
                     </Card>
                   </Flex>
@@ -393,43 +427,36 @@ export const InicioDashboard = () => {
             </button>
           </div>
         </div>
-       
-<div className="cards">
 
-
+        <div className="cards">
           <Card className="cardsNavBar">
-              <div>
-                <Card className="textDatosGenerales">
-                  <Text className="textGrafica">Graficas</Text>
-                  </Card>
-
-              </div>
+            <div>
+              <Card className="textDatosGenerales">
+                <Text className="textGrafica">Graficas</Text>
+              </Card>
+            </div>
           </Card>
 
-          <Card className="containerHeaderTable"> 
-                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
-                <GraficaMes ordenes={ordenes} compras={compras} />
+          <Card className="containerHeaderTable">
+            <GraficaMes ordenes={ordenes} compras={compras} />
+          </Card>
 
+          <Card className="containerHeaderTable">
+            <GraficaPrendas Prendas={Prendas} />
+          </Card>
 
-                </Card>
-
-                <Card className="containerHeaderTable"> 
-                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
-                <GraficaPrendas  Prendas={Prendas} />
-
-
-                </Card>
-
-                <Card className="containerHeaderTable"> 
-                {/* <Grid numItems={2} numItemsLg={3} className="gap-6 mt-6" /> */}
-                <ComprasPrendas  compras={compras} Prendas={Prendas} />
-
-
-                </Card>
-        
-       
+          <Card className="containerHeaderTable">
+            <ComprasPrendas
+              detallesCompra={detallesCompra}
+              compras={compras}
+              Prendas={Prendas}
+            />
+          </Card>
+        </div>
       </div>
-      </div>
+      <DetallesProducto detallesProductos={detallesProductos} />
+      <DetallesClientes detallesClientes={detallesClientes} />
+      <DetalleDiseno detalleDiseno={detalleDiseno} />
     </>
   );
 };

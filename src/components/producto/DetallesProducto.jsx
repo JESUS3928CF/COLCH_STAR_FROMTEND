@@ -24,7 +24,7 @@ const DetallesProducto = ({ detallesProductos }) => {
 
     return (
         <div>
-            <div className='modal' id='modalDetalles'>
+            <div className='modal' id='modalDetallesProductos'>
                 <div className='modal-dialog modal-dialog-centered modal '>
                     <div className='modal-content '>
                         <HeaderModals title='Imagen del producto' NoReset={true} />

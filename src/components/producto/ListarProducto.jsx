@@ -208,7 +208,7 @@ const ListarProducto = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Ver'
-                                                modalToOpen='#modalDetalles'
+                                                modalToOpen='#modalDetallesProductos'
                                                 onClick={() =>
                                                     setDetallesProductos(
                                                         producto
@@ -327,7 +327,7 @@ const ListarProducto = () => {
                                             >
                                                 <BotonNegro
                                                     text='Detalles'
-                                                    modalToOpen='#modalDetalles'
+                                                    modalToOpen='#modalDetallesProductos'
                                                     onClick={() =>
                                                         setDetallesProductos(
                                                             producto

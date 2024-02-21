@@ -9,15 +9,14 @@ export const Notificacion = () => {
   const { movimiento,notificaciones,notificacion } = useMovimientos();
   const [semanaFiltradas, setSemanaFiltradas] = useState([]);
 
-  // Función para obtener el rango de fechas de la semana actual
   const obtenerSemanaActual = () => {
     const hoy = new Date();
     const diaSemana = hoy.getDay();
     const inicioSemana = new Date(hoy);
-    inicioSemana.setDate(hoy.getDate() - 1); // Restar los días necesarios para obtener el domingo
+    inicioSemana.setDate(hoy.getDate()- diaSemana); 
     inicioSemana.setHours(0, 0, 0, 0);
     const finSemana = new Date(inicioSemana);
-    finSemana.setDate(inicioSemana.getDate() + 8); // Sumar 6 días para obtener el sábado de la semana
+    finSemana.setDate(inicioSemana.getDate() + 6); 
     finSemana.setHours(23, 59, 59, 999);
     return { inicioSemana, finSemana };
   };

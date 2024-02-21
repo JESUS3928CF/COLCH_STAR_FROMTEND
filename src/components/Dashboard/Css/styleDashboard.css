@@ -149,14 +149,6 @@
     border-radius: 7px; 
     border-top-left-radius: 0px;
     border-top-right-radius: 0x;
-
-
-
-
-
-
-
-   
 }
 
 
@@ -257,24 +249,35 @@
 }
   
 
-  /* .PDF{
+  .PDF{
+    position: absolute;
+    margin-left: 95%;
+    margin-top: -10px;
+    font-size: 20px;
+    transition-duration: 0ms;
+  }
 
-    font-size: 14px;
-    background-color: #000000;
-    transition: background-color 0.3s;
-    position: relative;
-    top: 15px;
+  .PDF:hover{
 
-  } */
+    color: #47684E;
+   
+  }
+
 
 .iconsNotificacion{
     position: absolute;
     margin-left: 90%;
     margin-top: -70px;
     font-size: 30px;
-
-
+    transition: 0ms;
 }
+
+.iconsNotificacion:hover{
+    color: #47684E;
+   
+}
+
+
 
 .cantidadNotificacion{
     position: absolute;

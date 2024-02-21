@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { startOfMonth, endOfMonth, format } from 'date-fns';
-import BtnPDF from '../BtnPDF';
-import PDFVentasMes from '../PDF/PDFVentasMes';
+import BotonLogoPDF from '../BotonLogoPDF.jsx';
+import PDFComprasMes from '../PDF/PDFComprasMes.jsx';
 
 export const Grafica = ({ ordenes, compras }) => {
   const monthChartContainer = useRef(null);
@@ -41,14 +41,14 @@ export const Grafica = ({ ordenes, compras }) => {
             data: {
               labels: daysInMonth,
               datasets: [{
-                label: 'Ventas',
+                label: 'Ordenes Mensuales',
                 data: ventasData,
                 backgroundColor: '#47684E',
                 borderColor: '#47684E',
                 borderWidth: 1
               },
               {
-                label: 'Compras',
+                label: 'Compras Mensuales',
                 data: comprasData,
                 backgroundColor: '#1D1B31',
                 borderColor: '#1D1B31',
@@ -80,7 +80,7 @@ export const Grafica = ({ ordenes, compras }) => {
         resultado[fecha] = 0;
       }
 
-      if (orden.estado_de_orden === 'Creada') {
+      if (orden.estado_de_orden === 'Finalizada') {
         resultado[fecha] += orden.precio_total;
       }
 
@@ -115,7 +115,7 @@ export const Grafica = ({ ordenes, compras }) => {
   return (
     <>    
       <div>
-        <h2>Mes actual <BtnPDF namePDf={'mes.pdf'} componente={<PDFVentasMes/>}/></h2>
+        <BotonLogoPDF namePDf={'mes.pdf'} componente={<PDFComprasMes/>} />
         <canvas ref={monthChartContainer} width="400" height="200"></canvas>
       </div>
     </>
