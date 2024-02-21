@@ -1,6 +1,9 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import '../Css/styleDashboard.css'
+import BotonLogoPDF from '../BotonLogoPDF';
+import PDFComprasMes from '../PDF/PDFComprasMes.jsx'
+
 
 const GraficaPrendas = ({ Prendas }) => {
   // Extraer los nombres y cantidades de las prendas
@@ -23,7 +26,7 @@ const GraficaPrendas = ({ Prendas }) => {
 
   return (
     <div>
-      <h2>Gráfico de Barras de Prendas</h2>
+      <BotonLogoPDF namePDf={'mes.pdf'} componente={<PDFComprasMes/>} />
       <div className='graficaPrendas'>
         <Bar
           data={data}

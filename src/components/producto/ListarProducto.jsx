@@ -27,6 +27,7 @@ import styles from '../../css-general/CardStyleGenerar.module.css';
 import useProducto from '../../hooks/useProducto.jsx';
 import AgregarProducto from './AgregarProducto.jsx';
 import { useDisenosContext } from '../../context/disenosProvider';
+import { formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 
 const ListarProducto = () => {
@@ -182,7 +183,7 @@ const ListarProducto = () => {
                                         <td>{producto.id_producto}</td>
                                         <td>{producto.nombre}</td>
                                         <td>{producto.cantidad}</td>
-                                        <td>{producto.precio}</td>
+                                        <td>{formatMoney(producto.precio)}</td>
                                         <td>
                                             <BotonCambioEstado
                                                 id={producto.id_producto}
@@ -208,7 +209,7 @@ const ListarProducto = () => {
                                         <td>
                                             <BotonNegro
                                                 text='Ver'
-                                                modalToOpen='#modalDetalles'
+                                                modalToOpen='#modalDetallesProductos'
                                                 onClick={() =>
                                                     setDetallesProductos(
                                                         producto
@@ -256,7 +257,7 @@ const ListarProducto = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{producto.precio}</span>
+                                            <span>{formatMoney(producto.precio)}</span>
                                         </p>
 
                                         <div className='row pt-3'>
@@ -327,7 +328,7 @@ const ListarProducto = () => {
                                             >
                                                 <BotonNegro
                                                     text='Detalles'
-                                                    modalToOpen='#modalDetalles'
+                                                    modalToOpen='#modalDetallesProductos'
                                                     onClick={() =>
                                                         setDetallesProductos(
                                                             producto

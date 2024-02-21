@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "../prendas/IconCss/style.Icon.css";
 import "../compras/Css/carousel-styles.css";
+import { formatDate, formatMoney } from "../../helpers/formato_de_datos";
 
 export const DetalleCompras = ({ detallesCompras }) => {
   const [detalles, setDetalles] = useState([]);
@@ -63,11 +64,11 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                           type='text'
                                                           className='form-control'
                                                           value={
-                                                              detallesCompras.total_de_compra
+                                                              formatMoney(detallesCompras.total_de_compra
                                                                   ? detallesCompras.total_de_compra ||
                                                                     ''
                                                                   : ''
-                                                          }
+                                      )}
                                                           readOnly
                                                       />
                                                   </div>
@@ -81,12 +82,12 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                       <input
                                                           type='text'
                                                           className='form-control'
-                                                          value={
+                                                          value={formatDate(
                                                               detallesCompras.fecha
                                                                   ? detallesCompras.fecha ||
                                                                     ''
                                                                   : ''
-                                                          }
+                                      )}
                                                           readOnly
                                                       />
                                                   </div>
@@ -144,7 +145,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                       <input
                                                           type='text'
                                                           className='form-control'
-                                                          value={detalle.precio}
+                                                          value={formatMoney(detalle.precio)}
                                                           readOnly
                                                       />
                                                   </div>
@@ -158,10 +159,10 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                       <input
                                                           type='text'
                                                           className='form-control'
-                                                          value={
+                                                          value={formatMoney( 
                                                               detalle.precio *
                                                               detalle.cantidad
-                                                          }
+                                      )}
                                                           readOnly
                                                       />
                                                   </div>

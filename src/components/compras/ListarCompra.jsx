@@ -19,6 +19,7 @@ import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import AgregarCompra from '../compras/AgregarCompra';
+import { formatDate, formatMoney } from '../../helpers/formato_de_datos';
 
 const ListarCompra = () => {
     const { compras, editarEstado, busqueda, setBusqueda } = useCompras();
@@ -113,8 +114,8 @@ const ListarCompra = () => {
                                                     ? compra.proveedor.nombre
                                                     : 'N/A'}
                                             </td>
-                                            <td>{compra.total_de_compra}</td>
-                                            <td>{compra.fecha}</td>
+                                            <td>{formatMoney(compra.total_de_compra)}</td>
+                                            <td>{formatDate(compra.fecha)}</td>
                                             <td>
                                                 <BotonCambioEstado
                                                     id={compra.id_compra}
@@ -176,12 +177,12 @@ const ListarCompra = () => {
                                             <p className={styles.text}>
                                                 Total compra:{' '}
                                                 <span>
-                                                    {compra.total_de_compra}
+                                                    {formatMoney(compra.total_de_compra)}
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
                                                 Fecha de compra:{' '}
-                                                <span>{compra.fecha}</span>
+                                                <span>{formatDate(compra.fecha)}</span>
                                             </p>
 
                                             <div className='row pt-3'>

@@ -165,7 +165,7 @@ const ClientesProvider = ({ children }) => {
 
     return (
         <clientesContext.Provider
-            value={{ clientes, agregarCliente, editarCliente, editarEstado, busqueda, setBusqueda }}
+            value={{ clientes, agregarCliente, editarCliente, editarEstado, busqueda, setBusqueda ,consultarClientes }}
         >
             {children}
         </clientesContext.Provider>

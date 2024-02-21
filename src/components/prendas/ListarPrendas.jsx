@@ -29,6 +29,7 @@ import SeleccionarColorsEditar from './SelectColorEditar.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import AgregarPrendas from './AgregarPrendas.jsx';
 import AgregarColors from './AgregarColors.jsx';
+import { formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 export const ListarPrendas = () => {
     // conexión para traer todos los datos de la base de datos
@@ -150,7 +151,7 @@ export const ListarPrendas = () => {
                                         <td>{Prendas.id_prenda}</td>
                                         <td>{Prendas.nombre}</td>
                                         <td>{Prendas.cantidad}</td>
-                                        <td>{Prendas.precio}</td>
+                                        <td>{formatMoney(Prendas.precio)}</td>
 
                                         <td>
                                             <BotonCambioEstado
@@ -226,7 +227,7 @@ export const ListarPrendas = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{Prendas.precio}</span>
+                                            <span>{formatMoney(Prendas.precio)}</span>
                                         </p>
 
                                         <div className='row pt-3'>

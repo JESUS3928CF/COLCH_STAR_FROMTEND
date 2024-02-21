@@ -2,6 +2,7 @@
 import HeaderModals from '../chared/HeaderModals';
 import { useEffect, useState } from 'react';
 import { Carousel } from 'react-bootstrap';
+import { formatMoney } from '../../helpers/formato_de_datos';
 
 const DetallesOrden = ({ detallesOrdenes }) => {
     //traemos toda la informa ion desde el listar por medio de detallesordenes y la pasamos a setDetalles y con detalles hacemos el mapeo
@@ -119,13 +120,13 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                                     'center',
                                                             }}
                                                             value={
-                                                                detalle.subtotal
+                                                                formatMoney(detalle.subtotal)
                                                             }
                                                             readOnly
                                                         />
                                                     </div>
                                                     <div
-                                                        className='col-md-10 mb-3 ml-4'
+                                                        className='col-md-10 mb-3 ml-10'
                                                         style={{
                                                             textAlign: 'center',
                                                         }}
@@ -144,7 +145,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                                     'center',
                                                             }}
                                                             value={
-                                                                detallesOrdenes.precio_total
+                                                                formatMoney(detallesOrdenes.precio_total)
                                                             }
                                                             readOnly
                                                         />
