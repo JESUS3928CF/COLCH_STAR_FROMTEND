@@ -1,22 +1,21 @@
 import PropTypes from 'prop-types';
 import HeaderModals from '../components/chared/HeaderModals';
-
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { formatMoney } from '../helpers/formato_de_datos.jsx';
 
 
 
-const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) => {
+const DetalleCatalogoProducto  = ({ DetallesProductoCatalogo, showProducto, handleCloseProducto }) => {
 
 
 
     return (
         <div>
             <Modal
-                show={show}
+                show={showProducto}
                 onHide={() => {
-                    handleClose();
+                    handleCloseProducto();
                     // console.log(DetallesPrendasCatalogo)
                     // setSelectedDisenoNombre([])
                 }}
@@ -25,9 +24,9 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
             >
                 <div className={`modal-content `}>
                     <HeaderModals
-                        title={'Detalle de la prenda '}
+                        title={'Detalle del producto '}
                         handleClose={() => {
-                            handleClose();
+                            handleCloseProducto();
                             // setSelectedDisenoNombre([])
                         }}
                     />
@@ -54,7 +53,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                                     type="text"
                                                     className="form-control text-center" // Agregamos la clase text-center
                                                     style={{ width: '100%' }} // Definimos un ancho específico para hacerlo más pequeño
-                                                    value={formatMoney(DetallesPrendasCatalogo.precio)}
+                                                    value={formatMoney(DetallesProductoCatalogo.precio)}
                                                     readOnly
                                                 />
                                             </div>
@@ -67,7 +66,8 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.tipo_de_tela}
+                                                value={DetallesProductoCatalogo.prenda && DetallesProductoCatalogo.prenda.tipo_de_tela}
+
                                                 readOnly
                                             />
                                         </div>
@@ -78,7 +78,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.genero}
+                                                value={DetallesProductoCatalogo.prenda && DetallesProductoCatalogo.prenda.genero}
                                                 readOnly
                                             />
                                         </div>
@@ -89,7 +89,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.Talla}
+                                                value={DetallesProductoCatalogo.tallas}
                                                 readOnly
                                             />
                                         </div>
@@ -100,9 +100,32 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.color ? DetallesPrendasCatalogo.color.map(color => color.color).join(', ') : ''}
+                                                value={DetallesProductoCatalogo.colores ? DetallesProductoCatalogo.colores.map(color => color.color).join(', ') : ''}
                                                 readOnly
                                             />
+                                        </div>
+                                        <div className="mb-2" name="divIdentificacion">
+                                            <label
+
+                                                htmlFor="identificacionEditar"
+                                                className="col-form-label"
+                                                style={{ fontWeight: 600 }}
+
+                                            >
+                                                DISEÑOS:
+                                            </label>
+                                            <br />
+
+                                            <div>
+                                                {/* Aquí agregamos clases para hacer el input más pequeño y centrado */}
+                                                <input
+                                                    type="text"
+                                                    className="form-control text-center" // Agregamos la clase text-center
+                                                    style={{ width: '100%' }} // Definimos un ancho específico para hacerlo más pequeño
+                                                    value={DetallesProductoCatalogo.disenos ? DetallesProductoCatalogo.disenos.map(disenos => disenos.nombre).join(', ') : ''}
+                                                    readOnly
+                                                />
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -117,4 +140,4 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
     );
 }
 
-export default DetalleCatalogoPrendas;
+export default DetalleCatalogoProducto;
