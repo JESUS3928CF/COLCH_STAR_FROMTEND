@@ -262,7 +262,7 @@ const AgregarUsuario = () => {
                                     htmlFor='email'
                                     className='col-form-label'
                                 >
-                                    Email: *
+                                    Correo electrónico: *
                                 </label>
                                 <input
                                     name='email'
