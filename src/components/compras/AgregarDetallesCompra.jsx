@@ -22,6 +22,7 @@ export const AgregarDetallesCompra = () => {
         setValue,
         trigger,
         reset, //Resetea el formulario
+        watch
     } = useForm({
         mode: 'onChange',
     });
@@ -110,11 +111,12 @@ export const AgregarDetallesCompra = () => {
                                 if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
+ 
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                if (!/^\d+$/.test(value)) {
-                                    return 'La cantidad solo puede contener números';
+                                if ( watch("fk_prenda") != "d"? !/^\d+$/.test(value) : !/^\d+(\.\d+)?$/.test(value)  && watch("fk_prenda") != "d") {
+                                    return 'La cantidad solo puede contener números enteros';
                                 }
-                                if (value.startsWith('0')) {
+                                if (value.startsWith('0')  && watch("fk_prenda") != "d") {
                                     return 'La cantidad no puede iniciar con 0';
                                 }
                                 return true;
