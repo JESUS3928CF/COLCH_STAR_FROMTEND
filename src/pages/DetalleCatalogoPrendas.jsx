@@ -89,7 +89,7 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                value={DetallesPrendasCatalogo.Talla.join(', ')}
+                                                value={DetallesPrendasCatalogo.Talla ? DetallesPrendasCatalogo.Talla.join(', ') : ''}
                                                 readOnly
                                             />
                                         </div>
