@@ -317,7 +317,7 @@ const AgregarCliente = () => {
 
                 <div className="mb-3">
                   <label htmlFor="email" className="col-form-label">
-                    Email: *
+                  Correo electrónico: *
                   </label>
                   <input
                     name="email"
