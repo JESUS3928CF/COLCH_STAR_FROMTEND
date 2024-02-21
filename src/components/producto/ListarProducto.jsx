@@ -222,7 +222,7 @@ const ListarProducto = () => {
                                                 text='Editar'
                                                 onClick={() => {
                                                     handleEditClick(producto)
-                                                    handleShow();
+                                                    
                                                 }}
                                             />
                                         </td>

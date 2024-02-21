@@ -87,7 +87,7 @@ export const DetallesClientes = ({ detallesClientes }) => {
                     </div>
                     <div className="mb-3">
                       <label htmlFor="email" className="col-form-label">
-                        Email:
+                      Correo electrónico:
                       </label>
                       <input
                         type="text"
