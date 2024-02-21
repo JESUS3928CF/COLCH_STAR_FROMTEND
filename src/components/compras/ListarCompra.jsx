@@ -80,7 +80,6 @@ const ListarCompra = () => {
                                     setDatosFiltrar={setComprasFiltrar}
                                     datos={compras}
                                     camposFiltrar={[
-                                        'id_compra',
                                         'total_de_compra',
                                         'fecha',
                                         'proveedor',
@@ -97,7 +96,6 @@ const ListarCompra = () => {
                             <table className='table caption-top '>
                                 <thead>
                                     <tr>
-                                        <th scope='col'>ID</th>
                                         <th scope='col'>Proveedor</th>
                                         <th scope='col'>Total compra</th>
                                         <th scope='col'>Fecha de compra</th>
@@ -108,7 +106,6 @@ const ListarCompra = () => {
                                 <tbody>
                                     {comprasListar.map((compra) => (
                                         <tr key={compra.id_compra}>
-                                            <td>{compra.id_compra}</td>
                                             <td>
                                                 {compra.proveedor
                                                     ? compra.proveedor.nombre
@@ -161,10 +158,6 @@ const ListarCompra = () => {
                                         className={`card mb-4 ${styles.contenedor_card}`}
                                     >
                                         <div className='card-body'>
-                                            <p className={styles.text}>
-                                                ID:{' '}
-                                                <span>{compra.id_compra}</span>
-                                            </p>
                                             <p className={styles.text}>
                                                 Proveedor:{' '}
                                                 <span>

@@ -152,7 +152,7 @@ const ListarProducto = () => {
                             <Buscador
                                 setDatosFiltrar={setProductosFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={productos} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
-                                camposFiltrar={['id_producto', 'nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
+                                camposFiltrar={['nombre', 'cantidad', 'precio']} //se le manda los campos por donde se puede filtrar
                                 busqueda={busqueda}
                                 setBusqueda={setBusqueda}
                             />
@@ -166,7 +166,6 @@ const ListarProducto = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Producto</th>
                                     <th scope='col'>Cantidad</th>
                                     <th scope='col'>Precio</th>
@@ -180,7 +179,6 @@ const ListarProducto = () => {
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
                                 {productosListar.map((producto) => (
                                     <tr key={producto.id_producto}>
-                                        <td>{producto.id_producto}</td>
                                         <td>{producto.nombre}</td>
                                         <td>{producto.cantidad}</td>
                                         <td>{formatMoney(producto.precio)}</td>
@@ -243,10 +241,6 @@ const ListarProducto = () => {
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
                                     <div className='card-body'>
-                                        <p className={styles.text}>
-                                            Id:{' '}
-                                            <span>{producto.id_producto}</span>
-                                        </p>
                                         <p className={styles.text}>
                                             Nombre:{' '}
                                             <span>{producto.nombre}</span>

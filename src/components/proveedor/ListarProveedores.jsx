@@ -116,7 +116,6 @@ const ListarProveedores = () => {
                                 setDatosFiltrar={setProveedoresFiltrar} //se le manda por medio de setProveedoresFiltrar el resultado
                                 datos={proveedores} //se le dice que datos son los que se van a filtrar y son por los que trae de la base de datos
                                 camposFiltrar={[
-                                    'id_proveedor',
                                     'nombre',
                                     'telefono',
                                     'direccion',
@@ -135,7 +134,6 @@ const ListarProveedores = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Identificación</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Teléfono</th>
@@ -148,7 +146,6 @@ const ListarProveedores = () => {
                                 {/* // ProveedoresFiltrar hace el mapeo las busqueda de los datos y arroja el resultado  */}
                                 {proveedoresListar.map((proveedor) => (
                                     <tr key={proveedor.id_proveedor}>
-                                        <td>{proveedor.id_proveedor}</td>
                                         <td>
                                             {' '}
                                             {proveedor.tipoIdentificacion}{' '}
@@ -196,12 +193,6 @@ const ListarProveedores = () => {
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
                                     <div className='card-body'>
-                                        <p className={styles.text}>
-                                            ID:{' '}
-                                            <span>
-                                                {proveedor.id_proveedor}
-                                            </span>
-                                        </p>
                                         <p className={styles.text}>
                                             Nombre:{' '}
                                             <span>{proveedor.nombre}</span>

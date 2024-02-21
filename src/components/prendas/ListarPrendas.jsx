@@ -114,7 +114,6 @@ export const ListarPrendas = () => {
                                 setDatosFiltrar={setPrendasFiltrar}
                                 datos={Prendas}
                                 camposFiltrar={[
-                                    'id_prenda',
                                     'nombre',
                                     'cantidad',
                                     'precio',
@@ -133,7 +132,6 @@ export const ListarPrendas = () => {
                             {/* lista de prendas */}
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Cantidad</th>
                                     <th scope='col'>Precio</th>
@@ -148,7 +146,6 @@ export const ListarPrendas = () => {
 
                                 {prendasListar.map((Prendas, index) => (
                                     <tr key={index}>
-                                        <td>{Prendas.id_prenda}</td>
                                         <td>{Prendas.nombre}</td>
                                         <td>{Prendas.cantidad}</td>
                                         <td>{formatMoney(Prendas.precio)}</td>
@@ -214,9 +211,6 @@ export const ListarPrendas = () => {
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
                                     <div className='card-body'>
-                                        <p className={styles.text}>
-                                            Id: <span>{Prendas.id_prenda}</span>
-                                        </p>
                                         <p className={styles.text}>
                                             Nombres:{' '}
                                             <span>{Prendas.nombre}</span>
