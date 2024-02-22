@@ -19,6 +19,7 @@ import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import AgregarCompra from '../compras/AgregarCompra';
+import { formatDate, formatMoney } from '../../helpers/formato_de_datos';
 
 const ListarCompra = () => {
     const { compras, editarEstado, busqueda, setBusqueda } = useCompras();
@@ -79,7 +80,6 @@ const ListarCompra = () => {
                                     setDatosFiltrar={setComprasFiltrar}
                                     datos={compras}
                                     camposFiltrar={[
-                                        'id_compra',
                                         'total_de_compra',
                                         'fecha',
                                         'proveedor',
@@ -96,7 +96,6 @@ const ListarCompra = () => {
                             <table className='table caption-top '>
                                 <thead>
                                     <tr>
-                                        <th scope='col'>ID</th>
                                         <th scope='col'>Proveedor</th>
                                         <th scope='col'>Total compra</th>
                                         <th scope='col'>Fecha de compra</th>
@@ -107,14 +106,13 @@ const ListarCompra = () => {
                                 <tbody>
                                     {comprasListar.map((compra) => (
                                         <tr key={compra.id_compra}>
-                                            <td>{compra.id_compra}</td>
                                             <td>
                                                 {compra.proveedor
                                                     ? compra.proveedor.nombre
                                                     : 'N/A'}
                                             </td>
-                                            <td>{compra.total_de_compra}</td>
-                                            <td>{compra.fecha}</td>
+                                            <td>{formatMoney(compra.total_de_compra)}</td>
+                                            <td>{formatDate(compra.fecha)}</td>
                                             <td>
                                                 <BotonCambioEstado
                                                     id={compra.id_compra}
@@ -161,10 +159,6 @@ const ListarCompra = () => {
                                     >
                                         <div className='card-body'>
                                             <p className={styles.text}>
-                                                ID:{' '}
-                                                <span>{compra.id_compra}</span>
-                                            </p>
-                                            <p className={styles.text}>
                                                 Proveedor:{' '}
                                                 <span>
                                                     {compra.proveedor
@@ -176,12 +170,12 @@ const ListarCompra = () => {
                                             <p className={styles.text}>
                                                 Total compra:{' '}
                                                 <span>
-                                                    {compra.total_de_compra}
+                                                    {formatMoney(compra.total_de_compra)}
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
                                                 Fecha de compra:{' '}
-                                                <span>{compra.fecha}</span>
+                                                <span>{formatDate(compra.fecha)}</span>
                                             </p>
 
                                             <div className='row pt-3'>

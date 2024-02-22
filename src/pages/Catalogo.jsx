@@ -12,6 +12,7 @@ import usePrendas from '../hooks/usePrendas';
 import { redirigirWhatsApp } from '../constantes/funciones.js';
 import { useState } from 'react';
 import DetalleCatalogoPrendas from './DetalleCatalogoPrendas.jsx';
+import DetalleCatalogoProducto from './DetalleCatalogoProducto.jsx';
 
 
 
@@ -20,16 +21,29 @@ import DetalleCatalogoPrendas from './DetalleCatalogoPrendas.jsx';
 const Catalogo = () => {
 
 
-     /// Funcionalidad para cerra el modal de editar
-     const [show, setShow] = useState(false);
 
-     const handleClose = () => setShow(false);
-     const handleShow = () => setShow(true);
+
+    /// Funcionalidad para cerra el modal dy abrir el modal de detalleprendas
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    /// Funcionalidad para cerra el modal dy abrir el modal de detalleproductos
+    const [showProducto, setShowProducto] = useState(false);
+
+    const handleCloseProducto = () => setShowProducto(false);
+    const handleShowProducto = () => setShowProducto(true);
+
+
 
     const [DetallesPrendasCatalogo, setDetallesPrendasCatalogo] = useState({});
 
+    const [DetallesProductoCatalogo, setDetallesProductoCatalogo] = useState({});
+
 
     const { Prendas } = usePrendas();
+
 
 
 
@@ -246,6 +260,19 @@ const Catalogo = () => {
                                                 : ''
                                         }
                                         alt=''
+                                        onClick={() => {
+                                            handleShowProducto()
+    
+    
+                                            setDetallesProductoCatalogo(
+                                                productos
+                                            )
+    
+    
+    
+    
+    
+                                        }}
                                     />
                                     <div
                                         className={style.informacionProducto}
@@ -300,7 +327,7 @@ const Catalogo = () => {
                                         Prenda
                                     )
 
-                                    
+
 
 
 
@@ -318,7 +345,7 @@ const Catalogo = () => {
                     ))}
                 </div>
 
-            
+
             </section>
 
             {/* //diseñossss */}
@@ -328,7 +355,7 @@ const Catalogo = () => {
             >
                 <div className={style.heading}>
                     <h1>
-                        Nuestros Diseños <br /> 
+                        Nuestros Diseños <br />
                     </h1>
                     <a onClick={redirigirWhatsApp} className={style.btn}>
                         Comprar <i className='bx bx-right-arrow-alt'></i>
@@ -382,7 +409,7 @@ const Catalogo = () => {
                     id='about'
                 >
                     <img className={style.img} src={logo10} alt='' />
-                    <div className={style.abouttext} style={{textAlign: 'justify'}} >
+                    <div className={style.abouttext} style={{ textAlign: 'justify' }} >
                         <span>Nosotros</span>
                         <p>
                             En <strong>Colch Star</strong>, nos dedicamos apasionadamente a
@@ -408,6 +435,11 @@ const Catalogo = () => {
                 <DetalleCatalogoPrendas DetallesPrendasCatalogo={DetallesPrendasCatalogo} show={show}
                     handleClose={handleClose}
                     handleShow={handleShow} />
+
+
+                <DetalleCatalogoProducto DetallesProductoCatalogo={DetallesProductoCatalogo} showProducto={showProducto}
+                    handleCloseProducto={handleCloseProducto}
+                    handleShowProducto={handleShowProducto} />
             </div>
         </div>
     );

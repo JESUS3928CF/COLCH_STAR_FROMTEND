@@ -107,7 +107,6 @@ const ListarCliente = () => {
                                 setDatosFiltrar={setClientesFiltrar}
                                 datos={clientes}
                                 camposFiltrar={[
-                                    'id_cliente',
                                     'nombre',
                                     'apellido',
                                     'identificacion',
@@ -128,7 +127,6 @@ const ListarCliente = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Identificación</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Apellido</th>
@@ -141,7 +139,6 @@ const ListarCliente = () => {
                             <tbody>
                                 {clientesListar.map((cliente) => (
                                     <tr key={cliente.id_cliente}>
-                                        <td>{cliente.id_cliente}</td>
                                         <td>
                                             {cliente.tipoIdentificacion}{' '}
                                             {cliente.identificacion}
@@ -191,10 +188,6 @@ const ListarCliente = () => {
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
                                     <div className='card-body'>
-                                        <p className={styles.text}>
-                                            ID:{' '}
-                                            <span>{cliente.id_cliente}</span>
-                                        </p>
                                         <p className={styles.text}>
                                             Identificación:{' '}
                                             <span>

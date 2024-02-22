@@ -29,6 +29,7 @@ import SeleccionarColorsEditar from './SelectColorEditar.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import AgregarPrendas from './AgregarPrendas.jsx';
 import AgregarColors from './AgregarColors.jsx';
+import { formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 export const ListarPrendas = () => {
     // conexión para traer todos los datos de la base de datos
@@ -113,7 +114,6 @@ export const ListarPrendas = () => {
                                 setDatosFiltrar={setPrendasFiltrar}
                                 datos={Prendas}
                                 camposFiltrar={[
-                                    'id_prenda',
                                     'nombre',
                                     'cantidad',
                                     'precio',
@@ -132,7 +132,6 @@ export const ListarPrendas = () => {
                             {/* lista de prendas */}
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Cantidad</th>
                                     <th scope='col'>Precio</th>
@@ -147,10 +146,9 @@ export const ListarPrendas = () => {
 
                                 {prendasListar.map((Prendas, index) => (
                                     <tr key={index}>
-                                        <td>{Prendas.id_prenda}</td>
                                         <td>{Prendas.nombre}</td>
                                         <td>{Prendas.cantidad}</td>
-                                        <td>{Prendas.precio}</td>
+                                        <td>{formatMoney(Prendas.precio)}</td>
 
                                         <td>
                                             <BotonCambioEstado
@@ -214,9 +212,6 @@ export const ListarPrendas = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            Id: <span>{Prendas.id_prenda}</span>
-                                        </p>
-                                        <p className={styles.text}>
                                             Nombres:{' '}
                                             <span>{Prendas.nombre}</span>
                                         </p>
@@ -226,7 +221,7 @@ export const ListarPrendas = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{Prendas.precio}</span>
+                                            <span>{formatMoney(Prendas.precio)}</span>
                                         </p>
 
                                         <div className='row pt-3'>

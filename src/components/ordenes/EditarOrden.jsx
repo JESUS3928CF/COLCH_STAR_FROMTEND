@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
 import useOrden from '../../hooks/useOrden.jsx';
 import Swal from 'sweetalert2';
+import { formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 //COMPONENTE
 const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
@@ -171,7 +172,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                                         )}
                                     </div>
                                     <div className='col-md-8 mt-3'>
-                                        <p> Precio total: ${totalOrden}</p>
+                                        <p> Precio total: {formatMoney(totalOrden)}</p>
                                     </div>
                                 </div>
                             </form>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import "./IconCss/style.Icon.css";
 import styles from "../../css-general/estilosReutilizables.module.css";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { formatMoney } from "../../helpers/formato_de_datos";
 
 export const DetallesPrendas = ({ detallesPrendas }) => {
   const { setValue } = useForm();
@@ -20,6 +21,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
     ) {
       setStartIndex(startIndex + 1);
     }
+    
   };
 
   const handlePrevious = () => {
@@ -27,6 +29,26 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
       setStartIndex(startIndex - 1);
     }
   };
+
+  const [startIndexc, setStartIndexc] = useState(0);
+  const numVisibleColorsc = 2;
+
+  const handleNextc = () => {
+    if (
+      detallesPrendas.cantidades &&
+      detallesPrendas.cantidades.length > startIndex + numVisibleColorsc
+    ) {
+      setStartIndexc(startIndex + 1);
+    }
+    
+  };
+
+  const handlePreviousc = () => {
+    if (startIndexc > 0) {
+      setStartIndexc(startIndexc - 1);
+    }
+  };
+
 
   useEffect(() => {
     if (detallesPrendas) {
@@ -59,18 +81,16 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                     <div className="row gx-0">
                       <div className="col-md-6">
                         <a
-                          href={`${import.meta.env.VITE_BACKEND_URL}/${
-                            detallesPrendas.imagen
-                          }`}
+                          href={`${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen
+                            }`}
                           className={styles.contenedor_imagen}
                         >
                           {" "}
                           <img
                             src={
                               detallesPrendas.imagen
-                                ? `${import.meta.env.VITE_BACKEND_URL}/${
-                                    detallesPrendas.imagen
-                                  }`
+                                ? `${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen
+                                }`
                                 : ""
                             }
                             alt={detallesPrendas.imagen}
@@ -90,7 +110,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                           </h3>
                           <h3 htmlFor="precio" className="card-title">
                             {" "}
-                            <b>Precio:</b> {detallesPrendas.precio}
+                            <b>Precio:</b> {formatMoney(detallesPrendas.precio)}
                           </h3>
                           <h3 htmlFor="Tela" className="card-title">
                             {" "}
@@ -110,10 +130,10 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
 
                         <div className="tallas-div text-center">
                           {detallesPrendas.Talla &&
-                          Array.isArray(detallesPrendas.Talla)
+                            Array.isArray(detallesPrendas.Talla)
                             ? detallesPrendas.Talla.map((talla, index) => (
-                                <p key={index}>{talla}, </p>
-                              ))
+                              <p key={index}>{talla},</p>
+                            ))
                             : null}
                         </div>
                       </div>
@@ -138,7 +158,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                       >
                                         <span className="color-name">
                                           {index !==
-                                          detallesPrendas.color.length - 1
+                                            detallesPrendas.color.length - 1
                                             ? color.color + ","
                                             : color.color}
                                         </span>
@@ -155,7 +175,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                               {/* Arrow Buttons for Colors */}
                               {detallesPrendas.color &&
                                 detallesPrendas.color.length >
-                                  numVisibleColors && (
+                                numVisibleColors && (
                                   <div className={styles.arrowButtons}>
                                     <button
                                       className="btn btn-link"
@@ -166,6 +186,57 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                     <button
                                       className="btn btn-link"
                                       onClick={handleNext}
+                                    >
+                                      <BiChevronRight />
+                                    </button>
+                                  </div>
+                                )}
+                            </h3>
+                          </div>
+                        </h3>
+                      </div>
+                      <div className="col-sm-12 col-md-6 pt-1 ">
+                        <h3 htmlFor="Colores" className="card-title">
+                          <div className="coors-div">
+                            {/* Colores */}
+                            <h3 htmlFor="Colores" className="card-title">
+                              {/* <b>Convinaciones:</b> */}
+                              
+                              <div className="colors-div">
+                                {/* Mapping colors */}
+                                {detallesPrendas.cantidades &&
+                                  detallesPrendas.cantidades
+                                    .slice(
+                                      startIndexc,
+                                      startIndexc + numVisibleColorsc
+                                    )
+                                    .map((cantidades, index) => (
+                                      <div
+                                        key={`${cantidades.id_color}_${index}`}
+                                        className="color-block"
+                                      >
+                                        <span className="color-name">
+                                          <strong>Color:</strong> {cantidades.color}<br />
+                                          <strong>Talla:</strong> {cantidades.talla}<br />
+                                          <strong>Cantidad:</strong> {cantidades.cantidad}
+                                        </span>
+                                      </div>
+                                    ))}
+                              </div>
+                              {/* Arrow Buttons for Colors */}
+                              {detallesPrendas.cantidades &&
+                                detallesPrendas.cantidades.length >
+                                numVisibleColorsc && (
+                                  <div className={styles.arrowButtons}>
+                                    <button
+                                      className="btn btn-link"
+                                      onClick={handlePreviousc}
+                                    >
+                                      <BiChevronLeft />
+                                    </button>
+                                    <button
+                                      className="btn btn-link"
+                                      onClick={handleNextc}
                                     >
                                       <BiChevronRight />
                                     </button>

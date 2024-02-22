@@ -11,6 +11,7 @@ import BotonVerde from '../chared/BotonVerde';
 import { AgregarDetallesCompra } from './AgregarDetallesCompra';
 import Swal from 'sweetalert2';
 import { ModalVerDetallesCompra } from './ModalVerDetallesCompra';
+import { formatMoney } from '../../helpers/formato_de_datos';
 
 const AgregarCompras = () => {
     const {
@@ -177,7 +178,7 @@ const AgregarCompras = () => {
                                 </div>
 
                                 <div className='col-md-4 my-3'>
-                                    <p>Precio total = {totalCompra}</p>
+                                    <p>Precio total = {formatMoney(totalCompra)}</p>
                                 </div>
                             </form>
                             <AgregarDetallesCompra />

@@ -100,7 +100,6 @@ const ListarUsuario = () => {
                                 setDatosFiltrar={setUsuariosFiltrar}
                                 datos={usuarios}
                                 camposFiltrar={[
-                                    'id_usuario',
                                     'nombre',
                                     'apellido',
                                     'telefono',
@@ -119,7 +118,6 @@ const ListarUsuario = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Nombre</th>
                                     <th scope='col'>Apellido</th>
                                     <th scope='col'>Teléfono</th>
@@ -132,7 +130,6 @@ const ListarUsuario = () => {
                             <tbody>
                                 {usuariosListar.map((usuario) => (
                                     <tr key={usuario.id_usuario}>
-                                        <td>{usuario.id_usuario}</td>
                                         <td>{usuario.nombre}</td>
                                         <td>{usuario.apellido}</td>
                                         <td>{usuario.telefono}</td>
@@ -188,10 +185,6 @@ const ListarUsuario = () => {
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
                                     <div className='card-body'>
-                                        <p className={styles.text}>
-                                            ID:{' '}
-                                            <span>{usuario.id_usuario}</span>
-                                        </p>
                                         <p className={styles.text}>
                                             Nombres:{' '}
                                             <span>{usuario.nombre}</span>

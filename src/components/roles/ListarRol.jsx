@@ -22,6 +22,7 @@ import {
 } from '../../constantes/constantes.js';
 import useRol from '../../hooks/useRol.jsx';
 import AgregarRol from './AgregarRol.jsx';
+import { formatDate } from '../../helpers/formato_de_datos.jsx';
 
 const ListarRol = () => {
     const { roles, editarEstado, busqueda, setBusqueda } = useRol();
@@ -102,7 +103,6 @@ const ListarRol = () => {
                                 setDatosFiltrar={setRolesFiltrar}
                                 datos={roles}
                                 camposFiltrar={[
-                                    'id_rol',
                                     'nombre',
                                     'fecha_creacion',
                                     'permisos',
@@ -120,7 +120,6 @@ const ListarRol = () => {
                         <table className='table caption-top '>
                             <thead>
                                 <tr>
-                                    <th scope='col'>ID</th>
                                     <th scope='col'>Roles</th>
                                     <th scope='col' className='text-center'>
                                         Permisos
@@ -133,7 +132,6 @@ const ListarRol = () => {
                             <tbody>
                                 {rolesListar.map((rol) => (
                                     <tr key={rol.id_rol}>
-                                        <td>{rol.id_rol}</td>
                                         <td>{rol.nombre}</td>
                                         <td>
                                             {rol.permisos.map(
@@ -145,7 +143,7 @@ const ListarRol = () => {
                                             )}
                                         </td>
 
-                                        <td>{rol.fecha_creacion}</td>
+                                        <td>{formatDate(rol.fecha_creacion)}</td>
                                         <td>
                                             {rol.nombre === 'Administrador' ? (
                                                 <img
@@ -202,9 +200,6 @@ const ListarRol = () => {
                                 >
                                     <div className='card-body'>
                                         <p className={styles.text}>
-                                            ID: <span>{rol.id_rol}</span>
-                                        </p>
-                                        <p className={styles.text}>
                                             Roles: <span>{rol.nombre}</span>
                                         </p>
                                         <p className={styles.text}>
@@ -221,7 +216,7 @@ const ListarRol = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Fecha de creación:{' '}
-                                            <span>{rol.fecha_creacion}</span>
+                                            <span>{formatDate(rol.fecha_creacion)}</span>
                                         </p>
 
                                         <div className='row pt-3'>
