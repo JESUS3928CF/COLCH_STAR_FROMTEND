@@ -48,7 +48,6 @@ const PDFComprasMes = () => {
 
         const year = getYear(new Date());
         const mesActual = getMonth(new Date());
-        console.log("mes actual", mesActual);
         // Filtrar compras para el mes y año proporcionados
         const comprasMes = data.filter((compra) => {
           const fecha = parseISO(compra.fecha);
@@ -57,7 +56,6 @@ const PDFComprasMes = () => {
         });
 
         const nombrePDF = nombreDelMes[mesActual];
-        console.log(nombrePDF);
         setMonthName(nombrePDF);
 
         // Agrupar las compras por fecha y sumar los totales
@@ -98,7 +96,6 @@ const PDFComprasMes = () => {
         });
 
         const nombrePDF = nombreDelMes[mesActual];
-        console.log(nombrePDF);
         setMonthName(nombrePDF);
 
         // Agrupar las compras por fecha y sumar los totales

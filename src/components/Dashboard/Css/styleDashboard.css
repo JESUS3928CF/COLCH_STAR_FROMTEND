@@ -37,6 +37,11 @@
     border-radius: 35px;
     margin-top: 55px;
     display: block;
+
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: center;
+
+
 }
 
 
@@ -168,6 +173,8 @@
     left: 35px;
 }
 
+
+
 .iconsE{
 
     font-size: 35px;
@@ -176,9 +183,14 @@
     left: 150px;
     top: 35px;
     text-align: center;
+    margin-right: 5px; /* Espacio entre el icono y el texto */
+
 
 }
 
+
+  
+ 
 .NombreStar{
     
     font-size: 20px;
