@@ -4,6 +4,8 @@ import AlertaError from '../chared/AlertaError';
 import BotonNegro from '../chared/BotonNegro';
 import GuardarModal from '../chared/GuardarModal';
 import useCompras from '../../hooks/useCompras';
+import { useState } from 'react';
+
 
 export const AgregarDetallesCompra = () => {
     const { Prendas } = usePrendas();
@@ -14,6 +16,25 @@ export const AgregarDetallesCompra = () => {
         handleShowDetalles,
         handleClose,
     } = useCompras();
+
+
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null); // Estado para el producto seleccionado
+    const [infoProductoSeleccionado, setInfoProductoSeleccionado] = useState(
+        {}
+    );
+
+    // Función para manejar el cambio de producto seleccionado
+
+    const handleProductoChange = (id_prenda) => {
+        setProductoSeleccionado(id_prenda); // Actualizar el estado del producto seleccionado
+        const productoEncontrado = Prendas.find(
+            (prenda) => prenda.id_prenda == id_prenda
+        );
+
+        if (!productoEncontrado) return;
+
+        setInfoProductoSeleccionado(productoEncontrado);
+    };
 
     const {
         register, //Registra o identifica cada elemento o cada input
@@ -67,6 +88,7 @@ export const AgregarDetallesCompra = () => {
                             message: 'El producto es obligatorio',
                         },
                     })}
+                    onChange={() => handleProductoChange(event.target.value)} // Manejar el cambio de prenda seleccionada
                 >
                     <option value=''>Seleccione el producto comprado</option>
                     <option value='d'>Impresión de estampados</option>
@@ -86,6 +108,74 @@ export const AgregarDetallesCompra = () => {
                     <AlertaError message={errors.fk_prenda.message} />
                 )}
             </div>
+            {productoSeleccionado && (
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <label htmlFor='rol' className='col-form-label'>
+                            Talla: *
+                        </label>
+
+                        <select
+                            name='talla'
+                            className='form-control'
+                            {...register('talla', {
+                                required: {
+                                    value: true,
+                                    message: 'La talla es obligatoria',
+                                },
+                            })}
+                        >
+                            <option value=''>Seleccione la talla</option>
+
+                            {infoProductoSeleccionado.Talla.map((talla) => {
+                                return (
+                                    <option key={talla} value={talla}>
+                                        {talla}
+                                    </option>
+                                );
+                            })}
+                        </select>
+
+                        {errors.talla && (
+                            <AlertaError message={errors.talla.message} />
+                        )}
+                    </div>
+
+                    <div className='col-md-6'>
+                        <label htmlFor='rol' className='col-form-label'>
+                            Color: *
+                        </label>
+
+                        <select
+                            name='color'
+                            className='form-control'
+                            {...register('color', {
+                                required: {
+                                    value: true,
+                                    message: 'El color es obligatoria',
+                                },
+                            })}
+                        >
+                            <option value=''>Seleccione el color</option>
+
+                            {infoProductoSeleccionado.color.map((color) => {
+                                return (
+                                    <option
+                                        key={color.id_color}
+                                        value={color.color}
+                                    >
+                                        {color.color}
+                                    </option>
+                                );
+                            })}
+                        </select>
+
+                        {errors.color && (
+                            <AlertaError message={errors.color.message} />
+                        )}
+                    </div>
+                </div>
+            )}
 
             <div className='row'>
                 <div className='col-md-6'>
