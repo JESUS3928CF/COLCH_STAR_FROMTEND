@@ -167,7 +167,7 @@ const ListarProducto = () => {
                             <thead>
                                 <tr>
                                     <th scope='col'>Producto</th>
-                                    <th scope='col'>Cantidad</th>
+                                    {/* <th scope='col'>Cantidad</th> */}
                                     <th scope='col'>Precio</th>
                                     <th scope='col'>Publicado</th>
                                     <th scope='col'>Estado</th>
@@ -180,7 +180,7 @@ const ListarProducto = () => {
                                 {productosListar.map((producto) => (
                                     <tr key={producto.id_producto}>
                                         <td>{producto.nombre}</td>
-                                        <td>{producto.cantidad}</td>
+                                        {/* <td>{producto.cantidad}</td> */}
                                         <td>{formatMoney(producto.precio)}</td>
                                         <td>
                                             <BotonCambioEstado

@@ -65,7 +65,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     useEffect(() => {
         if (editarProducto) {
             setValue('nombre', editarProducto.nombre);
-            setValue('cantidad', editarProducto.cantidad);
+            // setValue('cantidad', editarProducto.cantidad);
             setValue('precio', editarProducto.precio);
             setValue('publicado', editarProducto.publicado);
             setValue("fk_prenda", editarProducto.fk_prenda);
@@ -177,59 +177,6 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                 )}
                             </div>
 
-                            <div className='col-md-6 ms-auto'>
-                                <label
-                                    htmlFor='cantidadGuardar'
-                                    className='col-form-label'
-                                >
-                                    Cantidad: *
-                                </label>
-
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    name='cantidad'
-                                    id='cantidadGuardar'
-                                    placeholder='. . .'
-                                    {...register('cantidad', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'El cantidad es obligatorio',
-                                        },
-                                        validate: (value) => {
-                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                            if (!/^\d+$/.test(value)) {
-                                                return 'La cantidad solo puede contener números';
-                                            }
-                                            // Convertir el número a cadena para realizar la validación de inicio con cero
-                                            const valueAsString =
-                                                value.toString();
-
-                                            // Verificar si el número comienza con cero
-                                            if (valueAsString.startsWith('0')) {
-                                                return 'El número no puede iniciar en 0';
-                                            }
-
-                                            return true;
-                                        },
-                                    })}
-                                    onChange={(e) => {
-                                        const inputValue = e.target.value.slice(
-                                            0,
-                                            11
-                                        ); // Limitar la longitud máxima
-                                        setValue('cantidad', inputValue);
-                                        trigger('cantidad');
-                                    }}
-                                />
-                                {/* en esta etiqueta va salir el error de validación  */}
-                                {errors.cantidad && (
-                                    <AlertaError
-                                        message={errors.cantidad.message}
-                                    />
-                                )}
-                            </div>
 
                             <div className='col-md-6 mt-2'>
                                 <label htmlFor='rol' className='col-form-label'>
