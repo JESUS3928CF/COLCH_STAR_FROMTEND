@@ -38,7 +38,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
       detallesPrendas.cantidades &&
       detallesPrendas.cantidades.length > startIndex + numVisibleColorsc
     ) {
-      setStartIndexc(startIndex + 1);
+      setStartIndexc(startIndexc + 1);
     }
     
   };
