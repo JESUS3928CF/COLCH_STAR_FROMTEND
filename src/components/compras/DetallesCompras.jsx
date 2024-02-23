@@ -12,13 +12,19 @@ export const DetalleCompras = ({ detallesCompras }) => {
 
     const { colors } = useColors()
 
+
+
+
+
+
+
     useEffect(() => {
         setDetalles(detallesCompras.detalles || []);
     }, [detallesCompras]);
-    
 
-     // Función para obtener el nombre del color
-     const getNombreColor = (colorId) => {
+
+    // Función para obtener el nombre del color
+    const getNombreColor = (colorId) => {
         const color = colors.find(color => color.id_color === colorId);
         return color ? color.color : 'Color no encontrado';
     };
@@ -161,38 +167,28 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                             readOnly
                                                         />
                                                     </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='cantidad'
-                                                            className='col-form-label'
-                                                        >
-                                                            Talla:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value={
-                                                                detalle.talla
-                                                            }
-                                                            readOnly
-                                                        />
-                                                    </div>
-                                                    <div className='col-md-6 '>
-                                                        <label
-                                                            htmlFor='cantidad'
-                                                            className='col-form-label'
-                                                        >
-                                                            Color:
-                                                        </label>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            value=
-                                                                {getNombreColor(detalle.color_id)}
-                                                            
-                                                            readOnly
-                                                        />
-                                                    </div>
+                                                    {detalle.fk_prenda !== null && (
+                                                        <>
+                                                            <div className='col-md-6 '>
+                                                                <label htmlFor='cantidad' className='col-form-label'>Talla:</label>
+                                                                <input
+                                                                    type='text'
+                                                                    className='form-control'
+                                                                    value={detalle.talla}
+                                                                    readOnly
+                                                                />
+                                                            </div>
+                                                            <div className='col-md-6 '>
+                                                                <label htmlFor='cantidad' className='col-form-label'>Color:</label>
+                                                                <input
+                                                                    type='text'
+                                                                    className='form-control'
+                                                                    value={getNombreColor(detalle.color_id)}
+                                                                    readOnly
+                                                                />
+                                                            </div>
+                                                        </>
+                                                    )}
                                                     <div className='col-md-12 '>
                                                         <label
                                                             htmlFor='nombre'
