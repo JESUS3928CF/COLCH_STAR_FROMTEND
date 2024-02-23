@@ -111,7 +111,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                             // setSelectedDisenoNombre([]);
                         }}
                     />
-                     <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
+                     {/* <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p> */}
 
                     <div className='modal-body'>
                         <form className='row g-3 needs-validation'>
@@ -246,7 +246,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                 )}
                             </div>
 
-                            <div className='col-md-12' name='Archivo'>
+                            <div className='col-md-6' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'

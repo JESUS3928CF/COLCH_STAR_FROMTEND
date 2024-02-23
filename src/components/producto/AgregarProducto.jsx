@@ -144,7 +144,7 @@ const AgregarProducto = () => {
                             // setSelectedDisenoNombre([])
                         }}
                     />
-                    <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
+                    {/* <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p> */}
 
                     <div className='modal-body'>
                     
@@ -282,7 +282,7 @@ const AgregarProducto = () => {
                                 )}
                             </div>
 
-                            <div className='col-md-12' name='Archivo'>
+                            <div className='col-md-6' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'
