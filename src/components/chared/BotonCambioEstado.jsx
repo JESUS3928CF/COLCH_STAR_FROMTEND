@@ -12,7 +12,7 @@ const BotonCambioEstado = ({
     ruta,
     editarEstado,
     cambiarPublicacion = { estado: true, paraPublicacion: false },
-    bloquearCambioDeEstado = { "estado": false, "fecha": date.now()},
+    bloquearCambioDeEstado = { "estado": false},
     mensajeError = 'Este ' +
         nombreRegistro +
         ' no se le puede cambiar el estado de publicación porque está Inhabilitado',
