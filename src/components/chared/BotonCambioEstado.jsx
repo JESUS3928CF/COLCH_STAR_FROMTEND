@@ -57,7 +57,7 @@ const BotonCambioEstado = ({
     //* Por aca bloquemos que made el mensaje de que ya no se puede cancelar
         if (
             (cambiarPublicacion.paraPublicacion &&
-                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado && isChecked == false) || (!haceMasDeUnaSemana(bloquearCambioDeEstado.fecha && isChecked == true))
+                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado && isChecked == false)
         )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
