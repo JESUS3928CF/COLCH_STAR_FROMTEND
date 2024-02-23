@@ -6,7 +6,6 @@ import GuardarModal from '../chared/GuardarModal';
 import useCompras from '../../hooks/useCompras';
 import { useState } from 'react';
 
-
 export const AgregarDetallesCompra = () => {
     const { Prendas } = usePrendas();
 
@@ -16,7 +15,6 @@ export const AgregarDetallesCompra = () => {
         handleShowDetalles,
         handleClose,
     } = useCompras();
-
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null); // Estado para el producto seleccionado
     const [infoProductoSeleccionado, setInfoProductoSeleccionado] = useState(
@@ -31,7 +29,10 @@ export const AgregarDetallesCompra = () => {
             (prenda) => prenda.id_prenda == id_prenda
         );
 
-        if (!productoEncontrado) return;
+        if (!productoEncontrado) {
+            setInfoProductoSeleccionado({});
+            return;
+        }
 
         setInfoProductoSeleccionado(productoEncontrado);
     };
@@ -43,7 +44,6 @@ export const AgregarDetallesCompra = () => {
         setValue,
         trigger,
         reset, //Resetea el formulario
-        watch
     } = useForm({
         mode: 'onChange',
     });
@@ -54,6 +54,8 @@ export const AgregarDetallesCompra = () => {
         if (data.fk_prenda == 'd') {
             data.fk_prenda = '';
             data.producto = 'Impresión de estampados';
+            data.Talla = [];
+            data.color = [];
         } else {
             const prendaEncontrada = Prendas.find(
                 (prenda) => prenda.id_prenda == data.fk_prenda
@@ -109,7 +111,7 @@ export const AgregarDetallesCompra = () => {
                     <AlertaError message={errors.fk_prenda.message} />
                 )}
             </div>
-            {productoSeleccionado && (
+            {productoSeleccionado && productoSeleccionado != 'd' && (
                 <div className='row'>
                     <div className='col-md-6'>
                         <label htmlFor='rol' className='col-form-label'>
@@ -201,12 +203,11 @@ export const AgregarDetallesCompra = () => {
                                 if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
- 
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                if ( watch("fk_prenda") != "d"? !/^\d+$/.test(value) : !/^\d+(\.\d+)?$/.test(value)  && watch("fk_prenda") != "d") {
-                                    return 'La cantidad solo puede contener números enteros';
+                                if (!/^\d+$/.test(value)) {
+                                    return 'La cantidad solo puede contener números';
                                 }
-                                if (value.startsWith('0')  && watch("fk_prenda") != "d") {
+                                if (value.startsWith('0')) {
                                     return 'La cantidad no puede iniciar con 0';
                                 }
                                 return true;

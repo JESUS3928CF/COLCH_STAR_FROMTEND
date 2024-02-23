@@ -1,7 +1,9 @@
 export const formatDate = (date) => {
-    const newDate = new Date(date);
+    // const newDate = new Date(date);
 
-    return new Intl.DateTimeFormat("es", { dateStyle: "medium" }).format(newDate);
+    // return new Intl.DateTimeFormat("es", { dateStyle: "medium" }).format(newDate);
+
+    return date;
 };
 
 
