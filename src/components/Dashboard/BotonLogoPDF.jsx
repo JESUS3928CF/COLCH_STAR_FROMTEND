@@ -1,5 +1,4 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Button } from "@tremor/react";
 import { FaRegFilePdf } from "react-icons/fa6";
 import '../Dashboard/Css/styleDashboard.css'
 import PropTypes from 'prop-types';
@@ -16,7 +15,7 @@ const BotonLogoPDF = ({namePDf,componente}) => {
       loading ? (
           <span><FaRegFilePdf/></span>
       ) : (
-          <span><FaRegFilePdf className="PDF"/></span>
+          <span><FaRegFilePdf/></span>
       )
     }
   </PDFDownloadLink>)
