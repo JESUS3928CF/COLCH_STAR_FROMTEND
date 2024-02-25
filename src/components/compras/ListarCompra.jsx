@@ -20,6 +20,7 @@ import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import AgregarCompra from '../compras/AgregarCompra';
 import { formatDate, formatMoney } from '../../helpers/formato_de_datos';
+import { hanPasado15Dias } from '../../helpers/utilidades';
 
 const ListarCompra = () => {
     const { compras, editarEstado, busqueda, setBusqueda } = useCompras();
@@ -121,12 +122,11 @@ const ListarCompra = () => {
                                                     ruta={`/compras/estado/${compra.id_compra}`}
                                                     editarEstado={editarEstado}
                                                     bloquearCambioDeEstado={{
-                                                        "estado":true, 
-                                                        "fecha": compra.fecha
+                                                        "estado": hanPasado15Dias(compra.fecha),
                                                     }
                                                     }
                                                     mensajeError={!compra.estado?
-                                                        'Esta compra no se puede habilitar porque fue cancelada' : 'Ya paso mas de una semana desde que esta compra fue hecha por lo cual ya no se puede cancelar'
+                                                        'Esta compra no se puede habilitar porque fue cancelada' : 'Ya pasaron más de 15 días desde que esta compra fue hecha por lo cual ya no se puede cancelar'
                                                     }
                                                     detalle={compra.detalles}
                                                 />
