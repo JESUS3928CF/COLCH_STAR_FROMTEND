@@ -25,6 +25,9 @@ import { formatDate, formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 //Componente
 const ListarOrdenes = () => {
+
+
+
     //ordenes tiene la consulta de todos las ordenes de la base de datos
     const {
         ordenes,
@@ -37,6 +40,8 @@ const ListarOrdenes = () => {
         busqueda,
         setBusqueda,
     } = useOrden();
+
+
 
     const { consultarProductos } = useProducto();
 
@@ -62,10 +67,9 @@ const ListarOrdenes = () => {
         ) {
             return Swal.fire(
                 'Acción inválida!',
-                `Esta Orden ha sido ${
-                    orden.estado_de_orden === 'Finalizada'
-                        ? 'Finalizada'
-                        : 'Entregada'
+                `Esta Orden ha sido ${orden.estado_de_orden === 'Finalizada'
+                    ? 'Finalizada'
+                    : 'Entregada'
                 } , No se puede editar`,
                 'error'
             );
@@ -175,12 +179,30 @@ const ListarOrdenes = () => {
                                         <select
                                             name='estado_de_orden'
                                             value={orden.estado_de_orden}
-                                            onChange={(e) =>
-                                                cambiarEstadoDeOrden(
-                                                    e.target.value,
-                                                    orden.id_orden
-                                                )
-                                            }
+                                            onChange={(e) => {
+                                                // Verifica si el nuevo estado es 'Creada' y el estado actual es 'En Proceso'
+                                                if (
+                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'En Proceso') ||
+                                                    // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Finalizada'
+                                                    (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Finalizada') ||
+                                                    
+                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'Finalizada') ||
+                                                    // Verifica si el nuevo estado es 'Finalizada' y el estado actual es 'Entregada'
+                                                    (e.target.value === 'Finalizada' && orden.estado_de_orden === 'Entregada') ||
+                                                    // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Entregada'
+                                                    (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Entregada') ||
+                                                    // Verifica si el nuevo estado es 'Creada' y el estado actual es 'Entregada'
+                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'Entregada')
+                                                ) {
+                                                    return Swal.fire(
+                                                        'Acción inválida!',
+                                                        `No se puede cambiar el estado a '${e.target.value}', esta  '${orden.estado_de_orden}'!!`,
+                                                        'error'
+                                                    );
+                                                }
+                                                // Si no hay restricciones, permite cambiar el estado
+                                                cambiarEstadoDeOrden(e.target.value, orden.id_orden);
+                                            }}
                                         >
                                             <option value='Creada'>
                                                 Creada
@@ -293,7 +315,7 @@ const ListarOrdenes = () => {
                                                     modalToOpen={
                                                         !orden.estado_de_orden ===
                                                             'Finalizada' ||
-                                                        !orden.estado_de_orden ===
+                                                            !orden.estado_de_orden ===
                                                             'Entregada'
                                                             ? '#modalEditar'
                                                             : ''
