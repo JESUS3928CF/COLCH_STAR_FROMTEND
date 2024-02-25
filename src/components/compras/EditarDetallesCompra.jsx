@@ -19,6 +19,8 @@ export const EditarDetallesCompra = ({
         {}
     );
 
+    
+
     // Función para manejar el cambio de producto seleccionado
 
     const handleProductoChange = (id_prenda) => {
@@ -30,6 +32,9 @@ export const EditarDetallesCompra = ({
         if (!productoEncontrado) return;
 
         setInfoProductoSeleccionado(productoEncontrado);
+        setValue('color', ''); // Restablecer el valor del color a vacío
+        setValue('talla', ''); // Restablecer el valor de la talla a vacío
+        trigger(['color', 'talla']); // Activar la validación del color y de la talla
     };
 
     useEffect(() => {
