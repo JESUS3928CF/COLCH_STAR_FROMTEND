@@ -4,8 +4,11 @@ import { Carousel, Modal } from 'react-bootstrap';
 import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useCompras from '../../hooks/useCompras';
+import usePrendas from '../../hooks/usePrendas';
 import BotonNegro from '../chared/BotonNegro';
 import { useState } from 'react';
+import { EditarDetallesCompra } from './EditarDetallesCompra';
+import Swal from 'sweetalert2';
 
 export const ModalVerDetallesCompra = () => {
     const {
@@ -14,7 +17,11 @@ export const ModalVerDetallesCompra = () => {
         showDetalles,
         handleCloseDetalles,
         handleShow,
+        handleShowEditar,
+        editar,
     } = useCompras();
+
+    const {Prendas} =  usePrendas()
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
@@ -43,13 +50,67 @@ export const ModalVerDetallesCompra = () => {
         }
     };
 
+    const editarDetalle = (id, detalleEditado) => {
+        if (
+            !detalleEditado.cantidad ||
+            !detalleEditado.color ||
+            !detalleEditado.talla ||
+            !detalleEditado.precio ||
+            !detalleEditado.fk_prenda
+
+        )
+            return;
+
+        const productoARemplazar = Prendas.find(
+            (prenda) => prenda.id_prenda == detalleEditado.fk_prenda
+        );
+
+
+
+        // Copia del array original
+        const editadosDetalles = [...detallesCompra];
+
+        // Eliminar el elemento en la posición especificada
+        const detalleAEditar = editadosDetalles[id];
+
+
+        detalleAEditar.fk_prenda = detalleEditado.fk_prenda;
+        detalleAEditar.cantidad = detalleEditado.cantidad;
+        detalleAEditar.color = detalleEditado.color;
+        detalleAEditar.talla = detalleEditado.talla;
+        detalleAEditar.precio = productoARemplazar.precio;
+        // detalleAEditar.subtotal = productoARemplazar.precio * detalleEditado.cantidad;
+        // detalleAEditar.producto.precio = productoARemplazar.precio;
+
+
+        editadosDetalles[id] = detalleAEditar;
+
+        // Actualizar el estado con el nuevo array
+        setDetallesCompra([...editadosDetalles]);
+
+        Swal.fire({
+            title: 'Bien',
+            text: 'Este detalle fue editado',
+            icon: 'success',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleCloseDetalles();
+                if (editar === true) {
+                    handleShowEditar();
+                } else {
+                    handleShow();
+                }
+            }
+        });
+    };
+
     return (
         <div>
             <Modal
                 show={showDetalles}
                 onHide={() => {
                     handleCloseDetalles();
-                    handleShow();
+                    editar === true ? handleShowEditar() : handleShow();
                 }}
                 className='modal d-flex align-items-center justify-content-center '
             >
@@ -58,7 +119,7 @@ export const ModalVerDetallesCompra = () => {
                         title={'Detalles agregados de compras'}
                         handleClose={() => {
                             handleCloseDetalles();
-                            handleShow();
+                            editar ? handleShowEditar() : handleShow();
                         }}
                     />
                     <div>
@@ -76,91 +137,23 @@ export const ModalVerDetallesCompra = () => {
                                     >
                                         {detallesCompra.map(
                                             (detalle, index) => (
-                                                <Carousel.Item key={detalle.id}>
+                                                <Carousel.Item key={detalle.id + " " +index}>
                                                     <div className='row'>
                                                         <p className='text-center mt-4'>
                                                             Detalle #{index + 1} -  {detallesCompra.length}
                                                         </p>
-                                                        <div className='col-md-12 '>
-                                                            <label
-                                                                htmlFor='producto'
-                                                                className='col-form-label'
-                                                            >
-                                                                Producto
-                                                                comprado:
-                                                            </label>
-                                                            <input
-                                                                type='text'
-                                                                className='form-control'
-                                                                value={
-                                                                    detalle.producto
-                                                                }
-                                                                readOnly
-                                                            />
-                                                        </div>
-                                                        <div className='col-md-6 '>
-                                                            <label
-                                                                htmlFor='cantidad'
-                                                                className='col-form-label'
-                                                            >
-                                                                Cantidad:
-                                                            </label>
-                                                            <input
-                                                                type='text'
-                                                                className='form-control'
-                                                                value={
-                                                                    detalle.cantidad
-                                                                }
-                                                                readOnly
-                                                            />
-                                                        </div>
-                                                        <div className='col-md-6 '>
-                                                            <label
-                                                                htmlFor='nombre'
-                                                                className='col-form-label'
-                                                            >
-                                                                Precio:
-                                                            </label>
-                                                            <input
-                                                                type='text'
-                                                                className='form-control'
-                                                                value={
-                                                                    detalle.precio
-                                                                }
-                                                                readOnly
-                                                            />
-                                                        </div>
-                                                        <div className='col-md-12 '>
-                                                            <label
-                                                                htmlFor='nombre'
-                                                                className='col-form-label'
-                                                            >
-                                                                Total del
-                                                                detalle:
-                                                            </label>
-                                                            <input
-                                                                type='text'
-                                                                className='form-control'
-                                                                value={
-                                                                    detalle.precio *
-                                                                    detalle.cantidad
-                                                                }
-                                                                readOnly
-                                                            />
-                                                        </div>
                                                     </div>
-                                                    <div className='col-md-12 pl-1 pt-3 text-center'>
-                                                        <BotonNegro
-                                                            text={
-                                                                'Eliminar detalle'
-                                                            }
-                                                            onClick={() =>
-                                                                eliminarDetalle(
-                                                                    detalle.id
-                                                                )
-                                                            }
-                                                        />
-                                                    </div>
+                                                    <EditarDetallesCompra
+                                                    detalle={detalle}
+                                                    eliminarDetalle={
+                                                        eliminarDetalle
+                                                    }
+                                                    id={index}
+                                                    editarDetalle={
+                                                        editarDetalle
+                                                    }
+                                                />
+                                                    
                                                 </Carousel.Item>
                                             )
                                         )}
