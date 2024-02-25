@@ -5,7 +5,6 @@ import '../prendas/IconCss/style.Icon.css';
 import '../compras/Css/carousel-styles.css';
 import useCompras from '../../hooks/useCompras';
 import usePrendas from '../../hooks/usePrendas';
-import BotonNegro from '../chared/BotonNegro';
 import { useState } from 'react';
 import { EditarDetallesCompra } from './EditarDetallesCompra';
 import Swal from 'sweetalert2';
@@ -21,16 +20,14 @@ export const ModalVerDetallesCompra = () => {
         editar,
     } = useCompras();
 
-    const {Prendas} =  usePrendas()
+    const { Prendas } = usePrendas();
 
     const [carouselIndex, setCarouselIndex] = useState(0);
 
-
     const eliminarDetalle = (id) => {
+        console.log('Entrando a eliminar', id);
         // Encuentra el índice del detalle con el id proporcionado
-        const indiceAEliminar = detallesCompra.findIndex(
-            (detalle) => detalle.id === id
-        );
+        const indiceAEliminar = id;
 
         if (indiceAEliminar !== -1) {
             // Copia del array original
@@ -57,15 +54,12 @@ export const ModalVerDetallesCompra = () => {
             !detalleEditado.talla ||
             !detalleEditado.precio ||
             !detalleEditado.fk_prenda
-
         )
             return;
 
-        const productoARemplazar = Prendas.find(
-            (prenda) => prenda.id_prenda == detalleEditado.fk_prenda
-        );
-
-
+        // const productoARemplazar = Prendas.find(
+        //     (prenda) => prenda.id_prenda == detalleEditado.fk_prenda
+        // );
 
         // Copia del array original
         const editadosDetalles = [...detallesCompra];
@@ -73,17 +67,17 @@ export const ModalVerDetallesCompra = () => {
         // Eliminar el elemento en la posición especificada
         const detalleAEditar = editadosDetalles[id];
 
-
         detalleAEditar.fk_prenda = detalleEditado.fk_prenda;
         detalleAEditar.cantidad = detalleEditado.cantidad;
         detalleAEditar.color = detalleEditado.color;
         detalleAEditar.talla = detalleEditado.talla;
-        detalleAEditar.precio = productoARemplazar.precio;
+        detalleAEditar.precio = detalleEditado.precio;
         // detalleAEditar.subtotal = productoARemplazar.precio * detalleEditado.cantidad;
         // detalleAEditar.producto.precio = productoARemplazar.precio;
 
-
         editadosDetalles[id] = detalleAEditar;
+
+        console.log(editadosDetalles);
 
         // Actualizar el estado con el nuevo array
         setDetallesCompra([...editadosDetalles]);
@@ -137,23 +131,30 @@ export const ModalVerDetallesCompra = () => {
                                     >
                                         {detallesCompra.map(
                                             (detalle, index) => (
-                                                <Carousel.Item key={detalle.id + " " +index}>
+                                                <Carousel.Item
+                                                    key={
+                                                        detalle.id + ' ' + index
+                                                    }
+                                                >
                                                     <div className='row'>
                                                         <p className='text-center mt-4'>
-                                                            Detalle #{index + 1} -  {detallesCompra.length}
+                                                            Detalle #{index + 1}{' '}
+                                                            -{' '}
+                                                            {
+                                                                detallesCompra.length
+                                                            }
                                                         </p>
                                                     </div>
                                                     <EditarDetallesCompra
-                                                    detalle={detalle}
-                                                    eliminarDetalle={
-                                                        eliminarDetalle
-                                                    }
-                                                    id={index}
-                                                    editarDetalle={
-                                                        editarDetalle
-                                                    }
-                                                />
-                                                    
+                                                        detalle={detalle}
+                                                        eliminarDetalle={
+                                                            eliminarDetalle
+                                                        }
+                                                        id={index}
+                                                        editarDetalle={
+                                                            editarDetalle
+                                                        }
+                                                    />
                                                 </Carousel.Item>
                                             )
                                         )}

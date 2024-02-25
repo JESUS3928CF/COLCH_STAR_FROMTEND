@@ -51,9 +51,6 @@ const BotonCambioEstado = ({
         let sePuedeCambiar = true;
 
         
-
-          console.log((bloquearCambioDeEstado.fecha))
-
     //* Por aca bloquemos que made el mensaje de que ya no se puede cancelar
         if (
             (cambiarPublicacion.paraPublicacion &&
