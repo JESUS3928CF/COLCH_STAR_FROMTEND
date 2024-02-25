@@ -259,11 +259,6 @@ const EditarCliente = ({ cliente, handleClose, show }) => {
                                             message:
                                                 'El teléfono es obligatorio',
                                         },
-                                        pattern: {
-                                            value: /^\d+$/,
-                                            message:
-                                                'No se permiten letras ni espacios en blanco',
-                                        },
                                         validate: (value) => {
                                             if (value.includes(" ")) {
                                                 return 'No se permiten espacios en blanco';

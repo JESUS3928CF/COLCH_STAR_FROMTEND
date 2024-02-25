@@ -57,13 +57,13 @@ const LoginForm = ({ setIsActivate }) => {
                     {...register('email', {
                         required: {
                             value: true,
-                            message: 'El email es obligatorio',
+                            message: 'El usuario es obligatorio',
                         },
-                        validate: (value) => validarEspaciosVacios(value),
-                        pattern: {
-                            value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                            message: 'El Email no tiene un formato válido',
-                        },
+                        // validate: (value) => validarEspaciosVacios(value),
+                        // pattern: {
+                        //     value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                        //     message: 'El correo electrónico no tiene un formato válido',
+                        // },
                     })}
                 />
                 <label>Usuario</label>
@@ -231,14 +231,14 @@ const Login = () => {
                                     {...register('email', {
                                         required: {
                                             value: true,
-                                            message: 'El email es obligatorio',
+                                            message: 'El usuario es obligatorio',
                                         },
                                         validate: (value) =>
                                             validarEspaciosVacios(value),
                                         pattern: {
                                             value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                             message:
-                                                'El Email no tiene un formato válido',
+                                                'El correo electrónico no tiene un formato válido',
                                         },
                                     })}
                                 />

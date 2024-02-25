@@ -272,7 +272,7 @@ const AgregarUsuario = () => {
                                     {...register('email', {
                                         required: {
                                             value: true,
-                                            message: 'El email es obligatorio',
+                                            message: 'El correo electrónico es obligatorio',
                                         },
                                         validate: (value) =>
                                             validarEspaciosVacios(value),
@@ -280,7 +280,7 @@ const AgregarUsuario = () => {
                                         pattern: {
                                             value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                                             message:
-                                                'El email no tiene un formato válido',
+                                                'El correo electrónico no tiene un formato válido',
                                         },
                                     })}
                                     onChange={(e) => {
