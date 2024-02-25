@@ -185,6 +185,8 @@ const ListarOrdenes = () => {
                                                     (e.target.value === 'Creada' && orden.estado_de_orden === 'En Proceso') ||
                                                     // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Finalizada'
                                                     (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Finalizada') ||
+                                                    
+                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'Finalizada') ||
                                                     // Verifica si el nuevo estado es 'Finalizada' y el estado actual es 'Entregada'
                                                     (e.target.value === 'Finalizada' && orden.estado_de_orden === 'Entregada') ||
                                                     // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Entregada'
