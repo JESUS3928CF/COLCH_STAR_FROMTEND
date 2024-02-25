@@ -26,38 +26,13 @@ const BotonCambioEstado = ({
         return Swal.fire('Acción inválida!', `${mensajeError}`, 'error');
     };
 
-    ///
-    function haceMasDeUnaSemana(fecha) {
-        // Obtener la fecha actual
-        var fechaActual = new Date();
-      
-        // Calcular la diferencia en milisegundos entre la fecha actual y la fecha proporcionada
-        var diferencia = fechaActual - fecha;
-      
-        // Calcular el número de milisegundos en una semana
-        var unaSemanaEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
-      
-        // Comprobar si la diferencia es mayor a una semana
-        if (diferencia > unaSemanaEnMilisegundos) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-      
-
     /// Aca definimos si le podemos cambiar el estado de publicación de un registro
     const validarElCambioDeEstado = new Promise((resolve) => {
         let sePuedeCambiar = true;
-
         
-
-          console.log((bloquearCambioDeEstado.fecha))
-
-    //* Por aca bloquemos que made el mensaje de que ya no se puede cancelar
         if (
             (cambiarPublicacion.paraPublicacion &&
-                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado && isChecked == false)
+                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado && !isChecked)
         )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
@@ -103,11 +78,8 @@ const BotonCambioEstado = ({
                             'Cambio de estado exitoso',
                             'success'
                         ).then(() => {
-                            // todo: actualizar estado
+                            // actualizar estado
                             if (editarEstado) editarEstado(id);
-                            else {
-                                location.reload();
-                            }
 
                             if (detalle != []) {
                                 consultPrendas();

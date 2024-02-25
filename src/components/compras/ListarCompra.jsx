@@ -121,11 +121,11 @@ const ListarCompra = () => {
                                                     ruta={`/compras/estado/${compra.id_compra}`}
                                                     editarEstado={editarEstado}
                                                     bloquearCambioDeEstado={{
-                                                        "estado":
-                                                            true, "fecha": compra.fecha
+                                                        "estado":true, 
+                                                        "fecha": compra.fecha
                                                     }
                                                     }
-                                                    mensajeError={compra.estado == false ?
+                                                    mensajeError={!compra.estado?
                                                         'Esta compra no se puede habilitar porque fue cancelada' : 'Ya paso mas de una semana desde que esta compra fue hecha por lo cual ya no se puede cancelar'
                                                     }
                                                     detalle={compra.detalles}
