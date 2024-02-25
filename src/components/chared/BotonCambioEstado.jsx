@@ -32,7 +32,7 @@ const BotonCambioEstado = ({
         
         if (
             (cambiarPublicacion.paraPublicacion &&
-                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado || !isChecked)
+                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado)
         )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
