@@ -4,7 +4,7 @@ import { startOfToday, subDays, parseISO } from "date-fns";
 import useCompras from "../../../hooks/useDetallesCompras";
 import BotonLogoPDF from '../BotonLogoPDF';
 import PDFComprasPrendas from '../PDF/PDFComprasPrendas.jsx'
-import '../Css/styleDashboard.css'
+import styles  from '../Css/styleDashboard.css'
 
 
 export const ComprasPrendas = ({ compras }) => {
@@ -130,7 +130,7 @@ export const ComprasPrendas = ({ compras }) => {
 
   return (
     <>
-          <BotonLogoPDF namePDf={'Cantidades de prendas compradas.pdf'} componente={<PDFComprasPrendas/>} />
+          <BotonLogoPDF namePDf={'Cantidades_de_prendas_compradas.pdf'} componente={<PDFComprasPrendas/>}  />
           <canvas ref={chartContainer} width="400" height="200"></canvas>
 
 

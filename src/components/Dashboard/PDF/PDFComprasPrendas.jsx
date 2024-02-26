@@ -63,8 +63,10 @@ const PDFComprasPrendas = () => {
       }
     };
 
+    
+
     fetchCompras();
-  }, []); // <-- arreglo de dependencias vacío
+  }, []); 
 
   // Estilos para el PDF
   const styles = StyleSheet.create({
@@ -94,27 +96,16 @@ const PDFComprasPrendas = () => {
   });
 
   return (
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.section}>
             <Text style={styles.title}>Reporte de Compras de Prendas</Text>
             <Text style={styles.subtitle}>Últimos 7 días</Text>
-            {comprasUltimosSieteDias.map((compra, index) => (
-              <Text key={index} style={styles.text}>
-                Fecha: {compra.fecha}, Cantidad:{" "}
-                {detalleCompra.reduce((total, detalle) => {
-                  if (detalle.fk_compra === compra.id_compra) {
-                    return total + detalle.cantidad;
-                  }
-                  return total;
-                }, 0)}
-              </Text>
-            ))}
+            
+           
           </View>
         </Page>
       </Document>
-    </PDFViewer>
   );
 };
 

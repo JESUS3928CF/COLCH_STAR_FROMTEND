@@ -10,13 +10,13 @@ const BotonLogoPDF = ({namePDf,componente}) => {
 
 
   return (
-  <PDFDownloadLink document={componente} fileName={namePDf}>
+  <PDFDownloadLink document={componente} fileName={namePDf} className="PDF">
 
     {({ loading, url, error, blob }) =>
       loading ? (
           <span><FaRegFilePdf/></span>
       ) : (
-          <span><FaRegFilePdf className="PDF"/></span>
+          <span><FaRegFilePdf/></span>
       )
     }
   </PDFDownloadLink>)
