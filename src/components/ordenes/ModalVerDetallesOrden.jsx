@@ -51,7 +51,6 @@ export const ModalVerDetallesOrden = () => {
         if (
             !detalleEditado.cantidad ||
             !detalleEditado.color ||
-            !detalleEditado.descripcion ||
             !detalleEditado.talla ||
             !detalleEditado.fk_producto
         )
