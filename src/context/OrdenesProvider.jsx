@@ -4,6 +4,9 @@ import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import clienteAxios from '../config/axios';
 import useMovimientos from '../hooks/useMovimientos';
+import usePrendas from '../hooks/usePrendas';
+
+
 
 const ordenesContext = createContext();
 
@@ -18,6 +21,9 @@ const OrdenesProvider = ({ children }) => {
     const [detailsOrden, setDetailsOrden] = useState([]);
 
     const [editar, setEditar] = useState(false);
+
+    const { consultPrendas } = usePrendas();
+
 
     const [totalOrden, setTotalOrden] = useState(0);
     const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
@@ -166,6 +172,7 @@ const OrdenesProvider = ({ children }) => {
                         },
                         notificaciones(notificacion+1),
                         consultarMovimientos());
+                        consultPrendas()
                     } else {
                         Swal.fire(
                             'Error',
