@@ -123,7 +123,7 @@ const AgregarUsuario = () => {
                                                     value
                                                 )
                                             ) {
-                                                return 'El nombre solo puede contener letras';
+                                                return 'El nombre solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(
@@ -179,7 +179,7 @@ const AgregarUsuario = () => {
                                                     value
                                                 )
                                             ) {
-                                                return 'El apellido solo puede contener letras';
+                                                return 'El apellido solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(
@@ -228,7 +228,7 @@ const AgregarUsuario = () => {
                                                 return 'No se permiten espacios en blanco';
                                             }
                                             if (!/^\d+$/.test(value)) {
-                                                return 'El télefono solo puede contener números';
+                                                return 'El télefono solo puede tener números';
                                             }
                                             if (value.startsWith('0')) {
                                                 return 'El teléfono no puede iniciar con 0';

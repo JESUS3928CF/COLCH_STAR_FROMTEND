@@ -118,10 +118,6 @@ const AgregarProducto = () => {
                 handleShow();    
                 setSelectedDisenoNombre([])//se vacia la parte donde se muestra el diseño seleccionado
                 setDisenos([]) // se vacia los diseños guardados en el producto
-                
-
-                
-
 
             }} />
 
@@ -180,7 +176,7 @@ const AgregarProducto = () => {
                                             }
 
                                             if (!/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                                                return 'El nombre solo puede contener números y letras';
+                                                return 'El nombre solo puede tener números y letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(

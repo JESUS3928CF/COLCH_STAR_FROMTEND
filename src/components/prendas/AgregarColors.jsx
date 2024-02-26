@@ -142,7 +142,7 @@ id="#myModalColors">
                                             required: {
                                                 value: true,
                                                 message:
-                                                    'El codigo es obligatorio',
+                                                    'El código es obligatorio',
                                             },
                                             validate: (value) => {
                                                 return validarEspaciosVacios(

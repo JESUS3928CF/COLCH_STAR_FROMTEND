@@ -141,7 +141,7 @@ export const EditarDetallesCompra = ({
               {...register("color", {
                 required: {
                   value: true,
-                  message: "El color es obligatoria",
+                  message: "El color es obligatorio",
                 },
               })}
             >

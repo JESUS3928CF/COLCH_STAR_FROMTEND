@@ -96,7 +96,7 @@ const AgregarPrendas = () => {
 
         if (selectColorsNombre == '') {
             Swal.fire({
-                title: 'Espera!',
+                title: 'Espera!!',
                 text: 'Seleccione los colores disponibles para esta prenda',
                 icon: 'warning',
             });
@@ -183,7 +183,7 @@ const AgregarPrendas = () => {
                                                     value
                                                 )
                                             ) {
-                                                return 'El nombre solo puede contener letras';
+                                                return 'El nombre solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(
@@ -234,7 +234,7 @@ const AgregarPrendas = () => {
                                             }
                                             // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                             if (!/^\d+$/.test(value)) {
-                                                return 'El precio solo puede contener números';
+                                                return 'El precio solo puede tener números';
                                             }
                                             if (value.startsWith('0')) {
                                                 return 'El precio no puede iniciar con 0';
@@ -357,7 +357,7 @@ const AgregarPrendas = () => {
                                                     value
                                                 )
                                             ) {
-                                                return 'El tipo de tela solo puede contener letras';
+                                                return 'El tipo de tela solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(

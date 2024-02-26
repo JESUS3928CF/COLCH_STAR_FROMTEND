@@ -142,7 +142,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                                         return 'La identificación no puede iniciar con 0';
                                                     }
                                                     if (value.length < 6 || value.length > 10) {
-                                                        return 'La Identificación debe tener entre 6 y 10 dígitos';
+                                                        return 'La identificación debe tener entre 6 y 10 dígitos';
                                                     }
                                                     if (value.length === 6 && document.getElementById('tipoIdentificacion').value !== 'C.E. ') {
                                                         return 'No se puede agregar una identificación de 6 dígitos si el tipo de identificación no es C.E.';
@@ -186,14 +186,14 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                         required: {
                                             // Es una propiedad que indica que el campo es obligatorio.
                                             value: true, // indica que el campo debe tener un valor (no puede estar vacío) para pasar la validación.
-                                            message: 'El Nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
+                                            message: 'El nombre es obligatorio', // es un mensaje que se mostrará si la validación falla.
                                         },
                                         validate: (value) => {
                                             if (value.trim().length < 3 || value.length > 20) {
                                                 return 'El nombre debe tener entre 3 y 20 caracteres';
                                             }
                                             if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s&]+$/.test(value)) {
-                                                return 'El nombre solo puede contener letras';
+                                                return 'El nombre solo puede tener letras';
                                             }
                                             if (value.includes(" ")) {
                                                 return validarEspaciosVacios(value);
@@ -239,7 +239,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                                 return 'No se permiten espacios en blanco';
                                             }
                                             if (!/^\d+$/.test(value)) {
-                                                return 'La identificación solo puede contener números';
+                                                return 'La identificación solo puede tener números';
                                             }
                                             if (value.startsWith("0")) {
                                                 return 'El teléfono no puede iniciar con 0';
@@ -280,7 +280,7 @@ const EditarProveedor = ({ proveedor, handleClose, show }) => {
                                         required: {
                                             value: true,
                                             message:
-                                                'La Dirección es obligatoria',
+                                                'La dirección es obligatoria',
                                         },
                                         validate: (value) => {
                                             if (value.trim().length < 4 || value.length > 50) {

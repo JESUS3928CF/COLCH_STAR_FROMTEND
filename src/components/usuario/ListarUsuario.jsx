@@ -61,7 +61,7 @@ const ListarUsuario = () => {
         if (!usuario.estado) {
             return Swal.fire(
                 'Acción inválida!',
-                'Este usuario no se puede editar porque está Inhabilitado',
+                'Este usuario no se puede editar porque está inhabilitado',
                 'error'
             );
         }

@@ -150,7 +150,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                                     value
                                                 )
                                             ) {
-                                                return 'El nombre solo puede contener números y letras';
+                                                return 'El nombre solo puede tener números y letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(

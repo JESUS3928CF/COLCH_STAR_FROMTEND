@@ -103,7 +103,7 @@ const ListarProducto = () => {
         if (!producto.estado) {
             return Swal.fire(
                 'Acción inválida!',
-                'Este Producto no se puede editar porque está inhabilitado',
+                'Este producto no se puede editar porque está inhabilitado',
                 'error'
             );
         }

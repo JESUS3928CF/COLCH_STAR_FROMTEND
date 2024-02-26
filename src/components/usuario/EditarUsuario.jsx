@@ -128,7 +128,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                         return "El nombre debe tener entre 3 y 20 caracteres";
                       }
                       if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                        return "El nombre solo puede contener letras";
+                        return "El nombre solo puede tener letras";
                       }
                       if (value.includes(" ")) {
                         return validarEspaciosVacios(value);
@@ -167,7 +167,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                             return 'El apellido debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                            return 'El apellido solo puede contener letras';
+                            return 'El apellido solo puede tener letras';
                         }
                         if (value.includes(" ")) {
                             return validarEspaciosVacios(value);
@@ -206,7 +206,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                             return 'No se permiten espacios en blanco';
                         }
                         if (!/^\d+$/.test(value)) {
-                            return 'El télefono solo puede contener números';
+                            return 'El télefono solo puede tener números';
                         }
                         if (value.startsWith("0")) {
                             return 'El teléfono no puede iniciar con 0';
@@ -247,7 +247,7 @@ const EditarUsuario = ({ editarUsuario, handleClose, show }) => {
                     },
                     pattern: {
                       value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "El email no tiene un formato válido",
+                      message: "El correo electrónico no tiene un formato válido",
                     },
                   })}
                   onChange={(e) => {

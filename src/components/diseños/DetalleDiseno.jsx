@@ -42,7 +42,7 @@ export const DetalleDiseno = ({ detalleDiseno }) => {
                                                         : ''
                                                 }
                                                 alt={detalleDiseno.nombre}
-                                                title='Ver Imagen Completa'
+                                                title='Ver imagen completa'
                                             />
                                         </a>
 
