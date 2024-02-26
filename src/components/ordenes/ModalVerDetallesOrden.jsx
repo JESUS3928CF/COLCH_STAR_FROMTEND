@@ -132,7 +132,7 @@ export const ModalVerDetallesOrden = () => {
                                             <Carousel.Item key={detalle.id + " " +index}>
                                                 <div className='row'>
                                                     <p className='text-center mt-4'>
-                                                        Detalle #{index + 1}
+                                                        Detalle #{index + 1} - {detallesOrden.length}
                                                     </p>
                                                 </div>
 
