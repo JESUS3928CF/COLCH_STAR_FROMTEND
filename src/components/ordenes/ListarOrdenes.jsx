@@ -67,10 +67,10 @@ const ListarOrdenes = () => {
         ) {
             return Swal.fire(
                 'Acción inválida!',
-                `Esta Orden ha sido ${orden.estado_de_orden === 'Finalizada'
+                `Esta orden ha sido ${orden.estado_de_orden === 'Finalizada'
                     ? 'Finalizada'
                     : 'Entregada'
-                } , No se puede editar`,
+                } , no se puede editar`,
                 'error'
             );
         }

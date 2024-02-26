@@ -25,7 +25,6 @@ export const ModalVerDetallesCompra = () => {
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   const eliminarDetalle = (id) => {
-    console.log("Entrando a eliminar", id);
     // Encuentra el índice del detalle con el id proporcionado
     const indiceAEliminar = id;
 

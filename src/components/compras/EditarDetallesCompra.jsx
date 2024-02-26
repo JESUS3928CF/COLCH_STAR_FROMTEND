@@ -188,7 +188,7 @@ export const EditarDetallesCompra = ({
                     ? !/^\d+$/.test(value)
                     : !/^\d+(\.\d+)?$/.test(value) && watch("fk_prenda") != "d"
                 ) {
-                  return "La cantidad solo puede contener números enteros";
+                  return "La cantidad solo puede tener números enteros";
                 }
                 if (value.startsWith("0") && watch("fk_prenda") != "d") {
                   return "La cantidad no puede iniciar con 0";
@@ -224,7 +224,7 @@ export const EditarDetallesCompra = ({
                 }
                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                 if (!/^\d+$/.test(value)) {
-                  return "El precio unitario solo puede contener números";
+                  return "El precio unitario solo puede tener números";
                 }
                 if (value.startsWith("0")) {
                   return "El precio unitario no puede iniciar con 0";

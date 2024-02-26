@@ -257,7 +257,7 @@ export const AgregarDetallesCompra = () => {
                                 }
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                 if (!/^\d+$/.test(value)) {
-                                    return 'El precio unitario solo puede contener números';
+                                    return 'El precio unitario solo puede tener números';
                                 }
                                 if (value.startsWith('0')) {
                                     return 'El precio unitario no puede iniciar con 0';

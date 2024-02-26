@@ -12,12 +12,6 @@ export const DetalleCompras = ({ detallesCompras }) => {
 
     const { colors } = useColors()
 
-
-
-
-
-
-
     useEffect(() => {
         setDetalles(detallesCompras.detalles || []);
     }, [detallesCompras]);
