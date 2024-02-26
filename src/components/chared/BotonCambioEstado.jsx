@@ -12,7 +12,7 @@ const BotonCambioEstado = ({
     ruta,
     editarEstado,
     cambiarPublicacion = { estado: true, paraPublicacion: false },
-    bloquearCambioDeEstado = false,
+    bloquearCambioDeEstado = { "estado": false},
     mensajeError = 'Este ' +
         nombreRegistro +
         ' no se le puede cambiar el estado de publicación porque está Inhabilitado',
@@ -29,11 +29,10 @@ const BotonCambioEstado = ({
     /// Aca definimos si le podemos cambiar el estado de publicación de un registro
     const validarElCambioDeEstado = new Promise((resolve) => {
         let sePuedeCambiar = true;
-
+        
         if (
             (cambiarPublicacion.paraPublicacion &&
-                !cambiarPublicacion.estado) ||
-            (bloquearCambioDeEstado && isChecked == false)
+                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado)
         )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
@@ -79,11 +78,8 @@ const BotonCambioEstado = ({
                             'Cambio de estado exitoso',
                             'success'
                         ).then(() => {
-                            // todo: actualizar estado
+                            // actualizar estado
                             if (editarEstado) editarEstado(id);
-                            else {
-                                location.reload();
-                            }
 
                             if (detalle != []) {
                                 consultPrendas();
@@ -160,7 +156,7 @@ BotonCambioEstado.propTypes = {
         paraPublicacion: PropTypes.bool.isRequired,
     }),
     editarEstado: PropTypes.func,
-    bloquearCambioDeEstado: PropTypes.bool,
+    bloquearCambioDeEstado: PropTypes.object,
     mensajeError: PropTypes.string,
     detalle: PropTypes.array,
 };

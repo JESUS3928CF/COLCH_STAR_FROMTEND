@@ -72,7 +72,7 @@ const ListarProveedores = () => {
         if (!proveedor.estado) {
             return Swal.fire(
                 'Acción inválida!',
-                'Este Proveedor no se puede editar porque está inhabilitado',
+                'Este proveedor no se puede editar porque está inhabilitado',
                 'error'
             );
         }

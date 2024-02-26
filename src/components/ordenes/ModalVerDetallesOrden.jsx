@@ -132,7 +132,7 @@ export const ModalVerDetallesOrden = () => {
                                             <Carousel.Item key={detalle.id + " " +index}>
                                                 <div className='row'>
                                                     <p className='text-center mt-4'>
-                                                        Detalle #{index + 1}
+                                                        Detalle #{index + 1} - {detallesOrden.length}
                                                     </p>
                                                 </div>
 
@@ -150,7 +150,7 @@ export const ModalVerDetallesOrden = () => {
                                         ))}
                                     </Carousel>
                             ) : (
-                                <p>No hay detalles de compra disponibles.</p>
+                                <p>No hay detalles de ordenes disponibles.</p>
                             )}
                         </div>
                     </div>
@@ -159,7 +159,3 @@ export const ModalVerDetallesOrden = () => {
         </div>
     );
 };
-
-// ModalVerDetallesCompra.propTypes = {
-//     detallesCompra: PropTypes.object.isRequired,
-// };

@@ -9,7 +9,7 @@ const comprasContext = createContext();
 
 const ComprasProviders = ({ children }) => {
     // Prendas para actualizar sus cantidades
-    const { Prendas } = usePrendas();
+    const { Prendas, consultPrendas } = usePrendas();
 
     /// Respaldo de las compras
     const [compras, setCompras] = useState([]);
@@ -74,22 +74,13 @@ const ComprasProviders = ({ children }) => {
                 text: newCompra.data.message,
                 icon: 'success',
             }).then(() => {
-                //* Actualizar las cantidades de las prendas
-                for (const producto of detallesCompra) {
-                    if (producto.fk_prenda) {
-                        const prenda = Prendas.find(
-                            (prenda) => prenda.id_prenda == producto.fk_prenda
-                        );
-                        prenda.cantidad =
-                            Number(prenda.cantidad) + Number(producto.cantidad);
-                    }
-                }
                 consultarCompras();
                 notificaciones(notificacion+1)
                 consultarMovimientos();
                 handleClose(reset);
                 setTotalCompra(0);
                 setDetallesCompra([]);
+                consultPrendas();
             });
         } catch (error) {
             console.log(error);
@@ -112,6 +103,7 @@ const ComprasProviders = ({ children }) => {
         setCompras(compraActualizada);
         notificaciones(notificacion+1)
         consultarMovimientos();
+        consultPrendas();
     };
 
     /// La funcionalidad para manipular los modales la voy a declarar desde aca

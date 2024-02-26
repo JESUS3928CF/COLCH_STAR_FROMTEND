@@ -204,7 +204,7 @@ export const AgregarDetallesOrden = () => {
                             validate: (value) => {
                                 // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
                                 if (!/^\d+$/.test(value)) {
-                                    return 'La cantidad solo puede contener números';
+                                    return 'La cantidad solo puede tener números';
                                 }
                                 // Convertir el número a cadena para realizar la validación de inicio con cero
                                 const valueAsString = value.toString();

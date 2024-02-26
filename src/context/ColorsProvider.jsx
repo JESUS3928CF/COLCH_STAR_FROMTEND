@@ -3,6 +3,7 @@ import clienteAxios from '../config/axios';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useMovimientos from '../hooks/useMovimientos';
+import useCompras from '../hooks/useCompras';
 
 const ColorsContex = createContext();
 

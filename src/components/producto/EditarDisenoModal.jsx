@@ -75,7 +75,7 @@ const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
 
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
-        axios.get('http://localhost:3000/api/disenos').then((response) => {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/disenos`).then((response) => {
             setDetalle_diseno(response.data); // Almacenar la lista de roles en el estado
         });
     }, []);
@@ -86,7 +86,9 @@ const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor
         axios
-            .get('http://localhost:3000/api/precio_disenos')
+            .get(
+                `${import.meta.env.VITE_BACKEND_URL}/api/precio_disenos`
+            )
             .then((response) => {
                 setPrecio(response.data); // Almacenar la lista de roles en el estado
             });

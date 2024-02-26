@@ -30,6 +30,9 @@ export const EditarDetallesOrden = ({
         if (!productoEncontrado) return;
 
         setInfoProductoSeleccionado(productoEncontrado);
+        setValue('color', ''); // Restablecer el valor del color a vacío
+        setValue('talla', ''); // Restablecer el valor de la talla a vacío
+        trigger(['color', 'talla']); // Activar la validación del color y de la talla
     };
 
     useEffect(() => {
@@ -46,6 +49,7 @@ export const EditarDetallesOrden = ({
 
     const {
         register, //Registra o identifica cada elemento o cada input
+        trigger,
         formState: { errors }, //Ver errores que tiene el formulario
         setValue,
         watch,
@@ -147,7 +151,7 @@ export const EditarDetallesOrden = ({
                             {...register('color', {
                                 required: {
                                     value: true,
-                                    message: 'El color es obligatoria',
+                                    message: 'El color es obligatorio',
                                 },
                             })}
                         >

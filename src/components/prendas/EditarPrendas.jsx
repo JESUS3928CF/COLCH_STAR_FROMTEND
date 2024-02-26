@@ -70,7 +70,7 @@ const EditarPrendas = ({
 
         if (selectColorsNombre == '') {
             Swal.fire({
-                title: 'Espera!',
+                title: 'Espera!!',
                 text: 'Seleccione los colores disponibles para esta prenda',
                 icon: 'warning',
             });
@@ -126,7 +126,7 @@ const EditarPrendas = ({
                                         required: {
                                             value: true,
                                             message:
-                                                'El nombres es obligatorio',
+                                                'El nombre es obligatorio',
                                         },
                                         validate: (value) => {
                                             if (
@@ -140,7 +140,7 @@ const EditarPrendas = ({
                                                     value
                                                 )
                                             ) {
-                                                return 'El nombre solo puede contener letras';
+                                                return 'El nombre solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(
@@ -264,7 +264,7 @@ const EditarPrendas = ({
                                     {...register('genero', {
                                         required: {
                                             value: true,
-                                            message: 'El genero es obligatoria',
+                                            message: 'El género es obligatorio',
                                         },
                                     })}
                                 >
@@ -320,7 +320,7 @@ const EditarPrendas = ({
                                         required: {
                                             value: true,
                                             message:
-                                                'El tipo de tela  es obligatorio',
+                                                'El tipo de tela es obligatorio',
                                         },
                                         validate: (value) => {
                                             if (
@@ -334,7 +334,7 @@ const EditarPrendas = ({
                                                     value
                                                 )
                                             ) {
-                                                return 'El tipo de tela solo puede contener letras';
+                                                return 'El tipo de tela solo puede tener letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(

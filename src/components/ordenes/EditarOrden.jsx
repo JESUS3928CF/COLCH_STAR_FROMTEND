@@ -78,6 +78,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                         <div className='modal-body'>
                             <form action='' onSubmit={handleSubmit(onSubmit)}>
                                 <div className='row'>
+                                {!orden && (
                                     <div className='col-md-6'>
                                         <label
                                             htmlFor='rol'
@@ -130,7 +131,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                                             />
                                         )}
                                     </div>
-
+                                )}
                                     <div className='col-md-6'>
                                         <label
                                             htmlFor='totalCompraAgregar'

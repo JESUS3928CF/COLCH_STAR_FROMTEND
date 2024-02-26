@@ -127,7 +127,7 @@ function AgregarRol() {
                                                     return 'El rol debe tener entre 3 y 20 caracteres';
                                                 }
                                                 if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                                                    return 'El rol solo puede contener letras';
+                                                    return 'El rol solo puede tener letras';
                                                 }
                                                 if (value.includes(" ")) {
                                                     return validarEspaciosVacios(value);

@@ -128,7 +128,7 @@ const AgregarCliente = () => {
                         {...register("identificacion", {
                           required: {
                             value: true, // Expresión regular para prohibir letras y espacios en blanco
-                            message: "La Identificación es obligatoria",
+                            message: "La identificación es obligatoria",
                           },
                           validate: (value) => {
                             if (value.includes(" ")) {
@@ -142,7 +142,7 @@ const AgregarCliente = () => {
                                 return 'La identificación no puede iniciar con 0';
                             }
                             if (value.length < 6 || value.length > 10) {
-                                return 'La Identificación debe tener entre 6 y 10 dígitos';
+                                return 'La identificación debe tener entre 6 y 10 dígitos';
                             }
                             return true;
                         },
@@ -180,7 +180,7 @@ const AgregarCliente = () => {
                             return 'El nombre debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                            return 'El nombre solo puede contener letras';
+                            return 'El nombre solo puede tener letras';
                         }
                         if (value.includes(" ")) {
                             return validarEspaciosVacios(value);
@@ -219,7 +219,7 @@ const AgregarCliente = () => {
                             return 'El apellido debe tener entre 3 y 20 caracteres';
                         }
                         if (!/^[a-zA-ZáéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
-                            return 'El apellido solo puede contener letras';
+                            return 'El apellido solo puede tener letras';
                         }
                         if (value.includes(" ")) {
                             return validarEspaciosVacios(value);
@@ -258,7 +258,7 @@ const AgregarCliente = () => {
                             return 'No se permiten espacios en blanco';
                         }
                         if (!/^\d+$/.test(value)) {
-                            return 'El télefono solo puede contener números';
+                            return 'El télefono solo puede tener números';
                         }
                         if (value.startsWith("0")) {
                             return 'El teléfono no puede iniciar con 0';
@@ -327,14 +327,14 @@ const AgregarCliente = () => {
                     {...register("email", {
                       required: {
                         value: true,
-                        message: "El email es obligatorio",
+                        message: "El correo electrónico es obligatorio",
                       },
                       validate: (value) => {
                         return validarEspaciosVacios(value);
                       },
                       pattern: {
                         value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                        message: "El email no tiene un formato válido",
+                        message: "El correo electrónico no tiene un formato válido",
                       },
                     })}
                     onChange={(e) => {

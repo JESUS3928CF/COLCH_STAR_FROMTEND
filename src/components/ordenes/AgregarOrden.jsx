@@ -189,7 +189,7 @@ const AgregarOrden = () => {
                                     </div>
 
                                     <div className='col-md-8 mt-3'>
-                                        <p> Precio total: ${formatMoney(totalOrden)}</p>
+                                        <p> Precio total: {formatMoney(totalOrden)}</p>
                                     </div>
                                 </div>
                             </form>

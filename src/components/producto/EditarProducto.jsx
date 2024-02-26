@@ -65,7 +65,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
     useEffect(() => {
         if (editarProducto) {
             setValue('nombre', editarProducto.nombre);
-            setValue('cantidad', editarProducto.cantidad);
+            // setValue('cantidad', editarProducto.cantidad);
             setValue('precio', editarProducto.precio);
             setValue('publicado', editarProducto.publicado);
             setValue("fk_prenda", editarProducto.fk_prenda);
@@ -111,7 +111,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                             // setSelectedDisenoNombre([]);
                         }}
                     />
-                     <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p>
+                     {/* <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p> */}
 
                     <div className='modal-body'>
                         <form className='row g-3 needs-validation'>
@@ -150,7 +150,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                                     value
                                                 )
                                             ) {
-                                                return 'El nombre solo puede contener números y letras';
+                                                return 'El nombre solo puede tener números y letras';
                                             }
                                             if (value.includes(' ')) {
                                                 return validarEspaciosVacios(
@@ -177,59 +177,6 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                 )}
                             </div>
 
-                            <div className='col-md-6 ms-auto'>
-                                <label
-                                    htmlFor='cantidadGuardar'
-                                    className='col-form-label'
-                                >
-                                    Cantidad: *
-                                </label>
-
-                                <input
-                                    type='text'
-                                    className='form-control'
-                                    name='cantidad'
-                                    id='cantidadGuardar'
-                                    placeholder='. . .'
-                                    {...register('cantidad', {
-                                        required: {
-                                            value: true,
-                                            message:
-                                                'El cantidad es obligatorio',
-                                        },
-                                        validate: (value) => {
-                                            // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                            if (!/^\d+$/.test(value)) {
-                                                return 'La cantidad solo puede contener números';
-                                            }
-                                            // Convertir el número a cadena para realizar la validación de inicio con cero
-                                            const valueAsString =
-                                                value.toString();
-
-                                            // Verificar si el número comienza con cero
-                                            if (valueAsString.startsWith('0')) {
-                                                return 'El número no puede iniciar en 0';
-                                            }
-
-                                            return true;
-                                        },
-                                    })}
-                                    onChange={(e) => {
-                                        const inputValue = e.target.value.slice(
-                                            0,
-                                            11
-                                        ); // Limitar la longitud máxima
-                                        setValue('cantidad', inputValue);
-                                        trigger('cantidad');
-                                    }}
-                                />
-                                {/* en esta etiqueta va salir el error de validación  */}
-                                {errors.cantidad && (
-                                    <AlertaError
-                                        message={errors.cantidad.message}
-                                    />
-                                )}
-                            </div>
 
                             <div className='col-md-6 mt-2'>
                                 <label htmlFor='rol' className='col-form-label'>
@@ -299,7 +246,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
                                 )}
                             </div>
 
-                            <div className='col-md-12' name='Archivo'>
+                            <div className='col-md-6' name='Archivo'>
                                 <label
                                     htmlFor='Archivo'
                                     className='col-from-label'
