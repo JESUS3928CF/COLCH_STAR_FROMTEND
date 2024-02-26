@@ -240,12 +240,7 @@ export const EditarDetallesOrden = ({
                             textAlign: 'center',
                             height: 70,
                         }}
-                        {...register('descripcion', {
-                            required: {
-                                value: true,
-                                message: 'La descripción es obligatoria',
-                            },
-                        })}
+                        {...register('descripcion')}
                     />
 
                     {errors.descripcion && (
