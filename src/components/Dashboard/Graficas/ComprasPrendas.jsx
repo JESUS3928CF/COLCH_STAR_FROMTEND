@@ -132,8 +132,6 @@ export const ComprasPrendas = ({ compras }) => {
     <>
           <BotonLogoPDF namePDf={'Cantidades_de_prendas_compradas.pdf'} componente={<PDFComprasPrendas/>}  />
           <canvas ref={chartContainer} width="400" height="200"></canvas>
-
-
     </>
   
   

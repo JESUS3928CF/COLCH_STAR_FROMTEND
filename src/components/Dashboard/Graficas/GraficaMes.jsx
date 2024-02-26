@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { startOfMonth, endOfMonth, format } from 'date-fns';
 import BotonLogoPDF from '../BotonLogoPDF.jsx';
@@ -113,12 +113,21 @@ export const Grafica = ({ ordenes, compras }) => {
   };
 
   return (
-    <>    
-      <div>
-        <BotonLogoPDF namePDf={'mes.pdf'} componente={<PDFComprasMes/>} />
-        <canvas ref={monthChartContainer} width="400" height="200"></canvas>
-      </div>
-    </>
+      <>
+          <div>
+              <BotonLogoPDF
+                  namePDf={'mes.pdf'}
+                  componente={<PDFComprasMes />}
+              />
+          </div>
+          <div>
+              <canvas
+                  ref={monthChartContainer}
+                  width='400'
+                  height='200'
+              ></canvas>
+          </div>
+      </>
   );
 }
 
