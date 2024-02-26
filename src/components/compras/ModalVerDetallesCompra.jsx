@@ -126,6 +126,9 @@ export const ModalVerDetallesCompra = () => {
                         eliminarDetalle={eliminarDetalle}
                         id={index}
                         editarDetalle={editarDetalle}
+                        handleCloseDetalles={handleCloseDetalles}
+                        handleShow={handleShow}
+
                       />
                     </Carousel.Item>
                   ))}
