@@ -47,6 +47,10 @@ export const ModalVerDetallesCompra = () => {
   };
 
   const editarDetalle = (id, detalleEditado) => {
+
+    console.log(detalleEditado)
+
+
     if (
       !detalleEditado.cantidad ||
       !detalleEditado.color ||
