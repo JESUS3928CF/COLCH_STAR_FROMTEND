@@ -185,7 +185,7 @@ const ListarOrdenes = () => {
                                                     (e.target.value === 'Creada' && orden.estado_de_orden === 'En Proceso') ||
                                                     // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Finalizada'
                                                     (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Finalizada') ||
-                                                    
+
                                                     (e.target.value === 'Creada' && orden.estado_de_orden === 'Finalizada') ||
                                                     // Verifica si el nuevo estado es 'Finalizada' y el estado actual es 'Entregada'
                                                     (e.target.value === 'Finalizada' && orden.estado_de_orden === 'Entregada') ||
@@ -197,6 +197,16 @@ const ListarOrdenes = () => {
                                                     return Swal.fire(
                                                         'Acción inválida!',
                                                         `No se puede cambiar el estado a '${e.target.value}', esta  '${orden.estado_de_orden}'!!`,
+                                                        'error'
+                                                    );
+                                                }
+                                                else if (
+                                                    (e.target.value === 'Entregada' && orden.estado_de_orden !== 'Finalizada') ||
+                                                    (e.target.value === 'Entregada' && orden.estado_de_orden === 'En Proceso')
+                                                ) {
+                                                    return Swal.fire(
+                                                        'Acción inválida!',
+                                                        `Para cambiar el estado a 'Entregada', primero debe pasar por 'Finalizada'!!`,
                                                         'error'
                                                     );
                                                 }
