@@ -38,7 +38,7 @@ export const EditarDetallesCompra = ({
   useEffect(() => {
     handleProductoChange(detalle.fk_prenda);
     if (detalle) {
-      setValue("fk_prenda", detalle.fk_prenda);
+      setValue("fk_prenda", detalle.fk_prenda || "d");
       setValue("talla", detalle.talla);
       setValue("color", detalle.color);
       setValue("cantidad", detalle.cantidad);

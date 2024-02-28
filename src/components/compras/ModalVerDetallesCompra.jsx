@@ -47,14 +47,26 @@ export const ModalVerDetallesCompra = () => {
   };
 
   const editarDetalle = (id, detalleEditado) => {
-    if (
-      !detalleEditado.cantidad ||
-      !detalleEditado.color ||
-      !detalleEditado.talla ||
-      !detalleEditado.precio ||
-      !detalleEditado.fk_prenda
-    )
-      return;
+
+    console.log(detalleEditado)
+
+    if(!detalleEditado.fk_prenda == "d") {
+      if (
+        !detalleEditado.cantidad ||
+        !detalleEditado.color ||
+        !detalleEditado.talla ||
+        !detalleEditado.precio ||
+        !detalleEditado.fk_prenda
+      )
+        return;
+    } else {
+      if (
+        !detalleEditado.cantidad ||
+        !detalleEditado.precio
+      )
+        return;
+    }
+    
 
     // Copia del array original
     const editadosDetalles = [...detallesCompra];
