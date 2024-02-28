@@ -204,24 +204,26 @@ export const AgregarDetallesCompra = () => {
                                 if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
-
-                                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                                if (
-                                    watch('fk_prenda') != 'd'
-                                        ? !/^\d+$/.test(value)
-                                        : !/^\d+(\.\d+)?$/.test(value) &&
-                                          watch('fk_prenda') != 'd'
-                                ) {
-                                    return 'La cantidad solo puede contener números enteros';
-                                }
-                                if (
-                                    value.startsWith('0') &&
-                                    watch('fk_prenda') != 'd'
-                                ) {
-                                    return 'La cantidad no puede iniciar con 0';
+                            
+                                // Verificar si la prenda es 'd' (impresión de estampados)
+                                if (watch('fk_prenda') === 'd') {
+                                    // Validar solo números enteros y un punto opcional
+                                    if (!/^(?!0(\.0)?$)\d+(\.\d+)?$/.test(value)) {
+                                        return 'La cantidad debe ser mayor que 0 y no debe terminar en punto';
+                                    }
+                                } else {
+                                    // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                    if (!/^\d+$/.test(value)) {
+                                        return 'La cantidad solo puede contener números enteros';
+                                    }
+                                    if (value.startsWith('0')) {
+                                        return 'La cantidad no puede iniciar con 0';
+                                    }
                                 }
                                 return true;
                             },
+                            
+                            
                         })}
                         onChange={(e) => {
                             setValue('cantidad', e.target.value);

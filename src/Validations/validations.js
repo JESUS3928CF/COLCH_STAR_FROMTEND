@@ -60,15 +60,17 @@ export const validarFecha = (value) => {
 
 
   export const validarFechaOrden = (value) => {
-    const fechaIngresada = new Date(value);
+    let fechaIngresada = new Date(value);
+    //sumar un dia a la fecha porque le resta un dia cuando la transforma
+    fechaIngresada.setDate(fechaIngresada.getDate() + 1)
     const fechaActual = new Date();
-
     // Calcular la fecha máxima permitida, 15 días desde la fecha actual
     const fechaMaximaPermitida = new Date();
     fechaMaximaPermitida.setDate(fechaMaximaPermitida.getDate() + 15);
 
     // Verificar si la fecha es anterior a la actual
     if (fechaIngresada < fechaActual) {
+       
         return 'La fecha no puede ser anterior a la actual';
     }
 
