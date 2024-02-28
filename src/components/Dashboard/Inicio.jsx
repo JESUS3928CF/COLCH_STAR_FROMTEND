@@ -42,7 +42,7 @@ import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
-  const { clientes,consultarClientes } = useClientes();
+  const { clientes, consultarClientes } = useClientes();
   const { Prendas } = usePrendas();
   const { disenosDB } = useDisenosContext();
   const { productos, detailsDiseno } = useProducto();
@@ -53,6 +53,7 @@ export const InicioDashboard = () => {
   const [detallesProductos, setDetallesProductos] = useState({});
   const [detallesClientes, setDetallesClientes] = useState({});
   const [detalleDiseno, setDetalleDiseno] = useState({});
+  
 
   const cantidadDeProveedores = proveedores.length;
   const cantidadDeClientes = clientes.length;
@@ -123,13 +124,51 @@ export const InicioDashboard = () => {
     }
   }
 
+  const disenoElegido = disenosDB.find(
+    (DisenosFavoritos) => DisenosFavoritos.id_diseno == DisenoStar
+  );
+
+  const productsElegido = productos.find(
+    (ProductoFavorito) => ProductoFavorito.id_producto == ProductoStar
+  );
+
+  const clienteElegido = clientes.find(
+    (clienteFavorito) => clienteFavorito.id_cliente == ClienteStar
+  );
+
+
+
+
+  const [favoritoNombre, setFavoritoNombre] = useState('');
+  
+  const [favoritoDiseno,setFavoritoDiseno] = useState('')
+  const [favoritoProducto , setFavoritoProducto] = useState('')
+  const [favoritoApellido, setFavoritoApellido]= useState('')
+
+  useEffect(() => {
+    if (clienteElegido && disenoElegido && productsElegido) {
+      setFavoritoNombre(clienteElegido.nombre);
+      setFavoritoDiseno (disenoElegido.nombre)
+      setFavoritoProducto(productsElegido.nombre)
+      setFavoritoApellido(clienteElegido.apellido)
+
+    }
+  }, [clienteElegido,disenoElegido,productsElegido]);
+
+
+
+
+  
+
+  
+   
   const modalDetalleProducto = productos.find(
     (productsElegido) => productsElegido.id_producto == ProductoStar
   );
 
   const modalDetalleClientes = clientes.find(
     (clienteElegido) => clienteElegido.id_cliente == ClienteStar
-  )
+  );
 
   const modalDetalleDiseno = disenosDB.find(
     (disenoElegido) => disenoElegido.id_diseno == DisenoStar
@@ -152,7 +191,7 @@ export const InicioDashboard = () => {
     // Filtrar compras de los últimos 7 días
     const comprasUltimos7Dias = compras.filter((compra) => {
       const fecha = parseISO(compra.fecha);
-      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
+      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && compra.estado ===true
     });
 
     const VentasUltimosSieteDias = ordenes.filter((orden) => {
@@ -175,7 +214,7 @@ export const InicioDashboard = () => {
       0
     );
     setTotalComprasUltimosSieteDias(totalCompras);
-  }, [compras]);
+  }, [compras, favoritoNombre,favoritoApellido,favoritoProducto,favoritoDiseno]);
 
   return (
     <>
@@ -185,6 +224,7 @@ export const InicioDashboard = () => {
 
           <Notificacion />
         </div>
+        
 
         <div className="cards">
           <div id="carouselExampleIndicators" className="carousel slide">
@@ -217,18 +257,17 @@ export const InicioDashboard = () => {
                     <Title>Datos económicos</Title>
                   </div>
 
-                  <Flex>
+                  <Flex >
                     <Card className="two">
                       <Title className="textCompras">Total de compras</Title>
-                      <MdOutlineMoneyOffCsred className="iconsE" />
-                      <Text className="Cantidad">
-                        {totalComprasUltimosSieteDias.toLocaleString()}
-                      </Text>
+                      <span>
+                        <MdOutlineMoneyOffCsred className="iconsE" />
+                        <Text className="Cantidad">
+                          {totalComprasUltimosSieteDias.toLocaleString()}
+                        </Text>
+                      </span>
 
-                      <BtnPDF
-                        namePDf={"ComprasSemanal.pdf"}
-                        componente={<PDFComprasSemana />}
-                      />
+                      <BtnPDF namePDf={"ComprasSemanal.pdf"} componente={1} />
                     </Card>
 
                     <Card className="two">
@@ -239,22 +278,21 @@ export const InicioDashboard = () => {
                         {totalComprasUltimosSieteDiasVentas.toLocaleString()}
                       </Text>
 
-                      <BtnPDF
-                        namePDf={"ventasSemanal.pdf"}
-                        componente={<PDFOrdenSemanal />}
-                      />
+                      <BtnPDF namePDf={"ventasSemanal.pdf"} componente={2} />
                     </Card>
                   </Flex>
                 </Card>
               </div>
-              <div class="carousel-item">
+              <div className="carousel-item">
                 <Card className="CardPrincipal">
                   <div className="textDatosGenerales">
                     <Title>Datos generales</Title>
                   </div>
+                  <div className="prueba">
 
-                  <Flex>
+                  <Flex className="General">
                     <Card className="two">
+                        
                       <Title className="textProveedor">
                         Total de proveedores
                       </Title>
@@ -262,7 +300,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeProveedores}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/proveedores"}>
-                          <span className="textBoton">Más Info</span>
+                          <span className="textBotonG">Más Info</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -274,7 +312,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeClientes}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/clientes"}>
-                          <span className="textBoton">Más Info</span>
+                          <span className="textBotonG">Más Info</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -287,7 +325,7 @@ export const InicioDashboard = () => {
 
                       <Button className="botonInfo">
                         <Link to={"/administracion/prendas"}>
-                          <span className="textBoton">Más Info</span>
+                          <span className="textBotonG">Más Info</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -299,7 +337,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeDisenos}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/disenos"}>
-                          <span className="textBoton">Más Info</span>
+                          <span className="textBotonG">Más Info</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -317,6 +355,8 @@ export const InicioDashboard = () => {
                       </Button>
                     </Card>
                   </Flex>
+                  </div>
+
                 </Card>
               </div>
               <div className="carousel-item">
@@ -325,22 +365,15 @@ export const InicioDashboard = () => {
                     <Title>Más frecuente</Title>
                   </div>
 
+                  <div className="FrecuenteResponsivo">
                   <Flex>
                     <Card className="two">
                       <Title className="textGeneralMas">Cliente Star</Title>
                       <PiShootingStarThin className="star" />
 
-                      {clientes.map((clienteElegido) => (
-                        <Text className="NombreStar">
-                          {clienteElegido.id_cliente == ClienteStar ? (
-                            <p>
-                              {clienteElegido.nombre} {clienteElegido.apellido}{" "}
-                            </p>
-                          ) : (
-                            ""
-                          )}
-                        </Text>
-                      ))}
+                      <Text className="NombreStar">
+                        {favoritoNombre}{favoritoApellido}
+                      </Text>
 
                       <Button
                         className="botonInfoF"
@@ -359,13 +392,9 @@ export const InicioDashboard = () => {
                       <Title className="textGeneralMas">Productos Star</Title>
                       <BiBox className="icons" />
 
-                      {productos.map((productsElegido) => (
-                        <Text className="NombreStar">
-                          {productsElegido.id_producto == ProductoStar
-                            ? productsElegido.nombre
-                            : " "}
-                        </Text>
-                      ))}
+                      <Text className="NombreStar">
+                        {favoritoProducto}
+                      </Text>
 
                       <Button
                         className="botonInfoF"
@@ -384,13 +413,7 @@ export const InicioDashboard = () => {
                       <Title className="textGeneralMas">Diseños Star</Title>
                       <AiFillCrown className="icons" />
 
-                      {disenosDB.map((disenoElegido) => (
-                        <Text className="NombreStar">
-                          {disenoElegido.id_diseno == DisenoStar
-                            ? disenoElegido.nombre
-                            : ""}
-                        </Text>
-                      ))}
+                      <Text className="NombreStar">{favoritoDiseno}</Text>
 
                       <Button
                         className="botonInfoF"
@@ -403,7 +426,9 @@ export const InicioDashboard = () => {
                       </Button>
                     </Card>
                   </Flex>
-                </Card>{" "}
+                  </div>
+
+                </Card>
               </div>
             </div>
             <button
@@ -412,7 +437,7 @@ export const InicioDashboard = () => {
               data-bs-slide="prev"
             >
               <span>
-                {" "}
+                
                 <FaArrowAltCircleLeft className="iconsCarrusel" />
               </span>
             </button>
@@ -430,9 +455,9 @@ export const InicioDashboard = () => {
 
         <div className="cards">
           <Card className="cardsNavBar">
-            <div>
+            <div className="responsiGrafica">
               <Card className="textDatosGenerales">
-                <Text className="textGrafica">Graficas</Text>
+                <Text className="textGrafica">Gráficas</Text>
               </Card>
             </div>
           </Card>

@@ -8,37 +8,27 @@ export const PDFComprasSemana = () => {
   const [resumenCompras, setResumenCompras] = useState([]);
   const [totalComprasUltimosSieteDias, setTotalComprasUltimosSieteDias] = useState(0);
 
-  const token = localStorage.getItem("token");
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await clienteAxios.get("/compras", config);
+        const { data } = await clienteAxios.get("/compras", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-        // Obtener la fecha de hoy
         const fechaActual = startOfToday();
-
-        // Calcular la fecha de hace 7 días
         const fechaInicioSemanaActual = subDays(fechaActual, 7);
 
-        // Filtrar compras de los últimos 7 días
         const comprasUltimos7Dias = data.filter((compra) => {
           const fecha = parseISO(compra.fecha);
           return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
         });
 
-        // Suma de todas las cantidades de las compras de los últimos 7 días
         const totalCompras = comprasUltimos7Dias.reduce((total, compra) => total + compra.total_de_compra, 0);
         setTotalComprasUltimosSieteDias(totalCompras);
 
-        // Agrupar compras por fecha y calcular el total de compras para cada fecha
         const resumen = {};
         comprasUltimos7Dias.forEach((compra) => {
           const fecha = format(parseISO(compra.fecha), "dd/MM/yyyy");
@@ -49,7 +39,6 @@ export const PDFComprasSemana = () => {
           }
         });
 
-        // Ordenar las fechas de menor a mayor
         setResumenCompras(Object.values(resumen));
       } catch (error) {
         console.log(error);
@@ -123,7 +112,7 @@ export const PDFComprasSemana = () => {
       <Page>
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
-          <Text style={styles.titulo}>Compras de los ultimos 7 dias </Text>
+          <Text style={styles.titulo}>Compras de los últimos 7 días</Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
