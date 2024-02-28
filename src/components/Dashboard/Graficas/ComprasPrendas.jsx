@@ -30,20 +30,21 @@ export const ComprasPrendas = ({ compras }) => {
     // Calcular la fecha de hace 7 días
     const fechaInicioSemanaActual = subDays(fechaActual, 8);
 
+
     // Filtrar compras de los últimos 7 días
     const UltimosSieteDias = id_compra.filter((fechaDetalle) => {
       const fecha = parseISO(fechaDetalle.fecha);
-      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
+      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual
     });
 
     // Objeto de mapa para mantener un seguimiento de las cantidades por fecha
     const cantidadesPorFecha = new Map();
 
-    id_compra.forEach((compra) => {
+    UltimosSieteDias.forEach((compra) => {
       const fechaCompra = parseISO(compra.fecha);
       if (
         fechaCompra >= fechaInicioSemanaActual &&
-        fechaCompra <= fechaActual
+        fechaCompra <= fechaActual && compra.estado === true
       ) {
         const detallesCompra = detalleCompra.filter(
           (detalle) => detalle.fk_compra === compra.id_compra
@@ -126,11 +127,11 @@ export const ComprasPrendas = ({ compras }) => {
         newChartInstance.destroy();
       }
     };
-  }, [compras]);
+  }, [compras,]);
 
   return (
     <>
-          <BotonLogoPDF namePDf={'Cantidades_de_prendas_compradas.pdf'} componente={<PDFComprasPrendas/>}  />
+          <BotonLogoPDF namePDf={'Cantidades_de_prendas_compradas.pdf'} componente={2}  />
           <canvas ref={chartContainer} width="400" height="200"></canvas>
     </>
   
