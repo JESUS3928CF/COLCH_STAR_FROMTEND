@@ -11,6 +11,8 @@ export const EditarDetallesCompra = ({
   eliminarDetalle,
   id,
   editarDetalle,
+  handleCloseDetalles,
+  handleShow
 }) => {
   const { Prendas } = usePrenda();
 
@@ -36,7 +38,7 @@ export const EditarDetallesCompra = ({
   useEffect(() => {
     handleProductoChange(detalle.fk_prenda);
     if (detalle) {
-      setValue("fk_prenda", detalle.fk_prenda);
+      setValue("fk_prenda", detalle.fk_prenda || "d");
       setValue("talla", detalle.talla);
       setValue("color", detalle.color);
       setValue("cantidad", detalle.cantidad);
@@ -250,14 +252,24 @@ export const EditarDetallesCompra = ({
             readOnly
           />
         </div>
-        <div className="col-md-6 pl-1 pt-3 text-center">
+
+        <div className="col-md-4 pl-1 pt-3 text-center" style={{paddingLeft: "40px"}}>
           <BotonNegro
-            text={"Eliminar detalle"}
-            onClick={() => eliminarDetalle(id)}
+            text={"Regresar"}
+            onClick={() => {
+              handleCloseDetalles()
+              handleShow()
+            }}
           />
         </div>
 
-        <div className="col-md-6     pl-1 pt-3 text-center">
+        <div className="col-md-4 pt-3 text-center" style={{paddingRight: "70px"}}>
+          <BotonNegro
+            text={"Eliminar"}
+            onClick={() => eliminarDetalle(id)}
+          />
+        </div>
+        <div className="col-md-4 pl-1 pt-3 text-center">
           <GuardarModal
             text="Editar detalle"
             onSubmit={() => {
@@ -265,6 +277,11 @@ export const EditarDetallesCompra = ({
             }}
           />
         </div>
+        
+        
+        
+
+        
       </div>
     </form>
   );

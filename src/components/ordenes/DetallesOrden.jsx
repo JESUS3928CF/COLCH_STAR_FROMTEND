@@ -55,7 +55,7 @@ const DetallesOrden = ({ detallesOrdenes }) => {
                                                             color: 'blue', // Cambio el color del texto (puedes cambiarlo según tus preferencias)
                                                         }}
                                                     >
-                                                        Producto {index + 1} - {detalles.length}
+                                                        Detalle {index + 1} - {detalles.length}
                                                     </label>
                                                     <input
                                                         type='text'
