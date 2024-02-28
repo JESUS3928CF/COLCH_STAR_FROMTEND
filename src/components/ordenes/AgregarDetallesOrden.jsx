@@ -30,6 +30,7 @@ export const AgregarDetallesOrden = () => {
         handleClose,
         handleCloseEditar,
         editar,
+        setPrecio
     } = useOrden();
 
     const {
@@ -47,6 +48,8 @@ export const AgregarDetallesOrden = () => {
         );
 
         if (productoEncontrado) {
+            const precioTotal = data.precio_total; 
+            setPrecio(precioTotal); 
             data.producto = {
                 nombre: productoEncontrado.nombre,
                 precio: productoEncontrado.precio,
@@ -183,7 +186,7 @@ export const AgregarDetallesOrden = () => {
             )}
 
             <div className='row'>
-                <div className='col-md-12'>
+                <div className='col-md-6'>
                     <label
                         htmlFor='nombreCompraAgregar'
                         className='col-form-label'
@@ -215,6 +218,31 @@ export const AgregarDetallesOrden = () => {
                                 }
 
                                 return true;
+                            },
+                        })}
+                    />
+
+                    {errors.cantidad && (
+                        <AlertaError message={errors.cantidad.message} />
+                    )}
+                </div>
+                <div className='col-md-6'>
+                    <label
+                        htmlFor='nombreCompraAgregar'
+                        className='col-form-label'
+                    >
+                        Margen de ganacia: *
+                    </label>
+                    <input
+                        type='number'
+                        className='form-control'
+                        id='nombreCompraAgregar'
+                        name='nombreCompraAgregar'
+                        placeholder='. . .'
+                        {...register('precio_total', {
+                            required: {
+                                value: true,
+                                message: 'La cantidad es obligatoria',
                             },
                         })}
                     />

@@ -24,6 +24,11 @@ const OrdenesProvider = ({ children }) => {
 
     const { consultPrendas } = usePrendas();
 
+    const [precio, setPrecio] = useState([]);
+
+
+    
+
 
     const [totalOrden, setTotalOrden] = useState(0);
     const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
@@ -32,13 +37,15 @@ const OrdenesProvider = ({ children }) => {
     /// Calcular el total de la orden
     useEffect(() => {
         setTotalOrden(
-            detallesOrden.reduce(
+            detallesOrden.reduce( 
                 (total, producto) =>
-                    total + producto.cantidad * producto.producto.precio,
+                    total + producto.cantidad * producto.producto.precio + parseInt(precio),
                 0
             )
         );
     }, [detallesOrden, setDetailsOrden]);
+
+    
 
     // primer state
     const [ordenes, setOrdenes] = useState([]);
@@ -246,6 +253,7 @@ const OrdenesProvider = ({ children }) => {
                 actualizarOrden,
                 consultarOrdenes,
                 setTotalOrden,
+                setPrecio,
                 // BUSQUEDA
                 busqueda,
                 setBusqueda
