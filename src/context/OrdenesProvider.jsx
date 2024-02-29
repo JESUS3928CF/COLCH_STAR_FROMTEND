@@ -146,7 +146,7 @@ const OrdenesProvider = ({ children }) => {
         }
     };
 
-    const validarPrendasExistentes = (orden) => {
+    const validarPrendasExistentes = (orden, mensajePrincipal) => {
         // Buscar los detalles iguales
         const detallesOrden = orden.detalles;
 
@@ -253,7 +253,7 @@ const OrdenesProvider = ({ children }) => {
         }
 
         if (prendasFaltantes.length !== 0) {
-            let mensaje = `Para poder empezar con la producción de esta orden necesitas comprar ${
+            let mensaje = `${mensajePrincipal} ${
                 prendasFaltantes.length != 1
                     ? 'las siguientes prendas'
                     : 'la siguiente prenda'
@@ -262,7 +262,7 @@ const OrdenesProvider = ({ children }) => {
             // Recorremos cada objeto en el array de prendasFaltantes
             for (const prenda of prendasFaltantes) {
                 // Formamos un mensaje con las propiedades de cada objeto
-                mensaje += `<li style="margin-bottom: 10px;"><strong>Nombre: </strong>${prenda.prenda}, <strong>Cantidad necesaria:</strong> ${prenda.cantidades_faltantes}, <strong>Color necesario:</strong> ${prenda.color}, <strong>Talla necesaria:</strong> ${prenda.talla}</li>`;
+                mensaje += `<li style="margin-bottom: 10px;"><strong>Nombre: </strong>${prenda.prenda}, <strong>Talla necesaria:</strong> ${prenda.talla}, <strong>Color necesario:</strong> ${prenda.color}<strong>, Cantidad necesaria:</strong> ${prenda.cantidades_faltantes}</li>`;
             }
 
             mensaje += '</ul>';
@@ -283,7 +283,10 @@ const OrdenesProvider = ({ children }) => {
     const cambiarEstadoDeOrden = (estado, orden) => {
         if (estado === 'En Proceso') {
             // el producto la prenda y la cantidad en cada for, entonces llamo todas las prendas, los productos y ya busco en sus detalles
-            if (!validarPrendasExistentes(orden)) return;
+            if (!validarPrendasExistentes(orden, "Para poder empezar con la producción de esta orden necesitas comprar")) return;
+        } else if (estado === "Finalizada") {
+            // el producto la prenda y la cantidad en cada for, entonces llamo todas las prendas, los productos y ya busco en sus detalles
+            if (!validarPrendasExistentes(orden, "La compra fue cancelada intende comprar de nuevo")) return;
         }
 
         Swal.fire({
