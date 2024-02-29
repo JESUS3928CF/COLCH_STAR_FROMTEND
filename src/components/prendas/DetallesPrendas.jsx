@@ -32,23 +32,27 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
 
   const [startIndexc, setStartIndexc] = useState(0);
   const numVisibleColorsc = 2;
-
+  
   const handleNextc = () => {
     if (
       detallesPrendas.cantidades &&
-      detallesPrendas.cantidades.length > startIndex + numVisibleColorsc
+      detallesPrendas.cantidades.length > startIndexc + numVisibleColorsc
     ) {
       setStartIndexc(startIndexc + 1);
+    } else {
+      // Si estás en el último conjunto de colores, puedes volver al principio
+      setStartIndexc(0);
     }
-    
   };
-
+  
   const handlePreviousc = () => {
     if (startIndexc > 0) {
       setStartIndexc(startIndexc - 1);
+    } else {
+      // Si estás en el primer conjunto de colores, puedes volver al final
+      setStartIndexc(detallesPrendas.cantidades.length - numVisibleColorsc);
     }
   };
-
 
   useEffect(() => {
     if (detallesPrendas) {

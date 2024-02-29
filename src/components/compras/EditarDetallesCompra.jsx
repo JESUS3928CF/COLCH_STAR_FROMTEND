@@ -32,6 +32,7 @@ export const EditarDetallesCompra = ({
     setInfoProductoSeleccionado(productoEncontrado);
     setValue("color", ""); // Restablecer el valor del color a vacío
     setValue("talla", ""); // Restablecer el valor de la talla a vacío
+    setValue("cantidad", ""); // Restablecer el valor de la talla a vacío
     trigger(["color", "talla"]); // Activar la validación del color y de la talla
   };
 
@@ -45,6 +46,15 @@ export const EditarDetallesCompra = ({
       setValue("precio", detalle.precio);
     }
   }, [detalle]);
+
+  const handeChangeValidar = (id) => {
+    trigger(["color", "talla", "cantidad", "precio"]); // Activar la validación del color y de la talla
+
+    if (!errors.cantidad) {
+      editarDetalle(id, watch());
+
+    }
+  }
 
   const {
     register, //Registra o identifica cada elemento o cada input
@@ -87,7 +97,6 @@ export const EditarDetallesCompra = ({
           })}
           onChange={() => handleProductoChange(event.target.value)} // Manejar el cambio de prenda seleccionada
         >
-          <option value="">Seleccione el producto comprado</option>
           <option value="d">Impresión de estampados</option>
           {Prendas.filter((prenda) => prenda.estado).map((prenda) => {
             return (
@@ -180,20 +189,24 @@ export const EditarDetallesCompra = ({
                 message: "La cantidad es obligatoria",
               },
               validate: (value) => {
-                if (value.includes(" ")) {
-                  return "No se permiten espacios en blanco";
+                if (value.includes(' ')) {
+                  return 'No se permiten espacios en blanco';
                 }
 
-                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
-                if (
-                  watch("fk_prenda") != "d"
-                    ? !/^\d+$/.test(value)
-                    : !/^\d+(\.\d+)?$/.test(value) && watch("fk_prenda") != "d"
-                ) {
-                  return "La cantidad solo puede tener números enteros";
-                }
-                if (value.startsWith("0") && watch("fk_prenda") != "d") {
-                  return "La cantidad no puede iniciar con 0";
+                // Verificar si la prenda es 'd' (impresión de estampados)
+                if (watch('fk_prenda') === 'd') {
+                  // Validar solo números enteros y un punto opcional
+                  if (!/^(?!0(\.0)?$)\d+(\.\d+)?$/.test(value)) {
+                    return 'La cantidad debe ser mayor que 0 y no debe terminar en punto';
+                  }
+                } else {
+                  // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                  if (!/^\d+$/.test(value)) {
+                    return 'La cantidad solo puede contener números enteros';
+                  }
+                  if (value.startsWith('0')) {
+                    return 'La cantidad no puede iniciar con 0';
+                  }
                 }
                 return true;
               },
@@ -253,7 +266,7 @@ export const EditarDetallesCompra = ({
           />
         </div>
 
-        <div className="col-md-4 pl-1 pt-3 text-center" style={{paddingLeft: "40px"}}>
+        <div className="col-md-4 pl-1 pt-3 text-center" style={{ paddingLeft: "40px" }}>
           <BotonNegro
             text={"Regresar"}
             onClick={() => {
@@ -263,7 +276,7 @@ export const EditarDetallesCompra = ({
           />
         </div>
 
-        <div className="col-md-4 pt-3 text-center" style={{paddingRight: "70px"}}>
+        <div className="col-md-4 pt-3 text-center" style={{ paddingRight: "70px" }}>
           <BotonNegro
             text={"Eliminar"}
             onClick={() => eliminarDetalle(id)}
@@ -273,15 +286,15 @@ export const EditarDetallesCompra = ({
           <GuardarModal
             text="Editar detalle"
             onSubmit={() => {
-              editarDetalle(id, watch());
+              handeChangeValidar(id);
             }}
           />
         </div>
-        
-        
-        
 
-        
+
+
+
+
       </div>
     </form>
   );

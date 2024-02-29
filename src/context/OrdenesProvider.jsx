@@ -5,8 +5,7 @@ import Swal from 'sweetalert2';
 import clienteAxios from '../config/axios';
 import useMovimientos from '../hooks/useMovimientos';
 import usePrendas from '../hooks/usePrendas';
-
-
+import useProducto from '../hooks/useProducto';
 
 const ordenesContext = createContext();
 
@@ -22,30 +21,27 @@ const OrdenesProvider = ({ children }) => {
 
     const [editar, setEditar] = useState(false);
 
-    const { consultPrendas } = usePrendas();
+    const { consultPrendas, Prendas } = usePrendas();
+    const { productos } = useProducto();
 
-    const [precio, setPrecio] = useState([]);
-
-
-    
-
+    const [precio, setPrecio] = useState(0);
 
     const [totalOrden, setTotalOrden] = useState(0);
-    const {consultarMovimientos,notificaciones,notificacion}= useMovimientos()
-
+    const { consultarMovimientos, notificaciones, notificacion } =
+        useMovimientos();
 
     /// Calcular el total de la orden
     useEffect(() => {
         setTotalOrden(
-            detallesOrden.reduce( 
+            detallesOrden.reduce(
                 (total, producto) =>
-                    total + producto.cantidad * producto.producto.precio + parseInt(precio),
+                    total +
+                    producto.cantidad * producto.producto.precio +
+                    parseInt(precio),
                 0
             )
         );
     }, [detallesOrden, setDetailsOrden]);
-
-    
 
     // primer state
     const [ordenes, setOrdenes] = useState([]);
@@ -102,7 +98,7 @@ const OrdenesProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarOrdenes();
-                notificaciones(notificacion+1)
+                notificaciones(notificacion + 1);
                 consultarMovimientos();
                 handleClose(reset);
             });
@@ -136,7 +132,7 @@ const OrdenesProvider = ({ children }) => {
                 icon: 'success',
             }).then(() => {
                 consultarOrdenes();
-                notificaciones(notificacion+1)
+                notificaciones(notificacion + 1);
                 consultarMovimientos();
                 handleClose(reset);
             });
@@ -150,7 +146,149 @@ const OrdenesProvider = ({ children }) => {
         }
     };
 
-    const cambiarEstadoDeOrden = (estado, id) => {
+    const validarPrendasExistentes = (orden, mensajePrincipal) => {
+        // Buscar los detalles iguales
+        const detallesOrden = orden.detalles;
+
+        // Suponiendo que tienes un arreglo de detalles llamado 'detallesOrden'
+
+        // Creamos un objeto para almacenar los detalles agrupados por producto, color y talla
+        const detallesAgrupados = {};
+
+        // Recorremos cada detalle
+        detallesOrden.forEach((detalle) => {
+            // Creamos una clave única para identificar el detalle basado en el producto, color y talla
+            const clave = `${detalle.fk_producto}_${detalle.color}_${detalle.talla}`;
+
+            // Verificamos si ya existe una entrada para esta clave en el objeto detallesAgrupados
+            if (detallesAgrupados[clave]) {
+                // Si ya existe, agregamos este detalle a la lista de detalles asociados a esa clave
+                detallesAgrupados[clave].push(detalle);
+            } else {
+                // Si no existe, creamos una nueva entrada en el objeto y asignamos este detalle como el primer elemento de la lista
+                detallesAgrupados[clave] = [detalle];
+            }
+        });
+
+        // Filtramos los detalles que tienen más de un elemento en su lista para obtener los duplicados
+        const detallesDuplicados = Object.values(detallesAgrupados).filter(
+            (lista) => lista.length > 1
+        );
+
+        // Filtramos los detalles que solo tienen un elemento en su lista para obtener los no duplicados
+        let detallesNoDuplicados = Object.values(detallesAgrupados).filter(
+            (lista) => lista.length === 1
+        );
+
+        const detallesDuplicadosSumados = [];
+
+        for (let duplicados of detallesDuplicados) {
+            const duplicadoUnificado = [duplicados[0]];
+            duplicadoUnificado[0].cantidad_total = duplicados.reduce(
+                (total, producto) => total + producto.cantidad,
+                0
+            );
+
+            detallesDuplicadosSumados.push(duplicadoUnificado);
+        }
+
+        for (let detalle of detallesNoDuplicados) {
+            detalle[0].cantidad_total = detalle[0].cantidad;
+        }
+
+        const detallesOrdenParaValidar = [
+            ...detallesNoDuplicados,
+            ...detallesDuplicadosSumados,
+        ];
+
+        const prendasFaltantes = [];
+
+        /// Encontrar las cantidades que los detalles de esta orden
+        for (let detalle of detallesOrdenParaValidar) {
+            const producto = productos.find(
+                (producto) => producto.id_producto == detalle[0].fk_producto
+            );
+
+            const prenda = Prendas.find(
+                (prenda) => prenda.id_prenda == producto.fk_prenda
+            );
+
+            const validarCantidad = prenda.cantidades.find(
+                (cantidad) =>
+                    cantidad.talla == detalle[0].talla &&
+                    cantidad.color == detalle[0].color
+            );
+
+            detalle[0].cantidades_faltante = 0;
+            if (!validarCantidad) {
+                prendasFaltantes.push({
+                    prenda: prenda.nombre,
+                    cantidades_faltantes: detalle[0].cantidad_total,
+                    color: detalle[0].color,
+                    talla: detalle[0].talla,
+                });
+            } else {
+                let cantidadFaltante = 0;
+
+                cantidadFaltante =
+                    detalle[0].cantidad_total - validarCantidad.cantidad;
+
+                console.log(cantidadFaltante, ' cantidades necesarias');
+
+                if (cantidadFaltante > 0) {
+                    prendasFaltantes.push({
+                        prenda: prenda.nombre,
+                        cantidades_faltantes: cantidadFaltante,
+                        color: detalle[0].color,
+                        talla: detalle[0].talla,
+                    });
+                }
+            }
+
+            detalle[0].producto.fk_prenda = producto.fk_prenda;
+            detalle[0].producto.cantidades_prenda = prenda.cantidades;
+
+            // necesarios
+            detalle[0].producto.prenda = prenda.nombre;
+        }
+
+        if (prendasFaltantes.length !== 0) {
+            let mensaje = `${mensajePrincipal} ${
+                prendasFaltantes.length != 1
+                    ? 'las siguientes prendas'
+                    : 'la siguiente prenda'
+            }:<br><ul style="padding-left: 0; list-style-type: none;">`;
+
+            // Recorremos cada objeto en el array de prendasFaltantes
+            for (const prenda of prendasFaltantes) {
+                // Formamos un mensaje con las propiedades de cada objeto
+                mensaje += `<li style="margin-bottom: 10px;"><strong>Nombre: </strong>${prenda.prenda}, <strong>Talla necesaria:</strong> ${prenda.talla}, <strong>Color necesario:</strong> ${prenda.color}<strong>, Cantidad necesaria:</strong> ${prenda.cantidades_faltantes}</li>`;
+            }
+
+            mensaje += '</ul>';
+
+            // Mostramos el mensaje con todas las prendas faltantes
+            Swal.fire({
+                title: 'Acción inválida!',
+                html: mensaje,
+                icon: 'error',
+            });
+
+            return false;
+        }
+
+        return true;
+    };
+
+    const cambiarEstadoDeOrden = (estado, orden) => {
+        if (estado === 'En Proceso') {
+            // el producto la prenda y la cantidad en cada for, entonces llamo todas las prendas, los productos y ya busco en sus detalles
+            if (!validarPrendasExistentes(orden, "Para poder empezar con la producción de esta orden necesitas comprar")) return;
+        } else if (estado === "Finalizada") {
+            // el producto la prenda y la cantidad en cada for, entonces llamo todas las prendas, los productos y ya busco en sus detalles
+            if (!validarPrendasExistentes(orden, "La compra fue cancelada intende comprar de nuevo")) return;
+        }
+
         Swal.fire({
             title: `¿Deseas cambiar el estado de la venta a ${estado}?`,
             // text: "Este ",
@@ -166,20 +304,22 @@ const OrdenesProvider = ({ children }) => {
                 try {
                     //  Realiza la petición PATCH
                     const response = await clienteAxios.patch(
-                        `/ordenes/estado/${id}`,
+                        `/ordenes/estado/${orden.id_orden}`,
                         { estado: estado },
                         config
                     );
 
                     if (response.status === 200) {
-                        Swal.fire({
-                            title: `Cambio de estado exitoso`,
-                            // text: "Este ",
-                            icon: 'success',
-                        },
-                        notificaciones(notificacion+1),
-                        consultarMovimientos());
-                        consultPrendas()
+                        Swal.fire(
+                            {
+                                title: `Cambio de estado exitoso`,
+                                // text: "Este ",
+                                icon: 'success',
+                            },
+                            notificaciones(notificacion + 1),
+                            consultarMovimientos()
+                        );
+                        consultPrendas();
                     } else {
                         Swal.fire(
                             'Error',
@@ -256,7 +396,7 @@ const OrdenesProvider = ({ children }) => {
                 setPrecio,
                 // BUSQUEDA
                 busqueda,
-                setBusqueda
+                setBusqueda,
             }}
         >
             {children}
