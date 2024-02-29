@@ -125,9 +125,9 @@ const ListarOrdenes = () => {
                 `Para cambiar el estado a 'Entregada', primero debe pasar por 'Finalizada'!!`,
                 'error'
             );
-        }
+        } 
         // Si no hay restricciones, permite cambiar el estado
-        cambiarEstadoDeOrden(e.target.value, orden.id_orden);
+        cambiarEstadoDeOrden(e.target.value, orden);
     };
 
     // solicitud  a la url
