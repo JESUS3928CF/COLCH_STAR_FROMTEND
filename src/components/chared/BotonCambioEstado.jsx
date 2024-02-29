@@ -12,11 +12,12 @@ const BotonCambioEstado = ({
     ruta,
     editarEstado,
     cambiarPublicacion = { estado: true, paraPublicacion: false },
-    bloquearCambioDeEstado = { "estado": false},
+    bloquearCambioDeEstado = { estado: false },
     mensajeError = 'Este ' +
         nombreRegistro +
         ' no se le puede cambiar el estado de publicación porque está Inhabilitado',
     detalle = [],
+    subMensaje = 'este',
 }) => {
     const { config } = useAuth();
 
@@ -29,10 +30,13 @@ const BotonCambioEstado = ({
     /// Aca definimos si le podemos cambiar el estado de publicación de un registro
     const validarElCambioDeEstado = new Promise((resolve) => {
         let sePuedeCambiar = true;
-        
+
         if (
             (cambiarPublicacion.paraPublicacion &&
-                !cambiarPublicacion.estado) || (bloquearCambioDeEstado.estado)
+                !cambiarPublicacion.estado) ||
+            bloquearCambioDeEstado.estado ||
+           ( mensajeError ===
+                'Esta compra no se puede habilitar porque fue cancelada' && isChecked == false)
         )
             sePuedeCambiar = false;
         else if (cambiarPublicacion.paraPublicacion)
@@ -50,8 +54,8 @@ const BotonCambioEstado = ({
     function cambiarEstadoDB() {
         Swal.fire({
             title: `¿Deseas ${
-                isChecked ? 'Inhabilitar' : 'Habilitar'
-            } este ${nombreRegistro}?`,
+                isChecked ? 'inhabilitar' : 'habilitar'
+            } ${subMensaje}  ${nombreRegistro}?`,
             // text: "Este ",
             icon: 'question',
             iconColor: '#fa0000',
@@ -59,7 +63,7 @@ const BotonCambioEstado = ({
             confirmButtonColor: '#3E5743',
             cancelButtonColor: '#252432',
             confirmButtonText: `Si, ${
-                isChecked ? 'Inhabilítalo' : 'Habilítalo'
+                isChecked ? 'Inhabilitado' : 'Habilitado'
             }`,
             cancelButtonText: 'Cancelar',
         }).then(async (result) => {
@@ -85,8 +89,6 @@ const BotonCambioEstado = ({
                                 consultPrendas();
                             }
                         });
-
-                        // setEstado(!isChecked);
                     } else {
                         Swal.fire(
                             'Error',
@@ -101,8 +103,6 @@ const BotonCambioEstado = ({
                             text: error.response.data.message,
                             icon: 'error',
                         });
-
-                        
                     } else {
                         Swal.fire(
                             'Error',
@@ -159,6 +159,7 @@ BotonCambioEstado.propTypes = {
     bloquearCambioDeEstado: PropTypes.object,
     mensajeError: PropTypes.string,
     detalle: PropTypes.array,
+    subMensaje: PropTypes.string,
 };
 
 export default BotonCambioEstado;

@@ -112,7 +112,11 @@ const ListarCompra = () => {
                                                     ? compra.proveedor.nombre
                                                     : 'N/A'}
                                             </td>
-                                            <td>{formatMoney(compra.total_de_compra)}</td>
+                                            <td>
+                                                {formatMoney(
+                                                    compra.total_de_compra
+                                                )}
+                                            </td>
                                             <td>{formatDate(compra.fecha)}</td>
                                             <td>
                                                 <BotonCambioEstado
@@ -122,13 +126,17 @@ const ListarCompra = () => {
                                                     ruta={`/compras/estado/${compra.id_compra}`}
                                                     editarEstado={editarEstado}
                                                     bloquearCambioDeEstado={{
-                                                        "estado": hanPasado15Dias(compra.fecha),
-                                                    }
-                                                    }
-                                                    mensajeError={!compra.estado?
-                                                        'Esta compra no se puede habilitar porque fue cancelada' : 'Ya pasaron más de 15 días desde que esta compra fue hecha por lo cual ya no se puede cancelar'
+                                                        estado: hanPasado15Dias(
+                                                            compra.fecha
+                                                        ),
+                                                    }}
+                                                    mensajeError={
+                                                        !compra.estado
+                                                            ? 'Esta compra no se puede habilitar porque fue cancelada'
+                                                            : 'Ya pasaron más de 15 días desde que esta compra fue hecha por lo cual ya no se puede cancelar'
                                                     }
                                                     detalle={compra.detalles}
+                                                    subMensaje='esta'
                                                 />
                                             </td>
                                             <td>
@@ -165,19 +173,23 @@ const ListarCompra = () => {
                                                 <span>
                                                     {compra.proveedor
                                                         ? compra.proveedor
-                                                            .nombre
+                                                              .nombre
                                                         : 'N/A'}
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
                                                 Total compra:{' '}
                                                 <span>
-                                                    {formatMoney(compra.total_de_compra)}
+                                                    {formatMoney(
+                                                        compra.total_de_compra
+                                                    )}
                                                 </span>
                                             </p>
                                             <p className={styles.text}>
                                                 Fecha de compra:{' '}
-                                                <span>{formatDate(compra.fecha)}</span>
+                                                <span>
+                                                    {formatDate(compra.fecha)}
+                                                </span>
                                             </p>
 
                                             <div className='row pt-3'>
@@ -206,16 +218,19 @@ const ListarCompra = () => {
                                                                 editarEstado
                                                             }
                                                             bloquearCambioDeEstado={{
-                                                                "estado":
-                                                                    true, "fecha": compra.fecha
-                                                            }
-                                                            }
-                                                            mensajeError={compra.estado == false ?
-                                                                'Esta compra no se puede habilitar porque fue cancelada' : 'Ya paso mas de una semana desde que esta compra fue hecha por lo cual ya no se puede cancelar'
+                                                                estado: hanPasado15Dias(
+                                                                    compra.fecha
+                                                                ),
+                                                            }}
+                                                            mensajeError={
+                                                                !compra.estado
+                                                                    ? 'Esta compra no se puede habilitar porque fue cancelada'
+                                                                    : 'Ya pasaron más de 15 días desde que esta compra fue hecha por lo cual ya no se puede cancelar'
                                                             }
                                                             detalle={
                                                                 compra.detalles
                                                             }
+                                                            subMensaje='esta'
                                                         />
                                                     </div>
                                                 </div>
