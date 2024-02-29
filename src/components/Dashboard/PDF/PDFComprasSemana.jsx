@@ -23,7 +23,7 @@ export const PDFComprasSemana = () => {
 
         const comprasUltimos7Dias = data.filter((compra) => {
           const fecha = parseISO(compra.fecha);
-          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual;
+          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && compra.estado === true
         });
 
         const totalCompras = comprasUltimos7Dias.reduce((total, compra) => total + compra.total_de_compra, 0);

@@ -7,6 +7,8 @@ import {
   FaArrowAltCircleRight,
   FaArrowAltCircleLeft,
 } from "react-icons/fa";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+
 
 import { BiBox } from "react-icons/bi";
 
@@ -39,6 +41,7 @@ import { format, subDays, startOfToday, parseISO } from "date-fns";
 import DetallesProducto from "../producto/DetallesProducto.jsx";
 import { DetallesClientes } from "../cliente/DetallesClientes.jsx";
 import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
+import Informe from "./informe.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
@@ -223,6 +226,8 @@ export const InicioDashboard = () => {
           <Header titulo="Dashboard" />
 
           <Notificacion />
+          <Informe compras={compras} ordenes={ordenes}/>
+
         </div>
         
 
