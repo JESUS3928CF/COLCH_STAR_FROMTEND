@@ -64,6 +64,10 @@ const AgregarProducto = () => {
         setShoww(false);
     };
 
+    const handleOpenModal = () => {
+        setShow(true);
+    };
+
 
     //nos traemos los diseños que hemos seleccionado en AgregarDiseñoModal,
     // nos traemos setDisenos para vaciar los disenos que se seleccionaron al agregar un nuevoproducto
@@ -334,6 +338,8 @@ const AgregarProducto = () => {
                     </div>
                 </div>
             </Modal>
+
+            <AgregarDetallesOrden handleOpenModal={handleOpenModal} />
 
             <AgregarDisenoModal
                 // le pasamos las funciones a AgregarDiseñoModal
