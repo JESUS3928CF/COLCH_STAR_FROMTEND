@@ -46,6 +46,11 @@ export const EditarDetallesCompra = ({
     }
   }, [detalle]);
 
+  const handeChangeValidar = (id) => {
+    trigger(["color", "talla","cantidad","precio"]); // Activar la validación del color y de la talla
+    editarDetalle(id, watch());
+  }
+
   const {
     register, //Registra o identifica cada elemento o cada input
     formState: { errors }, //Ver errores que tiene el formulario
@@ -277,8 +282,8 @@ export const EditarDetallesCompra = ({
           <GuardarModal
             text="Editar detalle"
             onSubmit={() => {
-              editarDetalle(id, watch());
-            }}
+              handeChangeValidar(id);
+              }}
           />
         </div>
         
