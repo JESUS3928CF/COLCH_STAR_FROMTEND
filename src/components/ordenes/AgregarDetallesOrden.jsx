@@ -5,6 +5,8 @@ import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
 import { useState } from 'react';
+import { Button } from '@tremor/react';
+import AgregarProducto from '../producto/AgregarProducto';
 
 export const AgregarDetallesOrden = () => {
     const { productos } = useProducto();
@@ -65,6 +67,7 @@ export const AgregarDetallesOrden = () => {
     };
 
     return (
+        <>
         <form action='' className=''>
             <p
                 className='text-center'
@@ -78,6 +81,9 @@ export const AgregarDetallesOrden = () => {
                 {' '}
                 Agregar producto a la orden
             </p>
+
+            <Button data-bs-toggle = "modal"
+            data-bs-target ="#myModal"/>
 
             <div className='col-md-12'>
                 <label htmlFor='rol' className='col-form-label'>
@@ -194,7 +200,7 @@ export const AgregarDetallesOrden = () => {
                         Cantidad: *
                     </label>
                     <input
-                        type='number'
+                        type='text'
                         className='form-control'
                         id='nombreCompraAgregar'
                         name='nombreCompraAgregar'
@@ -234,7 +240,7 @@ export const AgregarDetallesOrden = () => {
                         Margen de ganacia: *
                     </label>
                     <input
-                        type='number'
+                        type='text'
                         className='form-control'
                         id='nombreCompraAgregar'
                         name='nombreCompraAgregar'
@@ -242,13 +248,28 @@ export const AgregarDetallesOrden = () => {
                         {...register('precio_total', {
                             required: {
                                 value: true,
-                                message: 'La cantidad es obligatoria',
+                                message: 'El margen de ganancia es obligatorio',
+                            },
+                            validate: (value) => {
+                                // Verificar si hay caracteres no permitidos (letras, puntos, caracteres especiales)
+                                if (!/^\d+$/.test(value)) {
+                                    return 'El margen de ganancia solo puede tener números';
+                                }
+                                // Convertir el número a cadena para realizar la validación de inicio con cero
+                                const valueAsString = value.toString();
+
+                                // Verificar si el número comienza con cero
+                                if (valueAsString.startsWith('0')) {
+                                    return 'El margen de ganancia no puede iniciar en 0';
+                                }
+
+                                return true;
                             },
                         })}
                     />
 
-                    {errors.cantidad && (
-                        <AlertaError message={errors.cantidad.message} />
+                    {errors.precio_total && (
+                        <AlertaError message={errors.precio_total.message} />
                     )}
                 </div>
 
@@ -296,5 +317,8 @@ export const AgregarDetallesOrden = () => {
                 </div>
             </div>
         </form>
+
+
+        </>
     );
 };

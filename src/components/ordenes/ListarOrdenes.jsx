@@ -25,9 +25,6 @@ import { formatDate, formatMoney } from '../../helpers/formato_de_datos.jsx';
 
 //Componente
 const ListarOrdenes = () => {
-
-
-
     //ordenes tiene la consulta de todos las ordenes de la base de datos
     const {
         ordenes,
@@ -40,8 +37,6 @@ const ListarOrdenes = () => {
         busqueda,
         setBusqueda,
     } = useOrden();
-
-
 
     const { consultarProductos } = useProducto();
 
@@ -67,9 +62,10 @@ const ListarOrdenes = () => {
         ) {
             return Swal.fire(
                 'Acción inválida!',
-                `Esta orden ha sido ${orden.estado_de_orden === 'Finalizada'
-                    ? 'Finalizada'
-                    : 'Entregada'
+                `Esta orden ha sido ${
+                    orden.estado_de_orden === 'Finalizada'
+                        ? 'Finalizada'
+                        : 'Entregada'
                 } , no se puede editar`,
                 'error'
             );
@@ -78,6 +74,60 @@ const ListarOrdenes = () => {
 
         setEditarOrden(orden);
         handleShowEditar();
+    };
+
+    const handleValidarCambioDeOrden = (e, orden) => {
+        // Verifica si el nuevo estado es 'Creada' y el estado actual es 'En Proceso'
+        if (
+            (e.target.value === 'Creada' &&
+                orden.estado_de_orden === 'En Proceso') ||
+            // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Finalizada'
+            (e.target.value === 'En Proceso' &&
+                orden.estado_de_orden === 'Finalizada') ||
+            (e.target.value === 'Creada' &&
+                orden.estado_de_orden === 'Finalizada') ||
+            // Verifica si el nuevo estado es 'Finalizada' y el estado actual es 'Entregada'
+            (e.target.value === 'Finalizada' &&
+                orden.estado_de_orden === 'Entregada') ||
+            // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Entregada'
+            (e.target.value === 'En Proceso' &&
+                orden.estado_de_orden === 'Entregada') ||
+            (e.target.value === 'Creada' &&
+                orden.estado_de_orden === 'Entregada')
+        ) {
+            return Swal.fire(
+                'Acción inválida!',
+                `No se puede cambiar el estado a '${e.target.value}', porque esta orden esta '${orden.estado_de_orden}'!!`,
+                'error'
+            );
+        } else if (
+            // Verifica si el nuevo estado es 'Creada' y el estado actual es 'Entregada'
+            (e.target.value === 'Creada' &&
+                orden.estado_de_orden === 'Entregada') ||
+            (e.target.value === 'Entregada' &&
+                orden.estado_de_orden === 'Creada') ||
+            (e.target.value === 'Finalizada' &&
+                orden.estado_de_orden === 'Creada')
+        ) {
+            return Swal.fire(
+                'Acción inválida!',
+                `La orden esta ${orden.estado_de_orden} solo puede pasar a estado de Producción `,
+                'error'
+            );
+        } else if (
+            (e.target.value === 'Entregada' &&
+                orden.estado_de_orden !== 'Finalizada') ||
+            (e.target.value === 'Entregada' &&
+                orden.estado_de_orden === 'En Proceso')
+        ) {
+            return Swal.fire(
+                'Acción inválida!',
+                `Para cambiar el estado a 'Entregada', primero debe pasar por 'Finalizada'!!`,
+                'error'
+            );
+        }
+        // Si no hay restricciones, permite cambiar el estado
+        cambiarEstadoDeOrden(e.target.value, orden.id_orden);
     };
 
     // solicitud  a la url
@@ -161,10 +211,16 @@ const ListarOrdenes = () => {
                                             {orden.cliente.nombre}{' '}
                                             {orden.cliente.apellido}
                                         </td>
-                                        <td>{formatMoney(orden.precio_total)}</td>
+                                        <td>
+                                            {formatMoney(orden.precio_total)}
+                                        </td>
                                         <td>{orden.cliente.direccion}</td>
-                                        <td>{formatDate(orden.fecha_creacion)}</td>
-                                        <td>{formatDate(orden.fecha_entrega)}</td>
+                                        <td>
+                                            {formatDate(orden.fecha_creacion)}
+                                        </td>
+                                        <td>
+                                            {formatDate(orden.fecha_entrega)}
+                                        </td>
                                         <td>
                                             <BotonNegro
                                                 text='Ver'
@@ -179,40 +235,12 @@ const ListarOrdenes = () => {
                                         <select
                                             name='estado_de_orden'
                                             value={orden.estado_de_orden}
-                                            onChange={(e) => {
-                                                // Verifica si el nuevo estado es 'Creada' y el estado actual es 'En Proceso'
-                                                if (
-                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'En Proceso') ||
-                                                    // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Finalizada'
-                                                    (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Finalizada') ||
-
-                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'Finalizada') ||
-                                                    // Verifica si el nuevo estado es 'Finalizada' y el estado actual es 'Entregada'
-                                                    (e.target.value === 'Finalizada' && orden.estado_de_orden === 'Entregada') ||
-                                                    // Verifica si el nuevo estado es 'En Proceso' y el estado actual es 'Entregada'
-                                                    (e.target.value === 'En Proceso' && orden.estado_de_orden === 'Entregada') ||
-                                                    // Verifica si el nuevo estado es 'Creada' y el estado actual es 'Entregada'
-                                                    (e.target.value === 'Creada' && orden.estado_de_orden === 'Entregada')
-                                                ) {
-                                                    return Swal.fire(
-                                                        'Acción inválida!',
-                                                        `No se puede cambiar el estado a '${e.target.value}', esta  '${orden.estado_de_orden}'!!`,
-                                                        'error'
-                                                    );
-                                                }
-                                                else if (
-                                                    (e.target.value === 'Entregada' && orden.estado_de_orden !== 'Finalizada') ||
-                                                    (e.target.value === 'Entregada' && orden.estado_de_orden === 'En Proceso')
-                                                ) {
-                                                    return Swal.fire(
-                                                        'Acción inválida!',
-                                                        `Para cambiar el estado a 'Entregada', primero debe pasar por 'Finalizada'!!`,
-                                                        'error'
-                                                    );
-                                                }
-                                                // Si no hay restricciones, permite cambiar el estado
-                                                cambiarEstadoDeOrden(e.target.value, orden.id_orden);
-                                            }}
+                                            onChange={(e) =>
+                                                handleValidarCambioDeOrden(
+                                                    e,
+                                                    orden
+                                                )
+                                            }
                                         >
                                             <option value='Creada'>
                                                 Creada
@@ -257,7 +285,11 @@ const ListarOrdenes = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio total:{' '}
-                                            <span>{formatMoney(orden.precio_total)}</span>
+                                            <span>
+                                                {formatMoney(
+                                                    orden.precio_total
+                                                )}
+                                            </span>
                                         </p>
                                         <p className={styles.text}>
                                             Dirección:{' '}
@@ -267,11 +299,19 @@ const ListarOrdenes = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Fecha creación:{' '}
-                                            <span>{formatDate(orden.fecha_creacion)}</span>
+                                            <span>
+                                                {formatDate(
+                                                    orden.fecha_creacion
+                                                )}
+                                            </span>
                                         </p>
                                         <p className={styles.text}>
                                             Fecha de entrega:{' '}
-                                            <span>{formatDate(orden.fecha_entrega)}</span>
+                                            <span>
+                                                {formatDate(
+                                                    orden.fecha_entrega
+                                                )}
+                                            </span>
                                         </p>
                                         <p className={styles.text}>
                                             Estado de Orden:{' '}
@@ -279,9 +319,9 @@ const ListarOrdenes = () => {
                                                 name='estado_de_orden'
                                                 value={orden.estado_de_orden}
                                                 onChange={(e) =>
-                                                    cambiarEstadoDeOrden(
-                                                        e.target.value,
-                                                        orden.id_orden
+                                                    handleValidarCambioDeOrden(
+                                                        e,
+                                                        orden
                                                     )
                                                 }
                                             >
@@ -325,7 +365,7 @@ const ListarOrdenes = () => {
                                                     modalToOpen={
                                                         !orden.estado_de_orden ===
                                                             'Finalizada' ||
-                                                            !orden.estado_de_orden ===
+                                                        !orden.estado_de_orden ===
                                                             'Entregada'
                                                             ? '#modalEditar'
                                                             : ''
