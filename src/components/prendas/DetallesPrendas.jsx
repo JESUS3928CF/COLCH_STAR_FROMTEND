@@ -21,7 +21,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
     ) {
       setStartIndex(startIndex + 1);
     }
-    
+
   };
 
   const handlePrevious = () => {
@@ -32,7 +32,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
 
   const [startIndexc, setStartIndexc] = useState(0);
   const numVisibleColorsc = 2;
-  
+
   const handleNextc = () => {
     if (
       detallesPrendas.cantidades &&
@@ -44,7 +44,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
       setStartIndexc(0);
     }
   };
-  
+
   const handlePreviousc = () => {
     if (startIndexc > 0) {
       setStartIndexc(startIndexc - 1);
@@ -126,7 +126,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                           </h3>
                         </div>
                       </div>
-                      <div className="col-sm-12 col-md-6 pt-3">
+                      <div className="col-sm-12 col-md-6 pt-3 ">
                         <h3 htmlFor="tallas" className="card-title">
                           {""}
                           <b>Tallas:</b>
@@ -141,13 +141,13 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                             : null}
                         </div>
                       </div>
-                      <div className="col-sm-12 col-md-6 pt-3 ">
-                        <h3 htmlFor="Colores" className="card-title">
-                          <div className="coors-div">
+                      <div className="col-sm-12 col-md-6 pt-3 d-flex justify-content-center align-items-center">
+                        <h3 htmlFor="Colores" className="card-title ">
+                          <div className="coors-div ">
                             {/* Colores */}
                             <h3 htmlFor="Colores" className="card-title">
                               <b>Colores:</b>
-                              <div className="colors-div">
+                              <div className="colors-div ">
                                 {/* Mapping colors */}
                                 {detallesPrendas.color &&
                                   detallesPrendas.color
@@ -199,53 +199,64 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                           </div>
                         </h3>
                       </div>
-                      <div className="col-sm-12 col-md-6 pt-1 ">
-                        <h3 htmlFor="Colores" className="card-title">
-                          <div className="coors-div">
+                      <div className="col-sm-12 col-md-6 pt-1  ">
+                        <h3 htmlFor="Colores" className="card-title ">
+                          <div className="coors-div ">
                             {/* Colores */}
-                            <h3 htmlFor="Colores" className="card-title">
+                            <h3 htmlFor="Colores" className="card-title ">
                               {/* <b>Convinaciones:</b> */}
-                              
-                              <div className="colors-div">
-                                {/* Mapping colors */}
+
+                              <div className="">
+                                <div className="colors-div d-flex justify-content-center align-items-center">
+                                  {/* Mapping colors */}
+                                  {detallesPrendas.cantidades &&
+                                    detallesPrendas.cantidades
+                                      .slice(
+                                        startIndexc,
+                                        startIndexc + numVisibleColorsc
+                                      )
+                                      .map((cantidades, index) => (
+                                        <div
+                                          key={`${cantidades.id_color}_${index}`}
+                                          className="color-block"
+                                        >
+                                          <span className="color-name">
+                                            <strong>Color:</strong> {cantidades.color}<br />
+                                            <strong>Talla:</strong> {cantidades.talla}<br />
+                                            <strong>Cantidad:</strong> {cantidades.cantidad}
+                                          </span>
+                                        </div>
+                                      ))}
+                                </div>
+                                {/* Arrow Buttons for Colors */}
                                 {detallesPrendas.cantidades &&
-                                  detallesPrendas.cantidades
-                                    .slice(
-                                      startIndexc,
-                                      startIndexc + numVisibleColorsc
-                                    )
-                                    .map((cantidades, index) => (
-                                      <div
-                                        key={`${cantidades.id_color}_${index}`}
-                                        className="color-block"
-                                      >
-                                        <span className="color-name">
-                                          <strong>Color:</strong> {cantidades.color}<br />
-                                          <strong>Talla:</strong> {cantidades.talla}<br />
-                                          <strong>Cantidad:</strong> {cantidades.cantidad}
-                                        </span>
+                                  detallesPrendas.cantidades.length > numVisibleColorsc && (
+                                    <div className="d-flex justify-content-center">
+                                      <div className="d-flex">
+                                        <div className="rounded-circle border mr-2">
+                                          <button
+                                            className="btn btn-link"
+                                            onClick={handlePreviousc}
+                                          >
+                                            <BiChevronLeft />
+                                          </button>
+                                        </div>
+                                        <div className="rounded-circle border">
+                                          <button
+                                            className="btn btn-link"
+                                            onClick={handleNextc}
+                                          >
+                                            <BiChevronRight />
+                                          </button>
+                                        </div>
                                       </div>
-                                    ))}
+
+                                    </div>
+                                  )}
                               </div>
-                              {/* Arrow Buttons for Colors */}
-                              {detallesPrendas.cantidades &&
-                                detallesPrendas.cantidades.length >
-                                numVisibleColorsc && (
-                                  <div className={styles.arrowButtons}>
-                                    <button
-                                      className="btn btn-link"
-                                      onClick={handlePreviousc}
-                                    >
-                                      <BiChevronLeft />
-                                    </button>
-                                    <button
-                                      className="btn btn-link"
-                                      onClick={handleNextc}
-                                    >
-                                      <BiChevronRight />
-                                    </button>
-                                  </div>
-                                )}
+
+
+
                             </h3>
                           </div>
                         </h3>
