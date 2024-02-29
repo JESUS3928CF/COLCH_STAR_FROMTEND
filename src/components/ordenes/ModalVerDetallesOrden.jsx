@@ -143,7 +143,10 @@ export const ModalVerDetallesOrden = () => {
                                                     id={index}
                                                     editarDetalle={
                                                         editarDetalle
+                                                        
                                                     }
+                                                    handleCloseDetalles={handleCloseDetalles}
+                                                    handleShow={handleShow}
                                                 />
                                             </Carousel.Item>
                                         ))}

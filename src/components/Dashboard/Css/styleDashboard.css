@@ -317,6 +317,33 @@
 
 }
 
+.informe{
+
+    position: relative;
+    margin-left: 94%;
+    top: -22px
+
+}
+
+.buscarInforme{
+
+    margin: 20px;
+    text-align: center;
+    position: relative;
+    right: 60px;
+    background-color:#000000;
+    color: white;
+    border-radius: 7px;
+}
+
+
+.buscarInforme:hover{
+
+    background-color: #47684E;
+}
+
+
+
 
  
 
@@ -447,6 +474,14 @@
 
     right: 150%;
   
+
+
+}
+
+
+.iconsNotificacion{
+    
+    font-size: 25px;
 }
 
   
