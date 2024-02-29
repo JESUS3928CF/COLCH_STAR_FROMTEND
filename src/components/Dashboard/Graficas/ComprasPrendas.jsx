@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Chart from "chart.js/auto";
 import { startOfToday, subDays, parseISO } from "date-fns";
 import useCompras from "../../../hooks/useDetallesCompras";
-import BotonLogoPDF from '../BotonLogoPDF';
-import PDFComprasPrendas from '../PDF/PDFComprasPrendas.jsx'
 import styles  from '../Css/styleDashboard.css'
 
 
@@ -131,7 +129,6 @@ export const ComprasPrendas = ({ compras }) => {
 
   return (
     <>
-          <BotonLogoPDF namePDf={'Cantidades_de_prendas_compradas.pdf'} componente={2}  />
           <canvas ref={chartContainer} width="400" height="200"></canvas>
     </>
   
