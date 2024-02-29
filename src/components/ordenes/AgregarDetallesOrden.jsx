@@ -5,6 +5,8 @@ import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
 import { useState } from 'react';
+import { Button } from '@tremor/react';
+import AgregarProducto from '../producto/AgregarProducto';
 
 export const AgregarDetallesOrden = () => {
     const { productos } = useProducto();
@@ -65,6 +67,7 @@ export const AgregarDetallesOrden = () => {
     };
 
     return (
+        <>
         <form action='' className=''>
             <p
                 className='text-center'
@@ -78,6 +81,9 @@ export const AgregarDetallesOrden = () => {
                 {' '}
                 Agregar producto a la orden
             </p>
+
+            <Button data-bs-toggle = "modal"
+            data-bs-target ="#myModal"/>
 
             <div className='col-md-12'>
                 <label htmlFor='rol' className='col-form-label'>
@@ -311,5 +317,8 @@ export const AgregarDetallesOrden = () => {
                 </div>
             </div>
         </form>
+
+
+        </>
     );
 };
