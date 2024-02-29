@@ -80,7 +80,7 @@ export const AgregarDetallesOrden = ({handleOpenModal}) => {
                 Agregar producto a la orden
             </p>
 
-            <Button onClick={handleOpenModal}>Abrir Modal</Button>
+            {/* <Button onClick={handleOpenModal}>Abrir Modal</Button> */}
 
 
             <div className='col-md-12'>
