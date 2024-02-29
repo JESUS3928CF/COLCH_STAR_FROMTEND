@@ -6,12 +6,17 @@ import HeaderModals from "../chared/HeaderModals";
 import CancelarModal from "../chared/CancelarModal";
 import '../Dashboard/Css/styleDashboard.css'
 import { Button } from "@tremor/react";
+import BotonLogoPDF from '../Dashboard/BotonLogoPDF.jsx';
+import { PDFInforme } from "./PDF/PDFInforme";
 
 export const Informe = ({ compras, ordenes }) => {
   // Estado para las fechas
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [rangoFechas, setRangoFechas] = useState("");
+  const [rangoDeFechas , setRangoDeFechas]= useState([])
+  const [valorOrden , setValorOrden] = useState([])
+  const [valorCompra, setValorCompra]= useState([])
   
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
@@ -30,6 +35,8 @@ export const Informe = ({ compras, ordenes }) => {
     const fechaInicioObj = parseISO(fechaInicio);
     const fechaFinObj = parseISO(fechaFin);
 
+    console.log(fechaInicioObj )
+
     const isValidRange = fechaInicioObj <= fechaFinObj;
 
     if (isValidRange) {
@@ -37,6 +44,7 @@ export const Informe = ({ compras, ordenes }) => {
       setRangoFechas(`${format(fechaInicioObj, 'dd/MM/yyyy')} - ${format(fechaFinObj, 'dd/MM/yyyy')}`);
 
       const rangoFechasArray = generarRangoFechas(fechaInicioObj, fechaFinObj);
+      setRangoDeFechas(rangoFechasArray)
       createChart(compras, ordenes, rangoFechasArray);
     } else {
       console.log("Por favor, selecciona un rango válido de fechas");
@@ -67,6 +75,8 @@ export const Informe = ({ compras, ordenes }) => {
         const ctx = monthChartContainer.current.getContext('2d');
         const valoresCompras = obtenerDatosComprasParaGrafico(rangoFechasArray, compras);
         const valoresOrdenes = obtenerDatosOrdenesParaGrafico(rangoFechasArray, ordenes);
+        setValorOrden(valoresOrdenes)
+        setValorCompra(valoresCompras)
 
         monthChartInstance.current = new Chart(ctx, {
           type: 'bar',
@@ -174,6 +184,22 @@ export const Informe = ({ compras, ordenes }) => {
                 </div>
               </form>
 
+
+              <div>
+              <BotonLogoPDF
+                  namePDf={'Informe.pdf'}
+                  componente={3}
+                  fechaInicio={fechaInicio} 
+                  fechaFin={fechaFin} 
+                  rangoDeFechas={rangoDeFechas}
+                  valorCompra={valorCompra}
+                  valorOrden={valorOrden}
+              />
+          </div>
+
+
+              
+
               <div className="graficaInforme"> 
                 <canvas
                   ref={monthChartContainer}
@@ -189,6 +215,9 @@ export const Informe = ({ compras, ordenes }) => {
           </div>
         </div>
       </div>
+
+      
+
     </>
   );
 };
