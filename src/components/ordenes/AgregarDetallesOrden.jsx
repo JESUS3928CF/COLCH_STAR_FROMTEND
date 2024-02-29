@@ -303,7 +303,6 @@ export const AgregarDetallesOrden = () => {
             </div>
         </form>
 
-        <AgregarProducto/>
 
         </>
     );
