@@ -339,7 +339,6 @@ const AgregarProducto = () => {
                 </div>
             </Modal>
 
-            <AgregarDetallesOrden handleOpenModal={handleOpenModal} />
 
             <AgregarDisenoModal
                 // le pasamos las funciones a AgregarDiseñoModal
