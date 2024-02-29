@@ -46,9 +46,9 @@ export const Notificacion = () => {
       >
         <IoIosNotifications className="iconsNotificacion" />
         <p>
-        {notificacion==0 ? <p className='condicion-falsa'></p> : <p className='cantidadNotificacion'>{notificacion}</p>} 
-        </p>
-       
+  {notificacion==0 ? <span className='condicion-falsa'></span> : <span className='cantidadNotificacion'>{notificacion}</span>} 
+</p>
+
       </button>
       
       <div

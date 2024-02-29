@@ -200,7 +200,7 @@ export const AgregarDetallesOrden = () => {
                         Cantidad: *
                     </label>
                     <input
-                        type='number'
+                        type='text'
                         className='form-control'
                         id='nombreCompraAgregar'
                         name='nombreCompraAgregar'

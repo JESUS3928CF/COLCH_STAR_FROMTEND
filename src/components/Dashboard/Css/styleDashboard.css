@@ -37,6 +37,11 @@
     border-radius: 35px;
     margin-top: 55px;
     display: block;
+
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: center;
+
+
 }
 
 
@@ -168,17 +173,22 @@
     left: 35px;
 }
 
+
+
 .iconsE{
 
     font-size: 35px;
     color:#47684e;
-    position:relative;
-    left: 150px;
+    position: absolute;
+    left: 100px;
     top: 35px;
-    text-align: center;
+
 
 }
 
+
+  
+ 
 .NombreStar{
     
     font-size: 20px;
@@ -207,6 +217,13 @@
 }
 
 .textBotonC{
+
+    margin-right: 16px;
+    color: white;
+
+}
+
+.textBotonG{
 
     margin-right: 16px;
     color: white;
@@ -300,15 +317,147 @@
 
 }
 
-.graficaPrendas{
-    width: 100%;
-    max-width:600px ;
-    height: 300px;
-    margin-left: 15%;
-}
+
  
 
  
+
+@media only screen and (max-width: 767px) {
+
+
+
+
+    .iconsE{
+
+        position : absolute;
+        top: 30%;
+        left :10%;
+
+            
+    }
+
+    .botonInfoC{
+        right: 30% ;
+        width: 55%;
+    }
+
+    
+
+    .btnIcons{
+        position: relative;
+        left: 65px;
+    }
+
+    .botonInfoF{
+
+        width: 150%;
+        right: 80%
+
+    }
+
+   .two{
+    
+        transform: scale(0.7);   
+        margin: 0;
+        margin-top: 55px;
+        right: 10%;
+   }
+
+   .iconsCarruselD{
+
+    margin-left: 0;
+    position: relative;
+    left: 1800%;
+   }
+
+   .iconsCarrusel{
+
+    right: 50%;
+   }
+
+   .textDatosGenerales{
+
+  color: #fff;
+  padding: 10px;
+  margin-top: -6px;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+   }
+
+   .prueba{
+    margin: 0;
+    width: 27%;
+    margin-top: -30px;
+   }
+
+   .Cantidad{
+    left: 30px;
+    text-align: center;
+   }
+
+   .botonInfo{
+    width: 164%;
+    right: 45%;
+   }
+
+   .textBotonG{
+
+    margin-left: 0;
+    font-size: 15px;
+    color: #f8f8f8;
+   }
+
+   .FrecuenteResponsivo{
+    width: 35%;
+    margin-top: -50px;
+    height: 10%;
+
+   }
+
+
+   .textGeneralMas{
+
+    text-align: center;
+    left: 20%;
+
+   }
+
+   .NombreStar{
+
+    transform: scale(0.7);
+    right: 150%;
+
+   }
+
+  
+
+   .responsiGrafica{
+
+    margin-top: -20px;
+   }
+
+   .PDF{
+
+    right: 5%;
+   }
+
+   .graficaPrendas{
+
+    right: 150%;
+  
+}
+
+  
+}
+
+
+
+
+
+
+
 
 
   

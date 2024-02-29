@@ -26,6 +26,7 @@ import { PrendasProvider } from '../context/PrendasProvider';
 import { ComprasProviders } from '../context/ComprasProvider';
 import { OrdenesProvider } from '../context/OrdenesProvider';
 import { MovimientosProvider } from '../context/MovimientosProvider';
+import { DetalleCompraProvider } from '../context/DetallesComprasProvider';
 
 
 const MyRoutes = () => {
@@ -43,6 +44,7 @@ const MyRoutes = () => {
                                             <ProveedoresProvider>
                                                 <ProductosProvider>
                                                     <ComprasProviders>
+                                                        <DetalleCompraProvider>
                                                         <OrdenesProvider>
 
                                                             <Routes>
@@ -139,7 +141,7 @@ const MyRoutes = () => {
                                                             </Routes>
 
                                                         </OrdenesProvider>
-
+                                                        </DetalleCompraProvider>
                                                     </ComprasProviders>
                                                 </ProductosProvider>
                                             </ProveedoresProvider>
