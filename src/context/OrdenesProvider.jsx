@@ -24,7 +24,7 @@ const OrdenesProvider = ({ children }) => {
     const { consultPrendas, Prendas } = usePrendas();
     const { productos } = useProducto();
 
-    const [precio, setPrecio] = useState([]);
+    const [precio, setPrecio] = useState(0);
 
     const [totalOrden, setTotalOrden] = useState(0);
     const { consultarMovimientos, notificaciones, notificacion } =

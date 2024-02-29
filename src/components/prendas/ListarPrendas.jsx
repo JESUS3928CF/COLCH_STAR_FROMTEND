@@ -78,7 +78,7 @@ export const ListarPrendas = () => {
 
     const informacionModal = (Prendas) => {
         if (!Prendas.estado) {
-            return Swal.fire('Accion invalida!', '', 'error');
+            return Swal.fire('Accion invalida!', 'Esta prenda no se puede editar porque está inhabilitada', 'error');
         }
         setDetallesPrendas(Prendas);
 
