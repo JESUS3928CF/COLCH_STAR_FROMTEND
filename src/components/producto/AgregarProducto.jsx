@@ -28,7 +28,7 @@ import usePrendas from '../../hooks/usePrendas.jsx';
 
 
 //Componenteee
-const AgregarProducto = () => {
+const AgregarProducto = ({texto = "Agregar producto"}) => {
 
     //llamamos esto para vaciar los disenos seleeccionado 
     const { setSelectedDisenoNombre } = useProducto();
@@ -118,7 +118,7 @@ const AgregarProducto = () => {
     return (
         <div>
             {/* modal agregar producto */}
-            <BotonVerde text={'Agregar producto'} onClick={() => {
+            <BotonVerde text={texto} onClick={() => {
                 handleShow();    
                 setSelectedDisenoNombre([])//se vacia la parte donde se muestra el diseño seleccionado
                 setDisenos([]) // se vacia los diseños guardados en el producto
