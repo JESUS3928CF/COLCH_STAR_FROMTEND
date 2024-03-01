@@ -236,6 +236,7 @@ const ListarOrdenes = () => {
                                                 }
                                             />
                                         </td>
+                                        <td>
                                         <select
                                             name='estado_de_orden'
                                             value={orden.estado_de_orden}
@@ -259,6 +260,7 @@ const ListarOrdenes = () => {
                                                 Entregada
                                             </option>
                                         </select>
+                                        </td>
                                         <td>
                                             <BotonNegro
                                                 text='Editar'
