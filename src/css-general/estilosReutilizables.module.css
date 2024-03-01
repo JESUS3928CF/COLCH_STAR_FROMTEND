@@ -5,12 +5,6 @@
     transition: max-width 1s, max-height 1s;
 }
 
-/* .contenedor_imagen:hover {
-    max-width: 42%;
-    max-height: 42%;
-    transition-duration: 1s;
-} */
-
 .tamano{
    left: 100px;
 }
@@ -30,19 +24,9 @@
     background-color: rgb(223, 223, 223);
 }
 
-/* .carr{
-    border: 1px solid black;
-    
-}
-
-.carrr{
-    border: 1px solid black;
-   margin-right: 2;
-    
-} */
-
-
-
 .arrowButtons button {
     margin-right: 20px; /* Ajusta el margen derecho según tus necesidades */
 }
+
+
+/* - ESTILO PARA LOS BOTONES DE LAS SLICE DE LOS DETALLES */ 
