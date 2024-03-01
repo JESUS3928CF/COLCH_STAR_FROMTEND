@@ -1,13 +1,13 @@
 // ------------------BRIAN PAREJA HERNANDEZ
 //-------------------26 de septiembre 2023
-//Nos permitira Agregar un producto, de ser necesario se podra agregar un producto mediante un formulario donde se pediran datos mas
+//Nos permitirá Agregar un producto, de ser necesario se podrá agregar un producto mediante un formulario donde se pedirán datos más
 //mas relevantes de este producto y luego mostrarlo en la tabla listar, se podra agregar mediante un boton dferentes disños
 
 import '../../css-general/cssgeneral.css';
 import '../../css-general/tailwind.min.css';
 import '../../css-general/inicio_style.css';
 import '../../css-general/table.min.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CancelarModal from '../chared/CancelarModal';
 import GuardarModal from '../chared/GuardarModal';
 import HeaderModals from '../chared/HeaderModals';
@@ -26,36 +26,33 @@ import BotonVerde from '../chared/BotonVerde';
 import useProducto from '../../hooks/useProducto.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 
-
 //Componenteee
-const AgregarProducto = ({texto = "Agregar producto"}) => {
-
-    //llamamos esto para vaciar los disenos seleeccionado 
+const AgregarProducto = ({
+    texto = 'Agregar producto'
+}) => {
+    //llamamos esto para vaciar los disenos seleeccionado
     const { setSelectedDisenoNombre } = useProducto();
-
-
 
     // función que llega del provider que tiene todas las rutas
     const { agregarProducto } = useProducto();
 
-
-
     /// Funcionalidad para cerra el modal
     const [show, setShow] = useState(false);
-
 
     // funcion para cerrar modal de AgregarDiseñosModal
     const [showw, setShoww] = useState(false);
 
-
     //funciones de cerrar modal de agregar producto
-    const handleClose = () => { setShow(false) };
-    const handleShow = () => {setShow(true) };
-
+    const handleClose = () => {
+        setShow(false);
+    };
+    const handleShow = () => {
+        setShow(true);
+    };
 
     //funcione de cerrsr y abir el de agregar diseños
     const handleClosee = () => {
-        setShoww(false,), handleShow();
+        setShoww(false), handleShow();
     };
     const handleShoww = () => {
         setShoww(true), handleClose();
@@ -67,7 +64,6 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
     const handleOpenModal = () => {
         setShow(true);
     };
-
 
     //nos traemos los diseños que hemos seleccionado en AgregarDiseñoModal,
     // nos traemos setDisenos para vaciar los disenos que se seleccionaron al agregar un nuevoproducto
@@ -86,14 +82,12 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
     });
 
     //estado de las prendas para resivir la informacion que lleg de la base de datos,
-    const { Prendas,  } = usePrendas()
-
+    const { Prendas } = usePrendas();
 
     //Función que se ejecuta cuando alguien intenta enviar el formulario
     const onSubmit = async (data) => {
         // cantidad,
-        const { nombre,  fk_prenda, imagen, publicado } = data;
-
+        const { nombre, fk_prenda, imagen, publicado } = data;
 
         //son los datos que se le van a mandar a la base de datos, se le pasan por medio de agregarProducto() que es una función
         //que esta en el provider la cual resive como parámetros los datos, y reset, y handelclsoent, en el provider los resiven
@@ -111,19 +105,20 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
             },
 
             reset,
-            handleClose,
-
+            handleClose
         );
     };
     return (
         <div>
             {/* modal agregar producto */}
-            <BotonVerde text={texto} onClick={() => {
-                handleShow();    
-                setSelectedDisenoNombre([])//se vacia la parte donde se muestra el diseño seleccionado
-                setDisenos([]) // se vacia los diseños guardados en el producto
-
-            }} />
+            <BotonVerde
+                text={texto}
+                onClick={() => {
+                    handleShow();
+                    setSelectedDisenoNombre([]); //se vacia la parte donde se muestra el diseño seleccionado
+                    setDisenos([]); // se vacia los diseños guardados en el producto
+                }}
+            />
 
             <Modal
                 show={show}
@@ -147,7 +142,6 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
                     {/* <p style={{ fontSize: 14}}>Recuerde tener la cantidad de unidades en stock necesarias</p> */}
 
                     <div className='modal-body'>
-                    
                         <form className='row g-3 needs-validation'>
                             <div className='col-md-6'>
                                 <label
@@ -179,7 +173,11 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
                                                 return 'El nombre no puede empezar con números';
                                             }
 
-                                            if (!/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(value)) {
+                                            if (
+                                                !/^[a-zA-Z0-9áéíóúñÑÁÉÍÓÚ\s]+$/.test(
+                                                    value
+                                                )
+                                            ) {
                                                 return 'El nombre solo puede tener números y letras';
                                             }
                                             if (value.includes(' ')) {
@@ -206,7 +204,6 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
                                     />
                                 )}
                             </div>
-
 
                             <div className='col-md-6 mt-2'>
                                 <label htmlFor='rol' className='col-form-label'>
@@ -327,8 +324,6 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
                                     reset={reset}
                                     handleClose={handleClose}
                                     // setSelectedDisenoNombre={setSelectedDisenoNombre}
-
-
                                 />
                                 <GuardarModal
                                     onSubmit={handleSubmit(onSubmit)}
@@ -338,7 +333,6 @@ const AgregarProducto = ({texto = "Agregar producto"}) => {
                     </div>
                 </div>
             </Modal>
-
 
             <AgregarDisenoModal
                 // le pasamos las funciones a AgregarDiseñoModal

@@ -190,12 +190,18 @@ const AgregarOrden = () => {
                                     </div>
 
                                     <div className='col-md-8 mt-3'>
-                                        <p> Precio total: {formatMoney(totalOrden)}</p>
+                                        <p>
+                                            {' '}
+                                            Precio total:{' '}
+                                            {formatMoney(totalOrden)}
+                                        </p>
                                     </div>
                                 </div>
                             </form>
                             <div className='col mt-3 d-flex justify-content-center align-items-center'>
-                                <AgregarProducto texto='Crear nuevo producto' />
+                                <AgregarProducto
+                                    texto='Crear nuevo producto'
+                                />
                             </div>
                             <AgregarDetallesOrden />
 

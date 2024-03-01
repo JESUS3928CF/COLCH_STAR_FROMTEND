@@ -5,28 +5,40 @@
     transition: max-width 1s, max-height 1s;
 }
 
-.tamano{
-   left: 100px;
+.tamano {
+    left: 100px;
 }
 
 .titu {
     font-weight: 700;
-    margin-left: 15%; /* Utilizando porcentaje en lugar de píxeles */
+    margin-left: 15%;
+    /* Utilizando porcentaje en lugar de píxeles */
 }
 
 
-.car{
+.car {
     margin-left: 20px;
     margin-top: 10px;
 }
 
-.flecha{
+.flecha {
     background-color: rgb(223, 223, 223);
 }
 
 .arrowButtons button {
-    margin-right: 20px; /* Ajusta el margen derecho según tus necesidades */
+    margin-right: 20px;
+    /* Ajusta el margen derecho según tus necesidades */
 }
 
 
-/* - ESTILO PARA LOS BOTONES DE LAS SLICE DE LOS DETALLES */ 
+/* - ESTILO PARA LOS BOTONES DE LAS SLICE DE LOS DETALLES */
+
+.buttonSlice {
+    margin: 5px;
+    border-radius: 20%;
+    border: 1px solid rgb(29, 81, 226);
+}
+
+/* .buttonSlice:hover {
+    border: black;
+} */
