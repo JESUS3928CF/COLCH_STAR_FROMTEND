@@ -344,12 +344,13 @@ const OrdenesProvider = ({ children }) => {
     //* Funcionalidad para cerra el modal de agregar
     const [show, setShow] = useState(false);
 
-    const handleClose = (reset) => {
+    const handleClose = (reset = null) => {
         setShow(false);
 
-        if (!reset) return;
+        if (reset) {
         setDetallesOrden([]);
         reset();
+        }
     };
     const handleShow = () => setShow(true);
 

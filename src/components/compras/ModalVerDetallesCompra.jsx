@@ -47,22 +47,19 @@ export const ModalVerDetallesCompra = () => {
     };
 
     const editarDetalle = (id, detalleEditado) => {
-
         let isValid = true;
 
         if (detalleEditado.fk_prenda == 'd') {
             if (!detalleEditado.cantidad || !detalleEditado.precio)
                 isValid = false;
-        } else {
-            if (
-                !detalleEditado.cantidad ||
-                !detalleEditado.color ||
-                !detalleEditado.talla ||
-                !detalleEditado.precio ||
-                !detalleEditado.fk_prenda
-            ) {
-                isValid = false;
-            }
+        } else if (
+            !detalleEditado.cantidad ||
+            !detalleEditado.color ||
+            !detalleEditado.talla ||
+            !detalleEditado.precio ||
+            !detalleEditado.fk_prenda
+        ) {
+            isValid = false;
         }
 
         if (!isValid) return;

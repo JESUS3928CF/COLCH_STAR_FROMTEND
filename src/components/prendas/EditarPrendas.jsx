@@ -57,7 +57,7 @@ const EditarPrendas = ({
             setValue('tallas', detallesPrendas.Talla);
             setValue('colores', detallesPrendas.color);
         }
-    }, [detallesPrendas]);
+    }, [detallesPrendas, show]);
 
     const onSubmitt = async (data) => {
         // Validación que manda un alerta que al menos se debe seleccionar un permiso

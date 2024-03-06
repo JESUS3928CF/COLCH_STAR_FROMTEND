@@ -14,6 +14,7 @@ import useClientes from '../../hooks/useCliente.jsx';
 import Swal from 'sweetalert2';
 import { ModalVerDetallesOrden } from './ModalVerDetallesOrden.jsx';
 import { formatMoney } from '../../helpers/formato_de_datos.jsx';
+import AgregarProducto from '../producto/AgregarProducto.jsx';
 
 //COMPONENTE
 const AgregarOrden = () => {
@@ -189,10 +190,19 @@ const AgregarOrden = () => {
                                     </div>
 
                                     <div className='col-md-8 mt-3'>
-                                        <p> Precio total: {formatMoney(totalOrden)}</p>
+                                        <p>
+                                            {' '}
+                                            Precio total:{' '}
+                                            {formatMoney(totalOrden)}
+                                        </p>
                                     </div>
                                 </div>
                             </form>
+                            <div className='col mt-3 d-flex justify-content-center align-items-center'>
+                                <AgregarProducto
+                                    texto='Crear nuevo producto'
+                                />
+                            </div>
                             <AgregarDetallesOrden />
 
                             <div className='modal-footer'>
