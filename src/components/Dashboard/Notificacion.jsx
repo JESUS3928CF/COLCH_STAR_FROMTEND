@@ -13,11 +13,9 @@ export const Notificacion = () => {
     const hoy = new Date();
     const diaSemana = hoy.getDay();
     const inicioSemana = new Date(hoy);
-    inicioSemana.setDate(hoy.getDate()- diaSemana); 
-    inicioSemana.setHours(0, 0, 0, 0);
+    inicioSemana.setDate(hoy.getDate()- 2); 
     const finSemana = new Date(inicioSemana);
-    finSemana.setDate(inicioSemana.getDate() + 6); 
-    finSemana.setHours(23, 59, 59, 999);
+    finSemana.setDate(inicioSemana.getDate() + 1); 
     return { inicioSemana, finSemana };
   };
 

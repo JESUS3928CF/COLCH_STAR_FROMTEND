@@ -90,11 +90,20 @@
     transition: background-color 0.3s;
     position: relative;
     top: 15px;
+
     
 }
 
 .botonInfo:hover{
  background-color: #47684E;
+}
+
+.botonInfoC{
+    background-color: #000000;
+    transition: background-color 0.3s;
+    position: relative;
+    top: 15px;
+    margin-left: 120px;
 }
 
 .textBoton{
@@ -107,7 +116,7 @@
 .btnIcons{
     text-align: center;
     position: absolute;
-    left: 90px;
+    left: 110px;
     margin-top: -17px;
     color: white;
     transition: color 0.3s;
@@ -116,6 +125,24 @@
 
 .btnIcons:hover{
     color: #000000;
+}
+
+.btnIconsPDFB{
+
+    text-align: center;
+    position: absolute;
+    left: 170px;
+    margin-top: -17px;
+    color: white;
+    transition: color 0.3s;
+
+}
+
+.btnIconsPDFB:hover{
+
+    color: #000000;
+
+
 }
 
 
@@ -224,20 +251,26 @@
 }
 
 .textBotonG{
-
-    margin-right: 16px;
     color: white;
-
-}
-
-.botonInfoC{
-    font-size: 14px;
-    background-color: #000000;
-    transition: background-color 0.3s;
     position: relative;
-    top: 15px;
-    margin-left: 150px;
+    right: 10px;
+    font-size: 14px;
+
+
 }
+
+.btnIconsStar{
+
+    text-align: center;
+    position: absolute;
+    left: 55px;
+    margin-top: -17px;
+    color: white;
+    transition: color 0.3s;
+
+}
+
+
 
 .botonInfoC:hover{
     background-color: #47684E;
@@ -273,6 +306,22 @@
     font-size: 20px;
     transition-duration: 0ms;
   }
+
+
+  .Lupa{
+
+    position: absolute;
+    margin-left: 92%;
+    margin-top: -9px;
+    font-size: 20px;
+    transition-duration: 0ms;
+
+
+   }
+
+   .Lupa:hover{
+    color: #47684E;
+   }
 
   .PDF:hover{
 
@@ -327,13 +376,14 @@
 
 .buscarInforme{
 
-    margin: 20px;
     text-align: center;
-    position: relative;
-    right: 60px;
+    position:absolute;
     background-color:#000000;
+    left: 75%;
+    top: 20px;
     color: white;
     border-radius: 7px;
+
 }
 
 
@@ -342,6 +392,46 @@
     background-color: #47684E;
 }
 
+.graficaInforme{
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+.recibo {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.total {
+    margin-top: 20px;
+    text-align: right;
+}
+  
 
 
 
@@ -469,6 +559,9 @@
 
     right: 5%;
    }
+
+
+   
 
    .graficaPrendas{
 

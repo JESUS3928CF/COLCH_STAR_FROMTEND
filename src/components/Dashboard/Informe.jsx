@@ -1,65 +1,88 @@
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { format, parseISO, subDays, addDays } from "date-fns";
-import Chart from 'chart.js/auto';
-import { useEffect, useRef, useState } from 'react';
-import HeaderModals from "../chared/HeaderModals";
-import CancelarModal from "../chared/CancelarModal";
-import '../Dashboard/Css/styleDashboard.css'
+import {
+  format,
+  parseISO,
+  subDays,
+  addDays,
+  startOfMonth,
+  endOfMonth,
+} from "date-fns";
+import Chart from "chart.js/auto";
+import { useEffect, useRef, useState } from "react";
+import "../Dashboard/Css/styleDashboard.css";
 import { Button } from "@tremor/react";
-import BotonLogoPDF from '../Dashboard/BotonLogoPDF.jsx';
-import { PDFInforme } from "./PDF/PDFInforme";
+import BotonLogoPDF from "../Dashboard/BotonLogoPDF.jsx";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
-export const Informe = ({ compras, ordenes }) => {
-  // Estado para las fechas
+export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes }) => {
+  // Estado para las fechas y visibilidad del formulario
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [rangoFechas, setRangoFechas] = useState("");
-  const [rangoDeFechas , setRangoDeFechas]= useState([])
-  const [valorOrden , setValorOrden] = useState([])
-  const [valorCompra, setValorCompra]= useState([])
-  
+  const [rangoDeFechas, setRangoDeFechas] = useState([]);
+  const [valorOrden, setValorOrden] = useState([]);
+  const [valorCompra, setValorCompra] = useState([]);
+  const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
+
+
+
+
+
+
+
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
 
   useEffect(() => {
-    setFechaInicio(obtenerFechaInicioSemana());
-  }, []);
+    // Obtener fechas del mes actual
+    const fechaActual = new Date();
+    const inicioMes = startOfMonth(fechaActual).toISOString().split("T")[0];
+    const finMes = endOfMonth(fechaActual).toISOString().split("T")[0];
+    setFechaInicio(inicioMes);
+    setFechaFin(finMes);
 
-  const obtenerFechaInicioSemana = () => {
-    const hoy = new Date();
-    const fechaInicioSemana = subDays(hoy, 6);
-    return fechaInicioSemana.toISOString().split('T')[0];
-  };
+    // Crear gráfico con datos del mes actual
+    createChart(
+      compras,
+      ordenes,
+      generarRangoFechas(startOfMonth(fechaActual), endOfMonth(fechaActual))
+    );
+  }, [compras, ordenes]);
 
   const handleSearch = () => {
     const fechaInicioObj = parseISO(fechaInicio);
     const fechaFinObj = parseISO(fechaFin);
 
-    console.log(fechaInicioObj )
-
     const isValidRange = fechaInicioObj <= fechaFinObj;
 
     if (isValidRange) {
-      console.log("Búsqueda realizada entre", fechaInicio, "y", fechaFin);
-      setRangoFechas(`${format(fechaInicioObj, 'dd/MM/yyyy')} - ${format(fechaFinObj, 'dd/MM/yyyy')}`);
+      setRangoFechas(
+        `${format(fechaInicioObj, "dd/MM/yyyy")} - ${format(
+          fechaFinObj,
+          "dd/MM/yyyy"
+        )}`
+      );
 
       const rangoFechasArray = generarRangoFechas(fechaInicioObj, fechaFinObj);
-      setRangoDeFechas(rangoFechasArray)
+      setRangoDeFechas(rangoFechasArray);
       createChart(compras, ordenes, rangoFechasArray);
+      setShowForm(false); // Ocultar el formulario después de realizar la búsqueda
     } else {
-      console.log("Por favor, selecciona un rango válido de fechas");
+
+      Swal.fire({
+        title: 'Error',
+        text: "Por favor, selecciona un rango válido de fechas",
+        icon: 'error'
+      })
+
     }
   };
-
-  useEffect(() => {
-    createChart(compras, ordenes, []);
-  }, []);
 
   const generarRangoFechas = (inicio, fin) => {
     const rango = [];
     let fechaActual = inicio;
     while (fechaActual <= fin) {
-      rango.push(format(fechaActual, 'yyyy-MM-dd'));
+      rango.push(format(fechaActual, "yyyy-MM-dd"));
       fechaActual = addDays(fechaActual, 1);
     }
     return rango;
@@ -71,153 +94,169 @@ export const Informe = ({ compras, ordenes }) => {
         monthChartInstance.current.destroy();
       }
 
-      if (monthChartContainer.current && (compras.length > 0 || ordenes.length > 0)) {
-        const ctx = monthChartContainer.current.getContext('2d');
-        const valoresCompras = obtenerDatosComprasParaGrafico(rangoFechasArray, compras);
-        const valoresOrdenes = obtenerDatosOrdenesParaGrafico(rangoFechasArray, ordenes);
-        setValorOrden(valoresOrdenes)
-        setValorCompra(valoresCompras)
+      if (
+        monthChartContainer.current &&
+        (compras.length > 0 || ordenes.length > 0)
+      ) {
+        const ctx = monthChartContainer.current.getContext("2d");
+        const valoresCompras = obtenerDatosComprasParaGrafico(
+          rangoFechasArray,
+          compras
+        );
+        const valoresOrdenes = obtenerDatosOrdenesParaGrafico(
+          rangoFechasArray,
+          ordenes
+        );
+        setValorOrden(valoresOrdenes);
+        setValorCompra(valoresCompras);
 
         monthChartInstance.current = new Chart(ctx, {
-          type: 'bar',
+          type: "bar",
           data: {
             labels: rangoFechasArray,
             datasets: [
               {
                 label: `Compras`,
                 data: valoresCompras,
-                backgroundColor: '#1D1B31',
-                borderColor: '#1D1B31',
-                borderWidth: 1
+                backgroundColor: "#1D1B31",
+                borderColor: "#1D1B31",
+                borderWidth: 1,
               },
               {
                 label: `Órdenes`,
                 data: valoresOrdenes,
-                backgroundColor: '#47684E',
-                borderColor: '#47684E', 
-                borderWidth: 1
-              }
-            ]
+                backgroundColor: "#47684E",
+                borderColor: "#47684E",
+                borderWidth: 1,
+              },
+            ],
           },
           options: {
+            plugins: {
+              title: {
+                display: true,
+                text: "Compras VS Ventas",
+
+                font: {
+                  weight: "bold",
+                },
+              },
+            },
+
             scales: {
               y: {
-                beginAtZero: true
-              }
-            }
-          }
+                beginAtZero: true,
+              },
+            },
+          },
         });
       }
     } catch (error) {
-      console.error('Error al crear la gráfica:', error);
+      console.error("Error al crear la gráfica:", error);
     }
   };
 
   const obtenerDatosComprasParaGrafico = (fechas, compras) => {
     const datosAgrupados = fechas.reduce((resultado, fecha) => {
-      const comprasMismaFecha = compras.filter(item => item.fecha === fecha);
-      const totalCompraMismaFecha = comprasMismaFecha.reduce((total, compra) => {
-        return total + (compra.estado ? compra.total_de_compra : 0);
-      }, 0);
+      const comprasMismaFecha = compras.filter((item) => item.fecha === fecha);
+      const totalCompraMismaFecha = comprasMismaFecha.reduce(
+        (total, compra) => {
+          return total + (compra.estado ? compra.total_de_compra : 0);
+        },
+        0
+      );
       resultado[fecha] = totalCompraMismaFecha;
       return resultado;
     }, {});
 
-    return fechas.map(fecha => datosAgrupados[fecha] || 0);
+    return fechas.map((fecha) => datosAgrupados[fecha] || 0);
   };
 
   const obtenerDatosOrdenesParaGrafico = (fechas, ordenes) => {
     const datosAgrupados = fechas.reduce((resultado, fecha) => {
-      const ordenesMismaFecha = ordenes.filter(item => item.fecha_creacion === fecha);
+      const ordenesMismaFecha = ordenes.filter(
+        (item) => item.fecha_entrega === fecha
+      );
       const totalOrdenMismaFecha = ordenesMismaFecha.reduce((total, orden) => {
-        return total + (orden.estado_de_orden === 'Finalizada' ? orden.precio_total : 0);
+        return (
+          total +
+          (orden.estado_de_orden === "Entregada" ? orden.precio_total : 0)
+        );
       }, 0);
       resultado[fecha] = totalOrdenMismaFecha;
       return resultado;
     }, {});
 
-    return fechas.map(fecha => datosAgrupados[fecha] || 0);
+    return fechas.map((fecha) => datosAgrupados[fecha] || 0);
+
+
   };
 
   return (
     <>
-      <button
-        className="informe"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#Informe"
-      >
-        <IoIosInformationCircleOutline className="iconsNotificacion" />
+      <div>
+        {/* Botón para mostrar/ocultar el formulario */}
+        <p onClick={() => setShowForm(!showForm)} className="Lupa">
+          <FaMagnifyingGlass />
+        </p>
+        <div>
+
+
+  
+
         
-      </button>
-
-      <div
-        className="modal fade"
-        id="Informe"
-        tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-      >
-        <div className="modal-dialog modal-dialog-scrollable modal-lg">
-          <div className="modal-content">
-            <HeaderModals title="Informes " />
-            <div className="modal-body">
-              <form className='row g-3 needs-validation'>
-                <div className="col-md-6">
-                  <input
-                    className="form-control"
-                    type="date"
-                    value={fechaInicio}
-                    onChange={(e) => setFechaInicio(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-6">
-                  <input
-                    className="form-control"
-                    type="date"
-                    value={fechaFin}
-                    onChange={(e) => setFechaFin(e.target.value)}
-                  />
-                  <Button type="button" onClick={handleSearch} className="buscarInforme"  >Buscar</Button>
-                </div>
-              </form>
 
 
-              <div>
-              <BotonLogoPDF
-                  namePDf={'Informe.pdf'}
-                  componente={3}
-                  fechaInicio={fechaInicio} 
-                  fechaFin={fechaFin} 
-                  rangoDeFechas={rangoDeFechas}
-                  valorCompra={valorCompra}
-                  valorOrden={valorOrden}
-              />
-          </div>
-
-
-              
-
-              <div className="graficaInforme"> 
-                <canvas
-                  ref={monthChartContainer}
-                  width='400'
-                  height='200'
-                ></canvas>
-              
-              </div>
-            </div>
-            <div className="modal-footer">
-              <CancelarModal name={"Cerrar"} modalToCancel="myModal" />
-            </div>
-          </div>
+          <BotonLogoPDF
+            namePDf={"Informe.pdf"}
+            componente={rangoFechas==[]? 1 : 3}
+            fechaInicio={fechaInicio}
+            fechaFin={fechaFin}
+            compras={compras}
+            ordenes={ordenes}
+            clientes={clientes}
+            rangoDeFechas={rangoDeFechas}
+            valorCompra={valorCompra}
+            valorOrden={valorOrden}
+            proveedores={proveedores}
+            detalleCompra={detalleCompra}
+          />
         </div>
       </div>
+      {showForm && (
+        <form className="row g-3 needs-validation">
+          <div className="col-md-4">
+            <p>Fecha inicio</p>
+            <input
+              className="form-control"
+              type="date"
+              onChange={(e) => setFechaInicio(e.target.value)}
+            />
+          </div>
+          <div className="col-md-4">
+            <p>Fecha fin</p>
+            <input
+              className="form-control"
+              type="date"
+              onChange={(e) => setFechaFin(e.target.value)}
+            />
+            <Button
+              type="button"
+              onClick={handleSearch}
+              className="buscarInforme"
+            >
+              Buscar
+            </Button>
+          </div>
+        </form>
+      )}
 
-      
+      {/* Botón para descargar el informe en PDF */}
 
+      {/* Contenedor de la gráfica */}
+      <div className="graficaInforme">
+        <canvas ref={monthChartContainer} width="400" height="200"></canvas>
+      </div>
     </>
   );
 };

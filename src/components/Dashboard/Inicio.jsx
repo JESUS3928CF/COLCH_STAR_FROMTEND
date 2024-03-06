@@ -35,12 +35,12 @@ import PDFOrdenSemanal from "./PDF/PDFOrdenSemanal.jsx";
 import BtnPDF from "./BtnPDF.jsx";
 import GraficaMes from "./Graficas/GraficaMes.jsx";
 import GraficaPrendas from "./Graficas/GraficaPrendas.jsx";
-import ComprasPrendas from "./Graficas/ComprasPrendas.jsx";
 import PDFComprasSemana from "./PDF/PDFComprasSemana.jsx";
 import { format, subDays, startOfToday, parseISO } from "date-fns";
 import DetallesProducto from "../producto/DetallesProducto.jsx";
 import { DetallesClientes } from "../cliente/DetallesClientes.jsx";
 import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
+import useDetallesCompras from "../../hooks/useDetallesCompras.jsx"
 import Informe from "./informe.jsx";
 
 export const InicioDashboard = () => {
@@ -49,7 +49,8 @@ export const InicioDashboard = () => {
   const { Prendas } = usePrendas();
   const { disenosDB } = useDisenosContext();
   const { productos, detailsDiseno } = useProducto();
-  const { compras, detallesCompra } = useCompras();
+  const { compras } = useCompras();
+  const {detalleCompra}= useDetallesCompras()
   const { ordenes, detailsOrden } = useOrden();
   const { movimiento } = useMovimientos();
 
@@ -202,7 +203,7 @@ export const InicioDashboard = () => {
       return (
         fecha >= fechaInicioSemanaActual &&
         fecha <= fechaActual &&
-        orden.estado_de_orden === "Finalizada"
+        orden.estado_de_orden === "Entregada"
       );
     });
     const totalVentas = VentasUltimosSieteDias.reduce(
@@ -226,7 +227,6 @@ export const InicioDashboard = () => {
           <Header titulo="Dashboard" />
 
           <Notificacion />
-          <Informe compras={compras} ordenes={ordenes}/>
 
         </div>
         
@@ -259,7 +259,7 @@ export const InicioDashboard = () => {
               <div className="carousel-item active">
                 <Card className="CardPrincipal">
                   <div className="textDatosGenerales">
-                    <Title>Datos económicos</Title>
+                    <Title>Datos económicos (Ultimos siete días)</Title>
                   </div>
 
                   <Flex >
@@ -305,7 +305,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeProveedores}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/proveedores"}>
-                          <span className="textBotonG">Más Info</span>
+                          <span className="textBotonG">Más Información</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -317,7 +317,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeClientes}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/clientes"}>
-                          <span className="textBotonG">Más Info</span>
+                          <span className="textBotonG">Más Información</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -330,7 +330,7 @@ export const InicioDashboard = () => {
 
                       <Button className="botonInfo">
                         <Link to={"/administracion/prendas"}>
-                          <span className="textBotonG">Más Info</span>
+                          <span className="textBotonG">Más Información</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -342,7 +342,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeDisenos}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/disenos"}>
-                          <span className="textBotonG">Más Info</span>
+                          <span className="textBotonG">Más Información</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -354,7 +354,7 @@ export const InicioDashboard = () => {
                       <Text className="Cantidad">{cantidadDeProductos}</Text>
                       <Button className="botonInfo">
                         <Link to={"/administracion/productos"}>
-                          <span className="textBoton">Más Info</span>
+                          <span className="textBoton">Más Información</span>
                           <FaArrowAltCircleRight className="btnIcons" />
                         </Link>
                       </Button>
@@ -388,8 +388,8 @@ export const InicioDashboard = () => {
                           setDetallesClientes(modalDetalleClientes)
                         }
                       >
-                        <span className="textBoton">Más Info</span>
-                        <FaArrowAltCircleRight className="btnIcons" />
+                        <span className="textBoton">Ver</span>
+                        <FaArrowAltCircleRight className="btnIconsStar" />
                       </Button>
                     </Card>
 
@@ -409,8 +409,8 @@ export const InicioDashboard = () => {
                           setDetallesProductos(modalDetalleProducto)
                         }
                       >
-                        <span className="textBoton">Más Info</span>
-                        <FaArrowAltCircleRight className="btnIcons" />
+                        <span className="textBoton">Ver</span>
+                        <FaArrowAltCircleRight className="btnIconsStar" />
                       </Button>
                     </Card>
 
@@ -426,8 +426,8 @@ export const InicioDashboard = () => {
                         data-bs-target="#modalDetalles"
                         onClick={() => setDetalleDiseno(modalDetalleDiseno)}
                       >
-                        <span className="textBoton">Más Info</span>
-                        <FaArrowAltCircleRight className="btnIcons" />
+                        <span className="textBoton">Ver</span>
+                        <FaArrowAltCircleRight className="btnIconsStar" />
                       </Button>
                     </Card>
                   </Flex>
@@ -468,20 +468,18 @@ export const InicioDashboard = () => {
           </Card>
 
           <Card className="containerHeaderTable">
-            <GraficaMes ordenes={ordenes} compras={compras} />
+          <Informe compras={compras} ordenes={ordenes} proveedores={proveedores} detalleCompra={detalleCompra} clientes={clientes} />
           </Card>
 
           <Card className="containerHeaderTable">
             <GraficaPrendas Prendas={Prendas} />
           </Card>
 
-          <Card className="containerHeaderTable">
-            <ComprasPrendas
-              detallesCompra={detallesCompra}
-              compras={compras}
-              Prendas={Prendas}
-            />
-          </Card>
+
+          
+
+
+          
         </div>
       </div>
       <DetallesProducto detallesProductos={detallesProductos} />

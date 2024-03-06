@@ -52,7 +52,7 @@ const PDFComprasMes = () => {
         const comprasMes = data.filter((compra) => {
           const fecha = parseISO(compra.fecha);
           setMonthIndex(mesActual);
-          return getMonth(fecha) === monthIndex && getYear(fecha) === year;
+          return getMonth(fecha) === monthIndex && getYear(fecha) === year &&  compra.estado === true;
         });
 
         const nombrePDF = nombreDelMes[mesActual];
@@ -92,7 +92,7 @@ const PDFComprasMes = () => {
         const OrdenesMes = data.filter((orden) => {
           const fecha = parseISO(orden.fecha_creacion);
           setMonthIndex(mesActual);
-          return getMonth(fecha) === monthIndex && getYear(fecha) === year && orden.estado_de_orden === 'Finalizada'
+          return getMonth(fecha) === monthIndex && getYear(fecha) === year && orden.estado_de_orden === 'Entregada'
         });
 
         const nombrePDF = nombreDelMes[mesActual];
@@ -120,6 +120,10 @@ const PDFComprasMes = () => {
 
     fetchData();
   }, [monthIndex, monthName]);
+
+  const totalCompra = resumenCompras.reduce((total, compra) => total + compra.total_de_compra, 0);
+  const totalOrdenes = resumenOrdenes.reduce((total, orden)=> total + orden.precio_total, 0)
+
 
   const styles = StyleSheet.create({
     fecha: {
@@ -172,6 +176,13 @@ const PDFComprasMes = () => {
       opacity: 0.3,
       width: "50%",
     },
+    total:{
+      fontSize: 14,
+      position: "relative",
+      left: "25px",
+      top: "60x",
+      height: "35px",
+    },
   });
 
   return (
@@ -191,20 +202,23 @@ const PDFComprasMes = () => {
             <View style={styles.fecha} key={index}>
               <Text>{compra.fecha}</Text>
               <Text style={styles.TotalDeCompra}>
-                ${compra.total_de_compra}
+                ${compra.total_de_compra.toLocaleString()}
               </Text>
             </View>
           ))}
+        </View>
+        <View>
+          <Text style={styles.total}>Total de compras: ${totalCompra.toLocaleString()} </Text>
         </View>
       </Page>
       <Page>
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
-          <Text style={styles.titulo}> Ventas Del Mes De {monthName}</Text>
+          <Text style={styles.titulo}> Ordenes Del Mes De {monthName}</Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
-          <Text style={styles.borderD}>Total de Ventas</Text>
+          <Text style={styles.borderD}>Total de Ordenes</Text>
           <Text style={styles.borde}></Text>
         </View>
         <View>
@@ -212,10 +226,13 @@ const PDFComprasMes = () => {
             <View style={styles.fecha} key={index}>
               <Text>{orden.fecha}</Text>
               <Text style={styles.TotalDeCompra}>
-                ${orden.precio_total}
+                ${orden.precio_total.toLocaleString()}
               </Text>
             </View>
           ))}
+        </View>
+        <View>
+          <Text style={styles.total}>Total de ordenes: ${totalOrdenes.toLocaleString()} </Text>
         </View>
       </Page>
       
