@@ -52,7 +52,11 @@ const PDFComprasMes = () => {
         const comprasMes = data.filter((compra) => {
           const fecha = parseISO(compra.fecha);
           setMonthIndex(mesActual);
-          return getMonth(fecha) === monthIndex && getYear(fecha) === year &&  compra.estado === true;
+          return (
+            getMonth(fecha) === monthIndex &&
+            getYear(fecha) === year &&
+            compra.estado === true
+          );
         });
 
         const nombrePDF = nombreDelMes[mesActual];
@@ -81,7 +85,6 @@ const PDFComprasMes = () => {
     fetchData();
   }, [monthIndex, monthName]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,7 +95,11 @@ const PDFComprasMes = () => {
         const OrdenesMes = data.filter((orden) => {
           const fecha = parseISO(orden.fecha_creacion);
           setMonthIndex(mesActual);
-          return getMonth(fecha) === monthIndex && getYear(fecha) === year && orden.estado_de_orden === 'Entregada'
+          return (
+            getMonth(fecha) === monthIndex &&
+            getYear(fecha) === year &&
+            orden.estado_de_orden === "Entregada"
+          );
         });
 
         const nombrePDF = nombreDelMes[mesActual];
@@ -103,7 +110,7 @@ const PDFComprasMes = () => {
         OrdenesMes.forEach((orden) => {
           const fecha = orden.fecha_creacion;
           if (resumen[fecha]) {
-            resumen[fecha].precio_total += orden.precio_total
+            resumen[fecha].precio_total += orden.precio_total;
           } else {
             resumen[fecha] = {
               fecha: fecha,
@@ -121,9 +128,14 @@ const PDFComprasMes = () => {
     fetchData();
   }, [monthIndex, monthName]);
 
-  const totalCompra = resumenCompras.reduce((total, compra) => total + compra.total_de_compra, 0);
-  const totalOrdenes = resumenOrdenes.reduce((total, orden)=> total + orden.precio_total, 0)
-
+  const totalCompra = resumenCompras.reduce(
+    (total, compra) => total + compra.total_de_compra,
+    0
+  );
+  const totalOrdenes = resumenOrdenes.reduce(
+    (total, orden) => total + orden.precio_total,
+    0
+  );
 
   const styles = StyleSheet.create({
     fecha: {
@@ -172,11 +184,11 @@ const PDFComprasMes = () => {
     },
     logos: {
       position: "absolute",
-      top :'10px',
+      top: "10px",
       opacity: 0.3,
       width: "50%",
     },
-    total:{
+    total: {
       fontSize: 14,
       position: "relative",
       left: "25px",
@@ -208,7 +220,9 @@ const PDFComprasMes = () => {
           ))}
         </View>
         <View>
-          <Text style={styles.total}>Total de compras: ${totalCompra.toLocaleString()} </Text>
+          <Text style={styles.total}>
+            Total de compras: ${totalCompra.toLocaleString()}{" "}
+          </Text>
         </View>
       </Page>
       <Page>
@@ -232,10 +246,11 @@ const PDFComprasMes = () => {
           ))}
         </View>
         <View>
-          <Text style={styles.total}>Total de ordenes: ${totalOrdenes.toLocaleString()} </Text>
+          <Text style={styles.total}>
+            Total de ordenes: ${totalOrdenes.toLocaleString()}{" "}
+          </Text>
         </View>
       </Page>
-      
     </Document>
   );
 };

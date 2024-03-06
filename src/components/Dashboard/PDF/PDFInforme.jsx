@@ -17,9 +17,8 @@ export const PDFInforme = ({
   compras,
   proveedores,
   ordenes,
-  clientes
+  clientes,
 }) => {
-
   const sumarValores = (valores) => {
     return valores.reduce((total, valor) => total + valor, 0);
   };
@@ -27,14 +26,15 @@ export const PDFInforme = ({
   const totalCompra = sumarValores(valorCompra);
   const totalOrden = sumarValores(valorOrden);
 
-
-
-
   const obtenerNombreProveedores = (fechaCompra) => {
-    const comprasFecha = compras.filter(compra => compra.fecha === fechaCompra);
+    const comprasFecha = compras.filter(
+      (compra) => compra.fecha === fechaCompra
+    );
     const proveedoresUnicos = new Set();
-    comprasFecha.forEach(compra => {
-      const proveedor = proveedores.find(proveedor => proveedor.id_proveedor === compra.fk_proveedor);
+    comprasFecha.forEach((compra) => {
+      const proveedor = proveedores.find(
+        (proveedor) => proveedor.id_proveedor === compra.fk_proveedor
+      );
       if (proveedor) {
         proveedoresUnicos.add(proveedor.nombre);
       }
@@ -42,23 +42,21 @@ export const PDFInforme = ({
     return Array.from(proveedoresUnicos);
   };
 
-
   const obtenerNombrecliente = (fechaOrdenParam) => {
-    const fechaOrden = ordenes.filter(orden => orden.fecha_entrega === fechaOrdenParam);
+    const fechaOrden = ordenes.filter(
+      (orden) => orden.fecha_entrega === fechaOrdenParam
+    );
     const ClienteUnico = new Set();
-    fechaOrden.forEach(orden => {
-      const cliente = clientes.find(cliente => cliente.id_cliente === orden.fk_cliente);
+    fechaOrden.forEach((orden) => {
+      const cliente = clientes.find(
+        (cliente) => cliente.id_cliente === orden.fk_cliente
+      );
       if (cliente) {
         ClienteUnico.add(`${cliente.nombre} ${cliente.apellido}`);
       }
     });
     return Array.from(ClienteUnico);
   };
-
-
-
-
-
 
   const styles = StyleSheet.create({
     fecha: {
@@ -109,20 +107,13 @@ export const PDFInforme = ({
       top: "-1px",
     },
 
-    nombreProveedor:{
-
+    nombreProveedor: {
       fontSize: 15,
       width: "85%",
       marginLeft: 50,
       position: "absolute",
       left: 35,
-
-
     },
-
-
-
-
 
     borde: {
       borderBottomWidth: 1,
@@ -142,28 +133,24 @@ export const PDFInforme = ({
       position: "absolute",
       top: "185px",
     },
-    total:{
+    total: {
       fontSize: 14,
       position: "relative",
       left: "25px",
       top: "60x",
       height: "35px",
     },
-    UbiFecha:{
-
+    UbiFecha: {
       fontSize: 14,
       left: "400px",
       height: "35px",
-
     },
-    proveedor:{
-
+    proveedor: {
       fontSize: 14,
-      left : 170,
-      top: '-20px',
+      left: 170,
+      top: "-20px",
       height: "35px",
-
-    }
+    },
   });
 
   return (
@@ -172,7 +159,9 @@ export const PDFInforme = ({
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
           <Text style={styles.titulos}>Compras de la fecha</Text>
-          <Text style={styles.titulo}>{fechaInicio} - {fechaFin}</Text>
+          <Text style={styles.titulo}>
+            {fechaInicio} - {fechaFin}
+          </Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
@@ -188,7 +177,7 @@ export const PDFInforme = ({
                 <View style={styles.fechas} key={index}>
                   <Text style={styles.UbiFecha}>{fecha}</Text>
                   <Text style={styles.proveedor}>
-                    {obtenerNombreProveedores(fecha).join(', ')}
+                    {obtenerNombreProveedores(fecha).join(", ")}
                   </Text>
                 </View>
               );
@@ -202,7 +191,9 @@ export const PDFInforme = ({
             if (num !== 0) {
               return (
                 <View style={styles.fecha} key={index}>
-                  <Text style={styles.TotalDeCompra}>{num.toLocaleString()}</Text>
+                  <Text style={styles.TotalDeCompra}>
+                    {num.toLocaleString()}
+                  </Text>
                 </View>
               );
             } else {
@@ -211,7 +202,9 @@ export const PDFInforme = ({
           })}
         </View>
         <View>
-          <Text style={styles.total}>Total de compras: ${totalCompra.toLocaleString()} </Text>
+          <Text style={styles.total}>
+            Total de compras: ${totalCompra.toLocaleString()}{" "}
+          </Text>
         </View>
       </Page>
 
@@ -219,7 +212,9 @@ export const PDFInforme = ({
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
           <Text style={styles.titulos}> Ordenes de la fecha</Text>
-          <Text style={styles.titulo}>{fechaInicio} - {fechaFin}</Text>
+          <Text style={styles.titulo}>
+            {fechaInicio} - {fechaFin}
+          </Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
@@ -235,7 +230,7 @@ export const PDFInforme = ({
                 <View style={styles.fechas} key={index}>
                   <Text style={styles.UbiFecha}>{fecha}</Text>
                   <Text style={styles.proveedor}>
-                    {obtenerNombrecliente(fecha).join(', ')}
+                    {obtenerNombrecliente(fecha).join(", ")}
                   </Text>
                 </View>
               );
@@ -249,7 +244,9 @@ export const PDFInforme = ({
             if (num !== 0) {
               return (
                 <View style={styles.fecha} key={index}>
-                  <Text style={styles.TotalDeCompra}>{num.toLocaleString()}</Text>
+                  <Text style={styles.TotalDeCompra}>
+                    {num.toLocaleString()}
+                  </Text>
                 </View>
               );
             } else {
@@ -258,10 +255,11 @@ export const PDFInforme = ({
           })}
         </View>
         <View>
-          <Text style={styles.total}>Total de ordenes: ${totalOrden.toLocaleString()} </Text>
+          <Text style={styles.total}>
+            Total de ordenes: ${totalOrden.toLocaleString()}{" "}
+          </Text>
         </View>
       </Page>
-     
     </Document>
   );
 };

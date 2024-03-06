@@ -17,16 +17,19 @@ const BotonLogoPDF = ({
   proveedores,
   detalleCompra,
   ordenes,
-  clientes
+  clientes,
 }) => {
   let documento;
 
   if (componente === 1) {
-    documento = <PDFComprasMes fechaInicio={fechaInicio} fechaFin={fechaFin} rangoDeFechas={rangoDeFechas}  />;
+    documento = (
+      <PDFComprasMes
+        fechaInicio={fechaInicio}
+        fechaFin={fechaFin}
+        rangoDeFechas={rangoDeFechas}
+      />
+    );
   } else if (componente === 3) {
-    
-
-
     documento = (
       <PDFInforme
         rangoDeFechas={rangoDeFechas}

@@ -14,7 +14,13 @@ import BotonLogoPDF from "../Dashboard/BotonLogoPDF.jsx";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes }) => {
+export const Informe = ({
+  compras,
+  ordenes,
+  proveedores,
+  detalleCompra,
+  clientes,
+}) => {
   // Estado para las fechas y visibilidad del formulario
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
@@ -23,12 +29,6 @@ export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes })
   const [valorOrden, setValorOrden] = useState([]);
   const [valorCompra, setValorCompra] = useState([]);
   const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
-
-
-
-
-
-
 
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
@@ -68,13 +68,11 @@ export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes })
       createChart(compras, ordenes, rangoFechasArray);
       setShowForm(false); // Ocultar el formulario después de realizar la búsqueda
     } else {
-
       Swal.fire({
-        title: 'Error',
+        title: "Error",
         text: "Por favor, selecciona un rango válido de fechas",
-        icon: 'error'
-      })
-
+        icon: "error",
+      });
     }
   };
 
@@ -188,8 +186,6 @@ export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes })
     }, {});
 
     return fechas.map((fecha) => datosAgrupados[fecha] || 0);
-
-
   };
 
   return (
@@ -200,16 +196,9 @@ export const Informe = ({ compras, ordenes,proveedores,detalleCompra,clientes })
           <FaMagnifyingGlass />
         </p>
         <div>
-
-
-  
-
-        
-
-
           <BotonLogoPDF
             namePDf={"Informe.pdf"}
-            componente={rangoFechas==[]? 1 : 3}
+            componente={rangoFechas == [] ? 1 : 3}
             fechaInicio={fechaInicio}
             fechaFin={fechaFin}
             compras={compras}

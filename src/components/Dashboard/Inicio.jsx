@@ -9,7 +9,6 @@ import {
 } from "react-icons/fa";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
-
 import { BiBox } from "react-icons/bi";
 
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -40,7 +39,7 @@ import { format, subDays, startOfToday, parseISO } from "date-fns";
 import DetallesProducto from "../producto/DetallesProducto.jsx";
 import { DetallesClientes } from "../cliente/DetallesClientes.jsx";
 import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
-import useDetallesCompras from "../../hooks/useDetallesCompras.jsx"
+import useDetallesCompras from "../../hooks/useDetallesCompras.jsx";
 import Informe from "./informe.jsx";
 
 export const InicioDashboard = () => {
@@ -50,14 +49,13 @@ export const InicioDashboard = () => {
   const { disenosDB } = useDisenosContext();
   const { productos, detailsDiseno } = useProducto();
   const { compras } = useCompras();
-  const {detalleCompra}= useDetallesCompras()
+  const { detalleCompra } = useDetallesCompras();
   const { ordenes, detailsOrden } = useOrden();
   const { movimiento } = useMovimientos();
 
   const [detallesProductos, setDetallesProductos] = useState({});
   const [detallesClientes, setDetallesClientes] = useState({});
   const [detalleDiseno, setDetalleDiseno] = useState({});
-  
 
   const cantidadDeProveedores = proveedores.length;
   const cantidadDeClientes = clientes.length;
@@ -140,32 +138,21 @@ export const InicioDashboard = () => {
     (clienteFavorito) => clienteFavorito.id_cliente == ClienteStar
   );
 
+  const [favoritoNombre, setFavoritoNombre] = useState("");
 
-
-
-  const [favoritoNombre, setFavoritoNombre] = useState('');
-  
-  const [favoritoDiseno,setFavoritoDiseno] = useState('')
-  const [favoritoProducto , setFavoritoProducto] = useState('')
-  const [favoritoApellido, setFavoritoApellido]= useState('')
+  const [favoritoDiseno, setFavoritoDiseno] = useState("");
+  const [favoritoProducto, setFavoritoProducto] = useState("");
+  const [favoritoApellido, setFavoritoApellido] = useState("");
 
   useEffect(() => {
     if (clienteElegido && disenoElegido && productsElegido) {
       setFavoritoNombre(clienteElegido.nombre);
-      setFavoritoDiseno (disenoElegido.nombre)
-      setFavoritoProducto(productsElegido.nombre)
-      setFavoritoApellido(clienteElegido.apellido)
-
+      setFavoritoDiseno(disenoElegido.nombre);
+      setFavoritoProducto(productsElegido.nombre);
+      setFavoritoApellido(clienteElegido.apellido);
     }
-  }, [clienteElegido,disenoElegido,productsElegido]);
+  }, [clienteElegido, disenoElegido, productsElegido]);
 
-
-
-
-  
-
-  
-   
   const modalDetalleProducto = productos.find(
     (productsElegido) => productsElegido.id_producto == ProductoStar
   );
@@ -195,7 +182,11 @@ export const InicioDashboard = () => {
     // Filtrar compras de los últimos 7 días
     const comprasUltimos7Dias = compras.filter((compra) => {
       const fecha = parseISO(compra.fecha);
-      return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && compra.estado ===true
+      return (
+        fecha >= fechaInicioSemanaActual &&
+        fecha <= fechaActual &&
+        compra.estado === true
+      );
     });
 
     const VentasUltimosSieteDias = ordenes.filter((orden) => {
@@ -218,7 +209,13 @@ export const InicioDashboard = () => {
       0
     );
     setTotalComprasUltimosSieteDias(totalCompras);
-  }, [compras, favoritoNombre,favoritoApellido,favoritoProducto,favoritoDiseno]);
+  }, [
+    compras,
+    favoritoNombre,
+    favoritoApellido,
+    favoritoProducto,
+    favoritoDiseno,
+  ]);
 
   return (
     <>
@@ -227,9 +224,7 @@ export const InicioDashboard = () => {
           <Header titulo="Dashboard" />
 
           <Notificacion />
-
         </div>
-        
 
         <div className="cards">
           <div id="carouselExampleIndicators" className="carousel slide">
@@ -262,7 +257,7 @@ export const InicioDashboard = () => {
                     <Title>Datos económicos (Ultimos siete días)</Title>
                   </div>
 
-                  <Flex >
+                  <Flex>
                     <Card className="two">
                       <Title className="textCompras">Total de compras</Title>
                       <span>
@@ -294,74 +289,75 @@ export const InicioDashboard = () => {
                     <Title>Datos generales</Title>
                   </div>
                   <div className="prueba">
+                    <Flex className="General">
+                      <Card className="two">
+                        <Title className="textProveedor">
+                          Total de proveedores
+                        </Title>
+                        <FaPhoneAlt className="icons" />
+                        <Text className="Cantidad">
+                          {cantidadDeProveedores}
+                        </Text>
+                        <Button className="botonInfo">
+                          <Link to={"/administracion/proveedores"}>
+                            <span className="textBotonG">Más Información</span>
+                            <FaArrowAltCircleRight className="btnIcons" />
+                          </Link>
+                        </Button>
+                      </Card>
 
-                  <Flex className="General">
-                    <Card className="two">
-                        
-                      <Title className="textProveedor">
-                        Total de proveedores
-                      </Title>
-                      <FaPhoneAlt className="icons" />
-                      <Text className="Cantidad">{cantidadDeProveedores}</Text>
-                      <Button className="botonInfo">
-                        <Link to={"/administracion/proveedores"}>
-                          <span className="textBotonG">Más Información</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
-                    </Card>
+                      <Card className="two">
+                        <Title className="textGeneral">Total de clientes</Title>
+                        <IoAccessibility className="icons" />
+                        <Text className="Cantidad">{cantidadDeClientes}</Text>
+                        <Button className="botonInfo">
+                          <Link to={"/administracion/clientes"}>
+                            <span className="textBotonG">Más Información</span>
+                            <FaArrowAltCircleRight className="btnIcons" />
+                          </Link>
+                        </Button>
+                      </Card>
 
-                    <Card className="two">
-                      <Title className="textGeneral">Total de clientes</Title>
-                      <IoAccessibility className="icons" />
-                      <Text className="Cantidad">{cantidadDeClientes}</Text>
-                      <Button className="botonInfo">
-                        <Link to={"/administracion/clientes"}>
-                          <span className="textBotonG">Más Información</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
-                    </Card>
+                      <Card className="two">
+                        <Title className="textGeneral">Total de prendas</Title>
+                        <FaTshirt className="icons" />
+                        <Text className="Cantidad">{cantidadDePrendas}</Text>
 
-                    <Card className="two">
-                      <Title className="textGeneral">Total de prendas</Title>
-                      <FaTshirt className="icons" />
-                      <Text className="Cantidad">{cantidadDePrendas}</Text>
+                        <Button className="botonInfo">
+                          <Link to={"/administracion/prendas"}>
+                            <span className="textBotonG">Más Información</span>
+                            <FaArrowAltCircleRight className="btnIcons" />
+                          </Link>
+                        </Button>
+                      </Card>
 
-                      <Button className="botonInfo">
-                        <Link to={"/administracion/prendas"}>
-                          <span className="textBotonG">Más Información</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
-                    </Card>
+                      <Card className="two">
+                        <Title className="textGeneral">Total de diseños</Title>
+                        <AiFillCrown className="icons" />
+                        <Text className="Cantidad">{cantidadDeDisenos}</Text>
+                        <Button className="botonInfo">
+                          <Link to={"/administracion/disenos"}>
+                            <span className="textBotonG">Más Información</span>
+                            <FaArrowAltCircleRight className="btnIcons" />
+                          </Link>
+                        </Button>
+                      </Card>
 
-                    <Card className="two">
-                      <Title className="textGeneral">Total de diseños</Title>
-                      <AiFillCrown className="icons" />
-                      <Text className="Cantidad">{cantidadDeDisenos}</Text>
-                      <Button className="botonInfo">
-                        <Link to={"/administracion/disenos"}>
-                          <span className="textBotonG">Más Información</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
-                    </Card>
-
-                    <Card className="two">
-                      <Title className="textGeneral">Total de productos</Title>
-                      <FaTruck className="icons" />
-                      <Text className="Cantidad">{cantidadDeProductos}</Text>
-                      <Button className="botonInfo">
-                        <Link to={"/administracion/productos"}>
-                          <span className="textBoton">Más Información</span>
-                          <FaArrowAltCircleRight className="btnIcons" />
-                        </Link>
-                      </Button>
-                    </Card>
-                  </Flex>
+                      <Card className="two">
+                        <Title className="textGeneral">
+                          Total de productos
+                        </Title>
+                        <FaTruck className="icons" />
+                        <Text className="Cantidad">{cantidadDeProductos}</Text>
+                        <Button className="botonInfo">
+                          <Link to={"/administracion/productos"}>
+                            <span className="textBoton">Más Información</span>
+                            <FaArrowAltCircleRight className="btnIcons" />
+                          </Link>
+                        </Button>
+                      </Card>
+                    </Flex>
                   </div>
-
                 </Card>
               </div>
               <div className="carousel-item">
@@ -371,68 +367,66 @@ export const InicioDashboard = () => {
                   </div>
 
                   <div className="FrecuenteResponsivo">
-                  <Flex>
-                    <Card className="two">
-                      <Title className="textGeneralMas">Cliente Star</Title>
-                      <PiShootingStarThin className="star" />
+                    <Flex>
+                      <Card className="two">
+                        <Title className="textGeneralMas">Cliente Star</Title>
+                        <PiShootingStarThin className="star" />
 
-                      <Text className="NombreStar">
-                        {favoritoNombre}{favoritoApellido}
-                      </Text>
+                        <Text className="NombreStar">
+                          {favoritoNombre}
+                          {favoritoApellido}
+                        </Text>
 
-                      <Button
-                        className="botonInfoF"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetalleCliente"
-                        onClick={() =>
-                          setDetallesClientes(modalDetalleClientes)
-                        }
-                      >
-                        <span className="textBoton">Ver</span>
-                        <FaArrowAltCircleRight className="btnIconsStar" />
-                      </Button>
-                    </Card>
+                        <Button
+                          className="botonInfoF"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalDetalleCliente"
+                          onClick={() =>
+                            setDetallesClientes(modalDetalleClientes)
+                          }
+                        >
+                          <span className="textBoton">Ver</span>
+                          <FaArrowAltCircleRight className="btnIconsStar" />
+                        </Button>
+                      </Card>
 
-                    <Card className="two">
-                      <Title className="textGeneralMas">Productos Star</Title>
-                      <BiBox className="icons" />
+                      <Card className="two">
+                        <Title className="textGeneralMas">Productos Star</Title>
+                        <BiBox className="icons" />
 
-                      <Text className="NombreStar">
-                        {favoritoProducto}
-                      </Text>
+                        <Text className="NombreStar">{favoritoProducto}</Text>
 
-                      <Button
-                        className="botonInfoF"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetallesProductos"
-                        onClick={() =>
-                          setDetallesProductos(modalDetalleProducto)
-                        }
-                      >
-                        <span className="textBoton">Ver</span>
-                        <FaArrowAltCircleRight className="btnIconsStar" />
-                      </Button>
-                    </Card>
+                        <Button
+                          className="botonInfoF"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalDetallesProductos"
+                          onClick={() =>
+                            setDetallesProductos(modalDetalleProducto)
+                          }
+                        >
+                          <span className="textBoton">Ver</span>
+                          <FaArrowAltCircleRight className="btnIconsStar" />
+                        </Button>
+                      </Card>
 
-                    <Card className="two">
-                      <Title className="textGeneralMas">Diseños Star</Title>
-                      <AiFillCrown className="icons" />
+                      <Card className="two">
+                        <Title className="textGeneralMas">Diseños Star</Title>
+                        <AiFillCrown className="icons" />
 
-                      <Text className="NombreStar">{favoritoDiseno}</Text>
+                        <Text className="NombreStar">{favoritoDiseno}</Text>
 
-                      <Button
-                        className="botonInfoF"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetalles"
-                        onClick={() => setDetalleDiseno(modalDetalleDiseno)}
-                      >
-                        <span className="textBoton">Ver</span>
-                        <FaArrowAltCircleRight className="btnIconsStar" />
-                      </Button>
-                    </Card>
-                  </Flex>
+                        <Button
+                          className="botonInfoF"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalDetalles"
+                          onClick={() => setDetalleDiseno(modalDetalleDiseno)}
+                        >
+                          <span className="textBoton">Ver</span>
+                          <FaArrowAltCircleRight className="btnIconsStar" />
+                        </Button>
+                      </Card>
+                    </Flex>
                   </div>
-
                 </Card>
               </div>
             </div>
@@ -442,7 +436,6 @@ export const InicioDashboard = () => {
               data-bs-slide="prev"
             >
               <span>
-                
                 <FaArrowAltCircleLeft className="iconsCarrusel" />
               </span>
             </button>
@@ -468,18 +461,18 @@ export const InicioDashboard = () => {
           </Card>
 
           <Card className="containerHeaderTable">
-          <Informe compras={compras} ordenes={ordenes} proveedores={proveedores} detalleCompra={detalleCompra} clientes={clientes} />
+            <Informe
+              compras={compras}
+              ordenes={ordenes}
+              proveedores={proveedores}
+              detalleCompra={detalleCompra}
+              clientes={clientes}
+            />
           </Card>
 
           <Card className="containerHeaderTable">
             <GraficaPrendas Prendas={Prendas} />
           </Card>
-
-
-          
-
-
-          
         </div>
       </div>
       <DetallesProducto detallesProductos={detallesProductos} />
