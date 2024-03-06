@@ -11,11 +11,12 @@ export const Notificacion = () => {
 
   const obtenerSemanaActual = () => {
     const hoy = new Date();
-    const diaSemana = hoy.getDay();
+    hoy.setHours(23, 59, 59, 999)
     const inicioSemana = new Date(hoy);
     inicioSemana.setDate(hoy.getDate()- 2); 
     const finSemana = new Date(inicioSemana);
-    finSemana.setDate(inicioSemana.getDate() + 1); 
+    finSemana.setDate(inicioSemana.getDate() + 1);
+    finSemana.setHours(23, 59, 59, 999) 
     return { inicioSemana, finSemana };
   };
 
@@ -58,7 +59,7 @@ export const Notificacion = () => {
         data-bs-backdrop="static"
         data-bs-keyboard="false"
       >
-        <div className='modal-dialog modal-dialog-scrollable modal-lg'>
+        <div className='modal-dialog modal-dialog-scrollable '>
           <div className='modal-content'>
             <HeaderModals title='Notificaciones ' />
             <div className='modal-body'>

@@ -271,14 +271,14 @@ export const InicioDashboard = () => {
                     </Card>
 
                     <Card className="two">
-                      <Title className="textCompras">Total de ventas</Title>
+                      <Title className="textCompras">Total de Órdenes</Title>
                       <FaMoneyBillTrendUp className="iconsE" />
 
                       <Text className="Cantidad">
                         {totalComprasUltimosSieteDiasVentas.toLocaleString()}
                       </Text>
 
-                      <BtnPDF namePDf={"ventasSemanal.pdf"} componente={2} />
+                      <BtnPDF namePDf={"OrdenesSemanal.pdf"} componente={2} />
                     </Card>
                   </Flex>
                 </Card>

@@ -27,7 +27,7 @@ export const PDFOrdenSemanal = () => {
 
         const VentasUltimosSieteDias = data.filter((orden) => {
           const fecha = parseISO(orden.fecha_creacion);
-          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && orden.estado_de_orden === 'Finalizada';
+          return fecha >= fechaInicioSemanaActual && fecha <= fechaActual && orden.estado_de_orden === 'Entregada';
         });
 
         const totalVentas = VentasUltimosSieteDias.reduce((total, orden) => total + orden.precio_total, 0);
@@ -117,11 +117,11 @@ export const PDFOrdenSemanal = () => {
       <Page>
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
-          <Text style={styles.titulo}>Ventas de los ultimos 7 dias</Text>
+          <Text style={styles.titulo}>Órdenes de los ultimos 7 dias</Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
-          <Text style={styles.borderD}>Total de ventas</Text>
+          <Text style={styles.borderD}>Total de Órdenes</Text>
           <Text style={styles.borde}></Text>
         </View>
         <View>
@@ -133,7 +133,7 @@ export const PDFOrdenSemanal = () => {
           ))}
         </View>
         <View >
-          <Text style={styles.total}>Total de ventas de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
+          <Text style={styles.total}>Total de Órdenes de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
         </View>
       </Page>
     </Document>
