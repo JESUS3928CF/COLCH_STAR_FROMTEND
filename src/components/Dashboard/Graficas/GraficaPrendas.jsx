@@ -59,7 +59,7 @@ const GraficaPrendas = ({ Prendas }) => {
               },
               title: {
                 display: true,
-                text: "Cantidad de Prendas por Talla", // Agrega un título a la gráfica
+                text: "Cantidad de prendas por tallas", // Agrega un título a la gráfica
               },
             },
           }}

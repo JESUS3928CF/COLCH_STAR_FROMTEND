@@ -84,18 +84,37 @@
 
 }
 
+.Boton{
+    position: relative;
+    left: -13%;
+    top: 10px
+}
+
 .botonInfo{
-    font-size: 14px;
+
     background-color: #000000;
     transition: background-color 0.3s;
     position: relative;
-    top: 15px;
+    width: 125%;
+    transform: scale(0.9);
 
-    
 }
 
 .botonInfo:hover{
- background-color: #47684E;
+
+    background-color: #47684E;
+
+
+}
+
+
+.textBotonG{
+
+    font-size: 14px;
+    color: white;
+    position: relative;
+    left: -12px;
+    font-weight: 500
 }
 
 .botonInfoC{
@@ -106,6 +125,13 @@
     margin-left: 120px;
 }
 
+.BotonPdfUltimosSieteDias{
+    margin-right: 16px;
+    color: white;
+}
+
+
+
 .textBoton{
     margin-right: 16px;
     color: white;
@@ -113,19 +139,32 @@
 
 
 
+
 .btnIcons{
+    position: absolute;
+    left: 140px;
+    margin-top: -17px;
+    color: white;
+
+}
+
+
+.btnIconsPDFUltimosSieteDias{
+
     text-align: center;
     position: absolute;
-    left: 110px;
+    left: 165px;
     margin-top: -17px;
     color: white;
     transition: color 0.3s;
 
 }
 
-.btnIcons:hover{
+.btnIconsPDFUltimosSieteDias:hover{
+
     color: #000000;
 }
+
 
 .btnIconsPDFB{
 
@@ -250,14 +289,7 @@
 
 }
 
-.textBotonG{
-    color: white;
-    position: relative;
-    right: 10px;
-    font-size: 14px;
 
-
-}
 
 .btnIconsStar{
 
@@ -269,6 +301,9 @@
     transition: color 0.3s;
 
 }
+
+
+
 
 
 

@@ -298,24 +298,37 @@ export const InicioDashboard = () => {
                         <Text className="Cantidad">
                           {cantidadDeProveedores}
                         </Text>
+
+
+                        
+                        <div className="Boton">
                         <Button className="botonInfo">
                           <Link to={"/administracion/proveedores"}>
                             <span className="textBotonG">Más Información</span>
                             <FaArrowAltCircleRight className="btnIcons" />
                           </Link>
                         </Button>
+
+                        </div>
+                        
                       </Card>
 
                       <Card className="two">
                         <Title className="textGeneral">Total de clientes</Title>
                         <IoAccessibility className="icons" />
                         <Text className="Cantidad">{cantidadDeClientes}</Text>
+
+                        <div className="Boton">
+
                         <Button className="botonInfo">
                           <Link to={"/administracion/clientes"}>
                             <span className="textBotonG">Más Información</span>
                             <FaArrowAltCircleRight className="btnIcons" />
                           </Link>
                         </Button>
+
+                        </div>
+                       
                       </Card>
 
                       <Card className="two">
@@ -323,24 +336,36 @@ export const InicioDashboard = () => {
                         <FaTshirt className="icons" />
                         <Text className="Cantidad">{cantidadDePrendas}</Text>
 
+                        <div className="Boton">
                         <Button className="botonInfo">
                           <Link to={"/administracion/prendas"}>
                             <span className="textBotonG">Más Información</span>
                             <FaArrowAltCircleRight className="btnIcons" />
                           </Link>
                         </Button>
+
+                        </div>
+
+                       
                       </Card>
 
                       <Card className="two">
                         <Title className="textGeneral">Total de diseños</Title>
                         <AiFillCrown className="icons" />
                         <Text className="Cantidad">{cantidadDeDisenos}</Text>
+
+                        
+                        <div className="Boton">
+
                         <Button className="botonInfo">
                           <Link to={"/administracion/disenos"}>
                             <span className="textBotonG">Más Información</span>
                             <FaArrowAltCircleRight className="btnIcons" />
                           </Link>
                         </Button>
+
+                        </div>
+                       
                       </Card>
 
                       <Card className="two">
@@ -349,12 +374,21 @@ export const InicioDashboard = () => {
                         </Title>
                         <FaTruck className="icons" />
                         <Text className="Cantidad">{cantidadDeProductos}</Text>
+
+                        <div className="Boton">
                         <Button className="botonInfo">
                           <Link to={"/administracion/productos"}>
-                            <span className="textBoton">Más Información</span>
+                            <span className="textBotonG">Más Información</span>
                             <FaArrowAltCircleRight className="btnIcons" />
                           </Link>
                         </Button>
+                          
+
+                        </div>
+
+
+
+                       
                       </Card>
                     </Flex>
                   </div>
@@ -373,8 +407,7 @@ export const InicioDashboard = () => {
                         <PiShootingStarThin className="star" />
 
                         <Text className="NombreStar">
-                          {favoritoNombre}
-                          {favoritoApellido}
+                          {favoritoNombre} {favoritoApellido}
                         </Text>
 
                         <Button

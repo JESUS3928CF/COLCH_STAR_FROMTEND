@@ -123,12 +123,12 @@ export const PDFComprasSemana = () => {
           {resumenCompras.map((compra, index) => (
             <View style={styles.fecha} key={index}>
               <Text>{compra.fecha}</Text>
-              <Text style={styles.TotalDeCompra}>${compra.total}</Text>
+              <Text style={styles.TotalDeCompra}>${compra.total.toLocaleString()}</Text>
             </View>
           ))}
         </View>
         <View >
-          <Text style={styles.total}>Total de compras de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
+          <Text style={styles.total}>Total de compras de los últimos 7 días: ${totalComprasUltimosSieteDias.toLocaleString()}</Text>
         </View>
       </Page>
     </Document>
