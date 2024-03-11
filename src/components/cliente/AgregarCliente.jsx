@@ -47,16 +47,16 @@ const AgregarCliente = () => {
       tipoIdentificacion,
     } = data;
 
-    // agregarCliente(
-    //   {
-    //     identificacion: identificacion.trim(),
-    //     tipoIdentificacion: tipoIdentificacion.trim(),
-    //     nombre: nombre.trim(),
-    //     apellido: apellido.trim(),
-    //     telefono: telefono.trim(),
-    //     email: email.trim(),
-    //     direccion: direccion.trim(),
-    //   },
+    agregarCliente(
+      {
+        identificacion: identificacion.trim(),
+        tipoIdentificacion: tipoIdentificacion.trim(),
+        nombre: nombre.trim(),
+        apellido: apellido.trim(),
+        telefono: telefono.trim(),
+        email: email.trim(),
+        direccion: direccion.trim(),
+      },
       reset,
       handleClose
     );
