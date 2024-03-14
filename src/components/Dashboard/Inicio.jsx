@@ -40,7 +40,7 @@ import DetallesProducto from "../producto/DetallesProducto.jsx";
 import { DetallesClientes } from "../cliente/DetallesClientes.jsx";
 import { DetalleDiseno } from "../diseños/DetalleDiseno.jsx";
 import useDetallesCompras from "../../hooks/useDetallesCompras.jsx";
-import Informe from "./informe.jsx";
+import Informe from "./Informe.jsx";
 
 export const InicioDashboard = () => {
   const { proveedores } = useProveedor();
