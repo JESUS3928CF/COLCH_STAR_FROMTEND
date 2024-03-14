@@ -9,7 +9,7 @@ import Buscador from '../chared/Buscador';
 import AgregarOrden from '../ordenes/AgregarOrden.jsx';
 import DetallesOrden from './DetallesOrden.jsx';
 import EditarOrden from './EditarOrden.jsx';
-import style from '../../pages/proveedores.module.css';
+import style from '../../pages/Proveedores.module.css';
 import useOrden from '../../hooks/useOrden.jsx';
 import { useEffect, useState } from 'react';
 import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
