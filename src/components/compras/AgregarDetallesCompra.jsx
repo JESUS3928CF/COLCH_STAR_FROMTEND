@@ -27,8 +27,8 @@ export const AgregarDetallesCompra = () => {
         setValue('fk_prenda', id_prenda);
 
         trigger('fk_prenda');
-
-        if (watch('cantidad') !== '') {
+        
+        if (watch('cantidad') != "") {
             trigger('cantidad');
         }
 
