@@ -29,18 +29,16 @@ export const Informe = ({
   const [valorOrden, setValorOrden] = useState([]);
   const [valorCompra, setValorCompra] = useState([]);
   const [showForm, setShowForm] = useState(false); // Estado para controlar la visibilidad del formulario
+  
 
   const monthChartContainer = useRef(null);
   const monthChartInstance = useRef(null);
+  const fechaHoy = new Date().toISOString().split("T")[0]
 
   useEffect(() => {
     // Obtener fechas del mes actual
     const fechaActual = new Date();
-    const inicioMes = startOfMonth(fechaActual).toISOString().split("T")[0];
-    const finMes = endOfMonth(fechaActual).toISOString().split("T")[0];
-    setFechaInicio(inicioMes);
-    setFechaFin(finMes);
-
+    
     // Crear gráfico con datos del mes actual
     createChart(
       compras,
@@ -50,12 +48,59 @@ export const Informe = ({
   }, [compras, ordenes]);
 
   const handleSearch = () => {
+
+
+    if (!fechaInicio || !fechaFin) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, selecciona ambas fechas',
+        icon: 'error'
+      });
+      return;}
+
+
+
+
     const fechaInicioObj = parseISO(fechaInicio);
     const fechaFinObj = parseISO(fechaFin);
 
     const isValidRange = fechaInicioObj <= fechaFinObj;
+    const isValideFecha = fechaInicio >= fechaHoy
+    const isValideFechaFin = fechaFin >fechaHoy
 
-    if (isValidRange) {
+
+    console.log(fechaInicio)
+
+ if(isValideFecha){
+  Swal.fire({
+    title: 'Error',
+    text: 'La fecha de inicio no puede ser mayor que la fecha actual',
+    icon: 'error'
+  })
+
+  return
+
+
+}else if (isValideFechaFin){
+
+  Swal.fire({
+    title: 'Error',
+    text: 'La fecha final  no puede ser mayor que la fecha actual',
+    icon: 'error'
+  })
+
+  return
+
+}else if (isValideFecha && isValideFechaFin){
+
+  Swal.fire({
+    title: 'Error',
+    text: 'La fecha  de inico y la final no puede ser mayor que la fecha actual',
+    icon: 'error'
+  })
+
+
+} else if (isValidRange) {
       setRangoFechas(
         `${format(fechaInicioObj, "dd/MM/yyyy")} - ${format(
           fechaFinObj,
@@ -67,6 +112,8 @@ export const Informe = ({
       setRangoDeFechas(rangoFechasArray);
       createChart(compras, ordenes, rangoFechasArray);
       setShowForm(false); // Ocultar el formulario después de realizar la búsqueda
+      setFechaInicio('')
+      setFechaFin('')
     } else {
       Swal.fire({
         title: "Error",

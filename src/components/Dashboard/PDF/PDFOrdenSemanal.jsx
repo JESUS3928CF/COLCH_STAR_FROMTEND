@@ -128,12 +128,12 @@ export const PDFOrdenSemanal = () => {
           {resumenVentas.map((orden, index) => (
             <View style={styles.fecha} key={index}>
               <Text>{orden.fecha}</Text>
-              <Text style={styles.totalDeCompra}>${orden.total}</Text>
+              <Text style={styles.totalDeCompra}>${orden.total.toLocaleString()}</Text>
             </View>
           ))}
         </View>
         <View >
-          <Text style={styles.total}>Total de Órdenes de los últimos 7 días: ${totalComprasUltimosSieteDias}</Text>
+          <Text style={styles.total}>Total de Órdenes de los últimos 7 días: ${totalComprasUltimosSieteDias.toLocaleString()}</Text>
         </View>
       </Page>
     </Document>

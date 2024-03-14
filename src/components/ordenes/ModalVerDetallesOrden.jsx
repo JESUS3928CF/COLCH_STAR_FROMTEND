@@ -146,7 +146,7 @@ export const ModalVerDetallesOrden = () => {
                                                         
                                                     }
                                                     handleCloseDetalles={handleCloseDetalles}
-                                                    handleShow={handleShow}
+                                                    handleShow={editar? handleShowEditar : handleShow}
                                                 />
                                             </Carousel.Item>
                                         ))}

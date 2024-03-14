@@ -12,7 +12,8 @@ export const EditarDetallesOrden = ({
   id,
   editarDetalle,
   handleCloseDetalles,
-  handleShow
+  handleShow,
+  editar
 }) => {
   const { productos } = useProducto();
 

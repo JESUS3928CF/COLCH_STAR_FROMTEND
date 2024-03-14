@@ -26,14 +26,14 @@ if(componente==1){
         loading ? (
           <Button className="botonInfoC">
             {" "}
-            <span className="textBoton">Descargar Informe</span>
-            <FaArrowAltCircleRight className="btnIconsPDFB" />
+            <span className="BotonPdfUltimosSieteDias">Descargar Informe</span>
+            <FaArrowAltCircleRight className="btnIconsPDFUltimosSieteDias" />
           </Button>
         ) : (
           <Button className="botonInfoC">
             {" "}
-            <span className="textBoton">Descargar Informe</span>
-            <FaArrowAltCircleRight className="btnIconsPDFB" />
+            <span className="BotonPdfUltimosSieteDias">Descargar Informe</span>
+            <FaArrowAltCircleRight className="btnIconsPDFUltimosSieteDias" />
           </Button>
         )
       }
