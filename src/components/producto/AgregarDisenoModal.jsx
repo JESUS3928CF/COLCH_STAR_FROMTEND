@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AlertaError from '../chared/AlertaError';
 import GuardarModal from '../chared/GuardarModal';
-import { useDisenosContext } from '../../context/disenosProvider';
+import { useDisenosContext } from '../../context/DisenosProvider';
 import style from '../../pages/Productos.module.css';
 import BotonNegro from '../chared/BotonNegro';
 import logo from '../../imgNavbar/cruz.png';

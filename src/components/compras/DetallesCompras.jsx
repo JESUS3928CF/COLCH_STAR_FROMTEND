@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "../prendas/IconCss/style.Icon.css";
 import "../compras/Css/carousel-styles.css";
-import { formatDate, formatMoney } from "../../helpers/formato_de_datos";
+import { formatDate, formatMoney } from "../../helpers/Formato_de_datos";
 import useColors from "../../hooks/useColors.jsx"
 
 export const DetalleCompras = ({ detallesCompras }) => {

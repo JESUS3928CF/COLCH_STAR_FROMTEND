@@ -8,7 +8,7 @@ import HeaderModals from '../chared/HeaderModals';
 import { useForm } from 'react-hook-form';
 import AlertaError from '../chared/AlertaError';
 
-import { useDisenosContext } from '../../context/disenosProvider.jsx';
+import { useDisenosContext } from '../../context/DisenosProvider.jsx';
 import BotonVerde from '../chared/BotonVerde.jsx';
 import { Fragment, useState } from 'react';
 import { Modal } from 'react-bootstrap';

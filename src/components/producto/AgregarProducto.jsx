@@ -20,7 +20,7 @@ import {
 } from '../../Validations/validations';
 import BotonNegro from '../chared/BotonNegro';
 import AgregarDisenoModal from './AgregarDisenoModal';
-import { useDisenosContext } from '../../context/disenosProvider';
+import { useDisenosContext } from '../../context/DisenosProvider.jsx';
 import { Modal } from 'react-bootstrap';
 import BotonVerde from '../chared/BotonVerde';
 import useProducto from '../../hooks/useProducto.jsx';

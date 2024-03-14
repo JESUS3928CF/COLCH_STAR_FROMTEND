@@ -9,7 +9,7 @@ import Buscador from '../../chared/Buscador';
 import Paginador from '../../chared/Paginador';
 import Swal from 'sweetalert2';
 import TablaDisenos from './TablaDisenos';
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../../context/DisenosProvider';
 import AgregarDiseno from '../AgregarDiseno';
 import PrecioDiseno from '../PrecioDiseno';
 import { registrosPorPagina } from '../../../constantes/constantes';

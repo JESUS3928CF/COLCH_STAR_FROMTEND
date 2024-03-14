@@ -29,7 +29,7 @@ import SeleccionarColorsEditar from './SelectColorEditar.jsx';
 import usePrendas from '../../hooks/usePrendas.jsx';
 import AgregarPrendas from './AgregarPrendas.jsx';
 import AgregarColors from './AgregarColors.jsx';
-import { formatMoney } from '../../helpers/formato_de_datos.jsx';
+import { formatMoney } from '../../helpers/Formato_de_datos.jsx';
 
 export const ListarPrendas = () => {
     // conexión para traer todos los datos de la base de datos

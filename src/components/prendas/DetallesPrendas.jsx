@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import './IconCss/style.Icon.css';
 import styles from '../../css-general/estilosReutilizables.module.css';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-import { formatMoney } from '../../helpers/formato_de_datos';
+import { formatMoney } from '../../helpers/Formato_de_datos';
 
 export const DetallesPrendas = ({ detallesPrendas }) => {
     const { setValue } = useForm();

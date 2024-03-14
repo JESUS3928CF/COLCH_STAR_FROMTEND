@@ -17,7 +17,7 @@ import {
 } from '../../Validations/validations.js';
 import { Fragment, useState } from 'react';
 import BotonVerde from '../chared/BotonVerde.jsx';
-import { useDisenosContext } from '../../context/disenosProvider.jsx';
+import { useDisenosContext } from '../../context/DisenosProvider.jsx';
 
 const AgregarDiseno = () => {
     const { agregarDisenoDB } = useDisenosContext();

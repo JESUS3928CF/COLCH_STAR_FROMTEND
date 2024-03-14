@@ -22,7 +22,7 @@ import "../Dashboard/Css/styleDashboard.css";
 import useProveedor from "../../hooks/useProveedor";
 import useClientes from "../../hooks/useCliente";
 import usePrendas from "../../hooks/usePrendas";
-import { useDisenosContext } from "../../context/disenosProvider";
+import { useDisenosContext } from "../../context/DisenosProvider.jsx";
 import useProducto from "../../hooks/useProducto";
 import { Link } from "react-router-dom";
 import useMovimientos from "../../hooks/useMovimientos";

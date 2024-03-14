@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import HeaderModals from "../chared/HeaderModals";
 import "../../css-general/cssgeneral.css";
-import styles from "../../pages/clientes.module.css";
+import styles from "../../pages/Clientes.module.css";
 
 export const DetallesClientes = ({ detallesClientes }) => {
   return (

@@ -6,7 +6,7 @@ import { calcularAnchoDePantalla } from '../../../helpers/calcularAnchoDePantall
 
 import styles from '../../../css-general/CardStyleGenerar.module.css';
 import { resolucionCards } from '../../../constantes/constantes';
-import { useDisenosContext } from '../../../context/disenosProvider';
+import { useDisenosContext } from '../../../context/DisenosProvider';
 
 const TablaDisenos = ({
     disenosFiltrar,

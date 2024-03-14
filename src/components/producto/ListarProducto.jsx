@@ -26,8 +26,8 @@ import {
 import styles from '../../css-general/CardStyleGenerar.module.css';
 import useProducto from '../../hooks/useProducto.jsx';
 import AgregarProducto from './AgregarProducto.jsx';
-import { useDisenosContext } from '../../context/disenosProvider';
-import { formatMoney } from '../../helpers/formato_de_datos.jsx';
+import { useDisenosContext } from '../../context/DisenosProvider';
+import { formatMoney } from '../../helpers/Formato_de_datos.jsx';
 
 
 const ListarProducto = () => {

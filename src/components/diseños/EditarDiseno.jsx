@@ -17,7 +17,7 @@ import {
 } from '../../Validations/validations';
 import AlertaError from '../chared/AlertaError';
 import { Modal } from 'react-bootstrap';
-import { useDisenosContext } from '../../context/disenosProvider';
+import { useDisenosContext } from '../../context/DisenosProvider';
 
 const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
     const { editarDisenoDB } = useDisenosContext();

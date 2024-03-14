@@ -21,7 +21,7 @@ import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import Swal from 'sweetalert2';
 import useProducto from '../../hooks/useProducto.jsx';
-import { formatDate, formatMoney } from '../../helpers/formato_de_datos.jsx';
+import { formatDate, formatMoney } from '../../helpers/Formato_de_datos.jsx';
 
 //Componente
 const ListarOrdenes = () => {

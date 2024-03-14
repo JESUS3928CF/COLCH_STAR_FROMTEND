@@ -3,7 +3,7 @@ import productoAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useDisenosContext } from "./disenosProvider";
+import { useDisenosContext } from "./DisenosProvider";
 import useMovimientos from '../hooks/useMovimientos';
 import clienteAxios from "../config/axios";
 import usePrendas from '../hooks/usePrendas';

@@ -17,7 +17,7 @@ import EditarDisenoModal from './EditarDisenoModal'
 import { Modal } from 'react-bootstrap';
 import useProducto from '../../hooks/useProducto.jsx';
 import useAuth from '../../hooks/useAuth';
-import { useDisenosContext } from '../../context/disenosProvider';
+import { useDisenosContext } from '../../context/DisenosProvider';
 
 
 

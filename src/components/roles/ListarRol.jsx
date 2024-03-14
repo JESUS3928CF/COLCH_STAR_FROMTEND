@@ -22,7 +22,7 @@ import {
 } from '../../constantes/constantes.js';
 import useRol from '../../hooks/useRol.jsx';
 import AgregarRol from './AgregarRol.jsx';
-import { formatDate } from '../../helpers/formato_de_datos.jsx';
+import { formatDate } from '../../helpers/Formato_de_datos.jsx';
 
 const ListarRol = () => {
     const { roles, editarEstado, busqueda, setBusqueda } = useRol();

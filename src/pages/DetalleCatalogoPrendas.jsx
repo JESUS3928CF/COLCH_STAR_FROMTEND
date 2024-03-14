@@ -3,7 +3,7 @@ import HeaderModals from '../components/chared/HeaderModals';
 
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { formatMoney } from '../helpers/formato_de_datos.jsx';
+import { formatMoney } from '../helpers/Formato_de_datos.jsx';
 
 
 
