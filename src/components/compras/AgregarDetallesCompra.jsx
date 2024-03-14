@@ -217,7 +217,9 @@ export const AgregarDetallesCompra = () => {
                                 if (watch('fk_prenda') === 'd') {
                                     // Validar solo números enteros y un punto opcional
                                     if (
-                                        !/^(?!0(\.0)?$)\d+(\.\d+)?$/.test(value)
+                                        !/^(?!0+$)(?!0*\.0*$)\d*(\.\d+)?$/.test(
+                                            value
+                                        )
                                     ) {
                                         return 'La cantidad debe ser mayor que 0 y no debe terminar en punto';
                                     }
@@ -229,6 +231,7 @@ export const AgregarDetallesCompra = () => {
                                     if (value.startsWith('0')) {
                                         return 'La cantidad no puede iniciar con 0';
                                     }
+                                    
                                 }
                                 return true;
                             },
