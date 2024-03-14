@@ -24,6 +24,10 @@ export const AgregarDetallesCompra = () => {
     // Función para manejar el cambio de producto seleccionado
 
     const handleProductoChange = (id_prenda) => {
+        
+        setValue('fk_prenda', id_prenda);
+        trigger('fk_prenda');
+
         setProductoSeleccionado(id_prenda); // Actualizar el estado del producto seleccionado
         const productoEncontrado = Prendas.find(
             (prenda) => prenda.id_prenda == id_prenda
@@ -204,11 +208,13 @@ export const AgregarDetallesCompra = () => {
                                 if (value.includes(' ')) {
                                     return 'No se permiten espacios en blanco';
                                 }
-                            
+
                                 // Verificar si la prenda es 'd' (impresión de estampados)
                                 if (watch('fk_prenda') === 'd') {
                                     // Validar solo números enteros y un punto opcional
-                                    if (!/^(?!0(\.0)?$)\d+(\.\d+)?$/.test(value)) {
+                                    if (
+                                        !/^(?!0(\.0)?$)\d+(\.\d+)?$/.test(value)
+                                    ) {
                                         return 'La cantidad debe ser mayor que 0 y no debe terminar en punto';
                                     }
                                 } else {
@@ -222,8 +228,6 @@ export const AgregarDetallesCompra = () => {
                                 }
                                 return true;
                             },
-                            
-                            
                         })}
                         onChange={(e) => {
                             setValue('cantidad', e.target.value);
