@@ -10,8 +10,8 @@ import '@react-pdf/renderer';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <ErrorBoundary>
-        <React.StrictMode>
+        {/* <React.StrictMode> */}
             <App />
-        </React.StrictMode>
+        {/* </React.StrictMode> */}
     </ErrorBoundary>
 );
