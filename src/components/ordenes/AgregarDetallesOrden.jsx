@@ -5,7 +5,6 @@ import GuardarModal from '../chared/GuardarModal';
 import useProducto from '../../hooks/useProducto';
 import useOrden from '../../hooks/useOrden';
 import { useState } from 'react';
-import { Button } from '@tremor/react';
 
 export const AgregarDetallesOrden = ({handleOpenModal}) => {
     const { productos } = useProducto();
@@ -17,6 +16,12 @@ export const AgregarDetallesOrden = ({handleOpenModal}) => {
 
     // Función para manejar el cambio de producto seleccionado
     const handleProductoChange = (event) => {
+
+         setValue('fk_producto', event.target.value);
+         trigger('fk_producto');
+
+
+
         setProductoSeleccionado(event.target.value); // Actualizar el estado del producto seleccionado
         const productoEncontrado = productos.find(
             (producto) => producto.id_producto == event.target.value
@@ -39,6 +44,8 @@ export const AgregarDetallesOrden = ({handleOpenModal}) => {
         handleSubmit, //Para manejar el envió del formulario
         formState: { errors }, //Ver errores que tiene el formulario
         reset, //Resetea el formulario
+        setValue,
+        trigger,
     } = useForm({
         mode: 'onChange',
     });

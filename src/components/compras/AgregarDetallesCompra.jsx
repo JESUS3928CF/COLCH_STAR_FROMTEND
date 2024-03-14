@@ -24,9 +24,13 @@ export const AgregarDetallesCompra = () => {
     // Función para manejar el cambio de producto seleccionado
 
     const handleProductoChange = (id_prenda) => {
-        
         setValue('fk_prenda', id_prenda);
+
         trigger('fk_prenda');
+
+        if (watch('cantidad') !== '') {
+            trigger('cantidad');
+        }
 
         setProductoSeleccionado(id_prenda); // Actualizar el estado del producto seleccionado
         const productoEncontrado = Prendas.find(
