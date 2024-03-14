@@ -6,9 +6,9 @@ import style from './Catalogo.module.css';
 import { Link } from 'react-router-dom';
 import logoW from '../imgNavbar/whatsapp.svg'
 import logo10 from '../imgNavbar/LogoPNG.png'
-import { useDisenosContext } from '../context/DisenosProvider.jsx';
-import useProducto from '../hooks/useProducto';
-import usePrendas from '../hooks/usePrendas';
+import { useDisenosContext } from '../context/DisenosProvider';
+import useProducto from '../hooks/useProducto.jsx';
+import usePrendas from '../hooks/usePrendas.jsx';
 import { redirigirWhatsApp } from '../constantes/funciones.js';
 import { useState } from 'react';
 import DetalleCatalogoPrendas from './DetalleCatalogoPrendas.jsx';
