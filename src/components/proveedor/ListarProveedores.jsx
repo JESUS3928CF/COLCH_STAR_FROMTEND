@@ -7,7 +7,7 @@ import '../../css-general/cssgeneral.css'
 import '../../css-general/tailwind.min.css'
 import '../../css-general/inicio_style.css'
 import '../../css-general/table.min.css'
-import style from '../../pages/proveedores.module.css';
+import style from '../../pages/Proveedores.module.css';
 import styles from "../../css-general/CardStyleGenerar.module.css";
 import BotonCambioEstado from '../chared/BotonCambioEstado';
 import EditarProveedor from './EditarProveedor';
