@@ -180,7 +180,7 @@ export const Informe = ({
             plugins: {
               title: {
                 display: true,
-                text: "Compras VS Ventas",
+                text: "Compras VS Orden",
 
                 font: {
                   weight: "bold",
