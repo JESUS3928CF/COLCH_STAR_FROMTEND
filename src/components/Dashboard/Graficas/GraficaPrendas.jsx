@@ -46,6 +46,8 @@ const GraficaPrendas = ({ Prendas }) => {
                 text: "Cantidad de prendas por tallas", // Agrega un título a la gráfica
               },
             },
+            responsive:true,
+            maintainAspectRatio: false,
           },
         });
       }
