@@ -188,6 +188,9 @@ export const Informe = ({
               },
             },
 
+            responsive:true,
+            maintainAspectRatio: false,
+
             scales: {
               y: {
                 beginAtZero: true,
@@ -287,7 +290,6 @@ export const Informe = ({
         </form>
       )}
 
-      {/* Botón para descargar el informe en PDF */}
 
       {/* Contenedor de la gráfica */}
       <div className="graficaInforme">
