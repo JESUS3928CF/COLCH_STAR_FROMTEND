@@ -93,7 +93,7 @@ const OrdenesProvider = ({ children }) => {
             );
 
             Swal.fire({
-                title: 'Compra Agregada',
+                title: 'Orden Agregada',
                 text: newOrden.data.message,
                 icon: 'success',
             }).then(() => {
@@ -127,7 +127,7 @@ const OrdenesProvider = ({ children }) => {
             );
 
             Swal.fire({
-                title: 'Compra Agregada',
+                title: 'Orden Agregada',
                 text: actulizarOrden.data.message,
                 icon: 'success',
             }).then(() => {

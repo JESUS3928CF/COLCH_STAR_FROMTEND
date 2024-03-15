@@ -180,13 +180,16 @@ export const Informe = ({
             plugins: {
               title: {
                 display: true,
-                text: "Compras VS Ventas",
+                text: "Compras VS Orden",
 
                 font: {
                   weight: "bold",
                 },
               },
             },
+
+            responsive:true,
+            maintainAspectRatio: false,
 
             scales: {
               y: {
@@ -287,7 +290,6 @@ export const Informe = ({
         </form>
       )}
 
-      {/* Botón para descargar el informe en PDF */}
 
       {/* Contenedor de la gráfica */}
       <div className="graficaInforme">

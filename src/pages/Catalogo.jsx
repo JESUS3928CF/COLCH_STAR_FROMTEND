@@ -147,6 +147,7 @@ const Catalogo = () => {
                                             nuestra colección <br /> de prendas
                                             de vestir <br /> de alta calidad!
                                         </h1>
+                                        
                                     </div>
                                     <div className={style.oe}>
                                         <img
