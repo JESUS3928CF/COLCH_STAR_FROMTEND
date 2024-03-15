@@ -117,7 +117,7 @@ export const PDFOrdenSemanal = () => {
       <Page>
         <Image src={logo} style={styles.logos} />
         <View style={styles.section}>
-          <Text style={styles.titulo}>Órdenes de los ultimos 7 dias</Text>
+          <Text style={styles.titulo}>Ordenes de los ultimos 7 dias</Text>
         </View>
         <View>
           <Text style={styles.border}>Fecha</Text>
@@ -133,7 +133,7 @@ export const PDFOrdenSemanal = () => {
           ))}
         </View>
         <View >
-          <Text style={styles.total}>Total de Órdenes de los últimos 7 días: ${totalComprasUltimosSieteDias.toLocaleString()}</Text>
+          <Text style={styles.total}>Total de Ordenes de los últimos 7 días: ${totalComprasUltimosSieteDias.toLocaleString()}</Text>
         </View>
       </Page>
     </Document>

@@ -271,7 +271,7 @@ export const InicioDashboard = () => {
                     </Card>
 
                     <Card className="two">
-                      <Title className="textCompras">Total de Órdenes</Title>
+                      <Title className="textCompras">Total de Ordenes</Title>
                       <FaMoneyBillTrendUp className="iconsE" />
 
                       <Text className="Cantidad">

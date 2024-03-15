@@ -14,6 +14,23 @@ export const Grafica = ({ ordenes, compras }) => {
     const today = new Date();
     setMonthStartDate(startOfMonth(today));
     setMonthEndDate(endOfMonth(today));
+
+
+
+    const handleReside = ()=>{
+
+      if(monthChartInstance.current){
+        monthChartInstance.current.resize();
+
+      }
+
+      window.addEventListener('resize', handleReside);
+
+      return ()=>{
+        window.removeEventListener('resize', handleReside);
+      }
+
+    }
   }, []);
 
   useEffect(() => {
