@@ -19,7 +19,7 @@ import { calcularAnchoDePantalla } from '../../helpers/calcularAnchoDePantalla';
 import styles from '../../css-general/CardStyleGenerar.module.css';
 
 import AgregarCompra from '../compras/AgregarCompra';
-import { formatDate, formatMoney } from '../../helpers/formato_de_datos';
+import { formatDate, formatMoney } from '../../helpers/Formato_de_datos';
 import { hanPasado15Dias } from '../../helpers/utilidades';
 
 const ListarCompra = () => {

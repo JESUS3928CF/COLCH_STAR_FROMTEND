@@ -1,29 +1,26 @@
-import PropTypes from "prop-types";
-import HeaderModals from "../chared/HeaderModals";
-import { useEffect, useState } from "react";
-import { Carousel } from "react-bootstrap";
-import "../prendas/IconCss/style.Icon.css";
-import "../compras/Css/carousel-styles.css";
-import { formatDate, formatMoney } from "../../helpers/Formato_de_datos";
-import useColors from "../../hooks/useColors.jsx"
+import PropTypes from 'prop-types';
+import HeaderModals from '../chared/HeaderModals';
+import { useEffect, useState } from 'react';
+import { Carousel } from 'react-bootstrap';
+import '../prendas/IconCss/style.Icon.css';
+import '../compras/Css/carousel-styles.css';
+import { formatDate, formatMoney } from '../../helpers/Formato_de_datos.jsx';
+import useColors from '../../hooks/useColors.jsx';
 
 export const DetalleCompras = ({ detallesCompras }) => {
     const [detalles, setDetalles] = useState([]);
 
-    const { colors } = useColors()
+    const { colors } = useColors();
 
     useEffect(() => {
         setDetalles(detallesCompras.detalles || []);
     }, [detallesCompras]);
 
-
     // Función para obtener el nombre del color
     const getNombreColor = (colorId) => {
-        const color = colors.find(color => color.id_color === colorId);
+        const color = colors.find((color) => color.id_color === colorId);
         return color ? color.color : 'Color no encontrado';
     };
-
-
 
     return (
         <div>
@@ -56,9 +53,9 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                         value={
                                                             detallesCompras.proveedor
                                                                 ? detallesCompras
-                                                                    .proveedor
-                                                                    .nombre ||
-                                                                ''
+                                                                      .proveedor
+                                                                      .nombre ||
+                                                                  ''
                                                                 : ''
                                                         }
                                                         readOnly
@@ -75,12 +72,12 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                         <input
                                                             type='text'
                                                             className='form-control'
-                                                            value={
-                                                                formatMoney(detallesCompras.total_de_compra
+                                                            value={formatMoney(
+                                                                detallesCompras.total_de_compra
                                                                     ? detallesCompras.total_de_compra ||
-                                                                    ''
+                                                                          ''
                                                                     : ''
-                                                                )}
+                                                            )}
                                                             readOnly
                                                         />
                                                     </div>
@@ -97,7 +94,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                             value={formatDate(
                                                                 detallesCompras.fecha
                                                                     ? detallesCompras.fecha ||
-                                                                    ''
+                                                                          ''
                                                                     : ''
                                                             )}
                                                             readOnly
@@ -105,13 +102,16 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                     </div>
                                                 </div>
                                                 <div className='row'>
-                                                    <p className='text-center mt-4' style={{
-                                                        fontStyle: 'italic',
-                                                        fontSize: 17,  // Añado estilo al texto (puedes cambiarlo según tus preferencias)
-                                                        color: 'blue'
-
-                                                    }}>
-                                                        Detalle #{index + 1} - {detalles.length}
+                                                    <p
+                                                        className='text-center mt-4'
+                                                        style={{
+                                                            fontStyle: 'italic',
+                                                            fontSize: 17, // Añado estilo al texto (puedes cambiarlo según tus preferencias)
+                                                            color: 'blue',
+                                                        }}
+                                                    >
+                                                        Detalle #{index + 1} -{' '}
+                                                        {detalles.length}
                                                     </p>
                                                     <div className='col-md-12 '>
                                                         <label
@@ -157,27 +157,44 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                         <input
                                                             type='text'
                                                             className='form-control'
-                                                            value={formatMoney(detalle.precio)}
+                                                            value={formatMoney(
+                                                                detalle.precio
+                                                            )}
                                                             readOnly
                                                         />
                                                     </div>
-                                                    {detalle.fk_prenda !== null && (
+                                                    {detalle.fk_prenda !==
+                                                        null && (
                                                         <>
                                                             <div className='col-md-6 '>
-                                                                <label htmlFor='cantidad' className='col-form-label'>Talla:</label>
+                                                                <label
+                                                                    htmlFor='cantidad'
+                                                                    className='col-form-label'
+                                                                >
+                                                                    Talla:
+                                                                </label>
                                                                 <input
                                                                     type='text'
                                                                     className='form-control'
-                                                                    value={detalle.talla}
+                                                                    value={
+                                                                        detalle.talla
+                                                                    }
                                                                     readOnly
                                                                 />
                                                             </div>
                                                             <div className='col-md-6 '>
-                                                                <label htmlFor='cantidad' className='col-form-label'>Color:</label>
+                                                                <label
+                                                                    htmlFor='cantidad'
+                                                                    className='col-form-label'
+                                                                >
+                                                                    Color:
+                                                                </label>
                                                                 <input
                                                                     type='text'
                                                                     className='form-control'
-                                                                    value={getNombreColor(detalle.color_id)}
+                                                                    value={getNombreColor(
+                                                                        detalle.color_id
+                                                                    )}
                                                                     readOnly
                                                                 />
                                                             </div>
@@ -195,7 +212,7 @@ export const DetalleCompras = ({ detallesCompras }) => {
                                                             className='form-control'
                                                             value={formatMoney(
                                                                 detalle.precio *
-                                                                detalle.cantidad
+                                                                    detalle.cantidad
                                                             )}
                                                             readOnly
                                                         />
