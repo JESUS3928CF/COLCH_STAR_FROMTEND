@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
     const registrosPorPagina = registroPorPaginas;
     const totalPaginas = Math.ceil(datos.length / registrosPorPagina);
     let paginaActual;
+
+    const [paginaVigente, setPaginaVigente] = useState(1);
 
     /// Este es el Paginador
     function* crearPaginador(total) {
@@ -15,6 +17,9 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
     }
 
     const filtrarDatos = (e, pagina) => {
+
+        setPaginaVigente(pagina);
+
         const datosFinales = registrosPorPagina * pagina;
         const datosIniciales = datosFinales - registrosPorPagina;
 
@@ -34,7 +39,7 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
                         className='page-link'
                         href='#'
                         style={{ color: 'black' }}
-                        onClick={(e) => filtrarDatos(e, pagina)}
+                        onClick={(e) =>  filtrarDatos(e, pagina)}
                     >
                         {pagina}
                     </a>
@@ -49,7 +54,15 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
         <nav aria-label='Page navigation example'>
             <ul className='pagination'>
                 <li className='page-item'>
-                    <a className='page-link' href='#' aria-label='Previous'>
+                    <a
+                        className='page-link'
+                        href='#'
+                        aria-label='Previous'
+                        onClick={(e) => {
+                            if (paginaVigente == 1) return;
+                            filtrarDatos(e, paginaVigente - 1);
+                        }}
+                    >
                         <span aria-hidden='true' style={{ color: 'black' }}>
                             &laquo;
                         </span>
@@ -57,7 +70,15 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
                 </li>
                 {imprimirPaginador()}
                 <li className='page-item'>
-                    <a className='page-link' href='#' aria-label='Next'>
+                    <a
+                        className='page-link'
+                        href='#'
+                        aria-label='Next'
+                        onClick={(e) => {
+                            if (paginaVigente == totalPaginas) return;
+                            filtrarDatos(e, paginaVigente + 1);
+                        }}
+                    >
                         <span aria-hidden='true' style={{ color: 'black' }}>
                             &raquo;
                         </span>
@@ -71,6 +92,7 @@ const Paginador = ({ setDatosFiltrar, datos, registroPorPaginas = 10 }) => {
 Paginador.propTypes = {
     setDatosFiltrar: PropTypes.func.isRequired,
     datos: PropTypes.array.isRequired,
+    registroPorPaginas: PropTypes.number
 };
 
 export default Paginador;
