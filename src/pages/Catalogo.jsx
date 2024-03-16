@@ -53,22 +53,15 @@ const Catalogo = () => {
     //hacemos el conteno de cuanrto diseños hay guardadoa
     // const cantidadPrendas = Prendas ? Prendas.filter(prenda => prenda.publicado).length : 0;
 
-    // console.log(Prendas)
-
 
     //traemos toda la informacion de producto guardada
     const { productos } = useProducto();
     // const cantidadProductos = productos ? productos.length : 0;
-    // console.log(productos)
 
     //traemos toda la informacion de diseños guardada
     const { disenosDB } = useDisenosContext();
     //hacemos el conteno de cuanrto diseños hay guardadoa
     // const cantidadDisenos = disenosDB ? disenosDB.filter(diseno => diseno.publicado).length : 0;
-    // console.log(disenosDB)
-
-
-
 
     const { auth, loading } = useAuth();
     if (loading == true) return 'Cargando...';
@@ -111,7 +104,12 @@ const Catalogo = () => {
 
                 <div className={style.profile}>
                     {auth?.usuario?.id_usuario ? (
-                        <Link to={`/administracion/${auth.usuario.permisos[0]}`}> Entrar </Link>
+                        <Link
+                            to={`/administracion/${auth.usuario.permisos[0]}`}
+                        >
+                            {' '}
+                            Entrar{' '}
+                        </Link>
                     ) : (
                         <Link to={'/login'}> Iniciar sesión </Link>
                     )}
@@ -136,8 +134,9 @@ const Catalogo = () => {
                             )
                             .map((producto, index) => (
                                 <div
-                                    className={`carousel-item ${index === 0 ? 'active' : ''
-                                        }`}
+                                    className={`carousel-item ${
+                                        index === 0 ? 'active' : ''
+                                    }`}
                                     key={index}
                                 >
                                     <div className={style['home-text']}>
@@ -147,16 +146,16 @@ const Catalogo = () => {
                                             nuestra colección <br /> de prendas
                                             de vestir <br /> de alta calidad!
                                         </h1>
-                                        
                                     </div>
                                     <div className={style.oe}>
                                         <img
                                             key={index}
                                             src={
                                                 producto.imagen
-                                                    ? `${import.meta.env
-                                                        .VITE_BACKEND_URL
-                                                    }/${producto.imagen}`
+                                                    ? `${
+                                                          import.meta.env
+                                                              .VITE_BACKEND_URL
+                                                      }/${producto.imagen}`
                                                     : ''
                                             }
                                             className={`d-block w-100 ${style.img} ${style.otro}`}
@@ -225,10 +224,12 @@ const Catalogo = () => {
                 </div>
             </section> */}
 
-
             {/* //productoss */}
             <div className={style.color}>
-                <section className={style.products + ' ' + style.section} id='productos'>
+                <section
+                    className={style.products + ' ' + style.section}
+                    id='productos'
+                >
                     <div className={style.heading}>
                         <h1>
                             Nuestros Productos <br />
@@ -255,24 +256,19 @@ const Catalogo = () => {
                                         }
                                         src={
                                             productos.imagen
-                                                ? `${import.meta.env
-                                                    .VITE_BACKEND_URL
-                                                }/${productos.imagen}`
+                                                ? `${
+                                                      import.meta.env
+                                                          .VITE_BACKEND_URL
+                                                  }/${productos.imagen}`
                                                 : ''
                                         }
                                         alt=''
                                         onClick={() => {
-                                            handleShowProducto()
-    
-    
+                                            handleShowProducto();
+
                                             setDetallesProductoCatalogo(
                                                 productos
-                                            )
-    
-    
-    
-    
-    
+                                            );
                                         }}
                                     />
                                     <div
@@ -297,7 +293,10 @@ const Catalogo = () => {
             </div>
 
             {/* //prendas */}
-            <section className={style.products + ' ' + style.section} id='prendas'>
+            <section
+                className={style.products + ' ' + style.section}
+                id='prendas'
+            >
                 <div className={style.heading}>
                     <h1>
                         Nuestras Prendas <br />
@@ -313,29 +312,27 @@ const Catalogo = () => {
                     ).map((Prenda, index) => (
                         <div className={style.box} key={index}>
                             <img
-                                className={style.imagenProducto + ' ' + style.img}
+                                className={
+                                    style.imagenProducto + ' ' + style.img
+                                }
                                 src={
                                     Prenda.imagen
-                                        ? `${import.meta.env.VITE_BACKEND_URL}/${Prenda.imagen}`
+                                        ? `${
+                                              import.meta.env.VITE_BACKEND_URL
+                                          }/${Prenda.imagen}`
                                         : ''
                                 }
                                 alt=''
                                 onClick={() => {
-                                    handleShow()
+                                    handleShow();
 
-
-                                    setDetallesPrendasCatalogo(
-                                        Prenda
-                                    )
-
-
-
-
-
+                                    setDetallesPrendasCatalogo(Prenda);
                                 }}
                             />
                             <div className={style.informacionProducto}></div>
-                            <span className={style.discount}>{Prenda.nombre}</span>
+                            <span className={style.discount}>
+                                {Prenda.nombre}
+                            </span>
                             <img
                                 onClick={redirigirWhatsApp}
                                 className={style.iconoWhatapp + ' ' + style.img}
@@ -345,8 +342,6 @@ const Catalogo = () => {
                         </div>
                     ))}
                 </div>
-
-
             </section>
 
             {/* //diseñossss */}
@@ -377,9 +372,10 @@ const Catalogo = () => {
                                     }
                                     src={
                                         diseno.imagen
-                                            ? `${import.meta.env
-                                                .VITE_BACKEND_URL
-                                            }/${diseno.imagen}`
+                                            ? `${
+                                                  import.meta.env
+                                                      .VITE_BACKEND_URL
+                                              }/${diseno.imagen}`
                                             : ''
                                     }
                                     alt=''
@@ -410,15 +406,18 @@ const Catalogo = () => {
                     id='about'
                 >
                     <img className={style.img} src={logo10} alt='' />
-                    <div className={style.abouttext} style={{ textAlign: 'justify' }} >
+                    <div
+                        className={style.abouttext}
+                        style={{ textAlign: 'justify' }}
+                    >
                         <span>Nosotros</span>
                         <p>
-                            En <strong>Colch Star</strong>, nos dedicamos apasionadamente a
-                            plasmar diseños únicos en prendas de vestir. Desde
-                            nuestra fundación en 2022, nos hemos destacado en la
-                            industria de los estampados de ropa, brindando
-                            soluciones creativas y de alta calidad a nuestros
-                            clientes.
+                            En <strong>Colch Star</strong>, nos dedicamos
+                            apasionadamente a plasmar diseños únicos en prendas
+                            de vestir. Desde nuestra fundación en 2022, nos
+                            hemos destacado en la industria de los estampados de
+                            ropa, brindando soluciones creativas y de alta
+                            calidad a nuestros clientes.
                         </p>
                         <p>
                             Bienvenidos a Colch Star, donde transformamos
@@ -430,17 +429,22 @@ const Catalogo = () => {
                 </section>
 
                 <div className={style.copyright}>
-                    Copyright &copy; 2023 Colch Star. Todos los derechos
-                    reservados.
+                    Copyright &copy; {new Date().getFullYear()} Colch Star.
+                    Todos los derechos reservados.
                 </div>
-                <DetalleCatalogoPrendas DetallesPrendasCatalogo={DetallesPrendasCatalogo} show={show}
+                <DetalleCatalogoPrendas
+                    DetallesPrendasCatalogo={DetallesPrendasCatalogo}
+                    show={show}
                     handleClose={handleClose}
-                    handleShow={handleShow} />
+                    handleShow={handleShow}
+                />
 
-
-                <DetalleCatalogoProducto DetallesProductoCatalogo={DetallesProductoCatalogo} showProducto={showProducto}
+                <DetalleCatalogoProducto
+                    DetallesProductoCatalogo={DetallesProductoCatalogo}
+                    showProducto={showProducto}
                     handleCloseProducto={handleCloseProducto}
-                    handleShowProducto={handleShowProducto} />
+                    handleShowProducto={handleShowProducto}
+                />
             </div>
         </div>
     );

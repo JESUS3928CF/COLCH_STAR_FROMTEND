@@ -40,7 +40,6 @@ const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
         // Elimina el elemento en el índice especificado
         nuevosDisenos.splice(index, 1);
 
-        console.log(nuevosDisenos)
         // Actualiza el estado con la nueva array sin el elemento eliminado
         setSelectedDisenoNombre(nuevosDisenos);
 
@@ -58,7 +57,6 @@ const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
         const nuevoDiseno = detalle_diseno.find(
             (diseno) => diseno.id_diseno == data.id_diseno
         );
-        console.log(nuevoDiseno)
        
 
         setSelectedDisenoNombre([...selectedDisenoNombre, nuevoDiseno]);
@@ -71,7 +69,6 @@ const EditarDisenoModal = ({ showw, handleClosee, editarProducto }) => {
 
     //estado pa los diseños
     const [detalle_diseno, setDetalle_diseno] = useState([]);
-    //  console.log( detalle_diseno)
 
     useEffect(() => {
         // Realizar una solicitud para obtener la lista de roles desde el servidor

@@ -89,7 +89,6 @@ const ColorsProvider = ({ children }) => {
                 handleClose();
             });
         } catch (error) {
-            console.log(error);
             // Lanzar alerta de error
             Swal.fire({
                 title: 'Error',

@@ -57,7 +57,6 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
 
     useEffect(() => {
         if (detallesPrendas) {
-            // console.log('Detalles:',detallesPrendas);
             setValue('publicado', detallesPrendas.publicado);
             setValue('estado', detallesPrendas.estado);
             setValue('colores', detallesPrendas.color);

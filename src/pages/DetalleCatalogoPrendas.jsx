@@ -15,8 +15,6 @@ const DetalleCatalogoPrendas = ({ DetallesPrendasCatalogo, show, handleClose }) 
                 show={show}
                 onHide={() => {
                     handleClose();
-                    // console.log(DetallesPrendasCatalogo)
-                    // setSelectedDisenoNombre([])
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModal'

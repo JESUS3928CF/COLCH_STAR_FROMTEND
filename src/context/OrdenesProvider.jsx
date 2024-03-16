@@ -56,7 +56,10 @@ const OrdenesProvider = ({ children }) => {
 
             setOrdenes(data.reverse());
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: `Error al consultar las ordenes`,
+                icon: 'error',
+            });
         }
     };
 
@@ -67,7 +70,11 @@ const OrdenesProvider = ({ children }) => {
             const { data } = await clienteAxios.get('/DetalleOrden', config);
             setDetailsOrden(data);
         } catch (error) {
-            console.log('error');
+            Swal.fire({
+                title: `Error al consultar los detalles de ordenes`,
+                icon: 'error',
+            });
+        
         }
     };
 
@@ -103,7 +110,6 @@ const OrdenesProvider = ({ children }) => {
                 handleClose(reset);
             });
         } catch (error) {
-            console.log(error);
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error. Vuelva a intentarlo.',
@@ -137,7 +143,6 @@ const OrdenesProvider = ({ children }) => {
                 handleClose(reset);
             });
         } catch (error) {
-            console.log(error);
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error. Vuelva a intentarlo.',
@@ -233,7 +238,6 @@ const OrdenesProvider = ({ children }) => {
                 cantidadFaltante =
                     detalle[0].cantidad_total - validarCantidad.cantidad;
 
-                console.log(cantidadFaltante, ' cantidades necesarias');
 
                 if (cantidadFaltante > 0) {
                     prendasFaltantes.push({
@@ -286,11 +290,11 @@ const OrdenesProvider = ({ children }) => {
             if (!validarPrendasExistentes(orden, "Para poder empezar con la producción de esta orden necesitas comprar")) return;
         } else if (estado === "Finalizada") {
             // el producto la prenda y la cantidad en cada for, entonces llamo todas las prendas, los productos y ya busco en sus detalles
-            if (!validarPrendasExistentes(orden, "La compra fue cancelada intende comprar de nuevo")) return;
+            if (!validarPrendasExistentes(orden, "La compra fue cancelada intente comprar de nuevo")) return;
         }
 
         Swal.fire({
-            title: `¿Deseas cambiar el estado de la venta a ${estado}?`,
+            title: `¿Deseas cambiar el estado de la orden a ${estado}?`,
             // text: "Este ",
             icon: 'question',
             iconColor: '#fa0000',
@@ -328,7 +332,6 @@ const OrdenesProvider = ({ children }) => {
                         );
                     }
                 } catch (error) {
-                    console.error('Error al realizar la petición:', error);
                     Swal.fire(
                         'Error',
                         'Hubo un problema al cambiar el estado',

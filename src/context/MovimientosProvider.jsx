@@ -5,7 +5,7 @@ import clienteAxios from "../config/axios";
 const movimientosContext= createContext()
 
 const  MovimientosProvider=({children})=>{
-    const {config, auth}= useAuth()
+    const { auth}= useAuth()
 
     const [movimiento,setMovimiento]= useState([])
     const [movimientoDb, setMovimientoDb]= useState([])

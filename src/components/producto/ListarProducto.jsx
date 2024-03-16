@@ -113,7 +113,6 @@ const ListarProducto = () => {
             setDisenos(producto.disenos)
         }
 
-        // console.log(producto)
         setEditarProducto(producto);
         handleShow();
     };
@@ -220,8 +219,7 @@ const ListarProducto = () => {
                                             <BotonNegro
                                                 text='Editar'
                                                 onClick={() => {
-                                                    handleEditClick(producto)
-                                                    
+                                                    handleEditClick(producto);
                                                 }}
                                             />
                                         </td>
@@ -240,6 +238,13 @@ const ListarProducto = () => {
                                 <div
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
+                                    <img
+                                        className='card-img-top'
+                                        src={`${
+                                            import.meta.env.VITE_BACKEND_URL
+                                        }/${producto.imagen}`}
+                                        alt={producto.nombre}
+                                    ></img>
                                     <div className='card-body'>
                                         <p className={styles.text}>
                                             Nombre:{' '}
@@ -251,7 +256,9 @@ const ListarProducto = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{formatMoney(producto.precio)}</span>
+                                            <span>
+                                                {formatMoney(producto.precio)}
+                                            </span>
                                         </p>
 
                                         <div className='row pt-3'>

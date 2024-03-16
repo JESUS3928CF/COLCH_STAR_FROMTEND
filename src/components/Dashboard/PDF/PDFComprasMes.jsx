@@ -10,6 +10,7 @@ import {
 import { parseISO, getMonth, getYear } from "date-fns";
 import logo from "../PDF/LogoPNGModificado.png";
 import clienteAxios from "../../../config/axios";
+import Swal from "sweetalert2";
 
 const PDFComprasMes = () => {
   const [resumenCompras, setResumenCompras] = useState([]);
@@ -78,7 +79,10 @@ const PDFComprasMes = () => {
 
         setResumenCompras(Object.values(resumen));
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: `${error}`,
+            icon: 'error',
+        });
       }
     };
 
@@ -121,7 +125,10 @@ const PDFComprasMes = () => {
 
         setResumenOrdenes(Object.values(resumen));
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: `${error}`,
+            icon: 'error',
+        });
       }
     };
 

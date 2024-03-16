@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import clienteAxios from "../config/axios";
+import Swal from "sweetalert2";
 
 const DetalleCompraContext= createContext()
 
@@ -21,7 +22,11 @@ const  DetalleCompraProvider=({children})=>{
             setDetalleCompra(res.data)
 
         }catch (error){
-            console.error('Error al consultar los movimientos',error)
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al consultar los movimientos, Intente de nuevo',
+                icon: 'error',
+            }).then(() => {});
         }
         
     }

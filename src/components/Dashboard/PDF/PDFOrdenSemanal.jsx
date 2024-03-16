@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import { format, subDays, startOfToday, parseISO } from "date-fns";
 import clienteAxios from "../../../config/axios";
 import logo from "../PDF/LogoPNGModificado.png";
+import Swal from "sweetalert2";
 
 export const PDFOrdenSemanal = () => {
   const [resumenVentas, setResumenVentas] = useState([]);
@@ -46,7 +47,10 @@ export const PDFOrdenSemanal = () => {
         setResumenVentas(Object.values(resumen));
         
       } catch (error) {
-        console.log(error);
+        Swal.fire({
+            title: `${error}`,
+            icon: 'error',
+        });
       }
     };
 

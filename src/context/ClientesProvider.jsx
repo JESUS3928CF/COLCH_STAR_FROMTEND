@@ -28,7 +28,10 @@ const ClientesProvider = ({ children }) => {
 
             setClientes(data.reverse());
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: `Error al consultar los clientes`,
+                icon: 'error',
+            });
         }
     };
     useEffect(() => {
@@ -145,7 +148,11 @@ const ClientesProvider = ({ children }) => {
                     }
                 });
         } else {
-            console.error('No se pudo obtener el ID del cliente');
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error, No se pudo obtener el ID del cliente intenta de nuevo',
+                icon: 'error',
+            }).then(() => {});
         }
     };
 

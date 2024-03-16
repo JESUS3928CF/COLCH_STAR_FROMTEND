@@ -69,6 +69,7 @@ const EditarProducto = ({ editarProducto, handleClose, show, handleClosee, handl
             setValue('precio', editarProducto.precio);
             setValue('publicado', editarProducto.publicado);
             setValue("fk_prenda", editarProducto.fk_prenda);
+            setValue('imagen', []);
 
         }
     }, [editarProducto, show]);

@@ -38,18 +38,20 @@ const EditarDiseno = ({ detalleDiseno, handleClose, show }) => {
         if (detalleDiseno) {
             setValue('nombre', detalleDiseno.nombre);
             setValue('publicado', detalleDiseno.publicado);
+            setValue('imagen', []);
             // Añade las demás propiedades aquí
         }
     }, [detalleDiseno, show]);
 
     const editarDiseno = handleSubmit(async (data) => {
         /// Crear un form-data por que así el back puede recibir imágenes
-        const formData = new FormData();
+        let formData = new FormData();
         formData.append('nombre', data?.nombre.trim());
         formData.append('publicado', data?.publicado);
         formData.append('imagen', data?.imagen[0]);
-
+        
         editarDisenoDB(formData, detalleDiseno, handleClose);
+
     });
 
     return (

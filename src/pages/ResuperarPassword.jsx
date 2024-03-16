@@ -25,7 +25,6 @@ const RecuperarPassword = () => {
                 await clienteAxios(`/usuarios/password-perdida/${token}`);
                 setTokenValid(true);
             } catch (error) {
-                console.log(error);
                 Swal.fire({
                     title: `Hubo un error con el enlace`,
                     icon: 'error',
@@ -53,13 +52,11 @@ const RecuperarPassword = () => {
     // const navigate = useNavigate();
 
     const validarEmail = handleSubmit( async (data) => {
-        console.log(data);
 
         try {
             const url = `/usuarios/password-perdida/${token}`;
             const res =  await clienteAxios.post(url, {contrasena: data.contrasena});
 
-            console.log(res.data.message);
             // Lanzar alerta del producto agregado
             Swal.fire({
                 title: res.data.message,
@@ -68,7 +65,6 @@ const RecuperarPassword = () => {
                 navigate('/login');
             });
         } catch (error) {
-            console.log(error)
             Swal.fire({
                 title: `Hubo un error`,
                 icon: 'error',

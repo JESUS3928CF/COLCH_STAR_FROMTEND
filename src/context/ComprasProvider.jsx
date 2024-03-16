@@ -46,7 +46,10 @@ const ComprasProviders = ({ children }) => {
 
             setCompras(data.reverse());
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: `error al consultar las compras`,
+                icon: 'error',
+            });
         }
     };
 
@@ -83,7 +86,6 @@ const ComprasProviders = ({ children }) => {
                 consultPrendas();
             });
         } catch (error) {
-            console.log(error);
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un error. Vuelva a intentarlo.',

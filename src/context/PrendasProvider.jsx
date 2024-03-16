@@ -24,7 +24,11 @@ const PrendasProvider = ({ children }) => {
 
             setPrendas(data.reverse());
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error. Vuelva a intentarlo.',
+                icon: 'error',
+            });
         }
     };
 

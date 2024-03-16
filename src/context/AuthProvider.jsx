@@ -41,7 +41,6 @@ const AuthProvider = ({ children }) => {
                 const { data } = await clienteAxios('/usuarios/perfil', config);
                 setAuth(data);
             } catch (error) {
-                console.log(error.response.data.message);
                 /// Esto es para cerrar sección para cuando el token expire o no sea valido
                 if(error.response.data.message === "Token no valido"){
                     singOff();

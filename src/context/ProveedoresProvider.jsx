@@ -27,7 +27,11 @@ const ProveedoresProvider = ({ children }) => {
 
             setProveedores(data.reverse());
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al consultar los proveedores. Vuelva a intentarlo.',
+                icon: 'error',
+            });
         }
     };
     useEffect(() => {

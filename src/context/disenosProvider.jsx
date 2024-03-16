@@ -34,7 +34,6 @@ export const DisenosProvider = ({ children }) => {
     };
 
     const eliminarDiseno = (index) => {
-        console.log(index);
         const nuevosDisenos = [...disenos];
         nuevosDisenos.splice(index, 1);
         setDisenos(nuevosDisenos);
@@ -193,7 +192,6 @@ export const DisenosProvider = ({ children }) => {
                 handleClose();
             });
         } catch (error) {
-            console.log(error);
             // Lanzar alerta de error
             Swal.fire({
                 title: 'Error',

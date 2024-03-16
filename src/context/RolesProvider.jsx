@@ -30,7 +30,11 @@ const RolesProvider = ({ children }) => {
 
             setRoles(data);
         } catch (error) {
-            console.log(error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al consultar los roles. Vuelva a intentarlo.',
+                icon: 'error',
+            });
         }
     };
     useEffect(() => {
@@ -97,7 +101,6 @@ const RolesProvider = ({ children }) => {
                     config
                 )
                 .then((response) => {
-                    console.log('Rol actualizado:', response.data);
                     Swal.fire({
                         title: 'Rol actualizado',
                         text: response.data.message,

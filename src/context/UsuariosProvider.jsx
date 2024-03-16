@@ -26,7 +26,11 @@ const UsuariosProvider = ({ children }) => {
 
       setUsuarios(data);
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+          title: 'Error',
+          text: 'Error al consultar los usuarios. Vuelva a intentarlo.',
+          icon: 'error',
+      });
     }
   };
   useEffect(() => {
@@ -88,7 +92,6 @@ const UsuariosProvider = ({ children }) => {
           config
         )
         .then((response) => {
-          console.log("Usuario Actualizado:", response.data);
           Swal.fire({
             title: "Usuario Actualizado",
             text: response.data.message,

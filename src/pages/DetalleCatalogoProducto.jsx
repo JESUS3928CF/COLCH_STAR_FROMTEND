@@ -16,8 +16,6 @@ const DetalleCatalogoProducto  = ({ DetallesProductoCatalogo, showProducto, hand
                 show={showProducto}
                 onHide={() => {
                     handleCloseProducto();
-                    // console.log(DetallesPrendasCatalogo)
-                    // setSelectedDisenoNombre([])
                 }}
                 className='modal d-flex align-items-center justify-content-center '
                 id='myModal'

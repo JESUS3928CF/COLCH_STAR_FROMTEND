@@ -68,9 +68,6 @@ export const Informe = ({
     const isValideFecha = fechaInicio >= fechaHoy
     const isValideFechaFin = fechaFin >fechaHoy
 
-
-    console.log(fechaInicio)
-
  if(isValideFecha){
   Swal.fire({
     title: 'Error',

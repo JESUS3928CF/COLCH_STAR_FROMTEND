@@ -41,8 +41,11 @@ const ProductosProvider = ({ children }) => {
             const { data } = await productoAxios.get('/productos');
 
             setProductos(data.reverse());
-        } catch (error) {
-            console.log(error);
+        } catch (error) {Swal.fire({
+            title: 'Error',
+            text: 'Hubo un error. Vuelva a intentarlo.',
+            icon: 'error',
+        });
         }
     };
 
@@ -53,7 +56,11 @@ const ProductosProvider = ({ children }) => {
             const { data } = await clienteAxios.get('/detalle_diseno', config);
             setDetailsDisenos(data);
         } catch (error) {
-            console.log('Error al buscar los detalles de Disenos ');
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al buscar los detalles de Diseños Vuelva a intentarlo.',
+                icon: 'error',
+            });
         }
     };
 
@@ -63,7 +70,6 @@ const ProductosProvider = ({ children }) => {
     }, [auth]);
 
     const agregarProducto = async (producto, reset, handleClose) => {
-        // console.log(producto)
         try {
             const res = await productoAxios.post('/productos', producto, {
                 headers: {
@@ -114,8 +120,6 @@ const ProductosProvider = ({ children }) => {
                 });
             }
         } finally {
-            // console.log("Hola")
-            // console.log(setDisenos([]));
             setSelectedDisenoNombre([]);
         }
     };
@@ -126,7 +130,6 @@ const ProductosProvider = ({ children }) => {
         // Se guardan los datos a cambiar en el objeto data
         const { nombre, cantidad, fk_prenda, publicado, imagen } = data;
 
-        console.log(disenos);
         if (editarProducto.id_producto) {
             axios
                 .patch(
@@ -148,7 +151,6 @@ const ProductosProvider = ({ children }) => {
                     }
                 )
                 .then((response) => {
-                    console.log('Producto Actualizado:', response.data);
                     Swal.fire({
                         title: 'Producto Actualizado',
                         text: response.data.message,

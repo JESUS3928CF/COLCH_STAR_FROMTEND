@@ -78,7 +78,11 @@ export const ListarPrendas = () => {
 
     const informacionModal = (Prendas) => {
         if (!Prendas.estado) {
-            return Swal.fire('Accion invalida!', 'Esta prenda no se puede editar porque está inhabilitada', 'error');
+            return Swal.fire(
+                'Accion invalida!',
+                'Esta prenda no se puede editar porque está inhabilitada',
+                'error'
+            );
         }
         setDetallesPrendas(Prendas);
 
@@ -113,11 +117,7 @@ export const ListarPrendas = () => {
                             <Buscador
                                 setDatosFiltrar={setPrendasFiltrar}
                                 datos={Prendas}
-                                camposFiltrar={[
-                                    'nombre',
-                                    'cantidad',
-                                    'precio',
-                                ]}
+                                camposFiltrar={['nombre', 'cantidad', 'precio']}
                                 busqueda={busqueda}
                                 setBusqueda={setBusqueda}
                             />
@@ -210,6 +210,13 @@ export const ListarPrendas = () => {
                                 <div
                                     className={`card mb-4 ${styles.contenedor_card}`}
                                 >
+                                    <img
+                                        className='card-img-top'
+                                        src={`${
+                                            import.meta.env.VITE_BACKEND_URL
+                                        }/${Prendas.imagen}`}
+                                        alt={Prendas.nombre}
+                                    ></img>
                                     <div className='card-body'>
                                         <p className={styles.text}>
                                             Nombres:{' '}
@@ -221,7 +228,9 @@ export const ListarPrendas = () => {
                                         </p>
                                         <p className={styles.text}>
                                             Precio:{' '}
-                                            <span>{formatMoney(Prendas.precio)}</span>
+                                            <span>
+                                                {formatMoney(Prendas.precio)}
+                                            </span>
                                         </p>
 
                                         <div className='row pt-3'>
@@ -336,8 +345,8 @@ export const ListarPrendas = () => {
             />
             <SeleccionarColorsEditar
                 detallesPrendas={detallesPrendas}
-                 handleClosee = {() => {}}
-                 showw = {false}
+                handleClosee={() => {}}
+                showw={false}
             />
         </>
     );

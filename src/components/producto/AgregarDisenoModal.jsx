@@ -45,7 +45,6 @@ const AgregarDisenoModal = ({ handleClosee, showw }) => {
 
         //funcion que se ejecuta aal dalr click en el diseno seleciconado para mostrar
         const agregarNuevoDiseno = (data) => {
-            // console.log(data);
 
 
             //para mostrar los diseños al

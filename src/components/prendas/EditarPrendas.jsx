@@ -56,6 +56,7 @@ const EditarPrendas = ({
             setValue('publicado', detallesPrendas.publicado);
             setValue('tallas', detallesPrendas.Talla);
             setValue('colores', detallesPrendas.color);
+            setValue('imagen', []);
         }
     }, [detallesPrendas, show]);
 
