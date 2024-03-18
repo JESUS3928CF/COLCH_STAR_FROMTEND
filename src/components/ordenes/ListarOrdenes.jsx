@@ -63,16 +63,15 @@ const ListarOrdenes = () => {
         ) {
             return Swal.fire(
                 'Acción inválida!',
-                `Esta orden está en ${
-                    orden.estado_de_orden === 'Finalizada'
-                        ? 'Finalizada'
-                        : orden.estado_de_orden === 'Entregada'
-                            ? 'Entregada'
-                            : 'Proceso'
+                `Esta orden está en ${orden.estado_de_orden === 'Finalizada'
+                    ? 'Finalizada'
+                    : orden.estado_de_orden === 'Entregada'
+                        ? 'Entregada'
+                        : 'Proceso'
                 }, no se puede editar`,
                 'error'
             );
-            
+
         }
         setDetallesOrden(orden.detalles);
 
@@ -129,11 +128,20 @@ const ListarOrdenes = () => {
                 `Para cambiar el estado a 'Entregada', primero debe pasar por 'Finalizada'!!`,
                 'error'
             );
-        } 
-        // Si no hay restricciones, permite cambiar el estado
-        cambiarEstadoDeOrden(e.target.value, orden);
+        } else if (
+            e.target.value === 'Cancelada' &&
+            orden.estado_de_orden === 'Creada'
+        ) {
+            // Si el nuevo estado es 'Cancelada' y el estado actual es 'Creada', permitir el cambio
+            cambiarEstadoDeOrden(e.target.value, orden);
+        } else {
+            return Swal.fire(
+                'Acción inválida!',
+                `No se puede cambiar el estado a '${e.target.value}', porque esta orden esta '${orden.estado_de_orden}'!!`,
+                'error'
+            );
+        }
     };
-
     // solicitud  a la url
     useEffect(() => {
         if (busqueda === '') {
@@ -237,29 +245,31 @@ const ListarOrdenes = () => {
                                             />
                                         </td>
                                         <td>
-                                        <select
-                                            name='estado_de_orden'
-                                            value={orden.estado_de_orden}
-                                            onChange={(e) =>
-                                                handleValidarCambioDeOrden(
-                                                    e,
-                                                    orden
-                                                )
-                                            }
-                                        >
-                                            <option value='Creada'>
-                                                Creada
-                                            </option>
-                                            <option value='En Proceso'>
-                                                En Proceso
-                                            </option>
-                                            <option value='Finalizada'>
-                                                Finalizada
-                                            </option>
-                                            <option value='Entregada'>
-                                                Entregada
-                                            </option>
-                                        </select>
+                                            <select
+                                                name='estado_de_orden'
+                                                value={orden.estado_de_orden}
+                                                onChange={(e) =>
+                                                    handleValidarCambioDeOrden(
+                                                        e,
+                                                        orden
+                                                    )
+                                                }
+                                            > <option value='Cancelada'>
+                                                    Cancelada
+                                                </option>
+                                                <option value='Creada'>
+                                                    Creada
+                                                </option>
+                                                <option value='En Proceso'>
+                                                    En Proceso
+                                                </option>
+                                                <option value='Finalizada'>
+                                                    Finalizada
+                                                </option>
+                                                <option value='Entregada'>
+                                                    Entregada
+                                                </option>
+                                            </select>
                                         </td>
                                         <td>
                                             <BotonNegro
@@ -370,8 +380,8 @@ const ListarOrdenes = () => {
                                                     text='Editar'
                                                     modalToOpen={
                                                         !orden.estado_de_orden === 'Finalizada' ||
-                                                        !orden.estado_de_orden === 'Entregada' || 
-                                                        !orden.estado_de_orden === 'En Proceso'
+                                                            !orden.estado_de_orden === 'Entregada' ||
+                                                            !orden.estado_de_orden === 'En Proceso'
                                                             ? '#modalEditar'
                                                             : ''
                                                     }
