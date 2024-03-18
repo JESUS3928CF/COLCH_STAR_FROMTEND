@@ -5,6 +5,7 @@ import profile from '../imgNavbar/1153861.png';
 import { useEffect, useState } from 'react';
 import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { calcularAnchoDePantalla } from '../helpers/calcularAnchoDePantalla';
+
 import useAuth from '../hooks/useAuth';
 
 const MenuLateral = () => {
@@ -35,8 +36,9 @@ const MenuLateral = () => {
     return (
         <>
             <div
-                className={`${styles.sidebar} ${anchoPantalla <= 1200 ? styles.close : ''
-                    } `}
+                className={`${styles.sidebar} ${
+                    anchoPantalla <= 1200 ? styles.close : ''
+                } `}
             >
                 <div className={`${styles.logo_details}`}>
                     <i>
@@ -50,15 +52,18 @@ const MenuLateral = () => {
                     <span className={styles.logo_name}>Colch Star</span>
                 </div>
                 <ul className={styles.nav_links}>
-
                     {auth.usuario.permisos.includes('') ? (
                         <li>
                             <Link to={'/administracion'}>
                                 <i className='bx bx-grid-alt'></i>
-                                <span className={styles.link_name}>Dashboard</span>
+                                <span className={styles.link_name}>
+                                    Dashboard
+                                </span>
                             </Link>
 
-                            <ul className={`${styles.sub_menu} ${styles.blank}`}>
+                            <ul
+                                className={`${styles.sub_menu} ${styles.blank}`}
+                            >
                                 <li>
                                     <Link
                                         to={'/administracion'}
@@ -69,7 +74,6 @@ const MenuLateral = () => {
                                 </li>
                             </ul>
                         </li>
-
                     ) : (
                         ''
                     )}
@@ -95,7 +99,7 @@ const MenuLateral = () => {
                     ) : (
                         ''
                     )}
-                    
+
                     {auth.usuario.permisos.includes('usuarios') ? (
                         <li>
                             <Link to={'/administracion/usuarios'}>
@@ -124,7 +128,7 @@ const MenuLateral = () => {
                     {auth.usuario.permisos.includes('proveedores') ? (
                         <li>
                             <Link to={'/administracion/proveedores'}>
-                                <i className='bx bxs-phone'></i>
+                                <i className='bx bx-phone-call'></i>
                                 <span className={styles.link_name}>
                                     Proveedores
                                 </span>
@@ -148,8 +152,9 @@ const MenuLateral = () => {
 
                     {auth.usuario.permisos.includes('productos') ? (
                         <li
-                            className={`${isSubMenuOpen ? styles.showMenu : ''
-                                } `}
+                            className={`${
+                                isSubMenuOpen ? styles.showMenu : ''
+                            } `}
                         >
                             <div className={styles.iocn_link}>
                                 <Link to={'/administracion/productos'}>
@@ -273,6 +278,31 @@ const MenuLateral = () => {
                                 <Link to={'/'} className={styles.link_name}>
                                     Catálogo
                                 </Link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a
+                            href={import.meta.env.VITE_LINK_DRIVE_APP_MOVIL}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                        >
+                            <i className='bx bxs-phone'></i>
+                            <span className={styles.link_name}>App Movil</span>
+                        </a>
+                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
+                            <li>
+                                <a
+                                    href={
+                                        import.meta.env
+                                            .VITE_LINK_DRIVE_APP_MOVIL
+                                    }
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                    className={styles.link_name}
+                                >
+                                    App Movil
+                                </a>
                             </li>
                         </ul>
                     </li>
