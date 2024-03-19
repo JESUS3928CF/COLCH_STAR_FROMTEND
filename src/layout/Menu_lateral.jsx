@@ -279,6 +279,21 @@ const MenuLateral = () => {
                     </li>
 
                     <li>
+                        <a href={import.meta.env.VITE_LINK_DRIVE_APP_MOVIL} target="_blank" rel="noopener noreferrer">
+                            <i className='bx bxs-phone'></i>
+                            <span className={styles.link_name}>App Movil</span>
+                        </a>
+                        <ul className={`${styles.sub_menu} ${styles.blank}`}>
+                            <li>
+                                <a href={import.meta.env.VITE_LINK_DRIVE_APP_MOVIL} className={styles.link_name} target="_blank" rel="noopener noreferrer">
+                                    App Movil
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
                         <div className={styles.profile_details}>
                             <div className={styles.profile_content}>
                                 <img

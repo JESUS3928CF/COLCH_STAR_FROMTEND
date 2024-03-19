@@ -9,8 +9,9 @@ const DisenosContext = createContext();
 
 // Proveedor del contexto, que proporciona el estado y las funciones de actualización
 export const DisenosProvider = ({ children }) => {
-    const { token, auth, config} = useAuth();
 
+    
+    const { token, auth, config} = useAuth();
 
     const [disenos, setDisenos] = useState([]);
     const [disenosDB, setDisenosDB] = useState([]);
