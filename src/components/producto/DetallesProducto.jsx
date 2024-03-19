@@ -52,11 +52,20 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                                 alt={detallesProductos.nombre}
                                                                 title={detallesProductos.nombre}
                                                                 className={styles.contenedor_imagen}
+                                                                onClick={() => {
+                                                                    // Abre la imagen en una nueva pestaña al hacer clic
+                                                                    window.open(
+                                                                        detallesProductos.imagen
+                                                                            ? `${import.meta.env.VITE_BACKEND_URL}/${detallesProductos.imagen}`
+                                                                            : '',
+                                                                        '_blank' // Abre en una nueva pestaña
+                                                                    );
+                                                                }}
                                                             />
                                                         </div>
                                                         {/* Other Images */}
                                                         {/* (Assuming detallesProductos.prenda.imagen and detallesProductos.disenos exist) */}
-                                                        <div className={`carousel-item  ${styles.tamano}`}>
+                                                        <div className={`carousel-item ${styles.tamano}`}>
                                                             <div className={styles.titu}>
                                                                 <h2>Prenda</h2>
                                                             </div>
@@ -69,16 +78,26 @@ const DetallesProducto = ({ detallesProductos }) => {
                                                                 alt={detallesProductos.nombre}
                                                                 title={detallesProductos.nombre}
                                                                 className={styles.contenedor_imagen}
+                                                                onClick={() => {
+                                                                    // Abre la imagen en una nueva pestaña al hacer clic
+                                                                    if (detallesProductos.imagen && detallesProductos.prenda && detallesProductos.prenda.imagen) {
+                                                                        window.open(
+                                                                            `${import.meta.env.VITE_BACKEND_URL}/${detallesProductos.prenda.imagen}`,
+                                                                            '_blank' // Abre en una nueva pestaña
+                                                                        );
+                                                                    }
+                                                                }}
                                                             />
                                                         </div>
+
                                                         {detallesProductos.disenos && detallesProductos.disenos.map((diseno, index) => (
-                                                            <div key={`${diseno.nombre}-${index}`} className={`carousel-item  ${styles.tamano}`}>
+                                                            <div key={`${diseno.nombre}-${index}`} className={`carousel-item ${styles.tamano}`}>
                                                                 <div className={styles.titu}>
                                                                     <h2>Diseños</h2>
                                                                 </div>
-                                                                <a href="" className={styles.contenedor_imagen}>
+                                                                <a href={`${import.meta.env.VITE_BACKEND_URL}/${diseno.imagen}`} target="_blank" rel="noopener noreferrer" className={styles.contenedor_imagen}>
                                                                     <img
-                                                                        src={diseno.imagen ? `${import.meta.env.VITE_BACKEND_URL}/${diseno.imagen && diseno.imagen}` : ''}
+                                                                        src={diseno.imagen ? `${import.meta.env.VITE_BACKEND_URL}/${diseno.imagen}` : ''}
                                                                         alt={diseno.nombre}
                                                                         title={diseno.nombre}
                                                                         className={styles.contenedor_imagen}

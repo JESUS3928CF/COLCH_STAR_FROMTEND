@@ -118,7 +118,7 @@ const EditarOrden = ({ orden, handleCloseEditar, showEditar }) => {
                                                     >
                                                         {!cliente.estado
                                                             ? 'Seleccionar cliente'
-                                                            : cliente.nombre}
+                                                            : cliente.nombre} {cliente.apellido}
                                                     </option>
                                                 );
                                             })}

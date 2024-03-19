@@ -133,7 +133,7 @@ const AgregarOrden = () => {
                                                                 cliente.id_cliente
                                                             }
                                                         >
-                                                            {cliente.nombre}
+                                                            {cliente.nombre} {cliente.apellido}
                                                         </option>
                                                     );
                                                 })}

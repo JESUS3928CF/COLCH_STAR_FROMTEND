@@ -24,27 +24,26 @@ export const DetalleDiseno = ({ detalleDiseno }) => {
                                 <div className='col'>
                                     <div className='row d-flex justify-content-center align-items-center'>
                                         <a
-                                            href={`${
-                                                import.meta.env.VITE_BACKEND_URL
-                                            }/${detalleDiseno.imagen}`}
+                                            href={
+                                                detalleDiseno.imagen
+                                                    ? `${import.meta.env.VITE_BACKEND_URL}/${detalleDiseno.imagen}`
+                                                    : ''
+                                            }
                                             className={styles.contenedor_imagen}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                         >
-                                            {' '}
                                             <img
                                                 src={
                                                     detalleDiseno.imagen
-                                                        ? `${
-                                                              import.meta.env
-                                                                  .VITE_BACKEND_URL
-                                                          }/${
-                                                              detalleDiseno.imagen
-                                                          }`
+                                                        ? `${import.meta.env.VITE_BACKEND_URL}/${detalleDiseno.imagen}`
                                                         : ''
                                                 }
                                                 alt={detalleDiseno.nombre}
                                                 title='Ver imagen completa'
                                             />
                                         </a>
+
 
                                         <div className='text-center mt-4 d-flex justify-content-center align-items-center'>
                                             <h3
@@ -62,7 +61,7 @@ export const DetalleDiseno = ({ detalleDiseno }) => {
                                                 }}
                                             >
                                                 {detalleDiseno.publicado &&
-                                                detalleDiseno.estado ? (
+                                                    detalleDiseno.estado ? (
                                                     <FcApproval />
                                                 ) : (
                                                     <FcCancel />

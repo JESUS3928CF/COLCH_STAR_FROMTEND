@@ -85,32 +85,22 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                         <div className='row gx-0'>
                                             <div className='col-md-6'>
                                                 <a
-                                                    href={`${
-                                                        import.meta.env
-                                                            .VITE_BACKEND_URL
-                                                    }/${
+                                                    href={
                                                         detallesPrendas.imagen
-                                                    }`}
-                                                    className={
-                                                        styles.contenedor_imagen
+                                                            ? `${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen}`
+                                                            : ''
                                                     }
+                                                    className={styles.contenedor_imagen}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                 >
-                                                    {' '}
                                                     <img
                                                         src={
                                                             detallesPrendas.imagen
-                                                                ? `${
-                                                                      import.meta
-                                                                          .env
-                                                                          .VITE_BACKEND_URL
-                                                                  }/${
-                                                                      detallesPrendas.imagen
-                                                                  }`
+                                                                ? `${import.meta.env.VITE_BACKEND_URL}/${detallesPrendas.imagen}`
                                                                 : ''
                                                         }
-                                                        alt={
-                                                            detallesPrendas.imagen
-                                                        }
+                                                        alt={detallesPrendas.imagen}
                                                         title='Ver imagen completa'
                                                     />
                                                 </a>
@@ -178,23 +168,23 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
 
                                                 <div className='tallas-div text-center'>
                                                     {detallesPrendas.Talla &&
-                                                    Array.isArray(
-                                                        detallesPrendas.Talla
-                                                    )
+                                                        Array.isArray(
+                                                            detallesPrendas.Talla
+                                                        )
                                                         ? detallesPrendas.Talla.map(
-                                                              (
-                                                                  talla,
-                                                                  index
-                                                              ) => (
-                                                                  <p
-                                                                      key={
-                                                                          index
-                                                                      }
-                                                                  >
-                                                                      {talla},
-                                                                  </p>
-                                                              )
-                                                          )
+                                                            (
+                                                                talla,
+                                                                index
+                                                            ) => (
+                                                                <p
+                                                                    key={
+                                                                        index
+                                                                    }
+                                                                >
+                                                                    {talla},
+                                                                </p>
+                                                            )
+                                                        )
                                                         : null}
                                                 </div>
                                             </div>
@@ -217,7 +207,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                         .slice(
                                                                             startIndex,
                                                                             startIndex +
-                                                                                numVisibleColors
+                                                                            numVisibleColors
                                                                         )
                                                                         .map(
                                                                             (
@@ -230,12 +220,12 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                                 >
                                                                                     <span className='color-name'>
                                                                                         {index !==
-                                                                                        detallesPrendas
-                                                                                            .color
-                                                                                            .length -
+                                                                                            detallesPrendas
+                                                                                                .color
+                                                                                                .length -
                                                                                             1
                                                                                             ? color.color +
-                                                                                              ','
+                                                                                            ','
                                                                                             : color.color}
                                                                                     </span>
                                                                                     <div
@@ -254,7 +244,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                 detallesPrendas
                                                                     .color
                                                                     .length >
-                                                                    numVisibleColors && (
+                                                                numVisibleColors && (
                                                                     <div className='d-flex justify-content-center'>
                                                                         <div className='d-flex'>
                                                                             <div
@@ -313,7 +303,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                             .slice(
                                                                                 startIndexc,
                                                                                 startIndexc +
-                                                                                    numVisibleColorsc
+                                                                                numVisibleColorsc
                                                                             )
                                                                             .map(
                                                                                 (
@@ -355,7 +345,7 @@ export const DetallesPrendas = ({ detallesPrendas }) => {
                                                                     detallesPrendas
                                                                         .cantidades
                                                                         .length >
-                                                                        numVisibleColorsc && (
+                                                                    numVisibleColorsc && (
                                                                         <div className='d-flex justify-content-center'>
                                                                             <div className='d-flex'>
                                                                                 <div
