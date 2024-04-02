@@ -103,8 +103,13 @@ const ListarOrdenes = () => {
             (e.target.value === 'Finalizada' &&
                 orden.estado_de_orden === 'Cancelada') ||
             (e.target.value === 'Entregada' &&
-                orden.estado_de_orden === 'Cancelada')
-
+                orden.estado_de_orden === 'Cancelada') ||
+            (e.target.value === 'Cancelada' &&
+                orden.estado_de_orden === 'En Proceso') ||
+            (e.target.value === 'Cancelada' &&
+                orden.estado_de_orden === 'Finalizada') ||
+            (e.target.value === 'Cancelada' &&
+                orden.estado_de_orden === 'Entregada')
         ) {
             return Swal.fire(
                 'Acción inválida!',
@@ -254,6 +259,9 @@ const ListarOrdenes = () => {
                                                     )
                                                 }
                                             >
+                                                <option value='Cancelada'>
+                                                    Cancelada
+                                                </option>
                                                 <option value='Creada'>
                                                     Creada
                                                 </option>
@@ -379,9 +387,12 @@ const ListarOrdenes = () => {
                                                 <BotonNegro
                                                     text='Editar'
                                                     modalToOpen={
-                                                        !orden.estado_de_orden === 'Finalizada' ||
-                                                            !orden.estado_de_orden === 'Entregada' ||
-                                                            !orden.estado_de_orden === 'En Proceso'
+                                                        !orden.estado_de_orden ===
+                                                            'Finalizada' ||
+                                                        !orden.estado_de_orden ===
+                                                            'Entregada' ||
+                                                        !orden.estado_de_orden ===
+                                                            'En Proceso'
                                                             ? '#modalEditar'
                                                             : ''
                                                     }
